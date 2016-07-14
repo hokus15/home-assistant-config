@@ -1,2 +1,2 @@
 # home-assistant-config
-My Home-Assistan config (https://home-assistant.io)
+My Home-Assistant config (https://home-assistant.io)
