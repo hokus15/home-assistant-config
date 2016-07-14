@@ -1,0 +1,142 @@
+###################################
+# Sensors
+###################################
+sensor.netatmo_exterior_temperature:
+   friendly_name: 'Temperatura'
+sensor.netatmo_exterior_humidity:
+   friendly_name: 'Humedad'
+sensor.netatmo_exterior_min_temp:
+   friendly_name: 'Mínima de hoy'
+sensor.netatmo_exterior_max_temp:
+   friendly_name: 'Máxima de hoy'
+sensor.netatmo_exterior_battery:
+   friendly_name: 'Batería exterior'
+sensor.netatmo_pluvimetro_rain:
+   friendly_name: 'Previsión lluvia'
+sensor.netatmo_pluvimetro_sum_rain_1:
+   friendly_name: 'Lluvia última hora'
+sensor.netatmo_pluvimetro_sum_rain_24:
+   friendly_name: 'Lluvia 24 horas'
+sensor.netatmo_pluvimetro_battery:
+   friendly_name: 'Batería pluviómetro'
+sensor.netatmo_saln_temperature:
+   friendly_name: 'Temperatura'
+sensor.netatmo_saln_min_temp:
+   friendly_name: 'Mínima de hoy'
+sensor.netatmo_saln_max_temp:
+   friendly_name: 'Máxima de hoy'
+sensor.netatmo_saln_humidity:
+   friendly_name: 'Humedad'
+sensor.netatmo_saln_noise:
+   friendly_name: 'Nivel de ruido'
+sensor.netatmo_saln_pressure:
+   friendly_name: 'Presión atmosférica'
+sensor.netatmo_saln_co2:
+   friendly_name: 'Nivel CO2'
+sensor.netatmo_saln_wifi:
+   friendly_name: 'Señal Wifi Netatmo'
+sensor.speedtest_ping:
+   friendly_name: 'Ping'
+sensor.speedtest_download:
+   friendly_name: 'Descarga'
+sensor.speedtest_upload:
+   friendly_name: 'Subida'
+sensor.energy_usage:
+   friendly_name: 'Consumo'
+   icon: 'mdi:speedometer'
+sensor.exchange_rate_1_btc:
+   friendly_name: 'Bitcoin'
+sensor.hokusphone_batt:
+   friendly_name: 'Batería teléfono Jordi'
+   icon: 'mdi:battery'
+sensor.fence_status:
+    icon: 'mdi:glassdoor'
+sensor.cam_swimmingpool_alarm:
+   friendly_name: 'Alarma'
+   icon: 'mdi:bell'
+sensor.cam_hall_alarm:
+   friendly_name: 'Alarma'
+   icon: 'mdi:bell'
+sensor.cam_caseta_alarm:
+   friendly_name: 'Alarma'
+   icon: 'mdi:bell'
+sensor.season:
+   hidden: true
+sensor.ups_status:
+   friendly_name: 'SAI'
+   icon: 'mdi:power-socket'
+sensor.steps:
+   friendly_name: 'Pasos'
+sensor.sleep_efficiency:
+   friendly_name: 'Eficiencia del sueño'
+
+###################################
+# Binary Sensors
+###################################
+binary_sensor.cam_hall_infrared:
+   friendly_name: 'Infrarrojos recibidor'
+binary_sensor.cam_swimmingpool_infrared:
+   friendly_name: 'Infrarrojos piscina'
+binary_sensor.ups_status_bs:
+   friendly_name: 'Suministro eléctrico'
+###################################
+# Cameras
+###################################
+camera.cam_hall:
+   friendly_name: 'Recibidor'
+camera.cam_swimmingpool:
+   friendly_name: 'Piscina'
+camera.cam_caseta:
+   friendly_name: 'Caseta'
+###################################
+# Switches
+###################################
+switch.cam_hall_motion_detection:
+   friendly_name: 'Det. mov. recibidor'
+   icon: 'mdi:run'
+switch.cam_swimmingpool_motion_detection:
+   friendly_name: 'Det. mov. piscina'
+   icon: 'mdi:run'
+switch.cam_caseta_motion_detection:
+   friendly_name: 'Det. mov. caseta'
+   icon: 'mdi:run'
+switch.heating:
+   friendly_name: 'Estado'
+switch.piscina:
+   friendly_name: 'Estado'
+###################################
+# Scripts
+###################################
+script.turn_off_lights_exterior:
+   hidden: true
+script.turn_on_swimmingpool_1_hour:
+   hidden: true
+script.turn_on_swimmingpool_2_hours:
+   hidden: true
+script.turn_on_swimmingpool_3_hours:
+   hidden: true
+script.check_caseta_motion_detection:
+   hidden: true
+#script.empty_home:
+#   hidden: true
+###################################
+# Scenes
+###################################
+#scene.empty_home:
+#   hidden: true
+#scene.someone_home:
+#   hidden: true
+###################################
+# Groups
+###################################
+group.acciones_presencia:
+   friendly_name: 'Acciones'
+###################################
+# Other
+###################################
+sun.sun:
+   friendly_name: 'Sol'
+media_player.hokussqueezebox:
+   friendly_name: 'Squeezebox suite'
+media_player.saln:
+   friendly_name: 'Chromecast Salón'

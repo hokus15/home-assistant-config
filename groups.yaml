@@ -1,0 +1,181 @@
+################################################
+# Views
+################################################
+default_view:
+  view: yes
+  icon: mdi:home
+  entities:
+    - group.familia
+    - group.personal
+    - group.energa
+    - group.exterior
+    - group.saln
+    - group.luces_exteriores
+    - group.barrera
+    - group.motor_piscina
+    - group.deteccin_movimiento
+#    - group.cmara_recibidor
+#    - group.cmara_piscina
+#    - group.cmara_caseta
+    - group.calefaccin
+    - group.visitas
+
+Presencia:
+  view: yes
+  entities:
+    - group.familia
+#    - camera.cam_hall
+    - group.cmara_recibidor
+#    - camera.cam_swimmingpool
+    - group.cmara_piscina
+#    - camera.cam_caseta
+    - group.cmara_caseta
+    - group.acciones_presencia
+
+Cámaras:
+  view: yes
+  entities:
+    - camera.cam_hall
+    - camera.cam_swimmingpool
+    - camera.cam_caseta
+
+Varios:
+  view: yes
+  entities:
+    - group.internet
+    - group.estado_ha
+    - group.bitcoin
+    - media_player.hokussqueezebox
+    - media_player.saln
+    - updater.updater
+
+################################################
+# Groups
+################################################
+Familia:
+  entities:
+    - device_tracker.hokus_hokusphone
+    - device_tracker.geni
+    - device_tracker.ana
+
+Personal:
+  entities:
+    - device_tracker.hokus_hokusphone
+    - sensor.hokusphone_batt
+    - sensor.steps
+    - sensor.sleep_efficiency
+    - sensor.body_weight
+    - sensor.distance
+
+Visitas:
+  entities:
+    - device_tracker.carlota
+    - device_tracker.maria_del_mar
+    - device_tracker.esther
+    - device_tracker.primo_carlos
+    - device_tracker.pedro
+    - device_tracker.nena
+    - device_tracker.laura_olivas
+    - device_tracker.javier
+    - device_tracker.desconocido2
+
+Energía:
+  entities:
+    - binary_sensor.ups_status_bs
+    - sensor.energy_usage
+    - sensor.ups_status
+
+Exterior:
+  entities:
+    - sensor.netatmo_exterior_temperature
+    - sensor.netatmo_exterior_min_temp
+    - sensor.netatmo_exterior_max_temp
+    - sensor.netatmo_exterior_humidity
+    - sensor.netatmo_exterior_battery
+    - sensor.netatmo_pluvimetro_rain
+    - sensor.netatmo_pluvimetro_sum_rain_1
+    - sensor.netatmo_pluvimetro_sum_rain_24
+    - sensor.netatmo_pluvimetro_battery
+    - sun.sun
+
+Salón:
+  entities:
+    - sensor.netatmo_saln_temperature
+    - sensor.netatmo_saln_min_temp
+    - sensor.netatmo_saln_max_temp
+    - sensor.netatmo_saln_humidity
+    - sensor.netatmo_saln_noise
+    - sensor.netatmo_saln_pressure
+    - sensor.netatmo_saln_co2
+    - sensor.netatmo_saln_wifi
+
+Luces exteriores:
+  entities:
+    - light.barrera_derecha
+    - light.barrera_izquierda
+    - light.puerta_entrada
+
+Barrera:
+  entities:
+    - switch.barrera
+    - sensor.fence_status
+
+Motor Piscina:
+  entities:
+    - switch.piscina
+
+Cámara recibidor:
+  entities:
+    - camera.cam_hall
+    - switch.cam_hall_motion_detection
+    - sensor.cam_hall_alarm
+    - binary_sensor.cam_hall_infrared
+
+Cámara piscina:
+  entities:
+    - camera.cam_swimmingpool
+    - switch.cam_swimmingpool_motion_detection
+    - sensor.cam_swimmingpool_alarm
+    - binary_sensor.cam_swimmingpool_infrared
+
+Cámara caseta:
+  entities:
+    - camera.cam_caseta
+    - switch.cam_caseta_motion_detection
+    - sensor.cam_caseta_alarm
+
+Detección movimiento:
+  entities:
+    - switch.cam_hall_motion_detection
+    - switch.cam_swimmingpool_motion_detection
+    - switch.cam_caseta_motion_detection
+
+Internet:
+  entities:
+    - sensor.speedtest_ping
+    - sensor.speedtest_download
+    - sensor.speedtest_upload
+
+Bitcoin:
+  entities:
+    - sensor.exchange_rate_1_btc
+
+Calefacción:
+  entities:
+    - switch.heating
+
+Acciones Presencia:
+  entities:
+    - script.empty_home
+    - script.someone_home
+    - script.empty_home_heating
+    - script.someone_home_heating
+
+Estado HA:
+    - script.restart_ha
+    - script.reboot_pi
+    - sensor.cpu_use
+    - sensor.ram_free
+    - sensor.disk_free_
+    - sensor.last_boot
+    - sensor.since_last_boot

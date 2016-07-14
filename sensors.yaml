@@ -1,0 +1,166 @@
+- platform: bitcoin
+  currency: EUR
+  display_options:
+    - exchangerate
+
+- platform: efergy
+  app_token: !secret efergy_app_token
+  utc_offset: 2
+  monitored_variables:
+    - type: instant_readings
+
+- platform: netatmo
+  station: HokusWeather
+  modules:
+    Salón:
+      - temperature
+      - min_temp
+      - max_temp
+      - humidity
+      - noise
+      - pressure
+      - co2
+      - wifi_status
+    Exterior:
+      - temperature
+      - min_temp
+      - max_temp
+      - humidity
+      - battery_vp
+    Pluviómetro:
+      - rain
+      - sum_rain_1
+      - sum_rain_24
+      - battery_vp
+
+- platform: speedtest
+  minute: 30
+  hour:
+    - 0
+    - 6
+    - 12
+    - 18
+  monitored_conditions:
+    - ping
+    - download
+    - upload
+
+- platform: mqtt
+  state_topic: 'owntracks/hokus/hokusphone'
+  name: hokusphone_batt
+  unit_of_measurement: '%'
+  value_template: '{{ value_json.batt }}'
+
+- platform: mqtt
+  state_topic: 'home/ups/status'
+  name: ups_status
+  value_template: >-
+          {%- if value == "ONLINE" %}
+              Con corriente
+          {% elif value == "ONBATT" %}
+              Usando batería
+          {% elif value == "LOWBATT" %}
+              Batería baja
+          {% elif value == "FSD" %}
+              Forced shutdown in progress
+          {% elif value == "COMMOK" %}
+              Comunicación establecida
+          {% elif value == "COMMBAD" %}
+              Comunicación perdida
+          {% elif value == "SHUTDOWN" %}
+              Auto logout and shutdown proceeding
+          {% elif value == "RPLBATT" %}
+              Reemplazar batería
+          {% elif value == "NOCOMM" %}
+              No disponible
+          {% elif value == "NOPARENT" %}
+              upsmon parent process died - shutdown impossible
+          {% else %}
+              Desconocido
+          {%- endif %}
+
+# Alarm status for foscam cam in hall
+- platform: mqtt
+  state_topic: 'home/camera/hall/alarm'
+  name: 'cam_hall_alarm'
+  # 0: Disabled
+  # 1: No alarm
+  # 2: Detect alarm
+  value_template: >-
+          {%- if value == "2" %}
+              Movimiento detectado
+          {% else %}
+              Normal
+          {%- endif %}
+
+# Alarm status for foscam cam in swimming pool
+- platform: mqtt
+  state_topic: 'home/camera/swimmingpool/alarm'
+  name: 'cam_swimmingpool_alarm'
+  # 0: Disabled
+  # 1: No alarm
+  # 2: Detect alarm
+  value_template: >-
+          {%- if value == "2" %}
+              Movimiento detectado
+          {% else %}
+              Normal
+          {%- endif %}
+
+# Alarm status for Linksys cam in caseta
+- platform: mqtt
+  state_topic: 'home/camera/caseta/alarm'
+  name: 'cam_caseta_alarm'
+  # 0: Disabled
+  # 1: No alarm
+  # 2: Detect alarm
+  value_template: >-
+          {%- if value == "2" %}
+              Movimiento detectado
+          {% else %}
+              Normal
+          {%- endif %}
+
+ # Know if the Wemo Maker sensor has been triggered (on: garage door opened, off: garage door closed)
+- platform: template
+  sensors:
+    fence_status:
+        friendly_name: ' '
+        value_template: >-
+            {%- if is_state_attr("switch.barrera", "sensor_state", "on") %}
+                abierta
+            {% else %}
+                cerrada
+            {%- endif %}
+
+# Sensor to define roughly the season of the year (if more precission needed use another algorythm)
+- platform: template
+  sensors:
+    season:
+      friendly_name: 'Estación'
+      value_template:  >-
+          {%- if now.month >= 3 and now.month <= 5 %}
+              Spring
+          {% elif now.month >= 6 and now.month <= 8 %}
+              Summer
+          {% elif now.month >= 9 and now.month <= 11 %}
+              Autumn
+          {% else %}
+              Winter
+          {%- endif %}
+
+- platform: systemmonitor
+  resources:
+    - type: disk_free
+      arg: /
+    - type: memory_free
+    - type: processor_use
+    - type: last_boot
+    - type: since_last_boot
+
+- platform: fitbit
+  monitored_resources:
+    - "activities/steps"
+    - "activities/distance"
+    - "body/weight"
+    - "sleep/efficiency"

@@ -1,0 +1,386 @@
+# Call empty_home_script when no one of the Familia group is at home (heating on)
+- alias: 'Empty home automation - Heating'
+  trigger:
+     platform: state
+     entity_id: group.familia
+     state: 'not_home'
+  condition:
+    condition: state
+    entity_id: switch.heating
+    state: 'on'
+  action:
+    service: script.turn_on
+    entity_id: script.empty_home_heating
+
+# Call someone_home script when someone of the Familia group is at home (heating on)
+- alias: 'Someone at home automation - Heating'
+  trigger:
+     platform: state
+     entity_id: group.familia
+     state: 'home'
+  condition:
+    condition: state
+    entity_id: switch.heating
+    state: 'on'
+  action:
+    service: script.turn_on
+    entity_id: script.someone_home_heating
+
+# Call empty_home_script when no one of the Familia group is at home (heating off)
+- alias: 'Empty home automation'
+  trigger:
+     platform: state
+     entity_id: group.familia
+     state: 'not_home'
+  condition:
+    condition: state
+    entity_id: switch.heating
+    state: 'off'
+  action:
+    service: script.turn_on
+    entity_id: script.empty_home
+
+# Call someone_home script when someone of the Familia group is at home (heating off)
+- alias: 'Someone at home automation'
+  trigger:
+     platform: state
+     entity_id: group.familia
+     state: 'home'
+  condition:
+    condition: state
+    entity_id: switch.heating
+    state: 'off'
+  action:
+    service: script.turn_on
+    entity_id: script.someone_home
+
+# Turn on outside lights at sunset (+15 minutes)
+- alias: 'Sunset Lights'
+  trigger:
+     platform: sun
+     event: 'sunset'
+     offset: '00:15:00'
+  action:
+     service: light.turn_on
+     entity_id: group.luces_exteriores
+
+# Turn off outside lights at night (at 00:15)
+- alias: 'Turn off lights at night'
+  trigger:
+     platform: time
+     after: '00:15'
+  condition:
+     condition: state
+     entity_id: group.luces_exteriores
+     state: 'on'
+  action:
+     service: light.turn_off
+     entity_id: group.luces_exteriores
+  
+# When the outside lights have been turned on at late night (later than 00:15), call the script to turn them off for 5 minutes
+- alias: 'Turn off lights at late night'
+  trigger:
+     platform: state
+     entity_id: group.luces_exteriores
+     state: 'on'
+  condition:
+     - condition: time
+       after: '00:15'
+       before: '8:00'
+     - condition: state
+       entity_id: group.luces_exteriores
+       state: 'on'
+  action:
+    service: script.turn_on
+    entity_id: script.turn_off_lights_exterior
+
+# Turn off outside lights when the sun is not set
+- alias: 'Turn off lights when sun not set'
+  trigger:
+     platform: state
+     entity_id: group.luces_exteriores
+     state: 'on'
+  condition:
+     - condition: sun
+       after: sunrise
+     - condition: sun
+       before: sunset
+  action:
+    service: script.turn_on
+    entity_id: script.turn_off_lights_exterior
+
+# Turn on outside lights when fence is opened and the sun is set.
+- alias: 'Turn on lights when fence open'
+  trigger:
+     platform: state
+     entity_id: sensor.fence_status
+     state: 'abierta'
+  condition:
+    condition: or
+    conditions:
+     - condition: sun
+       after: sunset
+     - condition: sun
+       before: sunrise
+  action:
+     service: light.turn_on
+     entity_id: group.luces_exteriores
+
+# Check hall motion detection every 15 seconds
+- alias: 'Check hall motion detection'
+  trigger:
+    platform: time
+    seconds: '/15'
+  condition:
+    condition: state
+    entity_id: switch.cam_hall_motion_detection
+    state: 'on'
+  action:
+    service: shell_command.check_cam_hall_alarm
+
+# Restore hall motion detection alarm status.
+# This automation is to put the sensor.cam_hall_alarm to 'Normal' when switch.cam_hall_motion_detection is off and a motion was detected.
+- alias: 'Restore hall motion detection'
+  trigger:
+    platform: time
+    seconds: '/60'
+  condition:
+    - condition: state
+      entity_id: switch.cam_hall_motion_detection
+      state: 'off'
+    - condition: state
+      entity_id: sensor.cam_hall_alarm
+      state: 'Movimiento detectado'
+  action:
+    service: shell_command.check_cam_hall_alarm
+
+# Check swimming pool motion detection every 15 seconds
+- alias: 'Check swimming pool motion detection'
+  trigger:
+    platform: time
+    seconds: '/15'
+  condition:
+    condition: state
+    entity_id: switch.cam_swimmingpool_motion_detection
+    state: 'on'
+  action:
+    service: shell_command.check_cam_swimmingpool_alarm
+
+# Restore swimming pool motion detection alarm status.
+# This automation is to put the sensor.cam_swimmingpool_alarm to 'Normal' when switch.cam_swimmingpool_motion_detection is off and a motion was detected.
+- alias: 'Restore hall motion detection'
+  trigger:
+    platform: time
+    seconds: '/60'
+  condition:
+    - condition: state
+      entity_id: switch.cam_swimmingpool_motion_detection
+      state: 'off'
+    - condition: state
+      entity_id: sensor.cam_swimmingpool_alarm
+      state: 'Movimiento detectado'
+  action:
+    service: shell_command.check_cam_hall_alarm
+
+# Check caseta motion detection every 15 seconds
+- alias: 'Check caseta motion detection'
+  trigger:
+    platform: time
+    seconds: '/60'
+  condition:
+    condition: state
+    entity_id: switch.cam_caseta_motion_detection
+    state: 'on'
+  action:
+    service: script.turn_on
+    entity_id: script.check_caseta_motion_detection
+
+# Notify to pushbullet if motion detected in hall camera for 30 seconds
+- alias: 'Notify motion detection in hall camera'
+  trigger:
+    platform: state
+    entity_id: sensor.cam_hall_alarm
+    from: 'Normal'
+    to: 'Movimiento detectado'
+    for:
+      seconds: 30
+  action:
+    service: notify.pushbullet
+    data:
+      message: 'Movimiento detectado en el recibidor.'
+
+# Notify to pushbullet if motion detected in swimming pool camera for 30 seconds
+- alias: 'Notify motion detection in swimming pool camera'
+  trigger:
+    platform: state
+    entity_id: sensor.cam_swimmingpool_alarm
+    from: 'Normal'
+    to: 'Movimiento detectado'
+    for:
+      seconds: 30
+  action:
+    service: notify.pushbullet
+    data:
+      message: 'Movimiento detectado en la piscina.'
+
+# Notify to pushbullet if motion detected in swimming pool camera for 30 seconds
+- alias: 'Notify motion detection in caseta camera'
+  trigger:
+    platform: state
+    entity_id: sensor.cam_caseta_alarm
+    from: 'Normal'
+    to: 'Movimiento detectado'
+    for:
+      seconds: 60
+  action:
+    service: notify.pushbullet
+    data:
+      message: 'Movimiento detectado en la caseta.'
+
+# Notify to pushbullet if a power cut detected
+- alias: 'Notify power cut'
+  trigger:
+    platform: state
+    entity_id: sensor.ups_status
+    from: 'Con corriente'
+    to: 'Usando batería'
+  action:
+    service: notify.pushbullet
+    data:
+      message: 'Corte en el suministro eléctrico detectado'
+
+# Notify to pushbullet when the power is normal
+- alias: 'Notify power ok'
+  trigger:
+    platform: state
+    entity_id: sensor.ups_status
+    from: 'Usando batería'
+    to: 'Con corriente'
+  action:
+    service: notify.pushbullet
+    data:
+      message: 'Suministro eléctrico reestablecido'
+
+# Notify to pushbullet when the UPS battery has to be replaced
+- alias: 'Notify ups battery replacement'
+  trigger:
+    platform: mqtt
+    topic: 'home/ups/status'
+    payload: 'RPLBATT'
+  action:
+    service: notify.pushbullet
+    data:
+      message: 'Batería del SAI agotándose, reemplazar'
+
+# Notify to pushbullet if fence is open form more than 5 minutes
+- alias: 'Notify motion detection in caseta camera'
+  trigger:
+    platform: state
+    entity_id: sensor.fence_status
+    from: 'cerrada'
+    to: 'abierta'
+    for:
+      minutes: 5
+  action:
+    service: notify.pushbullet
+    data:
+      message: 'Barrera abierta durante más de 5 minutos'
+
+# Turn on swimming pool pump [morning / Winter]
+- alias: 'Turn on swimming pool pump [morning / Winter]'
+  trigger:
+    platform: time
+    after: '07:00:00'
+  condition:
+    - condition: state
+      entity_id: sensor.season
+      state: 'Winter'
+  action:
+    service: script.turn_on
+    entity_id: script.turn_on_swimmingpool_1_hour
+
+# Turn on swimming pool pump [afternoon / Winter]
+- alias: 'Turn on swimming pool pump [afternoon / Winter]'
+  trigger:
+    platform: time
+    after: '20:00:00'
+  condition:
+    - condition: state
+      entity_id: sensor.season
+      state: 'Winter'
+  action:
+    service: script.turn_on
+    entity_id: script.turn_on_swimmingpool_1_hour
+
+# Turn on swimming pool pump [morning / Spring - Autumn]
+- alias: 'Turn on swimming pool pump [morning / Spring - Autumn]'
+  trigger:
+    platform: time
+    after: '07:00:00'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: sensor.season
+      state: 'Spring'
+    - condition: state
+      entity_id: sensor.season
+      state: 'Autumn'
+  action:
+    service: script.turn_on
+    entity_id: script.turn_on_swimmingpool_2_hours
+
+# Turn on swimming pool pump [afternoon / Spring - Autumn]
+- alias: 'Turn on swimming pool pump [afternoon / Spring - Autumn]'
+  trigger:
+    platform: time
+    after: '20:00:00'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: sensor.season
+      state: 'Spring'
+    - condition: state
+      entity_id: sensor.season
+      state: 'Autumn'
+  action:
+    service: script.turn_on
+    entity_id: script.turn_on_swimmingpool_2_hours
+
+# Turn on swimming pool pump [morning / Summer]
+- alias: 'Turn on swimming pool pump [morning / Summer]'
+  trigger:
+    platform: time
+    after: '07:00:00'
+  condition:
+    - condition: state
+      entity_id: sensor.season
+      state: 'Summer'
+  action:
+    service: script.turn_on
+    entity_id: script.turn_on_swimmingpool_3_hours
+
+# Turn on swimming pool pump [afternoon / Summer]
+- alias: 'Turn on swimming pool pump [afternoon / Summer]'
+  trigger:
+    platform: time
+    after: '20:00:00'
+  condition:
+    - condition: state
+      entity_id: sensor.season
+      state: 'Summer'
+  action:
+    service: script.turn_on
+    entity_id: script.turn_on_swimmingpool_3_hours
+
+- alias: 'Notify bitcoin price above threshold'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.exchange_rate_1_btc
+    above: 620
+  action:
+    service: notify.pushbullet
+    data_template:
+      message: >
+        Bitcoin ha llegado a un valor de {{states.sensor.exchange_rate_1_btc.state}} {{states.sensor.exchange_rate_1_btc.attributes.unit_of_measurement}}

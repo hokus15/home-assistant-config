@@ -1,0 +1,105 @@
+# Turn off outside lights 5 minutes after calling the script
+turn_off_lights_exterior:
+  alias: 'Apaga luces exterior'
+  sequence:
+    - delay:
+        minutes: 5
+    - service: light.turn_off
+      data:
+        entity_id: group.luces_exteriores
+
+# Enable motion detection in the cameras and call IFTTT with the empty-home-heating event
+empty_home_heating:
+   alias: 'Casa vacía (Calefacción)'
+   sequence:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: group.deteccin_movimiento
+    - service: ifttt.trigger
+      data: {"event": "empty-home-heating"}
+
+# Disable motion detection in the cameras and call IFTTT with the someone-home event
+someone_home_heating:
+   alias: 'Alguien en casa (Calefacción)'
+   sequence:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: group.deteccin_movimiento
+    - service: ifttt.trigger
+      data: {"event": "someone-home-heating"}
+
+# Enable motion detection in the cameras
+empty_home:
+   alias: 'Casa vacía'
+   sequence:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: group.deteccin_movimiento
+    - service: ifttt.trigger
+      data: {"event": "empty-home"}
+
+# Disable motion detection in the cameras
+someone_home:
+   alias: 'Alguien en casa'
+   sequence:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: group.deteccin_movimiento
+    - service: ifttt.trigger
+      data: {"event": "someone-home"}
+
+# Check caseta motion detection. Two steps, first read alarm status, second clear log
+check_caseta_motion_detection:
+   alias: 'Comprueba deteccion de movimiento en Caseta'
+   sequence:
+    - service: shell_command.check_cam_caseta_alarm
+    - service: shell_command.clear_cam_caseta_log
+
+# Turn on swimming pool pump for 1 hour
+turn_on_swimmingpool_1_hour:
+  alias: 'Enciende bomba piscina 1 hora'
+  sequence:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.piscina
+    - delay:
+        hours: 1
+    - service: switch.turn_off
+      data:
+        entity_id: switch.piscina
+
+# Turn on swimming pool pump for 2 hours
+turn_on_swimmingpool_2_hours:
+  alias: 'Enciende bomba piscina 2 horas'
+  sequence:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.piscina
+    - delay:
+        hours: 2
+    - service: switch.turn_off
+      data:
+        entity_id: switch.piscina
+
+# Turn on swimming pool pump for 3 hours
+turn_on_swimmingpool_3_hours:
+  alias: 'Enciende bomba piscina 3 horas'
+  sequence:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.piscina
+    - delay:
+        hours: 3
+    - service: switch.turn_off
+      data:
+        entity_id: switch.piscina
+
+restart_ha:
+  alias: 'Reiniciar HA'
+  sequence:
+      - service: homeassistant.restart
+
+reboot_pi:
+  alias: 'Reiniciar Pi'
+  sequence:
+      - service: shell_command.reboot_pi

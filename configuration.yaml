@@ -1,0 +1,84 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Casa
+  # C for Celcius, F for Fahrenheit
+  temperature_unit: C
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Madrid
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret ha_latitude
+  longitude: !secret ha_longitude
+  elevation: 119
+
+  customize: !include customize.yaml
+
+http:
+  #api_password: !envvar HASS_API_PASSWORD
+  #ssl_certificate: /etc/startssl/hass.hokusnet.com.pem
+  #ssl_key: /etc/startssl/hass.hokusnet.com.private.key
+  #server_port: 8123
+  #development: 1
+
+  # Enables the frontend
+frontend:
+
+# Allows you to issue voice commands from the frontend
+conversation:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+# Discover some devices automatically
+discovery:
+
+# Checks for available updates
+updater:
+
+# Enables support for tracking state changes over time.
+history:
+
+recorder:
+  purge_days: 14
+
+mqtt:
+  broker: !secret mqtt_broker
+  port: !secret mqtt_port
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+
+#logger:
+#  default: info
+#  logs:
+#    homeassistant.components.sensor.command_line: critical
+#    homeassistant.components.switch.command_line: critical
+
+notify:
+  platform: pushbullet
+  # Optional name for the notify service
+  name: pushbullet
+  # api_key is a required config key by the pushbullet platform
+  api_key: !secret pushbullet_api_key
+
+ifttt:
+  key: !secret ifttt_api_key
+
+netatmo:
+  api_key: !secret netatmo_api_key
+  secret_key: !secret netatmo_secret_key
+  username: !secret netatmo_username
+  password: !secret netatmo_password
+
+shell_command: !include shell_command.yaml
+device_tracker: !include device_tracker.yaml
+zone: !include zones.yaml
+camera: !include cameras.yaml
+switch: !include switches.yaml
+sensor: !include sensors.yaml
+binary_sensor: !include binary_sensors.yaml
+group: !include groups.yaml
+automation: !include automation.yaml
+script: !include scripts.yaml
+#scene: !include scenes.yaml

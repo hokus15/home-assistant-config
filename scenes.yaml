@@ -1,0 +1,11 @@
+# Scene when no one at home
+- name: empty_home
+  entities:
+    switch.motion_detection_piscina: on
+    switch.motion_detection_recibidor: on
+
+# Scene when someone at home
+- name: someone_home
+  entities:
+    switch.motion_detection_piscina: off
+    switch.motion_detection_recibidor: off
