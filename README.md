@@ -1,8 +1,8 @@
 # home-assistant-config
 My Home-Assistant config (https://home-assistant.io)
 Screenshot Casa
-![alt tag](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![Casa](https://raw.githubusercontent.com/hokus15/home-assistant-config/blob/master/hass-config1.jpg)
 Screenshot Presencia
-![alt tag](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![Presencia](https://raw.githubusercontent.com/hokus15/home-assistant-config/blob/master/hass-config2.jpg)
 Screenshot Varios
-![alt tag](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![Varios](https://raw.githubusercontent.com/hokus15/home-assistant-config/blob/master/hass-config3.jpg)
