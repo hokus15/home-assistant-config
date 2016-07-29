@@ -56,11 +56,14 @@ mqtt:
 #    homeassistant.components.switch.command_line: critical
 
 notify:
-  platform: pushbullet
-  # Optional name for the notify service
-  name: pushbullet
-  # api_key is a required config key by the pushbullet platform
-  api_key: !secret pushbullet_api_key
+  - name: telegram
+    platform: telegram
+    api_key: !secret telegram_api_key
+    chat_id: !secret telegram_chat_id
+
+  - platform: pushbullet
+    name: pushbullet
+    api_key: !secret pushbullet_api_key
 
 ifttt:
   key: !secret ifttt_api_key

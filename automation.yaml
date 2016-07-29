@@ -168,7 +168,7 @@
 
 # Restore swimming pool motion detection alarm status.
 # This automation is to put the sensor.cam_swimmingpool_alarm to 'Normal' when switch.cam_swimmingpool_motion_detection is off and a motion was detected.
-- alias: 'Restore hall motion detection'
+- alias: 'Restore swimming pool motion detection'
   trigger:
     platform: time
     seconds: '/60'
@@ -195,7 +195,7 @@
     service: script.turn_on
     entity_id: script.check_caseta_motion_detection
 
-# Notify to pushbullet if motion detected in hall camera for 30 seconds
+# Notify if motion detected in hall camera for 30 seconds
 - alias: 'Notify motion detection in hall camera'
   trigger:
     platform: state
@@ -205,11 +205,16 @@
     for:
       seconds: 30
   action:
-    service: notify.pushbullet
+    service: notify.telegram
     data:
+      title: 'Cámara'
       message: 'Movimiento detectado en el recibidor.'
+      data:
+        photo:
+            #URL: http://<cam_host>:<cam_port>/cgi-bin/CGIProxy.fcgi?cmd=snapPicture2&usr=<username>&pwd=<password>
+          - url: !secret cam_hall_snapPicture_url
 
-# Notify to pushbullet if motion detected in swimming pool camera for 30 seconds
+# Notify if motion detected in swimming pool camera for 30 seconds
 - alias: 'Notify motion detection in swimming pool camera'
   trigger:
     platform: state
@@ -219,11 +224,16 @@
     for:
       seconds: 30
   action:
-    service: notify.pushbullet
+    service: notify.telegram
     data:
+      title: 'Cámara'
       message: 'Movimiento detectado en la piscina.'
+      data:
+        photo:
+            #URL: http://<cam_host>:<cam_port>/cgi-bin/CGIProxy.fcgi?cmd=snapPicture2&usr=<username>&pwd=<password>
+          - url: !secret cam_swimmingpool_snapPicture_url
 
-# Notify to pushbullet if motion detected in swimming pool camera for 30 seconds
+# Notify if motion detected in caseta camera for 60 seconds
 - alias: 'Notify motion detection in caseta camera'
   trigger:
     platform: state
@@ -233,9 +243,16 @@
     for:
       seconds: 60
   action:
-    service: notify.pushbullet
+    service: notify.telegram
     data:
+      title: 'Cámara'
       message: 'Movimiento detectado en la caseta.'
+      data:
+        photo:
+            # URL: http://<cam_host>:<cam_port>/img/snapshot.cgi
+          - url: !secret cam_caseta_still_image_url
+            username: !secret cam_caseta_username
+            password: !secret cam_caseta_password
 
 # Notify to pushbullet if a power cut detected
 - alias: 'Notify power cut'
@@ -245,11 +262,12 @@
     from: 'Con corriente'
     to: 'Usando batería'
   action:
-    service: notify.pushbullet
+    service: notify.telegram
     data:
+      title: 'SAI'
       message: 'Corte en el suministro eléctrico detectado'
 
-# Notify to pushbullet when the power is normal
+# Notify when the power is normal
 - alias: 'Notify power ok'
   trigger:
     platform: state
@@ -257,8 +275,9 @@
     from: 'Usando batería'
     to: 'Con corriente'
   action:
-    service: notify.pushbullet
+    service: notify.telegram
     data:
+      title: 'SAI'
       message: 'Suministro eléctrico reestablecido'
 
 # Notify to pushbullet when the UPS battery has to be replaced
@@ -268,11 +287,12 @@
     topic: 'home/ups/status'
     payload: 'RPLBATT'
   action:
-    service: notify.pushbullet
+    service: notify.telegram
     data:
+      title: 'SAI'
       message: 'Batería del SAI agotándose, reemplazar'
 
-# Notify to pushbullet if fence is open form more than 5 minutes
+# Notify if fence is open form more than 5 minutes
 - alias: 'Notify motion detection in caseta camera'
   trigger:
     platform: state
@@ -282,8 +302,9 @@
     for:
       minutes: 5
   action:
-    service: notify.pushbullet
+    service: notify.telegram
     data:
+      title: 'Barrera'
       message: 'Barrera abierta durante más de 5 minutos'
 
 # Turn on swimming pool pump [morning / Winter]
@@ -380,7 +401,8 @@
     entity_id: sensor.exchange_rate_1_btc
     above: 620
   action:
-    service: notify.pushbullet
+    service: notify.telegram
     data_template:
+      title: 'Bitcoin'
       message: >
         Bitcoin ha llegado a un valor de {{states.sensor.exchange_rate_1_btc.state}} {{states.sensor.exchange_rate_1_btc.attributes.unit_of_measurement}}
