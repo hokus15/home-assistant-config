@@ -77,7 +77,7 @@
      service: light.turn_off
      entity_id: group.luces_exteriores
   
-# When the outside lights have been turned on at late night (later than 00:15), call the script to turn them off for 5 minutes
+# When the outside lights have been turned on at late night (later than 00:15) and before 8AM, call the script to turn them off in 5 minutes
 - alias: 'Turn off lights at late night'
   trigger:
      platform: state
@@ -182,11 +182,11 @@
   action:
     service: shell_command.check_cam_hall_alarm
 
-# Check caseta motion detection every 15 seconds
+# Check caseta motion detection every 30 seconds
 - alias: 'Check caseta motion detection'
   trigger:
     platform: time
-    seconds: '/60'
+    seconds: '/30'
   condition:
     condition: state
     entity_id: switch.cam_caseta_motion_detection
@@ -195,7 +195,7 @@
     service: script.turn_on
     entity_id: script.check_caseta_motion_detection
 
-# Notify if motion detected in hall camera for 30 seconds
+# Notify if motion detected in hall camera for specified seconds
 - alias: 'Notify motion detection in hall camera'
   trigger:
     platform: state
@@ -203,18 +203,17 @@
     from: 'Normal'
     to: 'Movimiento detectado'
     for:
-      seconds: 30
+      seconds: 25
   action:
     service: notify.telegram
     data:
-      title: 'Cámara'
       message: 'Movimiento detectado en el recibidor.'
       data:
         photo:
             #URL: http://<cam_host>:<cam_port>/cgi-bin/CGIProxy.fcgi?cmd=snapPicture2&usr=<username>&pwd=<password>
           - url: !secret cam_hall_snapPicture_url
 
-# Notify if motion detected in swimming pool camera for 30 seconds
+# Notify if motion detected in swimming pool camera for specified seconds
 - alias: 'Notify motion detection in swimming pool camera'
   trigger:
     platform: state
@@ -222,18 +221,17 @@
     from: 'Normal'
     to: 'Movimiento detectado'
     for:
-      seconds: 30
+      seconds: 25
   action:
     service: notify.telegram
     data:
-      title: 'Cámara'
       message: 'Movimiento detectado en la piscina.'
       data:
         photo:
             #URL: http://<cam_host>:<cam_port>/cgi-bin/CGIProxy.fcgi?cmd=snapPicture2&usr=<username>&pwd=<password>
           - url: !secret cam_swimmingpool_snapPicture_url
 
-# Notify if motion detected in caseta camera for 60 seconds
+# Notify if motion detected in caseta camera for specified seconds
 - alias: 'Notify motion detection in caseta camera'
   trigger:
     platform: state
@@ -241,18 +239,17 @@
     from: 'Normal'
     to: 'Movimiento detectado'
     for:
-      seconds: 60
+      seconds: 25
   action:
     service: notify.telegram
     data:
-      title: 'Cámara'
       message: 'Movimiento detectado en la caseta.'
-      data:
-        photo:
-            # URL: http://<cam_host>:<cam_port>/img/snapshot.cgi
-          - url: !secret cam_caseta_still_image_url
-            username: !secret cam_caseta_username
-            password: !secret cam_caseta_password
+#      data:
+#        photo:
+#            # URL: http://<cam_host>:<cam_port>/img/snapshot.cgi
+#          - url: !secret cam_caseta_still_image_url
+#            username: !secret cam_caseta_username
+#            password: !secret cam_caseta_password
 
 # Notify to pushbullet if a power cut detected
 - alias: 'Notify power cut'
@@ -264,7 +261,6 @@
   action:
     service: notify.telegram
     data:
-      title: 'SAI'
       message: 'Corte en el suministro eléctrico detectado'
 
 # Notify when the power is normal
@@ -277,7 +273,6 @@
   action:
     service: notify.telegram
     data:
-      title: 'SAI'
       message: 'Suministro eléctrico reestablecido'
 
 # Notify to pushbullet when the UPS battery has to be replaced
@@ -289,7 +284,6 @@
   action:
     service: notify.telegram
     data:
-      title: 'SAI'
       message: 'Batería del SAI agotándose, reemplazar'
 
 # Notify if fence is open form more than 5 minutes
@@ -300,12 +294,11 @@
     from: 'cerrada'
     to: 'abierta'
     for:
-      minutes: 5
+      minutes: 4
   action:
     service: notify.telegram
     data:
-      title: 'Barrera'
-      message: 'Barrera abierta durante más de 5 minutos'
+      message: 'Barrera abierta durante más de 4 minutos'
 
 # Turn on swimming pool pump [morning / Winter]
 - alias: 'Turn on swimming pool pump [morning / Winter]'
@@ -403,6 +396,5 @@
   action:
     service: notify.telegram
     data_template:
-      title: 'Bitcoin'
       message: >
         Bitcoin ha llegado a un valor de {{states.sensor.exchange_rate_1_btc.state}} {{states.sensor.exchange_rate_1_btc.attributes.unit_of_measurement}}
