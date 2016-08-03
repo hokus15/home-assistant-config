@@ -41,7 +41,7 @@ updater:
 history:
 
 recorder:
-  purge_days: 14
+  purge_days: 10
 
 mqtt:
   broker: !secret mqtt_broker
