@@ -111,11 +111,10 @@
 - platform: mqtt
   state_topic: 'home/camera/caseta/alarm'
   name: 'cam_caseta_alarm'
-  # 0: Disabled
-  # 1: No alarm
-  # 2: Detect alarm
+  # 0: No alarm
+  # 1: Detect alarm
   value_template: >-
-          {%- if value == "2" %}
+          {%- if value == "1" %}
               Movimiento detectado
           {% else %}
               Normal
