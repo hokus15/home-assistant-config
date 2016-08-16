@@ -9,7 +9,7 @@ homeassistant:
   latitude: !secret ha_latitude
   longitude: !secret ha_longitude
   elevation: 119
-
+  unit_system: metric
   customize: !include customize.yaml
 
 http:

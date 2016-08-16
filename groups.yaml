@@ -19,6 +19,7 @@ default_view:
 #    - group.cmara_caseta
     - group.calefaccin
     - group.visitas
+    - updater.updater
 
 Presencia:
   view: yes
@@ -47,7 +48,6 @@ Varios:
     - group.bitcoin
     - media_player.hokussqueezebox
     - media_player.saln
-    - updater.updater
 
 ################################################
 # Groups
