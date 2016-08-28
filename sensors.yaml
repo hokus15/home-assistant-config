@@ -46,7 +46,7 @@
     - upload
 
 - platform: mqtt
-  state_topic: 'owntracks/hokus/hokusphone'
+  state_topic: 'owntracks/hokusphone/hokusphone'
   name: hokusphone_batt
   unit_of_measurement: '%'
   value_template: '{{ value_json.batt }}'

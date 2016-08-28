@@ -54,13 +54,13 @@ Varios:
 ################################################
 Familia:
   entities:
-    - device_tracker.hokus_hokusphone
+    - device_tracker.hokusphone_hokusphone
     - device_tracker.geni
     - device_tracker.ana
 
 Personal:
   entities:
-    - device_tracker.hokus_hokusphone
+    - device_tracker.hokusphone_hokusphone
     - sensor.hokusphone_batt
     - sensor.steps
     - sensor.sleep_efficiency
