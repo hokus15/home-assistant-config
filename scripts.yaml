@@ -55,45 +55,6 @@ check_caseta_motion_detection:
     - service: shell_command.check_cam_caseta_alarm
     - service: shell_command.clear_cam_caseta_log
 
-# Turn on swimming pool pump for 1 hour
-turn_on_swimmingpool_1_hour:
-  alias: 'Enciende bomba piscina 1 hora'
-  sequence:
-    - service: switch.turn_on
-      data:
-        entity_id: switch.piscina
-    - delay:
-        hours: 1
-    - service: switch.turn_off
-      data:
-        entity_id: switch.piscina
-
-# Turn on swimming pool pump for 2 hours
-turn_on_swimmingpool_2_hours:
-  alias: 'Enciende bomba piscina 2 horas'
-  sequence:
-    - service: switch.turn_on
-      data:
-        entity_id: switch.piscina
-    - delay:
-        hours: 2
-    - service: switch.turn_off
-      data:
-        entity_id: switch.piscina
-
-# Turn on swimming pool pump for 3 hours
-turn_on_swimmingpool_3_hours:
-  alias: 'Enciende bomba piscina 3 horas'
-  sequence:
-    - service: switch.turn_on
-      data:
-        entity_id: switch.piscina
-    - delay:
-        hours: 3
-    - service: switch.turn_off
-      data:
-        entity_id: switch.piscina
-
 restart_ha:
   alias: 'Reiniciar HA'
   sequence:

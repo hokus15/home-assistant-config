@@ -300,37 +300,74 @@
     data:
       message: 'Barrera abierta durante más de 4 minutos'
 
-# Turn on swimming pool pump [morning / Winter]
-- alias: 'Turn on swimming pool pump [morning / Winter]'
+#############################################################
+# Swimming pool turn on
+# In the morning at 7:00
+# In the afternoon at 20:00
+#############################################################
+
+# Turn on swimming pool pump [morning]
+- alias: 'Turn on swimming pool pump [morning]'
   trigger:
     platform: time
     after: '07:00:00'
-  condition:
-    - condition: state
-      entity_id: sensor.season
-      state: 'Winter'
   action:
-    service: script.turn_on
-    entity_id: script.turn_on_swimmingpool_1_hour
+    service: switch.turn_on
+    entity_id: switch.piscina
 
-# Turn on swimming pool pump [afternoon / Winter]
-- alias: 'Turn on swimming pool pump [afternoon / Winter]'
+# Turn on swimming pool pump [afternoon]
+- alias: 'Turn on swimming pool pump [afternoon]'
   trigger:
     platform: time
     after: '20:00:00'
+  action:
+    service: switch.turn_on
+    entity_id: switch.piscina
+
+#############################################################
+# Swimming pool turn off
+
+# In the morning while winter at 8:00
+# In the afternoon while winter at 21:00
+
+# In the morning while spring or autumn at 10:00
+# In the afternoon while spring or autumn at 22:00
+
+# In the morning while summer at 11:00
+# In the afternoon while summer at 23:00
+#############################################################
+
+# Turn off swimming pool pump [morning / Winter]
+- alias: 'Turn off swimming pool pump [morning / Winter]'
+  trigger:
+    platform: time
+    after: '08:00:00'
   condition:
     - condition: state
       entity_id: sensor.season
       state: 'Winter'
   action:
-    service: script.turn_on
-    entity_id: script.turn_on_swimmingpool_1_hour
+    service: switch.turn_off
+    entity_id: switch.piscina
 
-# Turn on swimming pool pump [morning / Spring - Autumn]
-- alias: 'Turn on swimming pool pump [morning / Spring - Autumn]'
+# Turn off swimming pool pump [afternoon / Winter]
+- alias: 'Turn off swimming pool pump [afternoon / Winter]'
   trigger:
     platform: time
-    after: '07:00:00'
+    after: '21:00:00'
+  condition:
+    - condition: state
+      entity_id: sensor.season
+      state: 'Winter'
+  action:
+    service: switch.turn_off
+    entity_id: switch.piscina
+
+# Turn off swimming pool pump [morning / Spring - Autumn]
+- alias: 'Turn off swimming pool pump [morning / Spring - Autumn]'
+  trigger:
+    platform: time
+    after: '10:00:00'
   condition:
     condition: or
     conditions:
@@ -341,14 +378,14 @@
       entity_id: sensor.season
       state: 'Autumn'
   action:
-    service: script.turn_on
-    entity_id: script.turn_on_swimmingpool_2_hours
+    service: switch.turn_off
+    entity_id: switch.piscina
 
-# Turn on swimming pool pump [afternoon / Spring - Autumn]
-- alias: 'Turn on swimming pool pump [afternoon / Spring - Autumn]'
+# Turn off swimming pool pump [afternoon / Spring - Autumn]
+- alias: 'Turn off swimming pool pump [afternoon / Spring - Autumn]'
   trigger:
     platform: time
-    after: '20:00:00'
+    after: '22:00:00'
   condition:
     condition: or
     conditions:
@@ -359,34 +396,38 @@
       entity_id: sensor.season
       state: 'Autumn'
   action:
-    service: script.turn_on
-    entity_id: script.turn_on_swimmingpool_2_hours
+    service: switch.turn_off
+    entity_id: switch.piscina
 
-# Turn on swimming pool pump [morning / Summer]
-- alias: 'Turn on swimming pool pump [morning / Summer]'
+# Turn off swimming pool pump [morning / Summer]
+- alias: 'Turn off swimming pool pump [morning / Summer]'
   trigger:
     platform: time
-    after: '07:00:00'
+    after: '11:00:00'
   condition:
     - condition: state
       entity_id: sensor.season
       state: 'Summer'
   action:
-    service: script.turn_on
-    entity_id: script.turn_on_swimmingpool_3_hours
+    service: switch.turn_off
+    entity_id: switch.piscina
 
-# Turn on swimming pool pump [afternoon / Summer]
-- alias: 'Turn on swimming pool pump [afternoon / Summer]'
+# Turn off swimming pool pump [afternoon / Summer]
+- alias: 'Turn off swimming pool pump [afternoon / Summer]'
   trigger:
     platform: time
-    after: '20:00:00'
+    after: '23:00:00'
   condition:
     - condition: state
       entity_id: sensor.season
       state: 'Summer'
   action:
-    service: script.turn_on
-    entity_id: script.turn_on_swimmingpool_3_hours
+    service: switch.turn_off
+    entity_id: switch.piscina
+
+#############################################################
+# End swimming pool automations
+#############################################################
 
 - alias: 'Notify bitcoin price above threshold'
   trigger:
