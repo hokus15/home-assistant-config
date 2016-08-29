@@ -367,7 +367,7 @@
 - alias: 'Turn off swimming pool pump [morning / Spring - Autumn]'
   trigger:
     platform: time
-    after: '10:00:00'
+    after: '09:00:00'
   condition:
     condition: or
     conditions:
@@ -403,7 +403,7 @@
 - alias: 'Turn off swimming pool pump [morning / Summer]'
   trigger:
     platform: time
-    after: '11:00:00'
+    after: '10:00:00'
   condition:
     - condition: state
       entity_id: sensor.season
