@@ -61,9 +61,14 @@ notify:
     api_key: !secret telegram_api_key
     chat_id: !secret telegram_chat_id
 
-  - platform: pushbullet
-    name: pushbullet
-    api_key: !secret pushbullet_api_key
+  - name: HTML5
+    platform: html5
+    gcm_api_key: !secret gcm_api_key
+    gcm_sender_id: !secret gcm_sender_id
+
+#  - platform: pushbullet
+#    name: pushbullet
+#    api_key: !secret pushbullet_api_key
 
 ifttt:
   key: !secret ifttt_api_key
