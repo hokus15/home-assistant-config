@@ -20,6 +20,13 @@
 - platform: mqtt
   state_topic: 'home/ups/status'
   name: ups_status_bs
+  sensor_class: light
   qos: 0
-  payload_on: 'ONLINE'
-  payload_off: 'ONBATT'
+#  payload_on: 'OFF'
+#  payload_off: 'ON'
+  value_template: >-
+          {%- if value == "ONLINE" or value == "COMMOK" %}
+              ON
+          {% else %}
+              OFF
+          {%- endif %}
