@@ -48,6 +48,8 @@ Varios:
     - group.bitcoin
     - media_player.hokussqueezebox
     - media_player.saln
+    - configurator.fitbit
+    - configurator.fitbit_2
 
 ################################################
 # Groups
