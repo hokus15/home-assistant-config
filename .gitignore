@@ -1,3 +1,4 @@
 fitbit.conf
 secrets.yaml
 known_devices.yaml
+html5_push_registrations.conf
