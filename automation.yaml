@@ -256,7 +256,6 @@
   trigger:
     platform: state
     entity_id: sensor.ups_status
-    from: 'Con corriente'
     to: 'Usando batería'
   action:
     service: notify.telegram
