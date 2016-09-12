@@ -51,6 +51,19 @@ Varios:
     - configurator.fitbit
     - configurator.fitbit_2
 
+Dispositivos:
+  view: yes
+  entities:
+    - group.escalera
+    - group.despacho
+    - group.recibidor
+    - group.dispositivos_saln
+    - group.suite
+    - group.caseta
+    - group.cocina
+    - group.porttil
+    - group.dispositivos_varios
+
 ################################################
 # Groups
 ################################################
@@ -81,6 +94,7 @@ Visitas:
     - device_tracker.laura_olivas
     - device_tracker.javier
     - device_tracker.al
+    - device_tracker.nando
 
 Energía:
   entities:
@@ -175,6 +189,7 @@ Acciones Presencia:
     - script.someone_home_heating
 
 Estado HA:
+  entities:
     - script.restart_ha
     - script.reboot_pi
     - sensor.cpu_use
@@ -182,3 +197,55 @@ Estado HA:
     - sensor.disk_free_
     - sensor.last_boot
     - sensor.since_last_boot
+
+Escalera:
+  entities:
+    - device_tracker.router_movistar
+    - device_tracker.efergy
+    - device_tracker.qnap
+
+Despacho:
+  entities:
+    - device_tracker.hokus_laptop
+    - device_tracker.hokus_laptop_wifi
+    - device_tracker.hp_photosmart_5520
+
+Recibidor:
+  entities:
+    - device_tracker.cam_recibidor
+    - device_tracker.wemo_maker_barrera
+
+Dispositivos Salón:
+  entities:
+    - device_tracker.netatmo
+    - device_tracker.chromecast
+    - device_tracker.decodificador_movistar
+    - device_tracker.bluesens_wifi
+    - device_tracker.bluesens
+    - device_tracker.router_speedtouch
+    - device_tracker.dvd_player
+Suite:
+  entities:
+    - device_tracker.squeezebox
+    - device_tracker.withings_smart_scale
+    - device_tracker.router_orange
+Caseta:
+  entities:
+    - device_tracker.wemo_insight_piscina
+    - device_tracker.router_vodafone
+    - device_tracker.cam_swimmingpool
+    - device_tracker.cam_caseta
+Cocina:
+  entities:
+    - device_tracker.wemo_link
+    - device_tracker.netatmo_thermostat
+Portátil:
+  entities:
+    - device_tracker.geni_laptop
+    - device_tracker.hokus_laptop
+    - device_tracker.hokus_laptop_wifi
+    - device_tracker.nexus_10
+    - device_tracker.ipad
+Dsipositivos Varios:
+  entities:
+    - device_tracker.c67bb0af2169
