@@ -1,7 +1,12 @@
-- platform: ddwrt
-  host: !secret wrt54gl_host
-  username: !secret wrt54gl_username 
-  password: !secret wrt54gl_password
+#- platform: ddwrt
+#  host: !secret wrt54gl_host
+#  username: !secret wrt54gl_username 
+#  password: !secret wrt54gl_password
+
+- platform: nmap_tracker
+  hosts: 192.168.1.1/24
+#  # The number of minutes nmap will not scan this device, assuming it is home, in order to preserve the device battery.
+  home_interval: 10
   # If new discovered devices are tracked by default (default: yes)
   track_new_devices: yes
   # Seconds between each scan for new devices (default: 12)
@@ -9,11 +14,7 @@
   # Seconds to wait till marking someone as not home after not being seen
   # (default: 180)
   consider_home: 300
-
-#- platform: nmap_tracker
-#  hosts: 192.168.1.100-254
-#  # The number of minutes nmap will not scan this device, assuming it is home, in order to preserve the device battery.
-#  home_interval: 10
+  exclude: 192.168.1.100
 
 - platform: owntracks
   max_gps_accuracy: 200
