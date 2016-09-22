@@ -5,7 +5,7 @@
 
 - platform: nmap_tracker
   hosts: 192.168.1.1/24
-#  # The number of minutes nmap will not scan this device, assuming it is home, in order to preserve the device battery.
+  # The number of minutes nmap will not scan this device, assuming it is home, in order to preserve the device battery.
   home_interval: 10
   # If new discovered devices are tracked by default (default: yes)
   track_new_devices: yes
@@ -24,3 +24,5 @@
   qos: 1
   devices:
     Jordi: /owntracks/hokus/hokusphone
+
+# - platform: bluetooth_le_tracker
