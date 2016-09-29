@@ -19,6 +19,9 @@ default_view:
 #    - group.cmara_caseta
     - group.calefaccin
     - group.visitas
+    - sensor.a_casa
+    - sensor.a_la_oficina
+    - sensor.al_colegio
     - updater.updater
 
 Presencia:

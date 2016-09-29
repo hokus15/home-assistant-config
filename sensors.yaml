@@ -163,3 +163,30 @@
     - "activities/distance"
     - "body/weight"
     - "sleep/efficiency"
+
+- platform: google_travel_time
+  name: a la oficina
+  api_key: !secret google_distance_api_key
+  origin: device_tracker.hokusphone_hokusphone
+  destination: zone.oficina
+  options:
+    language: es
+    departure_time: now
+
+- platform: google_travel_time
+  name: a casa
+  api_key: !secret google_distance_api_key
+  origin: device_tracker.hokusphone_hokusphone
+  destination: zone.home
+  options:
+    language: es
+    departure_time: now
+
+- platform: google_travel_time
+  name: al colegio
+  api_key: !secret google_distance_api_key
+  origin: device_tracker.hokusphone_hokusphone
+  destination: zone.colegio
+  options:
+    language: es
+    departure_time: now
