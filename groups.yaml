@@ -51,18 +51,18 @@ Varios:
     - configurator.fitbit
     - configurator.fitbit_2
 
-Dispositivos:
-  view: yes
-  entities:
-    - group.escalera
-    - group.despacho
-    - group.recibidor
-    - group.dispositivos_saln
-    - group.suite
-    - group.caseta
-    - group.cocina
-    - group.porttil
-    - group.dispositivos_varios
+#Dispositivos:
+#  view: yes
+#  entities:
+#    - group.escalera
+#    - group.despacho
+#    - group.recibidor
+#    - group.dispositivos_saln
+#    - group.suite
+#    - group.caseta
+#    - group.cocina
+#    - group.porttil
+#    - group.dispositivos_varios
 
 ################################################
 # Groups
