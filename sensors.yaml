@@ -138,11 +138,11 @@
     season:
       friendly_name: 'Estación'
       value_template:  >-
-          {%- if now().month >= 3 and now().month <= 5 %}
+          {%- if now.month >= 3 and now.month <= 5 %}
               Spring
-          {% elif now().month >= 6 and now().month <= 8 %}
+          {% elif now.month >= 6 and now.month <= 8 %}
               Summer
-          {% elif now().month >= 9 and now().month <= 11 %}
+          {% elif now.month >= 9 and now.month <= 11 %}
               Autumn
           {% else %}
               Winter
