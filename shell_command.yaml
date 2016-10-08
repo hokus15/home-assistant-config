@@ -1,17 +1,2 @@
-# Check hall camera motion detection alarm status (foscam) and publish result to mqtt.
-# Command used:
-# 'mosquitto_pub --cafile /etc/ssl/certs/ca-certificates.crt -h <mqtt_broker> -p <mqtt_broker_port> -u <mqtt_user> -P <mqtt_password> -t "<topic>" -r -m `curl -k --silent "https://<camera_host>:<camera_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<camera_user>&pwd=<camera_password>" | grep -oP "(?<=motionDetectAlarm>).*?(?=</motionDetectAlarm>)"`'
-check_cam_hall_alarm: !secret cam_hall_check_alarm
-# Check swimmingpool camera motion detection alarm status (foscam) and publish result to mqtt
-# Command used:
-# 'mosquitto_pub --cafile /etc/ssl/certs/ca-certificates.crt -h <mqtt_broker> -p <mqtt_broker_port> -u <mqtt_user> -P <mqtt_password> -t "<topic>" -r -m `curl -k --silent "https://<camera_host>:<camera_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<camera_user>&pwd=<camera_password>" | grep -oP "(?<=motionDetectAlarm>).*?(?=</motionDetectAlarm>)"`'
-check_cam_swimmingpool_alarm: !secret cam_swimmingpool_check_alarm
-# Check caseta camera motion detection alarm status (Linksys WVC54CGA) and publish result to mqtt
-# Command used:
-# 'mosquitto_pub --cafile /etc/ssl/certs/ca-certificates.crt -h <mqtt_broker> -p <mqtt_broker_port> -u <mqtt_user> -P <mqtt_password> -t "<topic>" -r -m `curl --user <camera_user>:<camera_password> -k --silent "http://<camera_host>/adm/log.cgi" | grep "Alert: Detected motion" | wc -l`'
-check_cam_caseta_alarm: !secret cam_caseta_check_alarm
-# Reset caseta camera log (Linksys WVC54CGA)
-# Command used: 'curl --user <camera_user>:<camera_password> -k --silent "http://<camera_host>/adm/file.cgi?todo=clearlog&next_file=status.htm"'
-clear_cam_caseta_log: !secret cam_caseta_clear_log
 # Reboot pi
 reboot_pi: sudo reboot

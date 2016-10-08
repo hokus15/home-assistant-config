@@ -79,48 +79,7 @@
               Desconocido
           {%- endif %}
 
-# Alarm status for foscam cam in hall
-- platform: mqtt
-  state_topic: 'home/camera/hall/alarm'
-  name: 'cam_hall_alarm'
-  # 0: Disabled
-  # 1: No alarm
-  # 2: Detect alarm
-  value_template: >-
-          {%- if value == "2" %}
-              Movimiento detectado
-          {% else %}
-              Normal
-          {%- endif %}
-
-# Alarm status for foscam cam in swimming pool
-- platform: mqtt
-  state_topic: 'home/camera/swimmingpool/alarm'
-  name: 'cam_swimmingpool_alarm'
-  # 0: Disabled
-  # 1: No alarm
-  # 2: Detect alarm
-  value_template: >-
-          {%- if value == "2" %}
-              Movimiento detectado
-          {% else %}
-              Normal
-          {%- endif %}
-
-# Alarm status for Linksys cam in caseta
-- platform: mqtt
-  state_topic: 'home/camera/caseta/alarm'
-  name: 'cam_caseta_alarm'
-  # 0: No alarm
-  # 1: Detect alarm
-  value_template: >-
-          {%- if value == "1" %}
-              Movimiento detectado
-          {% else %}
-              Normal
-          {%- endif %}
-
- # Know if the Wemo Maker sensor has been triggered (on: garage door opened, off: garage door closed)
+# Know if the Wemo Maker sensor has been triggered (on: garage door opened, off: garage door closed)
 - platform: template
   sensors:
     fence_status:
@@ -138,11 +97,11 @@
     season:
       friendly_name: 'Estación'
       value_template:  >-
-          {%- if now.month >= 3 and now.month <= 5 %}
+          {%- if now().month >= 3 and now().month <= 5 %}
               Spring
-          {% elif now.month >= 6 and now.month <= 8 %}
+          {% elif now().month >= 6 and now().month <= 8 %}
               Summer
-          {% elif now.month >= 9 and now.month <= 11 %}
+          {% elif now().month >= 9 and now().month <= 11 %}
               Autumn
           {% else %}
               Winter
@@ -171,7 +130,7 @@
   destination: zone.oficina
   options:
     language: es
-    departure_time: now
+    departure_time: now()
 
 - platform: google_travel_time
   name: a casa
@@ -180,7 +139,7 @@
   destination: zone.home
   options:
     language: es
-    departure_time: now
+    departure_time: now()
 
 - platform: google_travel_time
   name: al colegio
@@ -189,4 +148,4 @@
   destination: zone.colegio
   options:
     language: es
-    departure_time: now
+    departure_time: now()
