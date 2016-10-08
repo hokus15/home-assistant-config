@@ -14,6 +14,8 @@ homeassistant:
 
 http:
   api_password: !secret ha_api_password
+  approved_ips:
+    - 127.0.0.1
 #  ssl_certificate: !secret ha_ssl_certificate
 #  ssl_key: !secret ha_ssl_key
   #server_port: 8123
@@ -50,7 +52,7 @@ mqtt:
   password: !secret mqtt_password
 
 #logger:
-#  default: info
+#  default: critical
 #  logs:
 #    homeassistant.components.sensor.command_line: critical
 #    homeassistant.components.switch.command_line: critical
