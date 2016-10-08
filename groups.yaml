@@ -5,7 +5,7 @@ default_view:
   view: yes
   icon: mdi:home
   entities:
-    - group.familia
+    - device_tracker.geni
     - group.personal
     - group.energa
     - group.exterior
@@ -14,9 +14,6 @@ default_view:
     - group.barrera
     - group.motor_piscina
     - group.deteccin_movimiento
-#    - group.cmara_recibidor
-#    - group.cmara_piscina
-#    - group.cmara_caseta
     - group.calefaccin
     - group.visitas
     - sensor.a_casa
@@ -28,11 +25,8 @@ Presencia:
   view: yes
   entities:
     - group.familia
-#    - camera.cam_hall
     - group.cmara_recibidor
-#    - camera.cam_swimmingpool
     - group.cmara_piscina
-#    - camera.cam_caseta
     - group.cmara_caseta
     - group.acciones_presencia
 
@@ -148,21 +142,18 @@ Cámara recibidor:
   entities:
     - camera.cam_hall
     - switch.cam_hall_motion_detection
-    - sensor.cam_hall_alarm
     - binary_sensor.cam_hall_infrared
 
 Cámara piscina:
   entities:
     - camera.cam_swimmingpool
     - switch.cam_swimmingpool_motion_detection
-    - sensor.cam_swimmingpool_alarm
     - binary_sensor.cam_swimmingpool_infrared
 
 Cámara caseta:
   entities:
     - camera.cam_caseta
     - switch.cam_caseta_motion_detection
-    - sensor.cam_caseta_alarm
 
 Detección movimiento:
   entities:
