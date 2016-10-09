@@ -15,9 +15,16 @@
   password: !secret cam_swimmingpool_password
 
 # Backyard stand camera
-- platform: generic
-  # For Linksys WVC54GCA http://<cam-host>:<cam_port>/img/snapshot.cgi
-  still_image_url: !secret cam_caseta_still_image_url
+#- platform: generic
+#  # For Linksys WVC54GCA http://<cam-host>:<cam_port>/img/snapshot.cgi
+#  still_image_url: !secret cam_caseta_still_image_url
+#  name: cam_caseta
+#  username: !secret cam_caseta_username
+#  password: !secret cam_caseta_password
+
+- platform: mjpeg
+  mjpeg_url: http://192.168.1.72:1024/img/mjpeg.cgi
   name: cam_caseta
   username: !secret cam_caseta_username
   password: !secret cam_caseta_password
+  authentication: basic
