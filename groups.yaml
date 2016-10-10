@@ -21,7 +21,7 @@ default_view:
     - sensor.al_colegio
     - updater.updater
 
-Presencia:
+Seguridad:
   view: yes
   entities:
     - group.familia
