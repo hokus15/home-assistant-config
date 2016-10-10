@@ -25,6 +25,7 @@ Presencia:
   view: yes
   entities:
     - group.familia
+    - group.deteccin_movimiento
     - group.cmara_recibidor
     - group.cmara_piscina
     - group.cmara_caseta
