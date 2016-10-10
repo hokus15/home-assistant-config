@@ -1,58 +1,40 @@
-# Call empty_home_script when no one of the Familia group is at home (heating on)
-- alias: 'Empty home automation - Heating'
+# Empty home automation when no one of the Familia group is at home
+- alias: 'Empty home'
   trigger:
      platform: state
      entity_id: group.familia
      state: 'not_home'
-  condition:
-    condition: state
-    entity_id: switch.heating
-    state: 'on'
   action:
-    service: script.turn_on
-    entity_id: script.empty_home_heating
+    - service: homeassistant.turn_on
+      data:
+        entity_id: group.deteccin_movimiento
+    - service: ifttt.trigger
+      data_template: 
+        event: >
+          {% if is_state("switch.heating", "off") %}
+            empty-home
+          {% else %}
+            empty-home-heating
+          {% endif %}
 
-# Call someone_home script when someone of the Familia group is at home (heating on)
-- alias: 'Someone at home automation - Heating'
+# Someone home automation when someone of the Familia group is at home
+- alias: 'Someone home'
   trigger:
      platform: state
      entity_id: group.familia
      state: 'home'
-  condition:
-    condition: state
-    entity_id: switch.heating
-    state: 'on'
   action:
-    service: script.turn_on
-    entity_id: script.someone_home_heating
-
-# Call empty_home_script when no one of the Familia group is at home (heating off)
-- alias: 'Empty home automation'
-  trigger:
-     platform: state
-     entity_id: group.familia
-     state: 'not_home'
-  condition:
-    condition: state
-    entity_id: switch.heating
-    state: 'off'
-  action:
-    service: script.turn_on
-    entity_id: script.empty_home
-
-# Call someone_home script when someone of the Familia group is at home (heating off)
-- alias: 'Someone at home automation'
-  trigger:
-     platform: state
-     entity_id: group.familia
-     state: 'home'
-  condition:
-    condition: state
-    entity_id: switch.heating
-    state: 'off'
-  action:
-    service: script.turn_on
-    entity_id: script.someone_home
+    - service: homeassistant.turn_off
+      data:
+        entity_id: group.deteccin_movimiento
+    - service: ifttt.trigger
+      data_template:
+        event: >
+          {% if is_state("switch.heating", "off") %}
+            someone-home
+          {% else %}
+            someone-home-heating
+          {% endif %}
 
 # Turn on outside lights at sunset (+15 minutes)
 - alias: 'Sunset Lights'
@@ -77,7 +59,7 @@
      service: light.turn_off
      entity_id: group.luces_exteriores
   
-# When the outside lights have been turned on at late night (later than 00:15) and before 8AM, call the script to turn them off in 5 minutes
+# When the outside lights have been turned on at late night (later than 00:15) and before 8AM, turn them off after 5 minutes
 - alias: 'Turn off lights at late night'
   trigger:
      platform: state
@@ -91,10 +73,13 @@
        entity_id: group.luces_exteriores
        state: 'on'
   action:
-    service: script.turn_on
-    entity_id: script.turn_off_lights_exterior
+    - delay:
+        minutes: 5
+    - service: light.turn_off
+      data:
+        entity_id: group.luces_exteriores
 
-# Turn off outside lights when the sun is not set
+# Turn off outside lights after 10 seconds when the sun is not set
 - alias: 'Turn off lights when sun not set'
   trigger:
      platform: state
@@ -106,8 +91,11 @@
      - condition: sun
        before: sunset
   action:
-    service: script.turn_on
-    entity_id: script.turn_off_lights_exterior
+    - delay:
+        seconds: 10
+    - service: light.turn_off
+      data:
+        entity_id: group.luces_exteriores
 
 # Turn on outside lights when fence is opened and the sun is set.
 - alias: 'Turn on lights when fence open'
