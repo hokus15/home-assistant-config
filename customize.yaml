@@ -66,8 +66,10 @@ sensor.sleep_efficiency:
 ###################################
 binary_sensor.cam_hall_infrared:
    friendly_name: 'Infrarrojos recibidor'
+   icon: 'mdi:led-on'
 binary_sensor.cam_swimmingpool_infrared:
    friendly_name: 'Infrarrojos piscina'
+   icon: 'mdi:led-on'
 binary_sensor.ups_status_bs:
    friendly_name: 'Suministro eléctrico'
 binary_sensor.cam_swimmingpool_alarm:
@@ -94,13 +96,13 @@ camera.cam_caseta:
 ###################################
 switch.cam_hall_motion_detection:
    friendly_name: 'Det. mov. recibidor'
-   icon: 'mdi:run'
+   icon: 'mdi:transit-transfer'
 switch.cam_swimmingpool_motion_detection:
    friendly_name: 'Det. mov. piscina'
-   icon: 'mdi:run'
+   icon: 'mdi:transit-transfer'
 switch.cam_caseta_motion_detection:
    friendly_name: 'Det. mov. caseta'
-   icon: 'mdi:run'
+   icon: 'mdi:transit-transfer'
 switch.heating:
    friendly_name: 'Estado'
    icon: mdi:radiator
