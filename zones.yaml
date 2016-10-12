@@ -13,5 +13,5 @@
 - name: Hospital
   latitude: !secret office2_latitude
   longitude: !secret office2_longitude
-  radius: 500
+  radius: 250
   icon: mdi:hospital-building
