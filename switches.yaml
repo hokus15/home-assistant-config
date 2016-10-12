@@ -43,6 +43,21 @@
       command_state: !secret cam_caseta_motion_detection_state
       value_template: '{{ value == "1" }}'
 
+- platform: template
+  switches:
+    assistant_state:
+      value_template: '{{ is_state("device_tracker.ana", "home") }}'
+      turn_on:
+        service: device_tracker.see
+        data:
+          dev_id: 'ana'
+          location_name: 'home'
+      turn_off:
+        service: device_tracker.see
+        data:
+          dev_id: 'ana'
+          location_name: 'not_home'
+
 - platform: mqtt
   name: 'heating'
   state_topic: 'home/heating/status'

@@ -104,6 +104,10 @@ switch.heating:
    friendly_name: 'Estado'
 switch.piscina:
    friendly_name: 'Estado'
+switch.assistant_state:
+   friendly_name: 'Ana'
+   icon: mdi:home
+
 ###################################
 # Scripts
 ###################################

@@ -2,7 +2,7 @@
 - alias: 'Empty home'
   trigger:
      platform: state
-     entity_id: group.familia
+     entity_id: group.unidad_familiar
      state: 'not_home'
   action:
     - service: homeassistant.turn_on
@@ -21,7 +21,7 @@
 - alias: 'Someone home'
   trigger:
      platform: state
-     entity_id: group.familia
+     entity_id: group.unidad_familiar
      state: 'home'
   action:
     - service: homeassistant.turn_off

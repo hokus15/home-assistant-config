@@ -23,6 +23,7 @@ default_view:
 
 Seguridad:
   view: yes
+  icon: mdi:security-home
   entities:
     - group.familia
     - group.deteccin_movimiento
@@ -33,6 +34,7 @@ Seguridad:
 
 Cámaras:
   view: yes
+  icon: mdi:video
   entities:
     - camera.cam_hall
     - camera.cam_swimmingpool
@@ -40,6 +42,7 @@ Cámaras:
 
 Varios:
   view: yes
+  icon: mdi:grid
   entities:
     - group.internet
     - group.estado_ha
@@ -65,11 +68,17 @@ Varios:
 ################################################
 # Groups
 ################################################
-Familia:
+Unidad Familiar:
   entities:
     - device_tracker.hokusphone_hokusphone
     - device_tracker.geni
     - device_tracker.ana
+
+Familia:
+  entities:
+    - device_tracker.hokusphone_hokusphone
+    - device_tracker.geni
+    - switch.assistant_state
 
 Personal:
   entities:
