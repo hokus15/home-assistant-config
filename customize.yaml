@@ -50,7 +50,7 @@ sensor.hokusphone_batt:
    friendly_name: 'Batería teléfono Jordi'
    icon: 'mdi:battery'
 sensor.fence_status:
-    icon: 'mdi:glassdoor'
+    icon: 'mdi:gate'
 sensor.cam_swimmingpool_alarm:
    friendly_name: 'Alarma'
    icon: 'mdi:bell'
@@ -102,8 +102,12 @@ switch.cam_caseta_motion_detection:
    icon: 'mdi:run'
 switch.heating:
    friendly_name: 'Estado'
+   icon: mdi:radiator
 switch.piscina:
    friendly_name: 'Estado'
+   icon: mdi:pool
+switch.barrera:
+   icon: mdi:gate
 switch.assistant_state:
    friendly_name: 'Ana'
    icon: mdi:home
@@ -133,8 +137,8 @@ script.check_caseta_motion_detection:
 ###################################
 # Groups
 ###################################
-group.acciones_presencia:
-   friendly_name: 'Acciones'
+#
+#
 ###################################
 # Other
 ###################################
