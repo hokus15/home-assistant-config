@@ -185,13 +185,6 @@ Calefacción:
   entities:
     - switch.heating
 
-Acciones Presencia:
-  entities:
-    - script.empty_home
-    - script.someone_home
-    - script.empty_home_heating
-    - script.someone_home_heating
-
 Estado HA:
   entities:
     - script.restart_ha
