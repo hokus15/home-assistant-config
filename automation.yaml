@@ -36,6 +36,51 @@
             someone-home-heating
           {% endif %}
 
+# Disable motion detected for recibidor after 15 seconds
+- alias: 'Disable motion detected for recibidor'
+  trigger:
+     platform: state
+     entity_id: binary_sensor.cam_hall_alarm
+     state: 'on'
+  action:
+    - delay:
+        seconds: 15
+    - service: mqtt.publish
+      data:
+        payload: 0
+        retain: true
+        topic: 'home/camera/recibidor/alarm'
+
+# Disable motion detected for piscina after 15 seconds
+- alias: 'Disable motion detected for piscina'
+  trigger:
+     platform: state
+     entity_id: binary_sensor.cam_swimmingpool_alarm
+     state: 'on'
+  action:
+    - delay:
+        seconds: 15
+    - service: mqtt.publish
+      data:
+        payload: 0
+        retain: true
+        topic: 'home/camera/piscina/alarm'
+
+# Disable motion detected for caseta after 15 seconds
+- alias: 'Disable motion detected for caseta'
+  trigger:
+     platform: state
+     entity_id: binary_sensor.cam_caseta_alarm
+     state: 'on'
+  action:
+    - delay:
+        seconds: 15
+    - service: mqtt.publish
+      data:
+        payload: 0
+        retain: true
+        topic: 'home/camera/caseta/alarm'
+
 # Turn on outside lights at sunset (+15 minutes)
 - alias: 'Sunset Lights'
   trigger:

@@ -6,6 +6,7 @@
   name: cam_hall_infrared
   payload_on: '1'
   payload_off: '0'
+  sensor_class: light
 
 # Infrared status for foscam cam in swimming pool
 - platform: command_line
@@ -15,6 +16,7 @@
   name: cam_swimmingpool_infrared
   payload_on: '1'
   payload_off: '0'
+  sensor_class: light
 
 # UPS status
 - platform: mqtt
@@ -26,6 +28,47 @@
 #  payload_off: 'ON'
   value_template: >-
           {%- if value == "ONLINE" or value == "COMMOK" %}
+              ON
+          {% else %}
+              OFF
+          {%- endif %}
+
+- platform: mqtt
+  state_topic: 'home/camera/recibidor/alarm'
+  name: 'cam_hall_alarm'
+  sensor_class: motion
+  # 0: No alarm
+  # 1: Alarm triggered
+  value_template: >-
+          {%- if value == "1" %}
+              ON
+          {% else %}
+              OFF
+          {%- endif %}
+
+# Alarm status for foscam cam in swimming pool
+- platform: mqtt
+  state_topic: 'home/camera/piscina/alarm'
+  name: 'cam_swimmingpool_alarm'
+  sensor_class: motion
+  # 0: No alarm
+  # 1: Alarm triggered
+  value_template: >-
+          {%- if value == "1" %}
+              ON
+          {% else %}
+              OFF
+          {%- endif %}
+
+# Alarm status for Linksys cam in caseta
+- platform: mqtt
+  state_topic: 'home/camera/caseta/alarm'
+  name: 'cam_caseta_alarm'
+  sensor_class: motion
+  # 0: No alarm
+  # 1: Alarm triggered
+  value_template: >-
+          {%- if value == "1" %}
               ON
           {% else %}
               OFF

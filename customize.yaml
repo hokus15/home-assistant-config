@@ -51,15 +51,6 @@ sensor.hokusphone_batt:
    icon: 'mdi:battery'
 sensor.fence_status:
     icon: 'mdi:gate'
-sensor.cam_swimmingpool_alarm:
-   friendly_name: 'Alarma'
-   icon: 'mdi:bell'
-sensor.cam_hall_alarm:
-   friendly_name: 'Alarma'
-   icon: 'mdi:bell'
-sensor.cam_caseta_alarm:
-   friendly_name: 'Alarma'
-   icon: 'mdi:bell'
 sensor.season:
    hidden: true
 sensor.ups_status:
@@ -79,6 +70,16 @@ binary_sensor.cam_swimmingpool_infrared:
    friendly_name: 'Infrarrojos piscina'
 binary_sensor.ups_status_bs:
    friendly_name: 'Suministro eléctrico'
+binary_sensor.cam_swimmingpool_alarm:
+   friendly_name: 'Alarma'
+   #icon: 'mdi:bell'
+binary_sensor.cam_hall_alarm:
+   friendly_name: 'Alarma'
+   #icon: 'mdi:bell'
+binary_sensor.cam_caseta_alarm:
+   friendly_name: 'Alarma'
+   #icon: 'mdi:bell'
+
 ###################################
 # Cameras
 ###################################
@@ -107,6 +108,7 @@ switch.piscina:
    friendly_name: 'Estado'
    icon: mdi:pool
 switch.barrera:
+   friendly_name: ' '
    icon: mdi:gate
 switch.assistant_state:
    friendly_name: 'Ana'
