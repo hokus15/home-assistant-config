@@ -138,6 +138,7 @@ Luces exteriores:
     - light.barrera_derecha
     - light.barrera_izquierda
     - light.puerta_entrada
+    - input_slider.luces_exteriores_brightness
 
 Barrera:
   entities:

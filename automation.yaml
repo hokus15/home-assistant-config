@@ -36,6 +36,29 @@
             someone-home-heating
           {% endif %}
 
+# Adjust luces exteriores brightness
+- alias: 'Luces exteriores - Adjust Brightness'
+  trigger:
+    platform: state
+    entity_id: input_slider.luces_exteriores_brightness
+  condition:
+    condition: state
+    entity_id: group.luces_exteriores
+    state: 'on'
+  action:
+    - service: light.turn_on
+      data_template:
+        entity_id: light.barrera_derecha
+        brightness: '{{ ((trigger.to_state.state | int) * 255) // 100 }}'
+    - service: light.turn_on
+      data_template:
+        entity_id: light.barrera_izquierda
+        brightness: '{{ ((trigger.to_state.state | int) * 255) // 100 }}'
+    - service: light.turn_on
+      data_template:
+        entity_id: light.puerta_entrada
+        brightness: '{{ ((trigger.to_state.state | int) * 255) // 100 }}'
+
 # Disable motion detected for recibidor after 15 seconds
 - alias: 'Disable motion detected for recibidor'
   trigger:

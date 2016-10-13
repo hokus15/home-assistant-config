@@ -1,0 +1,7 @@
+# Luces exteriores percentage brightness 
+luces_exteriores_brightness:
+  name: Brillo
+  initial: 75
+  min: 5
+  max: 100
+  step: 5
