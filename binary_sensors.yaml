@@ -40,7 +40,7 @@
   # 0: No alarm
   # 1: Alarm triggered
   value_template: >-
-          {%- if value == "1" %}
+          {%- if value != "0" %}
               ON
           {% else %}
               OFF
@@ -54,7 +54,7 @@
   # 0: No alarm
   # 1: Alarm triggered
   value_template: >-
-          {%- if value == "1" %}
+          {%- if value != "0" %}
               ON
           {% else %}
               OFF
@@ -68,7 +68,7 @@
   # 0: No alarm
   # 1: Alarm triggered
   value_template: >-
-          {%- if value == "1" %}
+          {%- if value != "0" %}
               ON
           {% else %}
               OFF
