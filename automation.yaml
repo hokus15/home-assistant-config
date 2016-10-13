@@ -36,6 +36,18 @@
             someone-home-heating
           {% endif %}
 
+# The estate of the assistant goes off (not_home) when the amount of minutes in the slider have elapsed
+- alias: 'Turn off assistant state after specified time'
+  trigger:
+     platform: state
+     entity_id: switch.assistant_state
+     state: 'on'
+  action:
+    - delay: '{{ (states.input_slider.assistant_state_delay.state | int) // 60 }}:{{ (states.input_slider.assistant_state_delay.state | int) % 60 }}'
+    - service: homeassistant.turn_off
+      data:
+        entity_id: switch.assistant_state
+
 # Adjust luces exteriores brightness
 - alias: 'Luces exteriores - Adjust Brightness'
   trigger:

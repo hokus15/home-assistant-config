@@ -79,6 +79,7 @@ Familia:
     - device_tracker.hokusphone_hokusphone
     - device_tracker.geni
     - switch.assistant_state
+    - input_slider.assistant_state_delay
 
 Personal:
   entities:
