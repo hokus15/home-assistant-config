@@ -6,9 +6,9 @@ luces_exteriores_brightness:
   max: 100
   step: 5
 
-# Delay to change the state of the assistant (in minutes)
-assistant_state_delay:
-  name: Salida Ana
+# Delay to change the state of the virtual_device (in minutes)
+virtual_device_state_delay:
+  name: Minutos
   initial: 60
   min: 5
   max: 180

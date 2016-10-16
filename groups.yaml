@@ -72,14 +72,14 @@ Unidad Familiar:
   entities:
     - device_tracker.hokusphone_hokusphone
     - device_tracker.geni
-    - device_tracker.ana
+    - device_tracker.virtual_device
 
 Familia:
   entities:
     - device_tracker.hokusphone_hokusphone
     - device_tracker.geni
-    - switch.assistant_state
-    - input_slider.assistant_state_delay
+    - switch.virtual_device_state
+    - input_slider.virtual_device_state_delay
 
 Personal:
   entities:

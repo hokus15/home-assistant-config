@@ -45,17 +45,17 @@
 
 - platform: template
   switches:
-    assistant_state:
-      value_template: '{{ is_state("device_tracker.ana", "home") }}'
+    virtual_device_state:
+      value_template: '{{ is_state("device_tracker.virtual_device", "home") }}'
       turn_on:
         service: device_tracker.see
         data:
-          dev_id: 'ana'
+          dev_id: 'virtual_device'
           location_name: 'home'
       turn_off:
         service: device_tracker.see
         data:
-          dev_id: 'ana'
+          dev_id: 'virtual_device'
           location_name: 'not_home'
 
 - platform: mqtt

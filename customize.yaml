@@ -112,10 +112,16 @@ switch.piscina:
 switch.barrera:
    friendly_name: ' '
    icon: mdi:gate
-switch.assistant_state:
-   friendly_name: 'Ana'
-   icon: mdi:home
-
+switch.virtual_device_state:
+   friendly_name: 'Retraso activación'
+   icon: mdi:clock
+###################################
+# Input sliders
+###################################
+input_slider.virtual_device_state_delay:
+   icon: mdi:clock-end
+input_slider.luces_exteriores_brightness:
+   icon: mdi:brightness-6
 ###################################
 # Scripts
 ###################################

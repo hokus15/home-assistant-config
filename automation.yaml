@@ -36,17 +36,17 @@
             someone-home-heating
           {% endif %}
 
-# The estate of the assistant goes off (not_home) when the amount of minutes in the slider have elapsed
-- alias: 'Turn off assistant state after specified time'
+# The estate of the virtual_device goes off (not_home) when the amount of minutes in the slider have elapsed
+- alias: 'Turn off virtual_device state after specified time'
   trigger:
      platform: state
-     entity_id: switch.assistant_state
+     entity_id: switch.virtual_device_state
      state: 'on'
   action:
-    - delay: '{{ (states.input_slider.assistant_state_delay.state | int) // 60 }}:{{ (states.input_slider.assistant_state_delay.state | int) % 60 }}'
+    - delay: '{{ (states.input_slider.virtual_device_state_delay.state | int) // 60 }}:{{ (states.input_slider.virtual_device_state_delay.state | int) % 60 }}'
     - service: homeassistant.turn_off
       data:
-        entity_id: switch.assistant_state
+        entity_id: switch.virtual_device_state
 
 # Adjust luces exteriores brightness
 - alias: 'Luces exteriores - Adjust Brightness'
@@ -85,6 +85,26 @@
         payload: 0
         retain: true
         topic: 'home/camera/recibidor/alarm'
+
+#- alias: 'Disable motion detected for recibidor'
+#  trigger:
+#    platform: mqtt
+#    topic: home/camera/recibidor/alarm
+#  action:
+#    - service: notify.telegram
+#      data_template:
+#        message: ' '
+#        data:
+#          photo:
+#            - file: {{ trigger.payload.data.photo.file }}
+#            - caption: {{ trigger.payload.data.photo.caption }}
+#    - delay:
+#        seconds: 15
+#    - service: mqtt.publish
+#      data:
+#        payload: 0
+#        retain: true
+#        topic: 'home/camera/recibidor/alarm'
 
 # Disable motion detected for piscina after 15 seconds
 - alias: 'Disable motion detected for piscina'
