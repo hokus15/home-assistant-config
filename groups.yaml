@@ -80,6 +80,7 @@ Familia:
     - device_tracker.geni
     - switch.virtual_device_state
     - input_slider.virtual_device_state_delay
+    - switch.holiday
 
 Personal:
   entities:

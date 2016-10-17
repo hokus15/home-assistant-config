@@ -67,3 +67,13 @@
   optimistic: false
   qos: 0
   retain: true
+
+- platform: mqtt
+  name: 'holiday'
+  state_topic: 'home/holiday/status'
+  command_topic: 'home/holiday/status'
+  payload_on: 'ON'
+  payload_off: 'OFF'
+  optimistic: false
+  qos: 0
+  retain: true

@@ -81,7 +81,6 @@ binary_sensor.cam_hall_alarm:
 binary_sensor.cam_caseta_alarm:
    friendly_name: 'Alarma'
    #icon: 'mdi:bell'
-
 ###################################
 # Cameras
 ###################################
@@ -115,6 +114,9 @@ switch.barrera:
 switch.virtual_device_state:
    friendly_name: 'Retraso activación'
    icon: mdi:clock
+switch.holiday:
+   friendly_name: 'Vacaciones'
+   icon: mdi:airplane-takeoff
 ###################################
 # Input sliders
 ###################################
