@@ -92,4 +92,5 @@ group: !include groups.yaml
 automation: !include automation.yaml
 script: !include scripts.yaml
 input_slider: !include input_sliders.yaml
+panel_iframe: !include panel_iframes.yaml
 #scene: !include scenes.yaml
