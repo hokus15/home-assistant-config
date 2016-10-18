@@ -1,4 +1,4 @@
 empty_home_activation_delay:
-  name: Retraso activación
+  name: Retardo
   initial: off
   icon: mdi:clock

@@ -73,7 +73,7 @@ Unidad Familiar:
     - device_tracker.geni
     - device_tracker.virtual_device
 
-Familia:
+Seguridad:
   entities:
     - sensor.hokusphone_hokusphone
     - sensor.geni
