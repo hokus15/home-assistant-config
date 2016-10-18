@@ -5,7 +5,6 @@ default_view:
   view: yes
   icon: mdi:home
   entities:
-    - device_tracker.geni
     - group.personal
     - group.energa
     - group.exterior
@@ -15,10 +14,10 @@ default_view:
     - group.motor_piscina
     - group.deteccin_movimiento
     - group.calefaccin
-    - group.visitas
-    - sensor.a_casa
-    - sensor.a_la_oficina
-    - sensor.al_colegio
+#    - group.visitas
+#    - sensor.a_casa
+#    - sensor.a_la_oficina
+#    - sensor.al_colegio
     - updater.updater
 
 Seguridad:
@@ -76,35 +75,35 @@ Unidad Familiar:
 
 Familia:
   entities:
-    - device_tracker.hokusphone_hokusphone
-    - device_tracker.geni
-    - device_tracker.virtual_device
+    - sensor.hokusphone_hokusphone
+    - sensor.geni
+    - sensor.virtual_device
     - input_boolean.empty_home_activation_delay
     - input_slider.empty_home_activation_delay_minutes
     - switch.holiday
 
 Personal:
   entities:
-    - device_tracker.hokusphone_hokusphone
-    - device_tracker.hokus_hotelbeds
+    - sensor.geni
+    - sensor.hokusphone_hokusphone
     - sensor.hokusphone_batt
     - sensor.steps
     - sensor.sleep_efficiency
     - sensor.body_weight
     - sensor.distance
 
-Visitas:
-  entities:
-    - device_tracker.carlota
-    - device_tracker.maria_del_mar
-    - device_tracker.esther
-    - device_tracker.primo_carlos
-    - device_tracker.pedro
-    - device_tracker.nena
-    - device_tracker.laura_olivas
-    - device_tracker.javier
-    - device_tracker.al
-    - device_tracker.nando
+#Visitas:
+#  entities:
+#    - sensor.carlota
+#    - sensor.maria_del_mar
+#    - sensor.esther
+#    - sensor.primo_carlos
+#    - sensor.pedro
+#    - sensor.nena
+#    - sensor.laura_olivas
+#    - sensor.javier
+#    - sensor.al
+#    - sensor.nando
 
 Energía:
   entities:
@@ -202,54 +201,54 @@ Estado HA:
     - sensor.last_boot
     - sensor.since_last_boot
 
-Escalera:
-  entities:
-    - device_tracker.router_movistar
-    - device_tracker.efergy
-    - device_tracker.qnap
-
-Despacho:
-  entities:
-    - device_tracker.hokus_laptop
-    - device_tracker.hokus_laptop_wifi
-    - device_tracker.hp_photosmart_5520
-
-Recibidor:
-  entities:
-    - device_tracker.cam_recibidor
-    - device_tracker.wemo_maker_barrera
-
-Dispositivos Salón:
-  entities:
-    - device_tracker.netatmo
-    - device_tracker.chromecast
-    - device_tracker.decodificador_movistar
-    - device_tracker.bluesens_wifi
-    - device_tracker.bluesens
-    - device_tracker.router_speedtouch
-    - device_tracker.dvd_player
-Suite:
-  entities:
-    - device_tracker.squeezebox
-    - device_tracker.withings_smart_scale
-    - device_tracker.router_orange
-Caseta:
-  entities:
-    - device_tracker.wemo_insight_piscina
-    - device_tracker.router_vodafone
-    - device_tracker.cam_swimmingpool
-    - device_tracker.cam_caseta
-Cocina:
-  entities:
-    - device_tracker.wemo_link
-    - device_tracker.netatmo_thermostat
-Portátil:
-  entities:
-    - device_tracker.geni_laptop
-    - device_tracker.hokus_laptop
-    - device_tracker.hokus_laptop_wifi
-    - device_tracker.nexus_10
-    - device_tracker.ipad
-Dsipositivos Varios:
-  entities:
-    - device_tracker.c67bb0af2169
+#Escalera:
+#  entities:
+#    - device_tracker.router_movistar
+#    - device_tracker.efergy
+#    - device_tracker.qnap
+#
+#Despacho:
+#  entities:
+#    - device_tracker.hokus_laptop
+#    - device_tracker.hokus_laptop_wifi
+#    - device_tracker.hp_photosmart_5520
+#
+#Recibidor:
+#  entities:
+#    - device_tracker.cam_recibidor
+#    - device_tracker.wemo_maker_barrera
+#
+#Dispositivos Salón:
+#  entities:
+#    - device_tracker.netatmo
+#    - device_tracker.chromecast
+#    - device_tracker.decodificador_movistar
+#    - device_tracker.bluesens_wifi
+#    - device_tracker.bluesens
+#    - device_tracker.router_speedtouch
+#    - device_tracker.dvd_player
+#Suite:
+#  entities:
+#    - device_tracker.squeezebox
+#    - device_tracker.withings_smart_scale
+#    - device_tracker.router_orange
+#Caseta:
+#  entities:
+#    - device_tracker.wemo_insight_piscina
+#    - device_tracker.router_vodafone
+#    - device_tracker.cam_swimmingpool
+#    - device_tracker.cam_caseta
+#Cocina:
+#  entities:
+#    - device_tracker.wemo_link
+#    - device_tracker.netatmo_thermostat
+#Portátil:
+#  entities:
+#    - device_tracker.geni_laptop
+#    - device_tracker.hokus_laptop
+#    - device_tracker.hokus_laptop_wifi
+#    - device_tracker.nexus_10
+#    - device_tracker.ipad
+#Dispositivos Varios:
+#  entities:
+#    - device_tracker.c67bb0af2169

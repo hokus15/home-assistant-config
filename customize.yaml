@@ -60,6 +60,13 @@ sensor.steps:
    friendly_name: 'Pasos'
 sensor.sleep_efficiency:
    friendly_name: 'Eficiencia del sueño'
+sensor.hokusphone_hokusphone:
+   entity_picture: !secret hokusphone_hokusphone_picture
+sensor.geni:
+   entity_picture: !secret geni_picture
+sensor.virtual_device:
+   entity_picture: !secret virtual_device_picture
+
 ###################################
 # Binary Sensors
 ###################################
