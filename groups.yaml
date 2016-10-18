@@ -78,8 +78,9 @@ Familia:
   entities:
     - device_tracker.hokusphone_hokusphone
     - device_tracker.geni
-    - switch.virtual_device_state
-    - input_slider.virtual_device_state_delay
+    - device_tracker.virtual_device
+    - input_boolean.empty_home_activation_delay
+    - input_slider.empty_home_activation_delay_minutes
     - switch.holiday
 
 Personal:

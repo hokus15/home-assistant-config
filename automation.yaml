@@ -37,16 +37,24 @@
           {% endif %}
 
 # The estate of the virtual_device goes off (not_home) when the amount of minutes in the slider have elapsed
-- alias: 'Turn off virtual_device state after specified time'
+- alias: 'Turn off empty_home_activation_delay state after specified time'
   trigger:
      platform: state
-     entity_id: switch.virtual_device_state
+     entity_id: input_boolean.empty_home_activation_delay
      state: 'on'
   action:
-    - delay: '{{ (states.input_slider.virtual_device_state_delay.state | int) // 60 }}:{{ (states.input_slider.virtual_device_state_delay.state | int) % 60 }}'
+    - service: device_tracker.see
+      data:
+        dev_id: 'virtual_device'
+        location_name: 'home'
+    - delay: '{{ (states.input_slider.empty_home_activation_delay_minutes.state | int) // 60 }}:{{ (states.input_slider.empty_home_activation_delay_minutes.state | int) % 60 }}'
     - service: homeassistant.turn_off
       data:
-        entity_id: switch.virtual_device_state
+        entity_id: input_boolean.empty_home_activation_delay
+    - service: device_tracker.see
+      data:
+        dev_id: 'virtual_device'
+        location_name: 'not_home'
 
 # Adjust luces exteriores brightness
 - alias: 'Luces exteriores - Adjust Brightness'

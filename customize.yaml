@@ -60,7 +60,6 @@ sensor.steps:
    friendly_name: 'Pasos'
 sensor.sleep_efficiency:
    friendly_name: 'Eficiencia del sueño'
-
 ###################################
 # Binary Sensors
 ###################################
@@ -111,16 +110,13 @@ switch.piscina:
 switch.barrera:
    friendly_name: ' '
    icon: mdi:gate
-switch.virtual_device_state:
-   friendly_name: 'Retraso activación'
-   icon: mdi:clock
 switch.holiday:
    friendly_name: 'Vacaciones'
    icon: mdi:airplane-takeoff
 ###################################
 # Input sliders
 ###################################
-input_slider.virtual_device_state_delay:
+input_slider.empty_home_activation_delay_minutes:
    icon: mdi:clock-end
 input_slider.luces_exteriores_brightness:
    icon: mdi:brightness-6
@@ -137,8 +133,6 @@ script.turn_on_swimmingpool_3_hours:
    hidden: true
 script.check_caseta_motion_detection:
    hidden: true
-#script.empty_home:
-#   hidden: true
 ###################################
 # Scenes
 ###################################

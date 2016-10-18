@@ -7,9 +7,9 @@ luces_exteriores_brightness:
   step: 5
 
 # Delay to change the state of the virtual_device (in minutes)
-virtual_device_state_delay:
+empty_home_activation_delay_minutes:
   name: Minutos
-  initial: 60
+  initial: 180
   min: 5
-  max: 180
+  max: 240
   step: 5
