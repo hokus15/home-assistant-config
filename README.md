@@ -67,4 +67,4 @@ curl -s -X POST -H "Content-Type: application/json" -d '{"message": "text", "dat
 
 ### Other ideas
 * Have the incron as a sensor in home-assistant would avoid the need to do some of the configurations.
-* iCal integration in Home-Assistant could be used enable or disable motion sensor based on a schedule. This can be also achieved using other additional tools like tasker in your mobile phone.
+* iCal integration in Home-Assistant could be used enable or disable motion sensor based on a schedule. This can be also achieved using other tools like tasker in your mobile phone or Home-Assistant IFTTT integration..
