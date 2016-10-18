@@ -36,8 +36,11 @@
             someone-home-heating
           {% endif %}
 
-# The estate of the virtual_device goes off (not_home) when the amount of minutes in the slider have elapsed
-- alias: 'Turn off empty_home_activation_delay state after specified time'
+# When input_boolean.empty_home_activation_delay turns on,
+# Change virtual_device location to home
+# Wait the specified amount of minutes 
+# Turn off input_boolean.empty_home_activation_delay
+- alias: 'empty_home_activation_delay on'
   trigger:
      platform: state
      entity_id: input_boolean.empty_home_activation_delay
@@ -51,6 +54,15 @@
     - service: homeassistant.turn_off
       data:
         entity_id: input_boolean.empty_home_activation_delay
+
+# When input_boolean.empty_home_activation_delay turns off,
+# Change virtual_device location to not_home
+- alias: 'empty_home_activation_delay off'
+  trigger:
+     platform: state
+     entity_id: input_boolean.empty_home_activation_delay
+     state: 'off'
+  action:
     - service: device_tracker.see
       data:
         dev_id: 'virtual_device'
