@@ -107,6 +107,15 @@
               Winter
           {%- endif %}
 
+- platform: template
+  sensors:
+    sunrise:
+      friendly_name: 'Amanecer'
+      value_template: '{{ as_timestamp(states.sun.sun.attributes.next_rising)|timestamp_custom("%H:%M:%S") }}'
+    sunset:
+      friendly_name: 'Puesta de sol'
+      value_template: '{{ as_timestamp(states.sun.sun.attributes.next_setting)|timestamp_custom("%H:%M:%S") }}'
+
 - platform: systemmonitor
   resources:
     - type: disk_free

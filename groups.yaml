@@ -122,7 +122,9 @@ Exterior:
     - sensor.netatmo_pluvimetro_sum_rain_1
     - sensor.netatmo_pluvimetro_sum_rain_24
     - sensor.netatmo_pluvimetro_battery
-    - sun.sun
+#    - sun.sun
+    - sensor.sunrise
+    - sensor.sunset
 
 Salón:
   entities:
