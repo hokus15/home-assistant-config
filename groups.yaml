@@ -191,7 +191,9 @@ Bitcoin:
 
 Calefacción:
   entities:
-    - switch.heating
+    - switch.thermostat_status
+    - switch.thermostat_away_mode
+    - climate.termostato
 
 Estado HA:
   entities:

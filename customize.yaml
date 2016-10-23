@@ -111,9 +111,6 @@ switch.cam_swimmingpool_motion_detection:
 switch.cam_caseta_motion_detection:
    friendly_name: 'Det. mov. caseta'
    icon: 'mdi:transit-transfer'
-switch.heating:
-   friendly_name: 'Estado'
-   icon: mdi:radiator
 switch.piscina:
    friendly_name: 'Estado'
    icon: mdi:pool
@@ -123,6 +120,13 @@ switch.barrera:
 switch.holiday:
    friendly_name: 'Vacaciones'
    icon: mdi:airplane-takeoff
+switch.thermostat_away_mode:
+   friendly_name: 'Modo ausente'
+   icon: mdi:home-outline
+switch.thermostat_status:
+   friendly_name: 'Estado'
+   icon: mdi:radiator
+
 ###################################
 # Input sliders
 ###################################

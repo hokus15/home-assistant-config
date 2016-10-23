@@ -5,17 +5,9 @@
      entity_id: group.unidad_familiar
      state: 'not_home'
   action:
-    - service: homeassistant.turn_on
+    - service: script.turn_on
       data:
-        entity_id: group.deteccin_movimiento
-    - service: ifttt.trigger
-      data_template: 
-        event: >
-          {% if is_state("switch.heating", "off") %}
-            empty-home
-          {% else %}
-            empty-home-heating
-          {% endif %}
+        entity_id: script.empty_home
 
 # Someone home automation when someone of the Familia group is at home
 - alias: 'Someone home'
@@ -24,17 +16,9 @@
      entity_id: group.unidad_familiar
      state: 'home'
   action:
-    - service: homeassistant.turn_off
+    - service: script.turn_on
       data:
-        entity_id: group.deteccin_movimiento
-    - service: ifttt.trigger
-      data_template:
-        event: >
-          {% if is_state("switch.heating", "off") %}
-            someone-home
-          {% else %}
-            someone-home-heating
-          {% endif %}
+        entity_id: script.someone_home
 
 # When input_boolean.empty_home_activation_delay turns on,
 # Change virtual_device location to home

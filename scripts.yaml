@@ -7,3 +7,37 @@ reboot_pi:
   alias: 'Reiniciar Pi'
   sequence:
       - service: shell_command.reboot_pi
+
+empty_home:
+  alias: 'Empty home'
+  sequence:
+    # Turn on presence detection
+    - service: homeassistant.turn_on
+      data:
+        entity_id: group.deteccin_movimiento
+    # Continue script only if switch.thermostat_status is on
+    - condition: state
+      entity_id: switch.thermostat_status
+      state: 'on'
+   # Turn on thermostat away mode 
+    - service: climate.set_away_mode
+      entity_id: climate.termostato
+      data:
+        away_mode: true
+
+someone_home:
+  alias: 'Someone at home'
+  sequence:
+    # Turn off presence detection
+    - service: homeassistant.turn_off
+      data:
+        entity_id: group.deteccin_movimiento
+    # Continue script only if switch.thermostat_status is on
+    - condition: state
+      entity_id: switch.thermostat_status
+      state: 'on'
+   # Turn off thermostat away mode 
+    - service: climate.set_away_mode
+      entity_id: climate.termostato
+      data:
+        away_mode: false
