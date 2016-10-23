@@ -101,10 +101,10 @@
     state: 'on'
   action:
     # Turn on thermostat an set it to away mode
-    - service: climate.set_away_mode
-        entity_id: climate.termostato
-        data:
-          away_mode: true
+    service: climate.set_away_mode
+    entity_id: climate.termostato
+    data:
+      away_mode: true
 
 # Adjust luces exteriores brightness
 - alias: 'Luces exteriores - Adjust Brightness'
