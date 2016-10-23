@@ -90,26 +90,6 @@
         retain: true
         topic: 'home/camera/recibidor/alarm'
 
-#- alias: 'Disable motion detected for recibidor'
-#  trigger:
-#    platform: mqtt
-#    topic: home/camera/recibidor/alarm
-#  action:
-#    - service: notify.telegram
-#      data_template:
-#        message: ' '
-#        data:
-#          photo:
-#            - file: {{ trigger.payload.data.photo.file }}
-#            - caption: {{ trigger.payload.data.photo.caption }}
-#    - delay:
-#        seconds: 15
-#    - service: mqtt.publish
-#      data:
-#        payload: 0
-#        retain: true
-#        topic: 'home/camera/recibidor/alarm'
-
 # Disable motion detected for piscina after 15 seconds
 - alias: 'Disable motion detected for piscina'
   trigger:
