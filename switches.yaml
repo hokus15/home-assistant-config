@@ -58,7 +58,7 @@
     thermostat_status:
       entity_id: climate.termostato
       value_template: >-
-        {%- if states.climate.termostato <= 11.5 %}
+        {%- if states.climate.termostato.attributes.temperature <= 11.5 %}
           off
         {% else %}
           on
