@@ -53,26 +53,15 @@
   qos: 0
   retain: true
 
-- platform: template
-  switches:
-    thermostat_status:
-      entity_id: climate.termostato
-      value_template: >-
-        {%- if states.climate.termostato.attributes.temperature <= 11.5 %}
-          off
-        {% else %}
-          on
-        {%- endif %}
-      turn_on:
-        service: climate.set_away_mode
-        entity_id: climate.termostato
-        data:
-          away_mode: false
-      turn_off:
-        service: climate.set_temperature
-        entity_id: climate.termostato
-        data:
-          temperature: 11.5
+- platform: mqtt
+  name: 'heating'
+  state_topic: 'home/heating/status'
+  command_topic: 'home/heating/status'
+  payload_on: 'ON'
+  payload_off: 'OFF'
+  optimistic: false
+  qos: 0
+  retain: true
 
 - platform: template
   switches:

@@ -275,6 +275,17 @@
                 {{ states.device_tracker.nando.state }}
             {%- endif %}
 
+#- platform: scrape
+#  resource: https://home-assistant.io
+#  name: latest_release
+#  select: ".current-version h1"
+#  value_template: '{{ value.split(":")[1] }}'
+#
+#- platform: rest
+#  resource: http://127.0.0.1:8123/api/config
+#  value_template: '{{ value_json.version }}'
+#  name: 'current_release'
+
 #- platform: google_travel_time
 #  name: a la oficina
 #  api_key: !secret google_distance_api_key

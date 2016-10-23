@@ -52,6 +52,60 @@
         dev_id: 'virtual_device'
         location_name: 'not_home'
 
+# When the switch.heating changes to on
+- alias: 'Heating on'
+  trigger:
+     platform: state
+     entity_id: switch.heating
+     state: 'on'
+  action:
+    # Turn on thermostat
+    - service: script.turn_on
+      entity_id: script.power_on_thermostat
+
+# When the switch.heating changes to off
+- alias: 'Heating off'
+  trigger:
+     platform: state
+     entity_id: switch.heating
+     state: 'off'
+  action:
+    # Turn off thermostat
+    - service: script.turn_on
+      entity_id: script.power_off_thermostat
+
+# Enters on holiday mode
+- alias: 'Enter holiday mode'
+  trigger:
+     platform: state
+     entity_id: switch.holiday
+     state: 'on'
+  condition:
+    condition: state
+    entity_id: switch.heating
+    state: 'on'
+  action:
+    # Turn off thermostat
+    - service: script.turn_on
+      entity_id: script.power_off_thermostat
+
+# Exit on holiday mode
+- alias: 'Exit holiday mode'
+  trigger:
+     platform: state
+     entity_id: switch.holiday
+     state: 'off'
+  condition:
+    condition: state
+    entity_id: switch.heating
+    state: 'on'
+  action:
+    # Turn on thermostat an set it to away mode
+    - service: climate.set_away_mode
+        entity_id: climate.termostato
+        data:
+          away_mode: true
+
 # Adjust luces exteriores brightness
 - alias: 'Luces exteriores - Adjust Brightness'
   trigger:
@@ -75,7 +129,7 @@
         entity_id: light.puerta_entrada
         brightness: '{{ ((trigger.to_state.state | int) * 255) // 100 }}'
 
-# Disable motion detected for recibidor after 15 seconds
+# Disable motion detected for recibidor after 15 seconds of detection
 - alias: 'Disable motion detected for recibidor'
   trigger:
      platform: state
@@ -90,7 +144,7 @@
         retain: true
         topic: 'home/camera/recibidor/alarm'
 
-# Disable motion detected for piscina after 15 seconds
+# Disable motion detected for piscina after 15 seconds of detection
 - alias: 'Disable motion detected for piscina'
   trigger:
      platform: state
@@ -105,7 +159,7 @@
         retain: true
         topic: 'home/camera/piscina/alarm'
 
-# Disable motion detected for caseta after 15 seconds
+# Disable motion detected for caseta after 15 seconds of detection
 - alias: 'Disable motion detected for caseta'
   trigger:
      platform: state

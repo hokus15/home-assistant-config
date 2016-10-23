@@ -120,12 +120,12 @@ switch.barrera:
 switch.holiday:
    friendly_name: 'Vacaciones'
    icon: mdi:airplane-takeoff
+switch.heating:
+   friendly_name: 'Estado'
+   icon: mdi:radiator
 switch.thermostat_away_mode:
    friendly_name: 'Modo ausente'
    icon: mdi:home-outline
-switch.thermostat_status:
-   friendly_name: 'Estado'
-   icon: mdi:radiator
 
 ###################################
 # Input sliders

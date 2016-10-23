@@ -8,6 +8,22 @@ reboot_pi:
   sequence:
       - service: shell_command.reboot_pi
 
+power_off_thermostat:
+  alias: 'Power off thermostat'
+  sequence:
+    - service: climate.set_temperature
+      entity_id: climate.termostato
+      data:
+        temperature: 11.5
+
+power_on_thermostat:
+  alias: 'Power on thermostat'
+  sequence:
+    - service: climate.set_away_mode
+      entity_id: climate.termostato
+      data:
+        away_mode: false
+
 empty_home:
   alias: 'Empty home'
   sequence:
@@ -15,9 +31,9 @@ empty_home:
     - service: homeassistant.turn_on
       data:
         entity_id: group.deteccin_movimiento
-    # Continue script only if switch.thermostat_status is on
+    # Continue script only if switch.heating is on
     - condition: state
-      entity_id: switch.thermostat_status
+      entity_id: switch.heating
       state: 'on'
    # Turn on thermostat away mode 
     - service: climate.set_away_mode
@@ -32,9 +48,9 @@ someone_home:
     - service: homeassistant.turn_off
       data:
         entity_id: group.deteccin_movimiento
-    # Continue script only if switch.thermostat_status is on
+    # Continue script only if switch.heating is on
     - condition: state
-      entity_id: switch.thermostat_status
+      entity_id: switch.heating
       state: 'on'
    # Turn off thermostat away mode 
     - service: climate.set_away_mode
