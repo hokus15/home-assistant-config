@@ -60,6 +60,10 @@ sensor.steps:
    friendly_name: 'Pasos'
 sensor.sleep_efficiency:
    friendly_name: 'Eficiencia del sueño'
+sensor.distance:
+   friendly_name: 'Distancia'
+sensor.body_weight:
+   friendly_name: 'Peso'
 sensor.hokusphone_hokusphone:
    entity_picture: !secret hokusphone_hokusphone_picture
 sensor.geni:
