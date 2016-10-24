@@ -1,14 +1,73 @@
 # home-assistant-config
-My Home-Assistant config (https://home-assistant.io)
+My [Home Assistant](https://home-assistant.io/) config files
+
+Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA attached.
+
+## Software on the Pi:
+* [Nmap] (https://nmap.org/)
+* [Apache2] (https://httpd.apache.org/)
+* [Shell In a Box] (https://code.google.com/archive/p/shellinabox/)
+* [NUT] (http://networkupstools.org/)
+* [Mosquitto] (https://mosquitto.org/)
+* [vsftpd FTP server] (https://security.appspot.com/vsftpd.html)
+* [incron] (http://inotify.aiken.cz/)
+* [Home Assistant](https://home-assistant.io/)
+
+## Devices I have:
+* WeMo Link (to control outside bulbs)
+* WeMo Insight (to control swimming pool pump)
+* WeMo Maker (to control outside fence)
+* Foscam C1 camera
+* Foscam Fi9853EP camera
+* Linksys WVC54GCA camera
+* Netatmo weather station with rainmeter
+* Netatmo thermostat
+* APC Back-UPS 650VA UPS
+* Chromecast
+* Logitech Squeezebox
+* Efergy energy meter
+* Fitbit Alta
+
+## Automations (among others)
+* Activate/deactivate motion detection and heating depending on the presence
+* Turn on outside lights at sunset (+15 minutes)
+* Turn off outside lights at night (at 00:15)
+* When the outside lights have been turned on at late night (later than 00:15) and before 9AM, turn them off after 5 minutes
+* Turn off outside lights after 10 seconds when the sun is not set (this is because when there is a power outage, WeMo Link turn on the light when the power is back).
+* Turn on outside lights when fence is opened and the sun is set. This is useful when I arrive home after 00:15 that light have been turned off automatically.
+* Notify when a power outage is detected by the UPS.
+* Notify when the power is back to normal.
+* Notify when the UPS battery has to be replaced.
+* Notify if fence is open form more than 4 minutes.
+* Turn on swimming pool pump at 7AM
+* Turn on swimming pool pump at 8PM
+* Stop the swimming pool pump depending on the season of the year (3 hours in summer, 2 hours in spring and autumn, 1 hour in winter).
+I've created a sensor to determine roughly the season of the year:
+```
+- platform: template
+  sensors:
+    season:
+      friendly_name: 'Estación'
+      value_template:  >-
+          {%- if now().month >= 3 and now().month <= 5 %}
+              Spring
+          {% elif now().month >= 6 and now().month <= 8 %}
+              Summer
+          {% elif now().month >= 9 and now().month <= 11 %}
+              Autumn
+          {% else %}
+              Winter
+          {%- endif %}
+```
 
 ## Screenshot Home
-![Home](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config1.jpg)
+![Home](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config1.png)
 
 ## Screenshot Security
-![Security](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config2.jpg)
+![Security](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config2.png)
 
 ## Screenshot Misc
-![Misc](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config3.jpg)
+![Misc](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config3.png)
 
 ## Home security description
 
@@ -16,7 +75,7 @@ I've configured the system to get instant notifications using telegram including
 
 ### Motion detection activation
 Motion detection is activated automatically as soon as no one is at home.
-I have an assistant that doesn't use the WiFi so I cannot track her device (appart from legal implications).
+I have an assistant that doesn't use the WiFi so (appart from legal implications) I cannot track her device.
 My solution to this is to create a switch to enable a delay to activate motion detection and a slider to configure the delay in minutes.
 
 ![Security activation delay](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/security_activation_delay.png)
@@ -64,7 +123,3 @@ This is how the script looks like:
 #!/bin/sh
 curl -s -X POST -H "Content-Type: application/json" -d '{"message": "text", "data": {"photo": {"file": "'$1'", "caption": "Movimiento detectado en '$2'"}}}' "http://localhost:8123/api/services/notify/telegram"
 ```
-
-### Other ideas
-* Have the incron as a sensor in home-assistant would avoid the need to do some of the configurations.
-* iCal integration in Home-Assistant could be used enable or disable motion sensor based on a schedule. This can be also achieved using other tools like tasker in your mobile phone or Home-Assistant IFTTT integration..
