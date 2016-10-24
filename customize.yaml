@@ -61,12 +61,14 @@ sensor.steps:
    unit_of_measurement: pasos
 sensor.sleep_efficiency:
    friendly_name: 'Eficiencia del sueño'
+   icon: mdi:sleep
 sensor.distance:
    friendly_name: 'Distancia'
    unit_of_measurement: kilómetros
 sensor.body_weight:
    friendly_name: 'Peso'
-   unit_of_measurement: kilos
+   unit_of_measurement: kg
+   icon: mdi:scale-bathroom
 sensor.hokusphone_hokusphone:
    entity_picture: !secret hokusphone_hokusphone_picture
 sensor.geni:
