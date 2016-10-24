@@ -116,7 +116,7 @@ This is how it looks like my incrontab configuration:
 The script `motion_detected.sh` calls home-assistant API to trigger a notification using Telegram including the snapshot.
 It gets 2 parameters, first to get the name of the uploaded file (snapshot) and the other one the location of camera that uploaded the file (snapshot).
 
-To run the script without providing a password to Home-Assistant, I've added `127.0.0.1` to `approved_ips` list in `configuration.yaml` file.
+To run the script without providing a password to Home-Assistant, I've added `127.0.0.1` to `trusted_networks` list in `configuration.yaml` file.
 
 This is how the script looks like:
 ```
