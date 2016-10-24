@@ -130,7 +130,7 @@
         brightness: '{{ ((trigger.to_state.state | int) * 255) // 100 }}'
 
 # Disable motion detected for recibidor after 15 seconds of detection
-- alias: 'Disable motion detected for recibidor'
+- alias: 'Disable alarm for recibidor'
   trigger:
      platform: state
      entity_id: binary_sensor.cam_hall_alarm
@@ -145,7 +145,7 @@
         topic: 'home/camera/recibidor/alarm'
 
 # Disable motion detected for piscina after 15 seconds of detection
-- alias: 'Disable motion detected for piscina'
+- alias: 'Disable alarm for piscina'
   trigger:
      platform: state
      entity_id: binary_sensor.cam_swimmingpool_alarm
@@ -160,7 +160,7 @@
         topic: 'home/camera/piscina/alarm'
 
 # Disable motion detected for caseta after 15 seconds of detection
-- alias: 'Disable motion detected for caseta'
+- alias: 'Disable alarm for caseta'
   trigger:
      platform: state
      entity_id: binary_sensor.cam_caseta_alarm
@@ -197,7 +197,7 @@
      service: light.turn_off
      entity_id: group.luces_exteriores
   
-# When the outside lights have been turned on at late night (later than 00:15) and before 8AM, turn them off after 5 minutes
+# When the outside lights have been turned on at late night (later than 00:15) and before 9AM, turn them off after 5 minutes
 - alias: 'Turn off lights at late night'
   trigger:
      platform: state
@@ -206,7 +206,7 @@
   condition:
      - condition: time
        after: '00:15'
-       before: '8:00'
+       before: '9:00'
      - condition: state
        entity_id: group.luces_exteriores
        state: 'on'
@@ -263,7 +263,7 @@
     data:
       message: 'Corte en el suministro eléctrico detectado'
 
-# Notify when the power is normal
+# Notify when the power is back normal
 - alias: 'Notify power ok'
   trigger:
     platform: state
@@ -286,7 +286,7 @@
     data:
       message: 'Batería del SAI agotándose, reemplazar'
 
-# Notify if fence is open form more than 5 minutes
+# Notify if fence is open form more than 4 minutes
 - alias: 'Notify motion detection in caseta camera'
   trigger:
     platform: state
