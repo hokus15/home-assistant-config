@@ -14,10 +14,9 @@ default_view:
     - group.motor_piscina
     - group.deteccin_movimiento
     - group.calefaccin
-#    - group.visitas
-#    - sensor.a_casa
-#    - sensor.a_la_oficina
-#    - sensor.al_colegio
+    - sensor.a_casa
+    - sensor.a_la_oficina
+    - sensor.al_colegio
     - updater.updater
 
 Seguridad:

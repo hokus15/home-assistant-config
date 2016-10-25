@@ -275,40 +275,29 @@
                 {{ states.device_tracker.nando.state }}
             {%- endif %}
 
-#- platform: scrape
-#  resource: https://home-assistant.io
-#  name: latest_release
-#  select: ".current-version h1"
-#  value_template: '{{ value.split(":")[1] }}'
-#
-#- platform: rest
-#  resource: http://127.0.0.1:8123/api/config
-#  value_template: '{{ value_json.version }}'
-#  name: 'current_release'
+- platform: google_travel_time
+  name: 'a la oficina'
+  api_key: !secret google_distance_api_key
+  origin: device_tracker.hokusphone_hokusphone
+  destination: zone.oficina
+  options:
+    language: es
+    departure_time: now
 
-#- platform: google_travel_time
-#  name: a la oficina
-#  api_key: !secret google_distance_api_key
-#  origin: device_tracker.hokusphone_hokusphone
-#  destination: zone.oficina
-#  options:
-#    language: es
-#    departure_time: now()
-#
-#- platform: google_travel_time
-#  name: a casa
-#  api_key: !secret google_distance_api_key
-#  origin: device_tracker.hokusphone_hokusphone
-#  destination: zone.home
-#  options:
-#    language: es
-#    departure_time: now()
-#
-#- platform: google_travel_time
-#  name: al colegio
-#  api_key: !secret google_distance_api_key
-#  origin: device_tracker.hokusphone_hokusphone
-#  destination: zone.colegio
-#  options:
-#    language: es
-#    departure_time: now()
+- platform: google_travel_time
+  name: 'a casa'
+  api_key: !secret google_distance_api_key
+  origin: device_tracker.hokusphone_hokusphone
+  destination: zone.home
+  options:
+    language: es
+    departure_time: now
+
+- platform: google_travel_time
+  name: 'al colegio'
+  api_key: !secret google_distance_api_key
+  origin: device_tracker.hokusphone_hokusphone
+  destination: zone.colegio
+  options:
+    language: es
+    departure_time: now
