@@ -64,7 +64,7 @@ sensor.sleep_efficiency:
    icon: mdi:sleep
 sensor.distance:
    friendly_name: 'Distancia'
-   unit_of_measurement: kilómetros
+   unit_of_measurement: Km
 sensor.body_weight:
    friendly_name: 'Peso'
    unit_of_measurement: kg
