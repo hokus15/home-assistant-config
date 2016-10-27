@@ -284,6 +284,7 @@
   options:
     language: es
     departure_time: now
+    traffic_model: pessimistic
 
 # Google travel time to home
 - platform: google_travel_time
@@ -294,6 +295,7 @@
   options:
     language: es
     departure_time: now
+    traffic_model: pessimistic
 
 # Google travel time to school
 - platform: google_travel_time
@@ -304,6 +306,7 @@
   options:
     language: es
     departure_time: now
+    traffic_model: pessimistic
 
 # Magenta ink level
 - platform: mqtt
