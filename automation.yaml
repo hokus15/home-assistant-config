@@ -472,13 +472,29 @@
       message: >
         Bitcoin ha llegado a un valor de {{states.sensor.exchange_rate_1_btc.state}} {{states.sensor.exchange_rate_1_btc.attributes.unit_of_measurement}}
 
-- alias: 'Checkin in Colegio'
-  trigger:
-    platform: zone
-    entity_id: device_tracker.hokusphone_hokusphone
-    zone: zone.colegio
-    event: enter
-  action:
-    service: foursquare.checkin
-    data:
-      venueId: !secret foursquare_colegio_venue_id
+#############################################################
+# Swarm automations
+#############################################################
+
+## Check in at school
+#- alias: 'Checkin at Colegio'
+#  trigger:
+#    platform: zone
+#    entity_id: device_tracker.hokusphone_hokusphone
+#    zone: zone.colegio
+#    event: enter
+#  action:
+#    service: foursquare.checkin
+#    data:
+#      venueId: !secret foursquare_colegio_venue_id
+## Check in at oficina
+#- alias: 'Checkin at Oficina'
+#  trigger:
+#    platform: zone
+#    entity_id: device_tracker.hokusphone_hokusphone
+#    zone: zone.colegio
+#    event: enter
+#  action:
+#    service: foursquare.checkin
+#    data:
+#      venueId: !secret foursquare_office_venue_id
