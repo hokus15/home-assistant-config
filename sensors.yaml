@@ -275,6 +275,7 @@
                 {{ states.device_tracker.nando.state }}
             {%- endif %}
 
+# Google travel time to work
 - platform: google_travel_time
   name: 'a la oficina'
   api_key: !secret google_distance_api_key
@@ -284,6 +285,7 @@
     language: es
     departure_time: now
 
+# Google travel time to home
 - platform: google_travel_time
   name: 'a casa'
   api_key: !secret google_distance_api_key
@@ -293,6 +295,7 @@
     language: es
     departure_time: now
 
+# Google travel time to school
 - platform: google_travel_time
   name: 'al colegio'
   api_key: !secret google_distance_api_key
@@ -301,3 +304,27 @@
   options:
     language: es
     departure_time: now
+
+# Magenta ink level
+- platform: mqtt
+  state_topic: 'home/printer/magenta'
+  name: ink_level_magenta
+  unit_of_measurement: '%'
+
+# Cyan ink level
+- platform: mqtt
+  state_topic: 'home/printer/cyan'
+  name: ink_level_cyan
+  unit_of_measurement: '%'
+
+# Yellow ink level
+- platform: mqtt
+  state_topic: 'home/printer/yellow'
+  name: ink_level_yellow
+  unit_of_measurement: '%'
+
+# black ink level
+- platform: mqtt
+  state_topic: 'home/printer/black'
+  name: ink_level_black
+  unit_of_measurement: '%'
