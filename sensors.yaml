@@ -274,6 +274,14 @@
             {% else %}
                 {{ states.device_tracker.nando.state }}
             {%- endif %}
+      hp_photosmart_5520:
+        friendly_name: 'HP Photosmart 5520'
+        value_template: >-
+            {%- if is_state("device_tracker.hp_photosmart_5520", "home") %}
+                Encendida
+            {% else %}
+                Apagada
+            {%- endif %}
 
 # Google travel time to work
 - platform: google_travel_time

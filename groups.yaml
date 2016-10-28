@@ -45,6 +45,7 @@ Varios:
     - group.internet
     - group.estado_ha
     - group.bitcoin
+    - group.impresora
     - media_player.hokussqueezebox
     - media_player.saln
     - configurator.fitbit
@@ -205,6 +206,14 @@ Estado HA:
     - sensor.since_last_boot
 #    - sensor.current_release
 #    - sensor.latest_release
+
+Impresora:
+  entities:
+    - sensor.hp_photosmart_5520
+    - sensor.ink_level_magenta
+    - sensor.ink_level_cyan
+    - sensor.ink_level_yellow
+    - sensor.ink_level_black
 
 #Escalera:
 #  entities:

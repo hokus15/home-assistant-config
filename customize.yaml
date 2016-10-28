@@ -79,6 +79,20 @@ sensor.sunset:
    icon: mdi:weather-sunset-down
 sensor.sunrise:
    icon: mdi:weather-sunset-up
+sensor.ink_level_magenta:
+   friendly_name: 'Nivel tinta'
+   entity_picture: https://dl.dropbox.com/s/6s7zvv9qd9xmmyy/printer_ink_magenta.png
+sensor.ink_level_cyan:
+   friendly_name: 'Nivel tinta'
+   entity_picture: https://dl.dropbox.com/s/qmr0ip2y3cbsiy1/printer_ink_cyan.png
+sensor.ink_level_yellow:
+   friendly_name: 'Nivel tinta'
+   entity_picture: https://dl.dropbox.com/s/ccnbgypzwo8ql55/printer_ink_yellow.png
+sensor.ink_level_black:
+   friendly_name: 'Nivel tinta'
+   entity_picture: https://dl.dropbox.com/s/4em6l2hxhufnum2/printer_ink_black.png
+sensor.hp_photosmart_5520:
+   entity_picture: https://dl.dropbox.com/s/8sfg4iecldo2bbs/printer_icon.png
 ###################################
 # Binary Sensors
 ###################################
