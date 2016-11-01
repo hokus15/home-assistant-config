@@ -224,6 +224,8 @@ if [ -n "${ink_levels}" ]; then
 fi
 ```
 
+Note `hp-info` takes more than 20 seconds to execute. If you try to execute direcly from Home Assistant you will get a timeout.
+
 I've added the script to crontab to check every 5 minutes the ink levels (keep in mind that it only publishes when the `hp-info` utility returns data and this only occurs when the printer is on):
 
 ```
@@ -231,3 +233,4 @@ I've added the script to crontab to check every 5 minutes the ink levels (keep i
 ```
 
 ![Ink level monitor](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/ink_level_monitor.png)
+(Yes I'm running out of color ink :sweat:)
