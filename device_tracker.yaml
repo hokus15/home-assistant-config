@@ -23,6 +23,6 @@
 - platform: mqtt
   qos: 1
   devices:
-    Jordi: /owntracks/hokus/hokusphone
+    Jordi: /owntracks/hokusphone/hokusphone
 
 # - platform: bluetooth_le_tracker
