@@ -465,7 +465,7 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.exchange_rate_1_btc
-    above: 620
+    above: 670
   action:
     service: notify.telegram
     data_template:
