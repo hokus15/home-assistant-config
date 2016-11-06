@@ -5,6 +5,7 @@ default_view:
   view: yes
   icon: mdi:home
   entities:
+    - persistent_notification.invalid_config
     - group.personal
     - group.energa
     - group.exterior
