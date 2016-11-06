@@ -316,6 +316,10 @@
     departure_time: now
     traffic_model: pessimistic
 
+#- platform: cups
+#  printers:
+#    - HP_Photosmart_5520
+
 # Magenta ink level
 - platform: mqtt
   state_topic: 'home/printer/magenta'
