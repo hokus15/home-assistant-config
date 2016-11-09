@@ -2,181 +2,180 @@
 # Sensors
 ###################################
 sensor.netatmo_exterior_temperature:
-   friendly_name: 'Temperatura'
+  friendly_name: 'Temperatura'
 sensor.netatmo_exterior_humidity:
-   friendly_name: 'Humedad'
+  friendly_name: 'Humedad'
 sensor.netatmo_exterior_min_temp:
-   friendly_name: 'Mínima de hoy'
+  friendly_name: 'Mínima de hoy'
 sensor.netatmo_exterior_max_temp:
-   friendly_name: 'Máxima de hoy'
+  friendly_name: 'Máxima de hoy'
 sensor.netatmo_exterior_battery:
-   friendly_name: 'Batería exterior'
+  friendly_name: 'Batería exterior'
 sensor.netatmo_pluvimetro_rain:
-   friendly_name: 'Previsión lluvia'
+  friendly_name: 'Previsión lluvia'
 sensor.netatmo_pluvimetro_sum_rain_1:
-   friendly_name: 'Lluvia última hora'
+  friendly_name: 'Lluvia última hora'
 sensor.netatmo_pluvimetro_sum_rain_24:
-   friendly_name: 'Lluvia 24 horas'
+  friendly_name: 'Lluvia 24 horas'
 sensor.netatmo_pluvimetro_battery:
-   friendly_name: 'Batería pluviómetro'
+  friendly_name: 'Batería pluviómetro'
 sensor.netatmo_saln_temperature:
-   friendly_name: 'Temperatura'
+  friendly_name: 'Temperatura'
 sensor.netatmo_saln_min_temp:
-   friendly_name: 'Mínima de hoy'
+  friendly_name: 'Mínima de hoy'
 sensor.netatmo_saln_max_temp:
-   friendly_name: 'Máxima de hoy'
+  friendly_name: 'Máxima de hoy'
 sensor.netatmo_saln_humidity:
-   friendly_name: 'Humedad'
+  friendly_name: 'Humedad'
 sensor.netatmo_saln_noise:
-   friendly_name: 'Nivel de ruido'
+  friendly_name: 'Nivel de ruido'
 sensor.netatmo_saln_pressure:
-   friendly_name: 'Presión atmosférica'
+  friendly_name: 'Presión atmosférica'
 sensor.netatmo_saln_co2:
-   friendly_name: 'Nivel CO2'
+  friendly_name: 'Nivel CO2'
 sensor.netatmo_saln_wifi:
-   friendly_name: 'Señal Wifi Netatmo'
+  friendly_name: 'Señal Wifi Netatmo'
 sensor.speedtest_ping:
-   friendly_name: 'Ping'
+  friendly_name: 'Ping'
 sensor.speedtest_download:
-   friendly_name: 'Descarga'
+  friendly_name: 'Descarga'
 sensor.speedtest_upload:
-   friendly_name: 'Subida'
+  friendly_name: 'Subida'
 sensor.energy_usage:
-   friendly_name: 'Consumo'
-   icon: 'mdi:speedometer'
+  friendly_name: 'Consumo'
+  icon: 'mdi:speedometer'
 sensor.exchange_rate_1_btc:
-   friendly_name: 'Bitcoin'
+  friendly_name: 'Bitcoin'
 sensor.hokusphone_batt:
-   friendly_name: 'Batería teléfono Jordi'
-   icon: 'mdi:battery'
+  friendly_name: 'Batería teléfono Jordi'
+  icon: 'mdi:battery'
 sensor.fence_status:
-    icon: 'mdi:gate'
+   icon: 'mdi:gate'
 sensor.season:
-   hidden: true
+  hidden: true
 sensor.ups_status:
-   friendly_name: 'SAI'
-   icon: 'mdi:power-socket'
+  friendly_name: 'SAI'
+  icon: 'mdi:power-socket'
 sensor.steps:
-   friendly_name: 'Pasos'
-   unit_of_measurement: pasos
+  friendly_name: 'Pasos'
+  unit_of_measurement: pasos
 sensor.sleep_efficiency:
-   friendly_name: 'Eficiencia del sueño'
-   icon: mdi:sleep
+  friendly_name: 'Eficiencia del sueño'
+  icon: mdi:sleep
 sensor.distance:
-   friendly_name: 'Distancia'
-   unit_of_measurement: Km
+  friendly_name: 'Distancia'
+  unit_of_measurement: Km
 sensor.body_weight:
-   friendly_name: 'Peso'
-   unit_of_measurement: kg
-   icon: mdi:scale-bathroom
+  friendly_name: 'Peso'
+  unit_of_measurement: kg
+  icon: mdi:scale-bathroom
 sensor.hokusphone_hokusphone:
-   entity_picture: !secret hokusphone_hokusphone_picture
+  entity_picture: !secret hokusphone_hokusphone_picture
 sensor.geni:
-   entity_picture: !secret geni_picture
+  entity_picture: !secret geni_picture
 sensor.virtual_device:
-   entity_picture: !secret virtual_device_picture
+  entity_picture: !secret virtual_device_picture
 sensor.sunset:
-   icon: mdi:weather-sunset-down
+  icon: mdi:weather-sunset-down
 sensor.sunrise:
-   icon: mdi:weather-sunset-up
+  icon: mdi:weather-sunset-up
 sensor.ink_level_magenta:
-   friendly_name: 'Nivel tinta'
-   entity_picture: https://dl.dropbox.com/s/6s7zvv9qd9xmmyy/printer_ink_magenta.png
+  friendly_name: 'Nivel tinta'
+  entity_picture: https://dl.dropbox.com/s/6s7zvv9qd9xmmyy/printer_ink_magenta.png
 sensor.ink_level_cyan:
-   friendly_name: 'Nivel tinta'
-   entity_picture: https://dl.dropbox.com/s/qmr0ip2y3cbsiy1/printer_ink_cyan.png
+  friendly_name: 'Nivel tinta'
+  entity_picture: https://dl.dropbox.com/s/qmr0ip2y3cbsiy1/printer_ink_cyan.png
 sensor.ink_level_yellow:
-   friendly_name: 'Nivel tinta'
-   entity_picture: https://dl.dropbox.com/s/ccnbgypzwo8ql55/printer_ink_yellow.png
+  friendly_name: 'Nivel tinta'
+  entity_picture: https://dl.dropbox.com/s/ccnbgypzwo8ql55/printer_ink_yellow.png
 sensor.ink_level_black:
-   friendly_name: 'Nivel tinta'
-   entity_picture: https://dl.dropbox.com/s/4em6l2hxhufnum2/printer_ink_black.png
+  friendly_name: 'Nivel tinta'
+  entity_picture: https://dl.dropbox.com/s/4em6l2hxhufnum2/printer_ink_black.png
 sensor.hp_photosmart_5520:
-   entity_picture: https://dl.dropbox.com/s/8sfg4iecldo2bbs/printer_icon.png
+  entity_picture: https://dl.dropbox.com/s/8sfg4iecldo2bbs/printer_icon.png
 ###################################
 # Binary Sensors
 ###################################
 binary_sensor.cam_hall_infrared:
-   friendly_name: 'Infrarrojos recibidor'
-   icon: 'mdi:led-on'
+  friendly_name: 'Infrarrojos recibidor'
+  icon: 'mdi:led-on'
 binary_sensor.cam_swimmingpool_infrared:
-   friendly_name: 'Infrarrojos piscina'
-   icon: 'mdi:led-on'
+  friendly_name: 'Infrarrojos piscina'
+  icon: 'mdi:led-on'
 binary_sensor.ups_status_bs:
-   friendly_name: 'Suministro eléctrico'
+  friendly_name: 'Suministro eléctrico'
 binary_sensor.cam_swimmingpool_alarm:
-   friendly_name: 'Alarma'
-   #icon: 'mdi:bell'
+  friendly_name: 'Alarma'
+  #icon: 'mdi:bell'
 binary_sensor.cam_hall_alarm:
-   friendly_name: 'Alarma'
-   #icon: 'mdi:bell'
+  friendly_name: 'Alarma'
+  #icon: 'mdi:bell'
 binary_sensor.cam_caseta_alarm:
-   friendly_name: 'Alarma'
-   #icon: 'mdi:bell'
+  friendly_name: 'Alarma'
+  #icon: 'mdi:bell'
 ###################################
 # Cameras
 ###################################
 camera.cam_hall:
-   friendly_name: 'Recibidor'
+  friendly_name: 'Recibidor'
 camera.cam_swimmingpool:
-   friendly_name: 'Piscina'
+  friendly_name: 'Piscina'
 camera.cam_caseta:
-   friendly_name: 'Caseta'
+  friendly_name: 'Caseta'
 ###################################
 # Switches
 ###################################
 switch.cam_hall_motion_detection:
-   friendly_name: 'Det. mov. recibidor'
-   icon: 'mdi:transit-transfer'
+  friendly_name: 'Det. mov. recibidor'
+  icon: 'mdi:transit-transfer'
 switch.cam_swimmingpool_motion_detection:
-   friendly_name: 'Det. mov. piscina'
-   icon: 'mdi:transit-transfer'
+  friendly_name: 'Det. mov. piscina'
+  icon: 'mdi:transit-transfer'
 switch.cam_caseta_motion_detection:
-   friendly_name: 'Det. mov. caseta'
-   icon: 'mdi:transit-transfer'
+  friendly_name: 'Det. mov. caseta'
+  icon: 'mdi:transit-transfer'
 switch.piscina:
-   friendly_name: 'Estado'
-   icon: mdi:pool
+  friendly_name: 'Estado'
+  icon: mdi:pool
 switch.barrera:
-   friendly_name: ' '
-   icon: mdi:gate
+  friendly_name: ' '
+  icon: mdi:gate
 switch.holiday:
-   friendly_name: 'Vacaciones'
-   icon: mdi:airplane-takeoff
+  friendly_name: 'Vacaciones'
+  icon: mdi:airplane-takeoff
 switch.heating:
-   friendly_name: 'Estado'
-   icon: mdi:radiator
+  friendly_name: 'Estado'
+  icon: mdi:radiator
 switch.thermostat_away_mode:
-   friendly_name: 'Modo ausente'
-   icon: mdi:home-outline
-
+  friendly_name: 'Modo ausente'
+  icon: mdi:home-outline
 ###################################
 # Input sliders
 ###################################
 input_slider.empty_home_activation_delay_minutes:
-   icon: mdi:clock-end
+  icon: mdi:clock-end
 input_slider.luces_exteriores_brightness:
-   icon: mdi:brightness-6
+  icon: mdi:brightness-6
 ###################################
 # Scripts
 ###################################
 script.turn_off_lights_exterior:
-   hidden: true
+  hidden: true
 script.turn_on_swimmingpool_1_hour:
-   hidden: true
+  hidden: true
 script.turn_on_swimmingpool_2_hours:
-   hidden: true
+  hidden: true
 script.turn_on_swimmingpool_3_hours:
-   hidden: true
+  hidden: true
 script.check_caseta_motion_detection:
-   hidden: true
+  hidden: true
 ###################################
 # Scenes
 ###################################
 #scene.empty_home:
-#   hidden: true
+#  hidden: true
 #scene.someone_home:
-#   hidden: true
+#  hidden: true
 ###################################
 # Groups
 ###################################
@@ -186,8 +185,8 @@ script.check_caseta_motion_detection:
 # Other
 ###################################
 sun.sun:
-   friendly_name: 'Sol'
+  friendly_name: 'Sol'
 media_player.hokussqueezebox:
-   friendly_name: 'Squeezebox suite'
+  friendly_name: 'Squeezebox suite'
 media_player.saln:
-   friendly_name: 'Chromecast Salón'
+  friendly_name: 'Chromecast Salón'
