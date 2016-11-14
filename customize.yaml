@@ -37,10 +37,13 @@ sensor.netatmo_saln_wifi:
   friendly_name: 'Señal Wifi Netatmo'
 sensor.speedtest_ping:
   friendly_name: 'Ping'
+  icon: mdi:lan-connect
 sensor.speedtest_download:
   friendly_name: 'Descarga'
+  icon: mdi:cloud-download
 sensor.speedtest_upload:
   friendly_name: 'Subida'
+  icon: mdi:cloud-upload
 sensor.energy_usage:
   friendly_name: 'Consumo'
   icon: 'mdi:speedometer'
@@ -93,6 +96,41 @@ sensor.ink_level_black:
   entity_picture: https://dl.dropbox.com/s/4em6l2hxhufnum2/printer_ink_black.png
 sensor.hp_photosmart_5520:
   entity_picture: https://dl.dropbox.com/s/8sfg4iecldo2bbs/printer_icon.png
+sensor.qnap_ts_110:
+  entity_picture: https://dl.dropbox.com/s/gv8mdd2n5gmliyv/Qnap_TS_110.jpg
+sensor.qnap_cpu_temp:
+  friendly_name: 'Temperatura CPU'
+  icon: mdi:thermometer
+sensor.qnap_hd1_temp:
+  friendly_name: 'Temperatura Disco'
+  icon: mdi:harddisk
+sensor.qnap_free_hd_size:
+  friendly_name: 'Espacio libre'
+  icon: mdi:harddisk
+sensor.qnap_vol_status:
+  friendly_name: 'Estado volumen'
+  icon: mdi:harddisk
+sensor.qnap_hd1_status:
+  friendly_name: 'Estado disco'
+  icon: mdi:harddisk
+sensor.qnap_free_ram:
+  friendly_name: 'RAM libre'
+  icon: mdi:chip
+sensor.qnap_cpu_load:
+  friendly_name: 'Uso CPU'
+  icon: mdi:memory
+sensor.cpu_use:
+  friendly_name: 'Uso CPU'
+sensor.ram_free:
+  friendly_name: 'RAM libre'
+  icon: mdi:chip
+sensor.disk_free_:
+  friendly_name: 'Espacio libre'
+sensor.last_boot:
+  friendly_name: 'Último reinicio'
+sensor.since_last_boot:
+  friendly_name: 'Tiempo encendido'
+
 ###################################
 # Binary Sensors
 ###################################
@@ -169,6 +207,10 @@ script.turn_on_swimmingpool_3_hours:
   hidden: true
 script.check_caseta_motion_detection:
   hidden: true
+script.restart_ha:
+  icon: mdi:autorenew
+script.reboot_pi:
+  icon: mdi:power
 ###################################
 # Scenes
 ###################################

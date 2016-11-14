@@ -47,6 +47,7 @@ Varios:
     - group.estado_ha
     - group.bitcoin
     - group.impresora
+    - group.nas
     - media_player.hokussqueezebox
     - media_player.saln
     - configurator.fitbit
@@ -215,6 +216,19 @@ Impresora:
     - sensor.ink_level_cyan
     - sensor.ink_level_yellow
     - sensor.ink_level_black
+
+NAS:
+  entities:
+    - sensor.qnap_ts_110
+    - sensor.qnap_cpu_temp
+    - sensor.qnap_cpu_load
+    - sensor.qnap_vol_status
+    - sensor.qnap_hd1_status
+    - sensor.qnap_hd1_temp
+    - sensor.qnap_free_hd_size
+    - sensor.qnap_free_ram
+#    - sensor.qnap_total_ram
+#    - sensor.qnap_uptime
 
 #Escalera:
 #  entities:
