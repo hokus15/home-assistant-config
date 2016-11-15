@@ -83,13 +83,15 @@
 - platform: template
   sensors:
     fence_status:
-        friendly_name: 'Estado'
-        value_template: >-
-            {%- if is_state_attr("switch.barrera", "sensor_state", "on") %}
-                abierta
-            {% else %}
-                cerrada
-            {%- endif %}
+      friendly_name: 'Estado'
+      value_template: >-
+          {%- if is_state_attr("switch.barrera", "sensor_state", "on") %}
+              abierta
+          {% else %}
+              cerrada
+          {%- endif %}
+      entity_id:
+        - switch.barrera
 
 # Sensor to define roughly the season of the year (if more precission needed use another algorythm)
 - platform: template
@@ -112,9 +114,13 @@
     sunrise:
       friendly_name: 'Amanecer'
       value_template: '{{ as_timestamp(states.sun.sun.attributes.next_rising)|timestamp_custom("%H:%M:%S") }}'
+      entity_id:
+        - sun.sun
     sunset:
       friendly_name: 'Puesta de sol'
       value_template: '{{ as_timestamp(states.sun.sun.attributes.next_setting)|timestamp_custom("%H:%M:%S") }}'
+      entity_id:
+        - sun.sun
 
 - platform: systemmonitor
   resources:
@@ -134,162 +140,194 @@
 
 - platform: template
   sensors:
-      virtual_device:
-        friendly_name: 'Persona autorizada'
-        value_template: >-
-            {%- if is_state("device_tracker.virtual_device", "home") %}
-                En casa
-            {% elif is_state("device_tracker.virtual_device", "not_home") %}
-                Ausente
-            {% else %}
-                {{ states.device_tracker.virtual_device.state }}
-            {%- endif %}
-      hokusphone_hokusphone:
-        friendly_name: 'Jordi'
-        value_template: >-
-            {%- if is_state("device_tracker.hokusphone_hokusphone", "home") %}
-                En casa
-            {% elif is_state("device_tracker.hokusphone_hokusphone", "not_home") %}
-                Ausente
-            {% else %}
-                {{ states.device_tracker.hokusphone_hokusphone.state }}
-            {%- endif %}
-      geni:
-        friendly_name: 'Geni'
-        value_template: >-
-            {%- if is_state("device_tracker.geni", "home") %}
-                En casa
-            {% elif is_state("device_tracker.geni", "not_home") %}
-                Ausente
-            {% else %}
-                {{ states.device_tracker.geni.state }}
-            {%- endif %}
-      ana:
-        friendly_name: 'Ana'
-        value_template: >-
-            {%- if is_state("device_tracker.ana", "home") %}
-                En casa
-            {% elif is_state("device_tracker.ana", "not_home") %}
-                Ausente
-            {% else %}
-                {{ states.device_tracker.ana.state }}
-            {%- endif %}
-      maria_del_mar:
-        friendly_name: 'Maria del Mar'
-        value_template: >-
-            {%- if is_state("device_tracker.maria_del_mar", "home") %}
-                En casa
-            {% elif is_state("device_tracker.maria_del_mar", "not_home") %}
-                Ausente
-            {% else %}
-                {{ states.device_tracker.maria_del_mar.state }}
-            {%- endif %}
-      esther:
-        friendly_name: 'Esther'
-        value_template: >-
-            {%- if is_state("device_tracker.esther", "home") %}
-                En casa
-            {% elif is_state("device_tracker.esther", "not_home") %}
-                Ausente
-            {% else %}
-                {{ states.device_tracker.esther.state }}
-            {%- endif %}
-      carlota:
-        friendly_name: 'Carlota'
-        value_template: >-
-            {%- if is_state("device_tracker.carlota", "home") %}
-                En casa
-            {% elif is_state("device_tracker.carlota", "not_home") %}
-                Ausente
-            {% else %}
-                {{ states.device_tracker.carlota.state }}
-            {%- endif %}
-      primo_carlos:
-        friendly_name: 'Primo Carlos'
-        value_template: >-
-            {%- if is_state("device_tracker.primo_carlos", "home") %}
-                En casa
-            {% elif is_state("device_tracker.primo_carlos", "not_home") %}
-                Ausente
-            {% else %}
-                {{ states.device_tracker.primo_carlos.state }}
-            {%- endif %}
-      al:
-        friendly_name: 'Al'
-        value_template: >-
-            {%- if is_state("device_tracker.al", "home") %}
-                En casa
-            {% elif is_state("device_tracker.al", "not_home") %}
-                Ausente
-            {% else %}
-                {{ states.device_tracker.al.state }}
-            {%- endif %}
-      nena:
-        friendly_name: 'Nena'
-        value_template: >-
-            {%- if is_state("device_tracker.nena", "home") %}
-                En casa
-            {% elif is_state("device_tracker.nena", "not_home") %}
-                Ausente
-            {% else %}
-                {{ states.device_tracker.nena.state }}
-            {%- endif %}
-      pedro:
-        friendly_name: 'Pedro'
-        value_template: >-
-            {%- if is_state("device_tracker.pedro", "home") %}
-                En casa
-            {% elif is_state("device_tracker.pedro", "not_home") %}
-                Ausente
-            {% else %}
-                {{ states.device_tracker.pedro.state }}
-            {%- endif %}
-      laura_olivas:
-        friendly_name: 'Laura Olivas'
-        value_template: >-
-            {%- if is_state("device_tracker.laura_olivas", "home") %}
-                En casa
-            {% elif is_state("device_tracker.laura_olivas", "not_home") %}
-                Ausente
-            {% else %}
-                {{ states.device_tracker.laura_olivas.state }}
-            {%- endif %}
-      javier:
-        friendly_name: 'Javier'
-        value_template: >-
-            {%- if is_state("device_tracker.javier", "home") %}
-                En casa
-            {% elif is_state("device_tracker.javier", "not_home") %}
-                Ausente
-            {% else %}
-                {{ states.device_tracker.javier.state }}
-            {%- endif %}
-      nando:
-        friendly_name: 'Nando'
-        value_template: >-
-            {%- if is_state("device_tracker.nando", "home") %}
-                En casa
-            {% elif is_state("device_tracker.nando", "not_home") %}
-                Ausente
-            {% else %}
-                {{ states.device_tracker.nando.state }}
-            {%- endif %}
-      hp_photosmart_5520:
-        friendly_name: 'HP Photosmart 5520'
-        value_template: >-
-            {%- if is_state("device_tracker.hp_photosmart_5520", "home") %}
-                Encendida
-            {% else %}
-                Apagada
-            {%- endif %}
-      qnap_ts_110:
-        friendly_name: 'QNAP TS-110'
-        value_template: >-
-            {%- if is_state("device_tracker.qnap", "home") %}
-                Encendido
-            {% else %}
-                Apagado
-            {%- endif %}
+    virtual_device:
+      friendly_name: 'Persona autorizada'
+      value_template: >-
+          {%- if is_state("device_tracker.virtual_device", "home") %}
+              En casa
+          {% elif is_state("device_tracker.virtual_device", "not_home") %}
+              Ausente
+          {% else %}
+              {{ states.device_tracker.virtual_device.state }}
+          {%- endif %}
+      entity_id:
+        - device_tracker.virtual_device
+    hokusphone_hokusphone:
+      friendly_name: 'Jordi'
+      value_template: >-
+          {%- if is_state("device_tracker.hokusphone_hokusphone", "home") %}
+              En casa
+          {% elif is_state("device_tracker.hokusphone_hokusphone", "not_home") %}
+              Ausente
+          {% else %}
+              {{ states.device_tracker.hokusphone_hokusphone.state }}
+          {%- endif %}
+      entity_id:
+        - device_tracker.hokusphone_hokusphone
+    geni:
+      friendly_name: 'Geni'
+      value_template: >-
+          {%- if is_state("device_tracker.geni", "home") %}
+              En casa
+          {% elif is_state("device_tracker.geni", "not_home") %}
+              Ausente
+          {% else %}
+              {{ states.device_tracker.geni.state }}
+          {%- endif %}
+      entity_id:
+        - device_tracker.geni
+    ana:
+      friendly_name: 'Ana'
+      value_template: >-
+          {%- if is_state("device_tracker.ana", "home") %}
+              En casa
+          {% elif is_state("device_tracker.ana", "not_home") %}
+              Ausente
+          {% else %}
+              {{ states.device_tracker.ana.state }}
+          {%- endif %}
+      entity_id:
+        - device_tracker.ana
+    maria_del_mar:
+      friendly_name: 'Maria del Mar'
+      value_template: >-
+          {%- if is_state("device_tracker.maria_del_mar", "home") %}
+              En casa
+          {% elif is_state("device_tracker.maria_del_mar", "not_home") %}
+              Ausente
+          {% else %}
+              {{ states.device_tracker.maria_del_mar.state }}
+          {%- endif %}
+      entity_id:
+        - device_tracker.maria_del_mar
+    esther:
+      friendly_name: 'Esther'
+      value_template: >-
+          {%- if is_state("device_tracker.esther", "home") %}
+              En casa
+          {% elif is_state("device_tracker.esther", "not_home") %}
+              Ausente
+          {% else %}
+              {{ states.device_tracker.esther.state }}
+          {%- endif %}
+      entity_id:
+        - device_tracker.esther
+    carlota:
+      friendly_name: 'Carlota'
+      value_template: >-
+          {%- if is_state("device_tracker.carlota", "home") %}
+              En casa
+          {% elif is_state("device_tracker.carlota", "not_home") %}
+              Ausente
+          {% else %}
+              {{ states.device_tracker.carlota.state }}
+          {%- endif %}
+      entity_id:
+        - device_tracker.carlota
+    primo_carlos:
+      friendly_name: 'Primo Carlos'
+      value_template: >-
+          {%- if is_state("device_tracker.primo_carlos", "home") %}
+              En casa
+          {% elif is_state("device_tracker.primo_carlos", "not_home") %}
+              Ausente
+          {% else %}
+              {{ states.device_tracker.primo_carlos.state }}
+          {%- endif %}
+      entity_id:
+        - device_tracker.primo_carlos
+    al:
+      friendly_name: 'Al'
+      value_template: >-
+          {%- if is_state("device_tracker.al", "home") %}
+              En casa
+          {% elif is_state("device_tracker.al", "not_home") %}
+              Ausente
+          {% else %}
+              {{ states.device_tracker.al.state }}
+          {%- endif %}
+      entity_id:
+        - device_tracker.al
+    nena:
+      friendly_name: 'Nena'
+      value_template: >-
+          {%- if is_state("device_tracker.nena", "home") %}
+              En casa
+          {% elif is_state("device_tracker.nena", "not_home") %}
+              Ausente
+          {% else %}
+              {{ states.device_tracker.nena.state }}
+          {%- endif %}
+      entity_id:
+        - device_tracker.nena
+    pedro:
+      friendly_name: 'Pedro'
+      value_template: >-
+          {%- if is_state("device_tracker.pedro", "home") %}
+              En casa
+          {% elif is_state("device_tracker.pedro", "not_home") %}
+              Ausente
+          {% else %}
+              {{ states.device_tracker.pedro.state }}
+          {%- endif %}
+      entity_id:
+        - device_tracker.pedro
+    laura_olivas:
+      friendly_name: 'Laura Olivas'
+      value_template: >-
+          {%- if is_state("device_tracker.laura_olivas", "home") %}
+              En casa
+          {% elif is_state("device_tracker.laura_olivas", "not_home") %}
+              Ausente
+          {% else %}
+              {{ states.device_tracker.laura_olivas.state }}
+          {%- endif %}
+      entity_id:
+        - device_tracker.laura_olivas
+    javier:
+      friendly_name: 'Javier'
+      value_template: >-
+          {%- if is_state("device_tracker.javier", "home") %}
+              En casa
+          {% elif is_state("device_tracker.javier", "not_home") %}
+              Ausente
+          {% else %}
+              {{ states.device_tracker.javier.state }}
+          {%- endif %}
+      entity_id:
+        - device_tracker.javier
+    nando:
+      friendly_name: 'Nando'
+      value_template: >-
+          {%- if is_state("device_tracker.nando", "home") %}
+              En casa
+          {% elif is_state("device_tracker.nando", "not_home") %}
+              Ausente
+          {% else %}
+              {{ states.device_tracker.nando.state }}
+          {%- endif %}
+      entity_id:
+        - device_tracker.nando
+    hp_photosmart_5520:
+      friendly_name: 'HP Photosmart 5520'
+      value_template: >-
+          {%- if is_state("device_tracker.hp_photosmart_5520", "home") %}
+              Encendida
+          {% else %}
+              Apagada
+          {%- endif %}
+      entity_id:
+        - device_tracker.hp_photosmart_5520
+    qnap_ts_110:
+      friendly_name: 'QNAP TS-110'
+      value_template: >-
+          {%- if is_state("device_tracker.qnap", "home") %}
+              Encendido
+          {% else %}
+              Apagado
+          {%- endif %}
+      entity_id:
+        - device_tracker.qnap
 
 # Google travel time to work
 - platform: google_travel_time
