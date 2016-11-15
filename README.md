@@ -30,6 +30,7 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA attached.
 * Efergy energy meter
 * Fitbit Alta
 * HP Photosmart 5520 printer
+* QNAP TS-110 NAS
 
 ## Automations (among others)
 * Activate/deactivate motion detection and heating depending on the presence
