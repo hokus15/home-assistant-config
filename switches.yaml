@@ -66,8 +66,12 @@
 - platform: template
   switches:
     thermostat_away_mode:
-      entity_id: climate.termostato
-      value_template: '{{ states.climate.termostato.attributes.away_mode }}'
+      value_template: >-
+        {%- if states("climate.termostato") != "unknown" -%}
+          {{ states.climate.termostato.attributes.away_mode }}
+        {%- else -%}
+          n/a
+        {%- endif %}
       turn_on:
         service: climate.set_away_mode
         entity_id: climate.termostato
@@ -78,3 +82,6 @@
         entity_id: climate.termostato
         data:
           away_mode: false
+      entity_id:
+        - climate.termostato
+
