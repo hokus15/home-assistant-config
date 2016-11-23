@@ -103,7 +103,7 @@ sensor.qnap_cpu_temp:
   icon: mdi:thermometer
 sensor.qnap_hd1_temp:
   friendly_name: 'Temperatura Disco'
-  icon: mdi:harddisk
+  icon: mdi:thermometer
 sensor.qnap_free_hd_size:
   friendly_name: 'Espacio libre'
   icon: mdi:harddisk

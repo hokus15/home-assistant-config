@@ -221,7 +221,7 @@ NAS:
   entities:
     - sensor.qnap_ts_110
     - sensor.qnap_cpu_temp
-    - sensor.qnap_cpu_load
+#    - sensor.qnap_cpu_load
     - sensor.qnap_vol_status
     - sensor.qnap_hd1_status
     - sensor.qnap_hd1_temp
