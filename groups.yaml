@@ -7,14 +7,14 @@ default_view:
   entities:
     - persistent_notification.invalid_config
     - group.personal
-    - group.energa
+    - group.energia
     - group.exterior
-    - group.saln
+    - group.salon
     - group.luces_exteriores
     - group.barrera
     - group.motor_piscina
-    - group.deteccin_movimiento
-    - group.calefaccin
+    - group.deteccion_movimiento
+    - group.calefaccion
     - sensor.a_casa
     - sensor.a_la_oficina
     - sensor.al_colegio
@@ -25,10 +25,10 @@ Seguridad:
   icon: mdi:security-home
   entities:
     - group.familia
-    - group.deteccin_movimiento
-    - group.cmara_recibidor
-    - group.cmara_piscina
-    - group.cmara_caseta
+    - group.deteccion_movimiento
+    - group.camara_recibidor
+    - group.camara_piscina
+    - group.camara_caseta
     - group.acciones_presencia
 
 Cámaras:
@@ -49,7 +49,7 @@ Varios:
     - group.impresora
     - group.nas
     - media_player.hokussqueezebox
-    - media_player.saln
+    - media_player.salon
     - configurator.fitbit
     - configurator.fitbit_2
 
@@ -59,11 +59,11 @@ Varios:
 #    - group.escalera
 #    - group.despacho
 #    - group.recibidor
-#    - group.dispositivos_saln
+#    - group.dispositivos_salon
 #    - group.suite
 #    - group.caseta
 #    - group.cocina
-#    - group.porttil
+#    - group.portatil
 #    - group.dispositivos_varios
 
 ################################################
@@ -130,14 +130,14 @@ Exterior:
 
 Salón:
   entities:
-    - sensor.netatmo_saln_temperature
-    - sensor.netatmo_saln_min_temp
-    - sensor.netatmo_saln_max_temp
-    - sensor.netatmo_saln_humidity
-    - sensor.netatmo_saln_noise
-    - sensor.netatmo_saln_pressure
-    - sensor.netatmo_saln_co2
-    - sensor.netatmo_saln_wifi
+    - sensor.netatmo_salon_temperature
+    - sensor.netatmo_salon_min_temp
+    - sensor.netatmo_salon_max_temp
+    - sensor.netatmo_salon_humidity
+    - sensor.netatmo_salon_noise
+    - sensor.netatmo_salon_pressure
+    - sensor.netatmo_salon_co2
+    - sensor.netatmo_salon_wifi
 
 Luces exteriores:
   entities:
