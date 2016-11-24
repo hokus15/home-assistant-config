@@ -51,10 +51,10 @@ mqtt:
   username: !secret mqtt_username
   password: !secret mqtt_password
 
-#logger:
-#  default: critical
+logger:
+  default: warn
 #  logs:
-#    homeassistant.components.sensor.command_line: critical
+#    homeassistant.components.sensor.speedtest: debug
 #    homeassistant.components.switch.command_line: critical
 
 notify:
