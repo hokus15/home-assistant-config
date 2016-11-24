@@ -70,7 +70,7 @@
         {%- if states("climate.termostato") != "unknown" -%}
           {{ states.climate.termostato.attributes.away_mode }}
         {%- else -%}
-          n/a
+          off
         {%- endif %}
       turn_on:
         service: climate.set_away_mode
