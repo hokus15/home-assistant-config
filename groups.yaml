@@ -120,10 +120,10 @@ Exterior:
     - sensor.netatmo_exterior_max_temp
     - sensor.netatmo_exterior_humidity
     - sensor.netatmo_exterior_battery
-    - sensor.netatmo_pluvimetro_rain
-    - sensor.netatmo_pluvimetro_sum_rain_1
-    - sensor.netatmo_pluvimetro_sum_rain_24
-    - sensor.netatmo_pluvimetro_battery
+    - sensor.netatmo_pluviometro_rain
+    - sensor.netatmo_pluviometro_sum_rain_1
+    - sensor.netatmo_pluviometro_sum_rain_24
+    - sensor.netatmo_pluviometro_battery
 #    - sun.sun
     - sensor.sunrise
     - sensor.sunset
