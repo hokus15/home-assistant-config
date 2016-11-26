@@ -22,7 +22,7 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA attached.
 * Foscam C1 camera
 * Foscam Fi9853EP camera
 * Linksys WVC54GCA camera
-* Netatmo weather station with rainmeter
+* Netatmo weather station with rainmeter and windmeter
 * Netatmo thermostat
 * APC Back-UPS 650VA UPS
 * Chromecast
