@@ -2,3 +2,5 @@ fitbit.conf
 secrets.yaml
 known_devices.yaml
 html5_push_registrations.conf
+OZW_Log.txt
+pyozw.sqlite
