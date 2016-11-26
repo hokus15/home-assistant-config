@@ -19,6 +19,8 @@ sensor.netatmo_pluviometro_sum_rain_24:
   friendly_name: 'Lluvia 24 horas'
 sensor.netatmo_pluviometro_battery:
   friendly_name: 'Batería pluviómetro'
+sensor.netatmo_pluviometro_radio:
+  friendly_name: 'Señal pluviómetro'
 sensor.netatmo_salon_temperature:
   friendly_name: 'Temperatura'
 sensor.netatmo_salon_min_temp:
@@ -35,6 +37,20 @@ sensor.netatmo_salon_co2:
   friendly_name: 'Nivel CO2'
 sensor.netatmo_salon_wifi:
   friendly_name: 'Señal Wifi Netatmo'
+sensor.netatmo_exterior_radio:
+  friendly_name: 'Señal exterior'
+sensor.netatmo_anemometro_angle:
+  friendly_name: 'Dirección viento'
+sensor.netatmo_anemometro_battery:
+  friendly_name: 'Batería anemómetro'
+sensor.netatmo_anemometro_gust_angle:
+  friendly_name: 'Dirección rachas'
+sensor.netatmo_anemometro_gust_strength:
+  friendly_name: 'Velocidad rachas'
+sensor.netatmo_anemometro_radio:
+  friendly_name: 'Señal anemómetro'
+sensor.netatmo_anemometro_strength:
+  friendly_name: 'Velocidad viento'
 sensor.speedtest_ping:
   friendly_name: 'Ping'
   icon: mdi:lan-connect

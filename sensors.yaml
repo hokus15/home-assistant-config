@@ -27,11 +27,20 @@
       - max_temp
       - humidity
       - battery_vp
+      - rf_status
     Pluviómetro:
       - rain
       - sum_rain_1
       - sum_rain_24
       - battery_vp
+      - rf_status
+    Anemómetro:
+      - WindAngle
+      - WindStrength
+      - GustAngle
+      - GustStrength
+      - battery_vp
+      - rf_status
 
 - platform: speedtest
   minute: 30
