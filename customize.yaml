@@ -96,8 +96,6 @@ sensor.ink_level_black:
   entity_picture: https://dl.dropbox.com/s/4em6l2hxhufnum2/printer_ink_black.png
 sensor.hp_photosmart_5520:
   entity_picture: https://dl.dropbox.com/s/8sfg4iecldo2bbs/printer_icon.png
-sensor.qnap_ts_110:
-  entity_picture: https://dl.dropbox.com/s/gv8mdd2n5gmliyv/Qnap_TS_110.jpg
 sensor.qnap_cpu_temp:
   friendly_name: 'Temperatura CPU'
   icon: mdi:thermometer
@@ -108,8 +106,8 @@ sensor.qnap_free_hd_size:
   friendly_name: 'Espacio libre'
   icon: mdi:harddisk
 sensor.qnap_vol_status:
-  friendly_name: 'Estado volumen'
-  icon: mdi:harddisk
+  friendly_name: 'QNAP TS-110'
+  entity_picture: https://dl.dropbox.com/s/gv8mdd2n5gmliyv/Qnap_TS_110.jpg
 sensor.qnap_hd1_status:
   friendly_name: 'Estado disco'
   icon: mdi:harddisk

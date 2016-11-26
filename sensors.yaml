@@ -318,16 +318,6 @@
           {%- endif %}
       entity_id:
         - device_tracker.hp_photosmart_5520
-    qnap_ts_110:
-      friendly_name: 'QNAP TS-110'
-      value_template: >-
-          {%- if is_state("device_tracker.qnap", "home") %}
-              Encendido
-          {% else %}
-              Apagado
-          {%- endif %}
-      entity_id:
-        - device_tracker.qnap
 
 # Google travel time to work
 - platform: google_travel_time
@@ -420,17 +410,17 @@
   host: 192.168.1.2
   baseoid: 1.3.6.1.4.1.24681.1.2.11.1.7.1
 
-# Total RAM
-#- platform: snmp
-#  name: qnap_total_ram
-#  host: 192.168.1.2
-#  baseoid: 1.3.6.1.4.1.24681.1.2.2.0
-
 # Free RAM
 - platform: snmp
   name: qnap_free_ram
   host: 192.168.1.2
   baseoid: 1.3.6.1.4.1.24681.1.2.3.0
+
+# Total RAM
+#- platform: snmp
+#  name: qnap_total_ram
+#  host: 192.168.1.2
+#  baseoid: 1.3.6.1.4.1.24681.1.2.2.0
 
 # CPU Load
 #- platform: snmp
