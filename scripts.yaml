@@ -30,7 +30,7 @@ empty_home:
     # Turn on presence detection
     - service: homeassistant.turn_on
       data:
-        entity_id: group.deteccin_movimiento
+        entity_id: group.deteccion_movimiento
     # Continue script only if switch.heating is on
     - condition: state
       entity_id: switch.heating
@@ -47,7 +47,7 @@ someone_home:
     # Turn off presence detection
     - service: homeassistant.turn_off
       data:
-        entity_id: group.deteccin_movimiento
+        entity_id: group.deteccion_movimiento
     # Continue script only if switch.heating is on
     - condition: state
       entity_id: switch.heating
@@ -57,3 +57,10 @@ someone_home:
       entity_id: climate.termostato
       data:
         away_mode: false
+goto_sleep:
+  alias: 'Go to sleep'
+  sequence:
+    # Turn off outside lights
+    - service: light.turn_off
+      data:
+        entity_id: group.luces_exteriores
