@@ -1,7 +1,7 @@
 # home-assistant-config
 My [Home Assistant](https://home-assistant.io/) config files
 
-Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA attached.
+Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEOTEC Z-Stick Gen5 attached.
 
 ## Software on the Pi:
 * [Nmap] (https://nmap.org/)
@@ -14,6 +14,7 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA attached.
 * [CUPS] (https://wiki.archlinux.org/index.php/CUPS)
 * [HPLIP] (http://hplipopensource.com/hplip-web/index.html)
 * [Home Assistant](https://home-assistant.io/)
+* [Dasher] (https://github.com/maddox/dasher)
 
 ## Devices I have:
 * WeMo Link (to control outside bulbs)
@@ -32,6 +33,7 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA attached.
 * HP Photosmart 5520 printer
 * QNAP TS-110 NAS
 * AEOTEC Z-Stick Gen5
+* Amazon Dash button
 
 ## Automations (among others)
 * Activate/deactivate motion detection and heating depending on the presence
