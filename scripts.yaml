@@ -57,6 +57,18 @@ someone_home:
       entity_id: climate.termostato
       data:
         away_mode: false
+
+check_if_fence_is_open:
+  alias: 'Check if fence is open'
+  sequence:
+    # Check if fence is open
+    - condition: state
+      entity_id: sensor.fence_status
+      state: 'abierta'
+    - service: notify.telegram
+      data:
+        message: 'Barrera abierta'
+
 goto_sleep:
   alias: 'Go to sleep'
   sequence:
@@ -64,3 +76,7 @@ goto_sleep:
     - service: light.turn_off
       data:
         entity_id: group.luces_exteriores
+    # Check if fence is open
+    - service: script.turn_on
+      data:
+        entity_id: script.check_if_fence_is_open
