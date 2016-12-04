@@ -58,6 +58,38 @@ someone_home:
       data:
         away_mode: false
 
+blink_check_light_on_off:
+  alias: 'Blink check light on off'
+  sequence:
+    - condition: state
+      entity_id: switch.luces_navidad
+      state: 'off'
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.luces_navidad
+    - delay:
+        # time for flash light on
+        seconds: 1
+    - service: homeassistant.turn_off
+      data:
+        entity_id: switch.luces_navidad
+
+blink_check_light_off_on:
+  alias: 'Blink light off on'
+  sequence:
+    - condition: state
+      entity_id: switch.luces_navidad
+      state: 'on'
+    - service: homeassistant.turn_off
+      data:
+        entity_id: switch.luces_navidad
+    - delay:
+        # time for flash light off
+        seconds: 1
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.luces_navidad
+
 check_if_fence_is_open:
   alias: 'Check if fence is open'
   sequence:
@@ -68,15 +100,29 @@ check_if_fence_is_open:
     - service: notify.telegram
       data:
         message: 'Barrera abierta'
-
-goto_sleep:
-  alias: 'Go to sleep'
-  sequence:
-    # Turn off outside lights
-    - service: light.turn_off
+    - service: script.turn_on
       data:
-        entity_id: group.luces_exteriores
+        entity_id: script.blink_check_light_off_on
+    - service: script.turn_on
+      data:
+        entity_id: script.blink_check_light_on_off
+
+security_check:
+  alias: 'Security check'
+  sequence:
     # Check if fence is open
     - service: script.turn_on
       data:
         entity_id: script.check_if_fence_is_open
+  
+goto_sleep:
+  alias: 'Go to sleep'
+  sequence:
+    # Check if fence is open
+    - service: script.turn_on
+      data:
+        entity_id: script.security_check
+    # Turn off outside lights
+    - service: light.turn_off
+      data:
+        entity_id: group.luces_exteriores
