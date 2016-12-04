@@ -7,13 +7,8 @@ default_view:
   entities:
     - persistent_notification.invalid_config
     - group.personal
-    - group.energia
-    - group.exterior
-    - group.salon
-    - group.luces_exteriores
     - group.barrera
-    - group.motor_piscina
-    - group.deteccion_movimiento
+    - group.energia
     - group.calefaccion
     - sensor.a_casa
     - sensor.a_la_oficina
@@ -31,13 +26,35 @@ Seguridad:
     - group.camara_caseta
     - group.acciones_presencia
 
-Cámaras:
+Interior:
   view: yes
-  icon: mdi:video
+  icon: mdi:home-map-marker
   entities:
-    - camera.cam_hall
+    - group.salon
+    - group.camara_recibidor
+    - group.calefaccion
+    - switch.luces_navidad
+
+Exterior:
+  view: yes
+  icon: mdi:tree
+  entities:
+    - group.luces_exteriores
+    - group.temperatura
+    - group.lluvia
+    - group.viento
     - camera.cam_swimmingpool
-    - camera.cam_caseta
+    - group.camara_caseta
+    - group.barrera
+    - group.motor_piscina
+
+#Cámaras:
+#  view: yes
+#  icon: mdi:video
+#  entities:
+#    - camera.cam_hall
+#    - camera.cam_swimmingpool
+#    - camera.cam_caseta
 
 Varios:
   view: yes
@@ -113,7 +130,7 @@ Energía:
     - sensor.energy_usage
     - sensor.ups_status
 
-Exterior:
+Temperatura:
   entities:
     - sensor.netatmo_exterior_temperature
     - sensor.netatmo_exterior_min_temp
@@ -121,20 +138,26 @@ Exterior:
     - sensor.netatmo_exterior_humidity
     - sensor.netatmo_exterior_battery
     - sensor.netatmo_exterior_radio
+#    - sun.sun
+    - sensor.sunrise
+    - sensor.sunset
+
+Lluvia:
+  entities:
     - sensor.netatmo_pluviometro_rain
     - sensor.netatmo_pluviometro_sum_rain_1
     - sensor.netatmo_pluviometro_sum_rain_24
     - sensor.netatmo_pluviometro_battery
     - sensor.netatmo_pluviometro_radio
+
+Viento:
+  entities:
     - sensor.netatmo_anemometro_strength
     - sensor.netatmo_anemometro_angle
     - sensor.netatmo_anemometro_gust_strength
     - sensor.netatmo_anemometro_gust_angle
     - sensor.netatmo_anemometro_battery
     - sensor.netatmo_anemometro_radio
-#    - sun.sun
-    - sensor.sunrise
-    - sensor.sunset
 
 Salón:
   entities:
