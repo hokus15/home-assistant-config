@@ -326,11 +326,11 @@
     from: 'cerrada'
     to: 'abierta'
     for:
-      minutes: 4
+      minutes: 10
   action:
     service: notify.telegram
     data:
-      message: 'Barrera abierta durante más de 4 minutos'
+      message: 'Barrera abierta durante más de 10 minutos'
 
 #############################################################
 # Swimming pool turn on
