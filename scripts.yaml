@@ -90,38 +90,40 @@ blink_check_light_off_on:
       data:
         entity_id: switch.luces_navidad
 
-check_if_fence_is_open:
-  alias: 'Check if fence is open'
+close_fence_if_open:
+  alias: 'Close fence if open'
   sequence:
     # Check if fence is open
     - condition: state
       entity_id: sensor.fence_status
       state: 'abierta'
-    - service: notify.telegram
+    - service: homeassistant.turn_on
       data:
-        message: 'Barrera abierta'
-    - service: script.turn_on
-      data:
-        entity_id: script.blink_check_light_off_on
-    - service: script.turn_on
-      data:
-        entity_id: script.blink_check_light_on_off
+        entity_id: switch.barrera
 
-security_check:
-  alias: 'Security check'
-  sequence:
-    # Check if fence is open
-    - service: script.turn_on
-      data:
-        entity_id: script.check_if_fence_is_open
+#security_check:
+#  alias: 'Security check'
+#  sequence:
+#    # Check if fence is open
+#    - service: script.turn_on
+#      data:
+#        entity_id: script.check_if_fence_is_open
   
 goto_sleep:
   alias: 'Go to sleep'
   sequence:
-    # Check if fence is open
+    # Only execute script between 21:00 and 6:00
+    - condition: time
+      after: '21:00'
+      before: '6:00'
+    # Security check
+#    - service: script.turn_on
+#      data:
+#        entity_id: script.security_check
+    # Close fence if open
     - service: script.turn_on
       data:
-        entity_id: script.security_check
+        entity_id: script.close_fence_if_open
     # Turn off outside lights
     - service: light.turn_off
       data:
@@ -130,7 +132,7 @@ goto_sleep:
     # otherwise it won't turn off
     - delay:
         seconds: 5
-    # Turn off christmas lights
+    # Turn off christmas lights (also check light)
     - service: homeassistant.turn_off
       data:
         entity_id: switch.luces_navidad
