@@ -126,6 +126,10 @@ goto_sleep:
     - service: light.turn_off
       data:
         entity_id: group.luces_exteriores
+    # The check light has to be the last to be turned off after a small delay
+    # otherwise it won't turn off
+    - delay:
+        seconds: 5
     # Turn off christmas lights
     - service: homeassistant.turn_off
       data:
