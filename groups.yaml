@@ -6,8 +6,8 @@ default_view:
   icon: mdi:home
   entities:
     - persistent_notification.invalid_config
-    - group.personal
     - group.barrera
+    - group.familia
     - group.energia
     - group.calefaccion
     - sensor.a_casa
@@ -43,7 +43,7 @@ Exterior:
     - group.temperatura
     - group.lluvia
     - group.viento
-    - camera.cam_swimmingpool
+    - group.camara_piscina
     - group.camara_caseta
     - group.barrera
     - group.motor_piscina
@@ -60,6 +60,7 @@ Varios:
   view: yes
   icon: mdi:grid
   entities:
+    - group.jordi
     - group.internet
     - group.estado_ha
     - group.bitcoin
@@ -101,9 +102,8 @@ Familia:
     - input_slider.empty_home_activation_delay_minutes
     - switch.holiday
 
-Personal:
+Jordi:
   entities:
-    - sensor.geni
     - sensor.hokusphone_hokusphone
     - sensor.hokusphone_batt
     - sensor.steps
