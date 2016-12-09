@@ -163,6 +163,22 @@
         retain: true
         topic: 'home/camera/caseta/alarm'
 
+# Notify kitchen door opened when no one at home
+- alias: 'Notify kitchen door opened when no one at home'
+  trigger: 
+    platform: state
+    entity_id: sensor.kitchen_back_door
+    from: 'Cerrada'
+    to: 'Abierta'
+  condition:
+    condition: state
+    entity_id: group.unidad_familiar
+    state: 'not_home'
+  action:
+    service: notify.telegram
+    data:
+      message: 'Puerta de la cocina abierta'
+
 #############################################################
 # Light automations
 #############################################################
