@@ -123,6 +123,7 @@ check_kitchen_back_door:
         entity_id: script.blink_check_light_on_off
     - service: notify.telegram
       data:
+        title: 'Security check:'
         message: 'Puerta de la cocina abierta'
 
 security_check:
