@@ -31,6 +31,10 @@ empty_home:
     - service: homeassistant.turn_on
       data:
         entity_id: group.deteccion_movimiento
+    # Turn off christmas lights
+    - service: homeassistant.turn_off
+      data:
+        entity_id: switch.luces_navidad
     # Continue script only if switch.heating is on
     - condition: state
       entity_id: switch.heating
@@ -48,6 +52,10 @@ someone_home:
     - service: homeassistant.turn_off
       data:
         entity_id: group.deteccion_movimiento
+    # Turn on christmas lights
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.luces_navidad
     # Continue script only if switch.heating is on
     - condition: state
       entity_id: switch.heating
