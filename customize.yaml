@@ -149,7 +149,7 @@ sensor.kitchen_back_door:
   friendly_name: 'Estado'
 sensor.kitchen_back_door_battery:
   icon: 'mdi:battery'
-  friendly_name: 'Batería'
+  friendly_name: 'Batería sensor'
 ###################################
 # Binary Sensors
 ###################################
