@@ -5,7 +5,7 @@ default_view:
   view: yes
   icon: mdi:home
   entities:
-    - persistent_notification.invalid_config
+#    - persistent_notification.invalid_config
     - group.barrera
     - group.familia
     - group.energia
@@ -25,6 +25,7 @@ Seguridad:
     - group.camara_piscina
     - group.camara_caseta
     - group.acciones_presencia
+    - group.puerta_porche_cocina
 
 Interior:
   view: yes
@@ -33,7 +34,8 @@ Interior:
     - group.salon
     - group.camara_recibidor
     - group.calefaccion
-    - switch.luces_navidad
+    - group.luces_navidad
+    - group.puerta_porche_cocina
 
 Exterior:
   view: yes
@@ -129,6 +131,9 @@ Energía:
     - binary_sensor.ups_status_bs
     - sensor.energy_usage
     - sensor.ups_status
+    - sensor.nut_ups_battery_charge
+    - sensor.nut_ups_status_data
+    - sensor.nut_ups_battery_runtime
 
 Temperatura:
   entities:
@@ -177,6 +182,10 @@ Luces exteriores:
     - light.puerta_entrada
     - input_slider.luces_exteriores_brightness
 
+Luces Navidad:
+  entities:
+    - switch.luces_navidad
+
 Barrera:
   entities:
     - switch.barrera
@@ -211,6 +220,11 @@ Detección movimiento:
     - switch.cam_hall_motion_detection
     - switch.cam_swimmingpool_motion_detection
     - switch.cam_caseta_motion_detection
+
+Puerta porche cocina:
+  entities:
+    - sensor.kitchen_back_door
+    - sensor.kitchen_back_door_battery
 
 Internet:
   entities:

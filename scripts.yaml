@@ -109,13 +109,29 @@ close_fence_if_open:
       data:
         entity_id: switch.barrera
 
-#security_check:
-#  alias: 'Security check'
-#  sequence:
-#    # Check if fence is open
-#    - service: script.turn_on
-#      data:
-#        entity_id: script.check_if_fence_is_open
+check_kitchen_back_door:
+  alias: 'Check kitchen back door'
+  sequence:
+    - condition: state
+      entity_id: sensor.kitchen_back_door
+      state: 'Abierta'
+    - service: script.turn_on
+      data:
+        entity_id: script.blink_check_light_off_on
+    - service: script.turn_on
+      data:
+        entity_id: script.blink_check_light_on_off
+    - service: notify.telegram
+      data:
+        message: 'Puerta de la cocina abierta'
+
+security_check:
+  alias: 'Security check'
+  sequence:
+    # Check if kitchen back door is open
+    - service: script.turn_on
+      data:
+        entity_id: script.check_kitchen_back_door
   
 goto_sleep:
   alias: 'Go to sleep'
@@ -125,9 +141,9 @@ goto_sleep:
       after: '21:00'
       before: '6:00'
     # Security check
-#    - service: script.turn_on
-#      data:
-#        entity_id: script.security_check
+    - service: script.turn_on
+      data:
+        entity_id: script.security_check
     # Close fence if open
     - service: script.turn_on
       data:

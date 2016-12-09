@@ -144,7 +144,12 @@ sensor.last_boot:
   friendly_name: 'Último reinicio'
 sensor.since_last_boot:
   friendly_name: 'Tiempo encendido'
-
+sensor.kitchen_back_door:
+  icon: 'mdi:glassdoor'
+  friendly_name: 'Estado'
+sensor.kitchen_back_door_battery:
+  icon: 'mdi:battery'
+  friendly_name: 'Batería'
 ###################################
 # Binary Sensors
 ###################################

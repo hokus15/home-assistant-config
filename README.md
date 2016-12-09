@@ -33,6 +33,7 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 * HP Photosmart 5520 printer
 * QNAP TS-110 NAS
 * AEOTEC Z-Stick Gen5
+* Fibaro Door / Window Sensor FGK-10x
 * Amazon Dash button
 
 ## Automations (among others)
