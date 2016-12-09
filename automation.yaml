@@ -262,7 +262,7 @@
   trigger:
     platform: state
     entity_id: sensor.fence_status
-    state: 'abierta'
+    state: 'Abierta'
   condition:
     condition: or
     conditions:
@@ -323,8 +323,8 @@
   trigger:
     platform: state
     entity_id: sensor.fence_status
-    from: 'cerrada'
-    to: 'abierta'
+    from: 'Cerrada'
+    to: 'Abierta'
     for:
       minutes: 10
   action:
