@@ -5,7 +5,6 @@ default_view:
   view: yes
   icon: mdi:home
   entities:
-#    - persistent_notification.invalid_config
     - group.barrera
     - group.familia
     - group.energia
@@ -68,6 +67,7 @@ Varios:
     - group.bitcoin
     - group.impresora
     - group.nas
+    - group.sai
     - media_player.hokussqueezebox
     - media_player.salon
     - configurator.fitbit
@@ -131,9 +131,6 @@ Energía:
     - binary_sensor.ups_status_bs
     - sensor.energy_usage
     - sensor.ups_status
-    - sensor.nut_ups_battery_charge
-    - sensor.nut_ups_status_data
-    - sensor.nut_ups_battery_runtime
 
 Temperatura:
   entities:
@@ -270,6 +267,15 @@ NAS:
     - sensor.qnap_hd1_temp
     - sensor.qnap_free_hd_size
     - sensor.qnap_free_ram
+
+SAI:
+  entities:
+    - sensor.nut_ups_manufacturer
+    - sensor.nut_ups_model
+    - sensor.ups_status
+    - sensor.nut_ups_battery_charge
+    - sensor.nut_ups_battery_runtime
+    - switch.ups_beeper
 
 #Escalera:
 #  entities:

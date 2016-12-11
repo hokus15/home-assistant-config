@@ -300,8 +300,8 @@
 - alias: 'Notify power cut'
   trigger:
     platform: state
-    entity_id: sensor.ups_status
-    to: 'Usando batería'
+    entity_id: binary_sensor.ups_status_bs
+    to: 'off'
   action:
     service: notify.telegram
     data:
@@ -311,9 +311,8 @@
 - alias: 'Notify power ok'
   trigger:
     platform: state
-    entity_id: sensor.ups_status
-    from: 'Usando batería'
-    to: 'Con corriente'
+    entity_id: binary_sensor.ups_status_bs
+    to: 'on'
   action:
     service: notify.telegram
     data:
@@ -322,9 +321,9 @@
 # Notify when the UPS battery has to be replaced
 - alias: 'Notify ups battery replacement'
   trigger:
-    platform: mqtt
-    topic: 'home/ups/status'
-    payload: 'RPLBATT'
+    platform: state
+    entity_id: sensor.ups_status
+    to: 'Reemplazar batería'
   action:
     service: notify.telegram
     data:

@@ -18,20 +18,13 @@
   payload_off: '0'
   #sensor_class: light
 
-# UPS status
-- platform: mqtt
-  state_topic: 'home/ups/status'
-  name: ups_status_bs
-  sensor_class: light
-  qos: 0
-#  payload_on: 'OFF'
-#  payload_off: 'ON'
-  value_template: >-
-          {%- if value == "ONLINE" or value == "COMMOK" %}
-              ON
-          {% else %}
-              OFF
-          {%- endif %}
+- platform: template
+  sensors:
+    ups_status_bs:
+      sensor_class: 'light'
+      value_template: "{{ states.sensor.nut_ups_status_data.state == 'OL' or states.sensor.nut_ups_status_data.state == 'OL CHRG' }}"
+      entity_id:
+        - sensor.nut_ups_status_data
 
 - platform: mqtt
   state_topic: 'home/camera/recibidor/alarm'

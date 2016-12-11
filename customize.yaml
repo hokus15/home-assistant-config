@@ -150,6 +150,15 @@ sensor.kitchen_back_door:
 sensor.kitchen_back_door_battery:
   icon: 'mdi:battery'
   friendly_name: 'Batería sensor'
+sensor.nut_ups_manufacturer:
+  friendly_name: 'Marca'
+sensor.nut_ups_model:
+  friendly_name: 'Modelo'
+sensor.nut_ups_battery_charge:
+  friendly_name: 'Carga'
+sensor.nut_ups_battery_runtime:
+  friendly_name: 'Tiempo restante'
+
 ###################################
 # Binary Sensors
 ###################################
@@ -206,6 +215,10 @@ switch.heating:
 switch.thermostat_away_mode:
   friendly_name: 'Modo ausente'
   icon: mdi:home-outline
+switch.ups_beeper:
+  friendly_name: 'Pitido'
+  icon: mdi:music-note
+
 ###################################
 # Input sliders
 ###################################
