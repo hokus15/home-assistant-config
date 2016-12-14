@@ -14,12 +14,12 @@ default_view:
     - sensor.al_colegio
     - updater.updater
 
-Seguridad:
+Vista Seguridad:
   view: yes
   icon: mdi:security-home
   entities:
     - group.familia
-    - group.deteccion_movimiento
+    - group.seguridad
     - group.camara_recibidor
     - group.camara_piscina
     - group.camara_caseta
@@ -212,16 +212,18 @@ Cámara caseta:
     - switch.cam_caseta_motion_detection
     - binary_sensor.cam_caseta_alarm
 
-Detección movimiento:
+Seguridad:
   entities:
     - switch.cam_hall_motion_detection
     - switch.cam_swimmingpool_motion_detection
     - switch.cam_caseta_motion_detection
+    - input_boolean.notify_kitchen_back_door_open
 
 Puerta porche cocina:
   entities:
     - sensor.kitchen_back_door
     - sensor.kitchen_back_door_battery
+    - input_boolean.notify_kitchen_back_door_open
 
 Internet:
   entities:

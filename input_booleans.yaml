@@ -2,3 +2,8 @@ empty_home_activation_delay:
   name: Retardo
   initial: off
   icon: mdi:clock
+
+notify_kitchen_back_door_open:
+  name: Det. apert. cocina
+  initial: off
+  icon: mdi:glassdoor

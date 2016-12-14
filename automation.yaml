@@ -164,7 +164,7 @@
         topic: 'home/camera/caseta/alarm'
 
 # Notify kitchen door opened when no one at home
-- alias: 'Notify kitchen door opened when no one at home'
+- alias: 'Notify kitchen door opened when notification active'
   trigger: 
     platform: state
     entity_id: sensor.kitchen_back_door
@@ -172,8 +172,8 @@
     to: 'Abierta'
   condition:
     condition: state
-    entity_id: group.unidad_familiar
-    state: 'not_home'
+    entity_id: input_boolean.notify_kitchen_back_door_open
+    state: 'on'
   action:
     service: notify.telegram
     data:

@@ -30,7 +30,7 @@ empty_home:
     # Turn on presence detection
     - service: homeassistant.turn_on
       data:
-        entity_id: group.deteccion_movimiento
+        entity_id: group.seguridad
     # Turn off christmas lights
     - service: homeassistant.turn_off
       data:
@@ -51,7 +51,7 @@ someone_home:
     # Turn off presence detection
     - service: homeassistant.turn_off
       data:
-        entity_id: group.deteccion_movimiento
+        entity_id: group.seguridad
     # Turn on christmas lights
     - service: homeassistant.turn_on
       data:
