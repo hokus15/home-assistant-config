@@ -52,7 +52,7 @@ mqtt:
   password: !secret mqtt_password
 
 logger:
-  default: warn
+  default: info
 #  logs:
 #    homeassistant.components.sensor.speedtest: debug
 #    homeassistant.components.switch.command_line: critical
