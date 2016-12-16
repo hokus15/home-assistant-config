@@ -38,6 +38,10 @@
       data:
         dev_id: 'virtual_device'
         location_name: 'home'
+    - service: notify.telegram
+      data_template:
+        message: >
+          Activada persona autorizada durante {{ (states.input_slider.empty_home_activation_delay_minutes.state | int) // 60 }} hora(s) y {{ (states.input_slider.empty_home_activation_delay_minutes.state | int) % 60 }} minutos
     - delay: '{{ (states.input_slider.empty_home_activation_delay_minutes.state | int) // 60 }}:{{ (states.input_slider.empty_home_activation_delay_minutes.state | int) % 60 }}'
     - service: homeassistant.turn_off
       data:
