@@ -66,6 +66,17 @@ someone_home:
       data:
         away_mode: false
 
+set_virtual_device_home:
+  alias: 'Set virtual device at home for 180 minutes'
+  sequence:
+    - service: input_slider.select_value
+      data:
+        entity_id: input_slider.empty_home_activation_delay_minutes
+        value: 180.0
+    - service: homeassistant.turn_on
+      data:
+        entity_id: input_boolean.empty_home_activation_delay
+
 blink_check_light_on_off:
   alias: 'Blink check light on off'
   sequence:
