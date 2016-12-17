@@ -18,7 +18,8 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 
 ## Devices I have:
 * WeMo Link (to control outside bulbs)
-* WeMo Insight (to control swimming pool pump)
+* WeMo Insight (to control Christmas tree lights)
+* WeMo Switch (to control swimming pool pump)
 * WeMo Maker (to control outside fence)
 * Foscam C1 camera
 * Foscam Fi9853EP camera
@@ -32,12 +33,14 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 * Fitbit Alta
 * HP Photosmart 5520 printer
 * QNAP TS-110 NAS
-* AEOTEC Z-Stick Gen5
-* Fibaro Door / Window Sensor FGK-10x
 * Amazon Dash button
 
+### Z-Wave devices:
+* AEOTEC Z-Stick Gen5
+* Fibaro Door / Window Sensor FGK-10x
+
 ## Automations (among others)
-* Activate/deactivate motion detection and heating depending on the presence
+* Activate/deactivate motion detection, heating and Chrismas tree lights based on presence
 * Turn on outside lights at sunset (+15 minutes)
 * Turn off outside lights at night (at 00:15)
 * When the outside lights have been turned on at late night (later than 00:15) and before 9AM, turn them off after 5 minutes
@@ -46,7 +49,7 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 * Notify when a power outage is detected by the UPS.
 * Notify when the power is back to normal.
 * Notify when the UPS battery has to be replaced.
-* Notify if fence is open form more than 4 minutes.
+* Notify if fence is open form more than 10 minutes.
 * Turn on swimming pool pump every day at 7AM
 * Turn on swimming pool pump every day at 8PM
 * Stop the swimming pool pump depending on the season of the year (3 hours in summer, 2 hours in spring and autumn, 1 hour in winter).
@@ -74,17 +77,23 @@ I've created a sensor to determine roughly the season of the year:
 ## Screenshot Security
 ![Security](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config2.png)
 
+## Screenshot Inside
+![Inside](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config3.png)
+
+## Screenshot Outside
+![Outside](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config4.png)
+
 ## Screenshot Misc
-![Misc](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config3.png)
+![Misc](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config5.png)
 
 ## Home security description
 
-I've configured the system to get instant notifications using telegram including snapshots when some of the cameras detect motion.
+I've configured the system to get instant notifications using telegram including snapshots when one of the cameras triggers a motion detection.
 
 ### Motion detection activation
-Motion detection is activated automatically as soon as no one is at home.
+Motion detection is activated automatically as soon as no one is at home (I use owntracks, my wife presence is based on WiFi connection using nmap sensor).
 
-I have an assistant that doesn't use the WiFi so (appart from legal implications) I cannot track her device.
+I have an assistant that doesn't use the WiFi so (appart from legal implications) I cannot track her device with nmap.
 
 My solution to this is to create a switch to enable a delay to activate motion detection and a slider to configure the delay in minutes.
 
@@ -95,7 +104,7 @@ The configuration for my cameras has been set to upload a snapshot to an FTP eve
 
 You have to tweak the camera configuration (sensibility, motion detection zones, number of snapshots taken,...) to fit your needs (and not get too many notifications).
 
-Each camera upload the snapshot into a different folder in the same FTP.
+Each camera uploads the snapshots into a different folder in the same FTP.
 
 ### FTP
 The FTP is configured in the same Raspberry Pi Home-Assistant is installed.
@@ -109,9 +118,7 @@ This is how the crontab configuration looks like:
 
 ### incron
 
-Now we need to connect the FTP with home-assistant.
-
-For this I've used incron.
+We need to connect the FTP with home-assistant, to achieve this I've used incron.
 
 As described in [iNotify website] (http://inotify.aiken.cz/?section=incron&page=about&lang=en): *This program is an "inotify cron" system. It consists of a daemon and a table manipulator. You can use it a similar way as the regular cron. The difference is that the inotify cron handles filesystem events rather than time periods.*
 
@@ -145,6 +152,8 @@ The `home/camera/<camera name>/alarm` topic is back to 0 after 15 seconds using 
 ## Monitor UPS status
 
 I have a APC Back-UPS 650VA UPS attached to my raspberry pi.
+
+**Note that this is not used any more since version 0.34 a nut sensor was released. I leave it here only for information purpose.**
 
 This UPS gives power to my main internet router, my raspberry pi and my QNAP NAS.
 
@@ -229,7 +238,7 @@ if [ -n "${ink_levels}" ]; then
 fi
 ```
 
-Note `hp-info` takes more than 20 seconds to execute. If you try to execute direcly from Home Assistant you will get a timeout.
+Note `hp-info` takes more than 20 seconds to execute. If you try to execute direcly from Home Assistant you will get a timeout error.
 
 I've added the script to crontab to check every 5 minutes the ink levels (keep in mind that it only publishes when the `hp-info` utility returns data and this only occurs when the printer is on):
 
@@ -239,3 +248,19 @@ I've added the script to crontab to check every 5 minutes the ink levels (keep i
 
 ![Ink level monitor](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/ink_level_monitor.png)
 (Yes I'm running out of color ink :sweat:)
+
+## Amazon Dash button
+To use the Amazon dash button with your Home-Assistant you can follow the video tutorial from BRUH Automation:
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=qZpJ9W0wCks
+" target="_blank"><img src="http://img.youtube.com/vi/qZpJ9W0wCks/0.jpg" 
+alt="Dash button config" width="240" height="180" border="10" /></a>
+
+**Be sure you have the latest version of node.js installed.**
+
+I push the dash button every day just before go to sleep, it triggers a security check that includes:
+* Close outside fence if open
+* Check for opened windows / doors (if any door or window is open it flashes Chrismas tree lights)
+* Turn off outside lights
+* Turn off Chrismas tree lights
+
