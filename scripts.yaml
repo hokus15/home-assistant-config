@@ -77,38 +77,6 @@ set_virtual_device_home:
       data:
         entity_id: input_boolean.empty_home_activation_delay
 
-blink_check_light_on_off:
-  alias: 'Blink check light on off'
-  sequence:
-    - condition: state
-      entity_id: switch.luces_navidad
-      state: 'off'
-    - service: homeassistant.turn_on
-      data:
-        entity_id: switch.luces_navidad
-    - delay:
-        # time for flash light on
-        seconds: 1
-    - service: homeassistant.turn_off
-      data:
-        entity_id: switch.luces_navidad
-
-blink_check_light_off_on:
-  alias: 'Blink light off on'
-  sequence:
-    - condition: state
-      entity_id: switch.luces_navidad
-      state: 'on'
-    - service: homeassistant.turn_off
-      data:
-        entity_id: switch.luces_navidad
-    - delay:
-        # time for flash light off
-        seconds: 1
-    - service: homeassistant.turn_on
-      data:
-        entity_id: switch.luces_navidad
-
 close_fence_if_open:
   alias: 'Close fence if open'
   sequence:
@@ -126,12 +94,7 @@ check_kitchen_back_door:
     - condition: state
       entity_id: sensor.kitchen_back_door
       state: 'Abierta'
-    - service: script.turn_on
-      data:
-        entity_id: script.blink_check_light_off_on
-    - service: script.turn_on
-      data:
-        entity_id: script.blink_check_light_on_off
+    - service: shell_command.say_kitchen_back_door_open
     - service: notify.telegram
       data:
         title: 'Security check:'
@@ -172,3 +135,13 @@ goto_sleep:
     - service: homeassistant.turn_off
       data:
         entity_id: switch.luces_navidad
+    - service: shell_command.say_good_night
+
+parte_meteorologico:
+  alias: 'Parte meteorológico'
+  sequence:
+    - service: tts.google_say
+      entity_id: media_player.hokussqueezebox
+      data_template:
+        message: 'La temperatura exterior es de {{ states("sensor.netatmo_exterior_temperature") }} grados. La humedad exterior es del {{ states("sensor.netatmo_exterior_humidity") }} por ciento. Las rachas de viento son de {{ states("sensor.netatmo_anemometro_gust_strength") }} kilómetros por hora.'
+        cache: false

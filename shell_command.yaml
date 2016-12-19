@@ -6,3 +6,7 @@ nut_ups_enable_beeper: !secret nut_ups_enable_beeper_cmd
 
 # Disable NUT UPS beeper. Command: upscmd -u <user> -p <password> <ups_name> beeper.disable
 nut_ups_disable_beeper: !secret nut_ups_disable_beeper_cmd
+
+say_good_night: sudo omxplayer /home/hass/buenas_noches.mp3
+
+say_kitchen_back_door_open: sudo omxplayer /home/hass/puerta_cocina_abierta.mp3
