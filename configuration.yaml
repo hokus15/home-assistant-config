@@ -87,7 +87,14 @@ netatmo:
 
 zwave:
   usb_path: /dev/ttyACM0
-  
+
+tts:
+  - platform: google
+    cache: true
+    cache_dir: /tmp/tts
+    time_memory: 300
+    language: 'es'
+
 shell_command: !include shell_command.yaml
 device_tracker: !include device_tracker.yaml
 zone: !include zones.yaml
