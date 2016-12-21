@@ -261,7 +261,7 @@ alt="Dash button config" width="240" height="180" border="10" /></a>
 
 I push the dash button every day just before go to sleep, it triggers a security check that includes:
 * Close outside fence if open
-* Check for opened windows / doors (if any door or window is open it flashes Chrismas tree lights)
+* Check for opened windows / doors (if any door or window is open it tells me using text-to-speech service)
 * Turn off outside lights
 * Turn off Chrismas tree lights
 
