@@ -27,7 +27,8 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 * Netatmo weather station with rainmeter and windmeter
 * Netatmo thermostat
 * APC Back-UPS 650VA UPS
-* Chromecast
+* Chromecast2
+* Chromecast audio
 * Logitech Squeezebox
 * Efergy energy meter
 * Fitbit Alta
