@@ -70,6 +70,7 @@ Varios:
     - group.sai
     - media_player.hokussqueezebox
     - media_player.salon
+    - media_player.homeassistant
     - configurator.fitbit
     - configurator.fitbit_2
 
