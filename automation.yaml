@@ -347,9 +347,13 @@
     for:
       minutes: 10
   action:
-    service: notify.telegram
-    data:
-      message: 'Barrera abierta durante más de 10 minutos'
+    - service: notify.telegram
+      data:
+        message: 'Barrera abierta durante más de 10 minutos'
+    - service: tts.google_say
+      entity_id: media_player.homeassistant
+      data:
+        message: 'Barrera abierta durante más de 10 minutos'
 
 #############################################################
 # Swimming pool turn on
