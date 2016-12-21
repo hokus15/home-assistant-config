@@ -84,6 +84,10 @@ close_fence_if_open:
     - condition: state
       entity_id: sensor.fence_status
       state: 'Abierta'
+    - service: tts.google_say
+      entity_id: media_player.homeassistant
+      data:
+        message: 'Cerrando barrera'
     - service: homeassistant.turn_on
       data:
         entity_id: switch.barrera
@@ -94,7 +98,10 @@ check_kitchen_back_door:
     - condition: state
       entity_id: sensor.kitchen_back_door
       state: 'Abierta'
-    - service: shell_command.say_kitchen_back_door_open
+    - service: tts.google_say
+      entity_id: media_player.homeassistant
+      data:
+        message: 'Puerta de la cocina abierta'
     - service: notify.telegram
       data:
         title: 'Security check:'
@@ -127,21 +134,20 @@ goto_sleep:
     - service: light.turn_off
       data:
         entity_id: group.luces_exteriores
-    # The check light has to be the last to be turned off after a small delay
-    # otherwise it won't turn off
-    - delay:
-        seconds: 5
-    # Turn off christmas lights (also check light)
+    # Turn off christmas lights
     - service: homeassistant.turn_off
       data:
         entity_id: switch.luces_navidad
-    - service: shell_command.say_good_night
-
+    # Say good night
+    - service: tts.google_say
+      entity_id: media_player.homeassistant
+      data:
+        message: 'Buenas noches'
 parte_meteorologico:
   alias: 'Parte meteorológico'
   sequence:
     - service: tts.google_say
-      entity_id: media_player.hokussqueezebox
+      entity_id: media_player.homeassistant
       data_template:
         message: 'La temperatura exterior es de {{ states("sensor.netatmo_exterior_temperature") }} grados. La humedad exterior es del {{ states("sensor.netatmo_exterior_humidity") }} por ciento. Las rachas de viento son de {{ states("sensor.netatmo_anemometro_gust_strength") }} kilómetros por hora.'
         cache: false
