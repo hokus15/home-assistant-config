@@ -336,24 +336,30 @@
 #############################################################
 # Fence automations
 #############################################################
-
-# Notify if fence is open form more than 4 minutes
-- alias: 'Notify fence open'
+- alias: 'When fence open notify every 10 minutes'
   trigger:
-    platform: state
-    entity_id: sensor.fence_status
-    from: 'Cerrada'
-    to: 'Abierta'
-    for:
-      minutes: 10
+    platform: time
+    minutes: '/1'
+    seconds: 00
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: sensor.fence_status
+        state: 'Abierta'
+      - condition: template
+        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.fence_status.last_changed))//60)%10 == 0 }}'
+      - condition: template
+        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.fence_status.last_changed))//60) != 0 }}'
   action:
-    - service: notify.telegram
-      data:
-        message: 'Barrera abierta durante más de 10 minutos'
     - service: tts.google_say
       entity_id: media_player.homeassistant
-      data:
-        message: 'Barrera abierta durante más de 10 minutos'
+      data_template:
+        message: 'Barrera {{ states.sensor.fence_status.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.fence_status.last_changed))|int//60 }} minutos'
+        cache: false
+    - service: notify.telegram
+      data_template:
+        message: 'Barrera {{ states.sensor.fence_status.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.fence_status.last_changed))|int//60 }} minutos'
 
 #############################################################
 # Swimming pool turn on
