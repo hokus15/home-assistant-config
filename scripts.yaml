@@ -138,11 +138,16 @@ goto_sleep:
     - service: homeassistant.turn_off
       data:
         entity_id: switch.luces_navidad
+    # Turn off hall lamp
+    - service: light.turn_off
+      data:
+        entity_id: switch.swiid_swiidinter_switch_3_0
     # Say good night
     - service: tts.google_say
       entity_id: media_player.homeassistant
       data:
         message: 'Buenas noches'
+
 parte_meteorologico:
   alias: 'Parte meteorológico'
   sequence:

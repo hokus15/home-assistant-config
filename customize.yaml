@@ -218,7 +218,9 @@ switch.thermostat_away_mode:
 switch.ups_beeper:
   friendly_name: 'Pitido'
   icon: mdi:music-note
-
+switch.swiid_swiidinter_switch_3_0:
+  friendly_name: 'Lámpara recibidor'
+  icon: mdi:lamp
 ###################################
 # Input sliders
 ###################################

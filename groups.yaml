@@ -33,8 +33,9 @@ Interior:
     - group.salon
     - group.camara_recibidor
     - group.calefaccion
-    - group.luces_navidad
+#    - group.luces_navidad
     - group.puerta_porche_cocina
+    - group.recibidor
 
 Exterior:
   view: yes
@@ -172,17 +173,18 @@ Salón:
     - sensor.netatmo_salon_pressure
     - sensor.netatmo_salon_co2
     - sensor.netatmo_salon_wifi
+    - switch.luces_navidad
 
+Recibidor:
+  entities:
+    - switch.swiid_swiidinter_switch_3_0
+    
 Luces exteriores:
   entities:
     - light.barrera_derecha
     - light.barrera_izquierda
     - light.puerta_entrada
     - input_slider.luces_exteriores_brightness
-
-Luces Navidad:
-  entities:
-    - switch.luces_navidad
 
 Barrera:
   entities:

@@ -39,6 +39,7 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 ### Z-Wave devices:
 * AEOTEC Z-Stick Gen5
 * Fibaro Door / Window Sensor FGK-10x
+* Swiid Swiidinter switch
 
 ## Automations (among others)
 * Activate/deactivate motion detection, heating and Chrismas tree lights based on presence
@@ -263,5 +264,6 @@ I push the dash button every day just before go to sleep, it triggers a security
 * Close outside fence if open
 * Check for opened windows / doors (if any door or window is open it tells me using text-to-speech service)
 * Turn off outside lights
+* Turn off hall lamp
 * Turn off Chrismas tree lights
 
