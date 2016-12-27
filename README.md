@@ -39,6 +39,7 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 ### Z-Wave devices:
 * AEOTEC Z-Stick Gen5
 * Fibaro Door / Window Sensor FGK-10x
+* Fibaro FGMS-001 Motion Sensor
 * Swiid Swiidinter switch
 
 ## Automations (among others)
