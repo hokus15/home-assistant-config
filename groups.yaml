@@ -176,6 +176,7 @@ Salón:
     - switch.luces_navidad
     - binary_sensor.living_room_alarm
     - binary_sensor.living_room_tampering
+    - input_boolean.notify_living_room_alarm
 
 Recibidor:
   entities:
@@ -222,6 +223,7 @@ Seguridad:
     - switch.cam_hall_motion_detection
     - switch.cam_swimmingpool_motion_detection
     - switch.cam_caseta_motion_detection
+    - input_boolean.notify_living_room_alarm
     - input_boolean.notify_kitchen_back_door_open
 
 Puerta porche cocina:

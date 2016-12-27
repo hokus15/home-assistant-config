@@ -181,7 +181,7 @@
         retain: true
         topic: 'home/camera/caseta/alarm'
 
-# Notify kitchen door opened when no one at home
+# Notify kitchen door opened when notification active
 - alias: 'Notify kitchen door opened when notification active'
   trigger: 
     platform: state
@@ -196,6 +196,32 @@
     service: notify.telegram
     data:
       message: 'Puerta de la cocina abierta'
+
+# Notify living room motion detection when notification active
+- alias: 'Notify living room motion detection when notification active'
+  trigger: 
+    platform: state
+    entity_id: binary_sensor.living_room_alarm
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: input_boolean.notify_living_room_alarm
+    state: 'on'
+  action:
+    service: notify.telegram
+    data:
+      message: 'Movimiento detectado en el salón'
+
+# Notify living room motion sensor tampering
+- alias: 'Notify living room motion sensor tampering'
+  trigger: 
+    platform: state
+    entity_id: binary_sensor.living_room_tampering
+    to: 'on'
+  action:
+    service: notify.telegram
+    data:
+      message: 'El sensor de movimento del salón se ha manipulado'
 
 #############################################################
 # Light automations
