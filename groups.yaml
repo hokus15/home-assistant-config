@@ -177,6 +177,7 @@ Salón:
     - binary_sensor.living_room_alarm
     - binary_sensor.living_room_tampering
     - input_boolean.notify_living_room_alarm
+    - sensor.fibaro_system_fgms001_motion_sensor_luminance_6_3
 
 Recibidor:
   entities:
