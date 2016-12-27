@@ -24,6 +24,20 @@
       data:
         entity_id: script.someone_home
 
+# Turn on hall lamp when someone at home and the sun is set
+- alias: 'Turn on hall lamp when someone at home and the sun is set'
+  trigger:
+    platform: state
+    entity_id: group.unidad_familiar
+    state: 'home'
+  condition:
+    condition: sun
+    after: sunset
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.swiid_swiidinter_switch_3_0
+
 # When input_boolean.empty_home_activation_delay turns on,
 # Change virtual_device location to home
 # Wait the specified amount of minutes 
@@ -295,6 +309,20 @@
       data_template:
         entity_id: group.luces_exteriores
         brightness: '{{ ((states.input_slider.luces_exteriores_brightness.state | int) * 255) // 100 }}'
+
+# Turn on hall lamp when the sun is set and someone at home
+- alias: 'Turn on hall lamp when the sun is set and someone at home'
+  trigger:
+    platform: sun
+    event: sunset
+  condition:
+    condition: state
+    entity_id: group.unidad_familiar
+    state: 'home'
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.swiid_swiidinter_switch_3_0
 
 #############################################################
 # Power automations

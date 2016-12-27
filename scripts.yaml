@@ -31,6 +31,10 @@ empty_home:
     - service: homeassistant.turn_on
       data:
         entity_id: group.seguridad
+    # Turn off hall lamp
+    - service: switch.turn_off
+      data:
+        entity_id: switch.swiid_swiidinter_switch_3_0
     # Turn off christmas lights
     - service: homeassistant.turn_off
       data:
@@ -119,17 +123,21 @@ goto_sleep:
   alias: 'Go to sleep'
   sequence:
     # Only execute script between 21:00 and 6:00
-    - condition: time
-      after: '21:00'
-      before: '6:00'
+#    - condition: time
+#      after: '21:00'
+#      before: '6:00'
     # Security check
     - service: script.turn_on
       data:
         entity_id: script.security_check
+    - delay:
+        seconds: 7
     # Close fence if open
     - service: script.turn_on
       data:
         entity_id: script.close_fence_if_open
+    - delay:
+        seconds: 6
     # Turn off outside lights
     - service: light.turn_off
       data:
@@ -139,7 +147,7 @@ goto_sleep:
       data:
         entity_id: switch.luces_navidad
     # Turn off hall lamp
-    - service: light.turn_off
+    - service: switch.turn_off
       data:
         entity_id: switch.swiid_swiidinter_switch_3_0
     # Say good night
