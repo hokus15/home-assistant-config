@@ -159,9 +159,16 @@ sensor.nut_ups_battery_charge:
 sensor.nut_ups_battery_runtime:
   friendly_name: 'Tiempo restante'
 sensor.fibaro_system_fgms001_motion_sensor_luminance_6_3:
+  icon: 'mdi:weather-sunny'
   friendly_name: 'Luminosidad'
-  icon: 'mdi:lightbulb-on'
-
+sensor.living_room_motion_sensor_battery:
+  icon: 'mdi:battery'
+  friendly_name: 'Batería sensor'
+sensor.fibaro_system_fgms001_motion_sensor_temperature_6_1:
+  friendly_name: 'Temperatura'
+sensor.hall_temperature:
+  friendly_name: 'Temperatura'
+  unit_of_measurement: '°C'
 ###################################
 # Binary Sensors
 ###################################

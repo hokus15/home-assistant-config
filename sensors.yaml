@@ -92,9 +92,9 @@
       entity_id:
         - switch.barrera
 
-# Fibaro fgk10x z-wave sensor 
 - platform: template
   sensors:
+    # Fibaro FGK10x door sensor
     kitchen_back_door:
       value_template:  >-
          {%- if is_state('sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_2_9', '23') %}
@@ -107,8 +107,20 @@
       entity_id:
         - sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_2_9
 
+    # Fibaro FGK10x door sensor
     kitchen_back_door_battery:
-      value_template: '{{ states.sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_2_9.attributes.battery_level }}'
+      value_template: '{{ states.sensor.fibaro_system_fgk10x_door_opening_sensor_general_2_0.attributes.battery_level }}'
+      unit_of_measurement: '%'
+
+    # Fibaro FGMS-001 Motion sensor
+    living_room_motion_sensor_battery:
+      value_template: '{{ states.sensor.fibaro_system_fgms001_motion_sensor_general_6_0.attributes.battery_level }}'
+      unit_of_measurement: '%'
+
+- platform: template
+  sensors:
+    hall_temperature:
+      value_template: '{{ states.climate.termostato.attributes.current_temperature }}'
       unit_of_measurement: '%'
 
 # Sensor to define roughly the season of the year (if more precission needed use another algorythm)
