@@ -4,7 +4,7 @@ empty_home_activation_delay:
   icon: 'mdi:clock'
 
 notify_kitchen_back_door_open:
-  name: Det. apert. cocina
+  name: Det. apert. puerta porche
   initial: off
   icon: 'mdi:glassdoor'
 

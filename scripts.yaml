@@ -35,8 +35,16 @@ empty_home:
     - service: switch.turn_off
       data:
         entity_id: switch.swiid_swiidinter_switch_3_0
+    # Turn off stair lights
+    - service: switch.turn_off
+      data:
+        entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
+    # Turn off suite light
+    - service: switch.turn_off
+      data:
+        entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0_2
     # Turn off christmas lights
-    - service: homeassistant.turn_off
+    - service: switch.turn_off
       data:
         entity_id: switch.luces_navidad
     # Continue script only if switch.heating is on
@@ -57,7 +65,7 @@ someone_home:
       data:
         entity_id: group.seguridad
     # Turn on christmas lights
-    - service: homeassistant.turn_on
+    - service: switch.turn_on
       data:
         entity_id: switch.luces_navidad
     # Continue script only if switch.heating is on

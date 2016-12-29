@@ -32,11 +32,10 @@ Interior:
   icon: mdi:home-map-marker
   entities:
     - group.salon
-    - group.camara_recibidor
-    - group.calefaccion
-#    - group.luces_navidad
-    - group.puerta_porche_cocina
+    - group.cocina
     - group.recibidor
+    - group.escalera
+    - group.suite
 
 Exterior:
   view: yes
@@ -46,18 +45,9 @@ Exterior:
     - group.temperatura
     - group.lluvia
     - group.viento
-    - group.camara_piscina
-    - group.camara_caseta
     - group.barrera
-    - group.motor_piscina
-
-#Cámaras:
-#  view: yes
-#  icon: mdi:video
-#  entities:
-#    - camera.cam_hall
-#    - camera.cam_swimmingpool
-#    - camera.cam_caseta
+    - group.piscina
+    - camera.cam_caseta
 
 Varios:
   view: yes
@@ -75,19 +65,6 @@ Varios:
     - media_player.homeassistant
     - configurator.fitbit
     - configurator.fitbit_2
-
-#Dispositivos:
-#  view: yes
-#  entities:
-#    - group.escalera
-#    - group.despacho
-#    - group.recibidor
-#    - group.dispositivos_salon
-#    - group.suite
-#    - group.caseta
-#    - group.cocina
-#    - group.portatil
-#    - group.dispositivos_varios
 
 ################################################
 # Groups
@@ -116,19 +93,6 @@ Jordi:
     - sensor.body_weight
     - sensor.distance
 
-#Visitas:
-#  entities:
-#    - sensor.carlota
-#    - sensor.maria_del_mar
-#    - sensor.esther
-#    - sensor.primo_carlos
-#    - sensor.pedro
-#    - sensor.nena
-#    - sensor.laura_olivas
-#    - sensor.javier
-#    - sensor.al
-#    - sensor.nando
-
 Energía:
   entities:
     - binary_sensor.ups_status_bs
@@ -143,7 +107,6 @@ Temperatura:
     - sensor.netatmo_exterior_humidity
     - sensor.netatmo_exterior_battery
     - sensor.netatmo_exterior_radio
-#    - sun.sun
     - sensor.sunrise
     - sensor.sunset
 
@@ -181,10 +144,29 @@ Salón:
     - sensor.fibaro_system_fgms001_motion_sensor_luminance_6_3
     - sensor.fibaro_system_fgms001_motion_sensor_temperature_6_1
 
+Escalera:
+  entities:
+    - switch.fibaro_system_fgs223_double_relay_switch_7_0
+    - sensor.fibaro_system_fgs223_double_relay_energy_7_0
+    - sensor.fibaro_system_fgs223_double_relay_power_7_8
+
+Suite:
+  entities:
+    - switch.fibaro_system_fgs223_double_relay_switch_7_0_2
+    - sensor.fibaro_system_fgs223_double_relay_energy_7_0_2
+    - sensor.fibaro_system_fgs223_double_relay_power_7_8_2
+
 Recibidor:
   entities:
     - switch.swiid_swiidinter_switch_3_0
     - sensor.hall_temperature
+    - camera.cam_hall
+
+Cocina:
+  entities:
+    - sensor.kitchen_back_door
+    - sensor.kitchen_back_door_battery
+    - input_boolean.notify_kitchen_back_door_open
     
 Luces exteriores:
   entities:
@@ -198,9 +180,10 @@ Barrera:
     - switch.barrera
     - sensor.fence_status
 
-Motor Piscina:
+Piscina:
   entities:
     - switch.piscina
+    - camera.cam_swimmingpool
 
 Cámara recibidor:
   entities:

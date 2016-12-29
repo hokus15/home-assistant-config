@@ -146,7 +146,7 @@ sensor.since_last_boot:
   friendly_name: 'Tiempo encendido'
 sensor.kitchen_back_door:
   icon: 'mdi:glassdoor'
-  friendly_name: 'Estado'
+  friendly_name: 'Estado puerta porche'
 sensor.kitchen_back_door_battery:
   icon: 'mdi:battery'
   friendly_name: 'Batería sensor'
@@ -169,6 +169,18 @@ sensor.fibaro_system_fgms001_motion_sensor_temperature_6_1:
 sensor.hall_temperature:
   friendly_name: 'Temperatura'
   unit_of_measurement: '°C'
+sensor.fibaro_system_fgs223_double_relay_energy_7_0:
+  icon: 'mdi:speedometer'
+  friendly_name: 'Consumo luz escalera'
+sensor.fibaro_system_fgs223_double_relay_power_7_8:
+  icon: 'mdi:power-plug'
+  friendly_name: 'Potencia luz escalera'
+sensor.fibaro_system_fgs223_double_relay_energy_7_0_2:
+  icon: 'mdi:speedometer'
+  friendly_name: 'Consumo luz suite'
+sensor.fibaro_system_fgs223_double_relay_power_7_8_2:
+  icon: 'mdi:power-plug'
+  friendly_name: 'Potencia luz suite'
 ###################################
 # Binary Sensors
 ###################################
@@ -216,7 +228,7 @@ switch.cam_caseta_motion_detection:
   friendly_name: 'Det. mov. caseta'
   icon: 'mdi:transit-transfer'
 switch.piscina:
-  friendly_name: 'Estado'
+  friendly_name: 'Depuradora'
   icon: mdi:pool
 switch.barrera:
   friendly_name: ' '
@@ -236,6 +248,13 @@ switch.ups_beeper:
 switch.swiid_swiidinter_switch_3_0:
   friendly_name: 'Lámpara recibidor'
   icon: mdi:lamp
+switch.fibaro_system_fgs223_double_relay_switch_7_0:
+  friendly_name: 'Luz escalera'
+  icon: mdi:lamp
+switch.fibaro_system_fgs223_double_relay_switch_7_0_2:
+  friendly_name: 'Luz suite'
+  icon: mdi:lamp
+
 ###################################
 # Input sliders
 ###################################
