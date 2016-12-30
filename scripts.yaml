@@ -131,9 +131,9 @@ goto_sleep:
   alias: 'Go to sleep'
   sequence:
     # Only execute script between 21:00 and 6:00
-#    - condition: time
-#      after: '21:00'
-#      before: '6:00'
+    - condition: time
+      after: '21:00'
+      before: '6:00'
     # Security check
     - service: script.turn_on
       data:
@@ -151,9 +151,13 @@ goto_sleep:
       data:
         entity_id: group.luces_exteriores
     # Turn off christmas lights
-    - service: homeassistant.turn_off
+    - service: switch.turn_off
       data:
         entity_id: switch.luces_navidad
+    # Turn on stairs lights
+    - service: switch.turn_on
+      data:
+        entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
     # Turn off hall lamp
     - service: switch.turn_off
       data:
@@ -163,6 +167,13 @@ goto_sleep:
       entity_id: media_player.homeassistant
       data:
         message: 'Buenas noches'
+    # Wait 1 minute befor turning off stair lights
+    - delay:
+        minutes: 1
+    # Turn off stairs lights
+    - service: switch.turn_off
+      data:
+        entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
 
 parte_meteorologico:
   alias: 'Parte meteorológico'
