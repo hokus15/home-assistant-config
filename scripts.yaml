@@ -134,6 +134,10 @@ goto_sleep:
     - condition: time
       after: '21:00'
       before: '6:00'
+    # Turn on stairs lights
+    - service: switch.turn_on
+      data:
+        entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
     # Security check
     - service: script.turn_on
       data:
@@ -154,10 +158,6 @@ goto_sleep:
     - service: switch.turn_off
       data:
         entity_id: switch.luces_navidad
-    # Turn on stairs lights
-    - service: switch.turn_on
-      data:
-        entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
     # Turn off hall lamp
     - service: switch.turn_off
       data:
