@@ -138,7 +138,6 @@ Salón:
     - sensor.netatmo_salon_pressure
     - sensor.netatmo_salon_co2
     - sensor.netatmo_salon_wifi
-    - switch.luces_navidad
     - binary_sensor.living_room_alarm
     - binary_sensor.living_room_tampering
     - input_boolean.notify_living_room_alarm

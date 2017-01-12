@@ -43,10 +43,6 @@ empty_home:
     - service: switch.turn_off
       data:
         entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0_2
-    # Turn off christmas lights
-    - service: switch.turn_off
-      data:
-        entity_id: switch.luces_navidad
     # Continue script only if switch.heating is on
     - condition: state
       entity_id: switch.heating
@@ -64,10 +60,6 @@ someone_home:
     - service: homeassistant.turn_off
       data:
         entity_id: group.seguridad
-    # Turn on christmas lights
-    - service: switch.turn_on
-      data:
-        entity_id: switch.luces_navidad
     # Continue script only if switch.heating is on
     - condition: state
       entity_id: switch.heating
@@ -96,13 +88,16 @@ close_fence_if_open:
     - condition: state
       entity_id: sensor.fence_status
       state: 'Abierta'
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.barrera
     - service: tts.google_say
       entity_id: media_player.homeassistant
       data:
         message: 'Cerrando barrera'
-    - service: homeassistant.turn_on
-      data:
-        entity_id: switch.barrera
+    - delay:
+        seconds: 6
+
 
 check_kitchen_back_door:
   alias: 'Check kitchen back door'
@@ -118,6 +113,8 @@ check_kitchen_back_door:
       data:
         title: 'Security check:'
         message: 'Puerta de la cocina abierta'
+    - delay:
+        seconds: 7
 
 security_check:
   alias: 'Security check'
@@ -126,6 +123,8 @@ security_check:
     - service: script.turn_on
       data:
         entity_id: script.check_kitchen_back_door
+#    - delay:
+#        seconds: 7
   
 goto_sleep:
   alias: 'Go to sleep'
@@ -154,10 +153,6 @@ goto_sleep:
     - service: light.turn_off
       data:
         entity_id: group.luces_exteriores
-    # Turn off christmas lights
-    - service: switch.turn_off
-      data:
-        entity_id: switch.luces_navidad
     # Turn off hall lamp
     - service: switch.turn_off
       data:
