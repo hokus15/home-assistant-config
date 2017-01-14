@@ -366,3 +366,16 @@
     - ups.beeper.status
     - ups.mfr
     - ups.model
+
+- platform: template
+  sensors:
+    next_holiday_mode_start:
+      friendly_name: 'Inicio vacaciones'
+      value_template: '{{ as_timestamp(states.calendar.holiday_mode.attributes.start_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
+      entity_id:
+        - calendar.holiday_mode
+    next_holiday_mode_end:
+      friendly_name: 'Fin vacaciones'
+      value_template: '{{ as_timestamp(states.calendar.holiday_mode.attributes.end_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
+      entity_id:
+        - calendar.holiday_mode

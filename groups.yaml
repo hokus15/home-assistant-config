@@ -86,6 +86,8 @@ Familia:
     - input_boolean.empty_home_activation_delay
     - input_slider.empty_home_activation_delay_minutes
     - switch.holiday
+    - sensor.next_holiday_mode_start
+    - sensor.next_holiday_mode_end
 
 Jordi:
   entities:

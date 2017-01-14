@@ -195,6 +195,11 @@ sensor.fibaro_system_fgs223_double_relay_energy_7_0_2:
 sensor.fibaro_system_fgs223_double_relay_power_7_8_2:
   icon: 'mdi:power-plug'
   friendly_name: 'Potencia luz suite'
+sensor.next_holiday_mode_start:
+  icon: mdi:airplane-takeoff
+sensor.next_holiday_mode_end:
+  icon: mdi:airplane-landing
+
 ###################################
 # Binary Sensors
 ###################################
@@ -249,7 +254,7 @@ switch.barrera:
   icon: mdi:gate
 switch.holiday:
   friendly_name: 'Vacaciones'
-  icon: mdi:airplane-takeoff
+  icon: mdi:beach
 switch.heating:
   friendly_name: 'Estado'
   icon: mdi:radiator
