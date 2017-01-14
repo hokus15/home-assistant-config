@@ -99,7 +99,9 @@ Motion detection is activated automatically as soon as no one is at home (I use 
 
 I have an assistant that doesn't use the WiFi so (appart from legal implications) I cannot track her device with nmap.
 
-My solution to this is to create a switch to enable a delay to activate motion detection and a slider to configure the delay in minutes.
+My wife and I share a Google Calendar where she introduces her working shifts. As the assistant working hours varies depending on my wife's working shift I use the Google Calendar component to automatically set her presence.
+
+I also have a virtual device to temporarily set as 'home' when actually no one of the family is at home. To do so, I've created a switch to enable a delay to activate motion detection and a slider to configure the delay in minutes.
 
 ![Security activation delay](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/security_activation_delay.png)
 
@@ -251,7 +253,6 @@ I've added the script to crontab to check every 5 minutes the ink levels (keep i
 ```
 
 ![Ink level monitor](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/ink_level_monitor.png)
-(Yes I'm running out of color ink :sweat:)
 
 ## Amazon Dash button
 To use the Amazon dash button with your Home-Assistant you can follow the video tutorial from BRUH Automation:
