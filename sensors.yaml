@@ -21,6 +21,14 @@
       - pressure
       - co2
       - wifi_status
+    Suite:
+      - temperature
+      - min_temp
+      - max_temp
+      - humidity
+      - co2
+      - battery_vp
+      - rf_status
     Exterior:
       - temperature
       - min_temp

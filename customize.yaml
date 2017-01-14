@@ -11,6 +11,8 @@ sensor.netatmo_exterior_max_temp:
   friendly_name: 'Máxima de hoy'
 sensor.netatmo_exterior_battery:
   friendly_name: 'Batería exterior'
+sensor.netatmo_exterior_radio:
+  friendly_name: 'Señal exterior'
 sensor.netatmo_pluviometro_rain:
   friendly_name: 'Previsión lluvia'
 sensor.netatmo_pluviometro_sum_rain_1:
@@ -37,8 +39,6 @@ sensor.netatmo_salon_co2:
   friendly_name: 'Nivel CO2'
 sensor.netatmo_salon_wifi:
   friendly_name: 'Señal Wifi Netatmo'
-sensor.netatmo_exterior_radio:
-  friendly_name: 'Señal exterior'
 sensor.netatmo_anemometro_angle:
   friendly_name: 'Dirección viento'
 sensor.netatmo_anemometro_battery:
@@ -51,6 +51,18 @@ sensor.netatmo_anemometro_radio:
   friendly_name: 'Señal anemómetro'
 sensor.netatmo_anemometro_strength:
   friendly_name: 'Velocidad viento'
+sensor.netatmo_suite_temperature:
+  friendly_name: 'Temperatura'
+sensor.netatmo_suite_min_temp:
+  friendly_name: 'Mínima de hoy'
+sensor.netatmo_suite_max_temp:
+  friendly_name: 'Máxima de hoy'
+sensor.netatmo_suite_co2:
+  friendly_name: 'Nivel CO2'
+sensor.netatmo_suite_battery:
+  friendly_name: 'Batería suite'
+sensor.netatmo_suite_radio:
+  friendly_name: 'Señal suite'
 sensor.speedtest_ping:
   friendly_name: 'Ping'
   icon: mdi:lan-connect

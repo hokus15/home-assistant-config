@@ -155,6 +155,12 @@ Suite:
     - switch.fibaro_system_fgs223_double_relay_switch_7_0_2
     - sensor.fibaro_system_fgs223_double_relay_energy_7_0_2
     - sensor.fibaro_system_fgs223_double_relay_power_7_8_2
+    - sensor.netatmo_suite_temperature
+    - sensor.netatmo_suite_min_temp
+    - sensor.netatmo_suite_max_temp
+    - sensor.netatmo_suite_co2
+    - sensor.netatmo_suite_battery
+    - sensor.netatmo_suite_radio
 
 Recibidor:
   entities:
