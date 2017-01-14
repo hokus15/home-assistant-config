@@ -106,6 +106,8 @@ sensor.geni:
   entity_picture: !secret geni_picture
 sensor.virtual_device:
   entity_picture: !secret virtual_device_picture
+sensor.ana:
+  icon: 'mdi:account'
 sensor.sunset:
   icon: mdi:weather-sunset-down
 sensor.sunrise:
