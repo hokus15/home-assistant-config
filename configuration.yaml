@@ -85,6 +85,9 @@ netatmo:
 #  access_token: !secret foursquare_access_token
 #  push_secret: !secret foursquare_push_secret
 
+google:
+  client_id: !secret google_client_id
+  client_secret: !secret google_secret
 zwave:
   usb_path: /dev/ttyACM0
 
