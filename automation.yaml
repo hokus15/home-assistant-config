@@ -74,6 +74,56 @@
         dev_id: 'virtual_device'
         location_name: 'not_home'
 
+# Turn Ana status to home at 7:00 if she's not home and the shift in calendar is "Mañana" or "Saliente"
+- alias: 'Ana en casa'
+  trigger:
+    platform: time
+    after: '07:00:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: 'device_tracker.ana'
+        state: 'not_home'
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: 'calendar.turno_geni_manyana'
+          state: 'on'
+        - condition: state
+          entity_id: 'calendar.turno_geni_saliente'
+          state: 'on'
+  action:
+    - service: device_tracker.see
+      data:
+        dev_id: 'ana'
+        location_name: 'home'
+
+# Turn Ana status to home at 11:00 if she's at home and the shift in calendar is "Mañana" or "Saliente"
+- alias: 'Ana ausente de casa'
+  trigger:
+    platform: time
+    after: '11:00:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: 'device_tracker.ana'
+        state: 'home'
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: 'calendar.turno_geni_manyana'
+          state: 'on'
+        - condition: state
+          entity_id: 'calendar.turno_geni_saliente'
+          state: 'on'
+  action:
+    - service: device_tracker.see
+      data:
+        dev_id: 'ana'
+        location_name: 'not_home'
+
 #############################################################
 # Heating automations
 #############################################################
@@ -100,8 +150,34 @@
     - service: script.turn_on
       entity_id: script.power_off_thermostat
 
-# Enters on holiday mode
-- alias: 'Enter holiday mode'
+#############################################################
+# Holiday automations
+#############################################################
+
+# Enters on holiday mode based on google calendar event
+- alias: 'Calendar holiday mode'
+  trigger:
+    platform: state
+    entity_id: calendar.holiday_mode
+    state: 'on'
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.holiday
+
+# Exits on holiday mode based on google calendar event
+- alias: 'Calendar holiday mode exit'
+  trigger:
+    platform: state
+    entity_id: calendar.holiday_mode
+    state: 'off'
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.holiday
+
+# Enters holiday mode based on switch
+- alias: 'Switch holiday mode'
   trigger:
     platform: state
     entity_id: switch.holiday
@@ -114,9 +190,12 @@
     # Turn off thermostat
     - service: script.turn_on
       entity_id: script.power_off_thermostat
+    - service: notify.telegram
+      data_template:
+        message: 'Modo vacaciones activado'
 
-# Exit on holiday mode
-- alias: 'Exit holiday mode'
+# Exits holiday mode based on switch
+- alias: 'Switch holiday mode exit'
   trigger:
     platform: state
     entity_id: switch.holiday
@@ -127,10 +206,13 @@
     state: 'on'
   action:
     # Turn on thermostat an set it to away mode
-    service: climate.set_away_mode
-    entity_id: climate.termostato
-    data:
-      away_mode: true
+    - service: climate.set_away_mode
+      entity_id: climate.termostato
+      data:
+        away_mode: true
+    - service: notify.telegram
+      data_template:
+        message: 'Modo vacaciones desactivado'
 
 #############################################################
 # Alarm automations
