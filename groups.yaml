@@ -74,12 +74,14 @@ Unidad Familiar:
   entities:
     - device_tracker.hokusphone_hokusphone
     - device_tracker.geni
+    - device_tracker.ana
     - device_tracker.virtual_device
 
 Familia:
   entities:
     - sensor.hokusphone_hokusphone
     - sensor.geni
+    - sensor.ana
     - sensor.virtual_device
     - input_boolean.empty_home_activation_delay
     - input_slider.empty_home_activation_delay_minutes
