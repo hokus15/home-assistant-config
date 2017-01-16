@@ -199,6 +199,10 @@ sensor.next_holiday_mode_start:
   icon: mdi:airplane-takeoff
 sensor.next_holiday_mode_end:
   icon: mdi:airplane-landing
+sensor.next_shift_event:
+  icon: mdi:message
+sensor.next_shift_date:
+  icon: mdi:calendar
 
 ###################################
 # Binary Sensors

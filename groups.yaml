@@ -88,6 +88,8 @@ Familia:
     - switch.holiday
     - sensor.next_holiday_mode_start
     - sensor.next_holiday_mode_end
+    - sensor.next_shift_event
+    - sensor.next_shift_date
 
 Jordi:
   entities:

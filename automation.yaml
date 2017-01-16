@@ -88,10 +88,10 @@
       - condition: or
         conditions:
         - condition: state
-          entity_id: 'calendar.turno_geni_manyana'
+          entity_id: 'calendar.turnos_geni_manyana'
           state: 'on'
         - condition: state
-          entity_id: 'calendar.turno_geni_saliente'
+          entity_id: 'calendar.turnos_geni_saliente'
           state: 'on'
   action:
     - service: device_tracker.see
@@ -113,10 +113,10 @@
       - condition: or
         conditions:
         - condition: state
-          entity_id: 'calendar.turno_geni_manyana'
+          entity_id: 'calendar.turnos_geni_manyana'
           state: 'on'
         - condition: state
-          entity_id: 'calendar.turno_geni_saliente'
+          entity_id: 'calendar.turnos_geni_saliente'
           state: 'on'
   action:
     - service: device_tracker.see
