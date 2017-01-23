@@ -54,6 +54,9 @@ mqtt:
 logger:
   default: warn
 #  logs:
+#    libopenzwave: debug
+#    openzwave: debug
+#    homeassistant.core: debug
 #    homeassistant.components.sensor.speedtest: debug
 #    homeassistant.components.switch.command_line: critical
 
