@@ -42,6 +42,7 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 * Fibaro FGMS-001 Motion Sensor
 * Fibaro FGS-223 Double switch 2
 * Swiid Swiidinter switch
+* Nodon Octan remote
 
 ## Automations (among others)
 * Activate/deactivate motion detection, heating and Chrismas tree lights based on presence
