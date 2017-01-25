@@ -500,7 +500,7 @@
 #############################################################
 # Swimming pool turn on
 # In the morning at 7:00
-# In the afternoon at 20:00
+# At night at 23:00
 #############################################################
 
 # Turn on swimming pool pump [morning]
@@ -516,7 +516,7 @@
 - alias: 'Turn on swimming pool pump [afternoon]'
   trigger:
     platform: time
-    after: '20:00:00'
+    after: '23:00:00'
   action:
     service: switch.turn_on
     entity_id: switch.piscina
@@ -525,13 +525,13 @@
 # Swimming pool turn off
 
 # In the morning while winter at 8:00
-# In the afternoon while winter at 21:00
+# At night while winter at 00:00
 
 # In the morning while spring or autumn at 10:00
-# In the afternoon while spring or autumn at 22:00
+# At night while spring or autumn at 02:00
 
 # In the morning while summer at 11:00
-# In the afternoon while summer at 23:00
+# At night while summer at 03:00
 #############################################################
 
 # Turn off swimming pool pump [morning / Winter]
@@ -551,7 +551,7 @@
 - alias: 'Turn off swimming pool pump [afternoon / Winter]'
   trigger:
     platform: time
-    after: '21:00:00'
+    after: '00:00:00'
   condition:
     - condition: state
       entity_id: sensor.season
@@ -582,7 +582,7 @@
 - alias: 'Turn off swimming pool pump [afternoon / Spring - Autumn]'
   trigger:
     platform: time
-    after: '22:00:00'
+    after: '02:00:00'
   condition:
     condition: or
     conditions:
@@ -613,7 +613,7 @@
 - alias: 'Turn off swimming pool pump [afternoon / Summer]'
   trigger:
     platform: time
-    after: '23:00:00'
+    after: '03:00:00'
   condition:
     - condition: state
       entity_id: sensor.season
