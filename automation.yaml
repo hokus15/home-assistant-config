@@ -507,7 +507,7 @@
 - alias: 'Turn on swimming pool pump [morning]'
   trigger:
     platform: time
-    after: '07:00:00'
+    after: '04:00:00'
   action:
     service: switch.turn_on
     entity_id: switch.piscina
@@ -524,13 +524,13 @@
 #############################################################
 # Swimming pool turn off
 
-# In the morning while winter at 8:00
+# In the morning while winter at 5:00
 # At night while winter at 00:00
 
-# In the morning while spring or autumn at 10:00
+# In the morning while spring or autumn at 6:00
 # At night while spring or autumn at 02:00
 
-# In the morning while summer at 11:00
+# In the morning while summer at 7:00
 # At night while summer at 03:00
 #############################################################
 
@@ -538,7 +538,7 @@
 - alias: 'Turn off swimming pool pump [morning / Winter]'
   trigger:
     platform: time
-    after: '08:00:00'
+    after: '05:00:00'
   condition:
     - condition: state
       entity_id: sensor.season
@@ -564,7 +564,7 @@
 - alias: 'Turn off swimming pool pump [morning / Spring - Autumn]'
   trigger:
     platform: time
-    after: '09:00:00'
+    after: '06:00:00'
   condition:
     condition: or
     conditions:
@@ -600,7 +600,7 @@
 - alias: 'Turn off swimming pool pump [morning / Summer]'
   trigger:
     platform: time
-    after: '10:00:00'
+    after: '07:00:00'
   condition:
     - condition: state
       entity_id: sensor.season
@@ -630,7 +630,7 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.exchange_rate_1_btc
-    above: 670
+    above: 1000
   action:
     service: notify.telegram
     data_template:
