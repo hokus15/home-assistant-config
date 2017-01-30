@@ -528,10 +528,10 @@
 # At night while winter at 00:00
 
 # In the morning while spring or autumn at 6:00
-# At night while spring or autumn at 02:00
+# At night while spring or autumn at 01:00
 
 # In the morning while summer at 7:00
-# At night while summer at 03:00
+# At night while summer at 02:00
 #############################################################
 
 # Turn off swimming pool pump [morning / Winter]
@@ -582,7 +582,7 @@
 - alias: 'Turn off swimming pool pump [afternoon / Spring - Autumn]'
   trigger:
     platform: time
-    after: '02:00:00'
+    after: '01:00:00'
   condition:
     condition: or
     conditions:
@@ -613,7 +613,7 @@
 - alias: 'Turn off swimming pool pump [afternoon / Summer]'
   trigger:
     platform: time
-    after: '03:00:00'
+    after: '02:00:00'
   condition:
     - condition: state
       entity_id: sensor.season
