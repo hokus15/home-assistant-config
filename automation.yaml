@@ -159,7 +159,8 @@
   trigger:
     platform: state
     entity_id: calendar.holiday_mode
-    state: 'on'
+    from: 'off'
+    to: 'on'
   action:
     - service: switch.turn_on
       data:
@@ -170,7 +171,8 @@
   trigger:
     platform: state
     entity_id: calendar.holiday_mode
-    state: 'off'
+    from: 'on'
+    to: 'off'
   action:
     - service: switch.turn_off
       data:
@@ -181,7 +183,8 @@
   trigger:
     platform: state
     entity_id: switch.holiday
-    state: 'on'
+    from: 'off'
+    to: 'on'
   condition:
     condition: state
     entity_id: switch.heating
@@ -195,11 +198,12 @@
         message: 'Modo vacaciones activado'
 
 # Exits holiday mode based on switch
-- alias: 'Switch holiday mode exit'
+- alias: 'Exit holiday mode'
   trigger:
     platform: state
     entity_id: switch.holiday
-    state: 'off'
+    from: 'on'
+    to: 'off'
   condition:
     condition: state
     entity_id: switch.heating
