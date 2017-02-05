@@ -10,6 +10,7 @@ default_view:
     - group.energia
     - group.calefaccion
     - group.seguridad
+    - group.luces_interiores
     - sensor.a_casa
     - sensor.a_la_oficina
     - sensor.al_colegio
@@ -186,6 +187,12 @@ Luces exteriores:
     - light.barrera_izquierda
     - light.puerta_entrada
     - input_slider.luces_exteriores_brightness
+
+Luces interiores:
+  entities:
+    - switch.fibaro_system_fgs223_double_relay_switch_7_0_2
+    - switch.fibaro_system_fgs223_double_relay_switch_7_0
+    - switch.swiid_swiidinter_switch_3_0
 
 Barrera:
   entities:
