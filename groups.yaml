@@ -38,6 +38,7 @@ Interior:
     - group.recibidor
     - group.escalera
     - group.suite
+    - group.calefaccion
 
 Exterior:
   view: yes
