@@ -404,3 +404,16 @@
           {%- endif %}
       entity_id:
         - calendar.turnos_geni_everything
+
+#- platform: qnap
+#  host: !secret qnap_host
+#  username: !secret qnap_username
+#  password: !secret qnap_password
+#  ssl: true
+#  port: 8443
+#  monitored_conditions:
+#    - status
+#    - cpu_usage
+#    - memory_percent_used
+#    - network_tx
+#    - volume_percentage_used
