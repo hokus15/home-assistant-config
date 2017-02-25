@@ -440,16 +440,31 @@
 # Power automations
 #############################################################
 
-# Notify if a power cut detected
+# Notify when a power cut longer than 2 minutes detected
 - alias: 'Notify power cut'
   trigger:
     platform: state
     entity_id: binary_sensor.ups_status_bs
     to: 'off'
+    for:
+      minutes: 2
   action:
-    service: notify.telegram
-    data:
-      message: 'Corte en el suministro eléctrico detectado'
+    - service: notify.telegram
+      data:
+        message: 'Corte en el suministro eléctrico detectado'
+
+# Restart UPS driver controller when a power cut is detected.
+# I've added this automation because from time to time the controller stops working until it's restarted.
+- alias: 'Restart UPS Driver Controller'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.ups_status_bs
+    to: 'off'
+  action:
+    - service: notify.telegram
+      data:
+        message: 'Controlador SAI reiniciado'
+    - service: shell_command.restart_ups_driver_controller
 
 # Notify when the power is back normal
 - alias: 'Notify power ok'
