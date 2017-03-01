@@ -440,14 +440,14 @@
 # Power automations
 #############################################################
 
-# Notify when a power cut longer than 2 minutes detected
+# Notify when a power cut longer than 1 minute detected
 - alias: 'Notify power cut'
   trigger:
     platform: state
     entity_id: binary_sensor.ups_status_bs
     to: 'off'
     for:
-      minutes: 2
+      minutes: 1
   action:
     - service: notify.telegram
       data:
@@ -665,6 +665,15 @@
       data_template:
         message: >
           Nuevo dispositivo encontrado {{ trigger.event.data }}
+
+- alias: 'Update Notification'
+  trigger:
+    - platform: state
+      entity_id: updater.updater
+  action:
+    - service: notify.telegram
+      data:
+        message: "Nueva versión {{ states.updater.updater.state }} de Home Assistant disponible."
 
 #############################################################
 # Nodon Octan automations
