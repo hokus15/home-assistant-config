@@ -42,6 +42,8 @@ updater:
 # Enables support for tracking state changes over time.
 history:
 
+config:
+
 recorder:
   purge_days: 10
 
@@ -93,6 +95,7 @@ google:
   client_secret: !secret google_secret
 zwave:
   usb_path: /dev/ttyACM0
+  device_config: !include zwave_device_config.yaml
 
 tts:
   - platform: google
