@@ -405,6 +405,14 @@
       entity_id:
         - calendar.turnos_geni_everything
 
+- platform: history_stats
+  name: Tiempo depuradora ayer
+  entity_id: switch.piscina
+  state: 'on'
+  end: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+  duration:
+    hours: 24
+
 #- platform: qnap
 #  host: !secret qnap_host
 #  username: !secret qnap_username
