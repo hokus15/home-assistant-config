@@ -194,7 +194,7 @@
     - service: script.turn_on
       entity_id: script.power_off_thermostat
     - service: notify.telegram
-      data_template:
+      data:
         message: 'Modo vacaciones activado'
 
 # Exits holiday mode based on switch
@@ -215,7 +215,7 @@
       data:
         away_mode: true
     - service: notify.telegram
-      data_template:
+      data:
         message: 'Modo vacaciones desactivado'
 
 #############################################################
@@ -652,7 +652,7 @@
       state: 'Winter'
   action:
     service: notify.telegram
-    data_template:
+    data:
       message: 'Motor piscina encendido durante más de 3 horas en las últimas 24h'
 
 - alias: 'Notify when swimming pool pump on more than 5 hours [Spring - Autumn]'
@@ -671,7 +671,7 @@
       state: 'Autumn'
   action:
     service: notify.telegram
-    data_template:
+    data:
       message: 'Motor piscina encendido durante más de 5 horas en las últimas 24h'
 
 - alias: 'Notify when swimming pool pump on more than 7 hours [Summer]'
@@ -685,7 +685,7 @@
       state: 'Summer'
   action:
     service: notify.telegram
-    data_template:
+    data:
       message: 'Motor piscina encendido durante más de 7 horas en las últimas 24h'
 
 #############################################################
@@ -700,8 +700,7 @@
   action:
     service: notify.telegram
     data_template:
-      message: >
-        Bitcoin ha llegado a un valor de {{states.sensor.exchange_rate_1_btc.state}} {{states.sensor.exchange_rate_1_btc.attributes.unit_of_measurement}}
+      message: 'Bitcoin ha llegado a un valor de {{states.sensor.exchange_rate_1_btc.state}} {{states.sensor.exchange_rate_1_btc.attributes.unit_of_measurement}}'
 
 - alias: 'Notify for every new device'
   trigger:
@@ -710,8 +709,7 @@
   action:
     - service: notify.telegram
       data_template:
-        message: >
-          Nuevo dispositivo encontrado {{ trigger.event.data }}
+        message: 'Nuevo dispositivo encontrado {{ trigger.event.data }}'
 
 - alias: 'Update Notification'
   trigger:
@@ -719,8 +717,8 @@
       entity_id: updater.updater
   action:
     - service: notify.telegram
-      data:
-        message: "Nueva versión {{ states.updater.updater.state }} de Home Assistant disponible."
+      data_template:
+        message: 'Nueva versión {{ states.updater.updater.state }} de Home Assistant disponible.'
 
 #############################################################
 # Nodon Octan automations
