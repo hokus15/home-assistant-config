@@ -543,14 +543,14 @@
 #############################################################
 # Swimming pool turn off
 
-# In the morning while winter at 5:00
-# At night while winter at 00:00
+# In the morning while winter at 5:00 (1 hour)
+# At night while winter at 00:00 (1 hour)
 
-# In the morning while spring or autumn at 6:00
-# At night while spring or autumn at 01:00
+# In the morning while spring or autumn at 6:00 (2 hours)
+# At night while spring or autumn at 01:00 (2 hours)
 
-# In the morning while summer at 7:00
-# At night while summer at 02:00
+# In the morning while summer at 7:00 (3 hours)
+# At night while summer at 02:00 (3 hours)
 #############################################################
 
 # Turn off swimming pool pump [morning / Winter]
@@ -640,6 +640,53 @@
   action:
     service: switch.turn_off
     entity_id: switch.piscina
+
+- alias: 'Notify when swimming pool pump on more than 3 hours [Winter]'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.piscina_on_history
+    above: 3
+  condition:
+    - condition: state
+      entity_id: sensor.season
+      state: 'Winter'
+  action:
+    service: notify.telegram
+    data_template:
+      message: 'Motor piscina encendido durante más de 3 horas en las últimas 24h'
+
+- alias: 'Notify when swimming pool pump on more than 5 hours [Spring - Autumn]'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.piscina_on_history
+    above: 5
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: sensor.season
+      state: 'Spring'
+    - condition: state
+      entity_id: sensor.season
+      state: 'Autumn'
+  action:
+    service: notify.telegram
+    data_template:
+      message: 'Motor piscina encendido durante más de 5 horas en las últimas 24h'
+
+- alias: 'Notify when swimming pool pump on more than 7 hours [Summer]'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.piscina_on_history
+    above: 7
+  condition:
+    - condition: state
+      entity_id: sensor.season
+      state: 'Summer'
+  action:
+    service: notify.telegram
+    data_template:
+      message: 'Motor piscina encendido durante más de 7 horas en las últimas 24h'
 
 #############################################################
 # Other automations
