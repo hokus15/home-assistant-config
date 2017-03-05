@@ -2,8 +2,8 @@
 - platform: command_line
   # Command used to get infrared status for a foscam camera:
   # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
-  command: !secret cam_hall_infrared_command
-  name: cam_hall_infrared
+  command: !secret cam_recibidor_infrared_command
+  name: cam_recibidor_infrared
   payload_on: '1'
   payload_off: '0'
   #device_class: light
@@ -12,8 +12,8 @@
 - platform: command_line
   # Command used to get infrared status for a foscam camera:
   # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
-  command: !secret cam_swimmingpool_infrared_command
-  name: cam_swimmingpool_infrared
+  command: !secret cam_piscina_infrared_command
+  name: cam_piscina_infrared
   payload_on: '1'
   payload_off: '0'
   #device_class: light
@@ -38,7 +38,7 @@
 
 - platform: mqtt
   state_topic: 'home/camera/recibidor/alarm'
-  name: 'cam_hall_alarm'
+  name: 'cam_recibidor_alarm'
   device_class: motion
   # 0: No alarm
   # 1: Alarm triggered
@@ -52,7 +52,7 @@
 # Alarm status for foscam cam in swimming pool
 - platform: mqtt
   state_topic: 'home/camera/piscina/alarm'
-  name: 'cam_swimmingpool_alarm'
+  name: 'cam_piscina_alarm'
   device_class: motion
   # 0: No alarm
   # 1: Alarm triggered

@@ -1,7 +1,7 @@
 # Hall camera
 - platform: foscam
   ip: !secret cam_hall_host
-  name: cam_hall
+  name: recibidor
   port: !secret cam_hall_port
   username: !secret cam_hall_username
   password: !secret cam_hall_password
@@ -9,7 +9,7 @@
  # Swiming pool camera
 - platform: foscam
   ip: !secret cam_swimmingpool_host
-  name: cam_swimmingpool
+  name: piscina
   port: !secret cam_swimmingpool_port
   username: !secret cam_swimmingpool_username
   password: !secret cam_swimmingpool_password
@@ -18,7 +18,7 @@
 # For Linksys WVC54GCA http://<cam-host>:<cam_port>/img/snapshot.cgi
 - platform: generic
   still_image_url: !secret cam_caseta_still_image_url
-  name: cam_caseta
+  name: caseta
   username: !secret cam_caseta_username
   password: !secret cam_caseta_password
   authentication: basic

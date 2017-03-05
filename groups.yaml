@@ -50,7 +50,7 @@ Exterior:
     - group.viento
     - group.barrera
     - group.piscina
-    - camera.cam_caseta
+    - camera.caseta
 
 Varios:
   view: yes
@@ -174,7 +174,7 @@ Recibidor:
   entities:
     - switch.swiid_swiidinter_switch_3_0
     - sensor.hall_temperature
-    - camera.cam_hall
+    - camera.recibidor
 
 Cocina:
   entities:
@@ -204,32 +204,32 @@ Piscina:
   entities:
     - switch.piscina
     - sensor.piscina_on_history
-    - camera.cam_swimmingpool
+    - camera.piscina
 
 Cámara recibidor:
   entities:
-    - camera.cam_hall
-    - switch.cam_hall_motion_detection
-    - binary_sensor.cam_hall_infrared
-    - binary_sensor.cam_hall_alarm
+    - camera.recibidor
+    - switch.cam_recibidor_motion_detection
+    - binary_sensor.cam_recibidor_infrared
+    - binary_sensor.cam_recibidor_alarm
 
 Cámara piscina:
   entities:
-    - camera.cam_swimmingpool
-    - switch.cam_swimmingpool_motion_detection
-    - binary_sensor.cam_swimmingpool_infrared
-    - binary_sensor.cam_swimmingpool_alarm
+    - camera.piscina
+    - switch.cam_piscina_motion_detection
+    - binary_sensor.cam_piscina_infrared
+    - binary_sensor.cam_piscina_alarm
 
 Cámara caseta:
   entities:
-    - camera.cam_caseta
+    - camera.caseta
     - switch.cam_caseta_motion_detection
     - binary_sensor.cam_caseta_alarm
 
 Seguridad:
   entities:
-    - switch.cam_hall_motion_detection
-    - switch.cam_swimmingpool_motion_detection
+    - switch.cam_recibidor_motion_detection
+    - switch.cam_piscina_motion_detection
     - switch.cam_caseta_motion_detection
     - input_boolean.notify_living_room_alarm
     - input_boolean.notify_kitchen_back_door_open
@@ -336,7 +336,7 @@ SAI:
 #  entities:
 #    - device_tracker.wemo_insight_piscina
 #    - device_tracker.router_vodafone
-#    - device_tracker.cam_swimmingpool
+#    - device_tracker.cam_piscina
 #    - device_tracker.cam_caseta
 #Cocina:
 #  entities:

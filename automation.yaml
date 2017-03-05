@@ -226,7 +226,7 @@
 - alias: 'Disable alarm for recibidor'
   trigger:
     platform: state
-    entity_id: binary_sensor.cam_hall_alarm
+    entity_id: binary_sensor.cam_recibidor_alarm
     state: 'on'
   action:
     - delay:
@@ -241,7 +241,7 @@
 - alias: 'Disable alarm for piscina'
   trigger:
     platform: state
-    entity_id: binary_sensor.cam_swimmingpool_alarm
+    entity_id: binary_sensor.cam_piscina_alarm
     state: 'on'
   action:
     - delay:

@@ -209,18 +209,18 @@ sensor.piscina_on_history:
 ###################################
 # Binary Sensors
 ###################################
-binary_sensor.cam_hall_infrared:
+binary_sensor.cam_recibidor_infrared:
   friendly_name: 'Infrarrojos recibidor'
   icon: 'mdi:led-on'
-binary_sensor.cam_swimmingpool_infrared:
+binary_sensor.cam_piscina_infrared:
   friendly_name: 'Infrarrojos piscina'
   icon: 'mdi:led-on'
 binary_sensor.ups_status_bs:
   friendly_name: 'Suministro eléctrico'
-binary_sensor.cam_swimmingpool_alarm:
+binary_sensor.cam_piscina_alarm:
   friendly_name: 'Movimiento'
   #icon: 'mdi:bell'
-binary_sensor.cam_hall_alarm:
+binary_sensor.cam_recibidor_alarm:
   friendly_name: 'Movimiento'
   #icon: 'mdi:bell'
 binary_sensor.cam_caseta_alarm:
@@ -234,19 +234,19 @@ binary_sensor.living_room_tampering:
 ###################################
 # Cameras
 ###################################
-camera.cam_hall:
+camera.recibidor:
   friendly_name: 'Recibidor'
-camera.cam_swimmingpool:
+camera.piscina:
   friendly_name: 'Piscina'
-camera.cam_caseta:
+camera.caseta:
   friendly_name: 'Caseta'
 ###################################
 # Switches
 ###################################
-switch.cam_hall_motion_detection:
+switch.cam_recibidor_motion_detection:
   friendly_name: 'Det. mov. recibidor'
   icon: 'mdi:transit-transfer'
-switch.cam_swimmingpool_motion_detection:
+switch.cam_piscina_motion_detection:
   friendly_name: 'Det. mov. piscina'
   icon: 'mdi:transit-transfer'
 switch.cam_caseta_motion_detection:
