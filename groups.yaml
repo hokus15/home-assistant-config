@@ -203,7 +203,7 @@ Barrera:
 Piscina:
   entities:
     - switch.piscina
-    - sensor.tiempo_depuradora_ayer
+    - sensor.piscina_on_history
     - camera.cam_swimmingpool
 
 Cámara recibidor:

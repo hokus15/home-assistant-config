@@ -203,6 +203,8 @@ sensor.next_shift_event:
   icon: mdi:message
 sensor.next_shift_date:
   icon: mdi:calendar
+sensor.piscina_on_history:
+  friendly_name: 'Uso bomba últimas 24h'
 
 ###################################
 # Binary Sensors
