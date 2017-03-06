@@ -222,7 +222,7 @@
 # Alarm automations
 #############################################################
 
-# Disable alarm for recibidor after 15 seconds of detection
+# Disable alarm for recibidor after 30 seconds of detection
 - alias: 'Disable alarm for recibidor'
   trigger:
     platform: state
@@ -230,14 +230,14 @@
     state: 'on'
   action:
     - delay:
-        seconds: 15
+        seconds: 30
     - service: mqtt.publish
       data:
         payload: 0
         retain: true
         topic: 'home/camera/recibidor/alarm'
 
-# Disable alarm for piscina after 15 seconds of detection
+# Disable alarm for piscina after 30 seconds of detection
 - alias: 'Disable alarm for piscina'
   trigger:
     platform: state
@@ -245,14 +245,14 @@
     state: 'on'
   action:
     - delay:
-        seconds: 15
+        seconds: 30
     - service: mqtt.publish
       data:
         payload: 0
         retain: true
         topic: 'home/camera/piscina/alarm'
 
-# Disable alarm for caseta after 15 seconds of detection
+# Disable alarm for caseta after 30 seconds of detection
 - alias: 'Disable alarm for caseta'
   trigger:
     platform: state
@@ -260,7 +260,7 @@
     state: 'on'
   action:
     - delay:
-        seconds: 15
+        seconds: 30
     - service: mqtt.publish
       data:
         payload: 0
