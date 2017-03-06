@@ -1,18 +1,18 @@
 # Hall camera
 - platform: foscam
-  ip: !secret cam_hall_host
+  ip: !secret cam_recibidor_host
   name: recibidor
-  port: !secret cam_hall_port
-  username: !secret cam_hall_username
-  password: !secret cam_hall_password
+  port: !secret cam_recibidor_port
+  username: !secret cam_recibidor_username
+  password: !secret cam_recibidor_password
 
  # Swiming pool camera
 - platform: foscam
-  ip: !secret cam_swimmingpool_host
+  ip: !secret cam_piscina_host
   name: piscina
-  port: !secret cam_swimmingpool_port
-  username: !secret cam_swimmingpool_username
-  password: !secret cam_swimmingpool_password
+  port: !secret cam_piscina_port
+  username: !secret cam_piscina_username
+  password: !secret cam_piscina_password
 
 # Backyard stand camera
 # For Linksys WVC54GCA http://<cam-host>:<cam_port>/img/snapshot.cgi
