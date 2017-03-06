@@ -26,4 +26,4 @@
   devices:
     Jordi: /owntracks/hokusphone/hokusphone
 
-- platform: bluetooth_le_tracker
+#- platform: bluetooth_le_tracker
