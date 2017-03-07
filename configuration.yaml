@@ -62,8 +62,14 @@ history:
 config:
 
 recorder:
-  purge_days: 10
+  purge_days: 30
   db_url: !secret recorder_db_url
+  exclude:
+    domains:
+      - automation
+      - script
+      - zone
+      - group
 
 mqtt:
   broker: !secret mqtt_broker
