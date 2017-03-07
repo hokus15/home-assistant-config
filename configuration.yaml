@@ -70,6 +70,17 @@ recorder:
       - script
       - zone
       - group
+      - calendar
+    entities:
+      - sensor.since_last_boot
+      - sensor.last_boot
+      - sensor.next_shift_event
+      - sensor.next_shift_date
+      - sensor.next_holiday_mode_start
+      - sensor.next_holiday_mode_end
+      - sensor.nut_ups_manufacturer
+      - sensor.nut_ups_model
+      - sun.sun
 
 mqtt:
   broker: !secret mqtt_broker
