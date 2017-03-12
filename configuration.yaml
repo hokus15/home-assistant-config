@@ -34,22 +34,22 @@ logbook:
 sun:
 
 # Discover some devices automatically
-#discovery:
+discovery:
 
 #############################################
 # Temporary until discovery service is fixed.
-media_player:
-  - platform: squeezebox
-    host: 192.168.1.2
-    port: 9001
-  - platform: cast
+#media_player:
+#  - platform: squeezebox
+#    host: 192.168.1.2
+#    port: 9001
+#  - platform: cast
 
-wemo:
-  static:
-    - 192.168.1.110
-#    - 192.168.1.111
-    - 192.168.1.112
-    - 192.168.1.113
+#wemo:
+#  static:
+#    - 192.168.1.110
+##    - 192.168.1.111
+#    - 192.168.1.112
+#    - 192.168.1.113
 # END Temporary until discovery service is fixed.
 #################################################
 
