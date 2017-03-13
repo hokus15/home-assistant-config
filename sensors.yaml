@@ -190,18 +190,18 @@
           {%- endif %}
       entity_id:
         - device_tracker.virtual_device
-    hokusphone_hokusphone:
+    hokusphone_jordi:
       friendly_name: 'Jordi'
       value_template: >-
-          {%- if is_state("device_tracker.hokusphone_hokusphone", "home") %}
+          {%- if is_state("device_tracker.hokusphone_jordi", "home") %}
               En casa
-          {% elif is_state("device_tracker.hokusphone_hokusphone", "not_home") %}
+          {% elif is_state("device_tracker.hokusphone_jordi", "not_home") %}
               Ausente
           {% else %}
-              {{ states.device_tracker.hokusphone_hokusphone.state }}
+              {{ states.device_tracker.hokusphone_jordi.state }}
           {%- endif %}
       entity_id:
-        - device_tracker.hokusphone_hokusphone
+        - device_tracker.hokusphone_jordi
     geni:
       friendly_name: 'Geni'
       value_template: >-

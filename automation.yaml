@@ -124,6 +124,48 @@
         dev_id: 'ana'
         location_name: 'not_home'
 
+# Set Jordi as home when at least ONE of related entities are set to home
+- alias: 'Jordi home'
+  trigger:
+      platform: state
+      entity_id: device_tracker.hokusphone_nmap, device_tracker.hokusphone_hokusphone
+      state: 'home'
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: 'device_tracker.hokusphone_nmap'
+        state: 'home'
+      - condition: state
+        entity_id: 'device_tracker.hokusphone_hokusphone'
+        state: 'home'
+  action:
+    - service: device_tracker.see
+      data:
+        dev_id: 'hokusphone_jordi'
+        location_name: 'home'
+
+# Set Jordi as not home when ALL related entities are set to not home
+- alias: 'Jordi not home'
+  trigger:
+      platform: state
+      entity_id: device_tracker.nmap_hokusphone, device_tracker.hokusphone_hokusphone
+      state: 'not_home'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: 'device_tracker.hokusphone_nmap'
+        state: 'not_home'
+      - condition: state
+        entity_id: 'device_tracker.hokusphone_hokusphone'
+        state: 'not_home'
+  action:
+    - service: device_tracker.see
+      data:
+        dev_id: 'hokusphone_jordi'
+        location_name: 'not_home'
+
 #############################################################
 # Heating automations
 #############################################################
@@ -779,7 +821,7 @@
 #- alias: 'Checkin at Colegio'
 #  trigger:
 #    platform: zone
-#    entity_id: device_tracker.hokusphone_hokusphone
+#    entity_id: device_tracker.hokusphone_jordi
 #    zone: zone.colegio
 #    event: enter
 #  action:
@@ -790,7 +832,7 @@
 #- alias: 'Checkin at Oficina'
 #  trigger:
 #    platform: zone
-#    entity_id: device_tracker.hokusphone_hokusphone
+#    entity_id: device_tracker.hokusphone_jordi
 #    zone: zone.colegio
 #    event: enter
 #  action:

@@ -100,8 +100,8 @@ sensor.body_weight:
   friendly_name: 'Peso'
   unit_of_measurement: kg
   icon: mdi:scale-bathroom
-sensor.hokusphone_hokusphone:
-  entity_picture: !secret hokusphone_hokusphone_picture
+sensor.hokusphone_jordi:
+  entity_picture: !secret hokusphone_jordi_picture
 sensor.geni:
   entity_picture: !secret geni_picture
 sensor.virtual_device:

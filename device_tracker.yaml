@@ -14,8 +14,8 @@
   # Seconds to wait till marking someone as not home after not being seen
   # (default: 180)
   consider_home: 300
-  exclude:
-    - 192.168.1.100
+#  exclude:
+#    - 192.168.1.100
 
 - platform: owntracks
   max_gps_accuracy: 200
