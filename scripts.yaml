@@ -184,3 +184,11 @@ parte_meteorologico:
       data_template:
         message: 'La temperatura exterior es de {{ states("sensor.netatmo_exterior_temperature") }} grados. La humedad exterior es del {{ states("sensor.netatmo_exterior_humidity") }} por ciento. Las rachas de viento son de {{ states("sensor.netatmo_anemometro_gust_strength") }} kilómetros por hora.'
         cache: false
+
+refresh_location:
+  alias: 'Refresh location'
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: 'owntracks/hokusphone/hokusphone/cmd'
+        payload_template: '{"_type":"cmd","action":"reportLocation"}'
