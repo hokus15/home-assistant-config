@@ -127,9 +127,9 @@
 # Set Jordi as home when at least ONE of related entities are set to home
 - alias: 'Jordi home'
   trigger:
-      platform: state
-      entity_id: device_tracker.hokusphone_nmap, device_tracker.hokusphone_hokusphone
-      state: 'home'
+    platform: state
+    entity_id: device_tracker.hokusphone_nmap, device_tracker.hokusphone_hokusphone
+    state: 'home'
   condition:
     condition: or
     conditions:
@@ -145,26 +145,23 @@
         dev_id: 'hokusphone_jordi'
         location_name: 'home'
 
-# Set Jordi as not home when ALL related entities are set to not home
+# Set Jordi the location of device_tracker.hokusphone_hokusphone when ALL related entities are in a state different from home
 - alias: 'Jordi not home'
   trigger:
-      platform: state
-      entity_id: device_tracker.nmap_hokusphone, device_tracker.hokusphone_hokusphone
-      state: 'not_home'
+    platform: state
+    entity_id: device_tracker.hokusphone_nmap, device_tracker.hokusphone_hokusphone
   condition:
     condition: and
     conditions:
-      - condition: state
-        entity_id: 'device_tracker.hokusphone_nmap'
-        state: 'not_home'
-      - condition: state
-        entity_id: 'device_tracker.hokusphone_hokusphone'
-        state: 'not_home'
+      - condition: template
+        value_template: "{{ not(is_state('device_tracker.hokusphone_nmap', 'home')) }}"
+      - condition: template
+        value_template: "{{ not(is_state('device_tracker.hokusphone_hokusphone', 'home')) }}"
   action:
     - service: device_tracker.see
-      data:
+      data_template:
         dev_id: 'hokusphone_jordi'
-        location_name: 'not_home'
+        location_name: '{{ states.device_tracker.hokusphone_hokusphone.state }}'
 
 #############################################################
 # Heating automations
