@@ -75,7 +75,7 @@
         location_name: 'not_home'
 
 # Turn Ana status to home at 7:00 if she's not home and the shift in calendar is "Mañana" or "Saliente"
-- alias: 'Ana en casa'
+- alias: 'Ana home'
   trigger:
     platform: time
     after: '07:00:00'
@@ -100,7 +100,7 @@
         location_name: 'home'
 
 # Turn Ana status to home at 11:00 if she's at home and the shift in calendar is "Mañana" or "Saliente"
-- alias: 'Ana ausente de casa'
+- alias: 'Ana not home'
   trigger:
     platform: time
     after: '11:00:00'
