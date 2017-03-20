@@ -205,15 +205,15 @@
     geni:
       friendly_name: 'Geni'
       value_template: >-
-          {%- if is_state("device_tracker.geni", "home") %}
+          {%- if is_state("device_tracker.geni_nmap", "home") %}
               En casa
-          {% elif is_state("device_tracker.geni", "not_home") %}
+          {% elif is_state("device_tracker.geni_nmap", "not_home") %}
               Ausente
           {% else %}
               {{ states.device_tracker.geni.state }}
           {%- endif %}
       entity_id:
-        - device_tracker.geni
+        - device_tracker.geni_nmap
     ana:
       friendly_name: 'Ana'
       value_template: >-

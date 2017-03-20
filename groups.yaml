@@ -75,7 +75,7 @@ Varios:
 Unidad Familiar:
   entities:
     - device_tracker.hokusphone_jordi
-    - device_tracker.geni
+    - device_tracker.geni_nmap
     - device_tracker.ana
     - device_tracker.virtual_device
 
