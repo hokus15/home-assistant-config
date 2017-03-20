@@ -192,3 +192,32 @@ refresh_location:
       data:
         topic: 'owntracks/hokusphone/hokusphone/cmd'
         payload_template: '{"_type":"cmd","action":"reportLocation"}'
+
+notify_motion_detection:
+  alias: 'Notifies motion detection'
+  sequence:
+      # Only send notification if the alarm has not fired recently (state is off).
+    - condition: template
+      value_template: '{{ states("binary_sensor.cam_" ~ data.camera ~ "_alarm") == "off" }}'
+      # Call script motion_detected_mqtt passing as variable the camera name
+    - service: script.motion_detected_mqtt
+      data_template:
+        camera: '{{data.camera}}'
+      # Send the notification
+    - service: notify.telegram
+      data_template:
+        message: 'text'
+        data:
+          photo:
+            file: '{{data.file}}'
+            caption: 'Movimiento detectado en {{data.camera}}'
+
+motion_detected_mqtt:
+  alias: 'Set motion detected mqtt'
+  sequence:
+    - delay:
+        seconds: 5
+    - service: mqtt.publish
+      data_template:
+        topic: 'home/camera/{{camera}}/alarm'
+        payload: '1'
