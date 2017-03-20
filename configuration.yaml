@@ -91,6 +91,7 @@ mqtt:
 logger:
   default: warn
 #  logs:
+#    homeassistant.helpers.script: debug
 #    homeassistant.components.device_tracker: info
 #    libopenzwave: debug
 #    openzwave: debug
