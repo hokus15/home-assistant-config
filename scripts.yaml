@@ -216,7 +216,7 @@ motion_detected_mqtt:
   alias: 'Set motion detected mqtt'
   sequence:
     - delay:
-        seconds: 5
+        seconds: 10
     - service: mqtt.publish
       data_template:
         topic: 'home/camera/{{camera}}/alarm'
