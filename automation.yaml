@@ -163,6 +163,23 @@
         dev_id: 'hokusphone_jordi'
         location_name: '{{ states.device_tracker.hokusphone_hokusphone.state }}'
 
+- alias: 'Open fence'
+  trigger:
+    - platform: state
+      entity_id: device_tracker.beacon_toyota
+      from: 'not_home'
+      to: 'home'
+  condition:
+   - condition: state
+     entity_id: sensor.fence_status
+     state: 'Cerrada'
+  action:
+    - service: notify.telegram
+      data:
+        message: 'Toyota en casa con Jordi.'
+#     service: switch.turn_on
+#     entity_id: switch.barrera
+
 #############################################################
 # Heating automations
 #############################################################
