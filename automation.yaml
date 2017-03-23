@@ -129,6 +129,7 @@
   trigger:
     platform: state
     entity_id: device_tracker.hokusphone_nmap, device_tracker.hokusphone_hokusphone
+    #, device_tracker.alta, device_tracker.ble_nut_jordi
     state: 'home'
   condition:
     condition: or
@@ -139,10 +140,16 @@
       - condition: state
         entity_id: 'device_tracker.hokusphone_hokusphone'
         state: 'home'
+#      - condition: state
+#        entity_id: 'device_tracker.ble_nut_jordi'
+#        state: 'home'
+#      - condition: state
+#        entity_id: 'device_tracker.alta'
+#        state: 'home'
   action:
     - service: device_tracker.see
       data:
-        dev_id: 'hokusphone_jordi'
+        dev_id: 'jordi_combined'
         location_name: 'home'
 
 # Set Jordi the location of device_tracker.hokusphone_hokusphone when ALL related entities are in a state different from home
@@ -150,6 +157,7 @@
   trigger:
     platform: state
     entity_id: device_tracker.hokusphone_nmap, device_tracker.hokusphone_hokusphone
+    #, device_tracker.ble_nut_jordi, device_tracker.alta
   condition:
     condition: and
     conditions:
@@ -157,26 +165,70 @@
         value_template: "{{ not(is_state('device_tracker.hokusphone_nmap', 'home')) }}"
       - condition: template
         value_template: "{{ not(is_state('device_tracker.hokusphone_hokusphone', 'home')) }}"
+#      - condition: template
+#        value_template: "{{ not(is_state('device_tracker.ble_nut_jordi', 'home')) }}"
+#      - condition: template
+#        value_template: "{{ not(is_state('device_tracker.alta', 'home')) }}"
   action:
     - service: device_tracker.see
       data_template:
-        dev_id: 'hokusphone_jordi'
+        dev_id: 'jordi_combined'
         location_name: '{{ states.device_tracker.hokusphone_hokusphone.state }}'
 
-- alias: 'Open fence'
+# Set Geni as home when at least ONE of related entities are set to home
+- alias: 'Geni home'
   trigger:
-    - platform: state
-      entity_id: device_tracker.beacon_toyota
-      from: 'not_home'
-      to: 'home'
+    platform: state
+    entity_id: device_tracker.geni_nmap, device_tracker.flex_2
+    state: 'home'
   condition:
-   - condition: state
-     entity_id: sensor.fence_status
-     state: 'Cerrada'
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: 'device_tracker.geni_nmap'
+        state: 'home'
+      - condition: state
+        entity_id: 'device_tracker.flex_2'
+        state: 'home'
   action:
-    - service: notify.telegram
+    - service: device_tracker.see
       data:
-        message: 'Toyota en casa con Jordi.'
+        dev_id: 'geni_combined'
+        location_name: 'home'
+
+# Set Geni the location of device_tracker.geni_nmap when ALL related entities are in a state different from home
+- alias: 'Geni not home'
+  trigger:
+    platform: state
+    entity_id: device_tracker.geni_nmap
+    #, device_tracker.flex_2
+  condition:
+    condition: and
+    conditions:
+      - condition: template
+        value_template: "{{ not(is_state('device_tracker.geni_nmap', 'home')) }}"
+      - condition: template
+        value_template: "{{ not(is_state('device_tracker.flex_2', 'home')) }}"
+  action:
+    - service: device_tracker.see
+      data_template:
+        dev_id: 'geni_combined'
+        location_name: '{{ states.device_tracker.geni_nmap.state }}'
+
+#- alias: 'Open fence'
+#  trigger:
+#    - platform: state
+#      entity_id: device_tracker.beacon_toyota
+#      from: 'not_home'
+#      to: 'home'
+#  condition:
+#   - condition: state
+#     entity_id: sensor.fence_status
+#     state: 'Cerrada'
+#  action:
+#    - service: notify.telegram
+#      data:
+#        message: 'Toyota en casa con Jordi.'
 #     service: switch.turn_on
 #     entity_id: switch.barrera
 
@@ -835,7 +887,7 @@
 #- alias: 'Checkin at Colegio'
 #  trigger:
 #    platform: zone
-#    entity_id: device_tracker.hokusphone_jordi
+#    entity_id: device_tracker.jordi_combined
 #    zone: zone.colegio
 #    event: enter
 #  action:
@@ -846,7 +898,7 @@
 #- alias: 'Checkin at Oficina'
 #  trigger:
 #    platform: zone
-#    entity_id: device_tracker.hokusphone_jordi
+#    entity_id: device_tracker.jordi_combined
 #    zone: zone.colegio
 #    event: enter
 #  action:

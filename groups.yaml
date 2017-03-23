@@ -74,15 +74,15 @@ Varios:
 ################################################
 Unidad Familiar:
   entities:
-    - device_tracker.hokusphone_jordi
-    - device_tracker.geni_nmap
+    - device_tracker.jordi_combined
+    - device_tracker.geni_combined
     - device_tracker.ana
     - device_tracker.virtual_device
 
 Familia:
   entities:
-    - sensor.hokusphone_jordi
-    - sensor.geni
+    - sensor.jordi_combined
+    - sensor.geni_combined
     - sensor.ana
     - sensor.virtual_device
     - input_boolean.empty_home_activation_delay
@@ -95,7 +95,7 @@ Familia:
 
 Jordi:
   entities:
-    - sensor.hokusphone_jordi
+    - sensor.jordi_combined
     - sensor.hokusphone_batt
     - sensor.steps
     - sensor.sleep_efficiency

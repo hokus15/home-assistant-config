@@ -15,3 +15,9 @@
   longitude: !secret office2_longitude
   radius: 250
   icon: mdi:hospital-building
+
+#- name: Recibidor
+#  latitude: !secret ha_latitude
+#  longitude: !secret ha_longitude
+#  radius: 100
+#  icon: mdi:home
