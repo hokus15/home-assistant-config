@@ -128,8 +128,8 @@
 - alias: 'Jordi home'
   trigger:
     platform: state
-    entity_id: device_tracker.hokusphone_nmap, device_tracker.hokusphone_hokusphone
-    #, device_tracker.alta, device_tracker.ble_nut_jordi
+    entity_id: device_tracker.hokusphone_nmap, device_tracker.hokusphone_hokusphone, sensor.hokusphone_nut
+    #, device_tracker.alta
     state: 'home'
   condition:
     condition: or
@@ -140,9 +140,9 @@
       - condition: state
         entity_id: 'device_tracker.hokusphone_hokusphone'
         state: 'home'
-#      - condition: state
-#        entity_id: 'device_tracker.ble_nut_jordi'
-#        state: 'home'
+      - condition: state
+        entity_id: 'sensor.hokusphone_nut'
+        state: 'home'
 #      - condition: state
 #        entity_id: 'device_tracker.alta'
 #        state: 'home'
@@ -156,8 +156,8 @@
 - alias: 'Jordi not home'
   trigger:
     platform: state
-    entity_id: device_tracker.hokusphone_nmap, device_tracker.hokusphone_hokusphone
-    #, device_tracker.ble_nut_jordi, device_tracker.alta
+    entity_id: device_tracker.hokusphone_nmap, device_tracker.hokusphone_hokusphone, sensor.hokusphone_nut
+    #, device_tracker.alta
   condition:
     condition: and
     conditions:
@@ -165,8 +165,8 @@
         value_template: "{{ not(is_state('device_tracker.hokusphone_nmap', 'home')) }}"
       - condition: template
         value_template: "{{ not(is_state('device_tracker.hokusphone_hokusphone', 'home')) }}"
-#      - condition: template
-#        value_template: "{{ not(is_state('device_tracker.ble_nut_jordi', 'home')) }}"
+      - condition: template
+        value_template: "{{ not(is_state('sensor.hokusphone_nut', 'home')) }}"
 #      - condition: template
 #        value_template: "{{ not(is_state('device_tracker.alta', 'home')) }}"
   action:
@@ -215,20 +215,25 @@
         dev_id: 'geni_combined'
         location_name: '{{ states.device_tracker.geni_nmap.state }}'
 
-#- alias: 'Open fence'
+- alias: 'Open fence'
+  trigger:
+    - platform: zone
+      entity_id: device_tracker.beacon_toyota
+      zone: zone.casa
+      event: enter
 #  trigger:
 #    - platform: state
 #      entity_id: device_tracker.beacon_toyota
 #      from: 'not_home'
 #      to: 'home'
-#  condition:
-#   - condition: state
-#     entity_id: sensor.fence_status
-#     state: 'Cerrada'
-#  action:
-#    - service: notify.telegram
-#      data:
-#        message: 'Toyota en casa con Jordi.'
+  condition:
+   - condition: state
+     entity_id: sensor.fence_status
+     state: 'Cerrada'
+  action:
+    - service: notify.telegram
+      data:
+        message: 'Toyota en casa con Jordi.'
 #   - service: switch.turn_on
 #     entity_id: switch.barrera
 
