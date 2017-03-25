@@ -7,7 +7,7 @@
 - name: Colegio
   latitude: !secret school_latitude
   longitude: !secret school_longitude
-  radius: 250
+  radius: 175
   icon: mdi:school
 
 - name: Hospital
@@ -16,7 +16,7 @@
   radius: 250
   icon: mdi:hospital-building
 
-#- name: Recibidor
+#- name: Casa
 #  latitude: !secret ha_latitude
 #  longitude: !secret ha_longitude
 #  radius: 100
