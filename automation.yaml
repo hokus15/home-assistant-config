@@ -229,7 +229,7 @@
 #    - service: notify.telegram
 #      data:
 #        message: 'Toyota en casa con Jordi.'
-#     service: switch.turn_on
+#   - service: switch.turn_on
 #     entity_id: switch.barrera
 
 #############################################################
@@ -749,11 +749,11 @@
     service: switch.turn_off
     entity_id: switch.piscina
 
-- alias: 'Notify when swimming pool pump on more than 3 hours [Winter]'
+- alias: 'Notify when swimming pool pump on more than 4 hours [Winter]'
   trigger:
     platform: numeric_state
     entity_id: sensor.piscina_on_history
-    above: 3
+    above: 4
   condition:
     - condition: state
       entity_id: sensor.season
@@ -761,13 +761,13 @@
   action:
     service: notify.telegram
     data:
-      message: 'Motor piscina encendido durante más de 3 horas en las últimas 24h'
+      message: 'Motor piscina encendido durante más de 4 horas en las últimas 24h'
 
-- alias: 'Notify when swimming pool pump on more than 5 hours [Spring - Autumn]'
+- alias: 'Notify when swimming pool pump on more than 6 hours [Spring - Autumn]'
   trigger:
     platform: numeric_state
     entity_id: sensor.piscina_on_history
-    above: 5
+    above: 6
   condition:
     condition: or
     conditions:
@@ -780,13 +780,13 @@
   action:
     service: notify.telegram
     data:
-      message: 'Motor piscina encendido durante más de 5 horas en las últimas 24h'
+      message: 'Motor piscina encendido durante más de 6 horas en las últimas 24h'
 
-- alias: 'Notify when swimming pool pump on more than 7 hours [Summer]'
+- alias: 'Notify when swimming pool pump on more than 8 hours [Summer]'
   trigger:
     platform: numeric_state
     entity_id: sensor.piscina_on_history
-    above: 7
+    above: 8
   condition:
     - condition: state
       entity_id: sensor.season
@@ -794,7 +794,7 @@
   action:
     service: notify.telegram
     data:
-      message: 'Motor piscina encendido durante más de 7 horas en las últimas 24h'
+      message: 'Motor piscina encendido durante más de 8 horas en las últimas 24h'
 
 #############################################################
 # Other automations
