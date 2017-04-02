@@ -21,9 +21,10 @@
   max_gps_accuracy: 200
   waypoints: yes
 
-- platform: mqtt
-  qos: 1
-  devices:
-    Jordi: /owntracks/hokusphone/hokusphone
+#- platform: mqtt
+#  qos: 1
+#  devices:
+#    Jordi: owntracks/hokusphone/hokusphone
+#    Toyota: home/hokusphone/toyota
 
 #- platform: bluetooth_le_tracker
