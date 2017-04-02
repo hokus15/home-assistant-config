@@ -124,6 +124,45 @@
         dev_id: 'ana'
         location_name: 'not_home'
 
+# Set Jordi as driving when the event "enter" for "-toyota" is published to mqtt
+# Delay is needed to avoid re-set the status to "home" when I enter the car at home.
+- alias: 'Jordi driving status'
+  trigger:
+    platform: mqtt
+    topic: owntracks/hokusphone/hokusphone/event
+  condition:
+    condition: and
+    conditions:
+      - condition: template
+        value_template: "{{ trigger.payload_json.desc == '-toyota' }}"
+      - condition:  template
+        value_template: "{{ trigger.payload_json.event == 'enter' }}"
+  action:
+    - delay:
+        seconds: 1
+    - service: device_tracker.see
+      data:
+        dev_id: 'jordi_combined'
+        location_name: 'En ruta'
+
+# Restore Jordi state when the event "leave" for "-toyota" is published to mqtt
+- alias: 'Jordi restore status'
+  trigger:
+    platform: mqtt
+    topic: owntracks/hokusphone/hokusphone/event
+  condition:
+    condition: and
+    conditions:
+      - condition: template
+        value_template: "{{ trigger.payload_json.desc == '-toyota' }}"
+      - condition:  template
+        value_template: "{{ trigger.payload_json.event == 'leave' }}"
+  action:
+    - service: device_tracker.see
+      data_template:
+        dev_id: 'jordi_combined'
+        location_name: '{{ states.device_tracker.hokusphone_hokusphone.state }}'
+
 # Set Jordi as home when at least ONE of related entities are set to home
 - alias: 'Jordi home'
   trigger:
