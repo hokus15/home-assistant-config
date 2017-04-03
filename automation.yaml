@@ -192,7 +192,8 @@
         dev_id: 'jordi_combined'
         location_name: 'home'
 
-# Set Jordi the location of device_tracker.hokusphone_hokusphone when ALL related entities are in a state different from home
+# Set Jordi the location of device_tracker.hokusphone_hokusphone when ALL related
+# entities are in a state different from home and not driving
 - alias: 'Jordi not home'
   trigger:
     platform: state
@@ -206,6 +207,8 @@
         value_template: "{{ not(is_state('device_tracker.hokusphone_nmap', 'home')) }}"
       - condition: template
         value_template: "{{ not(is_state('device_tracker.hokusphone_hokusphone', 'home')) }}"
+      - condition: template
+        value_template: "{{ not(is_state('device_tracker.jordi_combined', 'En ruta')) }}"
 #      - condition: template
 #        value_template: "{{ not(is_state('sensor.hokusphone_nut', 'home')) }}"
 #      - condition: template
@@ -257,24 +260,23 @@
         location_name: '{{ states.device_tracker.geni_nmap.state }}'
 
 - alias: 'Open fence'
-#  trigger:
-#    - platform: zone
-#      entity_id: device_tracker.beacon_toyota
-#      zone: zone.casa
-#      event: enter
   trigger:
     - platform: state
-      entity_id: device_tracker.beacon_toyota
-      from: 'not_home'
+      entity_id: device_tracker.hokusphone_hokusphone
       to: 'home'
   condition:
-   - condition: state
-     entity_id: sensor.fence_status
-     state: 'Cerrada'
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: sensor.fence_status
+        state: 'Cerrada'
+      - condition: state
+        entity_id: device_tracker.jordi_combined
+        state: 'En ruta'
   action:
     - service: notify.telegram
       data:
-        message: 'Toyota en casa con Jordi.'
+        message: '[Fake] Puerta abierta automáticamente'
 #   - service: switch.turn_on
 #     entity_id: switch.barrera
 
