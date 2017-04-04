@@ -156,3 +156,4 @@ input_slider: !include input_sliders.yaml
 input_boolean: !include input_booleans.yaml
 panel_iframe: !include panel_iframes.yaml
 #scene: !include scenes.yaml
+apiai: !include apiai.yaml

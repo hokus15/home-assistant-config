@@ -1,0 +1,35 @@
+intents:
+  GetTemperature:
+    speech: > 
+      {%- if sensorTemperatura == 'exterior' -%}
+        La temperatura exterior es de {{ states("sensor.netatmo_" ~ sensorTemperatura ~ "_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_" ~ sensorTemperatura ~ "_humidity") }} por ciento y unas rachas de viento de {{ states("sensor.netatmo_anemometro_gust_strength") }} kilómetros por hora.
+      {%- elif sensorTemperatura == 'salon' -%}
+        La temperatura en el salón es de {{ states("sensor.netatmo_" ~ sensorTemperatura ~ "_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_" ~ sensorTemperatura ~ "_humidity") }} por ciento.
+      {%- else -%}
+        La temperatura en la suite es de {{ states("sensor.netatmo_" ~ sensorTemperatura ~ "_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_" ~ sensorTemperatura ~ "_humidity") }} por ciento.
+      {% endif %}
+  NextShift:
+    speech: >
+       {%- if is_state('sensor.next_shift_event', 'Saliente') -%}
+         Geni está hoy de saliente
+       {%- else -%}
+        Geni trabaja el próximo {{ states('sensor.next_shift_date') }} por la {{ states('sensor.next_shift_event') }}
+       {% endif %}
+  ControlThermostat:
+    speech: >
+      {%- if OnOff == 'on' -%}
+        Encenciendo calefacción
+      {%- else -%}
+        Apagando calefacción
+      {%- endif -%}
+    async_action: true
+    action:
+      - service_template: 'switch.turn_{{ OnOff }}'
+        entity_id: 'switch.heating'
+  PresenceGeni:
+    speech: >
+      {%- if is_state('device_tracker.geni_combined', 'home') -%}
+        Si, parece que Geni está en casa.
+      {%- else -%}
+        Pues parece que Geni no está en casa.
+      {%- endif -%}
