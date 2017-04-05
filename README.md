@@ -15,6 +15,7 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 * [HPLIP] (http://hplipopensource.com/hplip-web/index.html)
 * [Home Assistant](https://home-assistant.io/)
 * [Dasher] (https://github.com/maddox/dasher)
+* [Let's Encrypt] (https://letsencrypt.org/)
 
 ## Devices I have:
 * WeMo Link (to control outside bulbs)
@@ -139,22 +140,25 @@ This is how it looks like my incrontab configuration:
 ```
 
 ### Send pictures using telegram
-The script `motion_detected.sh` calls home-assistant API to trigger a notification using Telegram including the snapshot.
+The script `motion-detected.sh` check the current status of the alarm, if it's already triggered, it exits, otherwise calls home-assistant API to turn on the `notify_motion_detection_script`.
+It waits for 10 seconds and publishes publishes alarm status 1 to MQTT topic `home/camera/<camera name>/alarm` (that means, alarm triggered). After that, a notification is sent using Telegram including the snapshot.
 
-It also publishes alarm status 1 to MQTT topic `home/camera/<camera name>/alarm`. 
-
-It gets 2 parameters, first to get the name of the uploaded file (snapshot) and the other one the name of the camera that uploaded the file (snapshot).
+It gets 2 parameters:
+  1. Name of the snapshot file name
+  2. Name of the camera that triggered the alarm
 
 To run the script without providing a password to Home-Assistant, I've added `127.0.0.1` to `trusted_networks` list in `configuration.yaml` file.
 
 This is how the script looks like:
 ```
 #!/bin/sh
-curl -s -X POST -H "Content-Type: application/json" -d '{"message": "text", "data": {"photo": {"file": "'$1'", "caption": "Movimiento detectado en '$2'"}}}' "http://localhost:8123/api/services/notify/telegram"
-mosquitto_pub --cafile /etc/ssl/certs/ca-certificates.crt -h <mqtt_host> -p <mqtt_port> -u <mqtt_user> -P <mqtt_password> -t "home/camera/$2/alarm" -r -m 1
+alarm_status=`mosquitto_sub --cafile /etc/ssl/certs/ca-certificates.crt -h <mqtt_host> -p <mqtt_port> -u <mqtt_user> -P <mqtt_password> -t "home/camera/$2/alarm" -C 1`
+if [ $alarm_status -eq 0 ]; then
+    curl -s -X POST -H "Content-Type: application/json" -d '{"data": {"file": "'$1'", "camera": "'$2'"}}' "http://localhost:8123/api/services/script/notify_motion_detection"
+fi
 ```
 
-The `home/camera/<camera name>/alarm` topic is back to 0 after 15 seconds using an automation.
+The `home/camera/<camera name>/alarm` topic is back to 0 after 30 seconds using an automation.
 
 ## Monitor UPS status
 
