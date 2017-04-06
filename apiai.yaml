@@ -2,33 +2,32 @@ intents:
 ##############################################
 # Heating intents
 ##############################################
-  CheckHeating:
+  HeatingCheck:
     speech: >
       {%- if is_state('switch.heating', 'on') -%}
-        La calefacción está conectada,
-        {%- if is_state_attr('climate.termostato', 'operation_mode', 'idle') -%}
-          en marcha,
-        {%- else -%}
-          no está en marcha,
+        La calefacción está conectada, a una temperatura de {{ states('climate.termostato') }} grados, 
+        {% if is_state_attr('climate.termostato', 'operation_mode', 'idle') %}
+          no está en marcha 
+        {% else %}
+          en marcha 
         {%- endif -%}
-        {%- if is_state('switch.thermostat_away_mode', 'on') -%}
-          con el modo ausente activado,
-        {%- else -%}
-          con el modo ausente desactivado,
+        {% if is_state('switch.thermostat_away_mode', 'on') %}
+          y tiene el modo ausente activado, 
+        {% else %}
+          y no tiene el modo ausente desactivado
         {%- endif -%}
-        a una temperatura de {{ states('climate.termostato') }} grados
       {%- else -%}
          La calefacción está desconectada
       {%- endif -%}
 
-  TurnHeating:
+  HeatingTurn:
     speech: >
       {%- if OnOff == 'on' -%}
-        Encenciendo calefacción
+        He encendido la calefacción
       {%- else -%}
-        Apagando calefacción
+        He apagado la calefacción
       {%- endif -%}
-    async_action: true
+    async_action: false
     action:
       - service_template: 'switch.turn_{{ OnOff }}'
         entity_id: 'switch.heating'
@@ -42,17 +41,37 @@ intents:
           entity_id: climate.termostato
           temperature: '{{ temperature }}'
 
-#################################################
-  GetTemperature:
-    speech: > 
-      {%- if sensorTemperatura == 'exterior' -%}
-        La temperatura exterior es de {{ states("sensor.netatmo_" ~ sensorTemperatura ~ "_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_" ~ sensorTemperatura ~ "_humidity") }} por ciento y unas rachas de viento de {{ states("sensor.netatmo_anemometro_gust_strength") }} kilómetros por hora.
-      {%- elif sensorTemperatura == 'salon' -%}
-        La temperatura en el salón es de {{ states("sensor.netatmo_" ~ sensorTemperatura ~ "_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_" ~ sensorTemperatura ~ "_humidity") }} por ciento.
+  HeatingAway:
+    speech: >
+      {%- if OnOff == 'on' -%}
+        He activado el modo ausente
       {%- else -%}
-        La temperatura en la suite es de {{ states("sensor.netatmo_" ~ sensorTemperatura ~ "_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_" ~ sensorTemperatura ~ "_humidity") }} por ciento.
+        He desactivado el modo ausente
+      {%- endif -%}
+    async_action: false
+    action:
+      - service_template: 'switch.turn_{{ OnOff }}'
+        entity_id: 'switch.thermostat_away_mode'
+
+##############################################
+# Temperature intents
+##############################################
+  TemperatureCheck:
+    speech: > 
+      {%- if estancia == 'el exterior' or estancia == 'la piscina' or estancia == 'la caseta' -%}
+        La temperatura en {{ estancia }} es de {{ states("sensor.netatmo_exterior_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_exterior_humidity") }} por ciento y unas rachas de viento de {{ states("sensor.netatmo_anemometro_gust_strength") }} kilómetros por hora
+      {%- elif estancia == 'el salon' or estancia == 'la suite' -%}
+        {% set estancia1,estancia2 = estancia.split(' ') %}
+        La temperatura en {{ estancia | replace("o", "ó") }} es de {{ states("sensor.netatmo_" ~ estancia2  ~ "_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_" ~ estancia2 ~ "_humidity") }} por ciento
+      {%- elif estancia == 'el recibidor' -%}
+        La temperatura en el {{ estancia }} es de {{ states.climate.termostato.attributes.current_temperature }} grados
+      {%- else -%}
+        No tengo sensor de temperatura en {{ estancia }}
       {% endif %}
 
+##############################################
+# Various intents
+##############################################
   NextShift:
     speech: >
        {%- if is_state('sensor.next_shift_event', 'Saliente') -%}
