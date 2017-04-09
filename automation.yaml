@@ -280,6 +280,19 @@
 #   - service: switch.turn_on
 #     entity_id: switch.barrera
 
+- alias: 'Refresh location when fence is Open and not at home'
+  trigger:
+    platform: state
+    entity_id: sensor.fence_status
+    state: 'Abierta'
+  condition:
+    condition: template
+    value_template: "{{ not(is_state('device_tracker.jordi_combined', 'home')) }}"
+  action:
+    - service: script.turn_on
+      data:
+        entity_id: script.refresh_location
+
 #############################################################
 # Heating automations
 #############################################################
