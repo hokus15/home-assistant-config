@@ -2,51 +2,51 @@ intents:
 ##############################################
 # Heating intents
 ##############################################
-  HeatingCheck:
+  heating.check:
     speech: >
       {%- if is_state('switch.heating', 'on') -%}
-        La calefacción está conectada, a una temperatura de {{ states('climate.termostato') }} grados, 
+        La calefacción está conectada, a una temperatura de {{ states('climate.termostato') }} grados.
         {% if is_state_attr('climate.termostato', 'operation_mode', 'idle') %}
-          no está en marcha 
+          No está en marcha 
         {% else %}
-          en marcha 
+          Está en marcha 
         {%- endif -%}
         {% if is_state('switch.thermostat_away_mode', 'on') %}
-          y tiene el modo ausente activado, 
+          y tiene el modo ausente activado.
         {% else %}
-          y no tiene el modo ausente desactivado
+          y tiene el modo ausente desactivado.
         {%- endif -%}
       {%- else -%}
          La calefacción está desconectada
       {%- endif -%}
 
-  HeatingTurn:
+  heating.turn:
     speech: >
       {%- if OnOff == 'on' -%}
-        He encendido la calefacción
+        ¡Hecho! calefacción encendida
       {%- else -%}
-        He apagado la calefacción
+        Es un placer, calefacción apagada
       {%- endif -%}
     async_action: false
     action:
       - service_template: 'switch.turn_{{ OnOff }}'
         entity_id: 'switch.heating'
 
-  HeatingTemperature:
+  heating.temperature:
     speech: 'Cambiando temperatura de la calefacción a {{ temperature }} grados' 
-    async_action: true
+    async_action: false
     action:
       - service: climate.set_temperature
         data_template:
           entity_id: climate.termostato
           temperature: '{{ temperature }}'
 
-  HeatingAway:
+  heating.away_mode:
     speech: >
       {%- if OnOff == 'on' -%}
-        He activado el modo ausente
+        Modo ausente activado
       {%- else -%}
-        He desactivado el modo ausente
+        Perfecto, modo ausente desactivado
       {%- endif -%}
     async_action: false
     action:
@@ -56,7 +56,7 @@ intents:
 ##############################################
 # Temperature intents
 ##############################################
-  TemperatureCheck:
+  temperature.check:
     speech: > 
       {%- if estancia == 'el exterior' or estancia == 'la piscina' or estancia == 'la caseta' -%}
         La temperatura en {{ estancia }} es de {{ states("sensor.netatmo_exterior_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_exterior_humidity") }} por ciento y unas rachas de viento de {{ states("sensor.netatmo_anemometro_gust_strength") }} kilómetros por hora
@@ -72,18 +72,29 @@ intents:
 ##############################################
 # Various intents
 ##############################################
-  NextShift:
+  shift.geni.check:
     speech: >
        {%- if is_state('sensor.next_shift_event', 'Saliente') -%}
-         Geni está hoy de saliente
+         Geni está hoy saliente de noche
        {%- else -%}
-        Geni trabaja el próximo {{ states('sensor.next_shift_date') }} por la {{ states('sensor.next_shift_event') }}
+         {% set diff = as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time) - as_timestamp(now().replace(hour=0).replace(minute=0).replace(second=0).replace(microsecond=0)) %}
+         {%- if diff < 86400 -%}
+           Geni trabaja hoy por la {{ states('sensor.next_shift_event') }}
+         {%- elif diff >= 86400 and diff < 86400*2 -%}
+           Geni trabaja mañana por la {{ states('sensor.next_shift_event') }}
+         {%- else -%}
+           Geni trabaja el próximo {{ states('sensor.next_shift_date') }} por la {{ states('sensor.next_shift_event') }}
+         {% endif %}
        {% endif %}
 
-  PresenceGeni:
+  presence.geni.check:
     speech: >
       {%- if is_state('device_tracker.geni_combined', 'home') -%}
         Si, parece que Geni está en casa.
       {%- else -%}
         Pues parece que Geni no está en casa.
       {%- endif -%}
+
+  goodnight.check:
+    speech: >
+      'Buenas nochessss'
