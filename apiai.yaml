@@ -58,15 +58,15 @@ intents:
 ##############################################
   temperature.check:
     speech: > 
-      {%- if estancia == 'el exterior' or estancia == 'la piscina' or estancia == 'la caseta' -%}
-        La temperatura en {{ estancia }} es de {{ states("sensor.netatmo_exterior_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_exterior_humidity") }} por ciento y unas rachas de viento de {{ states("sensor.netatmo_anemometro_gust_strength") }} kilómetros por hora
-      {%- elif estancia == 'el salon' or estancia == 'la suite' -%}
-        {% set estancia1,estancia2 = estancia.split(' ') %}
-        La temperatura en {{ estancia | replace("o", "ó") }} es de {{ states("sensor.netatmo_" ~ estancia2  ~ "_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_" ~ estancia2 ~ "_humidity") }} por ciento
+      {%- if location == 'el exterior' or location == 'la piscina' or location == 'la caseta' -%}
+        La temperatura en {{ location }} es de {{ states("sensor.netatmo_exterior_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_exterior_humidity") }} por ciento y unas rachas de viento de {{ states("sensor.netatmo_anemometro_gust_strength") }} kilómetros por hora
+      {%- elif location == 'el salon' or location == 'la suite' -%}
+        {% set locationPre,locationName = location.split(' ') %}
+        La temperatura en {{ location | replace("o", "ó") }} es de {{ states("sensor.netatmo_" ~ locationName ~ "_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_" ~ locationName ~ "_humidity") }} por ciento
       {%- elif estancia == 'el recibidor' -%}
-        La temperatura en el {{ estancia }} es de {{ states.climate.termostato.attributes.current_temperature }} grados
+        La temperatura en {{ location }} es de {{ states.climate.termostato.attributes.current_temperature }} grados
       {%- else -%}
-        No tengo sensor de temperatura en {{ estancia }}
+        No tengo sensor de temperatura en {{ location }}
       {% endif %}
 
 ##############################################
