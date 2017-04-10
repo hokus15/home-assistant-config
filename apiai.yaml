@@ -41,17 +41,20 @@ intents:
           entity_id: climate.termostato
           temperature: '{{ temperature }}'
 
-  heating.away_mode:
+  heating.away_mode: 
     speech: >
-      {%- if OnOff == 'on' -%}
-        Modo ausente activado
-      {%- else -%}
-        Perfecto, modo ausente desactivado
+      {% if device is undefined and function is undefined %}
+        {{ states("sensor.apiai_heating_away_mode_switch_onoff_" ~ OnOff) }}
+      {% elif device is undefined %}
+       ¡Hecho! He {{ states("sensor.apiai_heating_away_mode_switch_onoff_" ~ OnOff) }} el {{ states("sensor.apiai_heating_away_mode_switch_" ~ function) }}
+      {% else %}
+        ¡Hecho! He {{ states("sensor.apiai_heating_away_mode_switch_onoff_" ~ OnOff) }} el {{ states("sensor.apiai_heating_away_mode_switch_" ~ function) }} en {{ states("sensor.apiai_heating_away_mode_switch_" ~ device) }}'
       {%- endif -%}
     async_action: false
     action:
       - service_template: 'switch.turn_{{ OnOff }}'
-        entity_id: 'switch.thermostat_away_mode'
+        data_template:
+          entity_id: 'switch.heating_away_mode'
 
 ##############################################
 # Temperature intents
@@ -68,6 +71,12 @@ intents:
       {%- else -%}
         No tengo sensor de temperatura en {{ location }}
       {% endif %}
+
+##############################################
+# Light intents
+##############################################
+  light.check:
+    speech: >
 
 ##############################################
 # Various intents
