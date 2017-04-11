@@ -176,6 +176,34 @@ goto_sleep:
       data:
         entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
 
+# TODO try to use wait_condition to wait until tts has finished
+#goodnight_check:
+#  alias: 'Checks done before going to sleep'
+#  sequence:
+#    # Only execute script between 21:00 and 6:00
+##    - condition: time
+##      after: '21:00'
+##      before: '6:00'
+#    # Turn on stairs lights
+#    - service: switch.turn_on
+#      data:
+#        entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
+#    - service_template: >
+#        {%- if states.sensor.kitchen_back_door == 'Abierta' -%}
+#          tts.google_say
+#        {%- endif -%}
+#
+#      entity_id: media_player.homeassistant
+#      data:
+#        message: 'Puerta de la cocina abierta'
+#    # Wait 1 minute before turning stair lights off
+#    - delay:
+#        minutes: 1
+#    # Turn stairs lights off
+#    - service: switch.turn_off
+#      data:
+#        entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
+
 parte_meteorologico:
   alias: 'Parte meteorológico'
   sequence:
