@@ -4,23 +4,12 @@ intents:
 ##############################################
   heating.check:
     speech: >
-      {%- if is_state('switch.heating', 'on') -%}
-        La calefacción está conectada, a una temperatura de {{ states('climate.termostato') }} grados.
-        {% if is_state_attr('climate.termostato', 'operation_mode', 'idle') %}
-          No está en marcha 
-        {% else %}
-          Está en marcha 
-        {%- endif -%}
-        {% if is_state('switch.thermostat_away_mode', 'on') %}
-          y tiene el modo ausente activado.
-        {% else %}
-          y tiene el modo ausente desactivado.
-        {%- endif -%}
+      {%- if is_state('switch.heating', 'on') %}La calefacción está conectada, a una temperatura de {{ states('climate.termostato') }} grados. {% if is_state_attr('climate.termostato', 'operation_mode', 'idle') %}No está en marcha {%- else %} Está en marcha {% endif -%}{%- if is_state('switch.thermostat_away_mode', 'on') %}  y tiene el modo ausente activado.  {%- else %} y tiene el modo ausente desactivado. {% endif -%}
       {%- else -%}
-         La calefacción está desconectada
+      La calefacción está desconectada
       {%- endif -%}
 
-  heating.turn:
+  heating.set:
     speech: >
       {%- if OnOff == 'on' -%}
         ¡Hecho! calefacción encendida
@@ -32,8 +21,8 @@ intents:
       - service_template: 'switch.turn_{{ OnOff }}'
         entity_id: 'switch.heating'
 
-  heating.temperature:
-    speech: 'Cambiando temperatura de la calefacción a {{ temperature }} grados' 
+  heating.temperature.set:
+    speech: 'He cambiado la temperatura a {{ temperature }} grados' 
     async_action: false
     action:
       - service: climate.set_temperature
@@ -41,49 +30,57 @@ intents:
           entity_id: climate.termostato
           temperature: '{{ temperature }}'
 
-  heating.away_mode: 
+  heating.away_mode.check:
     speech: >
+      {%- if is_state('switch.thermostat_away_mode', 'on') %}  El modo ausente está activado.{%- else %} El modo ausente está desactivado.{% endif -%}
+  
+  heating.away_mode.set: 
+    speech: >
+      {%- if OnOff == 'on' -%}
+        {% set action = 'activado' %}
+      {%- else -%}
+        {% set action = 'desactivado' %}
+      {%- endif -%}
       {% if device is undefined and function is undefined %}
-        {{ states("sensor.apiai_heating_away_mode_switch_onoff_" ~ OnOff) }}
+        {{action}}
       {% elif device is undefined %}
-       ¡Hecho! He {{ states("sensor.apiai_heating_away_mode_switch_onoff_" ~ OnOff) }} el {{ states("sensor.apiai_heating_away_mode_switch_" ~ function) }}
+       ¡Hecho! He {{ action }} el {{ function_original | replace('?','')}}
       {% else %}
-        ¡Hecho! He {{ states("sensor.apiai_heating_away_mode_switch_onoff_" ~ OnOff) }} el {{ states("sensor.apiai_heating_away_mode_switch_" ~ function) }} en {{ states("sensor.apiai_heating_away_mode_switch_" ~ device) }}'
+        ¡Hecho! He {{ action }} el {{ function_original | replace('?','') }} en {{ device_original | replace('?','') }}'
       {%- endif -%}
     async_action: false
     action:
       - service_template: 'switch.turn_{{ OnOff }}'
         data_template:
-          entity_id: 'switch.heating_away_mode'
+          entity_id: 'switch.{{ function }}'
 
 ##############################################
 # Temperature intents
 ##############################################
   temperature.check:
     speech: > 
-      {%- if location == 'el exterior' or location == 'la piscina' or location == 'la caseta' -%}
-        La temperatura en {{ location }} es de {{ states("sensor.netatmo_exterior_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_exterior_humidity") }} por ciento y unas rachas de viento de {{ states("sensor.netatmo_anemometro_gust_strength") }} kilómetros por hora
-      {%- elif location == 'el salon' or location == 'la suite' -%}
-        {% set locationPre,locationName = location.split(' ') %}
-        La temperatura en {{ location | replace("o", "ó") }} es de {{ states("sensor.netatmo_" ~ locationName ~ "_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_" ~ locationName ~ "_humidity") }} por ciento
-      {%- elif estancia == 'el recibidor' -%}
-        La temperatura en {{ location }} es de {{ states.climate.termostato.attributes.current_temperature }} grados
+      {%- if location == 'exterior' or location == 'piscina' or location == 'caseta' -%}
+        La temperatura en {{ location_original | replace('?','') }} es de {{ states("sensor.netatmo_exterior_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_exterior_humidity") }} por ciento y unas rachas de viento de {{ states("sensor.netatmo_anemometro_gust_strength") }} kilómetros por hora
+      {%- elif location == 'salon' or location == 'suite' -%}
+        La temperatura en {{ location_original | replace('?','') }} es de {{ states("sensor.netatmo_" ~ location ~ "_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_" ~ location ~ "_humidity") }} por ciento
+      {%- elif location == 'recibidor' -%}
+        La temperatura en {{ location_original | replace('?','') }} es de {{ states.climate.termostato.attributes.current_temperature }} grados
       {%- else -%}
-        No tengo sensor de temperatura en {{ location }}
+        No tengo sensor de temperatura en {{ location_original | replace('?','') }}
       {% endif %}
 
 ##############################################
 # Light intents
 ##############################################
-  light.check:
-    speech: >
+#  light.check:
+#    speech: >
 
 ##############################################
 # Various intents
 ##############################################
   shift.geni.check:
     speech: >
-       {%- if is_state('sensor.next_shift_event', 'Saliente') -%}
+       {%- if is_state('sensor.next_shift_event', 'Saliente​') -%}
          Geni está hoy saliente de noche
        {%- else -%}
          {% set diff = as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time) - as_timestamp(now().replace(hour=0).replace(minute=0).replace(second=0).replace(microsecond=0)) %}
@@ -106,4 +103,33 @@ intents:
 
   goodnight.check:
     speech: >
-      'Buenas nochessss'
+      {%- if is_state('sensor.kitchen_back_door', 'Abierta') %}Puerta de la cocina abierta. {% endif -%}{% if is_state('sensor.fence_status', 'Abierta') %}Te has dejado la barrera abierta, la voy a cerrar. {% endif -%}Hasta mañana.
+    async_action: true
+    action:
+      # Turn off stairs lights
+      - service: switch.turn_on
+        data:
+          entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
+      # Turn off outside lights
+      - service: light.turn_off
+        data:
+          entity_id: group.luces_exteriores
+      # Turn off hall lamp
+      - service: switch.turn_off
+        data:
+          entity_id: switch.swiid_swiidinter_switch_3_0
+      # Wait 1 minute before turning off stair lights
+      - delay:
+          minutes: 1
+      # Turn off stairs lights
+      - service: switch.turn_off
+        data:
+          entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
+      # Close fence if open
+      - condition: state
+        entity_id: sensor.fence_status
+        state: 'Abierta'
+      - service: homeassistant.turn_on
+        data:
+          entity_id: switch.barrera
+  
