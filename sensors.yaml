@@ -424,17 +424,6 @@
   duration:
     hours: 24
 
-- platform: template
-  sensors:
-    apiai_heating_away_mode_switch_onoff_on:
-      value_template: 'activado'
-    apiai_heating_away_mode_switch_onoff_off:
-      value_template: 'desactivado'
-    apiai_heating_away_mode_switch_thermostat_away_mode:
-      value_template: 'modo ausente'
-    apiai_heating_away_mode_switch_heating:
-      value_template: 'calefacción'
-
 #- platform: qnap
 #  host: !secret qnap_host
 #  username: !secret qnap_username
