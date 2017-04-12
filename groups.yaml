@@ -173,7 +173,7 @@ Suite:
 Recibidor:
   entities:
     - switch.swiid_swiidinter_switch_3_0
-    - sensor.recibidor_temperatura
+    - sensor.recibidor_termometro_temperatura
     - camera.recibidor
 
 Cocina:

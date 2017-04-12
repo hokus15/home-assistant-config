@@ -180,7 +180,7 @@ sensor.salon_detector_movimiento_bateria:
   friendly_name: 'Batería sensor'
 sensor.fibaro_system_fgms001_motion_sensor_temperature_6_1:
   friendly_name: 'Temperatura'
-sensor.recibidor_temperatura:
+sensor.recibidor_termometro_temperatura:
   friendly_name: 'Temperatura'
   unit_of_measurement: '°C'
 sensor.fibaro_system_fgs223_double_relay_energy_7_0:
