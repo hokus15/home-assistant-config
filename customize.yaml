@@ -80,7 +80,7 @@ sensor.exchange_rate_1_btc:
 sensor.hokusphone_batt:
   friendly_name: 'Batería teléfono'
   icon: 'mdi:battery'
-sensor.fence_status:
+sensor.entrada_barrera:
    icon: 'mdi:gate'
 sensor.season:
   hidden: true
@@ -158,10 +158,10 @@ sensor.last_boot:
   friendly_name: 'Último reinicio'
 sensor.since_last_boot:
   friendly_name: 'Tiempo encendido'
-sensor.kitchen_back_door:
+sensor.cocina_sensor_puerta:
   icon: 'mdi:glassdoor'
   friendly_name: 'Estado puerta porche'
-sensor.kitchen_back_door_battery:
+sensor.cocina_sensor_puerta_battery:
   icon: 'mdi:battery'
   friendly_name: 'Batería sensor'
 sensor.nut_ups_manufacturer:
@@ -175,12 +175,12 @@ sensor.nut_ups_battery_runtime:
 sensor.fibaro_system_fgms001_motion_sensor_luminance_6_3:
   icon: 'mdi:weather-sunny'
   friendly_name: 'Luminosidad'
-sensor.living_room_motion_sensor_battery:
+sensor.salon_detector_movimiento_bateria:
   icon: 'mdi:battery'
   friendly_name: 'Batería sensor'
 sensor.fibaro_system_fgms001_motion_sensor_temperature_6_1:
   friendly_name: 'Temperatura'
-sensor.hall_temperature:
+sensor.recibidor_temperatura:
   friendly_name: 'Temperatura'
   unit_of_measurement: '°C'
 sensor.fibaro_system_fgs223_double_relay_energy_7_0:
@@ -209,26 +209,26 @@ sensor.piscina_on_history:
 ###################################
 # Binary Sensors
 ###################################
-binary_sensor.cam_recibidor_infrared:
+binary_sensor.recibidor_camara_infrarrojo:
   friendly_name: 'Infrarrojos recibidor'
   icon: 'mdi:led-on'
-binary_sensor.cam_piscina_infrared:
+binary_sensor.piscina_camara_infrarrojo:
   friendly_name: 'Infrarrojos piscina'
   icon: 'mdi:led-on'
 binary_sensor.ups_status_bs:
   friendly_name: 'Suministro eléctrico'
-binary_sensor.cam_piscina_alarm:
+binary_sensor.piscina_camara_deteccion_movimiento:
   friendly_name: 'Movimiento'
   #icon: 'mdi:bell'
-binary_sensor.cam_recibidor_alarm:
+binary_sensor.recibidor_camara_deteccion_movimiento:
   friendly_name: 'Movimiento'
   #icon: 'mdi:bell'
-binary_sensor.cam_caseta_alarm:
+binary_sensor.caseta_camara_deteccion_movimiento:
   friendly_name: 'Movimiento'
   #icon: 'mdi:bell'
-binary_sensor.living_room_alarm:
+binary_sensor.salon_detector_movimiento_detectado:
   friendly_name: 'Movimiento'
-binary_sensor.living_room_tampering:
+binary_sensor.salon_detector_movimiento_sabotaje:
   friendly_name: 'Manipulación sensor'
 
 ###################################
@@ -243,13 +243,13 @@ camera.caseta:
 ###################################
 # Switches
 ###################################
-switch.cam_recibidor_motion_detection:
+switch.recibidor_camara_deteccion_movimiento:
   friendly_name: 'Det. mov. recibidor'
   icon: 'mdi:transit-transfer'
-switch.cam_piscina_motion_detection:
+switch.piscina_camara_deteccion_movimiento:
   friendly_name: 'Det. mov. piscina'
   icon: 'mdi:transit-transfer'
-switch.cam_caseta_motion_detection:
+switch.caseta_camara_deteccion_movimiento:
   friendly_name: 'Det. mov. caseta'
   icon: 'mdi:transit-transfer'
 switch.piscina:
@@ -261,10 +261,10 @@ switch.barrera:
 switch.holiday:
   friendly_name: 'Vacaciones'
   icon: mdi:beach
-switch.heating:
+switch.termostato:
   friendly_name: 'Estado'
   icon: mdi:radiator
-switch.thermostat_away_mode:
+switch.termostato_modo_ausente:
   friendly_name: 'Modo ausente'
   icon: mdi:home-outline
 switch.ups_beeper:
@@ -285,7 +285,7 @@ switch.fibaro_system_fgs223_double_relay_switch_7_0_2:
 ###################################
 input_slider.empty_home_activation_delay_minutes:
   icon: mdi:clock-end
-input_slider.luces_exteriores_brightness:
+input_slider.entrada_luz_brillo:
   icon: mdi:brightness-6
 ###################################
 # Scripts

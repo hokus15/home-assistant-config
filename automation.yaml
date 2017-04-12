@@ -268,7 +268,7 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: sensor.fence_status
+        entity_id: sensor.entrada_barrera
         state: 'Cerrada'
       - condition: state
         entity_id: device_tracker.jordi_combined
@@ -283,7 +283,7 @@
 - alias: 'Refresh location when fence is Open and not at home'
   trigger:
     platform: state
-    entity_id: sensor.fence_status
+    entity_id: sensor.entrada_barrera
     state: 'Abierta'
   condition:
     condition: template
@@ -297,22 +297,22 @@
 # Heating automations
 #############################################################
 
-# When the switch.heating changes to on
+# When the switch.termostato changes to on
 - alias: 'Heating on'
   trigger:
     platform: state
-    entity_id: switch.heating
+    entity_id: switch.termostato
     state: 'on'
   action:
     # Turn on thermostat
     - service: script.turn_on
       entity_id: script.power_on_thermostat
 
-# When the switch.heating changes to off
+# When the switch.termostato changes to off
 - alias: 'Heating off'
   trigger:
     platform: state
-    entity_id: switch.heating
+    entity_id: switch.termostato
     state: 'off'
   action:
     # Turn off thermostat
@@ -356,7 +356,7 @@
     to: 'on'
   condition:
     condition: state
-    entity_id: switch.heating
+    entity_id: switch.termostato
     state: 'on'
   action:
     # Turn off thermostat
@@ -375,7 +375,7 @@
     to: 'off'
   condition:
     condition: state
-    entity_id: switch.heating
+    entity_id: switch.termostato
     state: 'on'
   action:
     # Turn on thermostat an set it to away mode
@@ -395,7 +395,7 @@
 - alias: 'Disable alarm for recibidor'
   trigger:
     platform: state
-    entity_id: binary_sensor.cam_recibidor_alarm
+    entity_id: binary_sensor.recibidor_camara_deteccion_movimiento
     state: 'on'
   action:
     - delay:
@@ -410,7 +410,7 @@
 - alias: 'Disable alarm for piscina'
   trigger:
     platform: state
-    entity_id: binary_sensor.cam_piscina_alarm
+    entity_id: binary_sensor.piscina_camara_deteccion_movimiento
     state: 'on'
   action:
     - delay:
@@ -425,7 +425,7 @@
 - alias: 'Disable alarm for caseta'
   trigger:
     platform: state
-    entity_id: binary_sensor.cam_caseta_alarm
+    entity_id: binary_sensor.caseta_camara_deteccion_movimiento
     state: 'on'
   action:
     - delay:
@@ -440,12 +440,12 @@
 - alias: 'Notify kitchen door opened when notification active'
   trigger: 
     platform: state
-    entity_id: sensor.kitchen_back_door
+    entity_id: sensor.cocina_sensor_puerta
     from: 'Cerrada'
     to: 'Abierta'
   condition:
     condition: state
-    entity_id: input_boolean.notify_kitchen_back_door_open
+    entity_id: input_boolean.cocina_sensor_puerta
     state: 'on'
   action:
     service: notify.telegram
@@ -456,11 +456,11 @@
 - alias: 'Notify living room motion detection when notification active'
   trigger: 
     platform: state
-    entity_id: binary_sensor.living_room_alarm
+    entity_id: binary_sensor.salon_detector_movimiento_detectado
     to: 'on'
   condition:
     condition: state
-    entity_id: input_boolean.notify_living_room_alarm
+    entity_id: input_boolean.salon_detector_movimiento
     state: 'on'
   action:
     service: notify.telegram
@@ -471,7 +471,7 @@
 - alias: 'Notify living room motion sensor tampering'
   trigger: 
     platform: state
-    entity_id: binary_sensor.living_room_tampering
+    entity_id: binary_sensor.salon_detector_movimiento_sabotaje
     to: 'on'
   action:
     service: notify.telegram
@@ -492,13 +492,13 @@
     - service: light.turn_on
       data_template:
         entity_id: group.luces_exteriores
-        brightness: '{{ ((states.input_slider.luces_exteriores_brightness.state | int) * 255) // 100 }}'
+        brightness: '{{ ((states.input_slider.entrada_luz_brillo.state | int) * 255) // 100 }}'
 
 # Adjust luces exteriores brightness
 - alias: 'Luces exteriores - Adjust Brightness'
   trigger:
     platform: state
-    entity_id: input_slider.luces_exteriores_brightness
+    entity_id: input_slider.entrada_luz_brillo
   condition:
     condition: state
     entity_id: group.luces_exteriores
@@ -519,7 +519,7 @@
     - service: light.turn_on
       data_template:
         entity_id: group.luces_exteriores
-        brightness: '{{ ((states.input_slider.luces_exteriores_brightness.state | int) * 255) // 100 }}'
+        brightness: '{{ ((states.input_slider.entrada_luz_brillo.state | int) * 255) // 100 }}'
 
 # Turn off outside lights at night (at 00:15)
 - alias: 'Turn off lights at night'
@@ -576,7 +576,7 @@
 - alias: 'Turn on lights when fence open'
   trigger:
     platform: state
-    entity_id: sensor.fence_status
+    entity_id: sensor.entrada_barrera
     state: 'Abierta'
   condition:
     condition: or
@@ -589,7 +589,7 @@
     - service: light.turn_on
       data_template:
         entity_id: group.luces_exteriores
-        brightness: '{{ ((states.input_slider.luces_exteriores_brightness.state | int) * 255) // 100 }}'
+        brightness: '{{ ((states.input_slider.entrada_luz_brillo.state | int) * 255) // 100 }}'
 
 # Turn on hall lamp when the sun is set and someone at home
 - alias: 'Turn on hall lamp when the sun is set and someone at home'
@@ -669,21 +669,21 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: sensor.fence_status
+        entity_id: sensor.entrada_barrera
         state: 'Abierta'
       - condition: template
-        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.fence_status.last_changed))//60)%10 == 0 }}'
+        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.entrada_barrera.last_changed))//60)%10 == 0 }}'
       - condition: template
-        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.fence_status.last_changed))//60) != 0 }}'
+        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.entrada_barrera.last_changed))//60) != 0 }}'
   action:
     - service: tts.google_say
       entity_id: media_player.homeassistant
       data_template:
-        message: 'Barrera {{ states.sensor.fence_status.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.fence_status.last_changed))|int//60 }} minutos'
+        message: 'Barrera {{ states.sensor.entrada_barrera.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.entrada_barrera.last_changed))|int//60 }} minutos'
         cache: false
     - service: notify.telegram
       data_template:
-        message: 'Barrera {{ states.sensor.fence_status.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.fence_status.last_changed))|int//60 }} minutos'
+        message: 'Barrera {{ states.sensor.entrada_barrera.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.entrada_barrera.last_changed))|int//60 }} minutos'
 
 #############################################################
 # Swimming pool turn on

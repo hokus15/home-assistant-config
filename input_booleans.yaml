@@ -3,12 +3,12 @@ empty_home_activation_delay:
   initial: off
   icon: 'mdi:clock'
 
-notify_kitchen_back_door_open:
+cocina_sensor_puerta:
   name: Det. apert. puerta porche
   initial: off
   icon: 'mdi:glassdoor'
 
-notify_living_room_alarm:
+salon_detector_movimiento:
   name: Det. mov. salón
   initial: off
   icon: 'mdi:transit-transfer'

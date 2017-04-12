@@ -3,7 +3,7 @@
   # Command used to get infrared status for a foscam camera:
   # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
   command: !secret cam_recibidor_infrared_command
-  name: cam_recibidor_infrared
+  name: recibidor_camara_infrarrojo
   payload_on: '1'
   payload_off: '0'
   #device_class: light
@@ -13,7 +13,7 @@
   # Command used to get infrared status for a foscam camera:
   # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
   command: !secret cam_piscina_infrared_command
-  name: cam_piscina_infrared
+  name: piscina_camara_infrarrojo
   payload_on: '1'
   payload_off: '0'
   #device_class: light
@@ -25,12 +25,12 @@
       value_template: "{{ states.sensor.nut_ups_status_data.state == 'OL' or states.sensor.nut_ups_status_data.state == 'OL CHRG' }}"
       entity_id:
         - sensor.nut_ups_status_data
-    living_room_alarm:
+    salon_detector_movimiento_detectado:
       device_class: motion
       value_template: '{{ is_state("sensor.fibaro_system_fgms001_motion_sensor_burglar_6_10", "8") }}'
       entity_id: 
         - sensor.fibaro_system_fgms001_motion_sensor_burglar_6_10
-    living_room_tampering:
+    salon_detector_movimiento_sabotaje:
       device_class: vibration
       value_template: '{{ is_state("sensor.fibaro_system_fgms001_motion_sensor_burglar_6_10", "3") }}'
       entity_id: 
@@ -38,7 +38,7 @@
 
 - platform: mqtt
   state_topic: 'home/camera/recibidor/alarm'
-  name: 'cam_recibidor_alarm'
+  name: 'recibidor_camara_deteccion_movimiento'
   device_class: motion
   # 0: No alarm
   # 1: Alarm triggered
@@ -52,7 +52,7 @@
 # Alarm status for foscam cam in swimming pool
 - platform: mqtt
   state_topic: 'home/camera/piscina/alarm'
-  name: 'cam_piscina_alarm'
+  name: 'piscina_camara_deteccion_movimiento'
   device_class: motion
   # 0: No alarm
   # 1: Alarm triggered
@@ -66,7 +66,7 @@
 # Alarm status for Linksys cam in caseta
 - platform: mqtt
   state_topic: 'home/camera/caseta/alarm'
-  name: 'cam_caseta_alarm'
+  name: 'caseta_camara_deteccion_movimiento'
   device_class: motion
   # 0: No alarm
   # 1: Alarm triggered

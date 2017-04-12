@@ -1,7 +1,7 @@
 - platform: command_line
   switches:
     #Switch for Foscam Motion Detection
-    cam_recibidor_motion_detection:
+    recibidor_camara_deteccion_movimiento:
       # Command used:
       # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=1&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
       command_on: !secret cam_recibidor_motion_detection_on
@@ -16,7 +16,7 @@
 - platform: command_line
   switches:
     #Switch for Foscam Motion Detection
-    cam_piscina_motion_detection:
+    piscina_camara_deteccion_movimiento:
       # Command used:
       # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=1&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1009&area5=992&area6=992&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
       command_on: !secret cam_piscina_motion_detection_on
@@ -31,7 +31,7 @@
 - platform: command_line
   switches:
     #Switch for Linksys WVC54GCA Motion Detection
-    cam_caseta_motion_detection:
+    caseta_camara_deteccion_movimiento:
       # Command used:
       # 'curl --user <camera_username>:<camera_password> -k "http://<camera_host>:<camera_port>/adm/file.cgi?h_en_trig=1&todo=save"'
       command_on: !secret cam_caseta_motion_detection_on
@@ -54,7 +54,7 @@
   retain: true
 
 - platform: mqtt
-  name: 'heating'
+  name: 'termostato'
   state_topic: 'home/heating/status'
   command_topic: 'home/heating/status'
   payload_on: 'ON'
@@ -65,7 +65,7 @@
 
 - platform: template
   switches:
-    thermostat_away_mode:
+    termostato_modo_ausente:
       value_template: >-
         {%- if states("climate.termostato") != "unknown" -%}
           {{ states.climate.termostato.attributes.away_mode }}

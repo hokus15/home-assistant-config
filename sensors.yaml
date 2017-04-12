@@ -89,7 +89,7 @@
 # Know if the Wemo Maker sensor has been triggered (on: garage door opened, off: garage door closed)
 - platform: template
   sensors:
-    fence_status:
+    entrada_barrera:
       friendly_name: 'Estado'
       value_template: >-
           {%- if is_state_attr("switch.barrera", "sensor_state", "on") %}
@@ -103,7 +103,7 @@
 - platform: template
   sensors:
     # Fibaro FGK10x door sensor
-    kitchen_back_door:
+    cocina_sensor_puerta:
       value_template:  >-
          {%- if is_state('sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_2_9', '23') %}
               Cerrada
@@ -116,18 +116,18 @@
         - sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_2_9
 
     # Fibaro FGK10x door sensor
-    kitchen_back_door_battery:
+    cocina_sensor_puerta_bateria:
       value_template: '{{ states.sensor.fibaro_system_fgk10x_door_opening_sensor_general_2_0.attributes.battery_level }}'
       unit_of_measurement: '%'
 
     # Fibaro FGMS-001 Motion sensor
-    living_room_motion_sensor_battery:
+    salon_detector_movimiento_bateria:
       value_template: '{{ states.sensor.fibaro_system_fgms001_motion_sensor_general_6_0.attributes.battery_level }}'
       unit_of_measurement: '%'
 
 - platform: template
   sensors:
-    hall_temperature:
+    recibidor_temperatura:
       value_template: '{{ states.climate.termostato.attributes.current_temperature }}'
       unit_of_measurement: '%'
 

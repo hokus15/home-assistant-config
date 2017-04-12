@@ -1,5 +1,5 @@
 # Luces exteriores percentage brightness 
-luces_exteriores_brightness:
+entrada_luz_brillo:
   name: Brillo
   initial: 75
   min: 5

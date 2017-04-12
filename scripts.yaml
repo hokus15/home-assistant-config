@@ -43,9 +43,9 @@ empty_home:
     - service: switch.turn_off
       data:
         entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0_2
-    # Continue script only if switch.heating is on and not in holiday mode
+    # Continue script only if switch.termostato is on and not in holiday mode
     - condition: state
-      entity_id: switch.heating
+      entity_id: switch.termostato
       state: 'on'
     - condition: state
       entity_id: switch.holiday
@@ -63,9 +63,9 @@ someone_home:
     - service: homeassistant.turn_off
       data:
         entity_id: group.seguridad
-    # Continue script only if switch.heating is on and not in holiday mode
+    # Continue script only if switch.termostato is on and not in holiday mode
     - condition: state
-      entity_id: switch.heating
+      entity_id: switch.termostato
       state: 'on'
     - condition: state
       entity_id: switch.holiday
@@ -92,7 +92,7 @@ close_fence_if_open:
   sequence:
     # Check if fence is open
     - condition: state
-      entity_id: sensor.fence_status
+      entity_id: sensor.entrada_barrera
       state: 'Abierta'
     - service: homeassistant.turn_on
       data:
@@ -109,7 +109,7 @@ check_kitchen_back_door:
   alias: 'Check kitchen back door'
   sequence:
     - condition: state
-      entity_id: sensor.kitchen_back_door
+      entity_id: sensor.cocina_sensor_puerta
       state: 'Abierta'
     - service: tts.google_say
       entity_id: media_player.homeassistant
@@ -189,7 +189,7 @@ goto_sleep:
 #      data:
 #        entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
 #    - service_template: >
-#        {%- if states.sensor.kitchen_back_door == 'Abierta' -%}
+#        {%- if states.sensor.cocina_sensor_puerta == 'Abierta' -%}
 #          tts.google_say
 #        {%- endif -%}
 #
