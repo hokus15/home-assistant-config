@@ -117,19 +117,87 @@
 
     # Fibaro FGK10x door sensor
     cocina_sensor_puerta_bateria:
-      value_template: '{{ states.sensor.fibaro_system_fgk10x_door_opening_sensor_general_2_0.attributes.battery_level }}'
+      value_template: '{{ states.zwave.fibaro_system_fgk10x_door_opening_sensor_2.attributes.battery_level }}'
       unit_of_measurement: '%'
 
     # Fibaro FGMS-001 Motion sensor
     salon_detector_movimiento_bateria:
-      value_template: '{{ states.sensor.fibaro_system_fgms001_motion_sensor_general_6_0.attributes.battery_level }}'
+      value_template: '{{ states.zwave.fibaro_system_fgms001_motion_sensor_6.attributes.battery_level }}'
       unit_of_measurement: '%'
 
+##############################################
+# Climate sensors
+##############################################
 - platform: template
   sensors:
-    recibidor_temperatura:
+    recibidor_termometro_temperatura:
       value_template: '{{ states.climate.termostato.attributes.current_temperature }}'
+      unit_of_measurement: 'ºC'
+
+    exterior_termometro_temperatura:
+      value_template: '{{ states("sensor.netatmo_exterior_temperature") }}'
+      unit_of_measurement: 'ºC'
+    exterior_termometro_humedad:
+      value_template: '{{ states("sensor.netatmo_exterior_humidity") }}'
       unit_of_measurement: '%'
+    exterior_termometro_max_temp:
+      value_template: '{{ states("sensor.netatmo_exterior_max_temp") }}'
+      unit_of_measurement: 'ºC'
+    exterior_termometro_min_temp:
+      value_template: '{{ states("sensor.netatmo_exterior_min_temp") }}'
+      unit_of_measurement: 'ºC'
+
+    salon_termometro_co2:
+      value_template: '{{ states("sensor.netatmo_salon_co2") }}'
+      unit_of_measurement: 'ppm'
+    salon_termometro_temperatura:
+      value_template: '{{ states("sensor.netatmo_salon_temperature") }}'
+      unit_of_measurement: 'ºC'
+    salon_termometro_humedad:
+      value_template: '{{ states("sensor.netatmo_salon_humidity") }}'
+      unit_of_measurement: '%'
+    salon_termometro_max_temp:
+      value_template: '{{ states("sensor.netatmo_salon_max_temp") }}'
+      unit_of_measurement: 'ºC'
+    salon_termometro_min_temp:
+      value_template: '{{ states("sensor.netatmo_salon_min_temp") }}'
+      unit_of_measurement: 'ºC'
+    salon_termometro_ruido:
+      value_template: '{{ states("sensor.netatmo_salon_noise") }}'
+      unit_of_measurement: 'dB'
+    salon_termometro_presion:
+      value_template: '{{ states("sensor.netatmo_salon_pressure") }}'
+      unit_of_measurement: 'mbar'
+
+    suite_termometro_co2:
+      value_template: '{{ states("sensor.netatmo_suite_co2") }}'
+      unit_of_measurement: 'ppm'
+    suite_termometro_temperatura:
+      value_template: '{{ states("sensor.netatmo_suite_temperature") }}'
+      unit_of_measurement: 'ºC'
+    suite_termometro_humedad:
+      value_template: '{{ states("sensor.netatmo_suite_humidity") }}'
+      unit_of_measurement: '%'
+    suite_termometro_max_temp:
+      value_template: '{{ states("sensor.netatmo_suite_max_temp") }}'
+      unit_of_measurement: 'ºC'
+    suite_termometro_min_temp:
+      value_template: '{{ states("sensor.netatmo_suite_min_temp") }}'
+      unit_of_measurement: 'ºC'
+
+    exterior_pluviometro_lluvia:
+      value_template: '{{ states("sensor.netatmo_pluviometro_rain") }}'
+      unit_of_measurement: 'mm'
+    exterior_pluviometro_lluvia_1:
+      value_template: '{{ states("sensor.netatmo_pluviometro_sum_rain_1") }}'
+      unit_of_measurement: 'mm'
+    exterior_pluviometro_lluvia_24:
+      value_template: '{{ states("sensor.netatmo_pluviometro_sum_rain_24") }}'
+      unit_of_measurement: 'mm'
+
+    exterior_anemometro_velocidad_viento:
+      value_template: '{{ states("sensor.netatmo_anemometro_gust_strength") }}'
+      unit_of_measurement: 'km/h'
 
 # Sensor to define roughly the season of the year (if more precission needed use another algorythm)
 - platform: template
