@@ -4,7 +4,7 @@ intents:
 ##############################################
   heating.check:
     speech: >
-      {%- if is_state('switch.heating', 'on') %}La calefacción está conectada, a una temperatura de {{ states('climate.termostato') }} grados. {% if is_state_attr('climate.termostato', 'operation_mode', 'idle') %}No está en marcha {%- else %} Está en marcha {% endif -%}{%- if is_state('switch.thermostat_away_mode', 'on') %}  y tiene el modo ausente activado.  {%- else %} y tiene el modo ausente desactivado. {% endif -%}
+      {%- if is_state('switch.termostato', 'on') %}La calefacción está conectada, a una temperatura de {{ states('climate.termostato') }} grados. {% if is_state_attr('climate.termostato', 'operation_mode', 'idle') %}No está en marcha {%- else %} Está en marcha {% endif -%}{%- if is_state('switch.termostato_modo_ausente', 'on') %}  y tiene el modo ausente activado.  {%- else %} y tiene el modo ausente desactivado. {% endif -%}
       {%- else -%}
       La calefacción está desconectada
       {%- endif -%}
@@ -19,7 +19,7 @@ intents:
     async_action: false
     action:
       - service_template: 'switch.turn_{{ OnOff }}'
-        entity_id: 'switch.heating'
+        entity_id: 'switch.termostato'
 
   heating.temperature.set:
     speech: 'He cambiado la temperatura a {{ temperature }} grados' 
@@ -32,7 +32,7 @@ intents:
 
   heating.away_mode.check:
     speech: >
-      {%- if is_state('switch.thermostat_away_mode', 'on') %}  El modo ausente está activado.{%- else %} El modo ausente está desactivado.{% endif -%}
+      {%- if is_state('switch.termostato_modo_ausente', 'on') %}  El modo ausente está activado.{%- else %} El modo ausente está desactivado.{% endif -%}
   
   heating.away_mode.set: 
     speech: >
@@ -55,7 +55,7 @@ intents:
           entity_id: 'switch.{{ function }}'
 
 ##############################################
-# Temperature intents
+# Climate intents
 ##############################################
   temperature.check:
     speech: > 
@@ -67,6 +67,14 @@ intents:
         La temperatura en {{ location_original | replace('?','') }} es de {{ states.climate.termostato.attributes.current_temperature }} grados
       {%- else -%}
         No tengo sensor de temperatura en {{ location_original | replace('?','') }}
+      {% endif %}
+
+  thermometer.check:
+    speech: > 
+      {%- if states("sensor." ~ location ~ "_" ~ device ~ "_" ~ attribute) is not undefined -%}
+        La {{ attribute_original }} en {{ location_original | replace('?','') }} es de {{ states("sensor." ~ location ~ "_" ~ device ~ "_" ~ attribute) }}
+      {%- else -%}
+        No tengo sensor de {{ attribute_original }} en {{ location_original | replace('?','') }}
       {% endif %}
 
 ##############################################
@@ -103,7 +111,7 @@ intents:
 
   goodnight.check:
     speech: >
-      {%- if is_state('sensor.kitchen_back_door', 'Abierta') %}Puerta de la cocina abierta. {% endif -%}{% if is_state('sensor.fence_status', 'Abierta') %}Te has dejado la barrera abierta, la voy a cerrar. {% endif -%}Hasta mañana.
+      {%- if is_state('sensor.cocina_sensor_puerta', 'Abierta') %}Puerta de la cocina abierta. {% endif -%}{% if is_state('sensor.entrada_barrera', 'Abierta') %}Te has dejado la barrera abierta, la voy a cerrar. {% endif -%}Hasta mañana.
     async_action: true
     action:
       # Turn off stairs lights
@@ -127,7 +135,7 @@ intents:
           entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
       # Close fence if open
       - condition: state
-        entity_id: sensor.fence_status
+        entity_id: sensor.entrada_barrera
         state: 'Abierta'
       - service: homeassistant.turn_on
         data:
