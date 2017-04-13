@@ -69,12 +69,13 @@ intents:
         No tengo sensor de temperatura en {{ location_original | replace('?','') }}
       {% endif %}
 
-  thermometer.check:
+  thermometer.temperature.check:
     speech: > 
-      {%- if states("sensor." ~ location ~ "_" ~ device ~ "_" ~ attribute) is not undefined -%}
-        La {{ attribute_original }} en {{ location_original | replace('?','') }} es de {{ states("sensor." ~ location ~ "_" ~ device ~ "_" ~ attribute) }}
+      {% set locationPre,locationName = location.split(' ') %}
+      {%- if states("sensor." ~ locationName | replace("ó","o") ~ "_termometro_temperatura") != "unknown" -%}
+        La temperatura en {{ location }} es de {{ states("sensor." ~ locationName | replace("ó","o") ~ "_termometro_temperatura") }} {{states.sensor[location~"_termometro_temperatura"].attributes.unit_of_measurement }}.
       {%- else -%}
-        No tengo sensor de {{ attribute_original }} en {{ location_original | replace('?','') }}
+        ¡Vaya! No tengo ningún sensor de temperatura en {{ location }}.
       {% endif %}
 
 ##############################################
@@ -111,7 +112,7 @@ intents:
 
   goodnight.check:
     speech: >
-      {%- if is_state('sensor.cocina_sensor_puerta', 'Abierta') %}Puerta de la cocina abierta. {% endif -%}{% if is_state('sensor.entrada_barrera', 'Abierta') %}Te has dejado la barrera abierta, la voy a cerrar. {% endif -%}Hasta mañana.
+      {%- if is_state('sensor.cocina_sensor_puerta', 'Abierta') %}Puerta de la cocina abierta. {% endif -%}{% if is_state('sensor.entrada_barrera', 'Abierta') %}Te has dejado la barrera abierta, la voy a cerrar. {% endif -%}Buenas noches.
     async_action: true
     action:
       # Turn off stairs lights
@@ -126,18 +127,21 @@ intents:
       - service: switch.turn_off
         data:
           entity_id: switch.swiid_swiidinter_switch_3_0
+      # Close fence if open
+#      - condition: state
+#        entity_id: sensor.entrada_barrera
+#        state: 'Abierta'
+      - service_template: >
+          {%- if is_state('sensor.entrada_barrera', 'Abierta') -%}
+            homeassistant.turn_on
+          {%- endif -%}
+ 
+        data:
+          entity_id: switch.barrera
       # Wait 1 minute before turning off stair lights
       - delay:
           minutes: 1
       # Turn off stairs lights
       - service: switch.turn_off
         data:
-          entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
-      # Close fence if open
-      - condition: state
-        entity_id: sensor.entrada_barrera
-        state: 'Abierta'
-      - service: homeassistant.turn_on
-        data:
-          entity_id: switch.barrera
-  
+          entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0  
