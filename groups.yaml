@@ -63,6 +63,7 @@ Varios:
     - group.impresora
     - group.nas
     - group.sai
+    - group.estado_baterias
     - media_player.hokussqueezebox
     - media_player.salon
     - media_player.homeassistant
@@ -114,7 +115,6 @@ Temperatura:
     - sensor.netatmo_exterior_min_temp
     - sensor.netatmo_exterior_max_temp
     - sensor.netatmo_exterior_humidity
-    - sensor.netatmo_exterior_battery
     - sensor.netatmo_exterior_radio
     - sensor.sunrise
     - sensor.sunset
@@ -124,7 +124,6 @@ Lluvia:
     - sensor.netatmo_pluviometro_rain
     - sensor.netatmo_pluviometro_sum_rain_1
     - sensor.netatmo_pluviometro_sum_rain_24
-    - sensor.netatmo_pluviometro_battery
     - sensor.netatmo_pluviometro_radio
 
 Viento:
@@ -133,7 +132,6 @@ Viento:
     - sensor.netatmo_anemometro_angle
     - sensor.netatmo_anemometro_gust_strength
     - sensor.netatmo_anemometro_gust_angle
-    - sensor.netatmo_anemometro_battery
     - sensor.netatmo_anemometro_radio
 
 Salón:
@@ -167,7 +165,6 @@ Suite:
     - sensor.netatmo_suite_min_temp
     - sensor.netatmo_suite_max_temp
     - sensor.netatmo_suite_co2
-    - sensor.netatmo_suite_battery
     - sensor.netatmo_suite_radio
 
 Recibidor:
@@ -179,7 +176,6 @@ Recibidor:
 Cocina:
   entities:
     - sensor.cocina_sensor_puerta
-    - sensor.cocina_sensor_puerta_battery
     - input_boolean.cocina_sensor_puerta
     
 Luces exteriores:
@@ -244,7 +240,6 @@ Sensor salón:
 Puerta porche cocina:
   entities:
     - sensor.cocina_sensor_puerta
-    - sensor.cocina_sensor_puerta_battery
     - input_boolean.cocina_sensor_puerta
 
 Internet:
@@ -301,6 +296,16 @@ SAI:
     - sensor.nut_ups_battery_runtime
     - switch.ups_beeper
 
+Estado baterías:
+  entities:
+    - sensor.cocina_sensor_puerta_battery
+    - sensor.netatmo_exterior_battery
+    - sensor.netatmo_pluviometro_battery
+    - sensor.netatmo_anemometro_battery
+    - sensor.netatmo_suite_battery
+    - sensor.cocina_sensor_puerta_bateria
+    - sensor.salon_detector_movimiento_bateria
+    - sensor.recibidor_boton_bateria
 #Escalera:
 #  entities:
 #    - device_tracker.router_movistar

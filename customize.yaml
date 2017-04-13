@@ -10,7 +10,7 @@ sensor.netatmo_exterior_min_temp:
 sensor.netatmo_exterior_max_temp:
   friendly_name: 'Máxima de hoy'
 sensor.netatmo_exterior_battery:
-  friendly_name: 'Batería exterior'
+  friendly_name: 'Batería Netatmo exterior'
 sensor.netatmo_exterior_radio:
   friendly_name: 'Señal exterior'
 sensor.netatmo_pluviometro_rain:
@@ -20,7 +20,7 @@ sensor.netatmo_pluviometro_sum_rain_1:
 sensor.netatmo_pluviometro_sum_rain_24:
   friendly_name: 'Lluvia 24 horas'
 sensor.netatmo_pluviometro_battery:
-  friendly_name: 'Batería pluviómetro'
+  friendly_name: 'Batería Netatmo pluviómetro'
 sensor.netatmo_pluviometro_radio:
   friendly_name: 'Señal pluviómetro'
 sensor.netatmo_salon_temperature:
@@ -42,7 +42,7 @@ sensor.netatmo_salon_wifi:
 sensor.netatmo_anemometro_angle:
   friendly_name: 'Dirección viento'
 sensor.netatmo_anemometro_battery:
-  friendly_name: 'Batería anemómetro'
+  friendly_name: 'Batería Netatmo anemómetro'
 sensor.netatmo_anemometro_gust_angle:
   friendly_name: 'Dirección rachas'
 sensor.netatmo_anemometro_gust_strength:
@@ -60,7 +60,7 @@ sensor.netatmo_suite_max_temp:
 sensor.netatmo_suite_co2:
   friendly_name: 'Nivel CO2'
 sensor.netatmo_suite_battery:
-  friendly_name: 'Batería suite'
+  friendly_name: 'Batería Netatmo suite'
 sensor.netatmo_suite_radio:
   friendly_name: 'Señal suite'
 sensor.speedtest_ping:
@@ -161,9 +161,9 @@ sensor.since_last_boot:
 sensor.cocina_sensor_puerta:
   icon: 'mdi:glassdoor'
   friendly_name: 'Estado puerta porche'
-sensor.cocina_sensor_puerta_battery:
+sensor.cocina_sensor_puerta_bateria:
   icon: 'mdi:battery'
-  friendly_name: 'Batería sensor'
+  friendly_name: 'Batería sensor puerta cocina'
 sensor.nut_ups_manufacturer:
   friendly_name: 'Marca'
 sensor.nut_ups_model:
@@ -177,7 +177,10 @@ sensor.fibaro_system_fgms001_motion_sensor_luminance_6_3:
   friendly_name: 'Luminosidad'
 sensor.salon_detector_movimiento_bateria:
   icon: 'mdi:battery'
-  friendly_name: 'Batería sensor'
+  friendly_name: 'Batería detector movimiento salón'
+sensor.recibidor_boton_bateria:
+  icon: 'mdi:battery'
+  friendly_name: 'Batería Nodon'
 sensor.fibaro_system_fgms001_motion_sensor_temperature_6_1:
   friendly_name: 'Temperatura'
 sensor.recibidor_termometro_temperatura:
