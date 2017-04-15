@@ -4,76 +4,102 @@ intents:
 ##############################################
   heating.check:
     speech: >
-      {%- if is_state('switch.termostato', 'on') %}La calefacción está conectada, a una temperatura de {{ states('climate.termostato') }} grados. {% if is_state_attr('climate.termostato', 'operation_mode', 'idle') %}No está en marcha {%- else %} Está en marcha {% endif -%}{%- if is_state('switch.termostato_modo_ausente', 'on') %}  y tiene el modo ausente activado.  {%- else %} y tiene el modo ausente desactivado. {% endif -%}
-      {%- else -%}
-      La calefacción está desconectada
-      {%- endif -%}
+      {%- set status ={"on": "conectada", "off": "desconectada"} -%}
+      La calefacción está {{ status[states("switch.termostato")]}}.{% if states("climate.termostato") != "0"%} A una temperatura de {{ states("climate.termostato") }} grados.{% endif -%} {% if is_state_attr("climate.termostato", "operation_mode", "idle") %} No está en marcha{%- else %} Está en marcha{% endif -%}{%- if is_state("switch.termostato_modo_ausente", "on") %} y tiene el modo ausente activado.  {%- else %} y tiene el modo ausente desactivado. {% endif %}
 
-  heating.set:
+  heating.status.set:
     speech: >
-      {%- if OnOff == 'on' -%}
-        ¡Hecho! calefacción encendida
-      {%- else -%}
-        Es un placer, calefacción apagada
-      {%- endif -%}
+      {%- set status ={"on": "conectada", "off": "desconectada"} -%}
+      ¡Hecho! calefacción {{ status[OnOff] }}
     async_action: false
     action:
       - service_template: 'switch.turn_{{ OnOff }}'
         entity_id: 'switch.termostato'
 
-  heating.temperature.set:
-    speech: 'He cambiado la temperatura a {{ temperature }} grados' 
+  heating.away_mode.set:
+    speech: >
+      {%- set status ={"on": "activado", "off": "desactivado"} -%}
+      {% if is_state("switch.termostato", "on") %}
+        {% if device is undefined %}
+          {{status[OnOff]}}
+        {% else %}
+          ¡Hecho! He {{ status[OnOff] }} el modo ausente
+        {%- endif -%}
+      {% else %}¡Vaya!, No puedo cambiar el modo ausente de la calefacción porque está desconectada{% endif %}
     async_action: false
     action:
+      - condition: state
+        entity_id: switch.termostato
+        state: 'on'
+      - service_template: 'switch.turn_{{ OnOff }}'
+        data_template:
+          entity_id: 'switch.termostato_modo_ausente'
+
+  heating.temperature.change.relative:
+    speech: >
+      {% if is_state("switch.termostato", "on") %}¡Entendido!, voy a {{ change.direction }} la temperatura de la calefacción {{ change.degrees }} {{ unit | replace("?","") }}{% else %}¡Vaya!, No puedo {{ change.direction }} la calefacción porque está desconectada{% endif %}
+    async_action: false
+    action:
+      - condition: state
+        entity_id: switch.termostato
+        state: 'on'
       - service: climate.set_temperature
         data_template:
           entity_id: climate.termostato
-          temperature: '{{ temperature }}'
+          temperature: >
+            {%- if change.direction == 'subir'-%}
+              {{ states.climate.termostato.attributes.temperature + change.degrees | float }}
+            {%- else -%}
+              {{ states.climate.termostato.attributes.temperature - change.degrees | float }}
+            {%- endif -%}
 
-  heating.away_mode.check:
+  heating.temperature.change.restore:
     speech: >
-      {%- if is_state('switch.termostato_modo_ausente', 'on') %}  El modo ausente está activado.{%- else %} El modo ausente está desactivado.{% endif -%}
-  
-  heating.away_mode.set: 
-    speech: >
-      {%- if OnOff == 'on' -%}
-        {% set action = 'activado' %}
-      {%- else -%}
-        {% set action = 'desactivado' %}
-      {%- endif -%}
-      {% if device is undefined and function is undefined %}
-        {{action}}
-      {% elif device is undefined %}
-       ¡Hecho! He {{ action }} el {{ function_original | replace('?','')}}
-      {% else %}
-        ¡Hecho! He {{ action }} el {{ function_original | replace('?','') }} en {{ device_original | replace('?','') }}'
-      {%- endif -%}
+      {% if is_state("switch.termostato", "on") %}¡Perfecto! Estoy restaurando la programación normal en la calefaccción. {% else %}¡Vaya!, la calefacción está desconectada{% endif %}
     async_action: false
     action:
-      - service_template: 'switch.turn_{{ OnOff }}'
+      - condition: state
+        entity_id: switch.termostato
+        state: 'on'
+      - service_template: 'switch.turn_on'
         data_template:
-          entity_id: 'switch.{{ function }}'
+          entity_id: 'switch.termostato_modo_ausente'
+      - delay:
+          seconds: 2
+      - service_template: 'switch.turn_off'
+        data_template:
+          entity_id: 'switch.termostato_modo_ausente'
+  
+  heating.temperature.change.absolute:
+    speech: >
+      {% if is_state("switch.termostato", "on") %}¡Perfecto! He {{change.set}} la temperatura de la calefacción a {{ change.degrees }} grados. {% else %}¡Vaya!, No puedo {{ change.set }} la calefacción porque está desconectada{% endif %}
+    async_action: false
+    action:
+      - condition: state
+        entity_id: switch.termostato
+        state: 'on'
+      - service: climate.set_temperature
+        data_template:
+          entity_id: climate.termostato
+          temperature: '{{ change.degrees }}'
 
 ##############################################
 # Climate intents
 ##############################################
-  temperature.check:
+  climate.check:
     speech: > 
-      {%- if location == 'exterior' or location == 'piscina' or location == 'caseta' -%}
-        La temperatura en {{ location_original | replace('?','') }} es de {{ states("sensor.netatmo_exterior_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_exterior_humidity") }} por ciento y unas rachas de viento de {{ states("sensor.netatmo_anemometro_gust_strength") }} kilómetros por hora
-      {%- elif location == 'salon' or location == 'suite' -%}
-        La temperatura en {{ location_original | replace('?','') }} es de {{ states("sensor.netatmo_" ~ location ~ "_temperature") }} grados, con una humedad del {{ states("sensor.netatmo_" ~ location ~ "_humidity") }} por ciento
-      {%- elif location == 'recibidor' -%}
-        La temperatura en {{ location_original | replace('?','') }} es de {{ states.climate.termostato.attributes.current_temperature }} grados
-      {%- else -%}
-        No tengo sensor de temperatura en {{ location_original | replace('?','') }}
-      {% endif %}
-
-  thermometer.temperature.check:
-    speech: > 
-      {% set locationPre,locationName = location.split(' ') %}
-      {%- if states("sensor." ~ locationName | replace("ó","o") ~ "_termometro_temperatura") != "unknown" -%}
-        La temperatura en {{ location }} es de {{ states("sensor." ~ locationName | replace("ó","o") ~ "_termometro_temperatura") }} {{states.sensor[location~"_termometro_temperatura"].attributes.unit_of_measurement }}.
+      {% set locationPre,locationSensor = location.split(" ") %}
+      {%- if states("sensor." ~ locationSensor | replace("ó","o") ~ "_termometro_temperatura") != "unknown" -%}
+        La temperatura en {{ location }} es de {{ states("sensor." ~ locationSensor | replace("ó","o") ~ "_termometro_temperatura") }} {{states.sensor[locationSensor | replace("ó","o") ~ "_termometro_temperatura"].attributes.unit_of_measurement }} 
+        {%- if states("sensor." ~ locationSensor | replace("ó","o") ~ "_termometro_humedad") != "unknown" %} con una humedad del {{ states("sensor." ~ locationSensor | replace("ó","o") ~ "_termometro_humedad") }} {{states.sensor[locationSensor | replace("ó","o") ~ "_termometro_humedad"].attributes.unit_of_measurement }}.{% endif %}
+        {%- if states("sensor." ~ locationSensor | replace("ó","o") ~ "_termometro_max_temp") != "unknown" %} La temperatura máxima de hoy ha sido de {{ states("sensor." ~ locationSensor | replace("ó","o") ~ "_termometro_max_temp") }} {{states.sensor[locationSensor | replace("ó","o") ~ "_termometro_max_temp"].attributes.unit_of_measurement }}.{% endif %}
+        {%- if states("sensor." ~ locationSensor | replace("ó","o") ~ "_termometro_min_temp") != "unknown" %} La temperatura mínima de hoy ha sido de {{ states("sensor." ~ locationSensor | replace("ó","o") ~ "_termometro_min_temp") }} {{states.sensor[locationSensor | replace("ó","o") ~ "_termometro_min_temp"].attributes.unit_of_measurement }}.{% endif %}
+        {%- if states("sensor." ~ locationSensor | replace("ó","o") ~ "_termometro_co2") != "unknown" %} El nivel de C O 2 es de {{ states("sensor." ~ locationSensor | replace("ó","o") ~ "_termometro_co2") }} {{states.sensor[locationSensor | replace("ó","o") ~ "_termometro_co2"].attributes.unit_of_measurement }}.{% endif %}
+        {%- if states("sensor." ~ locationSensor | replace("ó","o") ~ "_termometro_ruido") != "unknown" %} El nivel de ruido es de {{ states("sensor." ~ locationSensor | replace("ó","o") ~ "_termometro_ruido") }} {{states.sensor[locationSensor | replace("ó","o") ~ "_termometro_ruido"].attributes.unit_of_measurement }}.{% endif %}
+        {%- if states("sensor." ~ locationSensor | replace("ó","o") ~ "_termometro_presion") != "unknown" %} La presión atmosférica es de {{ states("sensor." ~ locationSensor | replace("ó","o") ~ "_termometro_presion") }} {{states.sensor[locationSensor | replace("ó","o") ~ "_termometro_presion"].attributes.unit_of_measurement }}.{% endif %}
+        {%- if states("sensor." ~ locationSensor | replace("ó","o") ~ "_pluviometro_lluvia") != "unknown" %}{%- if states("sensor." ~ locationSensor | replace("ó","o") ~ "_pluviometro_lluvia") == "0" %} No hay previsión de lluvia.{% else %} La previsión de precipitaciones es de {{ states("sensor." ~ locationSensor | replace("ó","o") ~ "_pluviometro_lluvia") }} {{states.sensor[locationSensor | replace("ó","o") ~ "_pluviometro_lluvia"].attributes.unit_of_measurement }}.{% endif %}{% endif %}
+        {%- if states("sensor." ~ locationSensor | replace("ó","o") ~ "_pluviometro_lluvia_1") != "unknown" %}{%- if states("sensor." ~ locationSensor | replace("ó","o") ~ "_pluviometro_lluvia_1") == "0" %} No ha llovido durante la última hora.{% else %} La precipitación de durante la última hora ha sido de {{ states("sensor." ~ locationSensor | replace("ó","o") ~ "_pluviometro_lluvia_1") }} {{states.sensor[locationSensor | replace("ó","o") ~ "_pluviometro_lluvia_1"].attributes.unit_of_measurement }}.{% endif %}{% endif %}
+        {%- if states("sensor." ~ locationSensor | replace("ó","o") ~ "_pluviometro_lluvia_24") != "unknown" %}{%- if states("sensor." ~ locationSensor | replace("ó","o") ~ "_pluviometro_lluvia_24") == "0" %} No ha llovido durante las últimas 24 horas.{% else %} La precipitación de durante las últimas 24 horas ha sido de {{ states("sensor." ~ locationSensor | replace("ó","o") ~ "_pluviometro_lluvia_24") }} {{states.sensor[locationSensor | replace("ó","o") ~ "_pluviometro_lluvia_24"].attributes.unit_of_measurement }}.{% endif %}{% endif %}
       {%- else -%}
         ¡Vaya! No tengo ningún sensor de temperatura en {{ location }}.
       {% endif %}
@@ -89,32 +115,37 @@ intents:
 ##############################################
   shift.geni.check:
     speech: >
-       {%- if is_state('sensor.next_shift_event', 'Saliente​') -%}
-         Geni está hoy saliente de noche
+       {%- if is_state("sensor.next_shift_event", "Saliente") -%}
+         {{name_original}} está hoy saliente de noche
        {%- else -%}
          {% set diff = as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time) - as_timestamp(now().replace(hour=0).replace(minute=0).replace(second=0).replace(microsecond=0)) %}
          {%- if diff < 86400 -%}
-           Geni trabaja hoy por la {{ states('sensor.next_shift_event') }}
+           {{name_original}} trabaja hoy por la {{ states("sensor.next_shift_event") }}
          {%- elif diff >= 86400 and diff < 86400*2 -%}
-           Geni trabaja mañana por la {{ states('sensor.next_shift_event') }}
+           {{name_original}} trabaja mañana por la {{ states("sensor.next_shift_event") }}
          {%- else -%}
-           Geni trabaja el próximo {{ states('sensor.next_shift_date') }} por la {{ states('sensor.next_shift_event') }}
+           {{name_original}} trabaja el próximo {{ states("sensor.next_shift_date") }} por la {{ states("sensor.next_shift_event") }}
          {% endif %}
        {% endif %}
 
   presence.geni.check:
     speech: >
-      {%- if is_state('device_tracker.geni_combined', 'home') -%}
-        Si, parece que Geni está en casa.
+      {%- if is_state("device_tracker.geni_combined", "home") -%}
+        Si, parece que {{name_original}} está en casa.
       {%- else -%}
-        Pues parece que Geni no está en casa.
+        Pues parece que {{name_original}} no está en casa.
       {%- endif -%}
 
   goodnight.check:
+    # TODO Check the time of execution
     speech: >
-      {%- if is_state('sensor.cocina_sensor_puerta', 'Abierta') %}Puerta de la cocina abierta. {% endif -%}{% if is_state('sensor.entrada_barrera', 'Abierta') %}Te has dejado la barrera abierta, la voy a cerrar. {% endif -%}Buenas noches.
+      {%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{% if is_state("sensor.entrada_barrera", "Abierta") %}Te has dejado la barrera abierta, la voy a cerrar. {% endif -%}Buenas noches.
     async_action: true
     action:
+#      # Only execute between 21:00 and 6:00
+#      - condition: time
+#        after: '21:00'
+#        before: '6:00'
       # Turn off stairs lights
       - service: switch.turn_on
         data:
@@ -128,11 +159,8 @@ intents:
         data:
           entity_id: switch.swiid_swiidinter_switch_3_0
       # Close fence if open
-#      - condition: state
-#        entity_id: sensor.entrada_barrera
-#        state: 'Abierta'
       - service_template: >
-          {%- if is_state('sensor.entrada_barrera', 'Abierta') -%}
+          {%- if is_state("sensor.entrada_barrera", "Abierta") -%}
             homeassistant.turn_on
           {%- endif -%}
  
