@@ -23,7 +23,7 @@ intents:
         {% if device is undefined %}
           {{status[OnOff]}}
         {% else %}
-          ¡Hecho! He {{ status[OnOff] }} el modo ausente
+          ¡Hecho! modo ausente {{ status[OnOff] }}
         {%- endif -%}
       {% else %}¡Vaya!, No puedo cambiar el modo ausente de la calefacción porque está desconectada{% endif %}
     async_action: false
@@ -37,7 +37,7 @@ intents:
 
   heating.temperature.change.relative:
     speech: >
-      {% if is_state("switch.termostato", "on") %}¡Entendido!, voy a {{ change.direction }} la temperatura de la calefacción {{ change.degrees }} {{ unit | replace("?","") }}{% else %}¡Vaya!, No puedo {{ change.direction }} la calefacción porque está desconectada{% endif %}
+      {% if is_state("switch.termostato", "on") %}¡Entendido!, voy a {{ change.direction }} la temperatura de la calefacción {{ change.degrees }} {{ unit | replace("?","") }}. Ahora está a {{ states.climate.termostato.attributes.temperature}} grados{% else %}¡Vaya!, No puedo {{ change.direction }} la calefacción porque está desconectada{% endif %}
     async_action: false
     action:
       - condition: state
@@ -72,7 +72,7 @@ intents:
   
   heating.temperature.change.absolute:
     speech: >
-      {% if is_state("switch.termostato", "on") %}¡Perfecto! He {{change.set}} la temperatura de la calefacción a {{ change.degrees }} grados. {% else %}¡Vaya!, No puedo {{ change.set }} la calefacción porque está desconectada{% endif %}
+      {% if is_state("switch.termostato", "on") %}¡Perfecto! He cambiado la temperatura de la calefacción a {{ change.degrees }} grados. {% else %}¡Vaya!, No puedo {{ change.set }} la calefacción porque está desconectada{% endif %}
     async_action: false
     action:
       - condition: state
