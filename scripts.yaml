@@ -87,50 +87,19 @@ set_virtual_device_home:
       data:
         entity_id: input_boolean.empty_home_activation_delay
 
-close_fence_if_open:
-  alias: 'Close fence if open'
+leave_home:
+  alias: 'Leave home'
   sequence:
-    # Check if fence is open
-    - condition: state
-      entity_id: sensor.entrada_barrera
-      state: 'Abierta'
-    - service: homeassistant.turn_on
-      data:
-        entity_id: switch.barrera
     - service: tts.google_say
       entity_id: media_player.homeassistant
-      data:
-        message: 'Cerrando barrera'
-    - delay:
-        seconds: 6
-
-
-check_kitchen_back_door:
-  alias: 'Check kitchen back door'
-  sequence:
-    - condition: state
-      entity_id: sensor.cocina_sensor_puerta
-      state: 'Abierta'
-    - service: tts.google_say
-      entity_id: media_player.homeassistant
-      data:
-        message: 'Puerta de la cocina abierta'
-    - service: notify.telegram
-      data:
-        title: 'Security check:'
-        message: 'Puerta de la cocina abierta'
-    - delay:
-        seconds: 7
-
-security_check:
-  alias: 'Security check'
-  sequence:
-    # Check if kitchen back door is open
-    - service: script.turn_on
-      data:
-        entity_id: script.check_kitchen_back_door
-#    - delay:
-#        seconds: 7
+      data_template:
+        message: >
+          {%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif %}
+          {%- if is_state("switch.swiid_swiidinter_switch_3_0", "on") %}Lámpara recibidor encendida. {% endif %}
+          {%- if is_state("switch.fibaro_system_fgs223_double_relay_switch_7_0", "on") %}Luz de la escalera encendida. {% endif %}
+          {%- if is_state("switch.fibaro_system_fgs223_double_relay_switch_7_0_2", "on") %}Luz suite encendida. {% endif %}
+          {%- if is_state("sensor.entrada_barrera", "Abierta") %}Barrera abierta.{% endif -%}
+          Comprobación finalizada
   
 goto_sleep:
   alias: 'Go to sleep'
@@ -143,18 +112,14 @@ goto_sleep:
     - service: switch.turn_on
       data:
         entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
-    # Security check
-    - service: script.turn_on
-      data:
-        entity_id: script.security_check
-    - delay:
-        seconds: 7
     # Close fence if open
-    - service: script.turn_on
+    - service_template: >
+        {%- if is_state("sensor.entrada_barrera", "Abierta") -%}
+          homeassistant.turn_on
+        {%- endif -%}
+
       data:
-        entity_id: script.close_fence_if_open
-    - delay:
-        seconds: 6
+        entity_id: switch.barrera
     # Turn off outside lights
     - service: light.turn_off
       data:
@@ -163,46 +128,21 @@ goto_sleep:
     - service: switch.turn_off
       data:
         entity_id: switch.swiid_swiidinter_switch_3_0
-    # Say good night
+    # Speech the found incidences and say good night.
     - service: tts.google_say
       entity_id: media_player.homeassistant
-      data:
-        message: 'Buenas noches'
-    # Wait 1 minute befor turning off stair lights
+      data_template:
+        message: >
+          {%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif %}
+          {%- if is_state("sensor.entrada_barrera", "Abierta") -%}Cerrando barrera.{% endif -%}
+          Buenas noches
+    # Wait 1 minute before turning stair lights off
     - delay:
         minutes: 1
-    # Turn off stairs lights
+    # Turn stairs lights off
     - service: switch.turn_off
       data:
         entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
-
-# TODO try to use wait_condition to wait until tts has finished
-#goodnight_check:
-#  alias: 'Checks done before going to sleep'
-#  sequence:
-#    # Only execute script between 21:00 and 6:00
-##    - condition: time
-##      after: '21:00'
-##      before: '6:00'
-#    # Turn on stairs lights
-#    - service: switch.turn_on
-#      data:
-#        entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
-#    - service_template: >
-#        {%- if states.sensor.cocina_sensor_puerta == 'Abierta' -%}
-#          tts.google_say
-#        {%- endif -%}
-#
-#      entity_id: media_player.homeassistant
-#      data:
-#        message: 'Puerta de la cocina abierta'
-#    # Wait 1 minute before turning stair lights off
-#    - delay:
-#        minutes: 1
-#    # Turn stairs lights off
-#    - service: switch.turn_off
-#      data:
-#        entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
 
 parte_meteorologico:
   alias: 'Parte meteorológico'
