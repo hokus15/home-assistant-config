@@ -902,7 +902,7 @@
   action:
     - service: script.turn_on
       data:
-        entity_id: script.security_check
+        entity_id: script.leave_home
 
 - alias: Nodon Octan button 2 pressed
   trigger:
