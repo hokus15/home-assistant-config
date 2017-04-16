@@ -71,6 +71,7 @@ recorder:
       - zone
       - group
       - calendar
+      - zwave
     entities:
       - sensor.since_last_boot
       - sensor.last_boot
@@ -81,6 +82,34 @@ recorder:
       - sensor.nut_ups_manufacturer
       - sensor.nut_ups_model
       - sun.sun
+      - sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_2_9
+      - sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_2_9
+      - sensor.fibaro_system_fgk10x_door_opening_sensor_alarm_level_2_1
+      - sensor.fibaro_system_fgk10x_door_opening_sensor_alarm_type_2_0
+      - sensor.fibaro_system_fgk10x_door_opening_sensor_burglar_2_10
+      - sensor.fibaro_system_fgk10x_door_opening_sensor_general_2_0
+      - sensor.fibaro_system_fgk10x_door_opening_sensor_sourcenodeid_2_2
+      - sensor.fibaro_system_fgms001_motion_sensor_alarm_level_6_1
+      - sensor.fibaro_system_fgms001_motion_sensor_alarm_type_6_0
+      - sensor.fibaro_system_fgms001_motion_sensor_burglar_6_10
+      - sensor.fibaro_system_fgms001_motion_sensor_general_6_0
+      - sensor.fibaro_system_fgms001_motion_sensor_luminance_6_3
+      - sensor.fibaro_system_fgms001_motion_sensor_seismic_intensity_6_25
+      - sensor.fibaro_system_fgms001_motion_sensor_sourcenodeid_6_2
+      - sensor.fibaro_system_fgms001_motion_sensor_temperature_6_1
+      - sensor.fibaro_system_fgs223_double_relay_alarm_level_7_1
+      - sensor.fibaro_system_fgs223_double_relay_alarm_type_7_0
+      - sensor.fibaro_system_fgs223_double_relay_energy_7_0
+      - sensor.fibaro_system_fgs223_double_relay_energy_7_0_2
+      - sensor.fibaro_system_fgs223_double_relay_exporting_7_32
+      - sensor.fibaro_system_fgs223_double_relay_exporting_7_32_2
+      - sensor.fibaro_system_fgs223_double_relay_heat_7_7
+      - sensor.fibaro_system_fgs223_double_relay_interval_7_10
+      - sensor.fibaro_system_fgs223_double_relay_power_7_8
+      - sensor.fibaro_system_fgs223_double_relay_power_7_8_2
+      - sensor.fibaro_system_fgs223_double_relay_power_management_7_11
+      - sensor.fibaro_system_fgs223_double_relay_previous_reading_7_9
+      - sensor.fibaro_system_fgs223_double_relay_sourcenodeid_7_2
 
 mqtt:
   broker: !secret mqtt_broker
