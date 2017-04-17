@@ -5,7 +5,7 @@ intents:
   heating.check:
     speech: >
       {%- set status ={"on": "conectada", "off": "desconectada"} -%}
-      La calefacción está {{ status[states("switch.termostato")]}}.{% if states("climate.termostato") != "0"%} A una temperatura de {{ states("climate.termostato") }} grados.{% endif -%} {% if is_state_attr("climate.termostato", "operation_mode", "idle") %} No está en marcha{%- else %} Está en marcha{% endif -%}{%- if is_state("switch.termostato_modo_ausente", "on") %} y tiene el modo ausente activado.  {%- else %} y tiene el modo ausente desactivado. {% endif %}
+      La calefacción está {{ status[states("switch.termostato")] }}.{% if states("climate.termostato") != "0"%} A una temperatura de {{ states("climate.termostato") }} grados.{% endif -%} {% if is_state_attr("climate.termostato", "operation_mode", "idle") %} No está en marcha{%- else %} Está en marcha{% endif -%}{%- if is_state("switch.termostato_modo_ausente", "on") %} y tiene el modo ausente activado.  {%- else %} y tiene el modo ausente desactivado. {% endif %}
 
   heating.status.set:
     speech: >
@@ -106,6 +106,46 @@ intents:
       {% endif %}
 
 ##############################################
+# Fence intents
+##############################################
+  fence.check:
+    speech: >
+      {%- set status ={"Abierta": "cerrarla", "Cerrada": "abrirla"} -%}
+      La {{device_original | replace("?","")}} está {{states("sensor.entrada_barrera")}}. ¿Quieres {{ status[states("sensor.entrada_barrera")] }}?
+
+  fence.change:
+    speech: >
+      {%- set status ={"Abierta": "cerrado", "Cerrada": "abierto"} -%}
+      {%- set device_name = "barrera" -%}
+      {%- if device_original is defined -%}
+        {%- set device_name = device_original -%}
+      {%- endif -%}
+      {%- if operation == "abrir"-%}
+        {%- if is_state("sensor.entrada_barrera", "Abierta") -%}
+          La {{device_name | replace("?","")}} ya está abierta
+        {%- else -%}
+          He abierto la {{device_name | replace("?","")}}
+        {%- endif -%}
+      {%- elif operation == "cerrar" -%}
+        {%- if is_state("sensor.entrada_barrera", "Cerrada") -%}
+          La {{device_name | replace("?","")}} ya está cerrada
+        {%- else -%}
+          He cerrado la {{device_name | replace("?","")}}
+        {%- endif -%}
+      {%- else -%}
+          He {{ status[states("sensor.entrada_barrera")] }} la {{device_name | replace("?","")}}
+      {%- endif -%}
+    async_action: false
+    action:
+    - service_template: >
+        {%- if (is_state("sensor.entrada_barrera", "Abierta") and  operation == "cerrar") or (is_state("sensor.entrada_barrera", "Cerrada") and  operation == "abrir") or (operation is not defined) -%}
+          homeassistant.turn_on
+        {%- endif -%}
+
+      data:
+        entity_id: switch.barrera
+
+##############################################
 # Light intents
 ##############################################
 #  light.check:
@@ -138,15 +178,14 @@ intents:
       {%- endif -%}
 
   goodnight.check:
-    # TODO Check the time of execution
     speech: >
       {%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{% if is_state("sensor.entrada_barrera", "Abierta") %}Te has dejado la barrera abierta, la voy a cerrar. {% endif -%}Buenas noches.
     async_action: true
     action:
-#      # Only execute between 21:00 and 6:00
-#      - condition: time
-#        after: '21:00'
-#        before: '6:00'
+      # Only execute between 21:00 and 6:00
+      - condition: time
+        after: '21:00'
+        before: '6:00'
       # Turn off stairs lights
       - service: switch.turn_on
         data:
