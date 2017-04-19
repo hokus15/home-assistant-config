@@ -94,13 +94,13 @@ leave_home:
       entity_id: media_player.homeassistant
       data_template:
         message: >
-          {%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif %}
-          {%- if is_state("switch.swiid_swiidinter_switch_3_0", "on") %}Lámpara recibidor encendida. {% endif %}
-          {%- if is_state("switch.fibaro_system_fgs223_double_relay_switch_7_0", "on") %}Luz de la escalera encendida. {% endif %}
-          {%- if is_state("switch.fibaro_system_fgs223_double_relay_switch_7_0_2", "on") %}Luz suite encendida. {% endif %}
-          {%- if is_state("sensor.entrada_barrera", "Abierta") %}Barrera abierta.{% endif -%}
-          Comprobación finalizada
-  
+          {% set incidence = false %}
+          {%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}{% set incidence = true %}Puerta de la cocina abierta. {% endif %}
+          {%- if is_state("switch.swiid_swiidinter_switch_3_0", "on") %}{% set incidence = true %}Lámpara del recibidor encendida. {% endif %}
+          {%- if is_state("switch.fibaro_system_fgs223_double_relay_switch_7_0", "on") %}{% set incidence = true %}Luz de la escalera encendida. {% endif %}
+          {%- if is_state("switch.fibaro_system_fgs223_double_relay_switch_7_0_2", "on") %}{% set incidence = true %}Luz de la suite encendida. {% endif %}
+          {%- if is_state("sensor.entrada_barrera", "Abierta") %}{% set incidence = true %}Barrera abierta.{% endif -%}
+          {%- if not incidence %}Todo correcto.{% endif %}
 goto_sleep:
   alias: 'Go to sleep'
   sequence:
