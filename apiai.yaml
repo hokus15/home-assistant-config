@@ -5,7 +5,7 @@ intents:
   heating.check:
     speech: >
       {%- set status ={"on": "conectada", "off": "desconectada"} -%}
-      La calefacción está {{ status[states("switch.termostato")] }}.{% if states("climate.termostato") != "0"%} A una temperatura de {{ states("climate.termostato") }} grados.{% endif -%} {% if is_state_attr("climate.termostato", "operation_mode", "idle") %} No está en marcha{%- else %} Está en marcha{% endif -%}{%- if is_state("switch.termostato_modo_ausente", "on") %} y tiene el modo ausente activado.  {%- else %} y tiene el modo ausente desactivado. {% endif %}
+      La calefacción está {{ status[states("switch.termostato")] }}. {% if is_state("switch.termostato", "on") %}{% if states("climate.termostato") != "0"%} A una temperatura de {{ states("climate.termostato") }} grados.{% endif -%} {% if is_state_attr("climate.termostato", "operation_mode", "idle") %} No está en marcha{%- else %} Está en marcha{% endif -%}{%- if is_state("switch.termostato_modo_ausente", "on") %} y tiene el modo ausente activado.  {%- else %} y tiene el modo ausente desactivado. {% endif %}{% endif %}
 
   heating.status.set:
     speech: >
@@ -20,11 +20,7 @@ intents:
     speech: >
       {%- set status ={"on": "activado", "off": "desactivado"} -%}
       {% if is_state("switch.termostato", "on") %}
-        {% if device is undefined %}
-          {{status[OnOff]}}
-        {% else %}
-          ¡Hecho! modo ausente {{ status[OnOff] }}
-        {%- endif -%}
+        {{status[OnOff]}}
       {% else %}¡Vaya!, No puedo cambiar el modo ausente de la calefacción porque está desconectada{% endif %}
     async_action: false
     action:
@@ -111,34 +107,30 @@ intents:
   fence.check:
     speech: >
       {%- set status ={"Abierta": "cerrarla", "Cerrada": "abrirla"} -%}
-      La {{device_original | replace("?","")}} está {{states("sensor.entrada_barrera")}}. ¿Quieres {{ status[states("sensor.entrada_barrera")] }}?
+      La barrera está {{states("sensor.entrada_barrera")}}. ¿Quieres {{ status[states("sensor.entrada_barrera")] }}?
 
   fence.change:
     speech: >
       {%- set status ={"Abierta": "cerrado", "Cerrada": "abierto"} -%}
-      {%- set device_name = "barrera" -%}
-      {%- if device_original is defined -%}
-        {%- set device_name = device_original -%}
-      {%- endif -%}
       {%- if operation == "abrir"-%}
         {%- if is_state("sensor.entrada_barrera", "Abierta") -%}
-          La {{device_name | replace("?","")}} ya está abierta
+          La barrera ya está abierta
         {%- else -%}
-          He abierto la {{device_name | replace("?","")}}
+          He abierto la barrera
         {%- endif -%}
       {%- elif operation == "cerrar" -%}
         {%- if is_state("sensor.entrada_barrera", "Cerrada") -%}
-          La {{device_name | replace("?","")}} ya está cerrada
+          La barrera ya está cerrada
         {%- else -%}
-          He cerrado la {{device_name | replace("?","")}}
+          He cerrado la barrera
         {%- endif -%}
       {%- else -%}
-          He {{ status[states("sensor.entrada_barrera")] }} la {{device_name | replace("?","")}}
+          He {{ status[states("sensor.entrada_barrera")] }} la barrera
       {%- endif -%}
     async_action: false
     action:
     - service_template: >
-        {%- if (is_state("sensor.entrada_barrera", "Abierta") and  operation == "cerrar") or (is_state("sensor.entrada_barrera", "Cerrada") and  operation == "abrir") or (operation is not defined) -%}
+        {%- if (is_state("sensor.entrada_barrera", "Abierta") and  operation == "cerrar") or (is_state("sensor.entrada_barrera", "Cerrada") and operation == "abrir") or (operation is not defined) -%}
           homeassistant.turn_on
         {%- endif -%}
 
@@ -172,7 +164,7 @@ intents:
   presence.geni.check:
     speech: >
       {%- if is_state("device_tracker.geni_combined", "home") -%}
-        Si, parece que {{name_original}} está en casa.
+        Parece que {{name_original}} está en casa.
       {%- else -%}
         Pues parece que {{name_original}} no está en casa.
       {%- endif -%}
