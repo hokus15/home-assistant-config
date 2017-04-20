@@ -146,6 +146,55 @@ intents:
 ##############################################
 # Various intents
 ##############################################
+  device.turnOnOff:
+    speech: >
+      {%- set status = {"on": "encendido", "off": "apagado"} -%}
+      {%- set statusAction = {"on": "encender", "off": "apagar"} -%}
+      {%- set validEntities = {"switch.termostato": "la calefacción",
+                               "switch.termostato_modo_ausente": "el modo ausente",
+                               "switch.piscina": "el motor de la piscina",
+                               "group.luces_exteriores": "las luces exteriores",
+                               "group.luces_interiores": "las luces interiores",
+                               "switch.swiid_swiidinter_switch_3_0": "la lámpara del recibidor",
+                               "switch.fibaro_system_fgs223_double_relay_switch_7_0": "las luces de la escalera",
+                               "switch.fibaro_system_fgs223_double_relay_switch_7_0_2": "la luz de la suite",
+                               "switch.caseta_camara_deteccion_movimiento": "el detector de movimiento de la caseta",
+                               "switch.piscina_camara_deteccion_movimiento": "el detector de movimiento de la piscina",
+                               "switch.recibidor_camara_deteccion_movimiento": "el detector de movimiento del recibidor",
+                               "input_boolean.salon_detector_movimiento": "el detector de movimiento del salón",
+                               "input_boolean.cocina_sensor_puerta": "el sensor de apertura de la puerta de la cocina",
+                               "switch.ups_beeper": "el pitido del SAI",
+                               "group.seguridad": "el sistema de seguridad"} -%}
+      {% if validEntities[device] %}
+        Hecho! He {{ status[targetState] }} {{validEntities[device]}}
+      {% else %}
+        ¡Listillo!. Esto no se puede {{statusAction[targetState]}}.
+      {% endif %}
+    async_action: false
+    action:
+    - service_template: >
+        {%- set validEntities = {"switch.termostato": "la calefacción",
+                                 "switch.termostato_modo_ausente": "el modo ausente",
+                                 "switch.piscina": "el motor de la piscina",
+                                 "group.luces_exteriores": "las luces exteriores",
+                                 "group.luces_interiores": "las luces interiores",
+                                 "switch.swiid_swiidinter_switch_3_0": "la lámpara del recibidor",
+                                 "switch.fibaro_system_fgs223_double_relay_switch_7_0": "las luces de la escalera",
+                                 "switch.fibaro_system_fgs223_double_relay_switch_7_0_2": "la luz de la suite",
+                                 "switch.caseta_camara_deteccion_movimiento": "el detector de movimiento de la caseta",
+                                 "switch.piscina_camara_deteccion_movimiento": "el detector de movimiento de la piscina",
+                                 "switch.recibidor_camara_deteccion_movimiento": "el detector de movimiento del recibidor",
+                                 "input_boolean.salon_detector_movimiento": "el detector de movimiento del salón",
+                                 "input_boolean.cocina_sensor_puerta": "el sensor de apertura de la puerta de la cocina",
+                                 "switch.ups_beeper": "el pitido del SAI",
+                                 "group.seguridad": "el sistema de seguridad"} -%}
+        {% if validEntities[device] %}
+           homeassistant.turn_{{targetState}}
+        {% endif %}
+
+      data_template:
+        entity_id: '{{device}}'
+ 
   shift.geni.check:
     speech: >
        {%- if is_state("sensor.next_shift_event", "Saliente") -%}
