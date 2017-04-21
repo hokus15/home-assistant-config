@@ -175,7 +175,7 @@ notify_motion_detection:
   sequence:
       # Only send notification if the alarm has not fired recently (state is off).
     - condition: template
-      value_template: '{{ states("binary_sensor.cam_" ~ data.camera ~ "_alarm") == "off" }}'
+      value_template: '{{ states("binary_sensor." ~ data.camera ~ "_camara_deteccion_movimiento") == "off" }}'
       # Call script motion_detected_mqtt passing as variable the camera name
     - service: script.motion_detected_mqtt
       data_template:
