@@ -74,55 +74,28 @@
         dev_id: 'virtual_device'
         location_name: 'not_home'
 
-# Turn Ana status to home at 7:00 if she's not home and the shift in calendar is "Mañana" or "Saliente"
-- alias: 'Ana home'
+# Turn on for 4 hours authorized person at 7:00 if the shift in calendar is "Mañana" or "Saliente"
+- alias: 'Authorized person'
   trigger:
     platform: time
     after: '07:00:00'
   condition:
-    condition: and
-    conditions:
+    - condition: or
+      conditions:
       - condition: state
-        entity_id: 'device_tracker.ana'
-        state: 'not_home'
-      - condition: or
-        conditions:
-        - condition: state
-          entity_id: 'calendar.turnos_geni_manyana'
-          state: 'on'
-        - condition: state
-          entity_id: 'calendar.turnos_geni_saliente'
-          state: 'on'
-  action:
-    - service: device_tracker.see
-      data:
-        dev_id: 'ana'
-        location_name: 'home'
-
-# Turn Ana status to home at 11:00 if she's at home and the shift in calendar is "Mañana" or "Saliente"
-- alias: 'Ana not home'
-  trigger:
-    platform: time
-    after: '11:00:00'
-  condition:
-    condition: and
-    conditions:
+        entity_id: 'calendar.turnos_geni_manyana'
+        state: 'on'
       - condition: state
-        entity_id: 'device_tracker.ana'
-        state: 'home'
-      - condition: or
-        conditions:
-        - condition: state
-          entity_id: 'calendar.turnos_geni_manyana'
-          state: 'on'
-        - condition: state
-          entity_id: 'calendar.turnos_geni_saliente'
-          state: 'on'
+        entity_id: 'calendar.turnos_geni_saliente'
+        state: 'on'
   action:
-    - service: device_tracker.see
+    - service: input_slider.select_value
       data:
-        dev_id: 'ana'
-        location_name: 'not_home'
+        entity_id: input_slider.empty_home_activation_delay_minutes
+        value: 240.0
+    - service: homeassistant.turn_on
+      data:
+        entity_id: input_boolean.empty_home_activation_delay
 
 # Set Jordi as driving when the event "enter" for "-toyota" is published to mqtt
 # Delay is needed to avoid re-set the status to "home" when I enter the car at home.

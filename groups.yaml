@@ -77,14 +77,12 @@ Unidad Familiar:
   entities:
     - device_tracker.jordi_combined
     - device_tracker.geni_combined
-    - device_tracker.ana
     - device_tracker.virtual_device
 
 Familia:
   entities:
     - sensor.jordi_combined
     - sensor.geni_combined
-    - sensor.ana
     - sensor.virtual_device
     - input_boolean.empty_home_activation_delay
     - input_slider.empty_home_activation_delay_minutes

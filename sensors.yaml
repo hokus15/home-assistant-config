@@ -133,7 +133,7 @@
       unit_of_measurement: '%'
 
 ##############################################
-# Climate sensors
+# Climate sensors for api.ai
 ##############################################
 - platform: template
   sensors:
@@ -289,18 +289,6 @@
           {%- endif %}
       entity_id:
         - device_tracker.geni_combined
-    ana:
-      friendly_name: 'Ana'
-      value_template: >-
-          {%- if is_state("device_tracker.ana", "home") %}
-              En casa
-          {% elif is_state("device_tracker.ana", "not_home") %}
-              Ausente
-          {% else %}
-              {{ states.device_tracker.ana.state }}
-          {%- endif %}
-      entity_id:
-        - device_tracker.ana
     hp_photosmart_5520:
       friendly_name: 'HP Photosmart 5520'
       value_template: >-
