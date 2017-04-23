@@ -81,7 +81,8 @@ sensor.hokusphone_batt:
   friendly_name: 'Batería teléfono'
   icon: 'mdi:battery'
 sensor.entrada_barrera:
-   icon: 'mdi:gate'
+  friendly_name: 'Estado barrera'
+  icon: 'mdi:gate'
 sensor.season:
   hidden: true
 sensor.ups_status:
@@ -257,13 +258,13 @@ switch.piscina:
   friendly_name: 'Depuradora'
   icon: mdi:pool
 switch.barrera:
-  friendly_name: ' '
+  friendly_name: 'Barrera'
   icon: mdi:gate
 switch.holiday:
   friendly_name: 'Vacaciones'
   icon: mdi:beach
 switch.termostato:
-  friendly_name: 'Estado'
+  friendly_name: 'Calefacción'
   icon: mdi:radiator
 switch.termostato_modo_ausente:
   friendly_name: 'Modo ausente'

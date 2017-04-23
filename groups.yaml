@@ -287,8 +287,8 @@ NAS:
 
 SAI:
   entities:
-    - sensor.nut_ups_manufacturer
-    - sensor.nut_ups_model
+#    - sensor.nut_ups_manufacturer
+#    - sensor.nut_ups_model
     - sensor.ups_status
     - sensor.nut_ups_battery_charge
     - sensor.nut_ups_battery_runtime
