@@ -163,12 +163,13 @@ intents:
                                "switch.recibidor_camara_deteccion_movimiento": "el detector de movimiento del recibidor",
                                "input_boolean.salon_detector_movimiento": "el detector de movimiento del salón",
                                "input_boolean.cocina_sensor_puerta": "el sensor de apertura de la puerta de la cocina",
+                               "switch.holiday": "el modo vacaciones",
                                "switch.ups_beeper": "el pitido del SAI",
                                "group.seguridad": "el sistema de seguridad"} -%}
       {% if validEntities[device] %}
         Hecho! He {{ status[targetState] }} {{validEntities[device]}}
       {% else %}
-        ¡Listillo!. Esto no se puede {{statusAction[targetState]}}.
+        ¡Vaya!. Esto no se puede {{statusAction[targetState]}}
       {% endif %}
     async_action: false
     action:
@@ -186,6 +187,7 @@ intents:
                                  "switch.recibidor_camara_deteccion_movimiento": "el detector de movimiento del recibidor",
                                  "input_boolean.salon_detector_movimiento": "el detector de movimiento del salón",
                                  "input_boolean.cocina_sensor_puerta": "el sensor de apertura de la puerta de la cocina",
+                                 "switch.holiday": "el modo vacaciones",
                                  "switch.ups_beeper": "el pitido del SAI",
                                  "group.seguridad": "el sistema de seguridad"} -%}
         {% if validEntities[device] %}
@@ -194,7 +196,47 @@ intents:
 
       data_template:
         entity_id: '{{device}}'
- 
+
+  authorized.person:
+    speech: >
+      {%- set timestamp = strptime(time, '%H:%M:%S')-%}
+      {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
+      {%- set minutes = ((as_timestamp(targetTime) - as_timestamp(now())) | int) // 60 -%}
+      {%- if minutes > 0 -%}
+        Activada persona autorizada durante {{ minutes }} minutos
+      {%- else -%}
+        No puedo activar una persona autorizada en el pasado.
+      {%- endif -%}
+    async_action: false
+    action:
+    - service_template: >
+        {%- set timestamp = strptime(time, '%H:%M:%S')-%}
+        {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
+        {%- set minutes = ((as_timestamp(targetTime) - as_timestamp(now())) | int) // 60 -%}
+        {%- if minutes > 0 -%}
+          input_slider.select_value
+        {%- endif -%}
+
+      data_template:
+       entity_id: input_slider.empty_home_activation_delay_minutes
+       value: >
+        {%- set timestamp = strptime(time, '%H:%M:%S')-%}
+        {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
+        {%- set minutes = ((as_timestamp(targetTime) - as_timestamp(now())) | int) // 60 | float -%}
+        {%- if minutes > 0 -%}
+          {{ minutes }}
+        {%- endif -%}
+    - service_template: >
+        {%- set timestamp = strptime(time, '%H:%M:%S')-%}
+        {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
+        {%- set minutes = ((as_timestamp(targetTime) - as_timestamp(now())) | int) // 60 -%}
+        {%- if minutes > 0 -%}
+          homeassistant.turn_on
+        {%- endif -%}
+
+      data:
+        entity_id: input_boolean.empty_home_activation_delay
+
   shift.geni.check:
     speech: >
        {%- if is_state("sensor.next_shift_event", "Saliente") -%}
