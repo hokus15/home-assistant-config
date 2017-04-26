@@ -192,7 +192,7 @@ Luces interiores:
 Barrera:
   entities:
     - switch.barrera
-    - sensor.entrada_barrera
+    - sensor.switch_barrera
 
 Piscina:
   entities:

@@ -80,7 +80,7 @@ sensor.exchange_rate_1_btc:
 sensor.hokusphone_batt:
   friendly_name: 'Batería teléfono'
   icon: 'mdi:battery'
-sensor.entrada_barrera:
+sensor.switch_barrera:
   friendly_name: 'Estado barrera'
   icon: 'mdi:gate'
 sensor.season:

@@ -241,7 +241,7 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: sensor.entrada_barrera
+        entity_id: sensor.switch_barrera
         state: 'Cerrada'
       - condition: state
         entity_id: device_tracker.jordi_combined
@@ -253,10 +253,10 @@
 #   - service: switch.turn_on
 #     entity_id: switch.barrera
 
-- alias: 'Refresh location when fence is Open and not at home'
+- alias: 'Refresh location when fence is Open and Jordi is not at home'
   trigger:
     platform: state
-    entity_id: sensor.entrada_barrera
+    entity_id: sensor.switch_barrera
     state: 'Abierta'
   condition:
     condition: template
@@ -549,7 +549,7 @@
 - alias: 'Turn on lights when fence open'
   trigger:
     platform: state
-    entity_id: sensor.entrada_barrera
+    entity_id: sensor.switch_barrera
     state: 'Abierta'
   condition:
     condition: or
@@ -642,21 +642,21 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: sensor.entrada_barrera
+        entity_id: sensor.switch_barrera
         state: 'Abierta'
       - condition: template
-        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.entrada_barrera.last_changed))//60)%10 == 0 }}'
+        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.switch_barrera.last_changed))//60)%10 == 0 }}'
       - condition: template
-        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.entrada_barrera.last_changed))//60) != 0 }}'
+        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.switch_barrera.last_changed))//60) != 0 }}'
   action:
     - service: tts.google_say
       entity_id: media_player.homeassistant
       data_template:
-        message: 'Barrera {{ states.sensor.entrada_barrera.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.entrada_barrera.last_changed))|int//60 }} minutos'
+        message: 'Barrera {{ states.sensor.switch_barrera.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.switch_barrera.last_changed))|int//60 }} minutos'
         cache: false
     - service: notify.telegram
       data_template:
-        message: 'Barrera {{ states.sensor.entrada_barrera.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.entrada_barrera.last_changed))|int//60 }} minutos'
+        message: 'Barrera {{ states.sensor.switch_barrera.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.switch_barrera.last_changed))|int//60 }} minutos'
 
 #############################################################
 # Swimming pool turn on

@@ -7,30 +7,6 @@ intents:
       {%- set status ={"on": "conectada", "off": "desconectada"} -%}
       La calefacción está {{ status[states("switch.termostato")] }}. {% if is_state("switch.termostato", "on") %}{% if states("climate.termostato") != "0"%} A una temperatura de {{ states("climate.termostato") }} grados.{% endif -%} {% if is_state_attr("climate.termostato", "operation_mode", "idle") %} No está en marcha{%- else %} Está en marcha{% endif -%}{%- if is_state("switch.termostato_modo_ausente", "on") %} y tiene el modo ausente activado.  {%- else %} y tiene el modo ausente desactivado. {% endif %}{% endif %}
 
-  heating.status.set:
-    speech: >
-      {%- set status ={"on": "conectada", "off": "desconectada"} -%}
-      ¡Hecho! calefacción {{ status[OnOff] }}
-    async_action: false
-    action:
-      - service_template: 'switch.turn_{{ OnOff }}'
-        entity_id: 'switch.termostato'
-
-  heating.away_mode.set:
-    speech: >
-      {%- set status ={"on": "activado", "off": "desactivado"} -%}
-      {% if is_state("switch.termostato", "on") %}
-        {{status[OnOff]}}
-      {% else %}¡Vaya!, No puedo cambiar el modo ausente de la calefacción porque está desconectada{% endif %}
-    async_action: false
-    action:
-      - condition: state
-        entity_id: switch.termostato
-        state: 'on'
-      - service_template: 'switch.turn_{{ OnOff }}'
-        data_template:
-          entity_id: 'switch.termostato_modo_ausente'
-
   heating.temperature.change.relative:
     speech: >
       {% if is_state("switch.termostato", "on") %}¡Entendido!, voy a {{ change.direction }} la temperatura de la calefacción {{ change.degrees }} {{ unit | replace("?","") }}. Ahora está a {{ states.climate.termostato.attributes.temperature}} grados{% else %}¡Vaya!, No puedo {{ change.direction }} la calefacción porque está desconectada{% endif %}
@@ -49,6 +25,19 @@ intents:
               {{ states.climate.termostato.attributes.temperature - change.degrees | float }}
             {%- endif -%}
 
+  heating.temperature.change.absolute:
+    speech: >
+      {% if is_state("switch.termostato", "on") %}¡Perfecto! He cambiado la temperatura de la calefacción a {{ change.degrees }} grados. {% else %}¡Vaya!, No puedo {{ change.set }} la calefacción porque está desconectada{% endif %}
+    async_action: false
+    action:
+      - condition: state
+        entity_id: switch.termostato
+        state: 'on'
+      - service: climate.set_temperature
+        data_template:
+          entity_id: climate.termostato
+          temperature: '{{ change.degrees }}'
+
   heating.temperature.change.restore:
     speech: >
       {% if is_state("switch.termostato", "on") %}¡Perfecto! Estoy restaurando la programación normal en la calefaccción. {% else %}¡Vaya!, la calefacción está desconectada{% endif %}
@@ -66,18 +55,13 @@ intents:
         data_template:
           entity_id: 'switch.termostato_modo_ausente'
   
-  heating.temperature.change.absolute:
+##############################################
+# Fence intents
+##############################################
+  fence.check:
     speech: >
-      {% if is_state("switch.termostato", "on") %}¡Perfecto! He cambiado la temperatura de la calefacción a {{ change.degrees }} grados. {% else %}¡Vaya!, No puedo {{ change.set }} la calefacción porque está desconectada{% endif %}
-    async_action: false
-    action:
-      - condition: state
-        entity_id: switch.termostato
-        state: 'on'
-      - service: climate.set_temperature
-        data_template:
-          entity_id: climate.termostato
-          temperature: '{{ change.degrees }}'
+      {%- set status ={"Abierta": "cerrarla", "Cerrada": "abrirla"} -%}
+      La barrera está {{states("sensor.switch_barrera")}}. ¿Quieres {{ status[states("sensor.switch_barrera")] }}?
 
 ##############################################
 # Climate intents
@@ -102,101 +86,61 @@ intents:
       {% endif %}
 
 ##############################################
-# Fence intents
+# Generic intents
 ##############################################
-  fence.check:
+  device.turnOnOff:
     speech: >
-      {%- set status ={"Abierta": "cerrarla", "Cerrada": "abrirla"} -%}
-      La barrera está {{states("sensor.entrada_barrera")}}. ¿Quieres {{ status[states("sensor.entrada_barrera")] }}?
-
-  fence.change:
-    speech: >
-      {%- set status ={"Abierta": "cerrado", "Cerrada": "abierto"} -%}
-      {%- if operation == "abrir"-%}
-        {%- if is_state("sensor.entrada_barrera", "Abierta") -%}
-          La barrera ya está abierta
-        {%- else -%}
-          He abierto la barrera
-        {%- endif -%}
-      {%- elif operation == "cerrar" -%}
-        {%- if is_state("sensor.entrada_barrera", "Cerrada") -%}
-          La barrera ya está cerrada
-        {%- else -%}
-          He cerrado la barrera
-        {%- endif -%}
-      {%- else -%}
-          He {{ status[states("sensor.entrada_barrera")] }} la barrera
-      {%- endif -%}
+      {% if (states.sensor["on_off_" ~ device | replace(".","_")] is not none) %}
+        {% if (is_state(device, targetState)) %}
+          Ya está. No he tocado nada.
+        {% else %}
+          He {{ states.sensor["on_off_" ~ device | replace(".","_")].state }} {{ states.sensor["on_off_" ~ device | replace(".","_")].attributes.friendly_name }}
+        {% endif %}
+      {% else %}
+        ¡Vaya!. No puedo hacerlo.
+      {% endif %}
     async_action: false
     action:
-    - service_template: >
-        {%- if (is_state("sensor.entrada_barrera", "Abierta") and  operation == "cerrar") or (is_state("sensor.entrada_barrera", "Cerrada") and operation == "abrir") or (operation is not defined) -%}
-          homeassistant.turn_on
-        {%- endif -%}
+      - delay:
+          milliseconds: 500
+      - service_template: >
+          {% if (states.sensor["on_off_" ~ device | replace(".","_")] is not none) %}
+             homeassistant.turn_{{targetState}}
+          {% endif %}
+    
+        data_template:
+          entity_id: '{{device}}'
 
-      data:
-        entity_id: switch.barrera
-
-##############################################
-# Light intents
-##############################################
-#  light.check:
-#    speech: >
+  device.OpenClose:
+    speech: >
+      {% if (states.sensor["open_close_" ~ device | replace(".","_")] is not none) %}
+        {% if targetState is not none %}
+          {% if is_state("sensor." ~ device | replace(".","_"), targetState) %}
+            Ya estaba {{targetState}}. No he hecho nada.
+          {% else %}
+            He {{ states.sensor["open_close_" ~ device | replace(".","_")].state }} {{ states.sensor["open_close_" ~ device | replace(".","_")].attributes.friendly_name }}
+          {% endif %}
+        {% else %}
+          He {{ states.sensor["open_close_" ~ device | replace(".","_")].state }} {{ states.sensor["open_close_" ~ device | replace(".","_")].attributes.friendly_name }}
+        {% endif %}
+      {% else %}
+        ¡Vaya!. No puedo hacerlo.
+      {% endif %}
+    async_action: false
+    action:
+      - delay:
+          milliseconds: 500
+      - service_template: >
+          {% if states.sensor["open_close_" ~ device | replace(".","_")] is not none and (targerState is none or not is_state("sensor." ~ device | replace(".","_"), targetState)) %}
+             homeassistant.turn_on
+          {% endif %}
+    
+        data_template:
+          entity_id: '{{device}}'
 
 ##############################################
 # Various intents
 ##############################################
-  device.turnOnOff:
-    speech: >
-      {%- set status = {"on": "encendido", "off": "apagado"} -%}
-      {%- set statusAction = {"on": "encender", "off": "apagar"} -%}
-      {%- set validEntities = {"switch.termostato": "la calefacción",
-                               "switch.termostato_modo_ausente": "el modo ausente",
-                               "switch.piscina": "el motor de la piscina",
-                               "group.luces_exteriores": "las luces exteriores",
-                               "group.luces_interiores": "las luces interiores",
-                               "switch.swiid_swiidinter_switch_3_0": "la lámpara del recibidor",
-                               "switch.fibaro_system_fgs223_double_relay_switch_7_0": "las luces de la escalera",
-                               "switch.fibaro_system_fgs223_double_relay_switch_7_0_2": "la luz de la suite",
-                               "switch.caseta_camara_deteccion_movimiento": "el detector de movimiento de la caseta",
-                               "switch.piscina_camara_deteccion_movimiento": "el detector de movimiento de la piscina",
-                               "switch.recibidor_camara_deteccion_movimiento": "el detector de movimiento del recibidor",
-                               "input_boolean.salon_detector_movimiento": "el detector de movimiento del salón",
-                               "input_boolean.cocina_sensor_puerta": "el sensor de apertura de la puerta de la cocina",
-                               "switch.holiday": "el modo vacaciones",
-                               "switch.ups_beeper": "el pitido del SAI",
-                               "group.seguridad": "el sistema de seguridad"} -%}
-      {% if validEntities[device] %}
-        Hecho! He {{ status[targetState] }} {{validEntities[device]}}
-      {% else %}
-        ¡Vaya!. Esto no se puede {{statusAction[targetState]}}
-      {% endif %}
-    async_action: false
-    action:
-    - service_template: >
-        {%- set validEntities = {"switch.termostato": "la calefacción",
-                                 "switch.termostato_modo_ausente": "el modo ausente",
-                                 "switch.piscina": "el motor de la piscina",
-                                 "group.luces_exteriores": "las luces exteriores",
-                                 "group.luces_interiores": "las luces interiores",
-                                 "switch.swiid_swiidinter_switch_3_0": "la lámpara del recibidor",
-                                 "switch.fibaro_system_fgs223_double_relay_switch_7_0": "las luces de la escalera",
-                                 "switch.fibaro_system_fgs223_double_relay_switch_7_0_2": "la luz de la suite",
-                                 "switch.caseta_camara_deteccion_movimiento": "el detector de movimiento de la caseta",
-                                 "switch.piscina_camara_deteccion_movimiento": "el detector de movimiento de la piscina",
-                                 "switch.recibidor_camara_deteccion_movimiento": "el detector de movimiento del recibidor",
-                                 "input_boolean.salon_detector_movimiento": "el detector de movimiento del salón",
-                                 "input_boolean.cocina_sensor_puerta": "el sensor de apertura de la puerta de la cocina",
-                                 "switch.holiday": "el modo vacaciones",
-                                 "switch.ups_beeper": "el pitido del SAI",
-                                 "group.seguridad": "el sistema de seguridad"} -%}
-        {% if validEntities[device] %}
-           homeassistant.turn_{{targetState}}
-        {% endif %}
-
-      data_template:
-        entity_id: '{{device}}'
-
   authorized.person:
     speech: >
       {%- set timestamp = strptime(time, '%H:%M:%S')-%}
@@ -209,33 +153,33 @@ intents:
       {%- endif -%}
     async_action: false
     action:
-    - service_template: >
-        {%- set timestamp = strptime(time, '%H:%M:%S')-%}
-        {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
-        {%- set minutes = ((as_timestamp(targetTime) - as_timestamp(now())) | int) // 60 -%}
-        {%- if minutes > 0 -%}
-          input_slider.select_value
-        {%- endif -%}
-
-      data_template:
-       entity_id: input_slider.empty_home_activation_delay_minutes
-       value: >
-        {%- set timestamp = strptime(time, '%H:%M:%S')-%}
-        {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
-        {%- set minutes = ((as_timestamp(targetTime) - as_timestamp(now())) | int) // 60 | float -%}
-        {%- if minutes > 0 -%}
-          {{ minutes }}
-        {%- endif -%}
-    - service_template: >
-        {%- set timestamp = strptime(time, '%H:%M:%S')-%}
-        {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
-        {%- set minutes = ((as_timestamp(targetTime) - as_timestamp(now())) | int) // 60 -%}
-        {%- if minutes > 0 -%}
-          homeassistant.turn_on
-        {%- endif -%}
-
-      data:
-        entity_id: input_boolean.empty_home_activation_delay
+      - service_template: >
+          {%- set timestamp = strptime(time, '%H:%M:%S')-%}
+          {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
+          {%- set minutes = ((as_timestamp(targetTime) - as_timestamp(now())) | int) // 60 -%}
+          {%- if minutes > 0 -%}
+            input_slider.select_value
+          {%- endif -%}
+  
+        data_template:
+         entity_id: input_slider.empty_home_activation_delay_minutes
+         value: >
+          {%- set timestamp = strptime(time, '%H:%M:%S')-%}
+          {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
+          {%- set minutes = ((as_timestamp(targetTime) - as_timestamp(now())) | int) // 60 | float -%}
+          {%- if minutes > 0 -%}
+            {{ minutes }}
+          {%- endif -%}
+      - service_template: >
+          {%- set timestamp = strptime(time, '%H:%M:%S')-%}
+          {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
+          {%- set minutes = ((as_timestamp(targetTime) - as_timestamp(now())) | int) // 60 -%}
+          {%- if minutes > 0 -%}
+            homeassistant.turn_on
+          {%- endif -%}
+  
+        data:
+          entity_id: input_boolean.empty_home_activation_delay
 
   shift.geni.check:
     speech: >
@@ -262,7 +206,7 @@ intents:
 
   goodnight.check:
     speech: >
-      {%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{% if is_state("sensor.entrada_barrera", "Abierta") %}Te has dejado la barrera abierta, la voy a cerrar. {% endif -%}Buenas noches.
+      {%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{% if is_state("sensor.switch_barrera", "Abierta") %}Te has dejado la barrera abierta, la voy a cerrar. {% endif -%}Buenas noches.
     async_action: true
     action:
       # Only execute between 21:00 and 6:00
@@ -283,7 +227,7 @@ intents:
           entity_id: switch.swiid_swiidinter_switch_3_0
       # Close fence if open
       - service_template: >
-          {%- if is_state("sensor.entrada_barrera", "Abierta") -%}
+          {%- if is_state("sensor.switch_barrera", "Abierta") -%}
             homeassistant.turn_on
           {%- endif -%}
  
