@@ -91,8 +91,12 @@ intents:
   device.turnOnOff:
     speech: >
       {% if (states.sensor["on_off_" ~ device | replace(".","_")] is not none) %}
-        {% if (is_state(device, targetState)) %}
-          Ya está. No he tocado nada.
+        {% if targetState and (targetState == "on" or targetState == "off") %}
+          {% if not is_state("sensor." ~ device | replace(".","_"), targetState) %}
+            He {{ states.sensor["on_off_" ~ device | replace(".","_")].state }} {{ states.sensor["on_off_" ~ device | replace(".","_")].attributes.friendly_name }}
+          {% else %}
+            Ya estaba {{targetState}}. No he hecho nada.
+          {% endif %}
         {% else %}
           He {{ states.sensor["on_off_" ~ device | replace(".","_")].state }} {{ states.sensor["on_off_" ~ device | replace(".","_")].attributes.friendly_name }}
         {% endif %}
@@ -105,38 +109,30 @@ intents:
           milliseconds: 500
       - service_template: >
           {% if (states.sensor["on_off_" ~ device | replace(".","_")] is not none) %}
-             homeassistant.turn_{{targetState}}
+            {% if targetState and (targetState == "on" or targetState == "off") %}
+              {% if not is_state("sensor." ~ device | replace(".","_"), targetState) %}
+                homeassistant.turn_{{targetState}}
+              {% endif %}
+            {% else %}
+              homeassistant.toggle
+            {% endif %}
           {% endif %}
-    
+
         data_template:
           entity_id: '{{device}}'
 
-  device.OpenClose:
+  device.check:
     speech: >
-      {% if (states.sensor["open_close_" ~ device | replace(".","_")] is not none) %}
-        {% if targetState is not none %}
-          {% if is_state("sensor." ~ device | replace(".","_"), targetState) %}
-            Ya estaba {{targetState}}. No he hecho nada.
-          {% else %}
-            He {{ states.sensor["open_close_" ~ device | replace(".","_")].state }} {{ states.sensor["open_close_" ~ device | replace(".","_")].attributes.friendly_name }}
-          {% endif %}
-        {% else %}
-          He {{ states.sensor["open_close_" ~ device | replace(".","_")].state }} {{ states.sensor["open_close_" ~ device | replace(".","_")].attributes.friendly_name }}
-        {% endif %}
-      {% else %}
-        ¡Vaya!. No puedo hacerlo.
-      {% endif %}
-    async_action: false
-    action:
-      - delay:
-          milliseconds: 500
-      - service_template: >
-          {% if states.sensor["open_close_" ~ device | replace(".","_")] is not none and (targerState is none or not is_state("sensor." ~ device | replace(".","_"), targetState)) %}
-             homeassistant.turn_on
-          {% endif %}
-    
-        data_template:
-          entity_id: '{{device}}'
+      {%- set data ={"on-off": {"encendido": "apagarlo", "apagado": "encenderlo"},
+                     "on-off-f": {"encendida": "apagarla", "apagada": "encenderla"},
+                     "on-off-fp": {"encendidas": "apagarlas", "apagadas": "encenderlas"},
+                     "open-close": {"abierta": "cerrarla", "cerrada": "abrirla"},
+                     "connected-disconnected": {"conectado": "desconectarlo", "desconectado": "conectarlo"},
+                     "enabled-disabled": {"activado": "desactivarlo", "desactivado": "activarlo"},
+                     
+                     } -%}
+      {%- set targetState = data[states.sensor["check_" ~ device | replace(".","_")].attributes.unit_of_measurement] -%}
+      {{ states.sensor["check_" ~ device | replace(".","_")].attributes.friendly_name }} está {{ states.sensor["check_" ~ device | replace(".","_")].state }}. ¿Quieres {{ targetState[states.sensor["check_" ~ device | replace(".","_")].state] }}?
 
 ##############################################
 # Various intents

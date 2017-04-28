@@ -141,143 +141,321 @@
       value_template: '{{ states.climate.termostato.attributes.current_temperature }}'
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura del recibidor'
+      entity_id: 
+        - climate.termostato
 
     exterior_termometro_temperatura:
       value_template: '{{ states("sensor.netatmo_exterior_temperature") }}'
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura exterior'
+      entity_id:
+        - sensor.netatmo_exterior_temperature
     exterior_termometro_humedad:
       value_template: '{{ states("sensor.netatmo_exterior_humidity") }}'
       unit_of_measurement: 'por ciento'
       friendly_name: 'la humedad exterior'
+      entity_id: 
+        - sensor.netatmo_exterior_humidity
     exterior_termometro_max_temp:
       value_template: '{{ states("sensor.netatmo_exterior_max_temp") }}'
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura máxmima de hoy en el exterior'
+      entity_id: 
+        - sensor.netatmo_exterior_max_temp
     exterior_termometro_min_temp:
       value_template: '{{ states("sensor.netatmo_exterior_min_temp") }}'
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura mínima de hoy en el exterior'
+      entity_id: 
+        - sensor.netatmo_exterior_min_temp
 
     salon_termometro_co2:
       value_template: '{{ states("sensor.netatmo_salon_co2") }}'
       unit_of_measurement: 'partes por millón'
       friendly_name: 'el c o 2 en el salón'
+      entity_id: 
+        - sensor.netatmo_salon_co2
     salon_termometro_temperatura:
       value_template: '{{ states("sensor.netatmo_salon_temperature") }}'
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura en el salón'
+      entity_id: 
+        - sensor.netatmo_salon_temperature
     salon_termometro_humedad:
       value_template: '{{ states("sensor.netatmo_salon_humidity") }}'
       unit_of_measurement: 'por ciento'
       friendly_name: 'la humedad en el salón'
+      entity_id: 
+        - sensor.netatmo_salon_humidity
     salon_termometro_max_temp:
       value_template: '{{ states("sensor.netatmo_salon_max_temp") }}'
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura máxmima de hoy en el salón'
+      entity_id: 
+        - sensor.netatmo_salon_max_temp
     salon_termometro_min_temp:
       value_template: '{{ states("sensor.netatmo_salon_min_temp") }}'
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura mínima de hoy en el salón'
+      entity_id: 
+        - sensor.netatmo_salon_min_temp
     salon_termometro_ruido:
       value_template: '{{ states("sensor.netatmo_salon_noise") }}'
       unit_of_measurement: 'decibelios'
       friendly_name: 'el nivel de ruido en el salón'
+      entity_id: 
+        - sensor.netatmo_salon_noise
     salon_termometro_presion:
       value_template: '{{ states("sensor.netatmo_salon_pressure") }}'
       unit_of_measurement: 'milibares'
       friendly_name: 'la presión atmosférica en el salón'
+      entity_id: 
+        - sensor.netatmo_salon_pressure
 
     suite_termometro_co2:
       value_template: '{{ states("sensor.netatmo_suite_co2") }}'
       unit_of_measurement: 'partes por millón'
       friendly_name: 'el c o 2 en la suite'
+      entity_id: 
+        - sensor.netatmo_suite_co2
     suite_termometro_temperatura:
       value_template: '{{ states("sensor.netatmo_suite_temperature") }}'
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura en la suite'
+      entity_id: 
+        - sensor.netatmo_suite_temperature
     suite_termometro_humedad:
       value_template: '{{ states("sensor.netatmo_suite_humidity") }}'
       unit_of_measurement: 'por ciento'
       friendly_name: 'la humedad en la suite'
+      entity_id: 
+        - sensor.netatmo_suite_humidity
     suite_termometro_max_temp:
       value_template: '{{ states("sensor.netatmo_suite_max_temp") }}'
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura máxmima de hoy la suite'
+      entity_id: 
+        - sensor.netatmo_suite_max_temp
     suite_termometro_min_temp:
       value_template: '{{ states("sensor.netatmo_suite_min_temp") }}'
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura mínima de hoy en la suite'
+      entity_id: 
+        - sensor.netatmo_suite_min_temp
 
     exterior_pluviometro_lluvia:
       value_template: '{{ states("sensor.netatmo_pluviometro_rain") }}'
-      unit_of_measurement: 'milimetros'
+      unit_of_measurement: 'milímetros'
+      entity_id: 
+        - sensor.netatmo_pluviometro_rain
     exterior_pluviometro_lluvia_1:
       value_template: '{{ states("sensor.netatmo_pluviometro_sum_rain_1") }}'
-      unit_of_measurement: 'milimetros'
+      unit_of_measurement: 'milímetros'
+      entity_id: 
+        - sensor.netatmo_pluviometro_sum_rain_1
     exterior_pluviometro_lluvia_24:
       value_template: '{{ states("sensor.netatmo_pluviometro_sum_rain_24") }}'
-      unit_of_measurement: 'milimetros'
+      unit_of_measurement: 'milímetros'
+      entity_id: 
+        - sensor.netatmo_pluviometro_sum_rain_24
 
     exterior_anemometro_velocidad_viento:
       value_template: '{{ states("sensor.netatmo_anemometro_gust_strength") }}'
       unit_of_measurement: 'kilómetros por hora'
       friendly_name: 'las rachas de viento'
+      entity_id: 
+        - sensor.netatmo_anemometro_gust_strength
 
     # api.ai on/off entities
     on_off_switch_termostato:
       value_template: '{% if is_state("switch.termostato", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'el termostato'
+      entity_id: 
+        - switch.termostato
     on_off_switch_termostato_modo_ausente:
       value_template: '{% if is_state("switch.termostato_modo_ausente", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el modo ausente en la calefacción'
+      entity_id: 
+        - switch.termostato_modo_ausente
     on_off_switch_piscina:
       value_template: '{% if is_state("switch.piscina", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'el motor de la piscina'
+      entity_id: 
+        - switch.piscina
     on_off_group_luces_exteriores:
       value_template: '{% if is_state("group.luces_exteriores", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'las luces exteriores'
+      entity_id: 
+        - group.luces_exteriores
     on_off_group_luces_interiores:
       value_template: '{% if is_state("group.luces_interiores", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'las luces interiores'
+      entity_id: 
+        - group.luces_interiores
     on_off_switch_swiid_swiidinter_switch_3_0:
       value_template: '{% if is_state("switch.swiid_swiidinter_switch_3_0", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'la lámpara del recibidor'
+      entity_id: 
+        - switch.swiid_swiidinter_switch_3_0
     on_off_switch_fibaro_system_fgs223_double_relay_switch_7_0:
       value_template: '{% if is_state("switch.fibaro_system_fgs223_double_relay_switch_7_0", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'las luces de la escalera'
+      entity_id: 
+        - switch.fibaro_system_fgs223_double_relay_switch_7_0
     on_off_switch_fibaro_system_fgs223_double_relay_switch_7_0_2:
       value_template: '{% if is_state("switch.fibaro_system_fgs223_double_relay_switch_7_0_2", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'la luz de la suite'
+      entity_id: 
+        - switch.fibaro_system_fgs223_double_relay_switch_7_0_2
     on_off_switch_caseta_camara_deteccion_movimiento:
       value_template: '{% if is_state("switch.caseta_camara_deteccion_movimiento", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el detector de movimiento de la caseta'
+      entity_id: 
+        - switch.caseta_camara_deteccion_movimiento
     on_off_switch_piscina_camara_deteccion_movimiento:
       value_template: '{% if is_state("switch.piscina_camara_deteccion_movimiento", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el detector de movimiento de la piscina'
+      entity_id: 
+        - switch.piscina_camara_deteccion_movimiento
     on_off_switch_recibidor_camara_deteccion_movimiento:
       value_template: '{% if is_state("switch.recibidor_camara_deteccion_movimiento", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el detector de movimiento del recibidor'
+      entity_id: 
+        - switch.recibidor_camara_deteccion_movimiento
     on_off_input_boolean_salon_detector_movimiento:
       value_template: '{% if is_state("input_boolean.salon_detector_movimiento", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el detector de movimiento del salón'
+      entity_id: 
+        - input_boolean.salon_detector_movimiento
     on_off_input_boolean_cocina_sensor_puerta:
       value_template: '{% if is_state("input_boolean.cocina_sensor_puerta", "off") %}conectado{% else %}desconectado{% endif %}'
       friendly_name: 'el sensor de apertura de la puerta de la cocina'
+      entity_id: 
+        - input_boolean.cocina_sensor_puerta
     on_off_switch_holiday:
       value_template: '{% if is_state("switch.holiday", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el modo vacaciones'
+      entity_id: 
+        - switch.holiday
     on_off_switch_ups_beeper:
       value_template: '{% if is_state("switch.ups_beeper", "off") %}conectado{% else %}desconectado{% endif %}'
       friendly_name: 'el pitido del SAI'
+      entity_id: 
+        - switch.ups_beeper
     on_off_group_seguridad:
       value_template: '{% if is_state("group.seguridad", "off") %}conectado{% else %}desconectado{% endif %}'
       friendly_name: 'el sistema de seguridad'
-
-    open_close_switch_barrera:
+      entity_id: 
+        - group.seguridad
+    on_off_switch_barrera:
       value_template: '{% if is_state("sensor.switch_barrera", "Cerrada") %}abierto{% else %}cerrado{% endif %}'
       friendly_name: 'la barrera'
+      entity_id: 
+        - sensor.switch_barrera
 
+    # api.ai check entities
+    check_switch_termostato:
+      value_template: '{% if is_state("switch.termostato", "off") %}apagado{% else %}encendido{% endif %}'
+      friendly_name: 'el termostato'
+      unit_of_measurement: 'on-off'
+      entity_id: 
+        - switch.termostato
+    check_switch_termostato_modo_ausente:
+      value_template: '{% if is_state("switch.termostato_modo_ausente", "off") %}desactivado{% else %}activado{% endif %}'
+      friendly_name: 'el modo ausente en la calefacción'
+      unit_of_measurement: 'enabled-disabled'
+      entity_id: 
+        - switch.termostato_modo_ausente
+    check_switch_piscina:
+      value_template: '{% if is_state("switch.piscina", "off") %}apagado{% else %}encendido{% endif %}'
+      friendly_name: 'el motor de la piscina'
+      unit_of_measurement: 'on-off'
+      entity_id: 
+        - switch.piscina
+    check_group_luces_exteriores:
+      value_template: '{% if is_state("group.luces_exteriores", "off") %}apagadas{% else %}encendidas{% endif %}'
+      friendly_name: 'las luces exteriores'
+      unit_of_measurement: 'on-off-fp'
+      entity_id: 
+        - group.luces_exteriores
+    check_group_luces_interiores:
+      value_template: '{% if is_state("group.luces_interiores", "off") %}apagadas{% else %}encendidas{% endif %}'
+      friendly_name: 'las luces interiores'
+      unit_of_measurement: 'on-off-fp'
+      entity_id: 
+        - group.luces_interiores
+    check_switch_swiid_swiidinter_switch_3_0:
+      value_template: '{% if is_state("switch.swiid_swiidinter_switch_3_0", "off") %}apagada{% else %}encendida{% endif %}'
+      friendly_name: 'la lámpara del recibidor'
+      unit_of_measurement: 'on-off-f'
+      entity_id: 
+        - switch.swiid_swiidinter_switch_3_0
+    check_switch_fibaro_system_fgs223_double_relay_switch_7_0:
+      value_template: '{% if is_state("switch.fibaro_system_fgs223_double_relay_switch_7_0", "off") %}apagadas{% else %}encendidas{% endif %}'
+      friendly_name: 'las luces de la escalera'
+      unit_of_measurement: 'on-off-fp'
+      entity_id: 
+        - switch.fibaro_system_fgs223_double_relay_switch_7_0
+    check_switch_fibaro_system_fgs223_double_relay_switch_7_0_2:
+      value_template: '{% if is_state("switch.fibaro_system_fgs223_double_relay_switch_7_0_2", "off") %}apagada{% else %}encendida{% endif %}'
+      friendly_name: 'la luz de la suite'
+      unit_of_measurement: 'on-off-f'
+      entity_id: 
+        - switch.fibaro_system_fgs223_double_relay_switch_7_0_2
+    check_switch_caseta_camara_deteccion_movimiento:
+      value_template: '{% if is_state("switch.caseta_camara_deteccion_movimiento", "off") %}desactivado{% else %}activado{% endif %}'
+      friendly_name: 'el detector de movimiento de la caseta'
+      unit_of_measurement: 'enabled-disabled'
+      entity_id: 
+        - switch.caseta_camara_deteccion_movimiento
+    check_switch_piscina_camara_deteccion_movimiento:
+      value_template: '{% if is_state("switch.piscina_camara_deteccion_movimiento", "off") %}desactivado{% else %}activado{% endif %}'
+      friendly_name: 'el detector de movimiento de la piscina'
+      unit_of_measurement: 'enabled-disabled'
+      entity_id: 
+        - switch.piscina_camara_deteccion_movimiento
+    check_switch_recibidor_camara_deteccion_movimiento:
+      value_template: '{% if is_state("switch.recibidor_camara_deteccion_movimiento", "off") %}desactivado{% else %}activado{% endif %}'
+      friendly_name: 'el detector de movimiento del recibidor'
+      unit_of_measurement: 'enabled-disabled'
+      entity_id: 
+        - switch.recibidor_camara_deteccion_movimiento
+    check_input_boolean_salon_detector_movimiento:
+      value_template: '{% if is_state("input_boolean.salon_detector_movimiento", "off") %}desactivado{% else %}activado{% endif %}'
+      friendly_name: 'el detector de movimiento del salón'
+      unit_of_measurement: 'enabled-disabled'
+      entity_id: 
+        - input_boolean.salon_detector_movimiento
+    check_input_boolean_cocina_sensor_puerta:
+      value_template: '{% if is_state("input_boolean.cocina_sensor_puerta", "off") %}desactivado{% else %}activado{% endif %}'
+      friendly_name: 'el sensor de apertura de la puerta de la cocina'
+      unit_of_measurement: 'enabled-disabled'
+      entity_id: 
+        - input_boolean.cocina_sensor_puerta
+    check_switch_holiday:
+      value_template: '{% if is_state("switch.holiday", "off") %}desactivado{% else %}activado{% endif %}'
+      friendly_name: 'el modo vacaciones'
+      unit_of_measurement: 'enabled-disabled'
+      entity_id: 
+        - switch.holiday
+    check_switch_ups_beeper:
+      value_template: '{% if is_state("switch.ups_beeper", "off") %}desactivado{% else %}activado{% endif %}'
+      friendly_name: 'el pitido del SAI'
+      unit_of_measurement: 'enabled-disabled'
+      entity_id: 
+        - switch.ups_beeper
+    check_group_seguridad:
+      value_template: '{% if is_state("group.seguridad", "off") %}desconectado{% else %}conectado{% endif %}'
+      friendly_name: 'el sistema de seguridad'
+      unit_of_measurement: 'connected-disconnected'
+      entity_id: 
+        - group.seguridad
+    check_switch_barrera:
+      value_template: '{% if is_state("sensor.switch_barrera", "Cerrada") %}cerrada{% else %}abierta{% endif %}'
+      friendly_name: 'la barrera'
+      unit_of_measurement: 'open-close'
+      entity_id: 
+        - sensor.switch_barrera
 
 # Sensor to define roughly the season of the year (if more precission needed use another algorythm)
 - platform: template
