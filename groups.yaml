@@ -57,6 +57,7 @@ Varios:
   icon: mdi:grid
   entities:
     - group.jordi
+    - group.toyota
     - group.internet
     - group.estado_ha
     - group.bitcoin
@@ -100,6 +101,11 @@ Jordi:
     - sensor.sleep_efficiency
     - sensor.body_weight
     - sensor.distance
+
+Toyota:
+  entities:
+    - sensor.toyota
+    - sensor.toyota_batt
 
 Energía:
   entities:

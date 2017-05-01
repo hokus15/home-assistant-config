@@ -68,6 +68,12 @@
   unit_of_measurement: '%'
   value_template: '{{ value_json.batt }}'
 
+- platform: mqtt
+  state_topic: 'location/toyota'
+  name: toyota_batt
+  unit_of_measurement: '%'
+  value_template: '{{ value_json.battery_level }}'
+
 - platform: template
   sensors:
     ups_status:
@@ -540,6 +546,18 @@
           {%- endif %}
       entity_id:
         - device_tracker.geni_combined
+    toyota:
+      friendly_name: 'Toyota'
+      value_template: >-
+          {%- if is_state("device_tracker.toyota", "home") %}
+              En casa
+          {% elif is_state("device_tracker.toyota", "not_home") %}
+              Ausente
+          {% else %}
+              {{ states.device_tracker.toyota.state }}
+          {%- endif %}
+      entity_id:
+        - device_tracker.toyota
     hp_photosmart_5520:
       friendly_name: 'HP Photosmart 5520'
       value_template: >-
@@ -737,6 +755,9 @@
   end: '{{ now() }}'
   duration:
     hours: 24
+
+#- platform: torque
+#  email: !secret torque_email
 
 #- platform: qnap
 #  host: !secret qnap_host

@@ -107,6 +107,11 @@ sensor.geni_combined:
   entity_picture: !secret geni_picture
 sensor.virtual_device:
   entity_picture: !secret virtual_device_picture
+sensor.toyota:
+  entity_picture: /local/Toyota_Corolla_Wagon.jpg
+sensor.toyota_batt:
+  friendly_name: 'Batería'
+  icon: 'mdi:battery'
 sensor.sunset:
   icon: mdi:weather-sunset-down
 sensor.sunrise:

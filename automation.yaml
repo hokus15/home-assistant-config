@@ -234,9 +234,13 @@
 
 - alias: 'Open fence'
   trigger:
-    - platform: state
-      entity_id: device_tracker.hokusphone_hokusphone
-      to: 'home'
+#    - platform: state
+#      entity_id: device_tracker.hokusphone_hokusphone
+#      to: 'home
+     - platform: zone
+       entity_id: device_tracker.toyota
+       zone: zone.home
+       event: enter
   condition:
     condition: and
     conditions:
