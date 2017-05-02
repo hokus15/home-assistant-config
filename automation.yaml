@@ -74,20 +74,25 @@
         dev_id: 'virtual_device'
         location_name: 'not_home'
 
-# Turn on for 4 hours authorized person at 7:00 if the shift in calendar is "Mañana" or "Saliente"
+# Turn on for 4 hours authorized person at 7:00 if it's a workday and the shift in calendar is "Mañana" or "Saliente"
 - alias: 'Authorized person'
   trigger:
     platform: time
     after: '07:00:00'
   condition:
-    - condition: or
-      conditions:
+    condition: and
+    conditions:
       - condition: state
-        entity_id: 'calendar.turnos_geni_manyana'
+        entity_id: 'binary_sensor.workday_sensor'
         state: 'on'
-      - condition: state
-        entity_id: 'calendar.turnos_geni_saliente'
-        state: 'on'
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: 'calendar.turnos_geni_manyana'
+          state: 'on'
+        - condition: state
+          entity_id: 'calendar.turnos_geni_saliente'
+          state: 'on'
   action:
     - service: input_slider.select_value
       data:
