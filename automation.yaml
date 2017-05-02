@@ -146,8 +146,6 @@
   trigger:
     platform: state
     entity_id: device_tracker.hokusphone_nmap, device_tracker.hokusphone_hokusphone
-    #, sensor.hokusphone_nut
-    #, device_tracker.alta
     state: 'home'
   condition:
     condition: or
@@ -158,12 +156,6 @@
       - condition: state
         entity_id: 'device_tracker.hokusphone_hokusphone'
         state: 'home'
-#      - condition: state
-#        entity_id: 'sensor.hokusphone_nut'
-#        state: 'home'
-#      - condition: state
-#        entity_id: 'device_tracker.alta'
-#        state: 'home'
   action:
     - service: device_tracker.see
       data:
@@ -176,8 +168,6 @@
   trigger:
     platform: state
     entity_id: device_tracker.hokusphone_nmap, device_tracker.hokusphone_hokusphone
-    #, sensor.hokusphone_nut
-    #, device_tracker.alta
   condition:
     condition: and
     conditions:
@@ -187,10 +177,6 @@
         value_template: "{{ not(is_state('device_tracker.hokusphone_hokusphone', 'home')) }}"
       - condition: template
         value_template: "{{ not(is_state('device_tracker.jordi_combined', 'En ruta')) }}"
-#      - condition: template
-#        value_template: "{{ not(is_state('sensor.hokusphone_nut', 'home')) }}"
-#      - condition: template
-#        value_template: "{{ not(is_state('device_tracker.alta', 'home')) }}"
   action:
     - service: device_tracker.see
       data_template:
@@ -239,9 +225,6 @@
 
 - alias: 'Open fence'
   trigger:
-#    - platform: state
-#      entity_id: device_tracker.hokusphone_hokusphone
-#      to: 'home
      - platform: zone
        entity_id: device_tracker.toyota
        zone: zone.home
