@@ -106,6 +106,8 @@ Toyota:
   entities:
     - sensor.toyota
     - sensor.toyota_batt
+    - sensor.toyota_gps_accuracy
+    - camera.toyota
 
 Energía:
   entities:

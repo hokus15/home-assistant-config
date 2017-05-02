@@ -112,6 +112,9 @@ sensor.toyota:
 sensor.toyota_batt:
   friendly_name: 'Batería'
   icon: 'mdi:battery'
+sensor.toyota_gps_accuracy:
+  friendly_name: 'Precisión GPS'
+  icon: 'mdi:crosshairs-gps'
 sensor.sunset:
   icon: mdi:weather-sunset-down
 sensor.sunrise:
