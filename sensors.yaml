@@ -104,10 +104,10 @@
     switch_barrera:
       friendly_name: 'Estado'
       value_template: >-
-          {%- if is_state_attr("switch.barrera", "sensor_state", "on") %}
-              Cerrada
-          {% else %}
+          {%- if is_state_attr("switch.barrera", "sensor_state", "off") %}
               Abierta
+          {% else %}
+              Cerrada
           {%- endif %}
       entity_id:
         - switch.barrera
