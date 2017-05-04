@@ -100,10 +100,11 @@ sensor.distance:
 sensor.round_distance:
   friendly_name: 'Distancia'
   unit_of_measurement: Km
+  icon: mdi:ruler
 sensor.body_weight:
   friendly_name: 'Peso'
   unit_of_measurement: kg
-  icon: mdi:scale-bathroom
+  icon: mdi:weight-kilogram
 sensor.jordi_combined:
   entity_picture: !secret hokusphone_jordi_picture
 sensor.geni_combined:
@@ -117,7 +118,7 @@ sensor.toyota_batt:
   icon: 'mdi:battery'
 sensor.toyota_gps_accuracy:
   friendly_name: 'Precisión GPS'
-  icon: 'mdi:crosshairs-gps'
+  icon: 'mdi:map-marker-radius'
 sensor.sunset:
   icon: mdi:weather-sunset-down
 sensor.sunrise:
@@ -218,7 +219,8 @@ sensor.next_shift_date:
   icon: mdi:calendar
 sensor.piscina_on_history:
   friendly_name: 'Uso bomba últimas 24h'
-
+sensor.caducidad_certificado_ssl:
+  icon: mdi:certificate
 ###################################
 # Binary Sensors
 ###################################
