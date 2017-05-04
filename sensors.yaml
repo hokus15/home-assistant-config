@@ -516,6 +516,11 @@
 
 - platform: template
   sensors:
+    round_distance:
+      value_template: '{{ states("sensor.distance") | round(2) }}'
+      
+- platform: template
+  sensors:
     virtual_device:
       friendly_name: 'Persona autorizada'
       value_template: >-

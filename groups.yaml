@@ -100,7 +100,7 @@ Jordi:
     - sensor.steps
     - sensor.sleep_efficiency
     - sensor.body_weight
-    - sensor.distance
+    - sensor.round_distance
 
 Toyota:
   entities:

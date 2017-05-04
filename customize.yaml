@@ -97,6 +97,9 @@ sensor.sleep_efficiency:
 sensor.distance:
   friendly_name: 'Distancia'
   unit_of_measurement: Km
+sensor.round_distance:
+  friendly_name: 'Distancia'
+  unit_of_measurement: Km
 sensor.body_weight:
   friendly_name: 'Peso'
   unit_of_measurement: kg
