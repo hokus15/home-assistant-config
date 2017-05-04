@@ -253,6 +253,7 @@ Internet:
     - sensor.speedtest_ping
     - sensor.speedtest_download
     - sensor.speedtest_upload
+    - sensor.caducidad_certificado_ssl
 
 Bitcoin:
   entities:

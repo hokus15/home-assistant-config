@@ -767,6 +767,12 @@
   duration:
     hours: 24
 
+- platform: command_line
+  name: Caducidad certificado SSL
+  unit_of_measurement: días
+  scan_interval: 10800
+  command: !secret ssl-cert-check_commandline
+
 #- platform: torque
 #  email: !secret torque_email
 
