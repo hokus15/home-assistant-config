@@ -80,6 +80,11 @@
   unit_of_measurement: 'm'
   value_template: '{{ value_json.gps_accuracy }}'
 
+#- platform: template
+#  sensors:
+#    toyota_last_update:
+#      value_template: '{{as_timestamp(states.device_tracker.toyota.last_changed)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
+
 - platform: template
   sensors:
     ups_status:

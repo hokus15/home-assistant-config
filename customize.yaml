@@ -119,6 +119,9 @@ sensor.toyota_batt:
 sensor.toyota_gps_accuracy:
   friendly_name: 'Precisión GPS'
   icon: 'mdi:map-marker-radius'
+#sensor.toyota_last_update:
+#  friendly_name: 'Última actualización'
+#  icon: 'mdi:clock'
 sensor.sunset:
   icon: mdi:weather-sunset-down
 sensor.sunrise:
