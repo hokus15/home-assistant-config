@@ -10,6 +10,6 @@ entrada_luz_brillo:
 empty_home_activation_delay_minutes:
   name: Minutos
   initial: 180
-  min: 5
+  min: 0
   max: 240
   step: 5

@@ -141,7 +141,7 @@ intents:
     speech: >
       {%- set timestamp = strptime(time, '%H:%M:%S')-%}
       {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
-      {%- set minutes = ((as_timestamp(targetTime) - as_timestamp(now())) | int) // 60 -%}
+      {%- set minutes = (((as_timestamp(targetTime) - as_timestamp(now())) | int) / 60) | round | int -%}
       {%- if minutes > 0 -%}
         Activada persona autorizada durante {{ minutes }} minutos
       {%- else -%}
@@ -152,7 +152,7 @@ intents:
       - service_template: >
           {%- set timestamp = strptime(time, '%H:%M:%S')-%}
           {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
-          {%- set minutes = ((as_timestamp(targetTime) - as_timestamp(now())) | int) // 60 -%}
+          {%- set minutes = (((as_timestamp(targetTime) - as_timestamp(now())) | int) / 60) | round | int -%}
           {%- if minutes > 0 -%}
             input_slider.select_value
           {%- endif -%}
@@ -162,14 +162,14 @@ intents:
          value: >
           {%- set timestamp = strptime(time, '%H:%M:%S')-%}
           {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
-          {%- set minutes = ((as_timestamp(targetTime) - as_timestamp(now())) | int) // 60 | float -%}
+          {%- set minutes = (((as_timestamp(targetTime) - as_timestamp(now())) | int) / 60) | round -%}
           {%- if minutes > 0 -%}
             {{ minutes }}
           {%- endif -%}
       - service_template: >
           {%- set timestamp = strptime(time, '%H:%M:%S')-%}
           {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
-          {%- set minutes = ((as_timestamp(targetTime) - as_timestamp(now())) | int) // 60 -%}
+          {%- set minutes = (((as_timestamp(targetTime) - as_timestamp(now())) | int) / 60) | round | int -%}
           {%- if minutes > 0 -%}
             homeassistant.turn_on
           {%- endif -%}
