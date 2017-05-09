@@ -241,9 +241,9 @@
   action:
     - service: notify.telegram
       data:
-        message: '[Fake] Puerta abierta automáticamente'
-#   - service: switch.turn_on
-#     entity_id: switch.barrera
+        message: 'Barrera abierta automáticamente'
+    - service: switch.turn_on
+      entity_id: switch.barrera
 
 - alias: 'Refresh location when fence is Open and Jordi is not at home'
   trigger:
