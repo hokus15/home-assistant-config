@@ -763,7 +763,7 @@
       entity_id:
         - calendar.turnos_geni_everything
 
-# Use of the awimming pool pump last 24 hours
+# Use of the swimming pool pump last 24 hours
 - platform: history_stats
   name: piscina_on_history
   entity_id: switch.piscina
@@ -772,24 +772,6 @@
   duration:
     hours: 24
 
-- platform: command_line
+- platform: cert_expiry
+  host: !secret cert_expiry_host
   name: Caducidad certificado SSL
-  unit_of_measurement: días
-  scan_interval: 10800
-  command: !secret ssl-cert-check_commandline
-
-#- platform: torque
-#  email: !secret torque_email
-
-#- platform: qnap
-#  host: !secret qnap_host
-#  username: !secret qnap_username
-#  password: !secret qnap_password
-#  ssl: true
-#  port: 8443
-#  monitored_conditions:
-#    - status
-#    - cpu_usage
-#    - memory_percent_used
-#    - network_tx
-#    - volume_percentage_used

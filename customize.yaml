@@ -223,7 +223,7 @@ sensor.next_shift_date:
 sensor.piscina_on_history:
   friendly_name: 'Uso bomba últimas 24h'
 sensor.caducidad_certificado_ssl:
-  icon: mdi:certificate
+  unit_of_measurement: días
 ###################################
 # Binary Sensors
 ###################################
