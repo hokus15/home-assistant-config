@@ -653,7 +653,7 @@
 
 #############################################################
 # Swimming pool turn on
-# In the morning at 7:00
+# In the morning at 4:00
 # At night at 23:00
 #############################################################
 
@@ -788,7 +788,7 @@
   action:
     service: notify.telegram
     data:
-      message: 'Motor piscina encendido durante más de 4 horas en las últimas 24h'
+      message: 'Motor piscina encendido hoy durante más de 4 horas'
 
 - alias: 'Notify when swimming pool pump on more than 6 hours [Spring - Autumn]'
   trigger:
@@ -807,7 +807,7 @@
   action:
     service: notify.telegram
     data:
-      message: 'Motor piscina encendido durante más de 6 horas en las últimas 24h'
+      message: 'Motor piscina encendido hoy durante más de 6 horas'
 
 - alias: 'Notify when swimming pool pump on more than 8 hours [Summer]'
   trigger:
@@ -821,7 +821,7 @@
   action:
     service: notify.telegram
     data:
-      message: 'Motor piscina encendido durante más de 8 horas en las últimas 24h'
+      message: 'Motor piscina encendido hoy durante más de 8 horas'
 
 #############################################################
 # Other automations

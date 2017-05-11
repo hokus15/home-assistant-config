@@ -221,7 +221,7 @@ sensor.next_shift_event:
 sensor.next_shift_date:
   icon: mdi:calendar
 sensor.piscina_on_history:
-  friendly_name: 'Uso bomba últimas 24h'
+  friendly_name: 'Uso bomba hoy'
 sensor.caducidad_certificado_ssl:
   unit_of_measurement: días
 ###################################

@@ -763,14 +763,13 @@
       entity_id:
         - calendar.turnos_geni_everything
 
-# Use of the swimming pool pump last 24 hours
+# Use of the swimming pool pump today
 - platform: history_stats
   name: piscina_on_history
   entity_id: switch.piscina
   state: 'on'
+  start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
   end: '{{ now() }}'
-  duration:
-    hours: 24
 
 - platform: cert_expiry
   host: !secret cert_expiry_host
