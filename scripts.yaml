@@ -96,6 +96,7 @@ leave_home:
         message: >
           {% set incidence = false %}
           {%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}{% set incidence = true %}Puerta de la cocina abierta. {% endif %}
+          {%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}{% set incidence = true %}Persiana de la cocina abierta. {% endif %}
           {%- if is_state("switch.swiid_swiidinter_switch_3_0", "on") %}{% set incidence = true %}Lámpara del recibidor encendida. {% endif %}
           {%- if is_state("switch.fibaro_system_fgs223_double_relay_switch_7_0", "on") %}{% set incidence = true %}Luz de la escalera encendida. {% endif %}
           {%- if is_state("switch.fibaro_system_fgs223_double_relay_switch_7_0_2", "on") %}{% set incidence = true %}Luz de la suite encendida. {% endif %}
@@ -135,6 +136,7 @@ goto_sleep:
       data_template:
         message: >
           {%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif %}
+          {%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif %}
           {%- if is_state("sensor.switch_barrera", "Abierta") -%}Cerrando barrera.{% endif -%}
           Buenas noches
     # Wait until tts finishes

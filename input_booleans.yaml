@@ -8,6 +8,11 @@ cocina_sensor_puerta:
   initial: off
   icon: 'mdi:glassdoor'
 
+cocina_sensor_persiana:
+  name: Det. apert. persiana porche
+  initial: off
+  icon: 'mdi:glassdoor'
+
 salon_detector_movimiento:
   name: Det. mov. salón
   initial: off

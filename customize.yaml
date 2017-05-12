@@ -178,6 +178,12 @@ sensor.cocina_sensor_puerta:
 sensor.cocina_sensor_puerta_bateria:
   icon: 'mdi:battery'
   friendly_name: 'Sensor puerta cocina'
+sensor.cocina_sensor_persiana:
+  icon: 'mdi:glassdoor'
+  friendly_name: 'Estado persiana porche'
+sensor.cocina_sensor_persiana_bateria:
+  icon: 'mdi:battery'
+  friendly_name: 'Sensor persiana cocina'
 sensor.nut_ups_manufacturer:
   friendly_name: 'Marca'
 sensor.nut_ups_model:

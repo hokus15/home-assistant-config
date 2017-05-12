@@ -202,7 +202,7 @@ intents:
 
   goodnight.check:
     speech: >
-      {%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{% if is_state("sensor.switch_barrera", "Abierta") %}Te has dejado la barrera abierta, la voy a cerrar. {% endif -%}Buenas noches.
+      {%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif -%}{% if is_state("sensor.switch_barrera", "Abierta") %}Te has dejado la barrera abierta, la voy a cerrar. {% endif -%}Buenas noches.
     async_action: true
     action:
       # Only execute between 21:00 and 6:00

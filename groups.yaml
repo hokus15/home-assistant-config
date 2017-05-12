@@ -27,6 +27,7 @@ Vista Seguridad:
     - group.camara_caseta
     - group.acciones_presencia
     - group.puerta_porche_cocina
+    - group.persiana_porche_cocina
     - group.sensor_salon
 
 Interior:
@@ -184,6 +185,9 @@ Cocina:
   entities:
     - sensor.cocina_sensor_puerta
     - input_boolean.cocina_sensor_puerta
+    - sensor.cocina_sensor_persiana
+    - input_boolean.cocina_sensor_persiana
+
     
 Luces exteriores:
   entities:
@@ -236,6 +240,7 @@ Seguridad:
     - switch.caseta_camara_deteccion_movimiento
     - input_boolean.salon_detector_movimiento
     - input_boolean.cocina_sensor_puerta
+    - input_boolean.cocina_sensor_persiana
 
 Sensor salón:
   entities:
@@ -248,6 +253,11 @@ Puerta porche cocina:
   entities:
     - sensor.cocina_sensor_puerta
     - input_boolean.cocina_sensor_puerta
+
+Persiana porche cocina:
+  entities:
+    - sensor.cocina_sensor_persiana
+    - input_boolean.cocina_sensor_persiana
 
 Internet:
   entities:
@@ -306,12 +316,12 @@ SAI:
 
 Estado baterías:
   entities:
-    - sensor.cocina_sensor_puerta_battery
     - sensor.netatmo_exterior_battery
     - sensor.netatmo_pluviometro_battery
     - sensor.netatmo_anemometro_battery
     - sensor.netatmo_suite_battery
     - sensor.cocina_sensor_puerta_bateria
+    - sensor.cocina_sensor_persiana_bateria
     - sensor.salon_detector_movimiento_bateria
     - sensor.recibidor_boton_bateria
 #Escalera:

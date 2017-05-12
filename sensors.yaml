@@ -131,12 +131,29 @@
           {%- endif %}
       entity_id:
         - sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_2_9
+    # Fibaro FGK10x door sensor
+    cocina_sensor_persiana:
+      value_template:  >-
+         {%- if is_state('sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_9_9', '23') %}
+              Cerrada
+          {% elif is_state('sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_9_9', '22') %}
+              Abierta
+          {% else %}
+              Desconocido
+          {%- endif %}
+      entity_id:
+        - sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_9_9
 
 - platform: template
   sensors:
     # Fibaro FGK10x door sensor battery level
     cocina_sensor_puerta_bateria:
       value_template: '{{ states.zwave.fibaro_system_fgk10x_door_opening_sensor_2.attributes.battery_level }}'
+      unit_of_measurement: '%'
+
+    # Fibaro FGK10x door sensor battery level
+    cocina_sensor_persiana_bateria:
+      value_template: '{{ states.zwave.fibaro_system_fgk10x_door_opening_sensor_9.attributes.battery_level }}'
       unit_of_measurement: '%'
 
     # Fibaro FGMS-001 Motion sensor
@@ -185,7 +202,6 @@
       friendly_name: 'la temperatura mínima de hoy en el exterior'
       entity_id: 
         - sensor.netatmo_exterior_min_temp
-
     salon_termometro_co2:
       value_template: '{{ states("sensor.netatmo_salon_co2") }}'
       unit_of_measurement: 'partes por millón'
@@ -228,7 +244,6 @@
       friendly_name: 'la presión atmosférica en el salón'
       entity_id: 
         - sensor.netatmo_salon_pressure
-
     suite_termometro_co2:
       value_template: '{{ states("sensor.netatmo_suite_co2") }}'
       unit_of_measurement: 'partes por millón'
@@ -349,6 +364,11 @@
       friendly_name: 'el sensor de apertura de la puerta de la cocina'
       entity_id: 
         - input_boolean.cocina_sensor_puerta
+    on_off_input_boolean_cocina_sensor_persiana:
+      value_template: '{% if is_state("input_boolean.cocina_sensor_persiana", "off") %}conectado{% else %}desconectado{% endif %}'
+      friendly_name: 'el sensor de apertura de la persiana de la cocina'
+      entity_id: 
+        - input_boolean.cocina_sensor_persiana
     on_off_switch_holiday:
       value_template: '{% if is_state("switch.holiday", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el modo vacaciones'
@@ -449,6 +469,12 @@
       unit_of_measurement: 'enabled-disabled'
       entity_id: 
         - input_boolean.cocina_sensor_puerta
+    check_input_boolean_cocina_sensor_persiana:
+      value_template: '{% if is_state("input_boolean.cocina_sensor_persiana", "off") %}desactivado{% else %}activado{% endif %}'
+      friendly_name: 'el sensor de apertura de la persiana de la cocina'
+      unit_of_measurement: 'enabled-disabled'
+      entity_id: 
+        - input_boolean.cocina_sensor_persiana
     check_switch_holiday:
       value_template: '{% if is_state("switch.holiday", "off") %}desactivado{% else %}activado{% endif %}'
       friendly_name: 'el modo vacaciones'

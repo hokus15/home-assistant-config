@@ -417,6 +417,22 @@
     data:
       message: 'Puerta de la cocina abierta'
 
+# Notify kitchen blind opened when notification active
+- alias: 'Notify kitchen blind opened when notification active'
+  trigger: 
+    platform: state
+    entity_id: sensor.cocina_sensor_persiana
+    from: 'Cerrada'
+    to: 'Abierta'
+  condition:
+    condition: state
+    entity_id: input_boolean.cocina_sensor_persiana
+    state: 'on'
+  action:
+    service: notify.telegram
+    data:
+      message: 'Persiana de la cocina abierta'
+
 # Notify living room motion detection when notification active
 - alias: 'Notify living room motion detection when notification active'
   trigger: 
