@@ -285,7 +285,7 @@ switch.barrera:
   icon: mdi:gate
 switch.holiday:
   friendly_name: 'Vacaciones'
-  icon: mdi:beach
+  icon: mdi:airplane
 switch.termostato:
   friendly_name: 'Calefacción'
   icon: mdi:radiator
