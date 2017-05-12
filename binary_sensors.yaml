@@ -26,6 +26,7 @@
       entity_id:
         - sensor.nut_ups_status_data
 
+# Alarm status for foscam cam in hall
 - platform: mqtt
   state_topic: 'home/camera/recibidor/alarm'
   name: 'recibidor_camara_deteccion_movimiento'
