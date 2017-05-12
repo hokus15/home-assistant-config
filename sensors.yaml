@@ -119,7 +119,7 @@
 
 - platform: template
   sensors:
-    # Fibaro FGK10x door sensor
+    # Fibaro FGK10x door sensor - kitchen door
     cocina_sensor_puerta:
       value_template:  >-
          {%- if is_state('sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_2_9', '23') %}
@@ -131,7 +131,13 @@
           {%- endif %}
       entity_id:
         - sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_2_9
-    # Fibaro FGK10x door sensor
+      icon_template: '{% if is_state("sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_2_9", "23") %}mdi:checkbox-blank-outline{% else %}mdi:arrow-right-bold-box-outline{% endif %}'
+    # Fibaro FGK10x door sensor battery level - kitchen door
+    cocina_sensor_puerta_bateria:
+      value_template: '{{ states.zwave.fibaro_system_fgk10x_door_opening_sensor_2.attributes.battery_level }}'
+      unit_of_measurement: '%'
+
+    # Fibaro FGK10x door sensor - kitchen blind
     cocina_sensor_persiana:
       value_template:  >-
          {%- if is_state('sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_9_9', '23') %}
@@ -143,15 +149,8 @@
           {%- endif %}
       entity_id:
         - sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_9_9
-
-- platform: template
-  sensors:
-    # Fibaro FGK10x door sensor battery level
-    cocina_sensor_puerta_bateria:
-      value_template: '{{ states.zwave.fibaro_system_fgk10x_door_opening_sensor_2.attributes.battery_level }}'
-      unit_of_measurement: '%'
-
-    # Fibaro FGK10x door sensor battery level
+      icon_template: '{% if is_state("sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_9_9", "23") %}mdi:checkbox-blank-outline{% else %}mdi:arrow-right-bold-box-outline{% endif %}'
+    # Fibaro FGK10x door sensor battery level - kitchen blind
     cocina_sensor_persiana_bateria:
       value_template: '{{ states.zwave.fibaro_system_fgk10x_door_opening_sensor_9.attributes.battery_level }}'
       unit_of_measurement: '%'
@@ -160,6 +159,26 @@
     salon_detector_movimiento_bateria:
       value_template: '{{ states.zwave.fibaro_system_fgms001_motion_sensor_6.attributes.battery_level }}'
       unit_of_measurement: '%'
+    salon_detector_movimiento:
+      value_template:  >-
+         {%- if is_state("sensor.fibaro_system_fgms001_motion_sensor_burglar_6_10", "8") %}
+              Detectado
+          {% else %}
+              Despejado
+          {%- endif %}
+      entity_id: 
+        - sensor.fibaro_system_fgms001_motion_sensor_burglar_6_10
+      icon_template: '{% if is_state("sensor.fibaro_system_fgms001_motion_sensor_burglar_6_10", "8") %}mdi:run-fast{% else %}mdi:human-male{% endif %}'
+    salon_detector_movimiento_sabotaje:
+      value_template: >-
+         {%- if is_state("sensor.fibaro_system_fgms001_motion_sensor_burglar_6_10", "3") %}
+              Detectado
+          {% else %}
+              Normal
+          {%- endif %}
+      entity_id: 
+        - sensor.fibaro_system_fgms001_motion_sensor_burglar_6_10
+      icon_template: '{% if is_state("sensor.fibaro_system_fgms001_motion_sensor_burglar_6_10", "3") %}mdi:vibrate{% else %}mdi:crop-portrait{% endif %}'
 
     # Nodon Octan button battery level
     recibidor_boton_bateria:

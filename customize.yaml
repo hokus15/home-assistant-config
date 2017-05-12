@@ -173,13 +173,13 @@ sensor.last_boot:
 sensor.since_last_boot:
   friendly_name: 'Tiempo encendido'
 sensor.cocina_sensor_puerta:
-  icon: 'mdi:glassdoor'
+#  icon: 'mdi:glassdoor'
   friendly_name: 'Estado puerta porche'
 sensor.cocina_sensor_puerta_bateria:
   icon: 'mdi:battery'
   friendly_name: 'Sensor puerta cocina'
 sensor.cocina_sensor_persiana:
-  icon: 'mdi:glassdoor'
+#  icon: 'mdi:glassdoor'
   friendly_name: 'Estado persiana porche'
 sensor.cocina_sensor_persiana_bateria:
   icon: 'mdi:battery'
@@ -230,6 +230,11 @@ sensor.piscina_on_history:
   friendly_name: 'Uso bomba hoy'
 sensor.caducidad_certificado_ssl:
   unit_of_measurement: días
+sensor.salon_detector_movimiento:
+  friendly_name: 'Movimiento'
+sensor.salon_detector_movimiento_sabotaje:
+  friendly_name: 'Manipulación sensor'
+
 ###################################
 # Binary Sensors
 ###################################
@@ -250,10 +255,6 @@ binary_sensor.recibidor_camara_deteccion_movimiento:
 binary_sensor.caseta_camara_deteccion_movimiento:
   friendly_name: 'Movimiento'
   #icon: 'mdi:bell'
-binary_sensor.salon_detector_movimiento_detectado:
-  friendly_name: 'Movimiento'
-binary_sensor.salon_detector_movimiento_sabotaje:
-  friendly_name: 'Manipulación sensor'
 
 ###################################
 # Cameras

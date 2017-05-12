@@ -152,8 +152,8 @@ Salón:
     - sensor.netatmo_salon_pressure
     - sensor.netatmo_salon_co2
     - sensor.netatmo_salon_wifi
-    - binary_sensor.salon_detector_movimiento_detectado
-    - binary_sensor.salon_detector_movimiento_sabotaje
+    - sensor.salon_detector_movimiento
+    - sensor.salon_detector_movimiento_sabotaje
     - input_boolean.salon_detector_movimiento
     - sensor.fibaro_system_fgms001_motion_sensor_luminance_6_3
     - sensor.fibaro_system_fgms001_motion_sensor_temperature_6_1
@@ -244,8 +244,8 @@ Seguridad:
 
 Sensor salón:
   entities:
-    - binary_sensor.salon_detector_movimiento_detectado
-    - binary_sensor.salon_detector_movimiento_sabotaje
+    - sensor.salon_detector_movimiento
+    - sensor.salon_detector_movimiento_sabotaje
     - sensor.salon_detector_movimiento_bateria
     - input_boolean.salon_detector_movimiento
 
