@@ -8,3 +8,5 @@ nut_ups_enable_beeper: !secret nut_ups_enable_beeper_cmd
 nut_ups_disable_beeper: !secret nut_ups_disable_beeper_cmd
 
 restart_ups_driver_controller: sudo upsdrvctl start
+
+start_nut_server: sudo systemctl start nut-server.service
