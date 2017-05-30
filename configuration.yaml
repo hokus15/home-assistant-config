@@ -16,6 +16,7 @@ http:
   api_password: !secret ha_api_password
   trusted_networks:
     - 127.0.0.1
+  base_url: !secret ha_base_url
 #  ssl_certificate: !secret ha_ssl_certificate
 #  ssl_key: !secret ha_ssl_key
   #server_port: 8123
@@ -129,10 +130,15 @@ logger:
 #    homeassistant.components.sensor.speedtest: debug
 #    homeassistant.components.switch.command_line: critical
 
+telegram_bot:
+  platform: webhooks
+  api_key: !secret telegram_api_key
+  allowed_chat_ids:
+    - !secret telegram_chat_id
+
 notify:
   - name: telegram
     platform: telegram
-    api_key: !secret telegram_api_key
     chat_id: !secret telegram_chat_id
 
   - name: HTML5
