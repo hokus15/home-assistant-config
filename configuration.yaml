@@ -186,7 +186,7 @@ switch: !include switches.yaml
 sensor: !include sensors.yaml
 binary_sensor: !include binary_sensors.yaml
 group: !include groups.yaml
-automation: !include automation.yaml
+automation: !include automations.yaml
 script: !include scripts.yaml
 input_slider: !include input_sliders.yaml
 input_boolean: !include input_booleans.yaml
