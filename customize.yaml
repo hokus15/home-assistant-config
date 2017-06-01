@@ -77,9 +77,9 @@ sensor.energy_usage:
   icon: 'mdi:speedometer'
 sensor.exchange_rate_1_btc:
   friendly_name: 'Bitcoin'
-sensor.hokusphone_batt:
-  friendly_name: 'Batería teléfono'
-  icon: 'mdi:battery'
+#sensor.hokusphone_batt:
+#  friendly_name: 'Batería teléfono'
+#  icon: 'mdi:battery'
 sensor.switch_barrera:
   friendly_name: 'Estado barrera'
   icon: 'mdi:gate'
