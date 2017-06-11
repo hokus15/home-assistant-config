@@ -634,17 +634,6 @@
     departure_time: now
     traffic_model: pessimistic
 
-# Google travel time to home
-- platform: google_travel_time
-  name: 'a casa'
-  api_key: !secret google_distance_api_key
-  origin: zone.home
-  destination: zone.home
-  options:
-    language: es
-    departure_time: now
-    traffic_model: pessimistic
-
 # Google travel time to school
 - platform: google_travel_time
   name: 'al colegio'
