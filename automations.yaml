@@ -232,6 +232,38 @@
     - service: switch.turn_on
       entity_id: switch.barrera
 
+- alias: 'Jordi at home with car'
+  trigger:
+     - platform: zone
+       entity_id: device_tracker.toyota
+       zone: zone.home
+       event: enter
+  condition:
+    - condition: state
+      entity_id: device_tracker.jordi_combined
+      state: 'En ruta'
+  action:
+    - service: device_tracker.see
+      data:
+        dev_id: 'jordi_combined'
+        location_name: 'home'
+
+- alias: 'Jordi leave home with car'
+  trigger:
+     - platform: zone
+       entity_id: device_tracker.toyota
+       zone: zone.home
+       event: leave
+  condition:
+    - condition: state
+      entity_id: device_tracker.jordi_combined
+      state: 'En ruta'
+  action:
+    - service: device_tracker.see
+      data:
+        dev_id: 'jordi_combined'
+        location_name: 'not_home'
+
 #- alias: 'Refresh location when fence is Open and Jordi is not at home'
 #  trigger:
 #    platform: state
