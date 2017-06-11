@@ -27,7 +27,9 @@
 
 - platform: mqtt
   devices:
+    # Updated when home iBeacon detected
     hokusphone_mqtt: location/hokusphone
+    # Updated when car iBeacon detected
     hokusphone_toyota: location/hokusphone_toyota
 
 
