@@ -7,7 +7,7 @@
   trigger:
     platform: state
     entity_id: group.unidad_familiar
-    state: 'not_home'
+    to: 'not_home'
   action:
     - service: script.turn_on
       data:
@@ -18,7 +18,7 @@
   trigger:
     platform: state
     entity_id: group.unidad_familiar
-    state: 'home'
+    to: 'home'
   action:
     - service: script.turn_on
       data:
@@ -29,7 +29,7 @@
   trigger:
     platform: state
     entity_id: group.unidad_familiar
-    state: 'home'
+    to: 'home'
   condition:
     condition: sun
     after: sunset
@@ -46,7 +46,7 @@
   trigger:
     platform: state
     entity_id: input_boolean.empty_home_activation_delay
-    state: 'on'
+    to: 'on'
   action:
     - service: device_tracker.see
       data:
@@ -67,7 +67,7 @@
   trigger:
     platform: state
     entity_id: input_boolean.empty_home_activation_delay
-    state: 'off'
+    to: 'off'
   action:
     - service: device_tracker.see
       data:
@@ -78,7 +78,7 @@
 - alias: 'Authorized person'
   trigger:
     platform: time
-    after: '07:00:00'
+    at: '07:00:00'
   condition:
     condition: and
     conditions:
@@ -134,7 +134,7 @@
   trigger:
     platform: state
     entity_id: device_tracker.hokusphone_nmap, device_tracker.hokusphone_mqtt
-    state: 'home'
+    to: 'home'
   condition:
     condition: or
     conditions:
@@ -175,7 +175,7 @@
   trigger:
     platform: state
     entity_id: device_tracker.geni_nmap, device_tracker.flex_2
-    state: 'home'
+    to: 'home'
   condition:
     condition: or
     conditions:
@@ -236,7 +236,7 @@
 #  trigger:
 #    platform: state
 #    entity_id: sensor.switch_barrera
-#    state: 'Abierta'
+#    to: 'Abierta'
 #  condition:
 #    condition: template
 #    value_template: "{{ not(is_state('device_tracker.jordi_combined', 'home')) }}"
@@ -254,7 +254,7 @@
   trigger:
     platform: state
     entity_id: switch.termostato
-    state: 'on'
+    to: 'on'
   action:
     # Turn on thermostat
     - service: script.turn_on
@@ -265,7 +265,7 @@
   trigger:
     platform: state
     entity_id: switch.termostato
-    state: 'off'
+    to: 'off'
   action:
     # Turn off thermostat
     - service: script.turn_on
@@ -348,7 +348,7 @@
   trigger:
     platform: state
     entity_id: binary_sensor.recibidor_camara_deteccion_movimiento
-    state: 'on'
+    to: 'on'
   action:
     - delay:
         seconds: 30
@@ -363,7 +363,7 @@
   trigger:
     platform: state
     entity_id: binary_sensor.piscina_camara_deteccion_movimiento
-    state: 'on'
+    to: 'on'
   action:
     - delay:
         seconds: 30
@@ -378,7 +378,7 @@
   trigger:
     platform: state
     entity_id: binary_sensor.caseta_camara_deteccion_movimiento
-    state: 'on'
+    to: 'on'
   action:
     - delay:
         seconds: 30
@@ -455,7 +455,7 @@
   trigger:
     platform: state
     entity_id: group.luces_exteriores
-    state: 'on'
+    to: 'on'
   action:
     - service: light.turn_on
       data_template:
@@ -493,7 +493,7 @@
 - alias: 'Turn off lights at night'
   trigger:
     platform: time
-    after: '00:15'
+    at: '00:15'
   condition:
     condition: state
     entity_id: group.luces_exteriores
@@ -507,7 +507,7 @@
   trigger:
     platform: state
     entity_id: group.luces_exteriores
-    state: 'on'
+    to: 'on'
   condition:
     - condition: time
       after: '00:15'
@@ -528,7 +528,7 @@
   trigger:
     platform: state
     entity_id: group.luces_exteriores
-    state: 'on'
+    to: 'on'
   condition:
     - condition: sun
       after: sunrise
@@ -546,7 +546,7 @@
   trigger:
     platform: state
     entity_id: sensor.switch_barrera
-    state: 'Abierta'
+    to: 'Abierta'
   condition:
     condition: or
     conditions:
@@ -664,7 +664,7 @@
 - alias: 'Turn on swimming pool pump [morning]'
   trigger:
     platform: time
-    after: '04:00:00'
+    at: '04:00:00'
   action:
     service: switch.turn_on
     entity_id: switch.piscina
@@ -673,7 +673,7 @@
 - alias: 'Turn on swimming pool pump [afternoon]'
   trigger:
     platform: time
-    after: '23:00:00'
+    at: '23:00:00'
   action:
     service: switch.turn_on
     entity_id: switch.piscina
@@ -695,7 +695,7 @@
 - alias: 'Turn off swimming pool pump [morning / Winter]'
   trigger:
     platform: time
-    after: '05:00:00'
+    at: '05:00:00'
   condition:
     - condition: state
       entity_id: sensor.season
@@ -708,7 +708,7 @@
 - alias: 'Turn off swimming pool pump [afternoon / Winter]'
   trigger:
     platform: time
-    after: '00:00:00'
+    at: '00:00:00'
   condition:
     - condition: state
       entity_id: sensor.season
@@ -721,7 +721,7 @@
 - alias: 'Turn off swimming pool pump [morning / Spring - Autumn]'
   trigger:
     platform: time
-    after: '06:00:00'
+    at: '06:00:00'
   condition:
     condition: or
     conditions:
@@ -739,7 +739,7 @@
 - alias: 'Turn off swimming pool pump [afternoon / Spring - Autumn]'
   trigger:
     platform: time
-    after: '01:00:00'
+    at: '01:00:00'
   condition:
     condition: or
     conditions:
@@ -757,7 +757,7 @@
 - alias: 'Turn off swimming pool pump [morning / Summer]'
   trigger:
     platform: time
-    after: '07:00:00'
+    at: '07:00:00'
   condition:
     - condition: state
       entity_id: sensor.season
@@ -770,7 +770,7 @@
 - alias: 'Turn off swimming pool pump [afternoon / Summer]'
   trigger:
     platform: time
-    after: '02:00:00'
+    at: '02:00:00'
   condition:
     - condition: state
       entity_id: sensor.season
