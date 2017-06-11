@@ -634,7 +634,7 @@
 - platform: google_travel_time
   name: 'a la oficina'
   api_key: !secret google_distance_api_key
-  origin: device_tracker.hokusphone_hokusphone
+  origin: zone.home
   destination: zone.oficina
   options:
     language: es
@@ -645,7 +645,7 @@
 - platform: google_travel_time
   name: 'a casa'
   api_key: !secret google_distance_api_key
-  origin: device_tracker.hokusphone_hokusphone
+  origin: zone.home
   destination: zone.home
   options:
     language: es
@@ -656,7 +656,7 @@
 - platform: google_travel_time
   name: 'al colegio'
   api_key: !secret google_distance_api_key
-  origin: device_tracker.hokusphone_hokusphone
+  origin: zone.home
   destination: zone.colegio
   options:
     language: es
