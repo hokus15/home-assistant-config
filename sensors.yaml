@@ -557,13 +557,6 @@
     - type: last_boot
     - type: since_last_boot
 
-- platform: fitbit
-  monitored_resources:
-    - "activities/steps"
-    - "activities/distance"
-    - "body/weight"
-    - "sleep/efficiency"
-
 - platform: template
   sensors:
     round_distance:

@@ -69,8 +69,6 @@ Varios:
     - media_player.hokussqueezebox
     - media_player.salon
     - media_player.homeassistant
-    - configurator.fitbit
-    - configurator.fitbit_2
 
 ################################################
 # Groups
@@ -97,11 +95,6 @@ Familia:
 Jordi:
   entities:
     - sensor.jordi_combined
-    - sensor.hokusphone_batt
-    - sensor.steps
-    - sensor.sleep_efficiency
-    - sensor.body_weight
-    - sensor.round_distance
 
 Toyota:
   entities:

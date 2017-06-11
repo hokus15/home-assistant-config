@@ -88,23 +88,6 @@ sensor.season:
 sensor.ups_status:
   friendly_name: 'SAI'
   icon: 'mdi:power-socket'
-sensor.steps:
-  friendly_name: 'Pasos'
-  unit_of_measurement: pasos
-sensor.sleep_efficiency:
-  friendly_name: 'Eficiencia del sueño'
-  icon: mdi:sleep
-sensor.distance:
-  friendly_name: 'Distancia'
-  unit_of_measurement: Km
-sensor.round_distance:
-  friendly_name: 'Distancia'
-  unit_of_measurement: Km
-  icon: mdi:ruler
-sensor.body_weight:
-  friendly_name: 'Peso'
-  unit_of_measurement: kg
-  icon: mdi:weight-kilogram
 sensor.jordi_combined:
   entity_picture: !secret hokusphone_jordi_picture
 sensor.geni_combined:
