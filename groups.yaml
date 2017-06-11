@@ -92,10 +92,6 @@ Familia:
     - sensor.next_shift_event
     - sensor.next_shift_date
 
-Jordi:
-  entities:
-    - sensor.jordi_combined
-
 Toyota:
   entities:
     - sensor.toyota
