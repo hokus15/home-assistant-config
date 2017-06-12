@@ -232,6 +232,7 @@
     - service: switch.turn_on
       entity_id: switch.barrera
 
+# Set Jordi at home when enter home zone and in the car
 - alias: 'Jordi at home with car'
   trigger:
      - platform: zone
@@ -243,11 +244,14 @@
       entity_id: device_tracker.jordi_combined
       state: 'En ruta'
   action:
+    - delay:
+        seconds: 15
     - service: device_tracker.see
       data:
         dev_id: 'jordi_combined'
         location_name: 'home'
 
+# Set Jordi away when leave home zone and in the car
 - alias: 'Jordi leave home with car'
   trigger:
      - platform: zone
