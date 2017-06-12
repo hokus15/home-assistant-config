@@ -129,10 +129,14 @@ intents:
                      "open-close": {"abierta": "cerrarla", "cerrada": "abrirla"},
                      "connected-disconnected": {"conectado": "desconectarlo", "desconectado": "conectarlo"},
                      "enabled-disabled": {"activado": "desactivarlo", "desactivado": "activarlo"},
-                     
+                     "none": "void"
                      } -%}
       {%- set targetState = data[states.sensor["check_" ~ device | replace(".","_")].attributes.unit_of_measurement] -%}
-      {{ states.sensor["check_" ~ device | replace(".","_")].attributes.friendly_name }} está {{ states.sensor["check_" ~ device | replace(".","_")].state }}. ¿Quieres {{ targetState[states.sensor["check_" ~ device | replace(".","_")].state] }}?
+      {{ states.sensor["check_" ~ device | replace(".","_")].attributes.friendly_name }} está {{ states.sensor["check_" ~ device | replace(".","_")].state }}.
+      {% if targetState != "void" %}
+        ¿Quieres {{ targetState[states.sensor["check_" ~ device | replace(".","_")].state] }}?
+      {% endif %}
+
 
 ##############################################
 # Various intents

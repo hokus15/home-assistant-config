@@ -518,6 +518,18 @@
       unit_of_measurement: 'open-close'
       entity_id: 
         - sensor.switch_barrera
+    check_sensor_cocina_sensor_persiana:
+      value_template: '{% if is_state("sensor.cocina_sensor_persiana", "Cerrada") %}cerrada{% else %}abierta{% endif %}'
+      friendly_name: 'la persiana de la cocina'
+      unit_of_measurement: 'none'
+      entity_id: 
+        - sensor.cocina_sensor_persiana
+    check_sensor_cocina_sensor_puerta:
+      value_template: '{% if is_state("sensor.cocina_sensor_puerta", "Cerrada") %}cerrada{% else %}abierta{% endif %}'
+      friendly_name: 'la puerta de la cocina'
+      unit_of_measurement: 'none'
+      entity_id: 
+        - sensor.cocina_sensor_puerta
 
 # Sensor to define roughly the season of the year (if more precission needed use another algorythm)
 - platform: template
