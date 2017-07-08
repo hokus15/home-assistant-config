@@ -186,10 +186,13 @@ notify_motion_detection:
       data_template:
         camera: '{{data.camera}}'
       # Send the notification
-    - service: telegram_bot.send_photo
+    - service: notify.telegram
       data_template:
-        file: '{{data.file}}'
-        caption: 'Movimiento detectado en {{data.camera}}'
+        message: 'text'
+        data:
+          photo:
+            file: '{{data.file}}'
+            caption: 'Movimiento detectado en {{data.camera}}'
 
 motion_detected_mqtt:
   alias: 'Set motion detected mqtt'

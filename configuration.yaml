@@ -11,6 +11,8 @@ homeassistant:
   elevation: 119
   unit_system: metric
   customize: !include customize.yaml
+  whitelist_external_dirs:
+    - /home/camera
 
 http:
   api_password: !secret ha_api_password
@@ -56,6 +58,7 @@ discovery:
 
 # Checks for available updates
 updater:
+  include_used_components: true
 
 # Enables support for tracking state changes over time.
 history:
@@ -168,6 +171,7 @@ google:
   client_secret: !secret google_secret
 
 zwave:
+  new_entity_ids: false
   usb_path: /dev/ttyACM0
   device_config: !include zwave_device_config.yaml
 
