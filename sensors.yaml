@@ -43,10 +43,10 @@
       - battery_vp
       - rf_status
     Anemómetro:
-      - WindAngle
-      - WindStrength
-      - GustAngle
-      - GustStrength
+      - windangle
+      - windstrength
+      - gustangle
+      - guststrength
       - battery_vp
       - rf_status
 
