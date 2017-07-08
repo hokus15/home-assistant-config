@@ -143,20 +143,20 @@ Salón:
     - sensor.salon_detector_movimiento
     - sensor.salon_detector_movimiento_sabotaje
     - input_boolean.salon_detector_movimiento
-    - sensor.fibaro_system_fgms001_motion_sensor_luminance_6_3
-    - sensor.fibaro_system_fgms001_motion_sensor_temperature_6_1
+    - sensor.fibaro_fgms001_motion_sensor_salon_luminance
+    - sensor.fibaro_fgms001_motion_sensor_salon_temperature
 
 Escalera:
   entities:
-    - switch.fibaro_system_fgs223_double_relay_switch_7_0
-    - sensor.fibaro_system_fgs223_double_relay_energy_7_0
-    - sensor.fibaro_system_fgs223_double_relay_power_7_8
+    - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
+    - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_energy
+    - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_power
 
 Suite:
   entities:
-    - switch.fibaro_system_fgs223_double_relay_switch_7_0_2
-    - sensor.fibaro_system_fgs223_double_relay_energy_7_0_2
-    - sensor.fibaro_system_fgs223_double_relay_power_7_8_2
+    - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
+    - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_energy_2
+    - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_power
     - sensor.netatmo_suite_temperature
     - sensor.netatmo_suite_min_temp
     - sensor.netatmo_suite_max_temp
@@ -165,7 +165,7 @@ Suite:
 
 Recibidor:
   entities:
-    - switch.swiid_swiidinter_switch_3_0
+    - switch.swiid_swiidinter_lampara_recibidor_switch
     - sensor.recibidor_termometro_temperatura
     - camera.recibidor
 
@@ -186,9 +186,9 @@ Luces exteriores:
 
 Luces interiores:
   entities:
-    - switch.fibaro_system_fgs223_double_relay_switch_7_0_2
-    - switch.fibaro_system_fgs223_double_relay_switch_7_0
-    - switch.swiid_swiidinter_switch_3_0
+    - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
+    - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
+    - switch.swiid_swiidinter_lampara_recibidor_switch
 
 Barrera:
   entities:

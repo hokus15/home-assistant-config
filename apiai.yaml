@@ -216,7 +216,7 @@ intents:
       # Turn off stairs lights
       - service: switch.turn_on
         data:
-          entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0
+          entity_id: switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
       # Turn off outside lights
       - service: light.turn_off
         data:
@@ -224,7 +224,7 @@ intents:
       # Turn off hall lamp
       - service: switch.turn_off
         data:
-          entity_id: switch.swiid_swiidinter_switch_3_0
+          entity_id: switch.swiid_swiidinter_lampara_recibidor_switch
       # Close fence if open
       - service_template: >
           {%- if is_state("sensor.switch_barrera", "Abierta") -%}
@@ -239,4 +239,4 @@ intents:
       # Turn off stairs lights
       - service: switch.turn_off
         data:
-          entity_id: switch.fibaro_system_fgs223_double_relay_switch_7_0  
+          entity_id: switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch

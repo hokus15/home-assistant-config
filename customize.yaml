@@ -175,7 +175,7 @@ sensor.nut_ups_battery_charge:
   friendly_name: 'Carga'
 sensor.nut_ups_battery_runtime:
   friendly_name: 'Tiempo restante'
-sensor.fibaro_system_fgms001_motion_sensor_luminance_6_3:
+sensor.fibaro_fgms001_motion_sensor_salon_luminance:
   icon: 'mdi:weather-sunny'
   friendly_name: 'Luminosidad'
 sensor.salon_detector_movimiento_bateria:
@@ -184,21 +184,21 @@ sensor.salon_detector_movimiento_bateria:
 sensor.recibidor_boton_bateria:
   icon: 'mdi:battery'
   friendly_name: 'Nodon'
-sensor.fibaro_system_fgms001_motion_sensor_temperature_6_1:
+sensor.fibaro_fgms001_motion_sensor_salon_temperature:
   friendly_name: 'Temperatura'
 sensor.recibidor_termometro_temperatura:
   friendly_name: 'Temperatura'
   unit_of_measurement: '°C'
-sensor.fibaro_system_fgs223_double_relay_energy_7_0:
+sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_energy:
   icon: 'mdi:speedometer'
   friendly_name: 'Consumo luz escalera'
-sensor.fibaro_system_fgs223_double_relay_power_7_8:
+sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_power:
   icon: 'mdi:power-plug'
   friendly_name: 'Potencia luz escalera'
-sensor.fibaro_system_fgs223_double_relay_energy_7_0_2:
+sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_energy_2:
   icon: 'mdi:speedometer'
   friendly_name: 'Consumo luz suite'
-sensor.fibaro_system_fgs223_double_relay_power_7_8_2:
+sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_power_2:
   icon: 'mdi:power-plug'
   friendly_name: 'Potencia luz suite'
 sensor.next_holiday_mode_start:
@@ -278,13 +278,13 @@ switch.termostato_modo_ausente:
 switch.ups_beeper:
   friendly_name: 'Pitido'
   icon: mdi:music-note
-switch.swiid_swiidinter_switch_3_0:
+switch.swiid_swiidinter_lampara_recibidor_switch:
   friendly_name: 'Lámpara recibidor'
   icon: mdi:lamp
-switch.fibaro_system_fgs223_double_relay_switch_7_0:
+switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch:
   friendly_name: 'Luz escalera'
   icon: mdi:lamp
-switch.fibaro_system_fgs223_double_relay_switch_7_0_2:
+switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2:
   friendly_name: 'Luz suite'
   icon: mdi:lamp
 

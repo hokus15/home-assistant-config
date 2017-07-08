@@ -36,7 +36,7 @@
   action:
     - service: switch.turn_on
       data:
-        entity_id: switch.swiid_swiidinter_switch_3_0
+        entity_id: switch.swiid_swiidinter_lampara_recibidor_switch
 
 # When input_boolean.empty_home_activation_delay turns on,
 # Change virtual_device location to home
@@ -608,7 +608,7 @@
   action:
     - service: switch.turn_on
       data:
-        entity_id: switch.swiid_swiidinter_switch_3_0
+        entity_id: switch.swiid_swiidinter_lampara_recibidor_switch
 
 #############################################################
 # Power automations

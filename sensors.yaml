@@ -122,63 +122,63 @@
     # Fibaro FGK10x door sensor - kitchen door
     cocina_sensor_puerta:
       value_template:  >-
-         {%- if is_state('sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_2_9', '23') %}
+         {%- if is_state('sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_access_control', '23') %}
               Cerrada
-          {% elif is_state('sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_2_9', '22') %}
+          {% elif is_state('sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_access_control', '22') %}
               Abierta
           {% else %}
               Desconocido
           {%- endif %}
       entity_id:
-        - sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_2_9
-      icon_template: '{% if is_state("sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_2_9", "23") %}mdi:checkbox-blank-outline{% else %}mdi:arrow-right-bold-box-outline{% endif %}'
+        - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_access_control
+      icon_template: '{% if is_state("sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_access_control", "23") %}mdi:checkbox-blank-outline{% else %}mdi:arrow-right-bold-box-outline{% endif %}'
     # Fibaro FGK10x door sensor battery level - kitchen door
     cocina_sensor_puerta_bateria:
-      value_template: '{{ states.zwave.fibaro_system_fgk10x_door_opening_sensor_2.attributes.battery_level }}'
+      value_template: '{{ states.zwave.fibaro_fgk10x_door_opening_sensor_puerta_porche.attributes.battery_level }}'
       unit_of_measurement: '%'
 
     # Fibaro FGK10x door sensor - kitchen blind
     cocina_sensor_persiana:
       value_template:  >-
-         {%- if is_state('sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_9_9', '23') %}
+         {%- if is_state('sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_access_control', '23') %}
               Cerrada
-          {% elif is_state('sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_9_9', '22') %}
+          {% elif is_state('sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_access_control', '22') %}
               Abierta
           {% else %}
               Desconocido
           {%- endif %}
       entity_id:
-        - sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_9_9
-      icon_template: '{% if is_state("sensor.fibaro_system_fgk10x_door_opening_sensor_access_control_9_9", "23") %}mdi:checkbox-blank-outline{% else %}mdi:arrow-right-bold-box-outline{% endif %}'
+        - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_access_control
+      icon_template: '{% if is_state("sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_access_control", "23") %}mdi:checkbox-blank-outline{% else %}mdi:arrow-right-bold-box-outline{% endif %}'
     # Fibaro FGK10x door sensor battery level - kitchen blind
     cocina_sensor_persiana_bateria:
-      value_template: '{{ states.zwave.fibaro_system_fgk10x_door_opening_sensor_9.attributes.battery_level }}'
+      value_template: '{{ states.zwave.fibaro_fgk10x_door_opening_sensor_persiana_porche.attributes.battery_level }}'
       unit_of_measurement: '%'
 
     # Fibaro FGMS-001 Motion sensor
     salon_detector_movimiento_bateria:
-      value_template: '{{ states.zwave.fibaro_system_fgms001_motion_sensor_6.attributes.battery_level }}'
+      value_template: '{{ states.zwave.fibaro_fgms001_motion_sensor_salon.attributes.battery_level }}'
       unit_of_measurement: '%'
     salon_detector_movimiento:
       value_template:  >-
-         {%- if is_state("sensor.fibaro_system_fgms001_motion_sensor_burglar_6_10", "8") %}
+         {%- if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "8") %}
               Detectado
           {% else %}
               Despejado
           {%- endif %}
       entity_id: 
-        - sensor.fibaro_system_fgms001_motion_sensor_burglar_6_10
-      icon_template: '{% if is_state("sensor.fibaro_system_fgms001_motion_sensor_burglar_6_10", "8") %}mdi:run-fast{% else %}mdi:human-male{% endif %}'
+        - sensor.fibaro_fgms001_motion_sensor_salon_burglar
+      icon_template: '{% if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "8") %}mdi:run-fast{% else %}mdi:human-male{% endif %}'
     salon_detector_movimiento_sabotaje:
       value_template: >-
-         {%- if is_state("sensor.fibaro_system_fgms001_motion_sensor_burglar_6_10", "3") %}
+         {%- if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "3") %}
               Detectado
           {% else %}
               Normal
           {%- endif %}
       entity_id: 
-        - sensor.fibaro_system_fgms001_motion_sensor_burglar_6_10
-      icon_template: '{% if is_state("sensor.fibaro_system_fgms001_motion_sensor_burglar_6_10", "3") %}mdi:vibrate{% else %}mdi:crop-portrait{% endif %}'
+        - sensor.fibaro_fgms001_motion_sensor_salon_burglar
+      icon_template: '{% if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "3") %}mdi:vibrate{% else %}mdi:crop-portrait{% endif %}'
 
     # Nodon Octan button battery level
     recibidor_boton_bateria:
@@ -343,21 +343,21 @@
       friendly_name: 'las luces interiores'
       entity_id: 
         - group.luces_interiores
-    on_off_switch_swiid_swiidinter_switch_3_0:
-      value_template: '{% if is_state("switch.swiid_swiidinter_switch_3_0", "off") %}encendido{% else %}apagado{% endif %}'
+    on_off_switch_swiid_swiidinter_lampara_recibidor_switch:
+      value_template: '{% if is_state("switch.swiid_swiidinter_lampara_recibidor_switch", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'la lámpara del recibidor'
       entity_id: 
-        - switch.swiid_swiidinter_switch_3_0
-    on_off_switch_fibaro_system_fgs223_double_relay_switch_7_0:
-      value_template: '{% if is_state("switch.fibaro_system_fgs223_double_relay_switch_7_0", "off") %}encendido{% else %}apagado{% endif %}'
+        - switch.swiid_swiidinter_lampara_recibidor_switch
+    on_off_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch:
+      value_template: '{% if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'las luces de la escalera'
       entity_id: 
-        - switch.fibaro_system_fgs223_double_relay_switch_7_0
-    on_off_switch_fibaro_system_fgs223_double_relay_switch_7_0_2:
-      value_template: '{% if is_state("switch.fibaro_system_fgs223_double_relay_switch_7_0_2", "off") %}encendido{% else %}apagado{% endif %}'
+        - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
+    on_off_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2:
+      value_template: '{% if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'la luz de la suite'
       entity_id: 
-        - switch.fibaro_system_fgs223_double_relay_switch_7_0_2
+        - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
     on_off_switch_caseta_camara_deteccion_movimiento:
       value_template: '{% if is_state("switch.caseta_camara_deteccion_movimiento", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el detector de movimiento de la caseta'
@@ -440,24 +440,24 @@
       unit_of_measurement: 'on-off-fp'
       entity_id: 
         - group.luces_interiores
-    check_switch_swiid_swiidinter_switch_3_0:
-      value_template: '{% if is_state("switch.swiid_swiidinter_switch_3_0", "off") %}apagada{% else %}encendida{% endif %}'
+    check_switch_swiid_swiidinter_lampara_recibidor_switch:
+      value_template: '{% if is_state("switch.swiid_swiidinter_lampara_recibidor_switch", "off") %}apagada{% else %}encendida{% endif %}'
       friendly_name: 'la lámpara del recibidor'
       unit_of_measurement: 'on-off-f'
       entity_id: 
-        - switch.swiid_swiidinter_switch_3_0
-    check_switch_fibaro_system_fgs223_double_relay_switch_7_0:
-      value_template: '{% if is_state("switch.fibaro_system_fgs223_double_relay_switch_7_0", "off") %}apagadas{% else %}encendidas{% endif %}'
+        - switch.swiid_swiidinter_lampara_recibidor_switch
+    check_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch:
+      value_template: '{% if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch", "off") %}apagadas{% else %}encendidas{% endif %}'
       friendly_name: 'las luces de la escalera'
       unit_of_measurement: 'on-off-fp'
       entity_id: 
-        - switch.fibaro_system_fgs223_double_relay_switch_7_0
-    check_switch_fibaro_system_fgs223_double_relay_switch_7_0_2:
-      value_template: '{% if is_state("switch.fibaro_system_fgs223_double_relay_switch_7_0_2", "off") %}apagada{% else %}encendida{% endif %}'
+        - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
+    check_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2:
+      value_template: '{% if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2", "off") %}apagada{% else %}encendida{% endif %}'
       friendly_name: 'la luz de la suite'
       unit_of_measurement: 'on-off-f'
       entity_id: 
-        - switch.fibaro_system_fgs223_double_relay_switch_7_0_2
+        - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
     check_switch_caseta_camara_deteccion_movimiento:
       value_template: '{% if is_state("switch.caseta_camara_deteccion_movimiento", "off") %}desactivado{% else %}activado{% endif %}'
       friendly_name: 'el detector de movimiento de la caseta'
