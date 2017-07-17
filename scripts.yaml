@@ -147,7 +147,7 @@ goto_sleep:
     # Turn stairs lights off
     - service: switch.turn_off
       data:
-        entity_id: switch.switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
+        entity_id: switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
 
 parte_meteorologico:
   alias: 'Parte meteorológico'
