@@ -18,6 +18,16 @@
   payload_off: '0'
   #device_class: light
 
+# Infrared status for foscam cam in bbq
+- platform: command_line
+  # Command used to get infrared status for a foscam camera:
+  # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
+  command: !secret cam_barbacoa_infrared_command
+  name: barbacoa_camara_infrarrojo
+  payload_on: '1'
+  payload_off: '0'
+  #device_class: light
+
 - platform: template
   sensors:
     ups_status_bs:
@@ -44,6 +54,20 @@
 - platform: mqtt
   state_topic: 'home/camera/piscina/alarm'
   name: 'piscina_camara_deteccion_movimiento'
+  device_class: motion
+  # 0: No alarm
+  # 1: Alarm triggered
+  value_template: >-
+          {%- if value != "0" %}
+              ON
+          {% else %}
+              OFF
+          {%- endif %}
+
+# Alarm status for foscam cam in bbq
+- platform: mqtt
+  state_topic: 'home/camera/barbacoa/alarm'
+  name: 'barbacoa_camara_deteccion_movimiento'
   device_class: motion
   # 0: No alarm
   # 1: Alarm triggered

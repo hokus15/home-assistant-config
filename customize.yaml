@@ -227,12 +227,18 @@ binary_sensor.recibidor_camara_infrarrojo:
 binary_sensor.piscina_camara_infrarrojo:
   friendly_name: 'Infrarrojos piscina'
   icon: 'mdi:led-on'
+binary_sensor.barbacoa_camara_infrarrojo:
+  friendly_name: 'Infrarrojos barbacoa'
+  icon: 'mdi:led-on'
 binary_sensor.ups_status_bs:
   friendly_name: 'Suministro eléctrico'
 binary_sensor.piscina_camara_deteccion_movimiento:
   friendly_name: 'Movimiento'
   #icon: 'mdi:bell'
 binary_sensor.recibidor_camara_deteccion_movimiento:
+  friendly_name: 'Movimiento'
+  #icon: 'mdi:bell'
+binary_sensor.barbacoa_camara_deteccion_movimiento:
   friendly_name: 'Movimiento'
   #icon: 'mdi:bell'
 binary_sensor.caseta_camara_deteccion_movimiento:
@@ -246,6 +252,8 @@ camera.recibidor:
   friendly_name: 'Recibidor'
 camera.piscina:
   friendly_name: 'Piscina'
+camera.barbacoa:
+  friendly_name: 'Barbacoa'
 camera.caseta:
   friendly_name: 'Caseta'
 ###################################
@@ -256,6 +264,9 @@ switch.recibidor_camara_deteccion_movimiento:
   icon: 'mdi:transit-transfer'
 switch.piscina_camara_deteccion_movimiento:
   friendly_name: 'Det. mov. piscina'
+  icon: 'mdi:transit-transfer'
+switch.barbacoa_camara_deteccion_movimiento:
+  friendly_name: 'Det. mov. barbacoa'
   icon: 'mdi:transit-transfer'
 switch.caseta_camara_deteccion_movimiento:
   friendly_name: 'Det. mov. caseta'

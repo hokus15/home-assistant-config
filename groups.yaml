@@ -23,6 +23,7 @@ Vista Seguridad:
     - group.seguridad
     - group.camara_recibidor
     - group.camara_piscina
+    - group.camara_barbacoa
     - group.camara_caseta
     - group.acciones_presencia
     - group.puerta_porche_cocina
@@ -208,6 +209,13 @@ Cámara recibidor:
     - binary_sensor.recibidor_camara_infrarrojo
     - binary_sensor.recibidor_camara_deteccion_movimiento
 
+Cámara barbacoa:
+  entities:
+    - camera.barbacoa
+    - switch.barbacoa_camara_deteccion_movimiento
+    - binary_sensor.barbacoa_camara_infrarrojo
+    - binary_sensor.barbacoa_camara_deteccion_movimiento
+
 Cámara piscina:
   entities:
     - camera.piscina
@@ -225,6 +233,7 @@ Seguridad:
   entities:
     - switch.recibidor_camara_deteccion_movimiento
     - switch.piscina_camara_deteccion_movimiento
+    - switch.barbacoa_camara_deteccion_movimiento
     - switch.caseta_camara_deteccion_movimiento
     - input_boolean.salon_detector_movimiento
     - input_boolean.cocina_sensor_puerta

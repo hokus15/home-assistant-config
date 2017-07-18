@@ -14,6 +14,14 @@
   username: !secret cam_piscina_username
   password: !secret cam_piscina_password
 
+ # Bbq camera
+- platform: foscam
+  ip: !secret cam_barbacoa_host
+  name: barbacoa
+  port: !secret cam_barbacoa_port
+  username: !secret cam_barbacoa_username
+  password: !secret cam_barbacoa_password
+
 # Backyard stand camera
 # For Linksys WVC54GCA http://<cam-host>:<cam_port>/img/snapshot.cgi
 - platform: generic
