@@ -51,6 +51,7 @@ Exterior:
     - group.viento
     - group.barrera
     - group.piscina
+    - camera.barbacoa
     - camera.caseta
 
 Varios:
