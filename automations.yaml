@@ -409,6 +409,21 @@
         retain: true
         topic: 'home/camera/piscina/alarm'
 
+# Disable alarm for barbacoa after 30 seconds of detection
+- alias: 'Disable alarm for barbacoa'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.barbacoa_camara_deteccion_movimiento
+    to: 'on'
+  action:
+    - delay:
+        seconds: 30
+    - service: mqtt.publish
+      data:
+        payload: 0
+        retain: true
+        topic: 'home/camera/barbacoa/alarm'
+
 # Disable alarm for caseta after 30 seconds of detection
 - alias: 'Disable alarm for caseta'
   trigger:
