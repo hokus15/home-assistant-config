@@ -917,7 +917,7 @@
     platform: event
     event_type: zwave.scene_activated
     event_data:
-      entity_id: nodon_crc3100_octan_remote_8
+      entity_id: zwave.nodon_crc3100_octan_remote
       scene_id: 10
   action:
     - service: script.turn_on
@@ -929,7 +929,7 @@
     platform: event
     event_type: zwave.scene_activated
     event_data:
-      entity_id: nodon_crc3100_octan_remote_8
+      entity_id: zwave.nodon_crc3100_octan_remote
       scene_id: 20
   action:
     - service: script.turn_on
@@ -941,7 +941,7 @@
     platform: event
     event_type: zwave.scene_activated
     event_data:
-      entity_id: nodon_crc3100_octan_remote_8
+      entity_id: zwave.nodon_crc3100_octan_remote
       scene_id: 30
   action:
     - service: switch.turn_off
@@ -953,7 +953,7 @@
     platform: event
     event_type: zwave.scene_activated
     event_data:
-      entity_id: nodon_crc3100_octan_remote_8
+      entity_id: zwave.nodon_crc3100_octan_remote
       scene_id: 40
   action:
     - service: script.turn_on

@@ -182,7 +182,7 @@
 
     # Nodon Octan button battery level
     recibidor_boton_bateria:
-      value_template: '{{ states.zwave.nodon_crc3100_octan_remote_8.attributes.battery_level }}'
+      value_template: '{{ states.zwave.nodon_crc3100_octan_remote.attributes.battery_level }}'
       unit_of_measurement: '%'
 
 ##############################################
