@@ -24,6 +24,7 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 * WeMo Maker (to control outside fence)
 * Foscam C1 camera
 * Foscam Fi9853EP camera
+* Foscam Fi9900P camera
 * Linksys WVC54GCA camera
 * Netatmo weather station with rainmeter and windmeter
 * Netatmo thermostat
