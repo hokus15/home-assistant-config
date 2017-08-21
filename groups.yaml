@@ -40,6 +40,7 @@ Interior:
     - group.escalera
     - group.suite
     - group.calefaccion
+    - group.seguridad_interior
 
 Exterior:
   view: yes
@@ -53,6 +54,7 @@ Exterior:
     - group.piscina
     - camera.barbacoa
     - camera.caseta
+    - group.seguridad_exterior
 
 Varios:
   view: yes
@@ -238,6 +240,19 @@ Seguridad:
     - switch.caseta_camara_deteccion_movimiento
     - input_boolean.salon_detector_movimiento
     - input_boolean.cocina_sensor_puerta
+    - input_boolean.cocina_sensor_persiana
+
+Seguridad interior:
+  entities:
+    - switch.recibidor_camara_deteccion_movimiento
+    - input_boolean.salon_detector_movimiento
+    - input_boolean.cocina_sensor_puerta
+
+Seguridad exterior:
+  entities:
+    - switch.piscina_camara_deteccion_movimiento
+    - switch.barbacoa_camara_deteccion_movimiento
+    - switch.caseta_camara_deteccion_movimiento
     - input_boolean.cocina_sensor_persiana
 
 Sensor salón:
