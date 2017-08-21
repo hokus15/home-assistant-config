@@ -208,6 +208,8 @@ logger:
   default: warn
 #  logs:
 #    homeassistant.components.apiai: debug
+#    homeassistant.helpers.intent: debug
+#    homeassistant.components.intent_script: debug
 #    homeassistant.helpers.script: debug
 #    homeassistant.components.device_tracker: info
 #    libopenzwave: warn
@@ -264,6 +266,8 @@ tts:
     time_memory: 300
     language: 'es'
 
+apiai:
+
 shell_command: !include shell_command.yaml
 device_tracker: !include device_tracker.yaml
 zone: !include zones.yaml
@@ -277,5 +281,6 @@ script: !include scripts.yaml
 input_slider: !include input_sliders.yaml
 input_boolean: !include input_booleans.yaml
 panel_iframe: !include panel_iframes.yaml
+intent_script: !include intent_scripts.yaml
 #scene: !include scenes.yaml
-apiai: !include apiai.yaml
+

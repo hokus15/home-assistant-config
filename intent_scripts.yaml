@@ -1,7 +1,7 @@
 intents:
-##############################################
-# Heating intents
-##############################################
+  ##############################################
+  # Heating intents
+  ##############################################
   heating.check:
     speech: >
       {%- set status ={"on": "conectada", "off": "desconectada"} -%}
@@ -54,18 +54,18 @@ intents:
       - service_template: 'switch.turn_off'
         data_template:
           entity_id: 'switch.termostato_modo_ausente'
-  
-##############################################
-# Fence intents
-##############################################
+
+  ##############################################
+  # Fence intents
+  ##############################################
   fence.check:
     speech: >
       {%- set status ={"Abierta": "cerrarla", "Cerrada": "abrirla"} -%}
       La barrera está {{states("sensor.switch_barrera")}}. ¿Quieres {{ status[states("sensor.switch_barrera")] }}?
 
-##############################################
-# Climate intents
-##############################################
+  ##############################################
+  # Climate intents
+  ##############################################
   climate.check:
     speech: > 
       {% set locationPre,locationSensor = location.split(" ") %}
@@ -85,9 +85,9 @@ intents:
         ¡Vaya! No tengo ningún sensor de temperatura en {{ location }}.
       {% endif %}
 
-##############################################
-# Generic intents
-##############################################
+  ##############################################
+  # Generic intents
+  ##############################################
   device.turnOnOff:
     speech: >
       {% if (states.sensor["on_off_" ~ device | replace(".","_")] is not none) %}
@@ -117,7 +117,7 @@ intents:
               homeassistant.toggle
             {% endif %}
           {% endif %}
-
+  
         data_template:
           entity_id: '{{device}}'
 
@@ -137,10 +137,9 @@ intents:
         ¿Quieres {{ targetState[states.sensor["check_" ~ device | replace(".","_")].state] }}?
       {% endif %}
 
-
-##############################################
-# Various intents
-##############################################
+  ##############################################
+  # Various intents
+  ##############################################
   authorized.person:
     speech: >
       {%- set timestamp = strptime(time, '%H:%M:%S')-%}
@@ -160,7 +159,7 @@ intents:
           {%- if minutes > 0 -%}
             input_slider.select_value
           {%- endif -%}
-  
+
         data_template:
          entity_id: input_slider.empty_home_activation_delay_minutes
          value: >
@@ -177,7 +176,7 @@ intents:
           {%- if minutes > 0 -%}
             homeassistant.turn_on
           {%- endif -%}
-  
+
         data:
           entity_id: input_boolean.empty_home_activation_delay
 
@@ -230,7 +229,7 @@ intents:
           {%- if is_state("sensor.switch_barrera", "Abierta") -%}
             homeassistant.turn_on
           {%- endif -%}
- 
+
         data:
           entity_id: switch.barrera
       # Wait 1 minute before turning off stair lights
