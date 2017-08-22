@@ -226,12 +226,32 @@
         entity_id: device_tracker.jordi_combined
         state: 'En ruta'
   action:
-    - service: notify.telegram
+    - service: notify.html5
       data:
         message: 'Barrera abierta automáticamente'
+        target: hokus_phone
+        data: 
+          actions:
+            - action: close-fence
+              title: Cerrar barrera
     - service: switch.turn_on
       entity_id: switch.barrera
 
+# Close fence if open when close-fence HTML5 push notification action button clicked
+- alias: 'close-fence HTML5 push notification action button clicked'
+  trigger:
+    platform: event
+    event_type: html5_notification.clicked
+    event_data:
+     action: close-fence
+  condition:
+    - condition: state
+      entity_id: sensor.switch_barrera
+      state: 'Abierta'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.barrera
+     
 # Set Jordi at home when enter home zone and in the car
 - alias: 'Jordi at home with car'
   trigger:
