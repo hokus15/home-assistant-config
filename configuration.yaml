@@ -219,7 +219,7 @@ logger:
 #    homeassistant.components.switch.command_line: critical
 
 telegram_bot:
-  platform: webhooks
+  platform: broadcast
   api_key: !secret telegram_api_key
   allowed_chat_ids:
     - !secret telegram_chat_id
