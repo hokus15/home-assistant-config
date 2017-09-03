@@ -634,7 +634,7 @@
 - platform: google_travel_time
   name: 'a la oficina'
   api_key: !secret google_distance_api_key
-  origin: zone.home
+  origin: device_tracker.toyota
   destination: zone.oficina
   options:
     language: es
@@ -645,7 +645,7 @@
 - platform: google_travel_time
   name: 'al colegio'
   api_key: !secret google_distance_api_key
-  origin: zone.home
+  origin: device_tracker.toyota
   destination: zone.colegio
   options:
     language: es
