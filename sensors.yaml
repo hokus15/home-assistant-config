@@ -531,21 +531,8 @@
       entity_id: 
         - sensor.cocina_sensor_puerta
 
-# Sensor to define roughly the season of the year (if more precission needed use another algorythm)
-- platform: template
-  sensors:
-    season:
-      friendly_name: 'Estación'
-      value_template:  >-
-          {%- if now().month >= 3 and now().month <= 5 %}
-              Spring
-          {% elif now().month >= 6 and now().month <= 8 %}
-              Summer
-          {% elif now().month >= 9 and now().month <= 11 %}
-              Autumn
-          {% else %}
-              Winter
-          {%- endif %}
+# Sensor to define the season of the year
+- platform: season
 
 - platform: template
   sensors:
