@@ -203,3 +203,14 @@ motion_detected_mqtt:
       data_template:
         topic: 'home/camera/{{camera}}/alarm'
         payload: '1'
+
+close_fence:
+  alias: 'Close fence if open'
+  sequence:
+    - service_template: >
+        {%- if is_state("sensor.switch_barrera", "Abierta") -%}
+          homeassistant.turn_on
+        {%- endif -%}
+
+      data:
+        entity_id: switch.barrera
