@@ -117,7 +117,8 @@
         dev_id: 'jordi_combined'
         location_name: 'En ruta'
 
-# Restore Jordi state when the event "leave" is published to mqtt
+# Restore Jordi state when the event "leave" is published to mqtt.
+# This happens when my phone is in the car and I leave the car or the car is turned off.
 - alias: 'Jordi restore status'
   trigger:
     platform: mqtt
@@ -127,7 +128,7 @@
     - service: device_tracker.see
       data_template:
         dev_id: 'jordi_combined'
-        location_name: '{{ states.device_tracker.hokusphone_nmap.state }}'
+        location_name: '{{ states.device_tracker.toyota.state }}'
 
 # Set Jordi as home when at least ONE of related entities are set to home
 - alias: 'Jordi home'
@@ -210,6 +211,7 @@
         dev_id: 'geni_combined'
         location_name: '{{ states.device_tracker.geni_nmap.state }}'
 
+# Open fence when Toyota enter home zone and Jordi is 'En Ruta'
 - alias: 'Open fence'
   trigger:
      - platform: zone
