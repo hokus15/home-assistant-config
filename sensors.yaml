@@ -534,6 +534,7 @@
 # Sensor to define the season of the year
 - platform: season
 
+# Sensor to get sunset and sunrise hours with a custom format.
 - platform: template
   sensors:
     sunrise:
