@@ -233,7 +233,6 @@
         message: 'Barrera abierta automáticamente'
         target:
           - hokus_phone
-          - hokus_phone_car
         data: 
           actions:
             - action: close-fence
@@ -272,11 +271,11 @@
       state: 'En ruta'
   action:
     - delay:
-        seconds: 1
+        seconds: 3
     - service: mqtt.publish
       data:
         payload_template: >
-          Bienvenido a casa. {%- if is_state("sensor.switch_barrera", "Abierta") -%}La barrera está abierta. {%- endif -%}{%- if is_state("device_tracker.geni_combined", "home") -%}Jeni está en casa. {%- else -%}Es posible que Jeni no esté en casa. {%- endif -%}
+          Bienvenido a casa. {%- if is_state("sensor.switch_barrera", "Abierta") -%}He abierto la barrera. {%- endif -%}{%- if is_state("device_tracker.geni_combined", "home") -%}Jeni está en casa. {%- else -%}Es posible que Jeni no esté. {%- endif -%}
         retain: false
         topic: 'device/hokusphone_car/say'
     - delay:
