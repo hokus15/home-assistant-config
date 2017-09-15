@@ -6,14 +6,14 @@
 - platform: nmap_tracker
   hosts: 192.168.1.1/24
   # The number of minutes nmap will not scan this device, assuming it is home, in order to preserve the device battery.
-  home_interval: 10
+  home_interval: 5
   # If new discovered devices are tracked by default (default: yes)
-  track_new_devices: yes
+  track_new_devices: no
   # Seconds between each scan for new devices (default: 12)
   interval_seconds: 60
   # Seconds to wait till marking someone as not home after not being seen
   # (default: 180)
-  consider_home: 300
+  consider_home: 180
 #  exclude:
 #    - 192.168.1.100
 
@@ -23,14 +23,20 @@
 
 - platform: mqtt_json
   devices:
-    toyota: location/toyota
+    # Toyota tracker
+    toyota: location/car/toyota
 
 - platform: mqtt
   devices:
-    # Updated when home iBeacon detected
-    hokusphone_mqtt: location/hokusphone
-    # Updated when car iBeacon detected
-    hokusphone_toyota: location/hokusphone_toyota
-
+    # Updated when hokusphone is connected to home WiFi
+    hokusphone_home_wifi: location/hokusphone/home/wifi
+    # Updated when home iBeacon is detected from hokusphone
+    hokusphone_home_ibeacon: location/hokusphone/home/ibeacon
+    # Updated when Toyota iBeacon is detected from hokusphone
+    hokusphone_toyota_ibeacon: location/hokusphone/toyota/ibeacon
+    # Updated when geniphone is connected to home WiFi
+    geniphone_home_wifi: location/geniphone/home/wifi
+    # Updated when home iBeacon is detected from geniphone
+    geniphone_home_ibeacon: location/geniphone/home/ibeacon
 
 #- platform: bluetooth_le_tracker
