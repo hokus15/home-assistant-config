@@ -250,9 +250,9 @@
       entity_id: switch.barrera
     - service: mqtt.publish
       data:
-        payload_template: 'He abierto la barrera'
+        payload: 'He abierto la barrera'
         retain: false
-        topic: 'device/hokusphone_car/say'
+        topic: 'device/carphone/say'
 
 # Close fence if open when close-fence HTML5 push notification action button clicked
 - alias: 'close-fence HTML5 push notification action button clicked'
@@ -291,7 +291,7 @@
         payload_template: >
           {%- if is_state("device_tracker.geni_combined", "home") -%}Jeni está en casa. {%- else -%}Es posible que Jeni no esté. {%- endif -%}
         retain: false
-        topic: 'device/hokusphone_car/say'
+        topic: 'device/carphone/say'
     - delay:
         seconds: 15
     - service: device_tracker.see
@@ -322,7 +322,7 @@
         payload_template: >
           {%- if is_state("group.unidad_familiar", "not_home") -%}{%- if is_state("sensor.switch_barrera", "Abierta") -%}Te has dejado la barrera abierta, la voy a cerrar. {%- endif -%}{%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif -%}{%- endif -%}
         retain: false
-        topic: 'device/hokusphone_car/say'
+        topic: 'device/carphone/say'
     - service_template: >
         {%- if is_state("group.unidad_familiar", "not_home") -%}
           {%- if is_state("sensor.switch_barrera", "Abierta") -%}
