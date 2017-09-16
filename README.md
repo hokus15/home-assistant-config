@@ -33,7 +33,6 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 * Chromecast audio
 * Logitech Squeezebox
 * Efergy energy meter
-* Fitbit Alta
 * HP Photosmart 5520 printer
 * QNAP TS-110 NAS
 * Amazon Dash button
