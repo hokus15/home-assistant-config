@@ -206,17 +206,22 @@ mqtt:
 
 logger:
   default: warn
-#  logs:
+  logs:
+    openzwave: warn
+    libopenzwave: warn
+    homeassistant.components.zwave: warn
+    homeassistant.components.zwave.util: warn
+    homeassistant.components.websocket_api: warn
+    homeassistant.components.switch.command_line: warn
+    homeassistant.components.sensor.command_line: warn
 #    homeassistant.components.apiai: debug
 #    homeassistant.helpers.intent: debug
 #    homeassistant.components.intent_script: debug
 #    homeassistant.helpers.script: debug
 #    homeassistant.components.device_tracker: info
-#    libopenzwave: warn
-#    openzwave: debug
 #    homeassistant.core: debug
 #    homeassistant.components.sensor.speedtest: debug
-#    homeassistant.components.switch.command_line: critical
+#    homeassistant.core: debug
 
 telegram_bot:
   platform: broadcast
