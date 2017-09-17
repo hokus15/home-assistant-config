@@ -6,7 +6,7 @@
 - platform: nmap_tracker
   hosts: 192.168.1.1/24
   # The number of minutes nmap will not scan this device, assuming it is home, in order to preserve the device battery.
-  home_interval: 5
+  home_interval: 3
   # If new discovered devices are tracked by default (default: yes)
   track_new_devices: no
   # Seconds between each scan for new devices (default: 12)
