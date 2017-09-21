@@ -534,6 +534,16 @@
 # Sensor to define the season of the year
 - platform: season
 
+- platform: template
+  sensors:
+    estacion:
+      friendly_name: 'Estación'
+      value_template: >
+        {%- set season ={"Spring": "Primavera", "Summer": "Verano", "Autumn": "Otoño", "Winter": "Invierno"} -%}
+        {{ season[states("sensor.season")] }}
+      entity_id:
+        - sensor.season
+
 # Sensor to get sunset and sunrise hours with a custom format.
 - platform: template
   sensors:
@@ -796,3 +806,11 @@
 - platform: cert_expiry
   host: !secret cert_expiry_host
   name: Caducidad certificado SSL
+
+- platform: wunderground
+  api_key: !secret weather_underground_api_key
+  lang: SP
+  monitored_conditions:
+    - alerts
+    - weather
+    - weather_1d_metric

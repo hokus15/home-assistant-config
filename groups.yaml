@@ -47,6 +47,7 @@ Exterior:
   icon: mdi:tree
   entities:
     - group.luces_exteriores
+    - group.meteorologia
     - group.temperatura
     - group.lluvia
     - group.viento
@@ -116,8 +117,13 @@ Temperatura:
     - sensor.netatmo_exterior_max_temp
     - sensor.netatmo_exterior_humidity
     - sensor.netatmo_exterior_radio
+
+Meteorología:
+  entities:
+    - sensor.pws_weather_1d_metric
     - sensor.sunrise
     - sensor.sunset
+    - sensor.estacion
 
 Lluvia:
   entities:
