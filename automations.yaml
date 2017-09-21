@@ -237,6 +237,8 @@
         entity_id: device_tracker.jordi_combined
         state: 'En ruta'
   action:
+    - service: switch.turn_on
+      entity_id: switch.barrera
     - service: notify.html5
       data:
         message: 'Barrera abierta automáticamente'
@@ -246,13 +248,18 @@
           actions:
             - action: close-fence
               title: Cerrar barrera
-    - service: switch.turn_on
-      entity_id: switch.barrera
     - service: mqtt.publish
       data:
-        payload: 'He abierto la barrera'
+        payload_template: >
+          He abierto la barrera. {%- if is_state("device_tracker.geni_combined", "home") -%}Jeni está en casa. {%- else -%}Es posible que Jeni no esté en casa.{%- endif -%}
         retain: false
         topic: 'device/carphone/say'
+    - delay:
+        seconds: 5
+    - service: device_tracker.see
+      data:
+        dev_id: 'jordi_combined'
+        location_name: 'home'
 
 # Close fence if open when close-fence HTML5 push notification action button clicked
 - alias: 'close-fence HTML5 push notification action button clicked'
@@ -269,36 +276,6 @@
     - service: switch.turn_on
       entity_id: switch.barrera
      
-# When Jordi enter home zone and in the car
-#  - Welcome home Jordi
-#  - Notify if fence is already open
-#  - Notify if Geni's at home
-- alias: 'Jordi at home with car'
-  trigger:
-     - platform: zone
-       entity_id: device_tracker.toyota
-       zone: zone.home
-       event: enter
-  condition:
-    - condition: state
-      entity_id: device_tracker.jordi_combined
-      state: 'En ruta'
-  action:
-    - delay:
-        seconds: 5
-    - service: mqtt.publish
-      data:
-        payload_template: >
-          {%- if is_state("device_tracker.geni_combined", "home") -%}Jeni está en casa. {%- else -%}Es posible que Jeni no esté. {%- endif -%}
-        retain: false
-        topic: 'device/carphone/say'
-    - delay:
-        seconds: 15
-    - service: device_tracker.see
-      data:
-        dev_id: 'jordi_combined'
-        location_name: 'home'
-
 # When Jordi leave home zone and in the car:
 #   - Set Jordi away
 #   - If nobody at home, close the fence if open, and notify if porch door or blind is open.
@@ -320,7 +297,7 @@
     - service: mqtt.publish
       data:
         payload_template: >
-          {%- if is_state("group.unidad_familiar", "not_home") -%}{%- if is_state("sensor.switch_barrera", "Abierta") -%}Te has dejado la barrera abierta, la voy a cerrar. {%- endif -%}{%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif -%}{%- endif -%}
+          {%- if is_state("group.unidad_familiar", "not_home") -%}{%- if is_state("sensor.switch_barrera", "Abierta") -%}Te has dejado la barrera abierta, la voy a cerrar. {%- endif -%}{%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif -%}{%- endif -%}Conduce con precaución.
         retain: false
         topic: 'device/carphone/say'
     - service_template: >
