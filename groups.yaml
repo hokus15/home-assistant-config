@@ -317,12 +317,19 @@ Impresora:
 
 NAS:
   entities:
-    - sensor.qnap_vol_status
-    - sensor.qnap_cpu_temp
-    - sensor.qnap_hd1_status
-    - sensor.qnap_hd1_temp
-    - sensor.qnap_free_hd_size
-    - sensor.qnap_free_ram
+    - sensor.hokusnasserver_status
+    - sensor.hokusnasserver_uptime
+    - sensor.hokusnasserver_system_temperature
+    - sensor.hokusnasserver_cpu_usage
+    - sensor.hokusnasserver_smart_status_drive_1
+    - sensor.hokusnasserver_free_space_volume_1
+    - sensor.hokusnasserver_used_space_volume_1
+    - sensor.hokusnasserver_volume_used_volume_1
+    - sensor.hokusnasserver_temperature_drive_1
+    - sensor.hokusnasserver_memory_usage
+    - sensor.hokusnasserver_network_link_eth0
+    - sensor.hokusnasserver_network_down_eth0
+    - sensor.hokusnasserver_network_up_eth0
 
 SAI:
   entities:
