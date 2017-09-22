@@ -286,6 +286,7 @@ script: !include scripts.yaml
 input_slider: !include input_sliders.yaml
 input_boolean: !include input_booleans.yaml
 panel_iframe: !include panel_iframes.yaml
+panel_custom: !include panel_custom.yaml
 intent_script: !include intent_scripts.yaml
 #scene: !include scenes.yaml
 
