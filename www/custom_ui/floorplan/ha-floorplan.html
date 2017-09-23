@@ -536,9 +536,9 @@
       if (title.length) {
         let dateFormat = this.config.date_format ? this.config.date_format : 'DD-MMM-YYYY';
         let titleText = entityState.attributes.friendly_name + '\n' +
-          'State: ' + entityState.state + '\n' +
-          'Last changed date: ' + moment(entityState.last_changed).format(dateFormat) + '\n' +
-          'Last changed time: ' + moment(entityState.last_changed).format('HH:mm:ss');
+          'Estado: ' + entityState.state + '\n' +
+          'Fecha último cambio: ' + moment(entityState.last_changed).format(dateFormat) + '\n' +
+          'Hora último cambio: ' + moment(entityState.last_changed).format('HH:mm:ss');
 
         $(title).html(titleText);
       }
