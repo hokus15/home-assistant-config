@@ -31,11 +31,10 @@
 
         - name: Lights
           entities:
-             - light.hallway
-             - light.living_room
-             - light.patio
-             - group.kitchen_lights
-             - group.living_room_lights
+             - light.barrera_derecha
+             - light.barrera_izquierda
+             - light.puerta_entrada
+             - group.luces_exteriores
           states:
             - state: 'on'
               class: 'light-on'
@@ -48,6 +47,7 @@
         - name: Switches
           entities:
              - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
+             - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
              - switch.swiid_swiidinter_lampara_recibidor_switch
           states:
             - state: 'on'
@@ -96,21 +96,24 @@
         - name: Cameras
           entities:
             - camera.recibidor
+            - camera.barbacoa
           states:
             - state: 'idle'
               class: 'camera-idle'
               
-#        - name: thermostat_temp
-#          entities:
-#            - climate.downstairs
+        - name: thermostat_temp
+          entities:
+            - climate.termostato
 #            - climate.upstairs
-#          text_template: '${entity.attributes.current_temperature ? entity.attributes.current_temperature : "undefined"}'
+          text_template: '${entity.attributes.current_temperature ? entity.attributes.current_temperature : "undefined"}'
 #
 # The above text_template uses extended attributes from the climate.* objects to get current temperature.
 
         - name: text_states
           entities:
             - sensor.netatmo_anemometro_strength
+            - sensor.switch_barrera
+            - sensor.energy_usage
           text_template: '${entity.state ? entity.state.replace(/\s{2,}/g,"") : "n/d"}'
 
 # The above text_template uses jQuery syntax to search and replace any instance of 2 consecutive (or more) spaces in a string of text.
