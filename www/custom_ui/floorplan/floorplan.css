@@ -1,3 +1,62 @@
+/* Animation */
+@keyframes rotate90 {
+    100% {
+        transform: rotate(90deg);
+    }
+}
+
+@keyframes rotateReset90 {
+    0% {
+        transform: rotate(90deg);
+    }
+    100% {
+        transform: none;
+    }
+}
+
+@keyframes rotate90Mirror {
+    100% {
+        transform: rotate(-90deg);
+    }
+}
+
+@keyframes rotateReset90Mirror {
+    0% {
+        transform: rotate(-90deg);
+    }
+    100% {
+        transform: none;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        transform: rotateX(90deg);
+    }
+    100% {
+        transform: rotateX(0deg);
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        transform: rotateX(0deg);
+    }
+    100% {
+        transform: rotateX(90deg);
+    }
+}
+
+@keyframes slide {
+  from{ transform: translate(-220px, 0); }
+  to{ transform: translate(0, 0); }
+}
+
+@keyframes slideReset {
+  from{ transform: translate(0, 0); }
+  to{ transform: translate(-220px, 0); }
+}
+
 /* SVG shapes */
 
 svg, svg * {
@@ -140,4 +199,65 @@ svg, svg * {
 
 .squeezebox-on {
   fill: #2baaa6 !important;
+}
+
+#sensor\.check_sensor_cocina_sensor_puerta {
+  transform-origin: top center;
+}
+
+#sensor\.cocina_sensor_puerta {
+  transform-origin: top center;
+}
+
+#sensor\.check_sensor_cocina_sensor_persiana {
+  transform-origin: bottom center;
+}
+
+#sensor\.cocina_sensor_persiana {
+  transform-origin: bottom center;
+}
+
+/* Doors that slide right to left */
+#sensor\.switch_barrera {
+  animation-direction: reverse;
+}
+
+.door_open_90_right {
+  fill: #ff0000 !important;
+  animation-duration: 4s;
+  animation-name: rotateReset90;
+}
+
+.door_closed_90_right {
+  fill: #000000 !important;
+  animation-duration: 4s;
+  animation-name: rotate90;
+  animation-fill-mode: forwards;
+}
+
+.door_open_90_left {
+  fill: #ff0000 !important;
+  animation-duration: 4s;
+  animation-name: rotateReset90Mirror;
+}
+
+.door_closed_90_left {
+  fill: #000000 !important;
+  animation-duration: 4s;
+  animation-name: rotate90Mirror;
+  animation-fill-mode: forwards;
+}
+
+.slidedoor_open {
+  fill: #ff0000 !important;
+  animation-duration: 18s;
+  animation-timing-function: linear;
+  animation-name: slide;
+  animation-fill-mode: forwards;
+}
+
+.slidedoor_closed {
+  fill: #000000 !important;
+  animation-duration: 4s;
+  animation-name: slideReset;
 }

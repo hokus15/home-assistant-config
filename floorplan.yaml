@@ -13,10 +13,13 @@
 
       groups:
 
-        - name: Sensors
+        - name: Temperature
           entities:
              - sensor.netatmo_exterior_temperature
-          text_template: '${entity.state ? entity.state : "n/d"}'
+             - sensor.recibidor_termometro_temperatura
+             - sensor.netatmo_salon_temperature
+             - sensor.netatmo_suite_temperature
+          text_template: '${entity.state ? entity.state : "n/d"}ºC'
            # An example of rounding up a number, i.e. a temperature of 90.1 becomes 91
           #text_template: '${entity.state ? Math.ceil(entity.state) : "undefined"}'  
           class_template: '
@@ -28,6 +31,47 @@
             else
               return "temp-high";
             '
+
+        - name: CO2
+          entities:
+             - sensor.netatmo_salon_co2
+          text_template: 'CO2 ${entity.state ? entity.state : "n/d"}ppm'
+           # An example of rounding up a number, i.e. a temperature of 90.1 becomes 91
+          #text_template: '${entity.state ? Math.ceil(entity.state) : "undefined"}'  
+          class_template: '
+            var temp = parseFloat(entity.state.replace("°", ""));
+            if (temp < 500)
+              return "temp-low";
+            else if (temp < 1000)
+              return "temp-medium";
+            else
+              return "temp-high";
+            '
+
+        - name: Doors 90
+          entities:
+            - sensor.cocina_sensor_puerta
+            - sensor.check_sensor_cocina_sensor_puerta
+            - sensor.cocina_sensor_persiana
+            - sensor.check_sensor_cocina_sensor_persiana
+          states:
+            - state: 'Cerrada'
+              class: 'door_closed_90_right'
+            - state: 'Abierta'
+              class: 'door_open_90_right'
+            - state: 'cerrada'
+              class: 'door_closed_90_left'
+            - state: 'abierta'
+              class: 'door_open_90_left'
+
+        - name: Slide Doors
+          entities:
+            - sensor.switch_barrera
+          states:
+            - state: 'Cerrada'
+              class: 'slidedoor_closed'
+            - state: 'Abierta'
+              class: 'slidedoor_open'
 
         - name: Lights
           entities:
@@ -112,7 +156,6 @@
         - name: text_states
           entities:
             - sensor.netatmo_anemometro_strength
-            - sensor.switch_barrera
             - sensor.energy_usage
           text_template: '${entity.state ? entity.state.replace(/\s{2,}/g,"") : "n/d"}'
 
