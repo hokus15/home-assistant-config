@@ -19,50 +19,109 @@
              - sensor.recibidor_termometro_temperatura
              - sensor.netatmo_salon_temperature
              - sensor.netatmo_suite_temperature
-          text_template: '${entity.state ? entity.state : "n/d"}ºC'
+             - sensor.netatmo_exterior_max_temp
+             - sensor.netatmo_exterior_min_temp
+          text_template: '${entity.state ? entity.state : "n/d"}º'
            # An example of rounding up a number, i.e. a temperature of 90.1 becomes 91
           #text_template: '${entity.state ? Math.ceil(entity.state) : "undefined"}'  
           class_template: '
-            var temp = parseFloat(entity.state.replace("°", ""));
-            if (temp < 10)
-              return "temp-low";
-            else if (temp < 30)
-              return "temp-medium";
+            var value = parseFloat(entity.state);
+            if (value < 10)
+              return "low-value";
+            else if (value < 30)
+              return "average-value";
             else
-              return "temp-high";
+              return "high-value";
             '
 
-        - name: CO2
+        - name: ppm
           entities:
              - sensor.netatmo_salon_co2
-          text_template: 'CO2 ${entity.state ? entity.state : "n/d"}ppm'
-           # An example of rounding up a number, i.e. a temperature of 90.1 becomes 91
-          #text_template: '${entity.state ? Math.ceil(entity.state) : "undefined"}'  
+             - sensor.netatmo_suite_co2
+          text_template: '${entity.state ? entity.state : "n/d"}ppm'
           class_template: '
-            var temp = parseFloat(entity.state.replace("°", ""));
-            if (temp < 500)
-              return "temp-low";
-            else if (temp < 1000)
-              return "temp-medium";
+            var value = parseFloat(entity.state);
+            if (value < 350)
+              return "low-value";
+            else if (value < 1000)
+              return "average-value";
             else
-              return "temp-high";
+              return "high-value";
             '
 
-        - name: Doors 90
+        - name: kmh
           entities:
-            - sensor.cocina_sensor_puerta
-            - sensor.check_sensor_cocina_sensor_puerta
-            - sensor.cocina_sensor_persiana
-            - sensor.check_sensor_cocina_sensor_persiana
+             - sensor.netatmo_anemometro_strength
+          text_template: '${entity.state ? entity.state : "n/d"}km/h'
+          class_template: '
+            var value = parseFloat(entity.state);
+            if (value < 10)
+              return "low-value";
+            else if (value < 30)
+              return "average-value";
+            else
+              return "high-value";
+            '
+
+        - name: dB
+          entities:
+             - sensor.netatmo_salon_noise
+          text_template: '${entity.state ? entity.state : "n/d"}dB'
+          class_template: '
+            var value = parseFloat(entity.state);
+            if (value < 70)
+              return "low-value";
+            else if (value < 80)
+              return "average-value";
+            else
+              return "high-value";
+            '
+
+        - name: Percent
+          entities:
+             - sensor.netatmo_salon_humidity
+             - sensor.netatmo_suite_humidity
+             - sensor.netatmo_exterior_humidity
+          text_template: '${entity.state ? entity.state : "n/d"}%'
+
+        - name: mbar
+          entities:
+             - sensor.netatmo_salon_pressure
+          text_template: '${entity.state ? entity.state : "n/d"}mbar'
+
+        - name: mm
+          entities:
+             - sensor.netatmo_pluviometro_sum_rain_1
+          text_template: '${entity.state ? entity.state : "n/d"}mm'
+
+        - name: lux
+          entities:
+             - sensor.fibaro_fgms001_motion_sensor_salon_luminance
+          text_template: '${entity.state ? entity.state : "n/d"}lux'
+
+        - name: 'Doors 90 Right Side'
+          entities:
+            - sensor.floorplan_cocina_sensor_puerta_derecha
+            - sensor.floorplan_cocina_sensor_persiana_derecha
           states:
             - state: 'Cerrada'
               class: 'door_closed_90_right'
             - state: 'Abierta'
               class: 'door_open_90_right'
-            - state: 'cerrada'
+            - state: 'Desconocido'
+              class: 'blink'
+
+        - name: 'Doors 90 Left Side'
+          entities:
+            - sensor.floorplan_cocina_sensor_puerta_izquierda
+            - sensor.floorplan_cocina_sensor_persiana_izquierda
+          states:
+            - state: 'Cerrada'
               class: 'door_closed_90_left'
-            - state: 'abierta'
+            - state: 'Abierta'
               class: 'door_open_90_left'
+            - state: 'Desconocido'
+              class: 'blink'
 
         - name: Slide Doors
           entities:
@@ -72,6 +131,8 @@
               class: 'slidedoor_closed'
             - state: 'Abierta'
               class: 'slidedoor_open'
+            - state: 'Desconocido'
+              class: 'blink'
 
         - name: Lights
           entities:
@@ -98,6 +159,20 @@
               class: 'light-on'
             - state: 'off'
               class: 'light-off'
+          action:
+            domain: homeassistant   # This optional parameter allows you to use other services such as homeassistant.toggle like here.
+            service: toggle
+
+        - name: Room
+          entities:
+             - sensor.floorplan_luz_escalera
+             - sensor.floorplan_luz_suite
+             - sensor.floorplan_lampara_recibidor
+          states:
+            - state: 'apagada'
+              class: 'room-light-off'
+            - state: 'encendida'
+              class: 'room-light-on'
 
         - name: NVR
           entities:

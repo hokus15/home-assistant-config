@@ -57,6 +57,11 @@
   to{ transform: translate(-220px, 0); }
 }
 
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
 /* SVG shapes */
 
 svg, svg * {
@@ -152,10 +157,16 @@ svg, svg * {
 /* Light */
 
 .light-off {
+  stroke: #000000 !important;
+  stroke-width: 1px !important;
+  stroke-opacity: 1 !important;
   fill: #C3B7F4 !important;
 }
 
 .light-on {
+  stroke: #000000 !important;
+  stroke-width: 1px !important;
+  stroke-opacity: 1 !important;
   fill: #F8D2B9 !important;
 }
 
@@ -167,6 +178,31 @@ svg, svg * {
 
 .doorbell-on {
   fill: #F8D2B9 !important;
+}
+
+.low-value {
+  fill: #000066 !important;
+  fill-opacity: 1 !important;
+}
+
+.average-value {
+  fill: #006600 !important;
+  fill-opacity: 1 !important;
+}
+
+.high-value {
+  fill: #ff0000 !important;
+  fill-opacity: 1 !important;
+}
+
+.room-light-on {
+  fill: #ffff00 !important;
+  fill-opacity: 0.1 !important;
+}
+
+.room-light-off {
+  fill: #000000 !important;
+  fill-opacity: 0.05 !important;
 }
 
 /* Temperature sensor */
@@ -201,20 +237,28 @@ svg, svg * {
   fill: #2baaa6 !important;
 }
 
-#sensor\.check_sensor_cocina_sensor_puerta {
-  transform-origin: top center;
+/* Left */
+#sensor\.floorplan_cocina_sensor_puerta_izquierda {
+  fill: #000000 !important;
+  transform-origin: top left;
 }
 
-#sensor\.cocina_sensor_puerta {
-  transform-origin: top center;
+/* Right */
+#sensor\.floorplan_cocina_sensor_puerta_derecha {
+  fill: #000000 !important;
+  transform-origin: top right;
 }
 
-#sensor\.check_sensor_cocina_sensor_persiana {
-  transform-origin: bottom center;
+/* Left */
+#sensor\.floorplan_cocina_sensor_persiana_izquierda {
+  fill: #006400 !important;
+  transform-origin: bottom right;
 }
 
-#sensor\.cocina_sensor_persiana {
-  transform-origin: bottom center;
+/* Right */
+#sensor\.floorplan_cocina_sensor_persiana_derecha {
+  fill: #006400 !important;
+  transform-origin: bottom left;
 }
 
 /* Doors that slide right to left */
@@ -229,7 +273,6 @@ svg, svg * {
 }
 
 .door_closed_90_right {
-  fill: #000000 !important;
   animation-duration: 4s;
   animation-name: rotate90;
   animation-fill-mode: forwards;
@@ -242,7 +285,6 @@ svg, svg * {
 }
 
 .door_closed_90_left {
-  fill: #000000 !important;
   animation-duration: 4s;
   animation-name: rotate90Mirror;
   animation-fill-mode: forwards;
@@ -260,4 +302,8 @@ svg, svg * {
   fill: #000000 !important;
   animation-duration: 4s;
   animation-name: slideReset;
+}
+
+.blink {
+  animation: blink-animation 1s steps(5, start) infinite;
 }

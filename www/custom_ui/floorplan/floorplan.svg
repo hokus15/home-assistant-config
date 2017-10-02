@@ -5,6 +5,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="2560"
@@ -14,6 +15,8 @@
    id="svg326383"
    sodipodi:docname="floorplan.svg"
    inkscape:version="0.92.1 r15371">
+  <title
+     id="title6032">Casa</title>
   <metadata
      id="metadata326389">
     <rdf:RDF>
@@ -22,12 +25,24 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title>Produce by Acme CAD Converter</dc:title>
+        <dc:title>Casa</dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <defs
      id="defs326387">
+    <pattern
+       inkscape:collect="always"
+       xlink:href="#Tiles"
+       id="pattern6750"
+       patternTransform="translate(499.5,1647.5)" />
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 800 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="2560 : 800 : 1"
+       inkscape:persp3d-origin="1280 : 533.33333 : 1"
+       id="perspective12709" />
     <pattern
        id="SwimmingPool"
        height="20"
@@ -74,19 +89,17 @@
      inkscape:window-height="961"
      id="namedview326385"
      showgrid="true"
-     inkscape:zoom="2.0000001"
-     inkscape:cx="744.71368"
-     inkscape:cy="769.37253"
+     inkscape:zoom="1.4142137"
+     inkscape:cx="1128.0461"
+     inkscape:cy="1024.6025"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer3">
+     inkscape:current-layer="layer1">
     <inkscape:grid
        type="xygrid"
        id="grid12055" />
   </sodipodi:namedview>
-  <title
-     id="title4485">Produce by Acme CAD Converter</title>
   <desc
      id="desc4487">Produce by Acme CAD Converter</desc>
   <g
@@ -5746,6 +5759,16 @@
        d="m 1433.9001,667.53223 -0.09,23.79889 H 1362.53 l 0.095,68.13765 17.725,0.17235 -4e-4,107.19 -17.8432,0.16888 0.024,97.9762 -250.0204,-6e-5 V 1191.1012 H 523.50508 l -10e-6,177.255 790.79513,-12.0322 0.1698,-1.0628 h 26.73 v 26.19 h 220.185 v -53.595 l 16.3002,0.1178 57.3183,-660.43829 z"
        id="path6779"
        inkscape:connector-curvature="0" />
+    <path
+       style="display:inline;fill:#8b4513;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 148.5752,193.16408 146,226 1420.165,232 1420,200 Z"
+       id="path12847"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#8b4513;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 1434.0771,629.92291 1433.81,661.68362 1636,661.5625 1639,630 Z"
+       id="path12850"
+       inkscape:connector-curvature="0" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -5753,7 +5776,7 @@
      inkscape:label="Walls"
      style="display:inline">
     <rect
-       style="display:inline;opacity:1;fill:#8b4513;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       style="display:inline;opacity:1;fill:#bc8f8f;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
        id="rect6771"
        width="205.9229"
        height="13.845809"
@@ -6551,8 +6574,8 @@
        id="rect10916"
        width="8.9099998"
        height="5.9400001"
-       x="1017.335"
-       y="994.67621" />
+       x="1017.279"
+       y="995" />
     <rect
        style="opacity:0.98000004;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
        id="rect10918"
@@ -6593,14 +6616,14 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccccc" />
     <rect
-       style="opacity:0.98000004;fill:#8b4513;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       style="opacity:0.98000004;fill:#bc8f8f;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
        id="rect10987"
        width="13.740795"
        height="241.64078"
        x="1420.25"
        y="199.35921" />
     <path
-       style="fill:#8b4513;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#bc8f8f;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 1420.269,247.0793 1420.165,232 146.47254,225.92223 144.91428,240.0793 Z"
        id="path10993"
        inkscape:connector-curvature="0"
@@ -6674,7 +6697,7 @@
          style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     </g>
     <rect
-       style="opacity:1;fill:#8b4513;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       style="opacity:1;fill:#bc8f8f;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
        id="rect6742"
        width="342.99579"
        height="13.991574"
@@ -6696,6 +6719,38 @@
        d="m 951.85412,1191.0002 -35.63412,0.101"
        id="path6751"
        inkscape:connector-curvature="0" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer8"
+     inkscape:label="Rooms"
+     style="display:inline">
+    <path
+       style="fill:#000000;fill-opacity:0.05882353;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 898.4,935.2762 1.7e-4,130.8149 118.93483,10e-5 v -160.65 l 5.94,2e-5 L 1023,852 l -5.665,-0.0188 v -4.85998 l -118.72324,-0.012 -0.21176,4.87198 h -5.93998 v 83.29498 z"
+       id="sensor.floorplan_lampara_recibidor"
+       inkscape:connector-curvature="0"
+       inkscape:label="sensor.floorplan_lampara_recibidor" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 898.61176,847.10922 957.8,847.1212"
+       id="path12980"
+       inkscape:connector-curvature="0" />
+    <path
+       style="display:inline;fill:#000000;fill-opacity:0.05882353;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 957.81824,769.80988 964,770 v 77 -76 l 53.335,-1.41595 0,77.53717 V 679.3162 H 898.4 l 0.21176,167.79302 59.18824,0.012"
+       id="sensor.floorplan_luz_escalera"
+       inkscape:connector-curvature="0"
+       inkscape:label="sensor.floorplan_luz_escalera"
+       sodipodi:nodetypes="cccccccccc" />
+    <path
+       id="switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch"
+       d="m 951.87225,784.01183 h 6.83194 v -11.2426 h 4.55462 v 11.2426 h 6.83194 L 979.2,802 h -36.437 l 9.10925,-17.98817 m 13.66387,20.2367 a 4.554625,4.4970415 0 0 1 -4.55462,4.49704 4.554625,4.4970415 0 0 1 -4.55463,-4.49704 z"
+       inkscape:connector-curvature="0"
+       inkscape:transform-center-x="384.86578"
+       inkscape:transform-center-y="-155.14793"
+       style="stroke-width:2.26287103"
+       inkscape:label="switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -6906,7 +6961,7 @@
     </g>
     <g
        style="display:inline"
-       transform="matrix(0,0.83385286,-0.73966615,0,1075.5692,411.50561)"
+       transform="matrix(0,0.83385286,-0.73966615,0,1073.5692,411.50561)"
        id="g9118-9">
       <rect
          style="fill:none;stroke:#000000"
@@ -7630,12 +7685,12 @@
          id="rect6708"
          style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
       <rect
-         y="250"
+         y="248"
          x="1560"
          height="20"
          width="20"
          id="rect6710"
-         style="opacity:1;fill:url(#Tiles);fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+         style="opacity:1;fill:url(#pattern6750);fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
     </g>
     <circle
        style="display:inline;opacity:1;fill:#cc0000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
@@ -7643,6 +7698,166 @@
        cx="113.5"
        cy="1066.5"
        r="22.5" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Doors No Sensor"
+     style="display:none">
+    <path
+       style="display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 1245.215,703.34612 h 2.43 v 41.715 h -2.43 z"
+       id="path6799"
+       inkscape:connector-curvature="0" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.783342;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect12725"
+       width="4.2166581"
+       height="22.021658"
+       x="-862.13788"
+       y="864.49835"
+       transform="rotate(-90)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.44875181;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect12727"
+       width="3.5512481"
+       height="48.515003"
+       x="-929.14893"
+       y="837.63391"
+       transform="rotate(-90)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.13753581;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect12729"
+       width="2.8624642"
+       height="39.904949"
+       x="-899"
+       y="1030"
+       transform="rotate(-90)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.34331417;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect12734"
+       width="3.6566858"
+       height="41.452126"
+       x="-1007.4026"
+       y="850.83514"
+       transform="rotate(-90)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.83212847;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect12737"
+       width="41.958485"
+       height="4.1678715"
+       x="-1113.9896"
+       y="959.70715"
+       transform="rotate(-90)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.32503319;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect12739"
+       width="22.931969"
+       height="3.6749668"
+       x="-870.13147"
+       y="967"
+       transform="rotate(-90)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.32503319;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect12739-2"
+       width="22.931969"
+       height="3.6749668"
+       x="-870.05316"
+       y="1010.4895"
+       transform="rotate(-90)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#006400;fill-opacity:1;stroke:#000000;stroke-width:0.79728776;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect12760"
+       width="4.2027121"
+       height="41.386711"
+       x="-628.80737"
+       y="904.03064"
+       transform="rotate(-90)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#006400;fill-opacity:1;stroke:#000000;stroke-width:0.79728776;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect12760-1"
+       width="4.2027121"
+       height="41.386711"
+       x="-549.73389"
+       y="904.34003"
+       transform="rotate(-90)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.79728776;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect12760-1-0"
+       width="4.2027121"
+       height="41.386711"
+       x="-628.79553"
+       y="845.1026"
+       transform="rotate(-90)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.79699999;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect12760-1-8"
+       width="4.2027121"
+       height="41.386711"
+       x="-549.73389"
+       y="845.1333"
+       transform="rotate(-90)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.77822512;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect12758"
+       width="4.2217751"
+       height="53.221775"
+       x="-1054.2112"
+       y="964.11322"
+       transform="rotate(-90)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#006400;fill-opacity:1;stroke:#000000;stroke-width:0.90838277;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect10943-7-5-5"
+       width="4.0916171"
+       height="64.091667"
+       x="502.34583"
+       y="-597.08014"
+       transform="rotate(90)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#006400;fill-opacity:1;stroke:#000000;stroke-width:0.9988175;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect10960-5"
+       width="63.297333"
+       height="5.0722837"
+       x="-729.86584"
+       y="1366.6023"
+       transform="rotate(-90)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#006400;fill-opacity:1;stroke:#000000;stroke-width:0.80254912;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect10943-45"
+       width="4.1974506"
+       height="60.958305"
+       x="-1255.0349"
+       y="552.11139"
+       transform="rotate(-90)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.90575516;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect12882"
+       width="4.094245"
+       height="50.094246"
+       x="-1345.0471"
+       y="409.95288"
+       transform="rotate(-90)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#006400;fill-opacity:1;stroke:#000000;stroke-width:0.94673651;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect12885"
+       width="142.83823"
+       height="4.0532637"
+       x="678.18842"
+       y="512.82336" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#006400;fill-opacity:1;stroke:#000000;stroke-width:0.97716463;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect12887"
+       width="4.0228353"
+       height="71.420837"
+       x="612.72284"
+       y="1042.3448" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#006400;fill-opacity:1;stroke:#000000;stroke-width:0.82375342;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect12904"
+       width="35.930248"
+       height="4.1762462"
+       x="916.00049"
+       y="1186.8232" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -7665,50 +7880,6 @@
        y="1347.7001"
        ry="0"
        inkscape:label="sensor.switch_barrera" />
-    <rect
-       style="display:inline;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.11333623;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="sensor.cocina_sensor_puerta"
-       width="4.8959885"
-       height="43.000114"
-       x="1175.2606"
-       y="676.78912"
-       ry="0"
-       inkscape:label="sensor.cocina_sensor_puerta"
-       rx="2.4479942"
-       transform="matrix(0.99999722,-0.00235824,0.00241918,0.99999707,0,0)" />
-    <rect
-       style="display:inline;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.11333623;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="sensor.check_sensor_cocina_sensor_puerta"
-       width="4.8959885"
-       height="43.000114"
-       x="1091.8569"
-       y="676.59283"
-       ry="0"
-       inkscape:label="sensor.check_sensor_cocina_sensor_puerta"
-       rx="2.4479942"
-       transform="matrix(0.99999722,-0.00235824,0.00241918,0.99999707,0,0)" />
-    <rect
-       style="display:inline;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:3.952847;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="sensor.check_sensor_cocina_sensor_persiana"
-       width="4.8959885"
-       height="43.000114"
-       x="1175.3962"
-       y="620.77368"
-       ry="0"
-       inkscape:label="sensor.check_sensor_cocina_sensor_persiana"
-       rx="2.4479942"
-       transform="matrix(0.99999722,-0.00235824,0.00241918,0.99999707,0,0)" />
-    <rect
-       style="display:inline;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.11333623;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="sensor.cocina_sensor_persiana"
-       width="4.8959885"
-       height="43.000114"
-       x="1091.9924"
-       y="620.57703"
-       ry="0"
-       inkscape:label="sensor.cocina_sensor_persiana"
-       rx="2.4479942"
-       transform="matrix(0.99999722,-0.00235824,0.00241918,0.99999707,0,0)" />
     <rect
        style="opacity:0.98000004;fill:#006400;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
        id="rect10943"
@@ -7746,11 +7917,64 @@
        x="-1635.0035"
        y="662.53491"
        transform="scale(-1,1)" />
-    <path
-       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 1245.215,703.34612 h 2.43 v 41.715 h -2.43 z"
-       id="path6799"
-       inkscape:connector-curvature="0" />
+    <rect
+       style="opacity:0.98000004;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.89643872;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="sensor.floorplan_cocina_sensor_puerta_derecha"
+       width="4.1035609"
+       height="42.103561"
+       x="1173.8815"
+       y="679.31622"
+       rx="0"
+       ry="0"
+       inkscape:label="sensor.floorplan_cocina_sensor_puerta_derecha" />
+    <rect
+       style="opacity:0.98000004;fill:#006400;fill-opacity:1;stroke:#000000;stroke-width:0.89643878;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="sensor.floorplan_cocina_sensor_persiana_derecha"
+       width="4.1035609"
+       height="42.103561"
+       x="1094.6899"
+       y="619.39264"
+       inkscape:label="sensor.floorplan_cocina_sensor_persiana_derecha" />
+    <rect
+       style="opacity:0.98000004;fill:#006400;fill-opacity:1;stroke:#000000;stroke-width:0.89643884;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="sensor.floorplan_cocina_sensor_persiana_izquierda"
+       width="4.1035609"
+       height="42.103561"
+       x="1173.8815"
+       y="619.39264"
+       inkscape:label="sensor.floorplan_cocina_sensor_persiana_izquierda" />
+    <rect
+       style="opacity:0.98000004;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.89643872;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="sensor.floorplan_cocina_sensor_puerta_izquierda"
+       width="4.1035609"
+       height="42.103561"
+       x="1094.6899"
+       y="679.31622"
+       inkscape:label="sensor.floorplan_cocina_sensor_puerta_izquierda" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#006400;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect10926-3"
+       width="4.9941492"
+       height="238.64761"
+       x="-602.03174"
+       y="-434.64761"
+       transform="scale(-1)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#006400;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect10943-7"
+       width="4.9656768"
+       height="5.3583822"
+       x="-602"
+       y="-440"
+       transform="scale(-1)" />
+    <rect
+       style="display:inline;opacity:0.98000004;fill:#006400;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect10943-7-5"
+       width="4.9656768"
+       height="5.3583822"
+       x="-602"
+       y="-511.75"
+       transform="scale(-1)" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -7759,56 +7983,99 @@
      style="display:inline">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
-       x="916.89771"
-       y="893.53558"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
+       x="961.81921"
+       y="889.29297"
        id="sensor.recibidor_termometro_temperatura"
        inkscape:label="sensor.recibidor_termometro_temperatura"><tspan
          sodipodi:role="line"
          id="tspan6782"
-         x="916.89771"
-         y="893.53558"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:24px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'">XX.XºC</tspan></text>
+         x="961.81921"
+         y="889.29297"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:24px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle">x</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2"
-       x="1320.7422"
-       y="1055.832"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2"
+       x="1353.5002"
+       y="1035.4473"
        id="sensor.netatmo_exterior_temperature"
        inkscape:label="sensor.netatmo_exterior_temperature"><tspan
          sodipodi:role="line"
-         id="tspan6786"
-         x="1320.7422"
-         y="1055.832"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:48px;line-height:2;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:2">XX.XºC</tspan><tspan
-         sodipodi:role="line"
-         x="1320.7422"
-         y="1119.2347"
+         x="1353.5002"
+         y="1035.4473"
          id="tspan6790"
-         style="stroke-width:2" /></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:48px;line-height:2;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;stroke-width:2">x</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none"
-       x="690.39771"
-       y="776.03558"
+       x="747.77673"
+       y="777.09625"
        id="sensor.netatmo_salon_temperature"
        inkscape:label="sensor.netatmo_salon_temperature"><tspan
          sodipodi:role="line"
          id="tspan6782-0"
-         x="690.39771"
-         y="776.03558"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:24px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'">XX.XºC</tspan></text>
+         x="747.77673"
+         y="777.09625"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:24px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle">x</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
-       x="644.8645"
-       y="799.5"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+       x="747.76501"
+       y="797.41693"
        id="sensor.netatmo_salon_co2"
        inkscape:label="sensor.netatmo_salon_co2"><tspan
          sodipodi:role="line"
          id="tspan13883"
-         x="644.8645"
-         y="799.5"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:24px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'">CO2 xxxxppm</tspan></text>
+         x="747.76501"
+         y="797.41693"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle">x</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       x="1353.4768"
+       y="1084.205"
+       id="sensor.netatmo_anemometro_strength"
+       inkscape:label="sensor.netatmo_anemometro_strength"><tspan
+         sodipodi:role="line"
+         id="tspan12930"
+         x="1353.4768"
+         y="1084.205"
+         style="font-size:48px;text-align:center;text-anchor:middle">x</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       x="1353.4768"
+       y="1133.033"
+       id="sensor.netatmo_exterior_humidity"
+       inkscape:label="sensor.netatmo_exterior_humidity"><tspan
+         sodipodi:role="line"
+         id="tspan12930-1"
+         x="1353.4768"
+         y="1133.033"
+         style="font-size:48px;text-align:center;text-anchor:middle">x</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       x="747.76501"
+       y="818.5"
+       id="sensor.netatmo_salon_noise"
+       inkscape:label="sensor.netatmo_salon_noise"><tspan
+         sodipodi:role="line"
+         id="tspan12952"
+         x="747.76501"
+         y="818.5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle">x</tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="Devices"
+     style="display:inline">
+    <path
+       style="display:inline"
+       id="switch.swiid_swiidinter_lampara_recibidor_switch"
+       d="m 997,917 h 8 l 4,12 h -16 l 4,-12 m 3,13 h 2 v 5 h 5 v 2 h -12 v -2 h 5 z"
+       inkscape:connector-curvature="0"
+       inkscape:label="switch.swiid_swiidinter_lampara_recibidor_switch" />
   </g>
 </svg>
