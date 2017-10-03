@@ -562,6 +562,10 @@
       value_template: '{{ states.sensor.cocina_sensor_puerta.state }}'
       entity_id: 
         - sensor.cocina_sensor_puerta
+    floorplan_switch_piscina:
+      value_template: '{{ states.switch.piscina.state }}'
+      entity_id: 
+        - switch.piscina
 
 # Sensor to define the season of the year
 - platform: season
