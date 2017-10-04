@@ -1,4 +1,13 @@
 /* Animation */
+@keyframes wave {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(40, 0);
+    }
+}
+
 @keyframes rotate90 {
     100% {
         transform: rotate(90deg);
@@ -140,11 +149,11 @@ svg, svg * {
 /* Alarm Panel */
 
 .alarm-disarmed {
-  fill: #3c763d !important;
+  fill: #009900 !important;
 }
 
 .alarm-armed {
-  fill: #8a6d3b !important;
+  fill: #990000 !important;
 }
 
 /* Camera */
@@ -197,12 +206,22 @@ svg, svg * {
 
 .room-light-on {
   fill: #ffff00 !important;
-  fill-opacity: 0.1 !important;
+  fill-opacity: 0.2 !important;
 }
 
 .room-light-off {
   fill: #000000 !important;
   fill-opacity: 0.05 !important;
+}
+
+.outside-light-on {
+  fill: #ffff00 !important;
+  fill-opacity: 0.3 !important;
+}
+
+.outside-light-off {
+  fill: #000000 !important;
+  fill-opacity: 0 !important;
 }
 
 /* Temperature sensor */
@@ -306,4 +325,16 @@ svg, svg * {
 
 .blink {
   animation: blink-animation 1s steps(5, start) infinite;
+}
+
+.waves_start {
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-name: wave;
+}
+
+.waves_stop {
+  animation-duration: 1s;
+  animation-iteration-count: 0;
+  animation-name: wave;
 }

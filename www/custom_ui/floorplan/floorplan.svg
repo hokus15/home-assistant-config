@@ -46,20 +46,25 @@
     <pattern
        id="SwimmingPool"
        height="20"
-       width="100"
+       width="40"
        patternUnits="userSpaceOnUse">
       <rect
          y="0"
          x="0"
          height="20"
-         width="100"
+         width="40"
          id="rect8123"
-         style="opacity:1;fill:#40a4df" />
+         style="opacity:1;fill:#87CEFA" />
       <path
-         id="path11629"
-         d="m 21.184,20 c 0.357,-0.13 0.72,-0.264 1.088,-0.402 L 24.04,18.937 C 33.64,15.347 39.647,14 50,14 c 10.271,0 15.362,1.222 24.629,4.928 0.955,0.383 1.869,0.74 2.75,1.072 h 6.225 C 81.094,19.27 78.465,18.309 75.371,17.072 65.888,13.278 60.562,12 50,12 39.374,12 33.145,13.397 23.34,17.063 l -1.767,0.662 c -2.475,0.923 -4.66,1.674 -6.724,2.275 z m 0,-20 C 13.258,2.892 8.077,4 0,4 V 2 C 5.744,2 9.951,1.426 14.85,0 Z M 77.38,0 C 85.239,2.966 90.502,4 100,4 V 2 C 93.158,2 88.614,1.458 83.604,0 H 77.379 Z M 0,14 C 8.44,14 13.718,12.79 22.272,9.598 L 24.04,8.937 C 33.64,5.347 39.647,4 50,4 60.271,4 65.362,5.222 74.629,8.928 84.112,12.722 89.438,14 100,14 V 12 C 89.729,12 84.638,10.778 75.371,7.072 65.888,3.278 60.562,2 50,2 39.374,2 33.145,3.397 23.34,7.063 L 21.573,7.725 C 13.223,10.84 8.163,12 0,12 Z"
-         style="opacity:0.5;fill:#0000ff;stroke:none"
-         inkscape:connector-curvature="0" />
+         id="wave1"
+         d="M -40 6 C -30 6 -30 2 -20 2 C -10 2 -10 6 2 6 C 10 6 10 2 20 2 C 30 2 30 6 40 6"
+         style="opacity:1;fill:none;stroke:#000080;stroke-width:0.5"
+         transform="translate(19.7242 0)" />
+      <path
+         id="wave2"
+         d="M -40 6 C -30 6 -30 2 -20 2 C -10 2 -10 6 2 6 C 10 6 10 2 20 2 C 30 2 30 6 40 6"
+         style="opacity:1;fill:none;stroke:#1aafd0;stroke-width:0.5"
+         transform="translate(0.27581 10)" />
     </pattern>
     <pattern
        patternUnits="userSpaceOnUse"
@@ -89,13 +94,13 @@
      inkscape:window-height="961"
      id="namedview326385"
      showgrid="true"
-     inkscape:zoom="16.000002"
-     inkscape:cx="2169.2489"
-     inkscape:cy="684.00797"
+     inkscape:zoom="0.70710685"
+     inkscape:cx="1210.7408"
+     inkscape:cy="400.23498"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer8">
+     inkscape:current-layer="layer3">
     <inkscape:grid
        type="xygrid"
        id="grid12055" />
@@ -208,7 +213,7 @@
        sodipodi:nodetypes="cccccc" />
     <path
        style="fill:#c2b078;fill-opacity:1;stroke:#c2b078;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 1433.9001,667.53223 -0.09,23.79889 H 1362.53 l 0.095,68.13765 17.725,0.17235 -4e-4,107.19 -17.8432,0.16888 0.024,97.9762 -250.0204,-6e-5 V 1191.1012 H 523.50508 l -10e-6,177.255 790.79513,-12.0322 0.1698,-1.0628 h 26.73 v 26.19 h 220.185 v -53.595 l 16.3002,0.1178 57.3183,-660.43829 z"
+       d="m 1433.9001,669.53223 -0.09,23.79889 H 1362.53 l 0.095,68.13765 17.725,0.17235 -4e-4,107.19 -17.8432,0.16888 0.024,97.9762 -250.0204,-6e-5 V 1193.1012 H 523.50508 l -10e-6,177.255 790.79513,-12.0322 0.1698,-1.0628 h 26.73 v 26.19 h 220.185 v -53.595 l 16.3002,0.1178 57.3183,-660.43829 z"
        id="path6779"
        inkscape:connector-curvature="0" />
     <path
@@ -1430,18 +1435,50 @@
        inkscape:label="sensor.floorplan_luz_escalera"
        sodipodi:nodetypes="cccccccccc" />
     <path
-       id="switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch"
-       d="m 951.87225,784.01183 h 6.83194 v -11.2426 h 4.55462 v 11.2426 h 6.83194 L 979.2,802 h -36.437 l 9.10925,-17.98817 m 13.66387,20.2367 a 4.554625,4.4970415 0 0 1 -4.55462,4.49704 4.554625,4.4970415 0 0 1 -4.55463,-4.49704 z"
-       inkscape:connector-curvature="0"
-       inkscape:transform-center-x="384.86578"
-       inkscape:transform-center-y="-155.14793"
-       style="stroke-width:2.26287103"
-       inkscape:label="switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch" />
-    <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 2159.842,922.3224 V 910.30737"
        id="path5827"
        inkscape:connector-curvature="0" />
+    <path
+       style="display:inline;fill:#000000;fill-opacity:0.05882353;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 2029,958 0.027,-267.7426 h 118.935 L 2148,863 h 6 v 53 h -6 v 42 z"
+       id="sensor.floorplan_luz_escalera_1"
+       inkscape:connector-curvature="0"
+       inkscape:label="sensor.floorplan_luz_escalera_1" />
+    <path
+       style="fill:#000000;fill-opacity:0.05882353;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 2153.9021,868.72742 h 5.9399 V 856.8474 L 2199,857 l -0.2781,-6.09259 h 41.7151 v 5.94 l 38.475,-10e-6 L 2279,690 2475.202,690.2574 2475,922 l -17.8376,0.31073 v 4.0614 l 18.3076,-0.002 -0.268,31.59227 h -139.725 v -8.91 h -14.985 l -1e-4,-22.52109 h 6.1431 v -4.20892 h -18.2261 v 4.20892 h 6.1431 v 31.43109 h -142.695 l -10e-5,-31.43109 H 2178 v -4.20892 l -18.158,10e-6 v -12.01503 h -5.9399"
+       id="sensor.floorplan_luz_suite"
+       inkscape:connector-curvature="0"
+       inkscape:label="sensor.floorplan_luz_suite" />
+    <circle
+       style="display:inline;opacity:0.98000004;fill:#000000;fill-opacity:0.05882353;stroke:none;stroke-width:1.01212168;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="sensor.floorplan_luz_exterior_barrera_izquierda"
+       cx="1577.5"
+       cy="1365"
+       r="105"
+       inkscape:label="sensor.floorplan_luz_exterior_barrera_izquierda" />
+    <circle
+       style="display:inline;opacity:0.98000004;fill:#000000;fill-opacity:0.05882353;stroke:none;stroke-width:1.01212168;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="sensor.floorplan_luz_exterior_barrera_derecha"
+       cx="1327.5"
+       cy="1365"
+       r="105"
+       inkscape:label="sensor.floorplan_luz_exterior_barrera_derecha" />
+    <path
+       style="opacity:0.98000004;fill:#000000;fill-opacity:0.05882353;stroke:none;stroke-width:0.99791092;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="sensor.floorplan_luz_exterior_puerta_entrada"
+       sodipodi:type="arc"
+       sodipodi:cx="-1025.2502"
+       sodipodi:cy="1034.8269"
+       sodipodi:rx="59.750011"
+       sodipodi:ry="59.999557"
+       sodipodi:start="0"
+       sodipodi:end="3.1387077"
+       sodipodi:open="true"
+       d="m -965.50023,1034.8269 a 59.750011,59.999557 0 0 1 -59.66387,59.9995 A 59.750011,59.999557 0 0 1 -1085,1035"
+       transform="rotate(-90)"
+       inkscape:label="sensor.floorplan_luz_exterior_puerta_entrada" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -3439,24 +3476,24 @@
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
        x="961.81921"
-       y="889.29297"
+       y="875.29297"
        id="sensor.recibidor_termometro_temperatura"
        inkscape:label="sensor.recibidor_termometro_temperatura"><tspan
          sodipodi:role="line"
          id="tspan6782"
          x="961.81921"
-         y="889.29297"
+         y="875.29297"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:24px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle">x</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2"
        x="1353.5002"
-       y="1035.4473"
+       y="1019.4473"
        id="sensor.netatmo_exterior_temperature"
        inkscape:label="sensor.netatmo_exterior_temperature"><tspan
          sodipodi:role="line"
          x="1353.5002"
-         y="1035.4473"
+         y="1019.4473"
          id="tspan6790"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:48px;line-height:2;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;stroke-width:2">x</tspan></text>
     <text
@@ -3487,25 +3524,25 @@
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="1353.4768"
-       y="1084.205"
+       y="1068.205"
        id="sensor.netatmo_anemometro_strength"
        inkscape:label="sensor.netatmo_anemometro_strength"><tspan
          sodipodi:role="line"
          id="tspan12930"
          x="1353.4768"
-         y="1084.205"
+         y="1068.205"
          style="font-size:48px;text-align:center;text-anchor:middle">x</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="1353.4768"
-       y="1133.033"
+       y="1117.033"
        id="sensor.netatmo_exterior_humidity"
        inkscape:label="sensor.netatmo_exterior_humidity"><tspan
          sodipodi:role="line"
          id="tspan12930-1"
          x="1353.4768"
-         y="1133.033"
+         y="1117.033"
          style="font-size:48px;text-align:center;text-anchor:middle">x</tspan></text>
     <text
        xml:space="preserve"
@@ -3521,7 +3558,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle">x</tspan></text>
     <text
        xml:space="preserve"
-       style="display:inline;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="2365.2769"
        y="870.09625"
        id="sensor.netatmo_suite_temperature"
@@ -3534,7 +3571,7 @@
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:24px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle">x</tspan></text>
     <text
        xml:space="preserve"
-       style="display:inline;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        x="2365.2651"
        y="890.41693"
        id="sensor.netatmo_suite_co2"
@@ -3544,6 +3581,114 @@
          x="2365.2651"
          y="890.41693"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle">x</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       x="1353.4768"
+       y="1161.705"
+       id="sensor.netatmo_exterior_max_temp"
+       inkscape:label="sensor.netatmo_exterior_max_temp"><tspan
+         sodipodi:role="line"
+         id="tspan12930-6"
+         x="1353.4768"
+         y="1161.705"
+         style="font-size:48px;text-align:center;text-anchor:middle">x</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       x="1353.4768"
+       y="1210.533"
+       id="sensor.netatmo_exterior_min_temp"
+       inkscape:label="sensor.netatmo_exterior_min_temp"><tspan
+         sodipodi:role="line"
+         id="tspan12930-1-5"
+         x="1353.4768"
+         y="1210.533"
+         style="font-size:48px;text-align:center;text-anchor:middle">x</tspan></text>
+    <path
+       id="path5133"
+       d="m 1254.1282,1052.4184 a 1.3157895,1.3 0 0 1 -1.3158,-1.3 1.3157895,1.3 0 0 1 1.3158,-1.3 h 10.5263 a 2.6315789,2.6 0 0 0 2.6316,-2.6 2.6315789,2.6 0 0 0 -2.6316,-2.6 c -0.7237,0 -1.3816,0.286 -1.8553,0.767 -0.5131,0.533 -1.3552,0.533 -1.8684,0 -0.5131,-0.507 -0.5131,-1.339 0,-1.846 0.9605,-0.936 2.2763,-1.521 3.7237,-1.521 a 5.2631579,5.2 0 0 1 5.2632,5.2 5.2631579,5.2 0 0 1 -5.2632,5.2 h -10.5263 m 19.7368,2.6 a 1.3157895,1.3 0 0 0 1.3158,-1.3 1.3157895,1.3 0 0 0 -1.3158,-1.3 c -0.3684,0 -0.6973,0.143 -0.9342,0.377 -0.5131,0.507 -1.3421,0.507 -1.8552,0 -0.5,-0.507 -0.5,-1.326 0,-1.833 0.7105,-0.702 1.6973,-1.144 2.7894,-1.144 a 3.9473684,3.9 0 0 1 3.9474,3.9 3.9473684,3.9 0 0 1 -3.9474,3.9 h -18.421 a 1.3157895,1.3 0 0 1 -1.3158,-1.3 1.3157895,1.3 0 0 1 1.3158,-1.3 h 18.421 m -1.3158,7.8 h -18.421 a 1.3157895,1.3 0 0 1 -1.3158,-1.3 1.3157895,1.3 0 0 1 1.3158,-1.3 h 18.421 a 3.9473684,3.9 0 0 1 3.9474,3.9 3.9473684,3.9 0 0 1 -3.9474,3.9 c -1.0921,0 -2.0789,-0.442 -2.7894,-1.144 -0.5,-0.507 -0.5,-1.326 0,-1.833 0.5131,-0.507 1.3421,-0.507 1.8552,0 0.2369,0.234 0.5658,0.377 0.9342,0.377 a 1.3157895,1.3 0 0 0 1.3158,-1.3 1.3157895,1.3 0 0 0 -1.3158,-1.3 z"
+       inkscape:connector-curvature="0"
+       style="display:inline;stroke-width:1.30787086" />
+    <path
+       id="path5144"
+       d="m 1271.8,1012.6119 a 6.5,6.5 0 0 1 -6.5,6.5 6.5,6.5 0 0 1 -6.5,-6.5 c 0,-2.132 1.027,-4.017 2.6,-5.2 v -10.4 a 3.9,3.9 0 0 1 3.9,-3.9 3.9,3.9 0 0 1 3.9,3.9 v 10.4 c 1.573,1.183 2.6,3.068 2.6,5.2 m -7.8,-11.7 v 8.021 c -1.521,0.533 -2.6,1.976 -2.6,3.679 a 3.9,3.9 0 0 0 3.9,3.9 3.9,3.9 0 0 0 3.9,-3.9 c 0,-1.703 -1.079,-3.146 -2.6,-3.679 v -8.021 z"
+       inkscape:connector-curvature="0"
+       style="display:inline;stroke-width:1.30000007" />
+    <path
+       id="path5099"
+       d="m 1260,1184.5339 h 9.7576 v 13.1313 h 7.8712 l -12.75,12.8687 -12.75,-12.8687 H 1260 Z"
+       inkscape:connector-curvature="0"
+       style="display:inline;fill:#0000ff;fill-opacity:1;stroke-width:1.63382733" />
+    <path
+       id="path5110"
+       d="m 1269.7888,1161.5251 h -9.7576 v -13.1313 h -7.8712 l 12.75,-12.8687 12.75,12.8687 h -7.8712 z"
+       inkscape:connector-curvature="0"
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke-width:1.63382602" />
+    <path
+       style="display:inline;stroke-width:1.72485495"
+       id="path5121"
+       d="m 1265.3124,1090.8521 c 0,0 -11.5,10.4776 -11.5,16.6866 0,5.1534 5.1563,9.3134 11.5,9.3134 a 11.5,9.3134328 0 0 0 11.5,-9.3134 c 0,-6.209 -11.5,-16.6866 -11.5,-16.6866 m 4.7338,10.431 2.0324,1.6454 -11.5,9.3135 -2.0324,-1.6454 m 2.4538,-9.2669 a 2.3958325,1.9402985 0 0 1 2.3949,1.9403 2.3958325,1.9402985 0 0 1 -2.3949,1.9403 2.3958325,1.9402985 0 0 1 -2.3951,-1.9403 2.3958325,1.9402985 0 0 1 2.3951,-1.9403 m 8.6248,6.9851 a 2.3958325,1.9402985 0 0 1 2.3951,1.9403 2.3958325,1.9402985 0 0 1 -2.3951,1.9403 2.3958325,1.9402985 0 0 1 -2.3949,-1.9403 2.3958325,1.9402985 0 0 1 2.3949,-1.9403 z"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       x="1353.4768"
+       y="1258.533"
+       id="sensor.netatmo_salon_pressure"
+       inkscape:label="sensor.netatmo_salon_pressure"><tspan
+         sodipodi:role="line"
+         id="tspan12930-1-5-1"
+         x="1353.4768"
+         y="1258.533"
+         style="font-size:48px;text-align:center;text-anchor:middle">x</tspan></text>
+    <path
+       id="path5185"
+       d="m 1257.7879,1295.7378 a 1.1818182,1.1 0 0 1 1.1818,1.1 1.1818182,1.1 0 0 1 -1.1818,1.1 5.9090909,5.5 0 0 1 -5.9091,-5.5 5.9090909,5.5 0 0 1 5.9091,-5.5 c 1.1818,-2.585 3.9,-4.4 7.0909,-4.4 4.0536,0 7.3745,2.926 7.6818,6.633 l 0.5909,-0.033 a 4.7272727,4.4 0 0 1 4.7273,4.4 4.7272727,4.4 0 0 1 -4.7273,4.4 h -1.1818 a 1.1818182,1.1 0 0 1 -1.1818,-1.1 1.1818182,1.1 0 0 1 1.1818,-1.1 h 1.1818 a 2.3636364,2.2 0 0 0 2.3637,-2.2 2.3636364,2.2 0 0 0 -2.3637,-2.2 h -2.3636 v -1.1 a 5.9090909,5.5 0 0 0 -5.9091,-5.5 c -2.9545,0 -5.3773,2.002 -5.8382,4.609 -0.39,-0.132 -0.8154,-0.209 -1.2527,-0.209 a 3.5454545,3.3 0 0 0 -3.5455,3.3 3.5454545,3.3 0 0 0 3.5455,3.3 m 10.4354,1.837 c 1.8437,1.716 1.8437,4.213 0,5.951 -0.9218,0.858 -2.1627,1.012 -3.3445,1.012 -1.1818,0 -2.4227,-0.154 -3.3445,-1.012 -1.8437,-1.738 -1.8437,-4.235 0,-5.951 l 3.3445,-5.137 3.3445,5.137 m -1.6781,1.122 -1.6664,-2.684 -1.6664,2.684 c -0.9336,0.891 -0.9336,2.211 0,3.091 0.4846,0.473 1.0755,0.55 1.6664,0.55 0.5909,0 1.1818,-0.078 1.6664,-0.55 0.9336,-0.88 0.9336,-2.2 0,-3.091 z"
+       inkscape:connector-curvature="0"
+       style="stroke-width:1.14017534" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       x="1353.4768"
+       y="1304.533"
+       id="sensor.netatmo_pluviometro_sum_rain_1"
+       inkscape:label="sensor.netatmo_pluviometro_sum_rain_1"><tspan
+         sodipodi:role="line"
+         id="tspan12930-1-5-1-5"
+         x="1353.4768"
+         y="1304.533"
+         style="font-size:48px;text-align:center;text-anchor:middle">x</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       x="747.76501"
+       y="882.5"
+       id="sensor.fibaro_fgms001_motion_sensor_salon_luminance"
+       inkscape:label="sensor.fibaro_fgms001_motion_sensor_salon_luminance"><tspan
+         sodipodi:role="line"
+         id="tspan12952-8"
+         x="747.76501"
+         y="882.5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle">x</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       x="961.76501"
+       y="900.5"
+       id="sensor.energy_usage"
+       inkscape:label="sensor.energy_usage"><tspan
+         sodipodi:role="line"
+         id="tspan12952-4"
+         x="961.76501"
+         y="900.5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle">x</tspan></text>
+    <path
+       id="group.seguridad"
+       d="m 1496,808 h 8 v 12 h 12 v -20 h 8 l -24,-20 -24,20 h 8 v 20 h 12 v -12 m 4,-48 36,16 v 24 c 0,22.2 -15.36,42.96 -36,48 -20.64,-5.04 -36,-25.8 -36,-48 v -24 z"
+       inkscape:connector-curvature="0"
+       style="display:inline;stroke-width:4"
+       inkscape:label="group.seguridad" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -3576,5 +3721,55 @@
        inkscape:transform-center-y="-155.14793"
        style="display:inline;stroke-width:2.26287103"
        inkscape:label="switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2" />
+    <path
+       style="display:inline"
+       id="group.luces_exteriores"
+       d="m 1026,1017.26 a 7,7 0 0 0 -7,7 c 0,2.38 1.19,4.47 3,5.74 v 2.26 a 1,1 0 0 0 1,1 h 6 a 1,1 0 0 0 1,-1 V 1030 c 1.81,-1.27 3,-3.36 3,-5.74 a 7,7 0 0 0 -7,-7 m -3,19 a 1,1 0 0 0 1,1 h 4 a 1,1 0 0 0 1,-1 v -1 h -6 z"
+       inkscape:connector-curvature="0"
+       inkscape:label="group.luces_exteriores" />
+    <path
+       style="display:inline"
+       id="light.barrera_derecha"
+       d="m 1328,1358 a 7,7 0 0 0 -7,7 c 0,2.38 1.19,4.47 3,5.74 v 2.26 a 1,1 0 0 0 1,1 h 6 a 1,1 0 0 0 1,-1 v -2.26 c 1.81,-1.27 3,-3.36 3,-5.74 a 7,7 0 0 0 -7,-7 m -3,19 a 1,1 0 0 0 1,1 h 4 a 1,1 0 0 0 1,-1 v -1 h -6 z"
+       inkscape:connector-curvature="0"
+       inkscape:label="light.barrera_derecha" />
+    <path
+       style="display:inline"
+       id="light.barrera_izquierda"
+       d="m 1578,1358 a 7,7 0 0 0 -7,7 c 0,2.38 1.19,4.47 3,5.74 v 2.26 a 1,1 0 0 0 1,1 h 6 a 1,1 0 0 0 1,-1 v -2.26 c 1.81,-1.27 3,-3.36 3,-5.74 a 7,7 0 0 0 -7,-7 m -3,19 a 1,1 0 0 0 1,1 h 4 a 1,1 0 0 0 1,-1 v -1 h -6 z"
+       inkscape:connector-curvature="0"
+       inkscape:label="light.barrera_izquierda" />
+    <path
+       id="switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch"
+       d="m 951.87225,784.01183 h 6.83194 v -11.2426 h 4.55462 v 11.2426 h 6.83194 L 979.2,802 h -36.437 l 9.10925,-17.98817 m 13.66387,20.2367 a 4.554625,4.4970415 0 0 1 -4.55462,4.49704 4.554625,4.4970415 0 0 1 -4.55463,-4.49704 z"
+       inkscape:connector-curvature="0"
+       inkscape:transform-center-x="384.86578"
+       inkscape:transform-center-y="-155.14793"
+       style="display:inline;stroke-width:2.26287103"
+       inkscape:label="switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch" />
+    <path
+       style="display:inline"
+       id="camera.recibidor"
+       d="m 920,962 v -3.5 a 1,1 0 0 0 -1,-1 h -12 a 1,1 0 0 0 -1,1 v 10 a 1,1 0 0 0 1,1 h 12 a 1,1 0 0 0 1,-1 V 965 l 4,4 v -11 z"
+       inkscape:connector-curvature="0"
+       inkscape:label="camera.recibidor" />
+    <path
+       style="display:inline"
+       id="camera.piscina"
+       d="M 133.5,1173.5 H 130 a 1,1 0 0 0 -1,1 v 12 a 1,1 0 0 0 1,1 h 10 a 1,1 0 0 0 1,-1 v -12 a 1,1 0 0 0 -1,-1 h -3.5 l 4,-4 h -11 z"
+       inkscape:connector-curvature="0"
+       inkscape:label="camera.piscina" />
+    <path
+       style="display:inline"
+       id="camera.barbacoa"
+       d="m 1650,300 v 3.5 a 1,1 0 0 0 1,1 h 12 a 1,1 0 0 0 1,-1 v -10 a 1,1 0 0 0 -1,-1 h -12 a 1,1 0 0 0 -1,1 v 3.5 l -4,-4 v 11 z"
+       inkscape:connector-curvature="0"
+       inkscape:label="camera.barbacoa" />
+    <path
+       style="display:inline"
+       id="camera.caseta"
+       d="m 90,1277 v -3.5 a 1,1 0 0 0 -1,-1 H 77 a 1,1 0 0 0 -1,1 v 10 a 1,1 0 0 0 1,1 h 12 a 1,1 0 0 0 1,-1 v -3.5 l 4,4 v -11 z"
+       inkscape:connector-curvature="0"
+       inkscape:label="camera.caseta" />
   </g>
 </svg>

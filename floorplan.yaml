@@ -6,7 +6,7 @@
       # warnings:                  # enable warnings (to find out why things might ot be working correctly)
       pan_zoom:                  # enable experimental panning / zooming
       # hide_app_toolbar:          # hide the application toolbar (when used as a custom panel)
-      # date_format: DD-MMM-YYYY   # Date format to use in hover-over text
+      date_format: DD/MM/YYYY   # Date format to use in hover-over text
       
       last_motion_entity: sensor.template_last_motion
       last_motion_class: last-motion
@@ -99,6 +99,11 @@
              - sensor.fibaro_fgms001_motion_sensor_salon_luminance
           text_template: '${entity.state ? entity.state : "n/d"}lux'
 
+        - name: Watt
+          entities:
+             - sensor.energy_usage
+          text_template: '${entity.state ? entity.state : "n/d"}W'
+
         - name: 'Doors 90 Right Side'
           entities:
             - sensor.floorplan_cocina_sensor_puerta_derecha
@@ -146,8 +151,19 @@
             - state: 'off'
               class: 'light-off'
           action:
-            domain: homeassistant   # This optional parameter allows you to use other services such as homeassistant.toggle like here.
+            domain: homeassistant
             service: toggle
+
+        - name: Light outside
+          entities:
+             - sensor.floorplan_luz_exterior_barrera_izquierda
+             - sensor.floorplan_luz_exterior_barrera_derecha
+             - sensor.floorplan_luz_exterior_puerta_entrada
+          states:
+            - state: 'apagada'
+              class: 'outside-light-off'
+            - state: 'encendida'
+              class: 'outside-light-on'
 
         - name: Switches
           entities:
@@ -161,12 +177,22 @@
             - state: 'off'
               class: 'light-off'
           action:
-            domain: homeassistant   # This optional parameter allows you to use other services such as homeassistant.toggle like here.
+            domain: homeassistant
             service: toggle
+
+        - name: waves
+          entities:
+             - sensor.floorplan_switch_piscina
+          states:
+            - state: 'on'
+              class: 'waves_start'
+            - state: 'off'
+              class: 'waves_start'
 
         - name: Room
           entities:
              - sensor.floorplan_luz_escalera
+             - sensor.floorplan_luz_escalera_1
              - sensor.floorplan_luz_suite
              - sensor.floorplan_lampara_recibidor
           states:
@@ -185,16 +211,14 @@
 #            - state: 'on'
 #              class: 'success-text'
 #
-#        - name: Alarm Panel
-#          entities:
-#             - alarm_control_panel.alarm
-#          states:
-#            - state: 'armed_away'
-#              class: 'alarm-armed'
-#            - state: 'armed_home'
-#              class: 'alarm-armed'
-#            - state: 'disarmed'
-#              class: 'alarm-disarmed'
+        - name: Security
+          entities:
+             - group.seguridad
+          states:
+            - state: 'on'
+              class: 'alarm-armed'
+            - state: 'off'
+              class: 'alarm-disarmed'
 #
 #        - name: Binary sensors
 #          entities:
@@ -218,6 +242,7 @@
             - camera.recibidor
             - camera.barbacoa
             - camera.piscina
+            - camera.caseta
           states:
             - state: 'idle'
               class: 'camera-idle'
@@ -229,9 +254,9 @@
 #
 # The above text_template uses extended attributes from the climate.* objects to get current temperature.
 
-        - name: text_states
-          entities:
-            - sensor.energy_usage
-          text_template: '${entity.state ? entity.state.replace(/\s{2,}/g,"") : "n/d"}'
+#        - name: text_states
+#          entities:
+#            - sensor.energy_usage
+#          text_template: '${entity.state ? entity.state.replace(/\s{2,}/g,"") : "n/d"}'
 
 # The above text_template uses jQuery syntax to search and replace any instance of 2 consecutive (or more) spaces in a string of text.

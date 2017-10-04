@@ -536,6 +536,11 @@
       friendly_name: 'Luz escalera'
       entity_id: 
         - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
+    floorplan_luz_escalera_1:
+      value_template: '{% if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch", "off") %}apagada{% else %}encendida{% endif %}'
+      friendly_name: 'Luz escalera'
+      entity_id: 
+        - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
     floorplan_luz_suite:
       value_template: '{% if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2", "off") %}apagada{% else %}encendida{% endif %}'
       friendly_name: 'Luz suite'
@@ -546,6 +551,21 @@
       friendly_name: 'Lámpara recibidor'
       entity_id: 
         - switch.swiid_swiidinter_lampara_recibidor_switch
+    floorplan_luz_exterior_barrera_izquierda:
+      value_template: '{% if is_state("light.barrera_izquierda", "off") %}apagada{% else %}encendida{% endif %}'
+      friendly_name: 'Luz exterior barrera izquierda'
+      entity_id: 
+        - light.barrera_izquierda
+    floorplan_luz_exterior_barrera_derecha:
+      value_template: '{% if is_state("light.barrera_derecha", "off") %}apagada{% else %}encendida{% endif %}'
+      friendly_name: 'Luz exterior barrera derecha'
+      entity_id: 
+        - light.barrera_derecha
+    floorplan_luz_exterior_puerta_entrada:
+      value_template: '{% if is_state("light.puerta_entrada", "off") %}apagada{% else %}encendida{% endif %}'
+      friendly_name: 'Luz exterior puerta entrada'
+      entity_id: 
+        - light.puerta_entrada
     floorplan_cocina_sensor_persiana_derecha:
       value_template: '{{ states.sensor.cocina_sensor_persiana.state }}'
       entity_id: 
