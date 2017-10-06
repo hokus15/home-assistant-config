@@ -251,6 +251,16 @@
           entities:
             - climate.termostato
           text_template: '${entity.attributes.current_temperature ? entity.attributes.current_temperature : "undefined"}'
+#          class_template: '
+#            var mode = entity.attributes.operation_mode;
+#            if (mode == 'idle')
+#              return "low-value";
+#            else if (mode == 'on')
+#              return "average-value";
+#            else
+#              return "high-value";
+#            '
+
 #
 # The above text_template uses extended attributes from the climate.* objects to get current temperature.
 

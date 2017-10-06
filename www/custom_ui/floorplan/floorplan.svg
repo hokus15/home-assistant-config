@@ -58,7 +58,7 @@
       <path
          id="sensor.floorplan_switch_piscina"
          d="M -40 6 C -30 6 -30 2 -20 2 C -10 2 -10 6 2 6 C 10 6 10 2 20 2 C 30 2 30 6 40 6"
-         style="opacity:1;fill:none;stroke:#000080;stroke-width:1"/>
+         style="opacity:1;fill:none;stroke:#000080;stroke-width:1" />
     </pattern>
     <pattern
        patternUnits="userSpaceOnUse"
@@ -88,13 +88,13 @@
      inkscape:window-height="961"
      id="namedview326385"
      showgrid="true"
-     inkscape:zoom="0.70710685"
-     inkscape:cx="1210.7408"
-     inkscape:cy="400.23498"
+     inkscape:zoom="1.4142137"
+     inkscape:cx="1089.4506"
+     inkscape:cy="400.15327"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer3">
+     inkscape:current-layer="layer6">
     <inkscape:grid
        type="xygrid"
        id="grid12055" />
@@ -1404,6 +1404,11 @@
        d="m 2475.202,880.6074 v 35.63995"
        id="path7560"
        inkscape:connector-curvature="0" />
+    <path
+       style="display:inline;fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 898.61176,847.10922 957.8,847.1212"
+       id="path12980"
+       inkscape:connector-curvature="0" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -1416,11 +1421,6 @@
        id="sensor.floorplan_lampara_recibidor"
        inkscape:connector-curvature="0"
        inkscape:label="sensor.floorplan_lampara_recibidor" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 898.61176,847.10922 957.8,847.1212"
-       id="path12980"
-       inkscape:connector-curvature="0" />
     <path
        style="display:inline;fill:#000000;fill-opacity:0.05882353;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 957.81824,769.80988 964,770 v 77 -76 l 53.335,-1.41595 V 847.12122 679.3162 H 898.4 l 0.21176,167.79302 59.18824,0.012"
@@ -1460,17 +1460,17 @@
        r="105"
        inkscape:label="sensor.floorplan_luz_exterior_barrera_derecha" />
     <path
-       style="opacity:0.98000004;fill:#000000;fill-opacity:0.05882353;stroke:none;stroke-width:0.99791092;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       style="opacity:0.98000004;fill:#000000;fill-opacity:0.05882353;stroke:none;stroke-width:2.01744747;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
        id="sensor.floorplan_luz_exterior_puerta_entrada"
        sodipodi:type="arc"
-       sodipodi:cx="-1025.2502"
+       sodipodi:cx="-1077.7504"
        sodipodi:cy="1034.8269"
-       sodipodi:rx="59.750011"
-       sodipodi:ry="59.999557"
+       sodipodi:rx="112.2501"
+       sodipodi:ry="130.53299"
        sodipodi:start="0"
        sodipodi:end="3.1387077"
        sodipodi:open="true"
-       d="m -965.50023,1034.8269 a 59.750011,59.999557 0 0 1 -59.66387,59.9995 A 59.750011,59.999557 0 0 1 -1085,1035"
+       d="M -965.50027,1034.8269 A 112.2501,130.53299 0 0 1 -1077.5884,1165.3598 112.2501,130.53299 0 0 1 -1190,1035.2035"
        transform="rotate(-90)"
        inkscape:label="sensor.floorplan_luz_exterior_puerta_entrada" />
   </g>
@@ -2413,12 +2413,6 @@
          id="rect6710"
          style="opacity:1;fill:url(#pattern6750);fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
     </g>
-    <circle
-       style="display:inline;opacity:1;fill:#cc0000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
-       id="path6746"
-       cx="113.5"
-       cy="1066.5"
-       r="22.5" />
     <g
        style="display:inline;stroke-width:0.56557316;stroke-miterlimit:4;stroke-dasharray:none"
        transform="matrix(-1.192407,0,0,-0.9438444,2587.7479,1047.7645)"
@@ -3469,13 +3463,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
-       x="961.81921"
+       x="959.77673"
        y="875.29297"
        id="sensor.recibidor_termometro_temperatura"
        inkscape:label="sensor.recibidor_termometro_temperatura"><tspan
          sodipodi:role="line"
          id="tspan6782"
-         x="961.81921"
+         x="959.77673"
          y="875.29297"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:24px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle">x</tspan></text>
     <text
@@ -3668,13 +3662,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none"
-       x="961.76501"
+       x="959.76501"
        y="900.5"
        id="sensor.energy_usage"
        inkscape:label="sensor.energy_usage"><tspan
          sodipodi:role="line"
          id="tspan12952-4"
-         x="961.76501"
+         x="959.76501"
          y="900.5"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle">x</tspan></text>
     <path
@@ -3690,80 +3684,80 @@
      inkscape:label="Devices"
      style="display:inline">
     <path
-       style="display:inline"
+       style="display:inline;stroke-width:1.953125"
        id="switch.swiid_swiidinter_lampara_recibidor_switch"
-       d="m 997,937 h 8 l 4,12 h -16 l 4,-12 m 3,13 h 2 v 5 h 5 v 2 h -12 v -2 h 5 z"
+       d="m 993.1875,929.46875 h 15.625 l 7.8125,23.4375 h -31.25 l 7.8125,-23.4375 m 5.85937,25.39062 h 3.90623 v 9.76563 h 9.7656 v 3.90625 H 989.28125 V 964.625 h 9.76562 z"
        inkscape:connector-curvature="0"
        inkscape:label="switch.swiid_swiidinter_lampara_recibidor_switch" />
     <path
-       id="switch.piscina"
-       d="m 97.221,1072.1494 c 2.69535,-1.1488 5.37456,-2.2976 8.06992,-2.8031 v -12.5145 a 4.8419518,4.5952852 0 0 1 4.84196,-4.5953 c 2.11431,0 3.90583,1.2713 4.56757,3.0635 h -4.56757 a 1.613984,1.5317618 0 0 0 -1.61399,1.5318 v 1.5317 h 8.06992 v -1.5317 a 4.8419518,4.5952852 0 0 1 4.84195,-4.5953 c 2.11432,0 3.90584,1.2713 4.56757,3.0635 h -4.56757 a 1.613984,1.5317618 0 0 0 -1.61398,1.5318 v 15.2257 c 3.22797,-0.4903 6.45594,-2.9717 9.6839,-2.9717 v 3.0636 c -3.58305,0 -7.16609,3.0635 -10.76526,3.0635 -3.58305,0 -7.1661,-3.0635 -10.74914,-3.0635 -3.5992,0 -7.18224,1.5317 -10.76528,3.0635 v -3.0635 m 19.36781,-10.7223 h -8.06992 v 3.0634 h 8.06992 v -3.0634 m 0,6.127 h -8.06992 v 1.5317 c 2.69535,0.2452 5.37457,2.0067 8.06992,2.7419 v -4.2736 M 97.221,1078.2764 c 3.58304,-1.5317 7.16608,-3.0635 10.76528,-3.0635 3.58304,0 7.16609,3.0635 10.74914,3.0635 3.59917,0 7.18221,-3.0635 10.76526,-3.0635 v 3.0635 c -3.58305,0 -7.16609,3.0636 -10.76526,3.0636 -3.58305,0 -7.1661,-3.0636 -10.74914,-3.0636 -3.5992,0 -7.18224,1.5317 -10.76528,3.0636 z"
-       inkscape:connector-curvature="0"
-       style="display:inline;stroke-width:1.57233548"
-       inkscape:label="switch.piscina" />
-    <path
-       style="display:inline"
-       id="climate.termostato"
-       d="m 1012.95,918.39 -2.12,-2.12 c 0.72,-0.73 1.17,-1.73 1.17,-2.83 0,-0.74 -0.21,-1.43 -0.57,-2 l 2.17,-2.19 c 0.9,1.19 1.4,2.62 1.4,4.19 0,1.93 -0.78,3.68 -2.05,4.95 M 1008,906.44 c 1.57,0 3,0.5 4.19,1.4 L 1010,910 c -0.57,-0.35 -1.26,-0.56 -2,-0.56 a 4,4 0 0 0 -4,4 c 0,1.1 0.45,2.1 1.17,2.83 l -2.12,2.12 c -1.27,-1.27 -2.05,-3.02 -2.05,-4.95 a 7,7 0 0 1 7,-7 m 0,-3 a 10,10 0 0 0 -10,10 10,10 0 0 0 10,10 10,10 0 0 0 10,-10 c 0,-5.53 -4.5,-10 -10,-10 z"
-       inkscape:connector-curvature="0"
-       inkscape:label="climate.termostato" />
-    <path
        id="switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2"
-       d="m 2350,780 h 6.832 v -11.2426 h 4.5546 V 780 h 6.8319 l 9.1093,17.98817 h -36.437 L 2350,780 m 13.6639,20.2367 a 4.554625,4.4970415 0 0 1 -4.5546,4.49704 4.554625,4.4970415 0 0 1 -4.5546,-4.49704 z"
+       d="m 2344.8761,776.20562 h 10.675 v -17.56656 h 7.1165 v 17.56656 h 10.6748 l 14.2333,28.10651 h -56.9328 l 14.2332,-28.10651 m 21.3498,31.61984 a 7.1166015,7.0266274 0 0 1 -7.1166,7.02662 7.1166015,7.0266274 0 0 1 -7.1165,-7.02662 z"
        inkscape:connector-curvature="0"
-       inkscape:transform-center-x="384.86578"
-       inkscape:transform-center-y="-155.14793"
-       style="display:inline;stroke-width:2.26287103"
+       inkscape:transform-center-x="601.35277"
+       inkscape:transform-center-y="-242.41864"
+       style="display:inline;stroke-width:3.53573585"
        inkscape:label="switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2" />
     <path
-       style="display:inline"
+       style="display:inline;stroke-width:1.953125"
        id="group.luces_exteriores"
-       d="m 1026,1017.26 a 7,7 0 0 0 -7,7 c 0,2.38 1.19,4.47 3,5.74 v 2.26 a 1,1 0 0 0 1,1 h 6 a 1,1 0 0 0 1,-1 V 1030 c 1.81,-1.27 3,-3.36 3,-5.74 a 7,7 0 0 0 -7,-7 m -3,19 a 1,1 0 0 0 1,1 h 4 a 1,1 0 0 0 1,-1 v -1 h -6 z"
+       d="m 1026,1007.7287 a 13.671875,13.671875 0 0 0 -13.6719,13.6719 c 0,4.6484 2.3243,8.7305 5.8594,11.2109 v 4.4141 a 1.953125,1.953125 0 0 0 1.9531,1.9532 h 11.7188 a 1.953125,1.953125 0 0 0 1.9531,-1.9532 v -4.4141 c 3.5351,-2.4804 5.8594,-6.5625 5.8594,-11.2109 A 13.671875,13.671875 0 0 0 1026,1007.7287 m -5.8594,37.1094 a 1.953125,1.953125 0 0 0 1.9531,1.9532 h 7.8126 a 1.953125,1.953125 0 0 0 1.9531,-1.9532 v -1.9531 h -11.7188 z"
        inkscape:connector-curvature="0"
        inkscape:label="group.luces_exteriores" />
     <path
-       style="display:inline"
+       style="display:inline;stroke-width:1.953125"
        id="light.barrera_derecha"
-       d="m 1328,1358 a 7,7 0 0 0 -7,7 c 0,2.38 1.19,4.47 3,5.74 v 2.26 a 1,1 0 0 0 1,1 h 6 a 1,1 0 0 0 1,-1 v -2.26 c 1.81,-1.27 3,-3.36 3,-5.74 a 7,7 0 0 0 -7,-7 m -3,19 a 1,1 0 0 0 1,1 h 4 a 1,1 0 0 0 1,-1 v -1 h -6 z"
+       d="m 1328,1348.4688 a 13.671875,13.671875 0 0 0 -13.6719,13.6718 c 0,4.6485 2.3243,8.7305 5.8594,11.211 v 4.414 a 1.953125,1.953125 0 0 0 1.9531,1.9532 h 11.7188 a 1.953125,1.953125 0 0 0 1.9531,-1.9532 v -4.414 c 3.5351,-2.4805 5.8594,-6.5625 5.8594,-11.211 A 13.671875,13.671875 0 0 0 1328,1348.4688 m -5.8594,37.1093 a 1.953125,1.953125 0 0 0 1.9532,1.9532 h 7.8125 a 1.953125,1.953125 0 0 0 1.9531,-1.9532 v -1.9531 h -11.7188 z"
        inkscape:connector-curvature="0"
        inkscape:label="light.barrera_derecha" />
     <path
-       style="display:inline"
+       style="display:inline;stroke-width:1.953125"
        id="light.barrera_izquierda"
-       d="m 1578,1358 a 7,7 0 0 0 -7,7 c 0,2.38 1.19,4.47 3,5.74 v 2.26 a 1,1 0 0 0 1,1 h 6 a 1,1 0 0 0 1,-1 v -2.26 c 1.81,-1.27 3,-3.36 3,-5.74 a 7,7 0 0 0 -7,-7 m -3,19 a 1,1 0 0 0 1,1 h 4 a 1,1 0 0 0 1,-1 v -1 h -6 z"
+       d="m 1578,1348.4688 a 13.671875,13.671875 0 0 0 -13.6719,13.6718 c 0,4.6485 2.3243,8.7305 5.8594,11.211 v 4.414 a 1.953125,1.953125 0 0 0 1.9531,1.9532 h 11.7188 a 1.953125,1.953125 0 0 0 1.9531,-1.9532 v -4.414 c 3.5351,-2.4805 5.8594,-6.5625 5.8594,-11.211 A 13.671875,13.671875 0 0 0 1578,1348.4688 m -5.8594,37.1093 a 1.953125,1.953125 0 0 0 1.9532,1.9532 h 7.8125 a 1.953125,1.953125 0 0 0 1.9531,-1.9532 v -1.9531 h -11.7188 z"
        inkscape:connector-curvature="0"
        inkscape:label="light.barrera_izquierda" />
     <path
        id="switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch"
-       d="m 951.87225,784.01183 h 6.83194 v -11.2426 h 4.55462 v 11.2426 h 6.83194 L 979.2,802 h -36.437 l 9.10925,-17.98817 m 13.66387,20.2367 a 4.554625,4.4970415 0 0 1 -4.55462,4.49704 4.554625,4.4970415 0 0 1 -4.55463,-4.49704 z"
+       d="m 946.74825,780.21754 h 9.77493 v -17.56656 h 6.51663 v 17.56656 h 9.77493 l 13.03326,28.10651 h -52.133 l 13.03325,-28.10651 m 19.54987,31.61984 a 6.5166254,7.0266274 0 0 1 -6.51663,7.02662 6.5166254,7.0266274 0 0 1 -6.51663,-7.02662 z"
        inkscape:connector-curvature="0"
-       inkscape:transform-center-x="384.86578"
-       inkscape:transform-center-y="-155.14793"
-       style="display:inline;stroke-width:2.26287103"
+       inkscape:transform-center-x="550.65478"
+       inkscape:transform-center-y="-242.41864"
+       style="display:inline;stroke-width:3.38341165"
        inkscape:label="switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch" />
     <path
-       style="display:inline"
+       style="display:inline;stroke-width:1.953125"
        id="camera.recibidor"
-       d="m 920,962 v -3.5 a 1,1 0 0 0 -1,-1 h -12 a 1,1 0 0 0 -1,1 v 10 a 1,1 0 0 0 1,1 h 12 a 1,1 0 0 0 1,-1 V 965 l 4,4 v -11 z"
+       d="m 926.76562,960.57031 v -6.83594 a 1.953125,1.953125 0 0 0 -1.95312,-1.95312 H 901.375 a 1.953125,1.953125 0 0 0 -1.95313,1.95312 v 19.53125 a 1.953125,1.953125 0 0 0 1.95313,1.95313 h 23.4375 a 1.953125,1.953125 0 0 0 1.95312,-1.95313 v -6.83593 l 7.8125,7.8125 v -21.48438 z"
        inkscape:connector-curvature="0"
        inkscape:label="camera.recibidor" />
     <path
-       style="display:inline"
+       style="display:inline;stroke-width:1.953125"
        id="camera.piscina"
-       d="M 133.5,1173.5 H 130 a 1,1 0 0 0 -1,1 v 12 a 1,1 0 0 0 1,1 h 10 a 1,1 0 0 0 1,-1 v -12 a 1,1 0 0 0 -1,-1 h -3.5 l 4,-4 h -11 z"
+       d="m 134.14062,1160 h -6.83593 a 1.953125,1.953125 0 0 0 -1.95313,1.9531 v 23.4375 a 1.953125,1.953125 0 0 0 1.95313,1.9531 h 19.53125 a 1.953125,1.953125 0 0 0 1.95312,-1.9531 v -23.4375 A 1.953125,1.953125 0 0 0 146.83594,1160 H 140 l 7.8125,-7.8125 h -21.48438 z"
        inkscape:connector-curvature="0"
        inkscape:label="camera.piscina" />
     <path
-       style="display:inline"
+       style="display:inline;stroke-width:2.44140625"
        id="camera.barbacoa"
-       d="m 1650,300 v 3.5 a 1,1 0 0 0 1,1 h 12 a 1,1 0 0 0 1,-1 v -10 a 1,1 0 0 0 -1,-1 h -12 a 1,1 0 0 0 -1,1 v 3.5 l -4,-4 v 11 z"
+       d="m 1628,307.32422 v 8.54492 a 2.4414062,2.4414063 0 0 0 2.4414,2.44141 h 29.2968 a 2.4414062,2.4414063 0 0 0 2.4414,-2.44141 v -24.41407 a 2.4414062,2.4414063 0 0 0 -2.4414,-2.4414 h -29.2968 A 2.4414062,2.4414063 0 0 0 1628,291.45507 V 300 l -9.7656,-9.76563 v 26.85548 z"
        inkscape:connector-curvature="0"
        inkscape:label="camera.barbacoa" />
     <path
-       style="display:inline"
+       style="display:inline;stroke-width:1.953125"
        id="camera.caseta"
-       d="m 90,1277 v -3.5 a 1,1 0 0 0 -1,-1 H 77 a 1,1 0 0 0 -1,1 v 10 a 1,1 0 0 0 1,1 h 12 a 1,1 0 0 0 1,-1 v -3.5 l 4,4 v -11 z"
+       d="m 106,1270 v -6.8358 a 1.953125,1.953125 0 0 0 -1.95312,-1.9532 H 80.609375 a 1.953125,1.953125 0 0 0 -1.953125,1.9532 v 19.5312 a 1.953125,1.953125 0 0 0 1.953125,1.9531 H 104.04688 A 1.953125,1.953125 0 0 0 106,1282.6954 v -6.836 l 7.8125,7.8125 v -21.4844 z"
        inkscape:connector-curvature="0"
        inkscape:label="camera.caseta" />
+    <path
+       id="switch.piscina"
+       d="m 112.5,1050.5 v 27.5 h 7.5 v 22.5 l 17.5,-30 h -10 l 10,-20 z"
+       inkscape:connector-curvature="0"
+       style="stroke-width:2.5"
+       inkscape:label="switch.piscina" />
+    <path
+       id="climate.termostato"
+       d="m 949.66501,1006.8643 -2.84,4.38 2.84,4.42 h -0.02 l -3.98,6.2 -3.46,-1.8 2.84,-4.42 -2.84,-4.4 4,-6.2 3.46,1.82 m 12,-0.22 -2.84,4.42 2.84,4.4 -0.02,0.02 -3.98,6.18 -3.46,-1.8 2.84,-4.4 -2.84,-4.4 4,-6.2 3.46,1.78 m 12.1,0 -2.88,4.42 2.88,4.4 v 0.02 l -4,6.18 -3.5,-1.8 2.84,-4.4 -2.84,-4.4 4,-6.2 3.5,1.78 m -36,38.22 v -16 a 4,4 0 0 1 4,-4 h 32 a 4,4 0 0 1 4,4 v 16 h -4 v -4 h -32 v 4 h -4 m 8,-16 a 2,2 0 0 0 -2,2 v 4 a 2,2 0 0 0 2,2 2,2 0 0 0 2,-2 v -4 a 2,2 0 0 0 -2,-2 m 8,0 a 2,2 0 0 0 -2,2 v 4 a 2,2 0 0 0 2,2 2,2 0 0 0 2,-2 v -4 a 2,2 0 0 0 -2,-2 m 8,0 a 2,2 0 0 0 -2,2 v 4 a 2,2 0 0 0 2,2 2,2 0 0 0 2,-2 v -4 a 2,2 0 0 0 -2,-2 m 8,0 a 2,2 0 0 0 -2,2 v 4 a 2,2 0 0 0 2,2 2,2 0 0 0 2,-2 v -4 a 2,2 0 0 0 -2,-2 z"
+       inkscape:connector-curvature="0"
+       style="stroke-width:2"
+       inkscape:label="climate.termostato" />
   </g>
 </svg>
