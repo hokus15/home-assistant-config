@@ -187,7 +187,7 @@
             - state: 'on'
               class: 'waves_start'
             - state: 'off'
-              class: 'waves_start'
+              class: 'waves_stop'
 
         - name: Room
           entities:

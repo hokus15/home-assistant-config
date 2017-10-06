@@ -1,10 +1,10 @@
 /* Animation */
-@keyframes wave {
+@keyframes waves {
     0% {
-        transform: translate(0, 0);
+        transform: translate(0px, 0px);
     }
     100% {
-        transform: translate(40, 0);
+        transform: translate(40px, 0px);
     }
 }
 
@@ -328,13 +328,10 @@ svg, svg * {
 }
 
 .waves_start {
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-  animation-name: wave;
+    animation: waves 1s infinite linear
 }
 
 .waves_stop {
-  animation-duration: 1s;
-  animation-iteration-count: 0;
-  animation-name: wave;
+  animation-play-state: paused;
+  animation-name: waves;
 }

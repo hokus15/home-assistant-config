@@ -56,15 +56,9 @@
          id="rect8123"
          style="opacity:1;fill:#87CEFA" />
       <path
-         id="wave1"
+         id="sensor.floorplan_switch_piscina"
          d="M -40 6 C -30 6 -30 2 -20 2 C -10 2 -10 6 2 6 C 10 6 10 2 20 2 C 30 2 30 6 40 6"
-         style="opacity:1;fill:none;stroke:#000080;stroke-width:0.5"
-         transform="translate(19.7242 0)" />
-      <path
-         id="wave2"
-         d="M -40 6 C -30 6 -30 2 -20 2 C -10 2 -10 6 2 6 C 10 6 10 2 20 2 C 30 2 30 6 40 6"
-         style="opacity:1;fill:none;stroke:#1aafd0;stroke-width:0.5"
-         transform="translate(0.27581 10)" />
+         style="opacity:1;fill:none;stroke:#000080;stroke-width:1"/>
     </pattern>
     <pattern
        patternUnits="userSpaceOnUse"
@@ -1097,13 +1091,13 @@
          style="opacity:0.98000004;fill:#fff8dc;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
       <rect
          ry="20.500031"
-         id="sensor.floorplan_switch_piscina"
+         id="sensor.floorplan_switch_piscina-2"
          y="449.49997"
          x="199.50002"
          height="400.64734"
          width="230.68196"
          style="fill:url(#SwimmingPool);fill-opacity:1;stroke:#000000;stroke-opacity:1"
-         inkscape:label="sensor.floorplan_switch_piscina" />
+         inkscape:label="sensor.floorplan_switch_piscina-2" />
     </g>
     <g
        style="display:inline"
