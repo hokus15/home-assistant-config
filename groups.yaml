@@ -89,7 +89,7 @@ Familia:
     - sensor.geni_combined
     - sensor.virtual_device
     - input_boolean.empty_home_activation_delay
-    - input_slider.empty_home_activation_delay_minutes
+    - input_number.empty_home_activation_delay_minutes
     - switch.holiday
     - sensor.next_holiday_mode_start
     - sensor.next_holiday_mode_end
@@ -192,7 +192,7 @@ Luces exteriores:
     - light.barrera_derecha
     - light.barrera_izquierda
     - light.puerta_entrada
-    - input_slider.entrada_luz_brillo
+    - input_number.entrada_luz_brillo
 
 Luces interiores:
   entities:

@@ -55,8 +55,8 @@
     - service: notify.telegram
       data_template:
         message: >
-          Activada persona autorizada durante {{ (states.input_slider.empty_home_activation_delay_minutes.state | int) // 60 }} hora(s) y {{ (states.input_slider.empty_home_activation_delay_minutes.state | int) % 60 }} minutos
-    - delay: '{{ (states.input_slider.empty_home_activation_delay_minutes.state | int) // 60 }}:{{ (states.input_slider.empty_home_activation_delay_minutes.state | int) % 60 }}'
+          Activada persona autorizada durante {{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }} hora(s) y {{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }} minutos
+    - delay: '{{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }}:{{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }}'
     - service: homeassistant.turn_off
       data:
         entity_id: input_boolean.empty_home_activation_delay
@@ -94,9 +94,9 @@
           entity_id: 'calendar.turnos_geni_saliente'
           state: 'on'
   action:
-    - service: input_slider.select_value
+    - service: input_number.select_value
       data:
-        entity_id: input_slider.empty_home_activation_delay_minutes
+        entity_id: input_number.empty_home_activation_delay_minutes
         value: 240.0
     - service: homeassistant.turn_on
       data:
@@ -553,13 +553,13 @@
     - service: light.turn_on
       data_template:
         entity_id: group.luces_exteriores
-        brightness: '{{ ((states.input_slider.entrada_luz_brillo.state | int) * 255) // 100 }}'
+        brightness: '{{ ((states.input_number.entrada_luz_brillo.state | int) * 255) // 100 }}'
 
 # Adjust luces exteriores brightness
 - alias: 'Luces exteriores - Adjust Brightness'
   trigger:
     platform: state
-    entity_id: input_slider.entrada_luz_brillo
+    entity_id: input_number.entrada_luz_brillo
   condition:
     condition: state
     entity_id: group.luces_exteriores
@@ -580,7 +580,7 @@
     - service: light.turn_on
       data_template:
         entity_id: group.luces_exteriores
-        brightness: '{{ ((states.input_slider.entrada_luz_brillo.state | int) * 255) // 100 }}'
+        brightness: '{{ ((states.input_number.entrada_luz_brillo.state | int) * 255) // 100 }}'
 
 # Turn off outside lights at night (at 00:15)
 - alias: 'Turn off lights at night'
@@ -651,7 +651,7 @@
     - service: light.turn_on
       data_template:
         entity_id: group.luces_exteriores
-        brightness: '{{ ((states.input_slider.entrada_luz_brillo.state | int) * 255) // 100 }}'
+        brightness: '{{ ((states.input_number.entrada_luz_brillo.state | int) * 255) // 100 }}'
 
 # Turn on hall lamp when the sun is set and someone at home
 - alias: 'Turn on hall lamp when the sun is set and someone at home'

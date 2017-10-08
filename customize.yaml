@@ -304,9 +304,9 @@ switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2:
 ###################################
 # Input sliders
 ###################################
-input_slider.empty_home_activation_delay_minutes:
+input_number.empty_home_activation_delay_minutes:
   icon: mdi:clock-end
-input_slider.entrada_luz_brillo:
+input_number.entrada_luz_brillo:
   icon: mdi:brightness-6
 ###################################
 # Scripts

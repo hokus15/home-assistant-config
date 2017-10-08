@@ -165,11 +165,11 @@
           {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
           {%- set minutes = (((as_timestamp(targetTime) - as_timestamp(now())) | int) / 60) | round | int -%}
           {%- if minutes > 0 -%}
-            input_slider.select_value
+            input_number.select_value
           {%- endif -%}
 
         data_template:
-         entity_id: input_slider.empty_home_activation_delay_minutes
+         entity_id: input_number.empty_home_activation_delay_minutes
          value: >
           {%- set timestamp = strptime(time, '%H:%M:%S')-%}
           {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
