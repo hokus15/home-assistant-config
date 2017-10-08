@@ -210,7 +210,20 @@
 #              class: 'danger-text'
 #            - state: 'on'
 #              class: 'success-text'
-#
+
+        - name: Presence
+          entities:
+            - sensor.jordi_combined
+            - sensor.geni_combined
+            - sensor.virtual_device
+          states:
+            - state: 'En casa'
+              class: 'presence-home'
+            - state: 'Ausente'
+              class: 'presence-not_home'
+            - state: 'En ruta'
+              class: 'presence-driving'
+
         - name: Security
           entities:
              - group.seguridad

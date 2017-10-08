@@ -88,13 +88,13 @@
      inkscape:window-height="961"
      id="namedview326385"
      showgrid="true"
-     inkscape:zoom="1.4142137"
-     inkscape:cx="1089.4506"
-     inkscape:cy="400.15327"
+     inkscape:zoom="1.0000001"
+     inkscape:cx="1412.9222"
+     inkscape:cy="614.97595"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer6">
+     inkscape:current-layer="g5128">
     <inkscape:grid
        type="xygrid"
        id="grid12055" />
@@ -208,8 +208,9 @@
     <path
        style="fill:#c2b078;fill-opacity:1;stroke:#c2b078;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 1433.9001,669.53223 -0.09,23.79889 H 1362.53 l 0.095,68.13765 17.725,0.17235 -4e-4,107.19 -17.8432,0.16888 0.024,97.9762 -250.0204,-6e-5 V 1193.1012 H 523.50508 l -10e-6,177.255 790.79513,-12.0322 0.1698,-1.0628 h 26.73 v 26.19 h 220.185 v -53.595 l 16.3002,0.1178 57.3183,-660.43829 z"
-       id="path6779"
-       inkscape:connector-curvature="0" />
+       id="path1234"
+       inkscape:connector-curvature="0"
+       inkscape:label="path1234" />
     <path
        style="display:inline;fill:#8b4513;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 148.5752,193.16408 146,226 1420.165,232 1420,200 Z"
@@ -3673,10 +3674,76 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle">x</tspan></text>
     <path
        id="group.seguridad"
-       d="m 1496,808 h 8 v 12 h 12 v -20 h 8 l -24,-20 -24,20 h 8 v 20 h 12 v -12 m 4,-48 36,16 v 24 c 0,22.2 -15.36,42.96 -36,48 -20.64,-5.04 -36,-25.8 -36,-48 v -24 z"
+       d="m 1496,726 h 8 v 12 h 12 v -20 h 8 l -24,-20 -24,20 h 8 v 20 h 12 v -12 m 4,-48 36,16 v 24 c 0,22.2 -15.36,42.96 -36,48 -20.64,-5.04 -36,-25.8 -36,-48 v -24 z"
        inkscape:connector-curvature="0"
        style="display:inline;stroke-width:4"
        inkscape:label="group.seguridad" />
+    <g
+       id="g5123"
+       transform="translate(0,-82)">
+      <circle
+         inkscape:label="sensor.geni_combined"
+         r="43.456791"
+         cy="906.5"
+         cx="1445.5"
+         id="sensor.geni_combined"
+         style="display:inline;opacity:0.98000004;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+      <text
+         id="text5089"
+         y="929"
+         x="1419"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
+           y="929"
+           x="1419"
+           id="tspan5087"
+           sodipodi:role="line">G</tspan></text>
+    </g>
+    <g
+       id="g5128"
+       transform="translate(0,-82)">
+      <circle
+         inkscape:label="sensor.jordi_combined"
+         r="43.456791"
+         cy="906.5"
+         cx="1548.5"
+         id="sensor.jordi_combined"
+         style="display:inline;opacity:0.98000004;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+      <text
+         id="text5093"
+         y="929"
+         x="1531"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
+           y="929"
+           x="1531"
+           id="tspan5091"
+           sodipodi:role="line">J</tspan></text>
+    </g>
+    <g
+       id="g5133"
+       transform="translate(0,-82)">
+      <circle
+         inkscape:label="sensor.virtual_device"
+         r="43.456791"
+         cy="1007.5"
+         cx="1445.5"
+         id="sensor.virtual_device"
+         style="display:inline;opacity:0.98000004;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+      <text
+         id="text5089-9"
+         y="1032.4"
+         x="1421.9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
+           y="1032.4"
+           x="1421.9"
+           id="tspan5087-3"
+           sodipodi:role="line">V</tspan></text>
+    </g>
   </g>
   <g
      inkscape:groupmode="layer"

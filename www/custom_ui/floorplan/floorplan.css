@@ -156,6 +156,19 @@ svg, svg * {
   fill: #990000 !important;
 }
 
+/* */
+.presence-home {
+  fill: #009900 !important;
+}
+
+.presence-not_home {
+  fill: #990000 !important;
+}
+
+.presence-driving {
+  fill: #999900 !important;
+}
+
 /* Camera */
 
 .camera-idle {
