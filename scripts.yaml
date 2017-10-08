@@ -79,7 +79,7 @@ someone_home:
 set_virtual_device_home:
   alias: 'Set virtual device at home for 180 minutes'
   sequence:
-    - service: input_number.select_value
+    - service: input_number.set_value
       data:
         entity_id: input_number.empty_home_activation_delay_minutes
         value: 180.0

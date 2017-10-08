@@ -94,7 +94,7 @@
           entity_id: 'calendar.turnos_geni_saliente'
           state: 'on'
   action:
-    - service: input_number.select_value
+    - service: input_number.set_value
       data:
         entity_id: input_number.empty_home_activation_delay_minutes
         value: 240.0

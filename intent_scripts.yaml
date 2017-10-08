@@ -165,7 +165,7 @@
           {%- set targetTime = now().replace(hour=timestamp.hour).replace(minute=timestamp.minute).replace(second=timestamp.second)-%}
           {%- set minutes = (((as_timestamp(targetTime) - as_timestamp(now())) | int) / 60) | round | int -%}
           {%- if minutes > 0 -%}
-            input_number.select_value
+            input_number.set_value
           {%- endif -%}
 
         data_template:
