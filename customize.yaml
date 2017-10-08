@@ -296,10 +296,10 @@ switch.swiid_swiidinter_lampara_recibidor_switch:
   icon: mdi:lamp
 switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch:
   friendly_name: 'Luz escalera'
-  icon: mdi:lamp
+  icon: mdi:ceiling-light
 switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2:
   friendly_name: 'Luz suite'
-  icon: mdi:lamp
+  icon: mdi:ceiling-light
 
 ###################################
 # Input sliders
