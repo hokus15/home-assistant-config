@@ -831,10 +831,10 @@
 
 - platform: qnap
   host: !secret qnap_host
-  port: 8443
+  port: 8080
   username: !secret qnap_username
   password: !secret qnap_password
-  ssl: true
+  ssl: false
   verify_ssl: false
   timeout: 60
   monitored_conditions:
