@@ -59,6 +59,7 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 * Turn on swimming pool pump every day at 7AM
 * Turn on swimming pool pump every day at 8PM
 * Stop the swimming pool pump depending on the season of the year (3 hours in summer, 2 hours in spring and autumn, 1 hour in winter).
+**Note that the following configuration is not used any more. Since version 0.53 a season sensor was released. I leave it here only for information purpose.**
 I've created a sensor to determine roughly the season of the year:
 ```
 - platform: template
