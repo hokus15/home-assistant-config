@@ -24,6 +24,8 @@ http:
   #server_port: 8123
   #development: 1
 
+map:
+
   # Enables the frontend
 frontend:
 
