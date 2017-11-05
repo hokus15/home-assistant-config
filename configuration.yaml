@@ -217,7 +217,7 @@ logger:
     homeassistant.components.websocket_api: warn
     homeassistant.components.switch.command_line: warn
     homeassistant.components.sensor.command_line: warn
-#    homeassistant.components.apiai: debug
+#    homeassistant.components.dialogflow: debug
 #    homeassistant.helpers.intent: debug
 #    homeassistant.components.intent_script: debug
 #    homeassistant.helpers.script: debug
@@ -274,7 +274,7 @@ tts:
     time_memory: 300
     language: 'es'
 
-apiai:
+dialogflow:
 
 shell_command: !include shell_command.yaml
 device_tracker: !include device_tracker.yaml
