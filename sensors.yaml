@@ -985,3 +985,7 @@
       entity_id:
         - binary_sensor.suite_termometro_co2_descendiendo
         - binary_sensor.suite_termometro_co2_aumentando
+
+#- platform: coinmarketcap
+#  currency: ethereum
+#  display_currency: EUR

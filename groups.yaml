@@ -65,7 +65,7 @@ Varios:
     - group.toyota
     - group.internet
     - group.estado_ha
-    - group.bitcoin
+    - group.crypto_currency
     - group.impresora
     - group.nas
     - group.sai
@@ -291,7 +291,7 @@ Internet:
     - sensor.speedtest_upload
     - sensor.caducidad_certificado_ssl
 
-Bitcoin:
+Crypto Currency:
   entities:
     - sensor.exchange_rate_1_btc
 
