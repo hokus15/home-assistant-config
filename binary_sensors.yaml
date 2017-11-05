@@ -95,3 +95,43 @@
 - platform: workday
   country: ES
   province: IBA
+
+# Trend sensors
+- platform: trend
+  sensors:
+    exterior_termometro_temperatura_descendiendo:
+      entity_id: sensor.netatmo_exterior_temperature
+      invert: true
+    exterior_termometro_temperatura_aumentando:
+      entity_id: sensor.netatmo_exterior_temperature
+      
+    salon_termometro_temperatura_descendiendo:
+      entity_id: sensor.salon_termometro_temperatura
+      invert: true
+    salon_termometro_temperatura_aumentando:
+      entity_id: sensor.salon_termometro_temperatura
+
+    recibidor_termometro_temperatura_descendiendo:
+      entity_id: sensor.recibidor_termometro_temperatura
+      invert: true
+    recibidor_termometro_temperatura_aumentando:
+      entity_id: sensor.recibidor_termometro_temperatura
+      
+    suite_termometro_temperatura_descendiendo:
+      entity_id: sensor.suite_termometro_temperatura
+      invert: true
+    suite_termometro_temperatura_aumentando:
+      entity_id: sensor.suite_termometro_temperatura
+
+    salon_termometro_co2_descendiendo:
+      entity_id: sensor.salon_termometro_co2
+      invert: true
+    salon_termometro_co2_aumentando:
+      entity_id: sensor.salon_termometro_co2
+
+    suite_termometro_co2_descendiendo:
+      entity_id: sensor.suite_termometro_co2
+      invert: true
+    suite_termometro_co2_aumentando:
+      entity_id: sensor.suite_termometro_co2
+
