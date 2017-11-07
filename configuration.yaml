@@ -79,6 +79,8 @@ recorder:
       - group
       - calendar
       - zwave
+      - updater
+      - camera
     entities:
       - sensor.since_last_boot
       - sensor.last_boot
@@ -88,9 +90,37 @@ recorder:
       - sensor.next_holiday_mode_end
       - sensor.nut_ups_manufacturer
       - sensor.nut_ups_model
+      - sensor.nut_ups_status_data
+      - sensor.nut_ups_battery_runtime
+      - sensor.nut_ups_battery_charge
       - sun.sun
+      - sensor.season
+      - sensor.estacion
       - sensor.sunrise
       - sensor.sunset
+      - sensor.pws_weather_1d_metric
+      - sensor.pws_alerts
+      - sensor.netatmo_anemometro_gust_angle
+      - sensor.netatmo_anemometro_angle
+      - sensor.hokusnasserver_uptime
+      - sensor.hokusnasserver_uptime
+      - sensor.check_switch_holiday
+      - sensor.next_holiday_mode_end
+      - sensor.next_holiday_mode_start
+      - sensor.next_shift_date
+      - sensor.next_shift_event
+      - sensor.floorplan_cocina_sensor_persiana_derecha
+      - sensor.floorplan_cocina_sensor_persiana_izquierda
+      - sensor.floorplan_cocina_sensor_puerta_derecha
+      - sensor.floorplan_cocina_sensor_puerta_izquierda
+      - sensor.floorplan_lampara_recibidor
+      - sensor.floorplan_luz_escalera
+      - sensor.floorplan_luz_escalera_1
+      - sensor.floorplan_luz_exterior_barrera_derecha
+      - sensor.floorplan_luz_exterior_barrera_izquierda
+      - sensor.floorplan_luz_exterior_puerta_entrada
+      - sensor.floorplan_luz_suite
+      - sensor.floorplan_switch_piscina
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_access_control
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_alarm_level
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_alarm_type
@@ -110,20 +140,14 @@ recorder:
       - sensor.fibaro_fgms001_motion_sensor_salon_alarm_type
       - sensor.fibaro_fgms001_motion_sensor_salon_burglar
       - sensor.fibaro_fgms001_motion_sensor_salon_general
-      - sensor.fibaro_fgms001_motion_sensor_salon_luminance
       - sensor.fibaro_fgms001_motion_sensor_salon_seismic_intensity
       - sensor.fibaro_fgms001_motion_sensor_salon_sourcenodeid
-      - sensor.fibaro_fgms001_motion_sensor_salon_temperature
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_alarm_level
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_alarm_type
-      - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_energy
-      - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_energy_2
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_exporting
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_exporting_2
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_heat
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_interval
-      - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_power
-      - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_power_2
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_power_management
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_previous_reading
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_sourcenodeid
@@ -194,12 +218,33 @@ recorder:
       - device_tracker.d47bb0af2168
       - device_tracker.dc415fda59c2
       - device_tracker.f81654845f30
+      - device_tracker.e0b52dc9f7e4
+      - device_tracker.ac83f303a892
+      - device_tracker.54724f769044
       - device_tracker.flex_2
-      - device_tracker.hokusphone_mqtt
       - device_tracker.geni_nmap
       - device_tracker.toyota
-      - group.toyota
-      - camera.toyota
+      - device_tracker.hp_photosmart_5520
+      - device_tracker.hokusphone_toyota_ibeacon
+      - device_tracker.hokusphone_home_wifi
+      - device_tracker.hokusphone_home_nmap
+      - device_tracker.hokusphone_home_ibeacon
+      - device_tracker.geniphone_home_ibeacon
+      - device_tracker.geniphone_home_nmap
+      - device_tracker.geniphone_home_wifi
+      - binary_sensor.exterior_termometro_temperatura_descendiendo
+      - binary_sensor.exterior_termometro_temperatura_aumentando
+      - binary_sensor.salon_termometro_temperatura_descendiendo
+      - binary_sensor.salon_termometro_temperatura_aumentando
+      - binary_sensor.recibidor_termometro_temperatura_descendiendo
+      - binary_sensor.recibidor_termometro_temperatura_aumentando
+      - binary_sensor.suite_termometro_temperatura_descendiendo
+      - binary_sensor.suite_termometro_temperatura_aumentando
+      - binary_sensor.salon_termometro_co2_descendiendo
+      - binary_sensor.salon_termometro_co2_aumentando
+      - binary_sensor.suite_termometro_co2_descendiendo
+      - binary_sensor.suite_termometro_co2_aumentando
+      - binary_sensor.workday_sensor
 
 mqtt:
   broker: !secret mqtt_broker
