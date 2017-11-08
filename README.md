@@ -19,8 +19,8 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 
 ## Devices I have:
 * WeMo Link (to control outside bulbs)
-* WeMo Insight (to control Christmas tree lights)
-* WeMo Switch (to control swimming pool pump)
+* WeMo Insight (to control swimming pool pump)
+* WeMo Switch (to control night light)
 * WeMo Maker (to control outside fence)
 * Foscam C1 camera
 * Foscam Fi9853EP camera
