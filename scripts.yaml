@@ -141,9 +141,9 @@ goto_sleep:
           Buenas noches
     # Wait until tts finishes
 #    - delay: '00:00:{{ states.media_player.homeassistant.attributes.media_duration | int }}'
-    # Wait 1 minute before turning stair lights off
+    # Wait 2 minutes before turning stair lights off
     - delay:
-        minutes: 1
+        minutes: 2
     # Turn stairs lights off
     - service: switch.turn_off
       data:
