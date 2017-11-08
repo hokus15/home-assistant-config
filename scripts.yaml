@@ -90,6 +90,10 @@ set_virtual_device_home:
 leave_home:
   alias: 'Leave home'
   sequence:
+    - service: media_player.volume_set
+      entity_id: media_player.homeassistant
+      data:
+        volume_level: 0.75
     - service: tts.google_say
       entity_id: media_player.homeassistant
       data_template:
@@ -130,7 +134,11 @@ goto_sleep:
     - service: switch.turn_off
       data:
         entity_id: switch.swiid_swiidinter_lampara_recibidor_switch
-    # Speech the found incidences and say good night.
+    - service: media_player.volume_set
+      entity_id: media_player.homeassistant
+      data:
+        volume_level: 0.75
+      # Speech the found incidences and say good night.
     - service: tts.google_say
       entity_id: media_player.homeassistant
       data_template:
@@ -152,6 +160,10 @@ goto_sleep:
 parte_meteorologico:
   alias: 'Parte meteorológico'
   sequence:
+    - service: media_player.volume_set
+      entity_id: media_player.homeassistant
+      data:
+        volume_level: 0.75
     - service: tts.google_say
       entity_id: media_player.homeassistant
       data_template:
@@ -167,13 +179,13 @@ parte_meteorologico:
           {%- if states("sensor.exterior_pluviometro_lluvia_24") == "0" %} No ha llovido durante las últimas 24 horas.{% else %} La precipitación de las últimas 24 horas ha sido de {{ states("sensor.exterior_pluviometro_lluvia_24") | replace("."," con ") }} {{states.sensor["exterior_pluviometro_lluvia_24"].attributes.unit_of_measurement }}.{% endif %}
         cache: false
 
-refresh_location:
-  alias: 'Refresh location'
-  sequence:
-    - service: mqtt.publish
-      data:
-        topic: 'owntracks/hokusphone/hokusphone/cmd'
-        payload_template: '{"_type":"cmd","action":"reportLocation"}'
+#refresh_location:
+#  alias: 'Refresh location'
+#  sequence:
+#    - service: mqtt.publish
+#      data:
+#        topic: 'owntracks/hokusphone/hokusphone/cmd'
+#        payload_template: '{"_type":"cmd","action":"reportLocation"}'
 
 notify_motion_detection:
   alias: 'Notifies motion detection'
