@@ -103,9 +103,9 @@
           Desconocido
         {%- endif %}
 
-# Know if the Wemo Maker sensor has been triggered (on: garage door opened, off: garage door closed)
 - platform: template
   sensors:
+    # Know if the Wemo Maker sensor has been triggered (on: garage door opened, off: garage door closed)
     switch_barrera:
       friendly_name: 'Estado'
       value_template: >-
@@ -116,6 +116,18 @@
           {%- endif %}
       entity_id:
         - switch.barrera
+    switch_piscina_current_power_w:
+      value_template: '{{ states.switch.piscina.attributes.current_power_w }}'
+      unit_of_measurement: 'W'
+      friendly_name: 'Consumo actual'
+      entity_id: 
+        - switch.piscina
+    switch_piscina_today_energy_kwh:
+      value_template: '{{ states.switch.piscina.attributes.today_energy_kwh }}'
+      unit_of_measurement: 'Kwh'
+      friendly_name: 'Consumo hoy'
+      entity_id: 
+        - switch.piscina
 
 - platform: template
   sensors:

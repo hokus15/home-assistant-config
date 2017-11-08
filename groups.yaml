@@ -215,6 +215,8 @@ Piscina:
   entities:
     - switch.piscina
     - sensor.piscina_on_history
+    - sensor.switch_piscina_current_power_w
+    - sensor.switch_piscina_today_energy_kwh
     - camera.piscina
 
 Cámara recibidor:

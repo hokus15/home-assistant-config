@@ -213,6 +213,10 @@ sensor.next_shift_date:
   icon: mdi:calendar
 sensor.piscina_on_history:
   friendly_name: 'Uso bomba hoy'
+sensor.switch_piscina_current_power_w:
+  icon: mdi:speedometer
+sensor.switch_piscina_today_energy_kwh:
+  icon: mdi:calendar-today
 sensor.caducidad_certificado_ssl:
   unit_of_measurement: días
 sensor.salon_detector_movimiento:
