@@ -98,12 +98,13 @@ recorder:
       - sensor.estacion
       - sensor.sunrise
       - sensor.sunset
+      - sensor.pws_weather
       - sensor.pws_weather_1d_metric
       - sensor.pws_alerts
       - sensor.netatmo_anemometro_gust_angle
       - sensor.netatmo_anemometro_angle
       - sensor.hokusnasserver_uptime
-      - sensor.hokusnasserver_uptime
+      - sensor.hokusnasserver_uptime_timeticks
       - sensor.check_switch_holiday
       - sensor.next_holiday_mode_end
       - sensor.next_holiday_mode_start
@@ -225,13 +226,16 @@ recorder:
       - device_tracker.geni_nmap
       - device_tracker.toyota
       - device_tracker.hp_photosmart_5520
+      - device_tracker.jordi_combined
       - device_tracker.hokusphone_toyota_ibeacon
       - device_tracker.hokusphone_home_wifi
       - device_tracker.hokusphone_home_nmap
       - device_tracker.hokusphone_home_ibeacon
+      - device_tracker.geni_combined
       - device_tracker.geniphone_home_ibeacon
       - device_tracker.geniphone_home_nmap
       - device_tracker.geniphone_home_wifi
+      - device_tracker.virtual_device
       - binary_sensor.exterior_termometro_temperatura_descendiendo
       - binary_sensor.exterior_termometro_temperatura_aumentando
       - binary_sensor.salon_termometro_temperatura_descendiendo
@@ -245,6 +249,7 @@ recorder:
       - binary_sensor.suite_termometro_co2_descendiendo
       - binary_sensor.suite_termometro_co2_aumentando
       - binary_sensor.workday_sensor
+      - input_number.empty_home_activation_delay_minutes
 
 mqtt:
   broker: !secret mqtt_broker
