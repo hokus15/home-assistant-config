@@ -113,8 +113,10 @@
 # Set Geni to the WiFi name
 - alias: 'Geni location'
   trigger:
-    platform: state
-    entity_id: device_tracker.geniphone_nmap, device_tracker.geniphone_wifi, device_tracker.geniphone_ibeacon
+    - platform: state
+      entity_id: device_tracker.geniphone_nmap, device_tracker.geniphone_wifi, device_tracker.geniphone_ibeacon
+    - platform: homeassistant
+      event: start
   action:
     - service: device_tracker.see
       data_template:
@@ -145,8 +147,10 @@
 # Set Jordi to the WiFi name
 - alias: 'Jordi location'
   trigger:
-    platform: state
-    entity_id: device_tracker.hokusphone_nmap, device_tracker.hokusphone_wifi, device_tracker.hokusphone_ibeacon
+    - platform: state
+      entity_id: device_tracker.hokusphone_nmap, device_tracker.hokusphone_wifi, device_tracker.hokusphone_ibeacon
+    - platform: homeassistant
+      event: start
   action:
     - service: device_tracker.see
       data_template:
