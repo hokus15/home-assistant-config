@@ -227,9 +227,9 @@ recorder:
       - device_tracker.toyota
       - device_tracker.hp_photosmart_5520
       - device_tracker.jordi_combined
-      - device_tracker.hokusphone_nmap
-      - device_tracker.hokusphone_wifi
-      - device_tracker.hokusphone_ibeacon
+#      - device_tracker.hokusphone_nmap
+#      - device_tracker.hokusphone_wifi
+#      - device_tracker.hokusphone_ibeacon
       - device_tracker.geni_combined
       - device_tracker.geniphone_nmap
       - device_tracker.geniphone_wifi
