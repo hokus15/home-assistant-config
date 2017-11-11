@@ -227,14 +227,13 @@ recorder:
       - device_tracker.toyota
       - device_tracker.hp_photosmart_5520
       - device_tracker.jordi_combined
-      - device_tracker.hokusphone_toyota_ibeacon
-      - device_tracker.hokusphone_home_wifi
-      - device_tracker.hokusphone_home_nmap
-      - device_tracker.hokusphone_home_ibeacon
+      - device_tracker.hokusphone_nmap
+      - device_tracker.hokusphone_wifi
+      - device_tracker.hokusphone_ibeacon
       - device_tracker.geni_combined
-      - device_tracker.geniphone_home_ibeacon
-      - device_tracker.geniphone_home_nmap
-      - device_tracker.geniphone_home_wifi
+      - device_tracker.geniphone_nmap
+      - device_tracker.geniphone_wifi
+      - device_tracker.geniphone_ibeacon
       - device_tracker.virtual_device
       - binary_sensor.exterior_termometro_temperatura_descendiendo
       - binary_sensor.exterior_termometro_temperatura_aumentando

@@ -102,126 +102,73 @@
       data:
         entity_id: input_boolean.empty_home_activation_delay
 
-# Set Jordi as driving when the event "enter" is published to mqtt.
-# Delay is needed to avoid re-set the status to "home" when I enter the car at home.
-- alias: 'Jordi driving status'
-  trigger:
-    platform: mqtt
-    topic: location/hokusphone/toyota/ibeacon
-    payload: 'enter'
-  action:
-    - delay:
-        seconds: 1
-    - service: device_tracker.see
-      data:
-        dev_id: 'jordi_combined'
-        location_name: 'En ruta'
+#############################################################
+# Presence automations - Geni
+#############################################################
 
-# Restore Jordi state when the event "leave" is published to location/hokusphone/toyota/ibeacon mqtt topic.
-# This happens when my phone is in the car and I leave the car or the car is turned off.
-- alias: 'Jordi restore status'
+# When some related entities (device_tracker.geniphone_nmap, device_tracker.geniphone_wifi, device_tracker.geniphone_ibeacon) changes its state:
+# Set Geni to 'En ruta' is ibeacon is not 'home' and don't have the 'not_detected' value.
+# Set Geni to 'home' when at least ONE of related entities are set to 'home'
+# Set Geni to 'not_home' when ALL related entities are in a state different from home and not driving
+# Set Geni to the WiFi name
+- alias: 'Geni location'
   trigger:
-    platform: mqtt
-    topic: location/hokusphone/toyota/ibeacon
-    payload: 'leave'
+    platform: state
+    entity_id: device_tracker.geniphone_nmap, device_tracker.geniphone_wifi, device_tracker.geniphone_ibeacon
   action:
     - service: device_tracker.see
       data_template:
-        dev_id: 'jordi_combined'
-        location_name: '{{ states.device_tracker.toyota.state }}'
+        dev_id: 'geni_combined'
+        location_name: >
+          {%- if not(is_state('device_tracker.geniphone_ibeacon', 'home')) and not(is_state('device_tracker.geniphone_ibeacon', 'not_detected'))-%}
+            {{ states.device_tracker.geniphone_ibeacon.state }}
+          {%- else -%}
+            {%- if is_state('device_tracker.geniphone_nmap', 'home') or is_state('device_tracker.geniphone_wifi', 'home') or is_state('device_tracker.geniphone_ibeacon', 'home')-%}
+              home
+            {%- else -%}
+              {%- if is_state('device_tracker.geniphone_nmap', 'not_home') and is_state('device_tracker.geniphone_wifi', 'not_connected') and is_state('device_tracker.geniphone_ibeacon', 'not_detected')-%}
+                not_home
+              {%- else -%}
+                {{ states.device_tracker.geniphone_wifi.state }}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endif -%}
 
-# Set Jordi to 'home' when at least ONE of related entities are set to home
-- alias: 'Jordi home'
-  trigger:
-    platform: state
-    entity_id: device_tracker.hokusphone_home_nmap, device_tracker.hokusphone_home_wifi, device_tracker.hokusphone_home_ibeacon
-    to: 'home'
-  condition:
-    condition: or
-    conditions:
-      - condition: state
-        entity_id: 'device_tracker.hokusphone_home_nmap'
-        state: 'home'
-      - condition: state
-        entity_id: 'device_tracker.hokusphone_home_wifi'
-        state: 'home'
-      - condition: state
-        entity_id: 'device_tracker.hokusphone_home_ibeacon'
-        state: 'home'
-  action:
-    - service: device_tracker.see
-      data:
-        dev_id: 'jordi_combined'
-        location_name: 'home'
+#############################################################
+# Presence automations - Jordi
+#############################################################
 
+# When some related entities (device_tracker.hokusphone_nmap, device_tracker.hokusphone_wifi, device_tracker.hokusphone_ibeacon) changes its state:
+# Set Jordi to 'En ruta' is ibeacon is not 'home' and don't have the 'not_detected' value.
+# Set Jordi to 'home' when at least ONE of related entities are set to 'home'
 # Set Jordi to 'not_home' when ALL related entities are in a state different from home and not driving
-- alias: 'Jordi not home'
+# Set Jordi to the WiFi name
+- alias: 'Jordi location'
   trigger:
     platform: state
-    entity_id: device_tracker.hokusphone_home_nmap, device_tracker.hokusphone_home_wifi, device_tracker.hokusphone_home_ibeacon
-  condition:
-    condition: and
-    conditions:
-      - condition: template
-        value_template: "{{ not(is_state('device_tracker.hokusphone_home_nmap', 'home')) }}"
-      - condition: template
-        value_template: "{{ not(is_state('device_tracker.hokusphone_home_wifi', 'home')) }}"
-      - condition: template
-        value_template: "{{ not(is_state('device_tracker.hokusphone_home_ibeacon', 'home')) }}"
-      - condition: template
-        value_template: "{{ not(is_state('device_tracker.jordi_combined', 'En ruta')) }}"
+    entity_id: device_tracker.hokusphone_nmap, device_tracker.hokusphone_wifi, device_tracker.hokusphone_ibeacon
   action:
     - service: device_tracker.see
       data_template:
         dev_id: 'jordi_combined'
-        location_name: 'not_home'
+        location_name: >
+          {%- if not(is_state('device_tracker.hokusphone_ibeacon', 'home')) and not(is_state('device_tracker.hokusphone_ibeacon', 'not_detected'))-%}
+            {{ states.device_tracker.hokusphone_ibeacon.state }}
+          {%- else -%}
+            {%- if is_state('device_tracker.hokusphone_nmap', 'home') or is_state('device_tracker.hokusphone_wifi', 'home') or is_state('device_tracker.hokusphone_ibeacon', 'home')-%}
+              home
+            {%- else -%}
+              {%- if is_state('device_tracker.hokusphone_nmap', 'not_home') and is_state('device_tracker.hokusphone_wifi', 'not_connected') and is_state('device_tracker.hokusphone_ibeacon', 'not_detected')-%}
+                not_home
+              {%- else -%}
+                {{ states.device_tracker.hokusphone_wifi.state }}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endif -%}
 
-# Set Geni to 'home' when at least ONE of related entities are set to home
-- alias: 'Geni home'
-  trigger:
-    platform: state
-    entity_id: device_tracker.geniphone_home_nmap, device_tracker.geniphone_home_ibeacon
-    to: 'home'
-  condition:
-    condition: or
-    conditions:
-      - condition: state
-        entity_id: 'device_tracker.geniphone_home_nmap'
-        state: 'home'
-      - condition: state
-        entity_id: 'device_tracker.geniphone_home_wifi'
-        state: 'home'
-      - condition: state
-        entity_id: 'device_tracker.geniphone_home_ibeacon'
-        state: 'home'
-  action:
-    - service: device_tracker.see
-      data:
-        dev_id: 'geni_combined'
-        location_name: 'home'
-
-# Set Geni to 'not_home' when ALL related entities are in a state different from home
-- alias: 'Geni not home'
-  trigger:
-    platform: state
-    entity_id: device_tracker.geniphone_home_nmap, device_tracker.geniphone_home_ibeacon
-  condition:
-    condition: and
-    conditions:
-      - condition: template
-        value_template: "{{ not(is_state('device_tracker.geniphone_home_nmap', 'home')) }}"
-      - condition: template
-        value_template: "{{ not(is_state('device_tracker.geniphone_home_wifi', 'home')) }}"
-      - condition: template
-        value_template: "{{ not(is_state('device_tracker.geniphone_home_ibeacon', 'home')) }}"
-  action:
-    - service: device_tracker.see
-      data_template:
-        dev_id: 'geni_combined'
-        location_name: 'not_home'
-
-# Open fence when Toyota enter home zone and Jordi is 'En Ruta'
-- alias: 'Open fence'
+# If fence is closed, Toyota enter 'home' zone and Jordi is 'En Ruta'
+# Open fence, notify it, send a meessage to mqtt topic, and set Jordi as 'home'
+- alias: 'Jordi arriving home'
   trigger:
      - platform: zone
        entity_id: device_tracker.toyota
@@ -261,25 +208,10 @@
         dev_id: 'jordi_combined'
         location_name: 'home'
 
-# Close fence if open when close-fence HTML5 push notification action button clicked
-- alias: 'close-fence HTML5 push notification action button clicked'
-  trigger:
-    platform: event
-    event_type: html5_notification.clicked
-    event_data:
-     action: close-fence
-  condition:
-    - condition: state
-      entity_id: sensor.switch_barrera
-      state: 'Abierta'
-  action:
-    - service: switch.turn_on
-      entity_id: switch.barrera
-     
 # When Jordi leave home zone and in the car:
-#   - Set Jordi away
+#   - Set hokusphone nmap 'not_home'
 #   - If nobody at home, close the fence if open, and notify if porch door or blind is open.
-- alias: 'Jordi leave home with car'
+- alias: 'Jordi leaving home with car'
   trigger:
      - platform: zone
        entity_id: device_tracker.toyota
@@ -292,7 +224,7 @@
   action:
     - service: device_tracker.see
       data:
-        dev_id: 'jordi_combined'
+        dev_id: 'hokusphone_nmap'
         location_name: 'not_home'
     - service: mqtt.publish
       data:
@@ -310,18 +242,20 @@
       data:
         entity_id: switch.barrera
 
-#- alias: 'Refresh location when fence is Open and Jordi is not at home'
-#  trigger:
-#    platform: state
-#    entity_id: sensor.switch_barrera
-#    to: 'Abierta'
-#  condition:
-#    condition: template
-#    value_template: "{{ not(is_state('device_tracker.jordi_combined', 'home')) }}"
-#  action:
-#    - service: script.turn_on
-#      data:
-#        entity_id: script.refresh_location
+# Close fence if open when close-fence HTML5 push notification action button clicked
+- alias: 'close-fence HTML5 push notification action button clicked'
+  trigger:
+    platform: event
+    event_type: html5_notification.clicked
+    event_data:
+     action: close-fence
+  condition:
+    - condition: state
+      entity_id: sensor.switch_barrera
+      state: 'Abierta'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.barrera
 
 #############################################################
 # Heating automations
