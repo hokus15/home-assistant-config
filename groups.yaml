@@ -101,7 +101,7 @@ Toyota:
     - sensor.toyota
     - sensor.toyota_batt
     - sensor.toyota_gps_accuracy
-#    - sensor.toyota_last_update
+    - sensor.toyota_last_update
     - camera.toyota
 
 Energía:
