@@ -79,6 +79,22 @@
   name: toyota_last_update
   value_template: '{{ value_json.last_update|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
 
+- platform: mqtt
+  state_topic: 'location/car/toyota'
+  name: toyota_previous_latitude
+  value_template: '{{ value_json.platitude }}'
+
+- platform: mqtt
+  state_topic: 'location/car/toyota'
+  name: toyota_previous_longitude
+  value_template: '{{ value_json.plongitude }}'
+
+- platform: template
+  sensors:
+    toyota_distance_travelled_between_updates:
+      unit_of_measurement: 'm'
+      value_template: '{% if states.device_tracker.toyota.attributes.latitude %} {{ distance(states("sensor.toyota_previous_latitude"), states("sensor.toyota_previous_longitude"), states.device_tracker.toyota.attributes.latitude, states.device_tracker.toyota.attributes.longitude) | round (2) }} {% else %} -1 {% endif %}'
+
 - platform: template
   sensors:
     ups_status:

@@ -213,6 +213,8 @@ recorder:
       - sensor.check_switch_barrera
       - sensor.check_sensor_cocina_sensor_persiana
       - sensor.check_sensor_cocina_sensor_puerta
+      - sensor.toyota_previous_latitude
+      - sensor.toyota_previous_longitude
       - device_tracker.ac63be0b8591
       - device_tracker.48e9f1ef7911
       - device_tracker.d013fd1259af
