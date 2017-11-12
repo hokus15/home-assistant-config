@@ -127,13 +127,13 @@
       entity_id:
         - switch.barrera
     switch_piscina_current_power_w:
-      value_template: '{{ states.switch.piscina.attributes.current_power_w }}'
+      value_template: '{% if states.switch.piscina %}{{ states.switch.piscina.attributes.current_power_w }}{% else %}Desconocido{% endif %}'
       unit_of_measurement: 'W'
       friendly_name: 'Consumo actual'
       entity_id: 
         - switch.piscina
     switch_piscina_today_energy_kwh:
-      value_template: '{{ states.switch.piscina.attributes.today_energy_kwh }}'
+      value_template: '{% if states.switch.piscina %}{{ states.switch.piscina.attributes.today_energy_kwh }}{% else %}Desconocido{% endif %}'
       unit_of_measurement: 'Kwh'
       friendly_name: 'Consumo hoy'
       entity_id: 
@@ -156,7 +156,7 @@
       icon_template: '{% if is_state("sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_access_control", "23") %}mdi:checkbox-blank-outline{% else %}mdi:arrow-right-bold-box-outline{% endif %}'
     # Fibaro FGK10x door sensor battery level - kitchen door
     cocina_sensor_puerta_bateria:
-      value_template: '{{ states.zwave.fibaro_fgk10x_door_opening_sensor_puerta_porche.attributes.battery_level }}'
+      value_template: '{% if states.zwave.fibaro_fgk10x_door_opening_sensor_puerta_porche %}{{ states.zwave.fibaro_fgk10x_door_opening_sensor_puerta_porche.attributes.battery_level }}{% else %}Desconocido{% endif %}'
       unit_of_measurement: '%'
 
     # Fibaro FGK10x door sensor - kitchen blind
@@ -174,12 +174,12 @@
       icon_template: '{% if is_state("sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_access_control", "23") %}mdi:checkbox-blank-outline{% else %}mdi:arrow-right-bold-box-outline{% endif %}'
     # Fibaro FGK10x door sensor battery level - kitchen blind
     cocina_sensor_persiana_bateria:
-      value_template: '{{ states.zwave.fibaro_fgk10x_door_opening_sensor_persiana_porche.attributes.battery_level }}'
+      value_template: '{% if states.zwave.fibaro_fgk10x_door_opening_sensor_persiana_porche %}{{ states.zwave.fibaro_fgk10x_door_opening_sensor_persiana_porche.attributes.battery_level }}{% else %}Desconocido{% endif %}'
       unit_of_measurement: '%'
 
     # Fibaro FGMS-001 Motion sensor
     salon_detector_movimiento_bateria:
-      value_template: '{{ states.zwave.fibaro_fgms001_motion_sensor_salon.attributes.battery_level }}'
+      value_template: '{% if states.zwave.fibaro_fgms001_motion_sensor_salon %}{{ states.zwave.fibaro_fgms001_motion_sensor_salon.attributes.battery_level }}{% else %}Desconocido{% endif %}'
       unit_of_measurement: '%'
     salon_detector_movimiento:
       value_template:  >-
@@ -204,7 +204,7 @@
 
     # Nodon Octan button battery level
     recibidor_boton_bateria:
-      value_template: '{{ states.zwave.nodon_crc3100_octan_remote.attributes.battery_level }}'
+      value_template: '{% if states.zwave.nodon_crc3100_octan_remote %}{{ states.zwave.nodon_crc3100_octan_remote.attributes.battery_level }}{% else %}Desconocido{% endif %}'
       unit_of_measurement: '%'
 
 ##############################################
