@@ -223,6 +223,9 @@ sensor.salon_detector_movimiento:
   friendly_name: 'Movimiento'
 sensor.salon_detector_movimiento_sabotaje:
   friendly_name: 'Manipulación sensor'
+sensor.connected_clients:
+  friendly_name: 'Clientes conectados'
+  unit_of_measurement: 'cliente(s)'
 
 ###################################
 # Binary Sensors

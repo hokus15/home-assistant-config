@@ -1,3 +1,5 @@
+- platform: api_streams
+
 - platform: bitcoin
   currency: EUR
   display_options:
