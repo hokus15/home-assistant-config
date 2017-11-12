@@ -95,6 +95,7 @@
   sensors:
     toyota_distance_travelled_between_updates:
       unit_of_measurement: 'm'
+      friendly_name: 'Dist. entre actualizaciones'
       value_template: '{% if states.device_tracker.toyota.attributes.latitude %} {{ distance(states("sensor.toyota_previous_latitude"), states("sensor.toyota_previous_longitude"), states.device_tracker.toyota.attributes.latitude, states.device_tracker.toyota.attributes.longitude) | round (2) }} {% else %} -1 {% endif %}'
 
 - platform: template
