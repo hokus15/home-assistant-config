@@ -771,10 +771,11 @@
       friendly_name: 'Uptime'
       value_template: >-
         {% set uptimeTotalSeconds = (states.sensor.hokusnasserver_uptime_timeticks.state | int) // 100 %}
+        {% set uptimeTotalHours = uptimeTotalSeconds // 3600 %}
         {% set uptimeDays = uptimeTotalSeconds // 86400 %}
-        {% set uptimeHours = uptimeTotalSeconds // 3600 %}
-        {% set uptimeMinutes = (uptimeTotalSeconds - uptimeHours * 3600) // 60 %}
-        {% set uptimeSeconds = (uptimeTotalSeconds - uptimeHours * 3600 - uptimeMinutes * 60 ) %}
+        {% set uptimeHours = (uptimeTotalSeconds - uptimeDays * 86400) // 3600 %}
+        {% set uptimeMinutes = (uptimeTotalSeconds - uptimeTotalHours * 3600) // 60 %}
+        {% set uptimeSeconds = (uptimeTotalSeconds - uptimeTotalHours * 3600 - uptimeMinutes * 60 ) %}
         {{uptimeDays}} día(s),{{"%02d"|format(uptimeHours)}}:{{"%02d"|format(uptimeMinutes)}}:{{"%02d"|format(uptimeSeconds)}}
 
 - platform: nut

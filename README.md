@@ -4,23 +4,23 @@ My [Home Assistant](https://home-assistant.io/) config files
 Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEOTEC Z-Stick Gen5 attached.
 
 ## Software on the Pi:
-* [Nmap](https://nmap.org/)
-* [Apache2](https://httpd.apache.org/)
-* [Shell In a Box](https://code.google.com/archive/p/shellinabox/)
-* [NUT](http://networkupstools.org/)
-* [Mosquitto](https://mosquitto.org/)
-* [vsftpd FTP server](https://security.appspot.com/vsftpd.html)
-* [incron](http://inotify.aiken.cz/)
-* [CUPS](https://wiki.archlinux.org/index.php/CUPS)
-* [HPLIP](http://hplipopensource.com/hplip-web/index.html)
+* [Nmap] (https://nmap.org/)
+* [Apache2] (https://httpd.apache.org/)
+* [Shell In a Box] (https://code.google.com/archive/p/shellinabox/)
+* [NUT] (http://networkupstools.org/)
+* [Mosquitto] (https://mosquitto.org/)
+* [vsftpd FTP server] (https://security.appspot.com/vsftpd.html)
+* [incron] (http://inotify.aiken.cz/)
+* [CUPS] (https://wiki.archlinux.org/index.php/CUPS)
+* [HPLIP] (http://hplipopensource.com/hplip-web/index.html)
 * [Home Assistant](https://home-assistant.io/)
-* [Dasher](https://github.com/maddox/dasher)
-* [Let's Encrypt](https://letsencrypt.org/)
+* [Dasher] (https://github.com/maddox/dasher)
+* [Let's Encrypt] (https://letsencrypt.org/)
 
 ## Devices I have:
 * WeMo Link (to control outside bulbs)
-* WeMo Insight (to control swimming pool pump)
-* WeMo Switch (to control night light)
+* WeMo Insight (to control Christmas tree lights)
+* WeMo Switch (to control swimming pool pump)
 * WeMo Maker (to control outside fence)
 * Foscam C1 camera
 * Foscam Fi9853EP camera
@@ -59,9 +59,6 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 * Turn on swimming pool pump every day at 7AM
 * Turn on swimming pool pump every day at 8PM
 * Stop the swimming pool pump depending on the season of the year (3 hours in summer, 2 hours in spring and autumn, 1 hour in winter).
-
-**Note that the following configuration is not used any more. Since version 0.53 a season sensor was released. I leave it here only for information purpose.**
-
 I've created a sensor to determine roughly the season of the year:
 ```
 - platform: template
@@ -95,24 +92,12 @@ I've created a sensor to determine roughly the season of the year:
 ## Screenshot Misc
 ![Misc](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config5.png)
 
-## Presence detection
-Since I found owntracks was draining my phone battery I decided to use another approach for presence detection. In my case it's pretty accurate.
-I use three different sensors, if one of them is set as home it means that I'm at home. If all of them are not_home it means that I'm not at home.
-
-### Nmap
-This is the Nmap component.
-
-### Wifi connection
-When I connect to my home WiFi I use a [Tasker](http://tasker.dinglisch.net/) profile to send a MQTT message to tell home-assistant that I'm at home and another MQTT message when I disconnect from my WiFi.
-
-### iBeacon:
-I've cnfigured my RaspberryPi to transmit as an iBeacon. When my phone detects the RaspberryPi iBeacon I use a [Tasker](http://tasker.dinglisch.net/) profile to send a MQTT message to tell home-assistant that I'm at home and another MQTT message when iBeacon is not detected anyomore.
-
 ## Home security description
+
 I've configured the system to get instant notifications using telegram including snapshots when one of the cameras triggers a motion detection.
 
 ### Motion detection activation
-Motion detection is activated automatically as soon as no one is at home.
+Motion detection is activated automatically as soon as no one is at home (I use owntracks, my wife presence is based on WiFi connection using nmap sensor).
 
 I have an assistant that doesn't use the WiFi so (appart from legal implications) I cannot track her device with nmap.
 
@@ -179,11 +164,11 @@ The `home/camera/<camera name>/alarm` topic is back to 0 after 30 seconds using 
 
 I have a APC Back-UPS 650VA UPS attached to my raspberry pi.
 
+**Note that this is not used any more since version 0.34 a nut sensor was released. I leave it here only for information purpose.**
+
 This UPS gives power to my main internet router, my raspberry pi and my QNAP NAS.
 
 Monitor the UPS status is very useful to know when a power outage has occured (and receive a telegram notification) and also know when the power is back to normal.
-
-**Note that the following configuration is not used any more. Since version 0.34 a nut sensor was released. I leave it here only for information purpose.**
 
 To monitor the UPS status in Home Assistant I use a MQTT sensor.
 
@@ -233,7 +218,7 @@ NOTIFYFLAG NOPARENT     EXEC+SYSLOG
 
 ## Monitor printer ink levels
 
-You need to install [CUPS](https://wiki.archlinux.org/index.php/CUPS) and [HPLIP](http://hplipopensource.com/hplip-web/index.html).
+You need to install [CUPS] (https://wiki.archlinux.org/index.php/CUPS) and [HPLIP] (http://hplipopensource.com/hplip-web/index.html).
 
 Once the printer is configured you can read the ink levels using the `hp-info` utility.
 
@@ -287,7 +272,6 @@ I push the dash button every day just before go to sleep, it triggers a security
 * Close outside fence if open
 * Check for opened windows / doors (if any door or window is open it tells me using text-to-speech service)
 * Turn off outside lights
-* Turn on stairs lamp for one minute
 * Turn off hall lamp
 * Turn off Chrismas tree lights
 
