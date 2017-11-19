@@ -35,6 +35,8 @@
       value_template: "{{ states.sensor.nut_ups_status_data.state == 'OL' or states.sensor.nut_ups_status_data.state == 'OL CHRG' }}"
       entity_id:
         - sensor.nut_ups_status_data
+      delay_off:
+        seconds: 30
 
 # Alarm status for foscam cam in hall
 - platform: mqtt
@@ -91,6 +93,29 @@
           {% else %}
               OFF
           {%- endif %}
+
+- platform: template
+  sensors:
+    salon_detector_movimiento:
+      value_template:  >-
+         {%- if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "8") %}
+              ON
+          {% else %}
+              OFF
+          {%- endif %}
+      entity_id: 
+        - sensor.fibaro_fgms001_motion_sensor_salon_burglar
+      device_class: motion
+    salon_detector_movimiento_sabotaje:
+      value_template: >-
+         {%- if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "3") %}
+              ON
+          {% else %}
+              OFF
+          {%- endif %}
+      entity_id: 
+        - sensor.fibaro_fgms001_motion_sensor_salon_burglar
+      device_class: vibration
 
 - platform: workday
   country: ES

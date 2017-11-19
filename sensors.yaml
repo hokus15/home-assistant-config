@@ -184,26 +184,26 @@
     salon_detector_movimiento_bateria:
       value_template: '{% if states.zwave.fibaro_fgms001_motion_sensor_salon %}{{ states.zwave.fibaro_fgms001_motion_sensor_salon.attributes.battery_level }}{% else %}Desconocido{% endif %}'
       unit_of_measurement: '%'
-    salon_detector_movimiento:
-      value_template:  >-
-         {%- if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "8") %}
-              Detectado
-          {% else %}
-              Despejado
-          {%- endif %}
-      entity_id: 
-        - sensor.fibaro_fgms001_motion_sensor_salon_burglar
-      icon_template: '{% if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "8") %}mdi:run-fast{% else %}mdi:human-male{% endif %}'
-    salon_detector_movimiento_sabotaje:
-      value_template: >-
-         {%- if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "3") %}
-              Detectado
-          {% else %}
-              Normal
-          {%- endif %}
-      entity_id: 
-        - sensor.fibaro_fgms001_motion_sensor_salon_burglar
-      icon_template: '{% if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "3") %}mdi:vibrate{% else %}mdi:crop-portrait{% endif %}'
+#    salon_detector_movimiento:
+#      value_template:  >-
+#         {%- if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "8") %}
+#              Detectado
+#          {% else %}
+#              Despejado
+#          {%- endif %}
+#      entity_id: 
+#        - sensor.fibaro_fgms001_motion_sensor_salon_burglar
+#      icon_template: '{% if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "8") %}mdi:run-fast{% else %}mdi:human-male{% endif %}'
+#    salon_detector_movimiento_sabotaje:
+#      value_template: >-
+#         {%- if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "3") %}
+#              Detectado
+#          {% else %}
+#              Normal
+#          {%- endif %}
+#      entity_id: 
+#        - sensor.fibaro_fgms001_motion_sensor_salon_burglar
+#      icon_template: '{% if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "3") %}mdi:vibrate{% else %}mdi:crop-portrait{% endif %}'
 
     # Nodon Octan button battery level
     recibidor_boton_bateria:

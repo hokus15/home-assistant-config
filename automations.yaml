@@ -455,8 +455,8 @@
 - alias: 'Notify living room motion detection when notification active'
   trigger: 
     platform: state
-    entity_id: sensor.salon_detector_movimiento
-    to: 'Detectado'
+    entity_id: binary_sensor.salon_detector_movimiento
+    to: 'ON'
   condition:
     condition: state
     entity_id: input_boolean.salon_detector_movimiento
@@ -470,8 +470,8 @@
 - alias: 'Notify living room motion sensor tampering'
   trigger: 
     platform: state
-    entity_id: sensor.salon_detector_movimiento_sabotaje
-    to: 'Detectado'
+    entity_id: binary_sensor.salon_detector_movimiento_sabotaje
+    to: 'ON'
   action:
     service: notify.telegram
     data:

@@ -154,8 +154,8 @@ Salón:
     - sensor.netatmo_salon_co2
     - sensor.salon_termometro_co2_tendencia
     - sensor.netatmo_salon_wifi
-    - sensor.salon_detector_movimiento
-    - sensor.salon_detector_movimiento_sabotaje
+    - binary_sensor.salon_detector_movimiento
+    - binary_sensor.salon_detector_movimiento_sabotaje
     - input_boolean.salon_detector_movimiento
     - sensor.fibaro_fgms001_motion_sensor_salon_luminance
     - sensor.fibaro_fgms001_motion_sensor_salon_temperature
