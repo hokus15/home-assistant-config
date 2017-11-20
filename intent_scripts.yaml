@@ -98,10 +98,10 @@
       text: >
         {% if (states.sensor["on_off_" ~ device | replace(".","_")] is not none) %}
           {% if targetState and (targetState == "on" or targetState == "off") %}
-            {% if not is_state("sensor." ~ device | replace(".","_"), targetState) %}
+            {% if not is_state(device, targetState) %}
               He {{ states.sensor["on_off_" ~ device | replace(".","_")].state }} {{ states.sensor["on_off_" ~ device | replace(".","_")].attributes.friendly_name }}
             {% else %}
-              Ya estaba {{targetState}}. No he hecho nada.
+              Ya estaba {{ states.sensor["check_" ~ device | replace(".","_")].state }}. No he hecho nada.
             {% endif %}
           {% else %}
             He {{ states.sensor["on_off_" ~ device | replace(".","_")].state }} {{ states.sensor["on_off_" ~ device | replace(".","_")].attributes.friendly_name }}
@@ -116,7 +116,7 @@
       - service_template: >
           {% if (states.sensor["on_off_" ~ device | replace(".","_")] is not none) %}
             {% if targetState and (targetState == "on" or targetState == "off") %}
-              {% if not is_state("sensor." ~ device | replace(".","_"), targetState) %}
+              {% if not is_state(device | replace(".","_"), targetState) %}
                 homeassistant.turn_{{targetState}}
               {% endif %}
             {% else %}
