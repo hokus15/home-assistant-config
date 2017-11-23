@@ -91,6 +91,7 @@ recorder:
       - sensor.nut_ups_manufacturer
       - sensor.nut_ups_model
       - sensor.nut_ups_status_data
+      - sensor.nut_ups_beeper_status
       - sensor.nut_ups_battery_runtime
       - sensor.nut_ups_battery_charge
       - sun.sun
