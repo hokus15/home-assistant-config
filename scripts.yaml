@@ -179,6 +179,22 @@ parte_meteorologico:
           {%- if states("sensor.exterior_pluviometro_lluvia_24") == "0" %} No ha llovido durante las últimas 24 horas.{% else %} La precipitación de las últimas 24 horas ha sido de {{ states("sensor.exterior_pluviometro_lluvia_24") | replace("."," con ") }} {{states.sensor["exterior_pluviometro_lluvia_24"].attributes.unit_of_measurement }}.{% endif %}
         cache: false
 
+parte_meteorologico_corto:
+  alias: 'Parte meteorológico corto'
+  sequence:
+    - service: media_player.volume_set
+      entity_id: media_player.homeassistant
+      data:
+        volume_level: 0.75
+    - service: tts.google_say
+      entity_id: media_player.homeassistant
+      data_template:
+        message: >
+          La temperatura exterior es de {{ states("sensor.exterior_termometro_temperatura") | replace("."," con ") }} {{states.sensor["exterior_termometro_temperatura"].attributes.unit_of_measurement }}.
+          La temperatura máxima de hoy ha sido de {{ states("sensor.exterior_termometro_max_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_max_temp"].attributes.unit_of_measurement }}.
+          La temperatura mínima de hoy ha sido de {{ states("sensor.exterior_termometro_min_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_min_temp"].attributes.unit_of_measurement }}.
+        cache: false
+
 #refresh_location:
 #  alias: 'Refresh location'
 #  sequence:

@@ -914,6 +914,30 @@
   action:
     - service: script.turn_on
       data:
+        entity_id: script.parte_meteorologico_corto
+
+#- alias: Nodon Octan button 2 long press
+#  trigger:
+#    platform: event
+#    event_type: zwave.scene_activated
+#    event_data:
+#      entity_id: zwave.nodon_crc3100_octan_remote
+#      scene_id: 21
+#  action:
+#    - service: script.turn_on
+#      data:
+#        entity_id: script.parte_meteorologico
+
+- alias: Nodon Octan button 2 double click
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.nodon_crc3100_octan_remote
+      scene_id: 23
+  action:
+    - service: script.turn_on
+      data:
         entity_id: script.parte_meteorologico
 
 - alias: Nodon Octan button 3 pressed
