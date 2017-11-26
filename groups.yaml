@@ -41,6 +41,8 @@ Interior:
     - group.suite
     - group.calefaccion
     - group.seguridad_interior
+    - group.confort_planta_baja
+    - group.confort_primera_planta
 
 Exterior:
   view: yes
@@ -303,6 +305,16 @@ Calefacción:
     - switch.termostato
     - switch.termostato_modo_ausente
     - climate.termostato
+
+Confort planta baja:
+  entities:
+    - sensor.temperature_ground_floor
+    - sensor.planta_baja_temperatura_tendencia
+
+Confort primera planta:
+  entities:
+    - sensor.temperature_first_floor
+    - sensor.primera_planta_temperatura_tendencia
 
 Estado HA:
   entities:

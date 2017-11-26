@@ -287,6 +287,49 @@
     - service: script.turn_on
       entity_id: script.power_off_thermostat
 
+# When average temp on ground floor or first floor is under target climate tempreature
+# If:
+#  - There is someone at home
+#  - Heating is connected
+#  - Is idle
+#  - Temperature trend in ground floor or first floor is going down
+# Then turn on temperature by setting target temperature to 23 degrees
+- alias: 'Heating comfort'
+  trigger:
+    platform: template
+    value_template: "{{ (states('sensor.temperature_first_floor') < states('climate.termostato')) or (states('sensor.temperature_ground_floor') < states('climate.termostato')) }}"
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: group.unidad_familiar
+        state: 'home'
+      - condition: state
+        entity_id: switch.termostato
+        state: 'on'
+      - condition: numeric_state
+        entity_id: climate.termostato
+        above: 15
+      - condition: template
+        value_template: '{{ is_state_attr("climate.termostato", "operation_mode", "idle") }}'
+      - condition: or
+        conditions:
+          - condition: template
+            value_template: '{{ is_state("sensor.primera_planta_temperatura_tendencia", "En descenso") }}'
+          - condition: template
+            value_template: '{{ is_state("sensor.planta_baja_temperatura_tendencia", "En descenso") }}'
+  action:
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.termostato
+        temperature: 23.0
+    - service: logbook.log
+      data_template:
+        name: Calefacción
+        message: encendida para mejorar el confort
+        entity_id: climate.termostato
+        domain: climate
+
 #############################################################
 # Holiday automations
 #############################################################
@@ -684,6 +727,7 @@
     - service: notify.telegram
       data_template:
         message: 'Barrera {{ states.sensor.switch_barrera.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.switch_barrera.last_changed))|int//60 }} minutos'
+
 
 #############################################################
 # Swimming pool turn on

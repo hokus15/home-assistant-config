@@ -160,3 +160,14 @@
     suite_termometro_co2_aumentando:
       entity_id: sensor.suite_termometro_co2
 
+    planta_baja_temperatura_descendiendo:
+      entity_id: sensor.temperature_ground_floor
+      invert: true
+    planta_baja_temperatura_aumentando:
+      entity_id: sensor.temperature_ground_floor
+
+    primera_planta_temperatura_descendiendo:
+      entity_id: sensor.temperature_first_floor
+      invert: true
+    primera_planta_temperatura_aumentando:
+      entity_id: sensor.temperature_first_floor
