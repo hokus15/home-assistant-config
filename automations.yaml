@@ -301,28 +301,36 @@
   condition:
     condition: and
     conditions:
+      # Someone at home
       - condition: state
         entity_id: group.unidad_familiar
         state: 'home'
+      # Heating is connected
       - condition: state
         entity_id: switch.termostato
         state: 'on'
+      # Heating is not in away mode
       - condition: numeric_state
         entity_id: climate.termostato
         above: 15
+      # Heating is idle
       - condition: template
         value_template: '{{ is_state_attr("climate.termostato", "operation_mode", "idle") }}'
       - condition: or
         conditions:
-          - condition: template
-            value_template: '{{ is_state("sensor.primera_planta_temperatura_tendencia", "En descenso") }}'
-          - condition: template
-            value_template: '{{ is_state("sensor.planta_baja_temperatura_tendencia", "En descenso") }}'
+          # Temperature trend is decreasing in first floor
+          - condition: state
+            entity_id: binary_sensor.primera_planta_temperatura_descendiendo
+            state: 'on'
+          # Temperature trend is decreasing in ground floor
+          - condition: state
+            entity_id: binary_sensor.planta_baja_temperatura_descendiendo
+            state: 'on'
   action:
     - service: climate.set_temperature
       data_template:
         entity_id: climate.termostato
-        temperature: 23.0
+        temperature: 23
     - service: logbook.log
       data_template:
         name: Calefacción
