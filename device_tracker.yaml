@@ -4,7 +4,7 @@
 #  password: !secret wrt54gl_password
 
 - platform: nmap_tracker
-  hosts: 192.168.1.1/24
+  hosts: 192.168.1.0/24
   # The number of minutes nmap will not scan this devices, assuming it is home, in order to preserve the device battery.
   home_interval: 3
   # If new discovered devices are tracked by default (default: yes)
@@ -33,8 +33,8 @@
     # Updated when home iBeacon is detected from hokusphone
     hokusphone_ibeacon: location/hokusphone/ibeacon
     # Updated when geniphone is connected to a WiFi
-    geniphone_wifi: location/geniphone/home/wifi
+    geniphone_wifi: location/geniphone/wifi
     # Updated when home iBeacon is detected from geniphone
-    geniphone_ibeacon: location/geniphone/home/ibeacon
+    geniphone_ibeacon: location/geniphone/ibeacon
 
 #- platform: bluetooth_le_tracker
