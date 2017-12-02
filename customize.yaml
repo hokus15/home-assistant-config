@@ -303,6 +303,9 @@ switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch:
 switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2:
   friendly_name: 'Luz suite'
   icon: mdi:ceiling-light
+sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_temperature:
+  friendly_name: 'Temperatura'
+  icon: mdi:thermometer
 
 ###################################
 # Input sliders

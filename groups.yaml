@@ -194,6 +194,7 @@ Cocina:
     - input_boolean.cocina_sensor_puerta
     - sensor.cocina_sensor_persiana
     - input_boolean.cocina_sensor_persiana
+    - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_temperature
 
     
 Luces exteriores:
