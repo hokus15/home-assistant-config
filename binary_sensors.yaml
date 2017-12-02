@@ -163,15 +163,11 @@
     planta_baja_temperatura_descendiendo:
       entity_id: sensor.temperature_ground_floor
       invert: true
-      sample_duration: 1800
     planta_baja_temperatura_aumentando:
       entity_id: sensor.temperature_ground_floor
-      sample_duration: 1800
 
     primera_planta_temperatura_descendiendo:
       entity_id: sensor.temperature_first_floor
       invert: true
-      sample_duration: 1800
     primera_planta_temperatura_aumentando:
       entity_id: sensor.temperature_first_floor
-      sample_duration: 1800
