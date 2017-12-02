@@ -883,7 +883,7 @@
     temperature_ground_floor:
       friendly_name: 'Temperatura media'
       icon_template: mdi:thermometer
-      value_template: '{{ ((float(states.sensor.recibidor_termometro_temperatura.state) + float(states.sensor.netatmo_salon_temperature.state) + float(states.sensor.fibaro_fgms001_motion_sensor_salon_temperature.state)) / 3) | round(1) }}'
+      value_template: '{{ ((float(states.sensor.recibidor_termometro_temperatura.state) + float(states.sensor.netatmo_salon_temperature.state) + float(states.sensor.fibaro_fgms001_motion_sensor_salon_temperature.state)) + float(states.sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_temperature.state) / 4) | round(1) }}'
       unit_of_measurement: '°C'
       entity_id:
         - sensor.recibidor_termometro_temperatura
