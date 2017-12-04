@@ -37,6 +37,19 @@
         - sensor.nut_ups_status_data
       delay_off:
         seconds: 30
+    confort_state:
+      device_class: heat
+      friendly_name: 'Aumento confort'
+      value_template: "{{ ((states('sensor.temperature_first_floor') < states('climate.termostato')) or (states('sensor.temperature_ground_floor') < states('climate.termostato'))) and is_state('group.unidad_familiar', 'home') and is_state('switch.termostato', 'on') and is_state('switch.termostato_modo_ausente','off') and is_state_attr('climate.termostato', 'operation_mode', 'idle') or (is_state('binary_sensor.primera_planta_temperatura_descendiendo','on') or is_state('binary_sensor.planta_baja_temperatura_descendiendo','on')) }}"
+      entity_id:
+        - sensor.temperature_first_floor
+        - climate.termostato
+        - sensor.temperature_ground_floor
+        - group.unidad_familiar
+        - switch.termostato
+        - switch.termostato_modo_ausente
+        - binary_sensor.primera_planta_temperatura_descendiendo
+        - binary_sensor.planta_baja_temperatura_descendiendo
 
 # Alarm status for foscam cam in hall
 - platform: mqtt
@@ -127,9 +140,10 @@
     exterior_termometro_temperatura_descendiendo:
       entity_id: sensor.netatmo_exterior_temperature
       invert: true
+
     exterior_termometro_temperatura_aumentando:
       entity_id: sensor.netatmo_exterior_temperature
-      
+
     salon_termometro_temperatura_descendiendo:
       entity_id: sensor.salon_termometro_temperatura
       invert: true
@@ -163,11 +177,15 @@
     planta_baja_temperatura_descendiendo:
       entity_id: sensor.temperature_ground_floor
       invert: true
+      max_samples: 5
     planta_baja_temperatura_aumentando:
       entity_id: sensor.temperature_ground_floor
+      max_samples: 5
 
     primera_planta_temperatura_descendiendo:
       entity_id: sensor.temperature_first_floor
       invert: true
+      max_samples: 5
     primera_planta_temperatura_aumentando:
       entity_id: sensor.temperature_first_floor
+      max_samples: 5
