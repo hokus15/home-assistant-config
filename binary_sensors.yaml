@@ -39,7 +39,7 @@
         seconds: 30
     confort_state:
       device_class: heat
-      friendly_name: 'Aumento confort'
+      friendly_name: 'Auto confort'
       value_template: "{{ ((states('sensor.temperature_first_floor') < states('climate.termostato')) or (states('sensor.temperature_ground_floor') < states('climate.termostato'))) and is_state('group.unidad_familiar', 'home') and is_state('switch.termostato', 'on') and is_state('switch.termostato_modo_ausente','off') and is_state_attr('climate.termostato', 'operation_mode', 'idle') or (is_state('binary_sensor.primera_planta_temperatura_descendiendo','on') or is_state('binary_sensor.planta_baja_temperatura_descendiendo','on')) }}"
       entity_id:
         - sensor.temperature_first_floor
