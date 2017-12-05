@@ -313,6 +313,10 @@ Confort:
     - sensor.planta_baja_temperatura_tendencia
     - sensor.temperature_first_floor
     - sensor.primera_planta_temperatura_tendencia
+    - group.unidad_familiar
+    - switch.termostato
+    - switch.termostato_modo_ausente
+    - climate.termostato
 
 Estado HA:
   entities:
