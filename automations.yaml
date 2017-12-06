@@ -327,16 +327,6 @@
             entity_id: binary_sensor.planta_baja_temperatura_descendiendo
             state: 'on'
   action:
-    - service: climate.set_temperature
-      data_template:
-        entity_id: climate.termostato
-        temperature: 23
-    - service: logbook.log
-      data_template:
-        name: Calefacción
-        message: encendida para mejorar el confort
-        entity_id: climate.termostato
-        domain: climate
     - service: notify.telegram
       data_template:
         message: > 
@@ -350,6 +340,18 @@
           Estado termostato: {{states.climate.termostato.attributes.operation_mode}}
           Tendencia temperatura planta baja: {{states.sensor.planta_baja_temperatura_tendencia.state}}
           Tendencia temperatura planta baja: {{states.sensor.primera_planta_temperatura_tendencia.state}}
+    - delay:
+        seconds: 30
+    - service: logbook.log
+      data_template:
+        name: Calefacción
+        message: encendida para mejorar el confort
+        entity_id: climate.termostato
+        domain: climate
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.termostato
+        temperature: 23
 
 #############################################################
 # Holiday automations
