@@ -1,20 +1,30 @@
 - platform: api_streams
 
 # Crypto currency sensors
-- platform: bitcoin
-  currency: EUR
-  display_options:
-    - exchangerate
+#- platform: bitcoin
+#  currency: EUR
+#  display_options:
+#    - exchangerate
 
 #- platform: coinmarketcap
 #  currency: ethereum
 #  display_currency: EUR
 
 - platform: rest
-  resource: https://api.coinmarketcap.com/v1/ticker/ethereum/?convert=EUR
+  resource: https://api.gdax.com/products/ETH-EUR/ticker
   name: exchange_rate_1_eth
   unit_of_measurement: 'EUR'
-  value_template: "{{value_json[0]['price_eur'] | float | round(2)}}"
+  value_template: "{{value_json.price | float | round(2)}}"
+  headers:
+    User-Agent: Home Assistant
+
+- platform: rest
+  resource: https://api.gdax.com/products/BTC-EUR/ticker
+  name: exchange_rate_1_btc
+  unit_of_measurement: 'EUR'
+  value_template: "{{value_json.price | float | round(2)}}"
+  headers:
+    User-Agent: Home Assistant
 
 - platform: template
   sensors:
