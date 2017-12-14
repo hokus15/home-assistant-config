@@ -299,6 +299,11 @@ Internet:
 Crypto Currency:
   entities:
     - sensor.exchange_rate_1_btc
+    - sensor.bitcoin_balance
+    - sensor.bitcoin_walet_value
+    - sensor.exchange_rate_1_eth
+    - sensor.ethereum_balance
+    - sensor.ethereum_walet_value
 
 Calefacción:
   entities:
