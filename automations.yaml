@@ -888,7 +888,7 @@
 - alias: 'Turn off swimming pool pump [night / Winter]'
   trigger:
     platform: time
-    at: '00:00:00'
+    at: '23:00:00'
   condition:
     - condition: state
       entity_id: sensor.season
