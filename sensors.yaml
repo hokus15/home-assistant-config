@@ -189,6 +189,12 @@
       friendly_name: 'Consumo hoy'
       entity_id: 
         - switch.piscina
+    ph_piscina:
+      value_template: '{{states.image_processing.sevensegement_ocr_ph_piscina.state | float / 100}}'
+      friendly_name: 'pH'
+      icon_template: mdi:beaker
+      entity_id: 
+        - image_processing.sevensegement_ocr_ph_piscina
 
 - platform: template
   sensors:

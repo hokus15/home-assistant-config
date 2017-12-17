@@ -1,0 +1,21 @@
+- host: 192.168.1.170
+  port: 8080
+  name: ph_piscina
+  sensors:
+    - audio_connections
+    - battery_level
+    - battery_temp
+    - battery_voltage
+    - light
+    - motion
+    - pressure
+  switches:
+    - exposure_lock
+    - ffc
+    - focus
+    - gps_active
+    - night_vision
+    - overlay
+    - torch
+    - whitebalance_lock
+    - video_recording
