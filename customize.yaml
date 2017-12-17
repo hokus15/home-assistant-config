@@ -77,6 +77,7 @@ sensor.energy_usage:
   icon: 'mdi:speedometer'
 sensor.exchange_rate_1_btc:
   friendly_name: 'Bitcoin'
+  icon: 'mdi:currency-btc'
 sensor.exchange_rate_1_eth:
   friendly_name: 'Ethereum'
   icon: 'mdi:currency-eth'
@@ -225,7 +226,6 @@ sensor.caducidad_certificado_ssl:
 sensor.connected_clients:
   friendly_name: 'Clientes conectados'
   unit_of_measurement: 'cliente(s)'
-
 ###################################
 # Binary Sensors
 ###################################
