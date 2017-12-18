@@ -1,6 +1,6 @@
 - host: 192.168.1.170
   port: 8080
-  name: ph_piscina
+  name: pH piscina
   sensors:
     - audio_connections
     - battery_level
