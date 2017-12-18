@@ -30,8 +30,13 @@
   username: !secret cam_caseta_username
   password: !secret cam_caseta_password
   authentication: basic
-  
+
 - platform: generic
   name: Toyota
   still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.toyota.attributes.latitude }},{{ states.device_tracker.toyota.attributes.longitude }}&zoom=13&size=500x500&maptype=roadmap&markers=color:grey%7Clabel:T%7C{{ states.device_tracker.toyota.attributes.latitude }},{{ states.device_tracker.toyota.attributes.longitude }}
+  limit_refetch_to_url_change: true
+
+- platform: generic
+  name: Nissan
+  still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}&zoom=13&size=500x500&maptype=roadmap&markers=color:grey%7Clabel:N%7C{{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}
   limit_refetch_to_url_change: true

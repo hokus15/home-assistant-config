@@ -109,6 +109,17 @@ sensor.toyota_gps_accuracy:
 sensor.toyota_last_update:
   friendly_name: 'Última actualización'
   icon: 'mdi:clock'
+sensor.nissan:
+  entity_picture: /local/Nissan_Qashqai.jpg
+sensor.nissan_batt:
+  friendly_name: 'Batería'
+  icon: 'mdi:battery'
+sensor.nissan_gps_accuracy:
+  friendly_name: 'Precisión GPS'
+  icon: 'mdi:map-marker-radius'
+sensor.nissan_last_update:
+  friendly_name: 'Última actualización'
+  icon: 'mdi:clock'
 sensor.sunset:
   icon: mdi:weather-sunset-down
 sensor.sunrise:

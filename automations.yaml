@@ -136,6 +136,42 @@
             {%- endif -%}
           {%- endif -%}
 
+# If fence is closed, Nissan enter 'home' zone and Geni is 'En Ruta'
+# Open fence, notify it and set Geni as 'home'
+- alias: 'Geni arriving home'
+  trigger:
+     - platform: zone
+       entity_id: device_tracker.nissan
+       zone: zone.home
+       event: enter
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: sensor.switch_barrera
+        state: 'Cerrada'
+      - condition: state
+        entity_id: device_tracker.geni_combined
+        state: 'En ruta'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.barrera
+    - service: notify.html5
+      data:
+        message: 'Barrera abierta automáticamente para Geni'
+        target:
+          - hokus_phone
+        data: 
+          actions:
+            - action: close-fence
+              title: Cerrar barrera
+    - delay:
+        seconds: 5
+    - service: device_tracker.see
+      data:
+        dev_id: 'geni_combined'
+        location_name: 'home'
+
 #############################################################
 # Presence automations - Jordi
 #############################################################

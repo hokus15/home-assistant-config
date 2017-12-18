@@ -25,6 +25,8 @@
   devices:
     # Toyota tracker
     toyota: location/car/toyota
+    # Nissan tracker
+    nissan: location/car/nissan
 
 - platform: mqtt
   devices:

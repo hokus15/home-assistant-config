@@ -64,6 +64,7 @@ Varios:
   entities:
     - group.jordi
     - group.toyota
+    - group.nissan
     - group.internet
     - group.estado_ha
     - group.crypto_currency
@@ -105,6 +106,14 @@ Toyota:
     - sensor.toyota_last_update
     - camera.toyota
     - sensor.toyota_distance_travelled_between_updates
+
+Nissan:
+  entities:
+    - sensor.nissan
+    - sensor.nissan_batt
+    - sensor.nissan_gps_accuracy
+    - sensor.nissan_last_update
+    - camera.nissan
 
 Energía:
   entities:
@@ -222,6 +231,7 @@ Piscina:
     - sensor.switch_piscina_current_power_w
     - sensor.switch_piscina_today_energy_kwh
     - camera.piscina
+    - camera.ph_piscina
 
 Cámara recibidor:
   entities:
