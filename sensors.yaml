@@ -207,7 +207,7 @@
       entity_id: 
         - switch.piscina
     ph_piscina:
-      value_template: '{{states.image_processing.sevensegement_ocr_ph_piscina.state | float / 100}}'
+      value_template: '{{states.image_processing.sevensegement_ocr_ph_piscina.state | float }}'
       friendly_name: 'pH'
       icon_template: mdi:beaker
       entity_id: 
