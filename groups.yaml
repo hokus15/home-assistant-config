@@ -126,6 +126,7 @@ Temperatura:
     - sensor.netatmo_exterior_temperature
     - sensor.netatmo_exterior_min_temp
     - sensor.netatmo_exterior_max_temp
+    - history_graph.temperatura_exterior
     - sensor.netatmo_exterior_humidity
     - sensor.exterior_termometro_temperatura_tendencia
     - sensor.netatmo_exterior_radio

@@ -346,5 +346,6 @@ panel_custom: !include panel_custom.yaml
 intent_script: !include intent_scripts.yaml
 android_ip_webcam: !include android_ip_webcam.yaml
 image_processing: !include image_processing.yaml
+history_graph: !include history_graph.yaml
 #scene: !include scenes.yaml
 
