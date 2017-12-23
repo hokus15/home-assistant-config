@@ -218,16 +218,16 @@
     # Fibaro FGK10x door sensor - kitchen door
     cocina_sensor_puerta:
       value_template:  >-
-         {%- if is_state('sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_access_control', '23') %}
+         {%- if is_state('binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_sensor', 'off') %}
               Cerrada
-          {% elif is_state('sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_access_control', '22') %}
+          {% elif is_state('binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_sensor', 'on') %}
               Abierta
           {% else %}
               Desconocido
           {%- endif %}
       entity_id:
-        - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_access_control
-      icon_template: '{% if is_state("sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_access_control", "23") %}mdi:checkbox-blank-outline{% else %}mdi:arrow-right-bold-box-outline{% endif %}'
+        - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_sensor
+      icon_template: '{% if is_state("binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_sensor", "off") %}mdi:checkbox-blank-outline{% else %}mdi:arrow-right-bold-box-outline{% endif %}'
     # Fibaro FGK10x door sensor battery level - kitchen door
     cocina_sensor_puerta_bateria:
       value_template: '{% if states.zwave.fibaro_fgk10x_door_opening_sensor_puerta_porche %}{{ states.zwave.fibaro_fgk10x_door_opening_sensor_puerta_porche.attributes.battery_level }}{% else %}Desconocido{% endif %}'
@@ -236,16 +236,16 @@
     # Fibaro FGK10x door sensor - kitchen blind
     cocina_sensor_persiana:
       value_template:  >-
-         {%- if is_state('sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_access_control', '23') %}
+         {%- if is_state('binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sensor', 'off') %}
               Cerrada
-          {% elif is_state('sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_access_control', '22') %}
+          {% elif is_state('binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sensor', 'on') %}
               Abierta
           {% else %}
               Desconocido
           {%- endif %}
       entity_id:
-        - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_access_control
-      icon_template: '{% if is_state("sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_access_control", "23") %}mdi:checkbox-blank-outline{% else %}mdi:arrow-right-bold-box-outline{% endif %}'
+        - binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sensor
+      icon_template: '{% if is_state("binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sensor", "off") %}mdi:checkbox-blank-outline{% else %}mdi:arrow-right-bold-box-outline{% endif %}'
     # Fibaro FGK10x door sensor battery level - kitchen blind
     cocina_sensor_persiana_bateria:
       value_template: '{% if states.zwave.fibaro_fgk10x_door_opening_sensor_persiana_porche %}{{ states.zwave.fibaro_fgk10x_door_opening_sensor_persiana_porche.attributes.battery_level }}{% else %}Desconocido{% endif %}'
