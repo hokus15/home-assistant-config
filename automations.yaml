@@ -928,7 +928,7 @@
   condition:
     - condition: state
       entity_id: sensor.season
-      state: 'Summer'
+      state: 'Winter'
   action:
     service: switch.turn_off
     entity_id: switch.piscina
@@ -950,7 +950,7 @@
     service: switch.turn_off
     entity_id: switch.piscina
 
-- alias: 'Notify when swimming pool pump on more than 6 hours [Spring - Autumn]'
+- alias: 'Notify when swimming pool pump on more than 6 hours [Spring - Autumn - Winter]'
   trigger:
     platform: numeric_state
     entity_id: sensor.piscina_on_history
@@ -964,6 +964,9 @@
     - condition: state
       entity_id: sensor.season
       state: 'Autumn'
+    - condition: state
+      entity_id: sensor.season
+      state: 'Winter'
   action:
     service: notify.telegram
     data:
