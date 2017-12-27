@@ -2,7 +2,5 @@ temperature_outside:
   name: Temperatura exterior
   entities:
     - sensor.netatmo_exterior_temperature
-    - sensor.netatmo_exterior_min_temp
-    - sensor.netatmo_exterior_max_temp
   hours_to_show: 24
   refresh: 60
