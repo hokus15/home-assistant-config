@@ -237,6 +237,15 @@ sensor.caducidad_certificado_ssl:
 sensor.connected_clients:
   friendly_name: 'Clientes conectados'
   unit_of_measurement: 'cliente(s)'
+sensor.temperature_ground_floor:
+  friendly_name: 'Temp media planta baja'
+  icon: 'mdi:thermometer'
+  unit_of_measurement: '°C'
+sensor.temperature_first_floor:
+  friendly_name: 'Temp media 1ª planta'
+  icon: 'mdi:thermometer'
+  unit_of_measurement: '°C'
+
 ###################################
 # Binary Sensors
 ###################################

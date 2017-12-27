@@ -961,18 +961,26 @@
     - volume_percentage_used
 
 # Comfort sensors
+- platform: min_max
+  name: temperature_ground_floor
+  type: mean
+  round_digits: 1
+  entity_ids:
+    - sensor.recibidor_termometro_temperatura
+    - sensor.netatmo_salon_temperature
+    - sensor.fibaro_fgms001_motion_sensor_salon_temperature
+    - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_temperature
+
+- platform: min_max
+  name: temperature_first_floor
+  type: mean
+  round_digits: 1
+  entity_ids:
+    - sensor.netatmo_suite_temperature
+    - sensor.netatmo_suite_temperature
+
 - platform: template
   sensors:
-    temperature_ground_floor:
-      friendly_name: 'Temp media planta baja'
-      icon_template: mdi:thermometer
-      value_template: '{{ ((float(states.sensor.recibidor_termometro_temperatura.state) + float(states.sensor.netatmo_salon_temperature.state) + float(states.sensor.fibaro_fgms001_motion_sensor_salon_temperature.state) + float(states.sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_temperature.state)) / 4) | round(1) }}'
-      unit_of_measurement: '°C'
-      entity_id:
-        - sensor.recibidor_termometro_temperatura
-        - sensor.netatmo_salon_temperature
-        - sensor.fibaro_fgms001_motion_sensor_salon_temperature
-        - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_temperature
     planta_baja_temperatura_tendencia:
       friendly_name: 'Tend temp planta baja'
       value_template: >-
@@ -995,13 +1003,6 @@
         - binary_sensor.planta_baja_temperatura_descendiendo
         - binary_sensor.planta_baja_temperatura_aumentando
 
-    temperature_first_floor:
-      friendly_name: 'Temp media 1ª planta'
-      icon_template: mdi:thermometer
-      value_template: '{{ (float(states.sensor.netatmo_suite_temperature.state)) | round(1) }}'
-      unit_of_measurement: '°C'
-      entity_id:
-        - sensor.netatmo_suite_temperature
     primera_planta_temperatura_tendencia:
       friendly_name: 'Tend temp 1ª planta'
       value_template: >-
