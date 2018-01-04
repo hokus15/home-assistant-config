@@ -91,7 +91,7 @@ sensor.season:
   hidden: true
 sensor.ups_status:
   friendly_name: 'SAI'
-  icon: 'mdi:power-socket'
+  icon: 'mdi:power-socket-eu'
 sensor.jordi_combined:
   entity_picture: !secret hokusphone_jordi_picture
 sensor.geni_combined:
@@ -237,6 +237,7 @@ sensor.caducidad_certificado_ssl:
 sensor.connected_clients:
   friendly_name: 'Clientes conectados'
   unit_of_measurement: 'cliente(s)'
+  icon: 'mdi:account'
 sensor.temperature_ground_floor:
   friendly_name: 'Temp media planta baja'
   icon: 'mdi:thermometer'
@@ -245,7 +246,6 @@ sensor.temperature_first_floor:
   friendly_name: 'Temp media 1ª planta'
   icon: 'mdi:thermometer'
   unit_of_measurement: '°C'
-
 ###################################
 # Binary Sensors
 ###################################
