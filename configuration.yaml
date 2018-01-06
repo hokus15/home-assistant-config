@@ -172,6 +172,11 @@ recorder:
       - sensor.suite_termometro_humedad
       - sensor.suite_termometro_max_temp
       - sensor.suite_termometro_min_temp
+      - sensor.habitacion_ninos_termometro_co2
+      - sensor.habitacion_ninos_termometro_temperatura
+      - sensor.habitacion_ninos_termometro_humedad
+      - sensor.habitacion_ninos_termometro_max_temp
+      - sensor.habitacion_ninos_termometro_min_temp
       - sensor.exterior_pluviometro_lluvia
       - sensor.exterior_pluviometro_lluvia_1
       - sensor.exterior_pluviometro_lluvia_24
@@ -246,10 +251,14 @@ recorder:
       - binary_sensor.recibidor_termometro_temperatura_aumentando
       - binary_sensor.suite_termometro_temperatura_descendiendo
       - binary_sensor.suite_termometro_temperatura_aumentando
+      - binary_sensor.habitacion_ninos_termometro_temperatura_descendiendo
+      - binary_sensor.habitacion_ninos_termometro_temperatura_aumentando
       - binary_sensor.salon_termometro_co2_descendiendo
       - binary_sensor.salon_termometro_co2_aumentando
       - binary_sensor.suite_termometro_co2_descendiendo
       - binary_sensor.suite_termometro_co2_aumentando
+      - binary_sensor.habitacion_ninos_termometro_co2_descendiendo
+      - binary_sensor.habitacion_ninos_termometro_co2_aumentando
       - binary_sensor.workday_sensor
       - input_number.empty_home_activation_delay_minutes
       - image_processing.sevensegement_ocr_ph_piscina
