@@ -59,10 +59,26 @@ sensor.netatmo_suite_max_temp:
   friendly_name: 'Máxima de hoy'
 sensor.netatmo_suite_co2:
   friendly_name: 'Nivel CO2'
+sensor.netatmo_suite_humidity:
+  friendly_name: 'Humedad'
 sensor.netatmo_suite_battery:
   friendly_name: 'Netatmo suite'
 sensor.netatmo_suite_radio:
   friendly_name: 'Señal suite'
+sensor.netatmo_habitacion_ninos_temperature:
+  friendly_name: 'Temperatura'
+sensor.netatmo_habitacion_ninos_min_temp:
+  friendly_name: 'Mínima de hoy'
+sensor.netatmo_habitacion_ninos_max_temp:
+  friendly_name: 'Máxima de hoy'
+sensor.netatmo_habitacion_ninos_co2:
+  friendly_name: 'Nivel CO2'
+sensor.netatmo_habitacion_ninos_humidity:
+  friendly_name: 'Humedad'
+sensor.netatmo_habitacion_ninos_battery:
+  friendly_name: 'Netatmo hab. niños'
+sensor.netatmo_habitacion_ninos_radio:
+  friendly_name: 'Señal hab.niños'
 sensor.speedtest_ping:
   friendly_name: 'Ping'
   icon: mdi:lan-connect

@@ -39,6 +39,7 @@ Interior:
     - group.recibidor
     - group.escalera
     - group.suite
+    - group.habitacion_ninos
     - group.calefaccion
     - group.seguridad_interior
     - group.confort
@@ -188,7 +189,19 @@ Suite:
     - sensor.netatmo_suite_max_temp
     - sensor.netatmo_suite_co2
     - sensor.suite_termometro_co2_tendencia
+    - sensor.netatmo_suite_humidity
     - sensor.netatmo_suite_radio
+
+Habitación niños:
+  entities:
+    - sensor.netatmo_habitacion_ninos_temperature
+    - sensor.habitacion_ninos_termometro_temperatura_tendencia
+    - sensor.netatmo_habitacion_ninos_min_temp
+    - sensor.netatmo_habitacion_ninos_max_temp
+    - sensor.netatmo_habitacion_ninos_co2
+    - sensor.habitacion_ninos_termometro_co2_tendencia
+    - sensor.netatmo_habitacion_ninos_humidity
+    - sensor.netatmo_habitacion_ninos_radio
 
 Recibidor:
   entities:
@@ -393,6 +406,7 @@ Estado baterías:
     - sensor.netatmo_pluviometro_battery
     - sensor.netatmo_anemometro_battery
     - sensor.netatmo_suite_battery
+    - sensor.netatmo_habitacion_ninos_battery
     - sensor.cocina_sensor_puerta_bateria
     - sensor.cocina_sensor_persiana_bateria
     - sensor.salon_detector_movimiento_bateria
