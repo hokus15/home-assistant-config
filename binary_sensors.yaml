@@ -154,11 +154,11 @@
     suite_termometro_temperatura_aumentando:
       entity_id: sensor.suite_termometro_temperatura
 
-    habitacion_ninos_termometro_temperatura_descendiendo:
-      entity_id: sensor.habitacion_ninos_termometro_temperatura
+    habitacion_termometro_temperatura_descendiendo:
+      entity_id: sensor.habitacion_termometro_temperatura
       invert: true
-    habitacion_ninos_termometro_temperatura_aumentando:
-      entity_id: sensor.habitacion_ninos_termometro_temperatura
+    habitacion_termometro_temperatura_aumentando:
+      entity_id: sensor.habitacion_termometro_temperatura
 
     salon_termometro_co2_descendiendo:
       entity_id: sensor.salon_termometro_co2
@@ -172,11 +172,11 @@
     suite_termometro_co2_aumentando:
       entity_id: sensor.suite_termometro_co2
 
-    habitacion_ninos_termometro_co2_descendiendo:
-      entity_id: sensor.habitacion_ninos_termometro_co2
+    habitacion_termometro_co2_descendiendo:
+      entity_id: sensor.habitacion_termometro_co2
       invert: true
-    habitacion_ninos_termometro_co2_aumentando:
-      entity_id: sensor.habitacion_ninos_termometro_co2
+    habitacion_termometro_co2_aumentando:
+      entity_id: sensor.habitacion_termometro_co2
 
     planta_baja_temperatura_descendiendo:
       entity_id: sensor.temperature_ground_floor

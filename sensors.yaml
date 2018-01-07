@@ -60,7 +60,6 @@
     - type: instant_readings
 
 - platform: netatmo
-  station: HokusWeather
   modules:
     Salón:
       - temperature
@@ -79,7 +78,7 @@
       - co2
       - battery_vp
       - rf_status
-    Habitación niños:
+    Habitación:
       - temperature
       - min_temp
       - max_temp
@@ -397,36 +396,36 @@
       friendly_name: 'la temperatura mínima de hoy en la suite'
       entity_id: 
         - sensor.netatmo_suite_min_temp
-    habitacion_ninos_termometro_co2:
-      value_template: '{{ states("sensor.netatmo_habitacion_ninos_co2") }}'
+    habitacion_termometro_co2:
+      value_template: '{{ states("sensor.netatmo_habitacion_co2") }}'
       unit_of_measurement: 'partes por millón'
       friendly_name: 'el c o 2 en la habitación de los niños'
       entity_id: 
-        - sensor.netatmo_habitacion_ninos_co2
-    habitacion_ninos_termometro_temperatura:
-      value_template: '{{ states("sensor.netatmo_habitacion_ninos_temperature") }}'
+        - sensor.netatmo_habitacion_co2
+    habitacion_termometro_temperatura:
+      value_template: '{{ states("sensor.netatmo_habitacion_temperature") }}'
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura en la habitación de los niños'
       entity_id: 
-        - sensor.netatmo_habitacion_ninos_temperature
-    habitacion_ninos_termometro_humedad:
-      value_template: '{{ states("sensor.netatmo_habitacion_ninos_humidity") }}'
+        - sensor.netatmo_habitacion_temperature
+    habitacion_termometro_humedad:
+      value_template: '{{ states("sensor.netatmo_habitacion_humidity") }}'
       unit_of_measurement: 'por ciento'
       friendly_name: 'la humedad en la habitación de los niños'
       entity_id: 
-        - sensor.netatmo_habitacion_ninos_humidity
-    habitacion_ninos_termometro_max_temp:
-      value_template: '{{ states("sensor.netatmo_habitacion_ninos_max_temp") }}'
+        - sensor.netatmo_habitacion_humidity
+    habitacion_termometro_max_temp:
+      value_template: '{{ states("sensor.netatmo_habitacion_max_temp") }}'
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura máxmima de hoy en la habitación de los niños'
       entity_id: 
-        - sensor.netatmo_habitacion_ninos_max_temp
-    habitacion_ninos_termometro_min_temp:
-      value_template: '{{ states("sensor.netatmo_habitacion_ninos_min_temp") }}'
+        - sensor.netatmo_habitacion_max_temp
+    habitacion_termometro_min_temp:
+      value_template: '{{ states("sensor.netatmo_habitacion_min_temp") }}'
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura mínima de hoy en la habitación de los niños'
       entity_id: 
-        - sensor.netatmo_habitacion_ninos_min_temp
+        - sensor.netatmo_habitacion_min_temp
 
     exterior_pluviometro_lluvia:
       value_template: '{{ states("sensor.netatmo_pluviometro_rain") }}'
@@ -1113,7 +1112,7 @@
   round_digits: 1
   entity_ids:
     - sensor.netatmo_suite_temperature
-    - sensor.netatmo_habitacion_ninos_temperature
+    - sensor.netatmo_habitacion_temperature
 
 - platform: template
   sensors:
@@ -1293,46 +1292,46 @@
         - binary_sensor.suite_termometro_co2_descendiendo
         - binary_sensor.suite_termometro_co2_aumentando
 
-    habitacion_ninos_termometro_temperatura_tendencia:
+    habitacion_termometro_temperatura_tendencia:
       friendly_name: 'Tendencia temp'
       value_template: >-
-        {%- if is_state("binary_sensor.habitacion_ninos_termometro_temperatura_descendiendo", "on") -%}
+        {%- if is_state("binary_sensor.habitacion_termometro_temperatura_descendiendo", "on") -%}
         En descenso
-        {%- elif is_state("binary_sensor.habitacion_ninos_termometro_temperatura_aumentando", "on") -%}
+        {%- elif is_state("binary_sensor.habitacion_termometro_temperatura_aumentando", "on") -%}
         En aumento
         {%- else -%}
         Sin cambio
         {%- endif %}
       icon_template: >-
-        {%- if is_state("binary_sensor.habitacion_ninos_termometro_temperatura_descendiendo", "on") -%}
+        {%- if is_state("binary_sensor.habitacion_termometro_temperatura_descendiendo", "on") -%}
         mdi:arrow-down-thick
-        {%- elif is_state("binary_sensor.habitacion_ninos_termometro_temperatura_aumentando", "on") -%}
+        {%- elif is_state("binary_sensor.habitacion_termometro_temperatura_aumentando", "on") -%}
         mdi:arrow-up-thick
         {%- else -%}
         mdi:window-minimize
         {%- endif %}
       entity_id:
-        - binary_sensor.habitacion_ninos_termometro_temperatura_descendiendo
-        - binary_sensor.habitacion_ninos_termometro_temperatura_aumentando
+        - binary_sensor.habitacion_termometro_temperatura_descendiendo
+        - binary_sensor.habitacion_termometro_temperatura_aumentando
 
-    habitacion_ninos_termometro_co2_tendencia:
+    habitacion_termometro_co2_tendencia:
       friendly_name: 'Tendencia CO2'
       value_template: >-
-        {%- if is_state("binary_sensor.habitacion_ninos_termometro_co2_descendiendo", "on") -%}
+        {%- if is_state("binary_sensor.habitacion_termometro_co2_descendiendo", "on") -%}
         En descenso
-        {%- elif is_state("binary_sensor.habitacion_ninos_termometro_co2_aumentando", "on") -%}
+        {%- elif is_state("binary_sensor.habitacion_termometro_co2_aumentando", "on") -%}
         En aumento
         {%- else -%}
         Sin cambio
         {%- endif %}
       icon_template: >-
-        {%- if is_state("binary_sensor.habitacion_ninos_termometro_co2_descendiendo", "on") -%}
+        {%- if is_state("binary_sensor.habitacion_termometro_co2_descendiendo", "on") -%}
         mdi:arrow-down-thick
-        {%- elif is_state("binary_sensor.habitacion_ninos_termometro_co2_aumentando", "on") -%}
+        {%- elif is_state("binary_sensor.habitacion_termometro_co2_aumentando", "on") -%}
         mdi:arrow-up-thick
         {%- else -%}
         mdi:window-minimize
         {%- endif %}
       entity_id:
-        - binary_sensor.habitacion_ninos_termometro_co2_descendiendo
-        - binary_sensor.habitacion_ninos_termometro_co2_aumentando
+        - binary_sensor.habitacion_termometro_co2_descendiendo
+        - binary_sensor.habitacion_termometro_co2_aumentando

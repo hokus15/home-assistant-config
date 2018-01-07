@@ -194,14 +194,14 @@ Suite:
 
 Habitación niños:
   entities:
-    - sensor.netatmo_habitacion_ninos_temperature
-    - sensor.habitacion_ninos_termometro_temperatura_tendencia
-    - sensor.netatmo_habitacion_ninos_min_temp
-    - sensor.netatmo_habitacion_ninos_max_temp
-    - sensor.netatmo_habitacion_ninos_co2
-    - sensor.habitacion_ninos_termometro_co2_tendencia
-    - sensor.netatmo_habitacion_ninos_humidity
-    - sensor.netatmo_habitacion_ninos_radio
+    - sensor.netatmo_habitacion_temperature
+    - sensor.habitacion_termometro_temperatura_tendencia
+    - sensor.netatmo_habitacion_min_temp
+    - sensor.netatmo_habitacion_max_temp
+    - sensor.netatmo_habitacion_co2
+    - sensor.habitacion_termometro_co2_tendencia
+    - sensor.netatmo_habitacion_humidity
+    - sensor.netatmo_habitacion_radio
 
 Recibidor:
   entities:
@@ -406,7 +406,7 @@ Estado baterías:
     - sensor.netatmo_pluviometro_battery
     - sensor.netatmo_anemometro_battery
     - sensor.netatmo_suite_battery
-    - sensor.netatmo_habitacion_ninos_battery
+    - sensor.netatmo_habitacion_battery
     - sensor.cocina_sensor_puerta_bateria
     - sensor.cocina_sensor_persiana_bateria
     - sensor.salon_detector_movimiento_bateria

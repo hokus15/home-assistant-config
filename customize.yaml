@@ -65,19 +65,19 @@ sensor.netatmo_suite_battery:
   friendly_name: 'Netatmo suite'
 sensor.netatmo_suite_radio:
   friendly_name: 'Señal suite'
-sensor.netatmo_habitacion_ninos_temperature:
+sensor.netatmo_habitacion_temperature:
   friendly_name: 'Temperatura'
-sensor.netatmo_habitacion_ninos_min_temp:
+sensor.netatmo_habitacion_min_temp:
   friendly_name: 'Mínima de hoy'
-sensor.netatmo_habitacion_ninos_max_temp:
+sensor.netatmo_habitacion_max_temp:
   friendly_name: 'Máxima de hoy'
-sensor.netatmo_habitacion_ninos_co2:
+sensor.netatmo_habitacion_co2:
   friendly_name: 'Nivel CO2'
-sensor.netatmo_habitacion_ninos_humidity:
+sensor.netatmo_habitacion_humidity:
   friendly_name: 'Humedad'
-sensor.netatmo_habitacion_ninos_battery:
+sensor.netatmo_habitacion_battery:
   friendly_name: 'Netatmo hab. niños'
-sensor.netatmo_habitacion_ninos_radio:
+sensor.netatmo_habitacion_radio:
   friendly_name: 'Señal hab.niños'
 sensor.speedtest_ping:
   friendly_name: 'Ping'
