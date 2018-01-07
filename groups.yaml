@@ -225,7 +225,7 @@ Luces exteriores:
   entities:
     - light.barrera_derecha
     - light.barrera_izquierda
-    - light.puerta_entrada
+    - light.puerta_coladuria
     - input_number.entrada_luz_brillo
 
 Luces interiores:
