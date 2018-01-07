@@ -288,6 +288,16 @@ binary_sensor.salon_detector_movimiento:
   friendly_name: 'Movimiento'
 binary_sensor.salon_detector_movimiento_sabotaje:
   friendly_name: 'Manipulación sensor'
+binary_sensor.entrada_principal_outdoor_motion:
+  friendly_name: 'Movimiento'
+binary_sensor.entrada_principal_outdoor_human:
+  friendly_name: 'Persona detectada'
+binary_sensor.entrada_principal_outdoor_animal:
+  friendly_name: 'Animal detectado'
+  icon: 'mdi:paw'
+binary_sensor.entrada_principal_outdoor_vehicle:
+  friendly_name: 'Vehiculo detectado'
+  icon: 'mdi:car'
 
 ###################################
 # Cameras
