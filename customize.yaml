@@ -262,6 +262,8 @@ sensor.temperature_first_floor:
   friendly_name: 'Temp media 1ª planta'
   icon: 'mdi:thermometer'
   unit_of_measurement: '°C'
+sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature:
+  friendly_name: 'Temp. agua'
 ###################################
 # Binary Sensors
 ###################################
@@ -289,7 +291,7 @@ binary_sensor.salon_detector_movimiento:
 binary_sensor.salon_detector_movimiento_sabotaje:
   friendly_name: 'Manipulación sensor'
 binary_sensor.entrada_principal_outdoor_motion:
-  friendly_name: 'Movimiento'
+  friendly_name: 'Movimiento desconocido'
 binary_sensor.entrada_principal_outdoor_human:
   friendly_name: 'Persona detectada'
 binary_sensor.entrada_principal_outdoor_animal:

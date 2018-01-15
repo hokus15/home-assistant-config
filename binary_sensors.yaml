@@ -194,12 +194,12 @@
       entity_id: sensor.temperature_first_floor
       max_samples: 5
 
-- platform: template
-  sensors:
-    piscina_pump:
-      friendly_name: Motor piscina
-      value_template: "{{(as_timestamp(now())|round - as_timestamp(states.sensor.piscina_on_time.state)|round) >= 0 and (as_timestamp(now())|round - as_timestamp(states.sensor.piscina_off_time.state)|round) <= 0}}"
-      device_class: plug
+#- platform: template
+#  sensors:
+#    piscina_pump:
+#      friendly_name: Motor piscina
+#      value_template: "{{(as_timestamp(now())|round - as_timestamp(states.sensor.piscina_on_time.state)|round) >= 0 and (as_timestamp(now())|round - as_timestamp(states.sensor.piscina_off_time.state)|round) <= 0}}"
+#      device_class: plug
 
 - platform: bayesian
   # Indicates the probability that this is true in a day – let’s say I’m home half the time, or 0.5

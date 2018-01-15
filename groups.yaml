@@ -242,16 +242,17 @@ Barrera:
 Piscina:
   entities:
     - switch.piscina
-    - binary_sensor.piscina_pump
+#    - binary_sensor.piscina_pump
+    - input_boolean.piscina_pump
     - sensor.ph_piscina
     - sensor.piscina_on_history
     - sensor.switch_piscina_current_power_w
     - sensor.switch_piscina_today_energy_kwh
-    - input_number.piscina_temperature
+    - sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature
     - sensor.piscina_k_factor
     - sensor.piscina_filtering_time
-    - sensor.piscina_on_time
-    - sensor.piscina_off_time
+#    - sensor.piscina_on_time
+#    - sensor.piscina_off_time
     - camera.piscina
     #- camera.ph_piscina
 

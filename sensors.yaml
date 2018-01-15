@@ -1002,25 +1002,25 @@
     piscina_k_factor:
       friendly_name: 'Factor reduccion (K)'
       value_template: >-
-        {%- if states.input_number.piscina_temperature.state | int > 15 %}
+        {%- if states.sensor.piscina_temperature_mean.attributes.max_value | int > 15 %}
           1
-        {% elif states.input_number.piscina_temperature.state | int <= 15 and states.input_number.piscina_temperature.state | int > 13 %}
+        {% elif states.sensor.piscina_temperature_mean.attributes.max_value | int <= 15 and states.sensor.piscina_temperature_mean.attributes.max_value | int > 13 %}
           0.5
-        {% elif states.input_number.piscina_temperature.state | int <= 13 and states.input_number.piscina_temperature.state | int > 10 %}
+        {% elif states.sensor.piscina_temperature_mean.attributes.max_value | int <= 13 and states.sensor.piscina_temperature_mean.attributes.max_value | int > 10 %}
           0.33
-        {% elif states.input_number.piscina_temperature.state | int <= 10 and states.input_number.piscina_temperature.state | int > 5 %}
+        {% elif states.sensor.piscina_temperature_mean.attributes.max_value | int <= 10 and states.sensor.piscina_temperature_mean.attributes.max_value | int > 5 %}
           0.25
-        {% elif states.input_number.piscina_temperature.state | int <= 5 %}
+        {% elif states.sensor.piscina_temperature_mean.attributes.max_value | int <= 5 %}
           0.15
         {%- endif %}
 
       icon_template: 'mdi:oil-temperature'
       entity_id:
-        - input_number.piscina_temperature
+        - sensor.piscina_temperature_mean
     piscina_filtering_time:
       friendly_name: 'Tiempo de filtrado'
       value_template: >- 
-        {% set filtering_time = (states.sensor.piscina_k_factor.state | float * ((states.input_number.piscina_temperature.state | float / 10) * states.sensor.piscina_recirculation.state | float )) | float | round(2)%}
+        {% set filtering_time = (states.sensor.piscina_k_factor.state | float * ((states.sensor.piscina_temperature_mean.attributes.max_value | float / 10) * states.sensor.piscina_recirculation.state | float )) | float | round(2)%}
         {%- if filtering_time < 2 %}
           {{ 2 | float }}
         {% elif filtering_time > 12 %}
@@ -1033,26 +1033,32 @@
       icon_template: 'mdi:clock'
       entity_id:
         - sensor.piscina_k_factor
-        - input_number.piscina_temperature
+        - sensor.piscina_temperature_mean
         - sensor.piscina_recirculation
-    piscina_off_time:
-      friendly_name: 'Apagado'
-      value_template: >- 
-        {%- if is_state("sensor.season", "Summer") %}
-          {{ as_timestamp(now().replace(hour=13).replace(minute=0).replace(second=0)) | timestamp_local}}
-        {% else %}
-          {{ as_timestamp(now().replace(hour=12).replace(minute=0).replace(second=0)) | timestamp_local}}
-        {%- endif %}
+#    piscina_off_time:
+#      friendly_name: 'Apagado'
+#      value_template: >- 
+#        {%- if is_state("sensor.season", "Summer") %}
+#          {{ as_timestamp(now().replace(hour=13).replace(minute=0).replace(second=0)) | timestamp_local}}
+#        {% else %}
+#          {{ as_timestamp(now().replace(hour=12).replace(minute=0).replace(second=0)) | timestamp_local}}
+#        {%- endif %}
+#
+#      icon_template: 'mdi:power-plug-off'
+#    piscina_on_time:
+#      friendly_name: 'Encendido'
+#      value_template: >-
+#        {%- if states.sensor.piscina_off_time %}
+#        {{ (as_timestamp(states.sensor.piscina_off_time.state) - (states.sensor.piscina_filtering_time.state | float * 60 * 60)) | timestamp_local }}
+#        {%- endif %}
 
-      icon_template: 'mdi:power-plug-off'
-    piscina_on_time:
-      friendly_name: 'Encendido'
-      value_template: >-
-        {%- if states.sensor.piscina_off_time %}
-        {{ (as_timestamp(states.sensor.piscina_off_time.state) - (states.sensor.piscina_filtering_time.state | float * 60 * 60)) | timestamp_local }}
-        {%- endif %}
+#      icon_template: 'mdi:power-plug'
+- platform: statistics
+  name: piscina_temperature
+  entity_id: sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature
+  max_age:
+    hours: 24
 
-      icon_template: 'mdi:power-plug'
 # Use of the swimming pool pump today
 - platform: history_stats
   name: piscina_on_history
