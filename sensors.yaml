@@ -1356,3 +1356,11 @@
       entity_id:
         - binary_sensor.habitacion_termometro_co2_descendiendo
         - binary_sensor.habitacion_termometro_co2_aumentando
+
+- platform: whois
+  domain: !secret domain_name1
+  name: Dominio principal
+  
+- platform: whois
+  domain: !secret domain_name2
+  name: Dominio nena

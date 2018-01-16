@@ -337,6 +337,8 @@ Internet:
     - sensor.speedtest_download
     - sensor.speedtest_upload
     - sensor.caducidad_certificado_ssl
+    - sensor.dominio_principal
+    - sensor.dominio_nena
 
 Crypto Currency:
   entities:
