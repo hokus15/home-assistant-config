@@ -1063,7 +1063,7 @@
       # The time round to the minute
       value_template: >-
         {%- if states.sensor.piscina_off_time %}
-          {{(((as_timestamp(states.sensor.piscina_off_time.state)-(states.sensor.piscina_filtering_time.state | float * 60 * 60)) // 60) * 60)|timestamp_custom("%Y-%m-%d, %H:%M")}}
+          {{(((as_timestamp(strptime(states.sensor.piscina_off_time.state, "%Y-%m-%d, %H:%M"))-(states.sensor.piscina_filtering_time.state | float * 60 * 60)) // 60) * 60)|timestamp_custom("%Y-%m-%d, %H:%M")}}
         {%- endif %}
       entity_id:
         - sensor.piscina_off_time
