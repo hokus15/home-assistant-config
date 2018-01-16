@@ -335,41 +335,44 @@
     platform: state
     entity_id: binary_sensor.confort_state
     to: 'on'
+  condition:
+    - condition: time
+      after: '16:00'
   action:
-    - service: notify.telegram
-      data_template:
-        message: > 
-          Calefacción encendida para mejorar el confort
-          
-          Temperatura objetivo: {{ states.climate.termostato.state }}
-          
-          Temperatura media planta baja: {{states.sensor.temperature_ground_floor.state}}
-          
-          Temperatura media primera planta: {{states.sensor.temperature_first_floor.state}}
-          
-          Ocupación: {{states.group.unidad_familiar.state}}
-          
-          Estado calefacción: {{states.switch.termostato.state}}
-          
-          Modo ausente: {{states.switch.termostato_modo_ausente.state}}
-          
-          Estado termostato: {{states.climate.termostato.attributes.operation_mode}}
-          
-          Tendencia temperatura planta baja: {{states.sensor.planta_baja_temperatura_tendencia.state}}
-          
-          Tendencia temperatura primera planta: {{states.sensor.primera_planta_temperatura_tendencia.state}}
-    - delay:
-        seconds: 30
-    - service: logbook.log
-      data_template:
-        name: Calefacción
-        message: encendida para mejorar el confort
-        entity_id: climate.termostato
-        domain: climate
-    - service: climate.set_temperature
-      data_template:
-        entity_id: climate.termostato
-        temperature: 23
+  - service: notify.telegram
+    data_template:
+      message: > 
+        Calefacción encendida para mejorar el confort
+        
+        Temperatura objetivo: {{ states.climate.termostato.state }}
+        
+        Temperatura media planta baja: {{states.sensor.temperature_ground_floor.state}}
+        
+        Temperatura media primera planta: {{states.sensor.temperature_first_floor.state}}
+        
+        Ocupación: {{states.group.unidad_familiar.state}}
+        
+        Estado calefacción: {{states.switch.termostato.state}}
+        
+        Modo ausente: {{states.switch.termostato_modo_ausente.state}}
+        
+        Estado termostato: {{states.climate.termostato.attributes.operation_mode}}
+        
+        Tendencia temperatura planta baja: {{states.sensor.planta_baja_temperatura_tendencia.state}}
+        
+        Tendencia temperatura primera planta: {{states.sensor.primera_planta_temperatura_tendencia.state}}
+  - delay:
+      seconds: 30
+  - service: logbook.log
+    data_template:
+      name: Calefacción
+      message: encendida para mejorar el confort
+      entity_id: climate.termostato
+      domain: climate
+  - service: climate.set_temperature
+    data_template:
+      entity_id: climate.termostato
+      temperature: 23
 
 #############################################################
 # Holiday automations
