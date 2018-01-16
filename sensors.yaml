@@ -1051,9 +1051,9 @@
       friendly_name: 'Apagado'
       value_template: >- 
         {%- if is_state("sensor.season", "Summer") %}
-          {{ strptime(states.sensor.date__time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)}}
+          {{ as_timestamp(strptime(states.sensor.date__time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
         {% else %}
-          {{ strptime(states.sensor.date__time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0)}}
+          {{ as_timestamp(strptime(states.sensor.date__time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
         {%- endif %}
       entity_id:
         - sensor.date__time
@@ -1063,7 +1063,7 @@
       # The time round to the minute
       value_template: >-
         {%- if states.sensor.piscina_off_time %}
-          {{(((as_timestamp(states.sensor.piscina_off_time.state)-(states.sensor.piscina_filtering_time.state | float * 60 * 60)) // 60) * 60)|timestamp_local}}
+          {{(((as_timestamp(states.sensor.piscina_off_time.state)-(states.sensor.piscina_filtering_time.state | float * 60 * 60)) // 60) * 60)|timestamp_custom("%Y-%m-%d, %H:%M")}}
         {%- endif %}
       entity_id:
         - sensor.piscina_off_time
