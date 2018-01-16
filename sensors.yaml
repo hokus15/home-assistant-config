@@ -1,5 +1,11 @@
 - platform: api_streams
 
+- platform: time_date
+  display_options:
+    - 'time'
+    - 'date'
+    - 'date_time'
+
 # Crypto currency sensors
 #- platform: bitcoin
 #  currency: EUR
@@ -898,6 +904,12 @@
         {% set uptimeSeconds = (uptimeTotalSeconds - uptimeTotalHours * 3600 - uptimeMinutes * 60 ) %}
         {{uptimeDays}} día(s),{{"%02d"|format(uptimeHours)}}:{{"%02d"|format(uptimeMinutes)}}:{{"%02d"|format(uptimeSeconds)}}
 
+#- platform: template
+#  sensors:
+#    hokusnasserver_uptime:
+#      friendly_name: 'Uptime'
+#      value_template: {{states.sensor.hokusnasserver_status.attributes["Uptime"]}}
+
 - platform: nut
   resources:
     - ups.status
@@ -1035,24 +1047,27 @@
         - sensor.piscina_k_factor
         - sensor.piscina_temperature_mean
         - sensor.piscina_recirculation
-#    piscina_off_time:
-#      friendly_name: 'Apagado'
-#      value_template: >- 
-#        {%- if is_state("sensor.season", "Summer") %}
-#          {{ as_timestamp(now().replace(hour=13).replace(minute=0).replace(second=0)) | timestamp_local}}
-#        {% else %}
-#          {{ as_timestamp(now().replace(hour=12).replace(minute=0).replace(second=0)) | timestamp_local}}
-#        {%- endif %}
-#
-#      icon_template: 'mdi:power-plug-off'
-#    piscina_on_time:
-#      friendly_name: 'Encendido'
-#      value_template: >-
-#        {%- if states.sensor.piscina_off_time %}
-#        {{ (as_timestamp(states.sensor.piscina_off_time.state) - (states.sensor.piscina_filtering_time.state | float * 60 * 60)) | timestamp_local }}
-#        {%- endif %}
-
-#      icon_template: 'mdi:power-plug'
+    piscina_off_time:
+      friendly_name: 'Apagado'
+      value_template: >- 
+        {%- if is_state("sensor.season", "Summer") %}
+          {{ strptime(states.sensor.date__time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)}}
+        {% else %}
+          {{ strptime(states.sensor.date__time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0)}}
+        {%- endif %}
+      entity_id:
+        - sensor.date__time
+      icon_template: 'mdi:power-plug-off'
+    piscina_on_time:
+      friendly_name: 'Encendido'
+      value_template: >-
+        {%- if states.sensor.piscina_off_time %}
+        {{ (as_timestamp(states.sensor.piscina_off_time.state) - (states.sensor.piscina_filtering_time.state | int * 60 * 60)) | timestamp_local }}
+        {%- endif %}
+      entity_id:
+        - sensor.piscina_off_time
+        - sensor.piscina_filtering_time
+      icon_template: 'mdi:power-plug'
 - platform: statistics
   name: piscina_temperature
   entity_id: sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature

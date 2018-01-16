@@ -251,8 +251,8 @@ Piscina:
     - sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature
     - sensor.piscina_k_factor
     - sensor.piscina_filtering_time
-#    - sensor.piscina_on_time
-#    - sensor.piscina_off_time
+    - sensor.piscina_on_time
+    - sensor.piscina_off_time
     - camera.piscina
     #- camera.ph_piscina
 
