@@ -1060,9 +1060,10 @@
       icon_template: 'mdi:power-plug-off'
     piscina_on_time:
       friendly_name: 'Encendido'
+      # The time round to the minute
       value_template: >-
         {%- if states.sensor.piscina_off_time %}
-        {{ (as_timestamp(states.sensor.piscina_off_time.state) - (states.sensor.piscina_filtering_time.state | int * 60 * 60)) | timestamp_local }}
+          {{(((as_timestamp(states.sensor.piscina_off_time.state)-(states.sensor.piscina_filtering_time.state | float * 60 * 60)) // 60) * 60)|timestamp_local}}
         {%- endif %}
       entity_id:
         - sensor.piscina_off_time
