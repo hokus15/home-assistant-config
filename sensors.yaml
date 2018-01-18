@@ -1014,15 +1014,15 @@
     piscina_k_factor:
       friendly_name: 'Factor reduccion (K)'
       value_template: >-
-        {%- if states.sensor.piscina_temperature_mean.attributes.max_value | int > 15 %}
+        {%- if states.sensor.piscina_temperature_mean.state | float > 15 %}
           1
-        {% elif states.sensor.piscina_temperature_mean.attributes.max_value | int <= 15 and states.sensor.piscina_temperature_mean.attributes.max_value | int > 13 %}
+        {% elif states.sensor.piscina_temperature_mean.state | float <= 15 and states.sensor.piscina_temperature_mean.state | float > 13 %}
           0.5
-        {% elif states.sensor.piscina_temperature_mean.attributes.max_value | int <= 13 and states.sensor.piscina_temperature_mean.attributes.max_value | int > 10 %}
+        {% elif states.sensor.piscina_temperature_mean.state | float <= 13 and states.sensor.piscina_temperature_mean.state | float > 10 %}
           0.33
-        {% elif states.sensor.piscina_temperature_mean.attributes.max_value | int <= 10 and states.sensor.piscina_temperature_mean.attributes.max_value | int > 5 %}
+        {% elif states.sensor.piscina_temperature_mean.state | float <= 10 and states.sensor.piscina_temperature_mean.state | float > 5 %}
           0.25
-        {% elif states.sensor.piscina_temperature_mean.attributes.max_value | int <= 5 %}
+        {% elif states.sensor.piscina_temperature_mean.state | float <= 5 %}
           0.15
         {%- endif %}
 
@@ -1032,7 +1032,7 @@
     piscina_filtering_time:
       friendly_name: 'Tiempo de filtrado'
       value_template: >- 
-        {% set filtering_time = (states.sensor.piscina_k_factor.state | float * ((states.sensor.piscina_temperature_mean.attributes.max_value | float / 10) * states.sensor.piscina_recirculation.state | float )) | float | round(2)%}
+        {% set filtering_time = (states.sensor.piscina_k_factor.state | float * ((states.sensor.piscina_temperature_mean.state | float / 10) * states.sensor.piscina_recirculation.state | float )) | float | round(2)%}
         {%- if filtering_time < 2 %}
           {{ 2 | float }}
         {% elif filtering_time > 12 %}
