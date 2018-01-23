@@ -242,8 +242,6 @@ Barrera:
 Piscina:
   entities:
     - switch.piscina
-#    - binary_sensor.piscina_pump
-    - input_boolean.piscina_pump
     - sensor.ph_piscina
     - sensor.piscina_on_history
     - sensor.switch_piscina_current_power_w

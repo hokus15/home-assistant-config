@@ -17,7 +17,3 @@ salon_detector_movimiento:
   name: Det. mov. salón
   initial: off
   icon: 'mdi:transit-transfer'
-
-piscina_pump:
-  name: Motor piscina
-  initial: off
