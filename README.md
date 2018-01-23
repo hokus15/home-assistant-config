@@ -40,6 +40,7 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 ### Z-Wave devices:
 * AEOTEC Z-Stick Gen5
 * 2 x Fibaro Door / Window Sensor FGK-10x
+* 1 x Fibaro Door / Window Sensor FGK-10x with a waterproof DS18B20 temperature sensor to measure swimming pool water temperature
 * Fibaro FGMS-001 Motion Sensor
 * Fibaro FGS-223 Double switch 2
 * Swiid Swiidinter switch
@@ -56,9 +57,7 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 * Notify when the power is back to normal.
 * Notify when the UPS battery has to be replaced.
 * Notify if fence is open form more than 10 minutes.
-* Turn on swimming pool pump every day at 7AM
-* Turn on swimming pool pump every day at 8PM
-* Stop the swimming pool pump depending on the season of the year (3 hours in summer, 2 hours in spring and autumn, 1 hour in winter).
+* Turn on swimming pool pump based on water temperature (colder less on time) and turn it off just before the peak electricity price.
 
 **Note that the following configuration is not used any more. Since version 0.53 a season sensor was released. I leave it here only for information purpose.**
 
@@ -106,7 +105,7 @@ This is the Nmap component.
 When I connect to my home WiFi I use a [Tasker](http://tasker.dinglisch.net/) profile to send a MQTT message to tell home-assistant that I'm at home and another MQTT message when I disconnect from my WiFi.
 
 ### iBeacon:
-I've cnfigured my RaspberryPi to transmit as an iBeacon. When my phone detects the RaspberryPi iBeacon I use a [Tasker](http://tasker.dinglisch.net/) profile to send a MQTT message to tell home-assistant that I'm at home and another MQTT message when iBeacon is not detected anyomore.
+I've configured my RaspberryPi to transmit as an iBeacon. When my phone detects the RaspberryPi iBeacon I use a [Tasker](http://tasker.dinglisch.net/) profile to send a MQTT message to tell home-assistant that I'm at home and another MQTT message when iBeacon is not detected anyomore.
 
 ## Home security description
 I've configured the system to get instant notifications using telegram including snapshots when one of the cameras triggers a motion detection.
