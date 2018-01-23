@@ -97,8 +97,6 @@
         entity_id: climate.termostato
         data:
           away_mode: false
-      entity_id:
-        - climate.termostato
 
 - platform: template
   switches:
@@ -108,5 +106,3 @@
         service: shell_command.nut_ups_enable_beeper
       turn_off:
         service: shell_command.nut_ups_disable_beeper
-      entity_id:
-        - sensor.nut_ups_beeper_status

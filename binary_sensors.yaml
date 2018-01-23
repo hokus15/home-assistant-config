@@ -33,8 +33,6 @@
     ups_status_bs:
       device_class: plug
       value_template: "{{ states.sensor.nut_ups_status_data.state == 'OL' or states.sensor.nut_ups_status_data.state == 'OL CHRG' }}"
-      entity_id:
-        - sensor.nut_ups_status_data
       delay_off:
         seconds: 30
     confort_state:
@@ -43,15 +41,6 @@
       value_template: "{{ states('sensor.temperature_first_floor') < states('climate.termostato') and is_state('group.unidad_familiar', 'home') and is_state('switch.termostato', 'on') and is_state('switch.termostato_modo_ausente','off') and is_state_attr('climate.termostato', 'operation_mode', 'idle') and is_state('binary_sensor.primera_planta_temperatura_descendiendo','on') }}"
       delay_off:
           minutes: 90
-      entity_id:
-        - sensor.temperature_first_floor
-        - climate.termostato
-        - sensor.temperature_ground_floor
-        - group.unidad_familiar
-        - switch.termostato
-        - switch.termostato_modo_ausente
-        - binary_sensor.primera_planta_temperatura_descendiendo
-        - binary_sensor.planta_baja_temperatura_descendiendo
 
 # Alarm status for foscam cam in hall
 - platform: mqtt
@@ -113,13 +102,9 @@
   sensors:
     salon_detector_movimiento:
       value_template: "{{ is_state('sensor.fibaro_fgms001_motion_sensor_salon_burglar', '8') }}"
-      entity_id: 
-        - sensor.fibaro_fgms001_motion_sensor_salon_burglar
       device_class: motion
     salon_detector_movimiento_sabotaje:
       value_template: "{{ is_state('sensor.fibaro_fgms001_motion_sensor_salon_burglar', '3') }}"
-      entity_id: 
-        - sensor.fibaro_fgms001_motion_sensor_salon_burglar
       device_class: vibration
 
 - platform: workday
