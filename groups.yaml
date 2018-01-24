@@ -252,7 +252,7 @@ Piscina:
     - sensor.piscina_on_time
     - sensor.piscina_off_time
     - camera.piscina
-    #- camera.ph_piscina
+    - camera.ph_piscina
 
 Cámara recibidor:
   entities:

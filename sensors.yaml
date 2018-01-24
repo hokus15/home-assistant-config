@@ -210,7 +210,7 @@
       unit_of_measurement: 'Kwh'
       friendly_name: 'Consumo hoy'
     ph_piscina:
-      value_template: '{{states.image_processing.sevensegement_ocr_ph_piscina.state | float }}'
+      value_template: '{{states.image_processing.sevensegement_ocr_ph_piscina.state }}'
       friendly_name: 'pH'
       icon_template: mdi:beaker
 

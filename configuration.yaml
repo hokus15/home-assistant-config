@@ -353,8 +353,7 @@ input_boolean: !include input_booleans.yaml
 panel_iframe: !include panel_iframes.yaml
 panel_custom: !include panel_custom.yaml
 intent_script: !include intent_scripts.yaml
-#android_ip_webcam: !include android_ip_webcam.yaml
-#image_processing: !include image_processing.yaml
+image_processing: !include image_processing.yaml
 history_graph: !include history_graph.yaml
 #scene: !include scenes.yaml
 
