@@ -251,8 +251,9 @@ Piscina:
     - sensor.piscina_filtering_time
     - sensor.piscina_on_time
     - sensor.piscina_off_time
+    - history_graph.temperatura_piscina
     - camera.piscina
-    - camera.ph_piscina
+#    - camera.ph_piscina
 
 Cámara recibidor:
   entities:

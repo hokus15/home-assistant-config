@@ -4,3 +4,10 @@ temperature_outside:
     - sensor.netatmo_exterior_temperature
   hours_to_show: 24
   refresh: 60
+
+temperature_swimmingpool:
+  name: Temperatura piscina
+  entities:
+    - sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature
+  hours_to_show: 336
+  refresh: 300
