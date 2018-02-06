@@ -5,7 +5,7 @@
     speech:
       text: >
         {%- set status ={"on": "conectada", "off": "desconectada"} -%}
-        La calefacción está {{ status[states("switch.termostato")] }}. {% if is_state("switch.termostato", "on") %}{% if states("climate.termostato") != "0"%} A una temperatura de {{ states("climate.termostato") }} grados.{% endif -%} {% if is_state_attr("climate.termostato", "operation_mode", "idle") %} No está en marcha{%- else %} Está en marcha{% endif -%}{%- if is_state("switch.termostato_modo_ausente", "on") %} y tiene el modo ausente activado.  {%- else %} y tiene el modo ausente desactivado. {% endif %}{% endif %}
+        La calefacción está {{ status[states("switch.termostato")] }}. {% if is_state("switch.termostato", "on") %}{% if states("climate.termostato") != "0"%} A una temperatura de {{ states.climate.termostato.attributes.temperature}} grados.{% endif -%} {% if is_state_attr("climate.termostato", "operation_mode", "idle") %} No está en marcha{%- else %} Está en marcha{% endif -%}{%- if is_state("switch.termostato_modo_ausente", "on") %} y tiene el modo ausente activado.  {%- else %} y tiene el modo ausente desactivado. {% endif %}{% endif %}
 
   heating.temperature.change.relative:
     speech:
