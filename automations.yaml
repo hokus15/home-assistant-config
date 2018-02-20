@@ -344,7 +344,7 @@
       message: > 
         Calefacción encendida para mejorar el confort
         
-        Temperatura objetivo: {{ states.climate.termostato.state }}
+        Temperatura objetivo: {{ states.climate.termostato.attributes.temperature }}
         
         Temperatura media planta baja: {{states.sensor.temperature_ground_floor.state}}
         

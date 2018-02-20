@@ -38,7 +38,7 @@
     confort_state:
       device_class: heat
       friendly_name: 'Auto confort'
-      value_template: "{{ states('sensor.temperature_first_floor') < states('climate.termostato') and is_state('group.unidad_familiar', 'home') and is_state('switch.termostato', 'on') and is_state('switch.termostato_modo_ausente','off') and is_state_attr('climate.termostato', 'operation_mode', 'idle') and is_state('binary_sensor.primera_planta_temperatura_descendiendo','on') }}"
+      value_template: "{{ states('sensor.temperature_first_floor')|float < states.climate.termostato.attributes.temperature|float and is_state('group.unidad_familiar', 'home') and is_state('switch.termostato', 'on') and is_state('switch.termostato_modo_ausente','off') and is_state_attr('climate.termostato', 'operation_mode', 'idle') and is_state('binary_sensor.primera_planta_temperatura_descendiendo','on') }}"
       delay_off:
           minutes: 90
 
