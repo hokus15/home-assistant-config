@@ -26,6 +26,7 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 * Foscam Fi9853EP camera
 * Foscam Fi9900P camera
 * Linksys WVC54GCA camera
+* Netatmo Presence Security camera
 * Netatmo weather station with rainmeter and windmeter
 * Netatmo thermostat
 * APC Back-UPS 650VA UPS
@@ -39,7 +40,7 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 
 ### Z-Wave devices:
 * AEOTEC Z-Stick Gen5
-* 2 x Fibaro Door / Window Sensor FGK-10x
+* 2 x Fibaro Door / Window Sensor FGK-10x (one of them with a DS18B20 temperature sensor)
 * 1 x Fibaro Door / Window Sensor FGK-10x with a waterproof DS18B20 temperature sensor to measure swimming pool water temperature
 * Fibaro FGMS-001 Motion Sensor
 * Fibaro FGS-223 Double switch 2
@@ -56,8 +57,8 @@ Home Assistant runs on my Raspberry Pi 3 with a UPS APC Back-UPS 650VA and a AEO
 * Notify when a power outage is detected by the UPS.
 * Notify when the power is back to normal.
 * Notify when the UPS battery has to be replaced.
-* Notify if fence is open form more than 10 minutes.
-* Turn on swimming pool pump based on water temperature (colder less on time) and turn it off just before the peak electricity price.
+* Notify if fence is open for more than 10 minutes.
+* Turn on swimming pool pump based on water temperature (colder water less time on based ion a formula) and turn it off just before the peak electricity price.
 
 **Note that the following configuration is not used any more. Since version 0.53 a season sensor was released. I leave it here only for information purpose.**
 
@@ -96,13 +97,13 @@ I've created a sensor to determine roughly the season of the year:
 
 ## Presence detection
 Since I found owntracks was draining my phone battery I decided to use another approach for presence detection. In my case it's pretty accurate.
-I use three different sensors, if one of them is set as home it means that I'm at home. If all of them are not_home it means that I'm not at home.
+I use three different sensors, if one of them is set as 'home' it means that I'm at home. If all of them are 'not_home' it means that I'm not at home.
 
 ### Nmap
 This is the Nmap component.
 
 ### Wifi connection
-When I connect to my home WiFi I use a [Tasker](http://tasker.dinglisch.net/) profile to send a MQTT message to tell home-assistant that I'm at home and another MQTT message when I disconnect from my WiFi.
+When I connect to my home WiFi I use a [Tasker](http://tasker.dinglisch.net/) profile to send a MQTT message to tell home-assistant that I'm at home and another MQTT message when I disconnect from my home WiFi.
 
 ### iBeacon:
 I've configured my RaspberryPi to transmit as an iBeacon. When my phone detects the RaspberryPi iBeacon I use a [Tasker](http://tasker.dinglisch.net/) profile to send a MQTT message to tell home-assistant that I'm at home and another MQTT message when iBeacon is not detected anyomore.
@@ -140,7 +141,7 @@ This is how the crontab configuration looks like:
 
 ### incron
 
-We need to connect the FTP with home-assistant, to achieve this I've used incron.
+We need to connect the FTP with home-assistant. To achieve this I've used incron.
 
 As described in [iNotify website] (http://inotify.aiken.cz/?section=incron&page=about&lang=en): *This program is an "inotify cron" system. It consists of a daemon and a table manipulator. You can use it a similar way as the regular cron. The difference is that the inotify cron handles filesystem events rather than time periods.*
 
@@ -155,7 +156,7 @@ This is how it looks like my incrontab configuration:
 
 ### Send pictures using telegram
 The script `motion-detected.sh` check the current status of the alarm, if it's already triggered, it exits, otherwise calls home-assistant API to turn on the `notify_motion_detection_script`.
-It waits for 10 seconds and publishes publishes alarm status 1 to MQTT topic `home/camera/<camera name>/alarm` (that means, alarm triggered). After that, a notification is sent using Telegram including the snapshot.
+It waits for 10 seconds and publishes alarm status 1 to MQTT topic `home/camera/<camera name>/alarm` (that means, alarm triggered). After that, a notification is sent using Telegram including the snapshot.
 
 It gets 2 parameters:
   1. Name of the snapshot file name
@@ -286,7 +287,7 @@ I push the dash button every day just before go to sleep, it triggers a security
 * Close outside fence if open
 * Check for opened windows / doors (if any door or window is open it tells me using text-to-speech service)
 * Turn off outside lights
-* Turn on stairs lamp for one minute
+* Turn on stairs lamp for two minutes
 * Turn off hall lamp
-* Turn off Chrismas tree lights
+* Turn off Chrismas tree lights (during Chrismas)
 
