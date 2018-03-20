@@ -562,7 +562,7 @@
     estacion:
       friendly_name: 'Estación'
       value_template: >
-        {%- set season ={"Spring": "Primavera", "Summer": "Verano", "Autumn": "Otoño", "Winter": "Invierno"} -%}
+        {%- set season ={"spring": "Primavera", "summer": "Verano", "autumn": "Otoño", "winter": "Invierno"} -%}
         {{ season[states("sensor.season")] }}
 
 # Sensor to get sunset and sunrise hours with a custom format.
