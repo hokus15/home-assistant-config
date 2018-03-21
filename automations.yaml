@@ -1089,6 +1089,71 @@
         entity_id: script.set_virtual_device_home
 
 #############################################################
+# Telegram callback automations
+#############################################################
+- alias: 'Telegram bot that authorizes a person for x mins'
+  hide_entity: true
+  trigger:
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/30_mins'
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/60_mins'
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/120_mins'
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/180_mins'
+  action:
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
+        message: 'Autorizada persona durante {{ trigger.event.data.data[1:-5] }} minutos'
+        show_alert: true
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.empty_home_activation_delay_minutes
+        value: '{{ trigger.event.data.data[1:-5] }}'
+    - service: homeassistant.turn_on
+      data:
+        entity_id: input_boolean.empty_home_activation_delay
+
+- alias: 'Telegram bot that deactivates motion detection for specific camera'
+  hide_entity: true
+  trigger:
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/desactivar_recibidor'
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/desactivar_barbacoa'
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/desactivar_piscina'
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/desactivar_caseta'
+  action:
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
+        message: 'Detección de movimiento desactivada en {{ trigger.event.data.data[12:] }}'
+        show_alert: true
+    - service: homeassistant.turn_off
+      data_template:
+        entity_id: 'switch.{{trigger.event.data.data[12:]}}_camara_deteccion_movimiento'
+
+#############################################################
 # Swarm automations
 #############################################################
 

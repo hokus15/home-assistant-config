@@ -203,6 +203,25 @@ parte_meteorologico_corto:
 #        topic: 'owntracks/hokusphone/hokusphone/cmd'
 #        payload_template: '{"_type":"cmd","action":"reportLocation"}'
 
+#notify_motion_detection:
+#  alias: 'Notifies motion detection'
+#  sequence:
+#      # Only send notification if the alarm has not fired recently (state is off).
+#    - condition: template
+#      value_template: '{{ states("binary_sensor." ~ data.camera ~ "_camara_deteccion_movimiento") == "off" }}'
+#      # Call script motion_detected_mqtt passing as variable the camera name
+#    - service: script.motion_detected_mqtt
+#      data_template:
+#        camera: '{{data.camera}}'
+#      # Send the notification
+#    - service: notify.telegram
+#      data_template:
+#        message: 'text'
+#        data:
+#          photo:
+#            file: '{{data.file}}'
+#            caption: 'Movimiento detectado en {{data.camera}}'
+
 notify_motion_detection:
   alias: 'Notifies motion detection'
   sequence:
@@ -214,13 +233,15 @@ notify_motion_detection:
       data_template:
         camera: '{{data.camera}}'
       # Send the notification
-    - service: notify.telegram
+    - service: telegram_bot.send_photo
       data_template:
-        message: 'text'
-        data:
-          photo:
-            file: '{{data.file}}'
-            caption: 'Movimiento detectado en {{data.camera}}'
+        file: '{{data.file}}'
+        caption: 'Movimiento detectado en {{data.camera}}'
+        disable_notification: false
+        inline_keyboard:
+          - "Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins"
+          - "Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins"
+          - "Desactivar det. mov. {{data.camera}}:/desactivar_{{data.camera}}"
 
 motion_detected_mqtt:
   alias: 'Set motion detected mqtt'
