@@ -13,3 +13,13 @@ empty_home_activation_delay_minutes:
   min: 0
   max: 240
   step: 5
+
+piscina_temperature:
+  name: Temp. agua
+  min: 0
+  max: 40
+  initial: 14
+  step: 0.1
+  mode: box
+  unit_of_measurement: 'ºC'
+  icon: 'mdi:thermometer'

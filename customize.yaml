@@ -88,7 +88,10 @@ sensor.speedtest_download:
 sensor.speedtest_upload:
   friendly_name: 'Subida'
   icon: mdi:cloud-upload
-sensor.energy_usage:
+#sensor.energy_usage:
+#  friendly_name: 'Consumo'
+#  icon: 'mdi:speedometer'
+sensor.efergy_2577:
   friendly_name: 'Consumo'
   icon: 'mdi:speedometer'
 sensor.exchange_rate_1_btc:
