@@ -59,7 +59,7 @@
   app_token: !secret efergy_app_token
   utc_offset: 2
   monitored_variables:
-    - type: instant_readings
+    - type: current_values
 
 - platform: netatmo
   modules:

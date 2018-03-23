@@ -121,7 +121,7 @@ Nissan:
 Energía:
   entities:
     - binary_sensor.ups_status_bs
-    - sensor.energy_usage
+#    - sensor.energy_usage
     - sensor.efergy_2577
     - sensor.ups_status
 
