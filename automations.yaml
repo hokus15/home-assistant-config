@@ -768,9 +768,11 @@
       data_template:
         message: 'Barrera {{ states.sensor.switch_barrera.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.switch_barrera.last_changed))|int//60 }} minutos'
         cache: false
-    - service: notify.telegram
+    - service: telegram_bot.send_message
       data_template:
         message: 'Barrera {{ states.sensor.switch_barrera.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.switch_barrera.last_changed))|int//60 }} minutos'
+        inline_keyboard: 
+          - 'Cerrar:/script.turn_on#script.close_fence'
 
 #############################################################
 # Turn on and off Swimming pool based on water temperature
@@ -1089,8 +1091,23 @@
         entity_id: script.set_virtual_device_home
 
 #############################################################
-# Telegram callback automations
+# Telegram automations
 #############################################################
+#- alias: 'Telegram bot start commmand'
+#  hide_entity: true
+#  trigger:
+#    - platform: event
+#      event_type: telegram_command
+#      event_data:
+#        command: '/start'
+#  action:
+#    - service: telegram_bot.send_message
+#      data_template:
+#        message: 'Hola, ¿qué quieres hacer?'
+#        inline_keyboard:
+#            - 'Encender luces exteriores:/homeassistant.turn_on#group.luces_exteriores'
+#            - 'Apagar luces exteriores:/homeassistant.turn_off#group.luces_exteriores'
+
 - alias: 'Telegram bot that authorizes a person for x mins'
   hide_entity: true
   trigger:
@@ -1124,34 +1141,43 @@
       data:
         entity_id: input_boolean.empty_home_activation_delay
 
-- alias: 'Telegram bot that deactivates motion detection for specific camera'
+- alias: 'Telegram bot that executes a service from a callback with the format <service>#<entity_id>. i.e.: script.turn_on#script.close_fence'
+  hide_entity: true
+  trigger:
+    - platform: event
+      event_type: telegram_callback
+  action:
+    - service_template: >
+        {%- if trigger.event.data.data.find("#") != -1 -%}
+          {{trigger.event.data.data[1:trigger.event.data.data.find("#")]}}
+        {%- endif -%}
+
+      data_template:
+        entity_id: '{{trigger.event.data.data[trigger.event.data.data.find("#")+1:]}}'
+
+- alias: 'Telegram bot that turns on / off cameras. This automation is needed due to the limitation to pass more than 64 bytes as callback data.'
   hide_entity: true
   trigger:
     - platform: event
       event_type: telegram_callback
       event_data:
-        data: '/desactivar_recibidor'
+        data: '/homeassistant.turn_off#switch.recibidor'
     - platform: event
       event_type: telegram_callback
       event_data:
-        data: '/desactivar_barbacoa'
+        data: '/homeassistant.turn_off#switch.barbacoa'
     - platform: event
       event_type: telegram_callback
       event_data:
-        data: '/desactivar_piscina'
+        data: '/homeassistant.turn_off#switch.piscina'
     - platform: event
       event_type: telegram_callback
       event_data:
-        data: '/desactivar_caseta'
+        data: '/homeassistant.turn_off#switch.caseta'
   action:
-    - service: telegram_bot.answer_callback_query
+    - service_template: '{{trigger.event.data.data[1:trigger.event.data.data.find("#")]}}'
       data_template:
-        callback_query_id: '{{ trigger.event.data.id }}'
-        message: 'Detección de movimiento desactivada en {{ trigger.event.data.data[12:] }}'
-        show_alert: true
-    - service: homeassistant.turn_off
-      data_template:
-        entity_id: 'switch.{{trigger.event.data.data[12:]}}_camara_deteccion_movimiento'
+        entity_id: '{{trigger.event.data.data[trigger.event.data.data.find("#")+1:]}}_camara_deteccion_movimiento'
 
 #############################################################
 # Swarm automations

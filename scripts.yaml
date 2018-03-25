@@ -239,9 +239,9 @@ notify_motion_detection:
         caption: 'Movimiento detectado en {{data.camera}}'
         disable_notification: false
         inline_keyboard:
-          - "Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins"
-          - "Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins"
-          - "Desactivar det. mov. {{data.camera}}:/desactivar_{{data.camera}}"
+          - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
+          - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
+          - 'Desactivar det. mov. {{data.camera}}:/homeassistant.turn_off#switch.{{data.camera}}'
 
 motion_detected_mqtt:
   alias: 'Set motion detected mqtt'
