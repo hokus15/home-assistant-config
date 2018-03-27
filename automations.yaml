@@ -965,9 +965,11 @@
       entity_id: sensor.season
       state: 'Winter'
   action:
-    service: notify.telegram
+    service: telegram_bot.send_message
     data:
       message: 'Motor piscina encendido hoy durante más de 6 horas'
+      inline_keyboard: 
+        - 'Apagar:/homeassistant.turn_off#switch.piscina'
 
 - alias: 'Notify when swimming pool pump on more than 8 hours [Summer]'
   trigger:
@@ -979,9 +981,11 @@
       entity_id: sensor.season
       state: 'Summer'
   action:
-    service: notify.telegram
+    service: telegram_bot.send_message
     data:
       message: 'Motor piscina encendido hoy durante más de 8 horas'
+      inline_keyboard: 
+        - 'Apagar:/homeassistant.turn_off#switch.piscina'
 
 #############################################################
 # Other automations
@@ -1128,11 +1132,11 @@
       event_data:
         data: '/180_mins'
   action:
-    - service: telegram_bot.answer_callback_query
-      data_template:
-        callback_query_id: '{{ trigger.event.data.id }}'
-        message: 'Autorizada persona durante {{ trigger.event.data.data[1:-5] }} minutos'
-        show_alert: true
+#    - service: telegram_bot.answer_callback_query
+#      data_template:
+#        callback_query_id: '{{ trigger.event.data.id }}'
+#        message: 'Autorizada persona durante {{ trigger.event.data.data[1:-5] }} minutos'
+#        show_alert: true
     - service: input_number.set_value
       data_template:
         entity_id: input_number.empty_home_activation_delay_minutes

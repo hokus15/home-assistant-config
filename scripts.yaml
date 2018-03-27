@@ -242,6 +242,7 @@ notify_motion_detection:
           - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
           - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
           - 'Desactivar det. mov. {{data.camera}}:/homeassistant.turn_off#switch.{{data.camera}}'
+          - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
 
 motion_detected_mqtt:
   alias: 'Set motion detected mqtt'
@@ -263,3 +264,11 @@ close_fence:
 
       data:
         entity_id: switch.barrera
+
+jordi_at_home:
+  alias: 'Jordi at home'
+  sequence:
+    - service: device_tracker.see
+      data:
+        dev_id: 'jordi_combined'
+        location_name: 'home'
