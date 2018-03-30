@@ -409,14 +409,14 @@
     on_off_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2:
       value_template: '{% if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'la luz de la suite'
-    on_off_switch_caseta_camara_deteccion_movimiento:
-      value_template: '{% if is_state("switch.caseta_camara_deteccion_movimiento", "off") %}activado{% else %}desactivado{% endif %}'
+    on_off_switch_caseta_camara_det_mov:
+      value_template: '{% if is_state("switch.caseta_camara_det_mov", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el detector de movimiento de la caseta'
-    on_off_switch_piscina_camara_deteccion_movimiento:
-      value_template: '{% if is_state("switch.piscina_camara_deteccion_movimiento", "off") %}activado{% else %}desactivado{% endif %}'
+    on_off_switch_piscina_camara_det_mov:
+      value_template: '{% if is_state("switch.piscina_camara_det_mov", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el detector de movimiento de la piscina'
-    on_off_switch_recibidor_camara_deteccion_movimiento:
-      value_template: '{% if is_state("switch.recibidor_camara_deteccion_movimiento", "off") %}activado{% else %}desactivado{% endif %}'
+    on_off_switch_recibidor_camara_det_mov:
+      value_template: '{% if is_state("switch.recibidor_camara_det_mov", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el detector de movimiento del recibidor'
     on_off_input_boolean_salon_detector_movimiento:
       value_template: '{% if is_state("input_boolean.salon_detector_movimiento", "off") %}activado{% else %}desactivado{% endif %}'
@@ -473,16 +473,16 @@
       value_template: '{% if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2", "off") %}apagada{% else %}encendida{% endif %}'
       friendly_name: 'la luz de la suite'
       unit_of_measurement: 'on-off-f'
-    check_switch_caseta_camara_deteccion_movimiento:
-      value_template: '{% if is_state("switch.caseta_camara_deteccion_movimiento", "off") %}desactivado{% else %}activado{% endif %}'
+    check_switch_caseta_camara_det_mov:
+      value_template: '{% if is_state("switch.caseta_camara_det_mov", "off") %}desactivado{% else %}activado{% endif %}'
       friendly_name: 'el detector de movimiento de la caseta'
       unit_of_measurement: 'enabled-disabled'
-    check_switch_piscina_camara_deteccion_movimiento:
-      value_template: '{% if is_state("switch.piscina_camara_deteccion_movimiento", "off") %}desactivado{% else %}activado{% endif %}'
+    check_switch_piscina_camara_det_mov:
+      value_template: '{% if is_state("switch.piscina_camara_det_mov", "off") %}desactivado{% else %}activado{% endif %}'
       friendly_name: 'el detector de movimiento de la piscina'
       unit_of_measurement: 'enabled-disabled'
-    check_switch_recibidor_camara_deteccion_movimiento:
-      value_template: '{% if is_state("switch.recibidor_camara_deteccion_movimiento", "off") %}desactivado{% else %}activado{% endif %}'
+    check_switch_recibidor_camara_det_mov:
+      value_template: '{% if is_state("switch.recibidor_camara_det_mov", "off") %}desactivado{% else %}activado{% endif %}'
       friendly_name: 'el detector de movimiento del recibidor'
       unit_of_measurement: 'enabled-disabled'
     check_input_boolean_salon_detector_movimiento:

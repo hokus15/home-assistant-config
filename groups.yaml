@@ -260,29 +260,29 @@ Piscina:
 Cámara recibidor:
   entities:
     - camera.recibidor
-    - switch.recibidor_camara_deteccion_movimiento
+    - switch.recibidor_camara_det_mov
     - binary_sensor.recibidor_camara_infrarrojo
-    - binary_sensor.recibidor_camara_deteccion_movimiento
+    - binary_sensor.recibidor_camara_det_mov
 
 Cámara barbacoa:
   entities:
     - camera.barbacoa
-    - switch.barbacoa_camara_deteccion_movimiento
+    - switch.barbacoa_camara_det_mov
     - binary_sensor.barbacoa_camara_infrarrojo
-    - binary_sensor.barbacoa_camara_deteccion_movimiento
+    - binary_sensor.barbacoa_camara_det_mov
 
 Cámara piscina:
   entities:
     - camera.piscina
-    - switch.piscina_camara_deteccion_movimiento
+    - switch.piscina_camara_det_mov
     - binary_sensor.piscina_camara_infrarrojo
-    - binary_sensor.piscina_camara_deteccion_movimiento
+    - binary_sensor.piscina_camara_det_mov
 
 Cámara caseta:
   entities:
     - camera.caseta
-    - switch.caseta_camara_deteccion_movimiento
-    - binary_sensor.caseta_camara_deteccion_movimiento
+    - switch.caseta_camara_det_mov
+    - binary_sensor.caseta_camara_det_mov
 
 Cámara entrada principal:
   entities:
@@ -294,25 +294,25 @@ Cámara entrada principal:
 
 Seguridad:
   entities:
-    - switch.recibidor_camara_deteccion_movimiento
-    - switch.piscina_camara_deteccion_movimiento
-    - switch.barbacoa_camara_deteccion_movimiento
-    - switch.caseta_camara_deteccion_movimiento
+    - switch.recibidor_camara_det_mov
+    - switch.piscina_camara_det_mov
+    - switch.barbacoa_camara_det_mov
+    - switch.caseta_camara_det_mov
     - input_boolean.salon_detector_movimiento
     - input_boolean.cocina_sensor_puerta
     - input_boolean.cocina_sensor_persiana
 
 Seguridad interior:
   entities:
-    - switch.recibidor_camara_deteccion_movimiento
+    - switch.recibidor_camara_det_mov
     - input_boolean.salon_detector_movimiento
     - input_boolean.cocina_sensor_puerta
 
 Seguridad exterior:
   entities:
-    - switch.piscina_camara_deteccion_movimiento
-    - switch.barbacoa_camara_deteccion_movimiento
-    - switch.caseta_camara_deteccion_movimiento
+    - switch.piscina_camara_det_mov
+    - switch.barbacoa_camara_det_mov
+    - switch.caseta_camara_det_mov
     - input_boolean.cocina_sensor_persiana
 
 Sensor salón:

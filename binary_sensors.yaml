@@ -45,7 +45,7 @@
 # Alarm status for foscam cam in hall
 - platform: mqtt
   state_topic: 'home/camera/recibidor/alarm'
-  name: 'recibidor_camara_deteccion_movimiento'
+  name: 'recibidor_camara_det_mov'
   device_class: motion
   # 0: No alarm
   # 1: Alarm triggered
@@ -59,7 +59,7 @@
 # Alarm status for foscam cam in swimming pool
 - platform: mqtt
   state_topic: 'home/camera/piscina/alarm'
-  name: 'piscina_camara_deteccion_movimiento'
+  name: 'piscina_camara_det_mov'
   device_class: motion
   # 0: No alarm
   # 1: Alarm triggered
@@ -73,7 +73,7 @@
 # Alarm status for foscam cam in bbq
 - platform: mqtt
   state_topic: 'home/camera/barbacoa/alarm'
-  name: 'barbacoa_camara_deteccion_movimiento'
+  name: 'barbacoa_camara_det_mov'
   device_class: motion
   # 0: No alarm
   # 1: Alarm triggered
@@ -87,7 +87,7 @@
 # Alarm status for Linksys cam in caseta
 - platform: mqtt
   state_topic: 'home/camera/caseta/alarm'
-  name: 'caseta_camara_deteccion_movimiento'
+  name: 'caseta_camara_det_mov'
   device_class: motion
   # 0: No alarm
   # 1: Alarm triggered
@@ -191,7 +191,7 @@
   prior: 0.5
   name: 'Jordi Presence'
   # How sure should it be to guess that I’m home? By setting the bar high at 90%, we are requiring more than one platform to be ‘home’ before it will flip to on.
-  probability_threshold: 0.9
+  probability_threshold: 0.95
   observations:
     - entity_id: 'device_tracker.hokusphone_nmap'
       # If I’m home, how likely is this state true? In other words, how reliable is that platform at marking me home?
@@ -202,7 +202,7 @@
       to_state: 'home'
     - entity_id: 'device_tracker.hokusphone_wifi'
       prob_given_true: 0.9
-      prob_given_false: 0.3
+      prob_given_false: 0.1
       platform: 'state'
       to_state: 'home'
     - entity_id: 'device_tracker.hokusphone_ibeacon'

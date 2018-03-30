@@ -192,9 +192,9 @@ recorder:
       - sensor.on_off_switch_swiid_swiidinter_lampara_recibidor_switch
       - sensor.on_off_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
       - sensor.on_off_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
-      - sensor.on_off_switch_caseta_camara_deteccion_movimiento
-      - sensor.on_off_switch_piscina_camara_deteccion_movimiento
-      - sensor.on_off_switch_recibidor_camara_deteccion_movimiento
+      - sensor.on_off_switch_caseta_camara_det_mov
+      - sensor.on_off_switch_piscina_camara_det_mov
+      - sensor.on_off_switch_recibidor_camara_det_mov
       - sensor.on_off_input_boolean_salon_detector_movimiento
       - sensor.on_off_input_boolean_cocina_sensor_puerta
       - sensor.on_off_input_boolean_cocina_sensor_persiana
@@ -210,9 +210,9 @@ recorder:
       - sensor.check_switch_swiid_swiidinter_lampara_recibidor_switch
       - sensor.check_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
       - sensor.check_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
-      - sensor.check_switch_caseta_camara_deteccion_movimiento
-      - sensor.check_switch_piscina_camara_deteccion_movimiento
-      - sensor.check_switch_recibidor_camara_deteccion_movimiento
+      - sensor.check_switch_caseta_camara_det_mov
+      - sensor.check_switch_piscina_camara_det_mov
+      - sensor.check_switch_recibidor_camara_det_mov
       - sensor.check_input_boolean_salon_detector_movimiento
       - sensor.check_input_boolean_cocina_sensor_puerta
       - sensor.check_input_boolean_cocina_sensor_persiana

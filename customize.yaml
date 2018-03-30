@@ -281,13 +281,13 @@ binary_sensor.barbacoa_camara_infrarrojo:
   icon: 'mdi:led-on'
 binary_sensor.ups_status_bs:
   friendly_name: 'Suministro eléctrico'
-binary_sensor.piscina_camara_deteccion_movimiento:
+binary_sensor.piscina_camara_det_mov:
   friendly_name: 'Movimiento'
-binary_sensor.recibidor_camara_deteccion_movimiento:
+binary_sensor.recibidor_camara_det_mov:
   friendly_name: 'Movimiento'
-binary_sensor.barbacoa_camara_deteccion_movimiento:
+binary_sensor.barbacoa_camara_det_mov:
   friendly_name: 'Movimiento'
-binary_sensor.caseta_camara_deteccion_movimiento:
+binary_sensor.caseta_camara_det_mov:
   friendly_name: 'Movimiento'
 binary_sensor.salon_detector_movimiento:
   friendly_name: 'Movimiento'
@@ -318,16 +318,16 @@ camera.caseta:
 ###################################
 # Switches
 ###################################
-switch.recibidor_camara_deteccion_movimiento:
+switch.recibidor_camara_det_mov:
   friendly_name: 'Det. mov. recibidor'
   icon: 'mdi:transit-transfer'
-switch.piscina_camara_deteccion_movimiento:
+switch.piscina_camara_det_mov:
   friendly_name: 'Det. mov. piscina'
   icon: 'mdi:transit-transfer'
-switch.barbacoa_camara_deteccion_movimiento:
+switch.barbacoa_camara_det_mov:
   friendly_name: 'Det. mov. barbacoa'
   icon: 'mdi:transit-transfer'
-switch.caseta_camara_deteccion_movimiento:
+switch.caseta_camara_det_mov:
   friendly_name: 'Det. mov. caseta'
   icon: 'mdi:transit-transfer'
 switch.piscina:

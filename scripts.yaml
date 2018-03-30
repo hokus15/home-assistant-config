@@ -208,7 +208,7 @@ parte_meteorologico_corto:
 #  sequence:
 #      # Only send notification if the alarm has not fired recently (state is off).
 #    - condition: template
-#      value_template: '{{ states("binary_sensor." ~ data.camera ~ "_camara_deteccion_movimiento") == "off" }}'
+#      value_template: '{{ states("binary_sensor." ~ data.camera ~ "_camara_det_mov") == "off" }}'
 #      # Call script motion_detected_mqtt passing as variable the camera name
 #    - service: script.motion_detected_mqtt
 #      data_template:
@@ -227,7 +227,7 @@ notify_motion_detection:
   sequence:
       # Only send notification if the alarm has not fired recently (state is off).
     - condition: template
-      value_template: '{{ states("binary_sensor." ~ data.camera ~ "_camara_deteccion_movimiento") == "off" }}'
+      value_template: '{{ states("binary_sensor." ~ data.camera ~ "_camara_det_mov") == "off" }}'
       # Call script motion_detected_mqtt passing as variable the camera name
     - service: script.motion_detected_mqtt
       data_template:
@@ -241,7 +241,7 @@ notify_motion_detection:
         inline_keyboard:
           - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
           - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
-          - 'Desactivar det. mov. {{data.camera}}:/homeassistant.turn_off#switch.{{data.camera}}'
+          - 'Desactivar det. mov. {{data.camera}}:/homeassistant.turn_off#switch.{{data.camera}}_camara_det_mov'
           - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
 
 motion_detected_mqtt:

@@ -450,7 +450,7 @@
 - alias: 'Disable alarm for recibidor'
   trigger:
     platform: state
-    entity_id: binary_sensor.recibidor_camara_deteccion_movimiento
+    entity_id: binary_sensor.recibidor_camara_det_mov
     to: 'on'
   action:
     - delay:
@@ -465,7 +465,7 @@
 - alias: 'Disable alarm for piscina'
   trigger:
     platform: state
-    entity_id: binary_sensor.piscina_camara_deteccion_movimiento
+    entity_id: binary_sensor.piscina_camara_det_mov
     to: 'on'
   action:
     - delay:
@@ -480,7 +480,7 @@
 - alias: 'Disable alarm for barbacoa'
   trigger:
     platform: state
-    entity_id: binary_sensor.barbacoa_camara_deteccion_movimiento
+    entity_id: binary_sensor.barbacoa_camara_det_mov
     to: 'on'
   action:
     - delay:
@@ -495,7 +495,7 @@
 - alias: 'Disable alarm for caseta'
   trigger:
     platform: state
-    entity_id: binary_sensor.caseta_camara_deteccion_movimiento
+    entity_id: binary_sensor.caseta_camara_det_mov
     to: 'on'
   action:
     - delay:
@@ -1132,11 +1132,11 @@
       event_data:
         data: '/180_mins'
   action:
-#    - service: telegram_bot.answer_callback_query
-#      data_template:
-#        callback_query_id: '{{ trigger.event.data.id }}'
-#        message: 'Autorizada persona durante {{ trigger.event.data.data[1:-5] }} minutos'
-#        show_alert: true
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
+        message: 'Hecho!'
+        show_alert: true
     - service: input_number.set_value
       data_template:
         entity_id: input_number.empty_home_activation_delay_minutes
@@ -1145,12 +1145,18 @@
       data:
         entity_id: input_boolean.empty_home_activation_delay
 
-- alias: 'Telegram bot that executes a service from a callback with the format <service>#<entity_id>. i.e.: script.turn_on#script.close_fence'
+# Telegram bot that executes a service from a callback with the format <service>#<entity_id>. i.e.: script.turn_on#script.close_fence
+- alias: 'Telegram bot that executes a service'
   hide_entity: true
   trigger:
     - platform: event
       event_type: telegram_callback
   action:
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
+        message: 'Hecho!'
+        show_alert: true
     - service_template: >
         {%- if trigger.event.data.data.find("#") != -1 -%}
           {{trigger.event.data.data[1:trigger.event.data.data.find("#")]}}
@@ -1158,31 +1164,6 @@
 
       data_template:
         entity_id: '{{trigger.event.data.data[trigger.event.data.data.find("#")+1:]}}'
-
-- alias: 'Telegram bot that turns on / off cameras. This automation is needed due to the limitation to pass more than 64 bytes as callback data.'
-  hide_entity: true
-  trigger:
-    - platform: event
-      event_type: telegram_callback
-      event_data:
-        data: '/homeassistant.turn_off#switch.recibidor'
-    - platform: event
-      event_type: telegram_callback
-      event_data:
-        data: '/homeassistant.turn_off#switch.barbacoa'
-    - platform: event
-      event_type: telegram_callback
-      event_data:
-        data: '/homeassistant.turn_off#switch.piscina'
-    - platform: event
-      event_type: telegram_callback
-      event_data:
-        data: '/homeassistant.turn_off#switch.caseta'
-  action:
-    - service_template: '{{trigger.event.data.data[1:trigger.event.data.data.find("#")]}}'
-      data_template:
-        entity_id: '{{trigger.event.data.data[trigger.event.data.data.find("#")+1:]}}_camara_deteccion_movimiento'
-
 #############################################################
 # Swarm automations
 #############################################################
