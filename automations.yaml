@@ -156,15 +156,10 @@
   action:
     - service: switch.turn_on
       entity_id: switch.barrera
-    - service: notify.html5
-      data:
+      data_template:
         message: 'Barrera abierta automáticamente para Geni'
-        target:
-          - hokus_phone
-        data: 
-          actions:
-            - action: close-fence
-              title: Cerrar barrera
+        inline_keyboard: 
+          - 'Cierrala:/script.turn_on#script.close_fence'
     - delay:
         seconds: 5
     - service: device_tracker.see
@@ -226,15 +221,12 @@
   action:
     - service: switch.turn_on
       entity_id: switch.barrera
-    - service: notify.html5
-      data:
+    - service: telegram_bot.send_message
+      data_template:
         message: 'Barrera abierta automáticamente'
-        target:
-          - hokus_phone
-        data: 
-          actions:
-            - action: close-fence
-              title: Cerrar barrera
+        target: !secret hokuscar_telegram_chat_id
+        inline_keyboard: 
+          - 'Cierrala:/script.turn_on#script.close_fence'
     - service: mqtt.publish
       data:
         payload_template: >
@@ -1097,21 +1089,6 @@
 #############################################################
 # Telegram automations
 #############################################################
-#- alias: 'Telegram bot start commmand'
-#  hide_entity: true
-#  trigger:
-#    - platform: event
-#      event_type: telegram_command
-#      event_data:
-#        command: '/start'
-#  action:
-#    - service: telegram_bot.send_message
-#      data_template:
-#        message: 'Hola, ¿qué quieres hacer?'
-#        inline_keyboard:
-#            - 'Encender luces exteriores:/homeassistant.turn_on#group.luces_exteriores'
-#            - 'Apagar luces exteriores:/homeassistant.turn_off#group.luces_exteriores'
-
 - alias: 'Telegram bot that authorizes a person for x mins'
   hide_entity: true
   trigger:
@@ -1135,8 +1112,14 @@
     - service: telegram_bot.answer_callback_query
       data_template:
         callback_query_id: '{{ trigger.event.data.id }}'
-        message: 'Hecho!'
-        show_alert: true
+        message: 'Respuesta recibida!'
+        show_alert: false
+    # Remove buttons from original message
+    - service: telegram_bot.edit_caption
+      data_template:
+             message_id: '{{ trigger.event.data.message.message_id }}'
+             chat_id: '{{ trigger.event.data.chat_id }}'
+             caption: '{{ trigger.event.data.message.caption }}'
     - service: input_number.set_value
       data_template:
         entity_id: input_number.empty_home_activation_delay_minutes
@@ -1146,17 +1129,33 @@
         entity_id: input_boolean.empty_home_activation_delay
 
 # Telegram bot that executes a service from a callback with the format <service>#<entity_id>. i.e.: script.turn_on#script.close_fence
+# It also removes the buttons from original message
 - alias: 'Telegram bot that executes a service'
   hide_entity: true
   trigger:
     - platform: event
       event_type: telegram_callback
   action:
+    # Respond to callback
     - service: telegram_bot.answer_callback_query
       data_template:
         callback_query_id: '{{ trigger.event.data.id }}'
-        message: 'Hecho!'
-        show_alert: true
+        message: 'Respuesta recibida!'
+        show_alert: false
+    # Remove buttons from original message.
+    # Try to use both services edit_message and edit_caption
+    # one of them will fail but the other should remove the buttons.
+    - service: telegram_bot.edit_message
+      data_template:
+             message_id: '{{ trigger.event.data.message.message_id }}'
+             chat_id: '{{ trigger.event.data.chat_id }}'
+             message: '{{ trigger.event.data.message.text }}'
+    - service: telegram_bot.edit_caption
+      data_template:
+             message_id: '{{ trigger.event.data.message.message_id }}'
+             chat_id: '{{ trigger.event.data.chat_id }}'
+             caption: '{{ trigger.event.data.message.caption }}'
+    # Execute service with the format <service>#<entity_id>
     - service_template: >
         {%- if trigger.event.data.data.find("#") != -1 -%}
           {{trigger.event.data.data[1:trigger.event.data.data.find("#")]}}
