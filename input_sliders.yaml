@@ -18,8 +18,8 @@ piscina_temperature:
   name: Temp. agua
   min: 0
   max: 40
-  initial: 14
+  initial: 15
   step: 0.1
-  mode: box
+#  mode: box
   unit_of_measurement: 'ºC'
   icon: 'mdi:thermometer'
