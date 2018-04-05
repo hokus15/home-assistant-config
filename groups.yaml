@@ -221,7 +221,6 @@ Cocina:
     - input_boolean.cocina_sensor_persiana
     - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_temperature
 
-    
 Luces exteriores:
   entities:
     - light.barrera_derecha
@@ -247,13 +246,13 @@ Piscina:
     - sensor.piscina_on_history
     - sensor.switch_piscina_current_power_w
     - sensor.switch_piscina_today_energy_kwh
-#    - sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature
-    - input_number.piscina_temperature
+    - sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature
+#    - input_number.piscina_temperature
     - sensor.piscina_k_factor
     - sensor.piscina_filtering_time
     - sensor.piscina_on_time
     - sensor.piscina_off_time
-#    - history_graph.temperatura_piscina
+    - history_graph.temperatura_piscina
     - camera.piscina
 #    - camera.ph_piscina
 

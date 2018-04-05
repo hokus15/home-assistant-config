@@ -855,8 +855,8 @@
       icon_template: 'mdi:power-plug'
 - platform: statistics
   name: piscina_temperature
-  #entity_id: sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature
-  entity_id: input_number.piscina_temperature
+  entity_id: sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature
+  #entity_id: input_number.piscina_temperature
   max_age:
     hours: 24
 
