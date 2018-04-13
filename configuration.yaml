@@ -267,6 +267,8 @@ recorder:
       - image_processing.sevensegement_ocr_ph_piscina
 
 mqtt:
+  discovery: true
+  discovery_prefix: homeassistant
   broker: !secret mqtt_broker
   port: !secret mqtt_port
   username: !secret mqtt_username
