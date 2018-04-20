@@ -423,6 +423,7 @@ Estado baterías:
     - sensor.cocina_sensor_puerta_bateria
     - sensor.cocina_sensor_persiana_bateria
     - sensor.salon_detector_movimiento_bateria
+    - sensor.piscina_sensor_piscina_bateria
     - sensor.recibidor_boton_bateria
 #Escalera:
 #  entities:

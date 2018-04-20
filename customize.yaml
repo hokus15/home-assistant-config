@@ -203,6 +203,9 @@ sensor.cocina_sensor_persiana:
 sensor.cocina_sensor_persiana_bateria:
   icon: 'mdi:battery'
   friendly_name: 'Sensor persiana cocina'
+sensor.piscina_sensor_piscina_bateria:
+  icon: 'mdi:battery'
+  friendly_name: 'Sensor temp. piscina'
 sensor.nut_ups_manufacturer:
   friendly_name: 'Marca'
 sensor.nut_ups_model:

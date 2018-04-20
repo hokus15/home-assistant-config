@@ -248,6 +248,11 @@
       value_template: '{% if states.zwave.fibaro_fgk10x_door_opening_sensor_persiana_porche %}{{ states.zwave.fibaro_fgk10x_door_opening_sensor_persiana_porche.attributes.battery_level }}{% else %}Desconocido{% endif %}'
       unit_of_measurement: '%'
 
+    # Fibaro FGK10x door sensor battery level - swimming pool
+    piscina_sensor_piscina_bateria:
+      value_template: '{% if states.zwave.fibaro_fgk10x_door_opening_sensor_piscina %}{{ states.zwave.fibaro_fgk10x_door_opening_sensor_piscina.attributes.battery_level }}{% else %}Desconocido{% endif %}'
+      unit_of_measurement: '%'
+
     # Fibaro FGMS-001 Motion sensor
     salon_detector_movimiento_bateria:
       value_template: '{% if states.zwave.fibaro_fgms001_motion_sensor_salon %}{{ states.zwave.fibaro_fgms001_motion_sensor_salon.attributes.battery_level }}{% else %}Desconocido{% endif %}'
