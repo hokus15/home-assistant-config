@@ -325,7 +325,7 @@
 - alias: 'Heating comfort'
   trigger:
     platform: state
-    entity_id: binary_sensor.confort_state
+    entity_id: binary_sensor.comfort_state
     to: 'on'
   condition:
     - condition: time
