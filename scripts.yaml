@@ -272,3 +272,19 @@ jordi_at_home:
       data:
         dev_id: 'jordi_combined'
         location_name: 'home'
+
+comfort_mode_off:
+  alias: 'Turn off comfort mode'
+  sequence:
+   # Turn on thermostat away mode 
+    - service: climate.set_away_mode
+      entity_id: climate.termostato
+      data:
+        away_mode: true
+    - delay:
+        seconds: 5
+   # Turn off thermostat away mode 
+    - service: climate.set_away_mode
+      entity_id: climate.termostato
+      data:
+        away_mode: false

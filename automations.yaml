@@ -331,7 +331,7 @@
     - condition: time
       after: '16:00'
   action:
-  - service: notify.telegram
+  - service: telegram_bot.send_message
     data_template:
       message: > 
         Calefacción encendida para mejorar el confort
@@ -353,14 +353,12 @@
         Tendencia temperatura planta baja: {{states.sensor.planta_baja_temperatura_tendencia.state}}
         
         Tendencia temperatura primera planta: {{states.sensor.primera_planta_temperatura_tendencia.state}}
+
+      inline_keyboard: 
+        - 'Desconectar:/script.turn_on#script.comfort_mode_off'
+
   - delay:
       seconds: 30
-  - service: logbook.log
-    data_template:
-      name: Calefacción
-      message: encendida para mejorar el confort
-      entity_id: climate.termostato
-      domain: climate
   - service: climate.set_temperature
     data_template:
       entity_id: climate.termostato
