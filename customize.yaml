@@ -270,6 +270,8 @@ sensor.temperature_first_floor:
   unit_of_measurement: '°C'
 sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature:
   friendly_name: 'Temp. agua'
+sensor.piscina_temperature_mean:
+  friendly_name: 'Temp. media agua'
 ###################################
 # Binary Sensors
 ###################################
