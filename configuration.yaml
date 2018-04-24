@@ -345,6 +345,9 @@ tts:
 
 dialogflow:
 
+freedns:
+  access_token: !secret freedns_token
+
 shell_command: !include shell_command.yaml
 device_tracker: !include device_tracker.yaml
 zone: !include zones.yaml
