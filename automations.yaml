@@ -159,7 +159,7 @@
       data_template:
         message: 'Barrera abierta automáticamente para Geni'
         inline_keyboard: 
-          - 'Cierrala:/script.turn_on#script.close_fence'
+          - 'Cerrar:/script.turn_on#script.close_fence'
     - delay:
         seconds: 5
     - service: device_tracker.see
@@ -172,7 +172,7 @@
 #############################################################
 
 # When some related entities (device_tracker.hokusphone_nmap, device_tracker.hokusphone_wifi, device_tracker.hokusphone_ibeacon) changes its state:
-# Set Jordi to 'En ruta' is ibeacon is not 'home' and don't have the 'not_detected' value.
+# Set Jordi to 'En ruta' if ibeacon is not 'home' and don't have the 'not_detected' value.
 # Set Jordi to 'home' when at least ONE of related entities are set to 'home'
 # Set Jordi to 'not_home' when ALL related entities are in a state different from home and not driving
 # Set Jordi to the WiFi name
@@ -221,12 +221,6 @@
   action:
     - service: switch.turn_on
       entity_id: switch.barrera
-    - service: telegram_bot.send_message
-      data_template:
-        message: 'Barrera abierta automáticamente'
-        target: !secret hokuscar_telegram_chat_id
-        inline_keyboard: 
-          - 'Cierrala:/script.turn_on#script.close_fence'
     - service: mqtt.publish
       data:
         payload_template: >
@@ -235,6 +229,12 @@
         topic: 'device/carphone/say'
     - delay:
         seconds: 5
+    - service: telegram_bot.send_message
+      data_template:
+        message: 'Barrera abierta automáticamente'
+        target: !secret hokuscar_telegram_chat_id
+        inline_keyboard: 
+          - 'Cerrar:/script.turn_on#script.close_fence'
     - service: device_tracker.see
       data:
         dev_id: 'jordi_combined'
