@@ -232,7 +232,7 @@
     - service: telegram_bot.send_message
       data_template:
         message: 'Barrera abierta automáticamente'
-        target: !secret hokuscar_telegram_chat_id
+        target: !secret hokusphone_telegram_chat_id
         inline_keyboard: 
           - 'Cerrar:/script.turn_on#script.close_fence'
     - service: device_tracker.see
