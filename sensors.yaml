@@ -201,14 +201,6 @@
           {% else %}
               Cerrada
           {%- endif %}
-    switch_piscina_current_power_w:
-      value_template: '{% if states.switch.piscina %}{{ states.switch.piscina.attributes.current_power_w }}{% else %}Desconocido{% endif %}'
-      unit_of_measurement: 'W'
-      friendly_name: 'Consumo actual'
-    switch_piscina_today_energy_kwh:
-      value_template: '{% if states.switch.piscina %}{{ states.switch.piscina.attributes.today_energy_kwh }}{% else %}Desconocido{% endif %}'
-      unit_of_measurement: 'Kwh'
-      friendly_name: 'Consumo hoy'
 #    ph_piscina:
 #      value_template: '{{states.image_processing.sevensegement_ocr_ph_piscina.state }}'
 #      friendly_name: 'pH'
@@ -397,7 +389,7 @@
       value_template: '{% if is_state("switch.termostato_modo_ausente", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el modo ausente en la calefacción'
     on_off_switch_piscina:
-      value_template: '{% if is_state("switch.piscina", "off") %}encendido{% else %}apagado{% endif %}'
+      value_template: '{% if is_state("switch.motor_piscina", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'el motor de la piscina'
     on_off_group_luces_exteriores:
       value_template: '{% if is_state("group.luces_exteriores", "off") %}encendido{% else %}apagado{% endif %}'
@@ -455,7 +447,7 @@
       friendly_name: 'el modo ausente en la calefacción'
       unit_of_measurement: 'enabled-disabled'
     check_switch_piscina:
-      value_template: '{% if is_state("switch.piscina", "off") %}apagado{% else %}encendido{% endif %}'
+      value_template: '{% if is_state("switch.motor_piscina", "off") %}apagado{% else %}encendido{% endif %}'
       friendly_name: 'el motor de la piscina'
       unit_of_measurement: 'on-off'
     check_group_luces_exteriores:
@@ -557,7 +549,8 @@
     floorplan_cocina_sensor_puerta_izquierda:
       value_template: '{{ states.sensor.cocina_sensor_puerta.state }}'
     floorplan_switch_piscina:
-      value_template: '{{ states.switch.piscina.state }}'
+      value_template: '{{ states.switch.motor_piscina.state }}'
+      
 
 # Sensor to define the season of the year
 - platform: season
@@ -868,7 +861,7 @@
 # Use of the swimming pool pump today
 - platform: history_stats
   name: piscina_on_history
-  entity_id: switch.piscina
+  entity_id: switch.motor_piscina
   state: 'on'
   start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
   end: '{{ now() }}'

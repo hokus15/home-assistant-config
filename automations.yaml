@@ -775,7 +775,7 @@
     value_template: '{{states.sensor.date__time.state == states.sensor.piscina_on_time.state}}'
   action:
     service: switch.turn_on
-    entity_id: switch.piscina
+    entity_id: switch.motor_piscina
 
 - alias: 'Turn off swimming pool'
   trigger: 
@@ -783,7 +783,7 @@
     value_template: '{{states.sensor.date__time.state == states.sensor.piscina_off_time.state}}'
   action:
     service: switch.turn_off
-    entity_id: switch.piscina
+    entity_id: switch.motor_piscina
 
 #############################################################
 # Swimming pool turn on
@@ -959,7 +959,7 @@
     data:
       message: 'Motor piscina encendido hoy durante más de 6 horas'
       inline_keyboard: 
-        - 'Apagar:/homeassistant.turn_off#switch.piscina'
+        - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
 
 - alias: 'Notify when swimming pool pump on more than 8 hours [Summer]'
   trigger:
@@ -975,8 +975,7 @@
     data:
       message: 'Motor piscina encendido hoy durante más de 8 horas'
       inline_keyboard: 
-        - 'Apagar:/homeassistant.turn_off#switch.piscina'
-
+        - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
 #############################################################
 # Other automations
 #############################################################

@@ -335,7 +335,7 @@ switch.barbacoa_camara_det_mov:
 switch.caseta_camara_det_mov:
   friendly_name: 'Det. mov. caseta'
   icon: 'mdi:transit-transfer'
-switch.piscina:
+switch.motor_piscina:
   friendly_name: 'Depuradora'
   icon: mdi:pool
 switch.barrera:
