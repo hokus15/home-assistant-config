@@ -29,6 +29,7 @@ Vista Seguridad:
     - group.acciones_presencia
     - group.puerta_porche_cocina
     - group.persiana_porche_cocina
+    - group.puerta_coladuria_cocina
     - group.sensor_salon
 
 Interior:
