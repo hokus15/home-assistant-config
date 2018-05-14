@@ -203,6 +203,12 @@ sensor.cocina_sensor_persiana:
 sensor.cocina_sensor_persiana_bateria:
   icon: 'mdi:battery'
   friendly_name: 'Sensor persiana cocina'
+sensor.coladuria_sensor_puerta:
+#  icon: 'mdi:glassdoor'
+  friendly_name: 'Estado puerta coladuria'
+sensor.coladuria_sensor_puerta_bateria:
+  icon: 'mdi:battery'
+  friendly_name: 'Sensor puerta coladuria'
 sensor.piscina_sensor_piscina_bateria:
   icon: 'mdi:battery'
   friendly_name: 'Sensor temp. piscina'

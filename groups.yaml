@@ -219,6 +219,8 @@ Cocina:
     - input_boolean.cocina_sensor_puerta
     - sensor.cocina_sensor_persiana
     - input_boolean.cocina_sensor_persiana
+    - sensor.coladuria_sensor_puerta
+    - input_boolean.coladuria_sensor_puerta
     - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_temperature
 
 Luces exteriores:
@@ -298,12 +300,14 @@ Seguridad:
     - input_boolean.salon_detector_movimiento
     - input_boolean.cocina_sensor_puerta
     - input_boolean.cocina_sensor_persiana
+    - input_boolean.coladuria_sensor_puerta
 
 Seguridad interior:
   entities:
     - switch.recibidor_camara_det_mov
     - input_boolean.salon_detector_movimiento
     - input_boolean.cocina_sensor_puerta
+    - input_boolean.coladuria_sensor_puerta
 
 Seguridad exterior:
   entities:
@@ -328,6 +332,11 @@ Persiana porche cocina:
   entities:
     - sensor.cocina_sensor_persiana
     - input_boolean.cocina_sensor_persiana
+
+Puerta coladuria cocina:
+  entities:
+    - sensor.coladuria_sensor_puerta
+    - input_boolean.coladuria_sensor_puerta
 
 Internet:
   entities:
@@ -420,6 +429,7 @@ Estado baterías:
     - sensor.netatmo_habitacion_battery
     - sensor.cocina_sensor_puerta_bateria
     - sensor.cocina_sensor_persiana_bateria
+    - sensor.coladuria_sensor_puerta_bateria
     - sensor.salon_detector_movimiento_bateria
     - sensor.piscina_sensor_piscina_bateria
     - sensor.recibidor_boton_bateria

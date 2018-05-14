@@ -13,6 +13,11 @@ cocina_sensor_persiana:
   initial: off
   icon: 'mdi:glassdoor'
 
+coladuria_sensor_puerta:
+  name: Det. apert. puerta coladuría
+  initial: off
+  icon: 'mdi:glassdoor'
+
 salon_detector_movimiento:
   name: Det. mov. salón
   initial: off
