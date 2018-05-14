@@ -780,6 +780,34 @@
           - 'Cerrar:/script.turn_on#script.close_fence'
 
 #############################################################
+# Laundry door automations
+#############################################################
+- alias: 'When laundry door is open and heating is on, notify every 10 minutes'
+  trigger:
+    platform: time
+    minutes: '/1'
+    seconds: 00
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: sensor.coladuria_sensor_puerta
+        state: 'Abierta'
+      - condition: state
+        entity_id: switch.termostato
+        state: 'on'
+      - condition: template
+        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.coladuria_sensor_puerta.last_changed))//60)%10 == 0 }}'
+      - condition: template
+        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.coladuria_sensor_puerta.last_changed))//60) != 0 }}'
+  action:
+    - service: tts.google_say
+      entity_id: media_player.homeassistant
+      data_template:
+        message: 'Puerta de la coladuría {{ states.sensor.coladuria_sensor_puerta.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.switch_barrera.last_changed))|int//60 }} minutos'
+        cache: false
+
+#############################################################
 # Turn on and off Swimming pool based on water temperature
 # and the valley price of electricity
 #############################################################
