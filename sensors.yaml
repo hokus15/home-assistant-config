@@ -662,7 +662,7 @@
 # Google travel time to work
 - platform: google_travel_time
   name: 'a la oficina'
-  api_key: !secret google_distance_api_key
+  api_key: !secret google_api_key
   origin: device_tracker.toyota
   destination: zone.oficina
   options:
@@ -673,7 +673,7 @@
 # Google travel time to school
 - platform: google_travel_time
   name: 'al colegio'
-  api_key: !secret google_distance_api_key
+  api_key: !secret google_api_key
   origin: device_tracker.toyota
   destination: zone.colegio
   options:

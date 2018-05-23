@@ -44,23 +44,6 @@ sun:
 # Discover some devices automatically
 discovery:
 
-#############################################
-# Temporary until discovery service is fixed.
-#media_player:
-#  - platform: squeezebox
-#    host: 192.168.1.2
-#    port: 9001
-#  - platform: cast
-
-#wemo:
-#  static:
-#    - 192.168.1.110
-##    - 192.168.1.111
-#    - 192.168.1.112
-#    - 192.168.1.113
-# END Temporary until discovery service is fixed.
-#################################################
-
 # Checks for available updates
 updater:
   include_used_components: true
@@ -284,6 +267,7 @@ logger:
     homeassistant.components.websocket_api: warn
     homeassistant.components.switch.command_line: warn
     homeassistant.components.sensor.command_line: warn
+    homeassistant.components.dialogflow: warn
 #    homeassistant.components.telegram_bot: debug
 #    homeassistant.components.dialogflow: debug
 #    homeassistant.helpers.intent: debug
@@ -306,10 +290,10 @@ notify:
     platform: telegram
     chat_id: !secret hokusphone_telegram_chat_id
 
-  - name: HTML5
-    platform: html5
-    gcm_api_key: !secret gcm_api_key
-    gcm_sender_id: !secret gcm_sender_id
+#  - name: HTML5
+#    platform: html5
+#    gcm_api_key: !secret gcm_api_key
+#    gcm_sender_id: !secret gcm_sender_id
 
 #  - platform: pushbullet
 #    name: pushbullet
@@ -331,6 +315,31 @@ netatmo:
 google:
   client_id: !secret google_client_id
   client_secret: !secret google_secret
+
+google_assistant:
+  project_id: !secret google_assistant_project_id
+  client_id: !secret google_assistant_client_id
+  access_token: !secret google_assistant_access_token
+  agent_user_id: !secret google_assistant_agent_user_id
+  api_key: !secret google_api_key
+  expose_by_default: true
+  entity_config:
+    switch.recibidor_camara_det_mov:
+      name: Detección movimento recibidor
+      aliases:
+        - detección de movimiento del recibidor
+        - deteccion de movimiento del recibidor
+        - detección movimiento recibidor
+        - deteccion movimiento recibidor
+        - detector de movimiento del recibidor
+        - detector movimiento recibidor
+        - detector de movimiento recibidor
+        - detector movimiento del recibidor
+        - detección de movimento recibidor
+        - deteccion de movimiento recibidor
+        - detección movimiento del recibidor
+        - deteccion movimiento del recibidor
+      room: Recibidor
 
 zwave:
   usb_path: /dev/ttyACM0
