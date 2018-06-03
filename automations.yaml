@@ -274,21 +274,6 @@
       data:
         entity_id: switch.barrera
 
-# Close fence if open when close-fence HTML5 push notification action button clicked
-- alias: 'close-fence HTML5 push notification action button clicked'
-  trigger:
-    platform: event
-    event_type: html5_notification.clicked
-    event_data:
-     action: close-fence
-  condition:
-    - condition: state
-      entity_id: sensor.switch_barrera
-      state: 'Abierta'
-  action:
-    - service: switch.turn_on
-      entity_id: switch.barrera
-
 #############################################################
 # Heating automations
 #############################################################
