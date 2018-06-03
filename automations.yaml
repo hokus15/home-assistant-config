@@ -493,10 +493,16 @@
     entity_id: input_boolean.cocina_sensor_puerta
     state: 'on'
   action:
-    service: notify.telegram
-    data:
+    service: telegram_bot.send_message
+    data_template:
       message: 'Puerta de la cocina abierta'
-
+      target: !secret hokusphone_telegram_chat_id
+      inline_keyboard: 
+        - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
+        - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
+        - 'Desactivar det. apertura:/homeassistant.turn_off#input_boolean.cocina_sensor_puerta'
+        - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
+        
 # Notify kitchen blind opened when notification active
 - alias: 'Notify kitchen blind opened when notification active'
   trigger: 
@@ -509,9 +515,15 @@
     entity_id: input_boolean.cocina_sensor_persiana
     state: 'on'
   action:
-    service: notify.telegram
-    data:
+    service: telegram_bot.send_message
+    data_template:
       message: 'Persiana de la cocina abierta'
+      target: !secret hokusphone_telegram_chat_id
+      inline_keyboard: 
+        - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
+        - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
+        - 'Desactivar det. apertura:/homeassistant.turn_off#input_boolean.cocina_sensor_persiana'
+        - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
 
 - alias: 'Notify laundry door opened when notification active'
   trigger: 
@@ -524,31 +536,43 @@
     entity_id: input_boolean.coladuria_sensor_puerta
     state: 'on'
   action:
-    service: notify.telegram
-    data:
-      message: 'Puerta de la coladuria abierta'
+    service: telegram_bot.send_message
+    data_template:
+      message: 'Puerta de la coladuría abierta'
+      target: !secret hokusphone_telegram_chat_id
+      inline_keyboard: 
+        - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
+        - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
+        - 'Desactivar det. apertura:/homeassistant.turn_off#input_boolean.coladuria_sensor_puerta'
+        - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
 
 # Notify living room motion detection when notification active
 - alias: 'Notify living room motion detection when notification active'
   trigger: 
     platform: state
     entity_id: binary_sensor.salon_detector_movimiento
-    to: 'ON'
+    to: 'on'
   condition:
     condition: state
     entity_id: input_boolean.salon_detector_movimiento
     state: 'on'
   action:
-    service: notify.telegram
-    data:
+    service: telegram_bot.send_message
+    data_template:
       message: 'Movimiento detectado en el salón'
+      target: !secret hokusphone_telegram_chat_id
+      inline_keyboard: 
+        - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
+        - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
+        - 'Desactivar det. mov.:/homeassistant.turn_off#input_boolean.salon_detector_movimiento'
+        - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
 
 # Notify living room motion sensor tampering
 - alias: 'Notify living room motion sensor tampering'
   trigger: 
     platform: state
     entity_id: binary_sensor.salon_detector_movimiento_sabotaje
-    to: 'ON'
+    to: 'on'
   action:
     service: notify.telegram
     data:
