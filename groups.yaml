@@ -319,9 +319,9 @@ Seguridad exterior:
 
 Sensor salón:
   entities:
-    - sensor.salon_detector_movimiento
-    - sensor.salon_detector_movimiento_sabotaje
-    - sensor.salon_detector_movimiento_bateria
+    - binary_sensor.salon_detector_movimiento
+    - binary_sensor.salon_detector_movimiento_sabotaje
+#    - sensor.salon_detector_movimiento_bateria
     - input_boolean.salon_detector_movimiento
 
 Puerta porche cocina:
