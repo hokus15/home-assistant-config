@@ -123,6 +123,13 @@ recorder:
       - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_general
       - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sourcenodeid
       - binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sensor
+      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_access_control
+      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_alarm_level
+      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_alarm_type
+      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_burglar
+      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_general
+      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_sourcenodeid
+      - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_sensor
       - binary_sensor.fibaro_fgms001_motion_sensor_salon_sensor
       - sensor.fibaro_fgms001_motion_sensor_salon_alarm_level
       - sensor.fibaro_fgms001_motion_sensor_salon_alarm_type
@@ -267,7 +274,7 @@ logger:
     homeassistant.components.websocket_api: warn
     homeassistant.components.switch.command_line: warn
     homeassistant.components.sensor.command_line: warn
-    homeassistant.components.dialogflow: warn
+#    homeassistant.components.dialogflow: debug
 #    homeassistant.components.telegram_bot: debug
 #    homeassistant.components.dialogflow: debug
 #    homeassistant.helpers.intent: debug
