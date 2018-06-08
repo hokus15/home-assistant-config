@@ -91,9 +91,9 @@ Unidad Familiar:
 
 Familia:
   entities:
-    - sensor.jordi_combined
-    - sensor.geni_combined
-    - sensor.virtual_device
+    - device_tracker.jordi_combined
+    - device_tracker.geni_combined
+    - device_tracker.virtual_device
     - input_boolean.empty_home_activation_delay
     - input_number.empty_home_activation_delay_minutes
     - switch.holiday
@@ -104,7 +104,7 @@ Familia:
 
 Toyota:
   entities:
-    - sensor.toyota
+    - device_tracker.toyota
     - sensor.toyota_batt
     - sensor.toyota_gps_accuracy
     - sensor.toyota_last_update
@@ -113,7 +113,7 @@ Toyota:
 
 Nissan:
   entities:
-    - sensor.nissan
+    - device_tracker.nissan
     - sensor.nissan_batt
     - sensor.nissan_gps_accuracy
     - sensor.nissan_last_update
@@ -141,7 +141,7 @@ Meteorología:
     - sensor.pws_weather_1d_metric
     - sensor.sunrise
     - sensor.sunset
-    - sensor.estacion
+    - sensor.season
 
 Lluvia:
   entities:
@@ -216,11 +216,11 @@ Recibidor:
 
 Cocina:
   entities:
-    - sensor.cocina_sensor_puerta
+    - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_sensor
     - input_boolean.cocina_sensor_puerta
-    - sensor.cocina_sensor_persiana
+    - binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sensor
     - input_boolean.cocina_sensor_persiana
-    - sensor.coladuria_sensor_puerta
+    - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_sensor
     - input_boolean.coladuria_sensor_puerta
     - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_temperature
 

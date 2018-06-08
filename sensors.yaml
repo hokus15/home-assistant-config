@@ -192,7 +192,7 @@
 
 - platform: template
   sensors:
-    # Know if the Wemo Maker sensor has been triggered (on: garage door opened, off: garage door closed)
+    # Know if the Wemo Maker sensor has been triggered (off: garage door opened, on: garage door closed)
     switch_barrera:
       friendly_name: 'Estado'
       value_template: >-
@@ -208,49 +208,16 @@
 
 - platform: template
   sensors:
-    # Fibaro FGK10x door sensor - kitchen door
-    cocina_sensor_puerta:
-      value_template:  >-
-         {%- if is_state('binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_sensor', 'off') %}
-              Cerrada
-          {% elif is_state('binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_sensor', 'on') %}
-              Abierta
-          {% else %}
-              Desconocido
-          {%- endif %}
-      icon_template: '{% if is_state("binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_sensor", "off") %}mdi:checkbox-blank-outline{% else %}mdi:arrow-right-bold-box-outline{% endif %}'
     # Fibaro FGK10x door sensor battery level - kitchen door
     cocina_sensor_puerta_bateria:
       value_template: '{% if states.zwave.fibaro_fgk10x_door_opening_sensor_puerta_porche %}{{ states.zwave.fibaro_fgk10x_door_opening_sensor_puerta_porche.attributes.battery_level }}{% else %}Desconocido{% endif %}'
       unit_of_measurement: '%'
 
-    # Fibaro FGK10x door sensor - kitchen blind
-    cocina_sensor_persiana:
-      value_template:  >-
-         {%- if is_state('binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sensor', 'off') %}
-              Cerrada
-          {% elif is_state('binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sensor', 'on') %}
-              Abierta
-          {% else %}
-              Desconocido
-          {%- endif %}
-      icon_template: '{% if is_state("binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sensor", "off") %}mdi:checkbox-blank-outline{% else %}mdi:arrow-right-bold-box-outline{% endif %}'
     # Fibaro FGK10x door sensor battery level - kitchen blind
     cocina_sensor_persiana_bateria:
       value_template: '{% if states.zwave.fibaro_fgk10x_door_opening_sensor_persiana_porche %}{{ states.zwave.fibaro_fgk10x_door_opening_sensor_persiana_porche.attributes.battery_level }}{% else %}Desconocido{% endif %}'
       unit_of_measurement: '%'
 
-    # Fibaro FGK10x door sensor - laundry door
-    coladuria_sensor_puerta:
-      value_template:  >-
-         {%- if is_state('binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_sensor', 'off') %}
-              Cerrada
-          {% elif is_state('binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_sensor', 'on') %}
-              Abierta
-          {% else %}
-              Desconocido
-          {%- endif %}
-      icon_template: '{% if is_state("binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_sensor", "off") %}mdi:checkbox-blank-outline{% else %}mdi:arrow-right-bold-box-outline{% endif %}'
     # Fibaro FGK10x door sensor battery level - kitchen door
     coladuria_sensor_puerta_bateria:
       value_template: '{% if states.zwave.fibaro_fgk10x_door_opening_sensor_puerta_coladuria %}{{ states.zwave.fibaro_fgk10x_door_opening_sensor_puerta_coladuria.attributes.battery_level }}{% else %}Desconocido{% endif %}'
@@ -265,22 +232,6 @@
     salon_detector_movimiento_bateria:
       value_template: '{% if states.zwave.fibaro_fgms001_motion_sensor_salon %}{{ states.zwave.fibaro_fgms001_motion_sensor_salon.attributes.battery_level }}{% else %}Desconocido{% endif %}'
       unit_of_measurement: '%'
-#    salon_detector_movimiento:
-#      value_template:  >-
-#         {%- if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "8") %}
-#              Detectado
-#          {% else %}
-#              Despejado
-#          {%- endif %}
-#      icon_template: '{% if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "8") %}mdi:run-fast{% else %}mdi:human-male{% endif %}'
-#    salon_detector_movimiento_sabotaje:
-#      value_template: >-
-#         {%- if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "3") %}
-#              Detectado
-#          {% else %}
-#              Normal
-#          {%- endif %}
-#      icon_template: '{% if is_state("sensor.fibaro_fgms001_motion_sensor_salon_burglar", "3") %}mdi:vibrate{% else %}mdi:crop-portrait{% endif %}'
 
     # Nodon Octan button battery level
     recibidor_boton_bateria:
@@ -566,18 +517,9 @@
       value_template: '{{ states.sensor.cocina_sensor_puerta.state }}'
     floorplan_switch_piscina:
       value_template: '{{ states.switch.motor_piscina.state }}'
-      
 
 # Sensor to define the season of the year
 - platform: season
-
-- platform: template
-  sensors:
-    estacion:
-      friendly_name: 'Estación'
-      value_template: >
-        {%- set season ={"spring": "Primavera", "summer": "Verano", "autumn": "Otoño", "winter": "Invierno"} -%}
-        {{ season[states("sensor.season")] }}
 
 # Sensor to get sunset and sunrise hours with a custom format.
 - platform: template
@@ -600,56 +542,6 @@
 
 - platform: template
   sensors:
-    virtual_device:
-      friendly_name: 'Persona autorizada'
-      value_template: >-
-          {%- if is_state("device_tracker.virtual_device", "home") %}
-              En casa
-          {% elif is_state("device_tracker.virtual_device", "not_home") %}
-              Ausente
-          {% else %}
-              {{ states.device_tracker.virtual_device.state }}
-          {%- endif %}
-    jordi_combined:
-      friendly_name: 'Jordi'
-      value_template: >-
-          {%- if is_state("device_tracker.jordi_combined", "home") %}
-              En casa
-          {% elif is_state("device_tracker.jordi_combined", "not_home") %}
-              Ausente
-          {% else %}
-              {{ states.device_tracker.jordi_combined.state }}
-          {%- endif %}
-    geni_combined:
-      friendly_name: 'Geni'
-      value_template: >-
-          {%- if is_state("device_tracker.geni_combined", "home") %}
-              En casa
-          {% elif is_state("device_tracker.geni_combined", "not_home") %}
-              Ausente
-          {% else %}
-              {{ states.device_tracker.geni_combined.state }}
-          {%- endif %}
-    toyota:
-      friendly_name: 'Toyota'
-      value_template: >-
-          {%- if is_state("device_tracker.toyota", "home") %}
-              En casa
-          {% elif is_state("device_tracker.toyota", "not_home") %}
-              Ausente
-          {% else %}
-              {{ states.device_tracker.toyota.state }}
-          {%- endif %}
-    nissan:
-      friendly_name: 'Nissan'
-      value_template: >-
-          {%- if is_state("device_tracker.nissan", "home") %}
-              En casa
-          {% elif is_state("device_tracker.nissan", "not_home") %}
-              Ausente
-          {% else %}
-              {{ states.device_tracker.nissan.state }}
-          {%- endif %}
     hp_photosmart_5520:
       friendly_name: 'HP Photosmart 5520'
       value_template: >-

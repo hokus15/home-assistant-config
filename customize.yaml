@@ -107,18 +107,10 @@ sensor.switch_barrera:
   friendly_name: 'Estado barrera'
   icon: 'mdi:gate'
 sensor.season:
-  hidden: true
+  friendly_name: 'Estación'
 sensor.ups_status:
   friendly_name: 'SAI'
   icon: 'mdi:power-socket-eu'
-sensor.jordi_combined:
-  entity_picture: !secret hokusphone_jordi_picture
-sensor.geni_combined:
-  entity_picture: !secret geni_picture
-sensor.virtual_device:
-  entity_picture: !secret virtual_device_picture
-sensor.toyota:
-  entity_picture: /local/Toyota_Corolla_Wagon.jpg
 sensor.toyota_batt:
   friendly_name: 'Batería'
   icon: 'mdi:battery'
@@ -128,8 +120,6 @@ sensor.toyota_gps_accuracy:
 sensor.toyota_last_update:
   friendly_name: 'Última actualización'
   icon: 'mdi:clock'
-sensor.nissan:
-  entity_picture: /local/Nissan_Qashqai.jpg
 sensor.nissan_batt:
   friendly_name: 'Batería'
   icon: 'mdi:battery'
@@ -314,6 +304,15 @@ binary_sensor.entrada_principal_outdoor_animal:
 binary_sensor.entrada_principal_outdoor_vehicle:
   friendly_name: 'Vehiculo detectado'
   icon: 'mdi:car'
+binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_sensor:
+  device_class: 'door'
+  friendly_name: 'Puerta porche'
+binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sensor:
+  device_class: 'door'
+  friendly_name: 'Persiana porche'
+binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_sensor:
+  device_class: 'door'
+  friendly_name: 'Puerta coladuría'
 
 ###################################
 # Cameras
