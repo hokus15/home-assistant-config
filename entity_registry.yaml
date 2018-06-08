@@ -1,0 +1,308 @@
+switch.swiid_swiidinter_lampara_recibidor_switch:
+  name:
+  platform: zwave
+  unique_id: 3-72057594093060096
+binary_sensor.fibaro_fgms001_motion_sensor_salon:
+  name:
+  platform: zwave
+  unique_id: 6-72057594143571968
+sensor.fibaro_fgms001_motion_sensor_salon_temperature:
+  name:
+  platform: zwave
+  unique_id: 6-72057594143588370
+sensor.fibaro_fgms001_motion_sensor_salon_luminance:
+  name:
+  platform: zwave
+  unique_id: 6-72057594143588402
+sensor.fibaro_fgms001_motion_sensor_salon_seismic_intensity:
+  name:
+  platform: zwave
+  unique_id: 6-72057594143588754
+sensor.fibaro_fgms001_motion_sensor_salon_alarm_type:
+  name:
+  platform: zwave
+  unique_id: 6-72057594144636929
+sensor.fibaro_fgms001_motion_sensor_salon_alarm_level:
+  name:
+  platform: zwave
+  unique_id: 6-72057594144636945
+sensor.fibaro_fgms001_motion_sensor_salon_sourcenodeid:
+  name:
+  platform: zwave
+  unique_id: 6-72057594144636961
+sensor.fibaro_fgms001_motion_sensor_salon_burglar:
+  name:
+  platform: zwave
+  unique_id: 6-72057594144637089
+sensor.fibaro_fgms001_motion_sensor_salon_general:
+  name:
+  platform: zwave
+  unique_id: 6-72057594145341441
+binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche:
+  name:
+  platform: zwave
+  unique_id: 9-72057594193903616
+sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_alarm_type:
+  name:
+  platform: zwave
+  unique_id: 9-72057594194968577
+sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_alarm_level:
+  name:
+  platform: zwave
+  unique_id: 9-72057594194968593
+sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sourcenodeid:
+  name:
+  platform: zwave
+  unique_id: 9-72057594194968609
+sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_access_control:
+  name:
+  platform: zwave
+  unique_id: 9-72057594194968721
+sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_burglar:
+  name:
+  platform: zwave
+  unique_id: 9-72057594194968737
+sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_general:
+  name:
+  platform: zwave
+  unique_id: 9-72057594195673089
+switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch:
+  name:
+  platform: zwave
+  unique_id: 10-72057594210500608
+switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2:
+  name:
+  platform: zwave
+  unique_id: 10-144115188248428544
+sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_energy:
+  name:
+  platform: zwave
+  unique_id: 10-72057594210713602
+sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_energy_2:
+  name:
+  platform: zwave
+  unique_id: 10-144115188248641538
+sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_power:
+  name:
+  platform: zwave
+  unique_id: 10-72057594210713730
+sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_exporting:
+  name:
+  platform: zwave
+  unique_id: 10-72057594210714112
+sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_power_2:
+  name:
+  platform: zwave
+  unique_id: 10-144115188248641666
+sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_exporting_2:
+  name:
+  platform: zwave
+  unique_id: 10-144115188248642048
+sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_alarm_type:
+  name:
+  platform: zwave
+  unique_id: 10-72057594211745793
+sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_alarm_level:
+  name:
+  platform: zwave
+  unique_id: 10-72057594211745809
+sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_sourcenodeid:
+  name:
+  platform: zwave
+  unique_id: 10-72057594211745825
+sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_heat:
+  name:
+  platform: zwave
+  unique_id: 10-72057594211745905
+sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_power_management:
+  name:
+  platform: zwave
+  unique_id: 10-72057594211745969
+binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche:
+  name:
+  platform: zwave
+  unique_id: 11-72057594227458048
+sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_temperature:
+  name:
+  platform: zwave
+  unique_id: 11-72057594227474450
+sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_alarm_type:
+  name:
+  platform: zwave
+  unique_id: 11-72057594228523009
+sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_alarm_level:
+  name:
+  platform: zwave
+  unique_id: 11-72057594228523025
+sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_sourcenodeid:
+  name:
+  platform: zwave
+  unique_id: 11-72057594228523041
+sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_heat:
+  name:
+  platform: zwave
+  unique_id: 11-72057594228523121
+sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_access_control:
+  name:
+  platform: zwave
+  unique_id: 11-72057594228523153
+sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_burglar:
+  name:
+  platform: zwave
+  unique_id: 11-72057594228523169
+sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_system:
+  name:
+  platform: zwave
+  unique_id: 11-72057594228523201
+sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_general:
+  name:
+  platform: zwave
+  unique_id: 11-72057594229227521
+media_player.hokussqueezebox:
+  name:
+  platform: squeezebox
+  unique_id: 00:04:20:2a:42:cc
+switch.piscina:
+  name:
+  platform: wemo
+  unique_id: 221501K1200593
+switch.barrera:
+  name:
+  platform: wemo
+  unique_id: 221529S000015E
+light.puerta_coladuria:
+  name:
+  platform: wemo
+  unique_id: 94103EF6BF42F7A8
+light.barrera_derecha:
+  name:
+  platform: wemo
+  unique_id: 94103EF6BF4305F3
+light.barrera_izquierda:
+  name:
+  platform: wemo
+  unique_id: 94103EF6BF430276
+media_player.salon:
+  name:
+  platform: cast
+  unique_id: cdbe4ece-88cc-2512-7429-e5d8747010a6
+media_player.homeassistant:
+  name:
+  platform: cast
+  unique_id: 5d3952bd-20a2-6e53-f44b-3be6710ad04a
+binary_sensor.fibaro_fgk10x_door_opening_sensor_piscina:
+  name:
+  platform: zwave
+  unique_id: 14-72057594277789696
+sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature:
+  name:
+  platform: zwave
+  unique_id: 14-72057594277806098
+sensor.fibaro_fgk10x_door_opening_sensor_piscina_alarm_type:
+  name:
+  platform: zwave
+  unique_id: 14-72057594278854657
+sensor.fibaro_fgk10x_door_opening_sensor_piscina_alarm_level:
+  name:
+  platform: zwave
+  unique_id: 14-72057594278854673
+sensor.fibaro_fgk10x_door_opening_sensor_piscina_sourcenodeid:
+  name:
+  platform: zwave
+  unique_id: 14-72057594278854689
+sensor.fibaro_fgk10x_door_opening_sensor_piscina_heat:
+  name:
+  platform: zwave
+  unique_id: 14-72057594278854769
+sensor.fibaro_fgk10x_door_opening_sensor_piscina_access_control:
+  name:
+  platform: zwave
+  unique_id: 14-72057594278854801
+sensor.fibaro_fgk10x_door_opening_sensor_piscina_burglar:
+  name:
+  platform: zwave
+  unique_id: 14-72057594278854817
+sensor.fibaro_fgk10x_door_opening_sensor_piscina_system:
+  name:
+  platform: zwave
+  unique_id: 14-72057594278854849
+sensor.fibaro_fgk10x_door_opening_sensor_piscina_general:
+  name:
+  platform: zwave
+  unique_id: 14-72057594279559169
+binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria:
+  name:
+  platform: zwave
+  unique_id: 15-72057594294566912
+sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_alarm_type:
+  name:
+  platform: zwave
+  unique_id: 15-72057594295631873
+sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_alarm_level:
+  name:
+  platform: zwave
+  unique_id: 15-72057594295631889
+sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_sourcenodeid:
+  name:
+  platform: zwave
+  unique_id: 15-72057594295631905
+sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_access_control:
+  name:
+  platform: zwave
+  unique_id: 15-72057594295632017
+sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_burglar:
+  name:
+  platform: zwave
+  unique_id: 15-72057594295632033
+sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_general:
+  name:
+  platform: zwave
+  unique_id: 15-72057594296336385
+sensor.pws_weather_1d_metric:
+  name:
+  platform: wunderground
+  unique_id: '@2.683594,39.666266,weather_1d_metric'
+sensor.pws_alerts:
+  name:
+  platform: wunderground
+  unique_id: '@2.683594,39.666266,alerts'
+sensor.pws_weather:
+  name:
+  platform: wunderground
+  unique_id: '@2.683594,39.666266,weather'
+zwave.aeotec_zw090_zstick_gen5:
+  name:
+  platform: zwave
+  unique_id: node-1
+zwave.swiid_swiidinter_lampara_recibidor:
+  name:
+  platform: zwave
+  unique_id: node-3
+zwave.fibaro_fgms001_motion_sensor_salon:
+  name:
+  platform: zwave
+  unique_id: node-6
+zwave.nodon_crc3100_octan_remote:
+  name:
+  platform: zwave
+  unique_id: node-8
+zwave.fibaro_fgk10x_door_opening_sensor_persiana_porche:
+  name:
+  platform: zwave
+  unique_id: node-9
+zwave.fibaro_fgs223_double_relay_luz_escalera_y_suite:
+  name:
+  platform: zwave
+  unique_id: node-10
+zwave.fibaro_fgk10x_door_opening_sensor_puerta_porche:
+  name:
+  platform: zwave
+  unique_id: node-11
+zwave.fibaro_fgk10x_door_opening_sensor_piscina:
+  name:
+  platform: zwave
+  unique_id: node-14
+zwave.fibaro_fgk10x_door_opening_sensor_puerta_coladuria:
+  name:
+  platform: zwave
+  unique_id: node-15
