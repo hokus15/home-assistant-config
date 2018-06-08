@@ -485,9 +485,9 @@
 - alias: 'Notify kitchen door opened when notification active'
   trigger: 
     platform: state
-    entity_id: sensor.cocina_sensor_puerta
-    from: 'Cerrada'
-    to: 'Abierta'
+    entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
+    from: 'off'
+    to: 'on'
   condition:
     condition: state
     entity_id: input_boolean.cocina_sensor_puerta
@@ -507,9 +507,9 @@
 - alias: 'Notify kitchen blind opened when notification active'
   trigger: 
     platform: state
-    entity_id: sensor.cocina_sensor_persiana
-    from: 'Cerrada'
-    to: 'Abierta'
+    entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
+    from: 'off'
+    to: 'on'
   condition:
     condition: state
     entity_id: input_boolean.cocina_sensor_persiana
@@ -528,9 +528,9 @@
 - alias: 'Notify laundry door opened when notification active'
   trigger: 
     platform: state
-    entity_id: sensor.coladuria_sensor_puerta
-    from: 'Cerrada'
-    to: 'Abierta'
+    entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria
+    from: 'off'
+    to: 'on'
   condition:
     condition: state
     entity_id: input_boolean.coladuria_sensor_puerta
@@ -550,7 +550,7 @@
 - alias: 'Notify living room motion detection when notification active'
   trigger: 
     platform: state
-    entity_id: binary_sensor.salon_detector_movimiento
+    entity_id: binary_sensor.fibaro_fgms001_motion_sensor_salon
     to: 'on'
   condition:
     condition: state

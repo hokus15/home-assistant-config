@@ -115,22 +115,22 @@ recorder:
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_burglar
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_general
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_sourcenodeid
-      - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_sensor
+      - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
       - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_access_control
       - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_alarm_level
       - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_alarm_type
       - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_burglar
       - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_general
       - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sourcenodeid
-      - binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sensor
+      - binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_access_control
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_alarm_level
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_alarm_type
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_burglar
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_general
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_sourcenodeid
-      - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_sensor
-      - binary_sensor.fibaro_fgms001_motion_sensor_salon_sensor
+      - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria
+      - binary_sensor.fibaro_fgms001_motion_sensor_salon
       - sensor.fibaro_fgms001_motion_sensor_salon_alarm_level
       - sensor.fibaro_fgms001_motion_sensor_salon_alarm_type
       - sensor.fibaro_fgms001_motion_sensor_salon_burglar
@@ -227,14 +227,14 @@ recorder:
       - device_tracker.geni_nmap
       - device_tracker.toyota
       - device_tracker.hp_photosmart_5520
-      - device_tracker.jordi_combined
+#      - device_tracker.jordi_combined
 #      - device_tracker.hokusphone_nmap
 #      - device_tracker.hokusphone_wifi
 #      - device_tracker.hokusphone_ibeacon
-      - device_tracker.geni_combined
-      - device_tracker.geniphone_nmap
-      - device_tracker.geniphone_wifi
-      - device_tracker.geniphone_ibeacon
+#      - device_tracker.geni_combined
+#      - device_tracker.geniphone_nmap
+#      - device_tracker.geniphone_wifi
+#      - device_tracker.geniphone_ibeacon
       - device_tracker.virtual_device
       - binary_sensor.exterior_termometro_temperatura_descendiendo
       - binary_sensor.exterior_termometro_temperatura_aumentando
@@ -377,7 +377,7 @@ script: !include scripts.yaml
 input_number: !include input_sliders.yaml
 input_boolean: !include input_booleans.yaml
 panel_iframe: !include panel_iframes.yaml
-panel_custom: !include panel_custom.yaml
+#panel_custom: !include panel_custom.yaml
 intent_script: !include intent_scripts.yaml
 #image_processing: !include image_processing.yaml
 history_graph: !include history_graph.yaml

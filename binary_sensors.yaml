@@ -100,9 +100,6 @@
 
 - platform: template
   sensors:
-    salon_detector_movimiento:
-      value_template: "{{ is_state('sensor.fibaro_fgms001_motion_sensor_salon_burglar', '8') }}"
-      device_class: motion
     salon_detector_movimiento_sabotaje:
       value_template: "{{ is_state('sensor.fibaro_fgms001_motion_sensor_salon_burglar', '3') }}"
       device_class: vibration

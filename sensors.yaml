@@ -486,38 +486,6 @@
       friendly_name: 'la puerta de la cocina'
       unit_of_measurement: 'none'
 
-    floorplan_luz_escalera:
-      value_template: '{% if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch", "off") %}apagada{% else %}encendida{% endif %}'
-      friendly_name: 'Luz escalera'
-    floorplan_luz_escalera_1:
-      value_template: '{% if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch", "off") %}apagada{% else %}encendida{% endif %}'
-      friendly_name: 'Luz escalera'
-    floorplan_luz_suite:
-      value_template: '{% if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2", "off") %}apagada{% else %}encendida{% endif %}'
-      friendly_name: 'Luz suite'
-    floorplan_lampara_recibidor:
-      value_template: '{% if is_state("switch.swiid_swiidinter_lampara_recibidor_switch", "off") %}apagada{% else %}encendida{% endif %}'
-      friendly_name: 'Lámpara recibidor'
-    floorplan_luz_exterior_barrera_izquierda:
-      value_template: '{% if is_state("light.barrera_izquierda", "off") %}apagada{% else %}encendida{% endif %}'
-      friendly_name: 'Luz exterior barrera izquierda'
-    floorplan_luz_exterior_barrera_derecha:
-      value_template: '{% if is_state("light.barrera_derecha", "off") %}apagada{% else %}encendida{% endif %}'
-      friendly_name: 'Luz exterior barrera derecha'
-    floorplan_luz_exterior_puerta_entrada:
-      value_template: '{% if is_state("light.puerta_entrada", "off") %}apagada{% else %}encendida{% endif %}'
-      friendly_name: 'Luz exterior puerta entrada'
-    floorplan_cocina_sensor_persiana_derecha:
-      value_template: '{{ states.sensor.cocina_sensor_persiana.state }}'
-    floorplan_cocina_sensor_persiana_izquierda:
-      value_template: '{{ states.sensor.cocina_sensor_persiana.state }}'
-    floorplan_cocina_sensor_puerta_derecha:
-      value_template: '{{ states.sensor.cocina_sensor_puerta.state }}'
-    floorplan_cocina_sensor_puerta_izquierda:
-      value_template: '{{ states.sensor.cocina_sensor_puerta.state }}'
-    floorplan_switch_piscina:
-      value_template: '{{ states.switch.motor_piscina.state }}'
-
 # Sensor to define the season of the year
 - platform: season
 

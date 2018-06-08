@@ -170,7 +170,7 @@ Salón:
     - sensor.netatmo_salon_co2
     - sensor.salon_termometro_co2_tendencia
     - sensor.netatmo_salon_wifi
-    - binary_sensor.salon_detector_movimiento
+    - binary_sensor.fibaro_fgms001_motion_sensor_salon
     - binary_sensor.salon_detector_movimiento_sabotaje
     - input_boolean.salon_detector_movimiento
     - sensor.fibaro_fgms001_motion_sensor_salon_luminance
@@ -216,11 +216,11 @@ Recibidor:
 
 Cocina:
   entities:
-    - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_sensor
+    - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
     - input_boolean.cocina_sensor_puerta
-    - binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sensor
+    - binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
     - input_boolean.cocina_sensor_persiana
-    - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_sensor
+    - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria
     - input_boolean.coladuria_sensor_puerta
     - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_temperature
 
@@ -319,24 +319,24 @@ Seguridad exterior:
 
 Sensor salón:
   entities:
-    - binary_sensor.salon_detector_movimiento
+    - binary_sensor.fibaro_fgms001_motion_sensor_salon
     - binary_sensor.salon_detector_movimiento_sabotaje
 #    - sensor.salon_detector_movimiento_bateria
     - input_boolean.salon_detector_movimiento
 
 Puerta porche cocina:
   entities:
-    - sensor.cocina_sensor_puerta
+    - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
     - input_boolean.cocina_sensor_puerta
 
 Persiana porche cocina:
   entities:
-    - sensor.cocina_sensor_persiana
+    - binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
     - input_boolean.cocina_sensor_persiana
 
 Puerta coladuria cocina:
   entities:
-    - sensor.coladuria_sensor_puerta
+    - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria
     - input_boolean.coladuria_sensor_puerta
 
 Internet:

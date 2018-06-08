@@ -290,8 +290,9 @@ binary_sensor.barbacoa_camara_det_mov:
   friendly_name: 'Movimiento'
 binary_sensor.caseta_camara_det_mov:
   friendly_name: 'Movimiento'
-binary_sensor.salon_detector_movimiento:
+binary_sensor.fibaro_fgms001_motion_sensor_salon:
   friendly_name: 'Movimiento'
+  device_class: 'motion'
 binary_sensor.salon_detector_movimiento_sabotaje:
   friendly_name: 'Manipulación sensor'
 binary_sensor.entrada_principal_outdoor_motion:
@@ -304,13 +305,13 @@ binary_sensor.entrada_principal_outdoor_animal:
 binary_sensor.entrada_principal_outdoor_vehicle:
   friendly_name: 'Vehiculo detectado'
   icon: 'mdi:car'
-binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_sensor:
+binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche:
   device_class: 'door'
   friendly_name: 'Puerta porche'
-binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sensor:
+binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche:
   device_class: 'door'
   friendly_name: 'Persiana porche'
-binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_sensor:
+binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria:
   device_class: 'door'
   friendly_name: 'Puerta coladuría'
 
