@@ -853,13 +853,13 @@
 #    conditions:
 #    - condition: state
 #      entity_id: sensor.season
-#      state: 'Spring'
+#      state: 'spring'
 #    - condition: state
 #      entity_id: sensor.season
-#      state: 'Autumn'
+#      state: 'autumn'
 #    - condition: state
 #      entity_id: sensor.season
-#      state: 'Summer'
+#      state: 'summer'
 #  action:
 #    service: switch.turn_on
 #    entity_id: switch.piscina
@@ -871,7 +871,7 @@
 #  condition:
 #    - condition: state
 #      entity_id: sensor.season
-#      state: 'Winter'
+#      state: 'winter'
 #  action:
 #    service: switch.turn_on
 #    entity_id: switch.piscina
@@ -885,13 +885,13 @@
 #    conditions:
 #    - condition: state
 #      entity_id: sensor.season
-#      state: 'Spring'
+#      state: 'spring'
 #    - condition: state
 #      entity_id: sensor.season
-#      state: 'Autumn'
+#      state: 'autumn'
 #    - condition: state
 #      entity_id: sensor.season
-#      state: 'Summer'
+#      state: 'summer'
 #  action:
 #    service: switch.turn_on
 #    entity_id: switch.piscina
@@ -903,7 +903,7 @@
 #  condition:
 #    - condition: state
 #      entity_id: sensor.season
-#      state: 'Winter'
+#      state: 'winter'
 #  action:
 #    service: switch.turn_on
 #    entity_id: switch.piscina
@@ -923,7 +923,7 @@
 #  condition:
 #    - condition: state
 #      entity_id: sensor.season
-#      state: 'Summer'
+#      state: 'summer'
 #  action:
 #    service: switch.turn_off
 #    entity_id: switch.piscina
@@ -937,13 +937,13 @@
 #    conditions:
 #    - condition: state
 #      entity_id: sensor.season
-#      state: 'Spring'
+#      state: 'spring'
 #    - condition: state
 #      entity_id: sensor.season
-#      state: 'Autumn'
+#      state: 'autumn'
 #    - condition: state
 #      entity_id: sensor.season
-#      state: 'Winter'
+#      state: 'winter'
 #  action:
 #    service: switch.turn_off
 #    entity_id: switch.piscina
@@ -955,7 +955,7 @@
 #  condition:
 #    - condition: state
 #      entity_id: sensor.season
-#      state: 'Summer'
+#      state: 'summer'
 #  action:
 #    service: switch.turn_off
 #    entity_id: switch.piscina
@@ -967,7 +967,7 @@
 #  condition:
 #    - condition: state
 #      entity_id: sensor.season
-#      state: 'Winter'
+#      state: 'sinter'
 #  action:
 #    service: switch.turn_off
 #    entity_id: switch.piscina
@@ -981,10 +981,10 @@
 #    conditions:
 #    - condition: state
 #      entity_id: sensor.season
-#      state: 'Spring'
+#      state: 'spring'
 #    - condition: state
 #      entity_id: sensor.season
-#      state: 'Autumn'
+#      state: 'autumn'
 #  action:
 #    service: switch.turn_off
 #    entity_id: switch.piscina
@@ -999,13 +999,13 @@
     conditions:
     - condition: state
       entity_id: sensor.season
-      state: 'Spring'
+      state: 'spring'
     - condition: state
       entity_id: sensor.season
-      state: 'Autumn'
+      state: 'autumn'
     - condition: state
       entity_id: sensor.season
-      state: 'Winter'
+      state: 'winter'
   action:
     service: telegram_bot.send_message
     data:
@@ -1021,7 +1021,7 @@
   condition:
     - condition: state
       entity_id: sensor.season
-      state: 'Summer'
+      state: 'summer'
   action:
     service: telegram_bot.send_message
     data:
