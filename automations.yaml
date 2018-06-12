@@ -578,6 +578,21 @@
     data:
       message: 'El sensor de movimento del salón se ha manipulado'
 
+- alias: 'Notify camera motion detection'
+  trigger:
+    platform: event
+    event_type: folder_watcher
+    event_data:
+      event_type: created
+  action:
+    - service: script.notify_motion_detection
+      data_template:
+        data:
+          file: '{{ trigger.event.data.path }}'
+          camera: >-
+            {%- set camera ={"/home/camera/C1_00626E615161/snap": "recibidor", "/home/camera/FI9853EP_00626E563E69/snap": "piscina", "/home/camera/FI9900P_00626E6D21B2/snap": "barbacoa", "/home/camera/WVC54CGA/snap": "caseta"} -%}
+            {{ camera[trigger.event.data.folder] }}
+
 #############################################################
 # Light automations
 #############################################################
