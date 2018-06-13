@@ -287,6 +287,7 @@ Cámara caseta:
 Cámara entrada principal:
   entities:
     - camera.entrada_principal
+    - input_boolean.entrada_principal_detector_movimiento
     - binary_sensor.entrada_principal_outdoor_motion
     - binary_sensor.entrada_principal_outdoor_human
     - binary_sensor.entrada_principal_outdoor_animal
