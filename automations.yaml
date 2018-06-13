@@ -598,6 +598,27 @@
              -%}
             {{ camera[trigger.event.data.folder] }}
 
+# Notify Toyota movement if I'm not in the car
+- alias: 'Notify Toyota movement if I am not in the car'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.toyota_distance_travelled_between_updates
+    above: 10
+    for:
+      seconds: 30
+  condition:
+    condition: template
+    value_template: '{{ states.device_tracker.jordi_combined.state != "En ruta" }}'
+  action:
+    - service: notify.telegram
+      data:
+        message: 'Movimiento del Toyota detectado'
+    - service: telegram_bot.send_location
+      data_template:
+        latitude: '{{ states.device_tracker.toyota.attributes.latitude }}'
+        longitude: '{{ states.device_tracker.toyota.attributes.longitude }}'
+        target: !secret hokusphone_telegram_chat_id
+
 #############################################################
 # Light automations
 #############################################################
