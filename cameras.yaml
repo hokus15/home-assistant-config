@@ -33,7 +33,7 @@
 
 - platform: generic
   name: Toyota
-  still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.toyota.attributes.latitude }},{{ states.device_tracker.toyota.attributes.longitude }}&zoom=15&size=500x500&maptype=roadmap&markers=icon:https%3A%2F%2Fhome.hokusnet.com%2Flocal%2Ftoyota-small.png%7C{{ states.device_tracker.toyota.attributes.latitude }},{{ states.device_tracker.toyota.attributes.longitude }}
+  still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.toyota.attributes.latitude }},{{ states.device_tracker.toyota.attributes.longitude }}&zoom=15&size=500x500&maptype=roadmap&markers=icon:https%3A%2F%2Fhome.hokusnet.com%2Flocal%2Ftoyota-small-t.png%7C{{ states.device_tracker.toyota.attributes.latitude }},{{ states.device_tracker.toyota.attributes.longitude }}
   limit_refetch_to_url_change: true
 
 - platform: generic
