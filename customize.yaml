@@ -11,6 +11,7 @@ sensor.netatmo_exterior_max_temp:
   friendly_name: 'Máxima de hoy'
 sensor.netatmo_exterior_battery:
   friendly_name: 'Netatmo exterior'
+  device_class: 'battery'
 sensor.netatmo_exterior_radio:
   friendly_name: 'Señal exterior'
 sensor.netatmo_pluviometro_rain:
@@ -21,6 +22,7 @@ sensor.netatmo_pluviometro_sum_rain_24:
   friendly_name: 'Lluvia 24 horas'
 sensor.netatmo_pluviometro_battery:
   friendly_name: 'Netatmo pluviómetro'
+  device_class: 'battery'
 sensor.netatmo_pluviometro_radio:
   friendly_name: 'Señal pluviómetro'
 sensor.netatmo_salon_temperature:
@@ -43,6 +45,7 @@ sensor.netatmo_anemometro_angle:
   friendly_name: 'Dirección viento'
 sensor.netatmo_anemometro_battery:
   friendly_name: 'Netatmo anemómetro'
+  device_class: 'battery'
 sensor.netatmo_anemometro_gust_angle:
   friendly_name: 'Dirección rachas'
 sensor.netatmo_anemometro_gust_strength:
@@ -63,6 +66,7 @@ sensor.netatmo_suite_humidity:
   friendly_name: 'Humedad'
 sensor.netatmo_suite_battery:
   friendly_name: 'Netatmo suite'
+  device_class: 'battery'
 sensor.netatmo_suite_radio:
   friendly_name: 'Señal suite'
 sensor.netatmo_habitacion_temperature:
@@ -77,6 +81,7 @@ sensor.netatmo_habitacion_humidity:
   friendly_name: 'Humedad'
 sensor.netatmo_habitacion_battery:
   friendly_name: 'Netatmo hab. niños'
+  device_class: 'battery'
 sensor.netatmo_habitacion_radio:
   friendly_name: 'Señal hab.niños'
 sensor.speedtest_ping:
@@ -113,7 +118,7 @@ sensor.ups_status:
   icon: 'mdi:power-socket-eu'
 sensor.toyota_batt:
   friendly_name: 'Batería'
-  icon: 'mdi:battery'
+  device_class: 'battery'
 sensor.toyota_gps_accuracy:
   friendly_name: 'Precisión GPS'
   icon: 'mdi:map-marker-radius'
@@ -122,7 +127,7 @@ sensor.toyota_last_update:
   icon: 'mdi:clock'
 sensor.nissan_batt:
   friendly_name: 'Batería'
-  icon: 'mdi:battery'
+  device_class: 'battery'
 sensor.nissan_gps_accuracy:
   friendly_name: 'Precisión GPS'
   icon: 'mdi:map-marker-radius'
@@ -185,22 +190,22 @@ sensor.cocina_sensor_puerta:
 #  icon: 'mdi:glassdoor'
   friendly_name: 'Estado puerta porche'
 sensor.cocina_sensor_puerta_bateria:
-  icon: 'mdi:battery'
+  device_class: 'battery'
   friendly_name: 'Sensor puerta cocina'
 sensor.cocina_sensor_persiana:
 #  icon: 'mdi:glassdoor'
   friendly_name: 'Estado persiana porche'
 sensor.cocina_sensor_persiana_bateria:
-  icon: 'mdi:battery'
+  device_class: 'battery'
   friendly_name: 'Sensor persiana cocina'
 sensor.coladuria_sensor_puerta:
 #  icon: 'mdi:glassdoor'
   friendly_name: 'Estado puerta coladuria'
 sensor.coladuria_sensor_puerta_bateria:
-  icon: 'mdi:battery'
+  device_class: 'battery'
   friendly_name: 'Sensor puerta coladuria'
 sensor.piscina_sensor_piscina_bateria:
-  icon: 'mdi:battery'
+  device_class: 'battery'
   friendly_name: 'Sensor temp. piscina'
 sensor.nut_ups_manufacturer:
   friendly_name: 'Marca'
@@ -214,10 +219,10 @@ sensor.fibaro_fgms001_motion_sensor_salon_luminance:
   icon: 'mdi:weather-sunny'
   friendly_name: 'Luminosidad'
 sensor.salon_detector_movimiento_bateria:
-  icon: 'mdi:battery'
+  device_class: 'battery'
   friendly_name: 'Detector movimiento salón'
 sensor.recibidor_boton_bateria:
-  icon: 'mdi:battery'
+  device_class: 'battery'
   friendly_name: 'Nodon'
 sensor.fibaro_fgms001_motion_sensor_salon_temperature:
   friendly_name: 'Temperatura'
