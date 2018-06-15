@@ -55,7 +55,7 @@ config:
 
 recorder:
   purge_interval: 1
-  purge_keep_days: 14
+  purge_keep_days: 30
   db_url: !secret recorder_db_url
   exclude:
     domains:
@@ -67,55 +67,64 @@ recorder:
       - zwave
       - updater
       - camera
+      - media_player
     entities:
       - sensor.since_last_boot
       - sensor.last_boot
+
       - sensor.next_shift_event
       - sensor.next_shift_date
       - sensor.next_holiday_mode_start
       - sensor.next_holiday_mode_end
+      - sensor.next_holiday_mode_end
+      - sensor.next_holiday_mode_start
+      - sensor.next_shift_date
+      - sensor.next_shift_event
+      - sensor.check_switch_holiday
+
       - sensor.nut_ups_manufacturer
       - sensor.nut_ups_model
       - sensor.nut_ups_status_data
       - sensor.nut_ups_beeper_status
       - sensor.nut_ups_battery_runtime
       - sensor.nut_ups_battery_charge
+
       - sun.sun
       - sensor.season
       - sensor.estacion
+      - sensor.date
+      - sensor.time
+      - sensor.date__time
       - sensor.sunrise
       - sensor.sunset
+
       - sensor.pws_weather
       - sensor.pws_weather_1d_metric
       - sensor.pws_alerts
-      - sensor.netatmo_anemometro_gust_angle
-      - sensor.netatmo_anemometro_angle
+
       - sensor.hokusnasserver_uptime
       - sensor.hokusnasserver_uptime_timeticks
-      - sensor.check_switch_holiday
-      - sensor.next_holiday_mode_end
-      - sensor.next_holiday_mode_start
-      - sensor.next_shift_date
-      - sensor.next_shift_event
-      - sensor.floorplan_cocina_sensor_persiana_derecha
-      - sensor.floorplan_cocina_sensor_persiana_izquierda
-      - sensor.floorplan_cocina_sensor_puerta_derecha
-      - sensor.floorplan_cocina_sensor_puerta_izquierda
-      - sensor.floorplan_lampara_recibidor
-      - sensor.floorplan_luz_escalera
-      - sensor.floorplan_luz_escalera_1
-      - sensor.floorplan_luz_exterior_barrera_derecha
-      - sensor.floorplan_luz_exterior_barrera_izquierda
-      - sensor.floorplan_luz_exterior_puerta_entrada
-      - sensor.floorplan_luz_suite
-      - sensor.floorplan_switch_piscina
+
+      - sensor.fibaro_fgk10x_door_opening_sensor_piscina_access_control
+      - sensor.fibaro_fgk10x_door_opening_sensor_piscina_alarm_level
+      - sensor.fibaro_fgk10x_door_opening_sensor_piscina_alarm_type
+      - sensor.fibaro_fgk10x_door_opening_sensor_piscina_burglar
+      - sensor.fibaro_fgk10x_door_opening_sensor_piscina_general
+      - sensor.fibaro_fgk10x_door_opening_sensor_piscina_sourcenodeid
+      - sensor.fibaro_fgk10x_door_opening_sensor_piscina_system
+      - sensor.fibaro_fgk10x_door_opening_sensor_piscina_heat
+      - binary_sensor.fibaro_fgk10x_door_opening_sensor_piscina
+
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_access_control
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_alarm_level
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_alarm_type
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_burglar
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_general
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_sourcenodeid
+      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_system
+      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_heat
       - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
+
       - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_access_control
       - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_alarm_level
       - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_alarm_type
@@ -123,6 +132,7 @@ recorder:
       - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_general
       - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sourcenodeid
       - binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
+
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_access_control
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_alarm_level
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_alarm_type
@@ -130,6 +140,7 @@ recorder:
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_general
       - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_sourcenodeid
       - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria
+
       - binary_sensor.fibaro_fgms001_motion_sensor_salon
       - sensor.fibaro_fgms001_motion_sensor_salon_alarm_level
       - sensor.fibaro_fgms001_motion_sensor_salon_alarm_type
@@ -137,6 +148,7 @@ recorder:
       - sensor.fibaro_fgms001_motion_sensor_salon_general
       - sensor.fibaro_fgms001_motion_sensor_salon_seismic_intensity
       - sensor.fibaro_fgms001_motion_sensor_salon_sourcenodeid
+
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_alarm_level
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_alarm_type
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_exporting
@@ -148,11 +160,15 @@ recorder:
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_sourcenodeid
       - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
       - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
+
       - sensor.recibidor_termometro_temperatura
       - sensor.exterior_termometro_temperatura
       - sensor.exterior_termometro_humedad
       - sensor.exterior_termometro_max_temp
       - sensor.exterior_termometro_min_temp
+      - sensor.netatmo_exterior_radio
+      - sensor.netatmo_exterior_battery
+
       - sensor.salon_termometro_co2
       - sensor.salon_termometro_temperatura
       - sensor.salon_termometro_humedad
@@ -160,20 +176,35 @@ recorder:
       - sensor.salon_termometro_min_temp
       - sensor.salon_termometro_ruido
       - sensor.salon_termometro_presion
+
       - sensor.suite_termometro_co2
       - sensor.suite_termometro_temperatura
       - sensor.suite_termometro_humedad
       - sensor.suite_termometro_max_temp
       - sensor.suite_termometro_min_temp
-      - sensor.habitacion_ninos_termometro_co2
-      - sensor.habitacion_ninos_termometro_temperatura
-      - sensor.habitacion_ninos_termometro_humedad
-      - sensor.habitacion_ninos_termometro_max_temp
-      - sensor.habitacion_ninos_termometro_min_temp
+      - sensor.netatmo_suite_radio
+      - sensor.netatmo_suite_battery
+
+      - sensor.habitacion_termometro_co2
+      - sensor.habitacion_termometro_temperatura
+      - sensor.habitacion_termometro_humedad
+      - sensor.habitacion_termometro_max_temp
+      - sensor.habitacion_termometro_min_temp
+      - sensor.netatmo_habitacion_radio
+      - sensor.netatmo_habitacion_battery
+
       - sensor.exterior_pluviometro_lluvia
       - sensor.exterior_pluviometro_lluvia_1
       - sensor.exterior_pluviometro_lluvia_24
+      - sensor.netatmo_pluviometro_radio
+      - sensor.netatmo_pluviometro_battery
+
       - sensor.exterior_anemometro_velocidad_viento
+      - sensor.netatmo_anemometro_gust_angle
+      - sensor.netatmo_anemometro_angle
+      - sensor.netatmo_anemometro_radio
+      - sensor.netatmo_anemometro_battery
+
       - sensor.on_off_switch_termostato
       - sensor.on_off_switch_termostato_modo_ausente
       - sensor.on_off_switch_piscina
@@ -212,8 +243,13 @@ recorder:
       - sensor.check_switch_barrera
       - sensor.check_sensor_cocina_sensor_persiana
       - sensor.check_sensor_cocina_sensor_puerta
+
       - sensor.toyota_previous_latitude
       - sensor.toyota_previous_longitude
+      - sensor.toyota_last_update
+      
+      - sensor.nissan_last_update
+
       - device_tracker.ac63be0b8591
       - device_tracker.48e9f1ef7911
       - device_tracker.d013fd1259af
@@ -223,8 +259,10 @@ recorder:
       - device_tracker.e0b52dc9f7e4
       - device_tracker.ac83f303a892
       - device_tracker.54724f769044
+      - device_tracker.70ee502aa1ac
+      - device_tracker.748d08da83b9
+      - device_tracker.64b5c60cdc86
       - device_tracker.flex_2
-      - device_tracker.geni_nmap
       - device_tracker.toyota
       - device_tracker.hp_photosmart_5520
 #      - device_tracker.jordi_combined
@@ -236,22 +274,52 @@ recorder:
 #      - device_tracker.geniphone_wifi
 #      - device_tracker.geniphone_ibeacon
       - device_tracker.virtual_device
+
       - binary_sensor.exterior_termometro_temperatura_descendiendo
       - binary_sensor.exterior_termometro_temperatura_aumentando
+      - sensor.exterior_termometro_temperatura_tendencia
+
       - binary_sensor.salon_termometro_temperatura_descendiendo
       - binary_sensor.salon_termometro_temperatura_aumentando
+      - sensor.salon_termometro_temperatura_tendencia
+
       - binary_sensor.recibidor_termometro_temperatura_descendiendo
       - binary_sensor.recibidor_termometro_temperatura_aumentando
+      - sensor.recibidor_termometro_temperatura_tendencia
+
       - binary_sensor.suite_termometro_temperatura_descendiendo
       - binary_sensor.suite_termometro_temperatura_aumentando
-      - binary_sensor.habitacion_ninos_termometro_temperatura_descendiendo
-      - binary_sensor.habitacion_ninos_termometro_temperatura_aumentando
+      - sensor.suite_termometro_temperatura_tendencia
+
+      - binary_sensor.habitacion_termometro_temperatura_descendiendo
+      - binary_sensor.habitacion_termometro_temperatura_aumentando
+      - sensor.habitacion_termometro_temperatura_tendencia
+
+      - binary_sensor.primera_planta_temperatura_aumentando
+      - binary_sensor.primera_planta_temperatura_descendiendo
+      - sensor.primera_planta_temperatura_tendencia
+
       - binary_sensor.salon_termometro_co2_descendiendo
       - binary_sensor.salon_termometro_co2_aumentando
+      - sensor.salon_termometro_co2_tendencia
+      
       - binary_sensor.suite_termometro_co2_descendiendo
       - binary_sensor.suite_termometro_co2_aumentando
-      - binary_sensor.habitacion_ninos_termometro_co2_descendiendo
-      - binary_sensor.habitacion_ninos_termometro_co2_aumentando
+      - sensor.suite_termometro_co2_tendencia
+
+      - binary_sensor.habitacion_termometro_co2_descendiendo
+      - binary_sensor.habitacion_termometro_co2_aumentando
+      - sensor.habitacion_termometro_co2_tendencia
+
+      - binary_sensor.planta_baja_temperatura_aumentando
+      - binary_sensor.planta_baja_temperatura_descendiendo
+      - sensor.planta_baja_temperatura_tendencia
+
+      - sensor.piscina_k_factor
+      - sensor.piscina_pump_efficiency
+      - sensor.piscina_off_time
+      - sensor.piscina_on_time
+
       - binary_sensor.workday_sensor
       - input_number.empty_home_activation_delay_minutes
       - image_processing.sevensegement_ocr_ph_piscina
@@ -366,6 +434,8 @@ freedns:
 
 folder_watcher:
   - folder: /home/camera
+    patterns:
+      - '*.jpg'
 
 shell_command: !include shell_command.yaml
 device_tracker: !include device_tracker.yaml
