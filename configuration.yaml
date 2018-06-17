@@ -53,6 +53,23 @@ history:
 
 config:
 
+wemo:
+  static:
+    # Maker
+    - 10.155.106.110
+    # Switch
+#    - 10.155.106.111
+    # Link
+    - 10.155.106.112
+
+media_player:
+    # TV
+  - platform: cast
+    host: 10.155.106.114
+    # Home-Assistant
+  - platform: cast
+    host: 10.155.106.143
+
 recorder:
   purge_interval: 1
   purge_keep_days: 30
