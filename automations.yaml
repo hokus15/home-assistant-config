@@ -1174,6 +1174,30 @@
   action:
     - service: script.turn_on
       data:
+        entity_id: script.goto_sleep
+
+- alias: Nodon Octan button 4 long press
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.nodon_crc3100_octan_remote
+      scene_id: 41
+  action:
+    - service: script.turn_on
+      data:
+        entity_id: script.jordi_at_home
+
+- alias: Nodon Octan button 4 double click
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.nodon_crc3100_octan_remote
+      scene_id: 43
+  action:
+    - service: script.turn_on
+      data:
         entity_id: script.set_virtual_device_home
 
 #############################################################
