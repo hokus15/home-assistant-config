@@ -399,6 +399,7 @@ netatmo:
   secret_key: !secret netatmo_secret_key
   username: !secret netatmo_username
   password: !secret netatmo_password
+  discovery: false
 
 #foursquare:
 #  access_token: !secret foursquare_access_token
