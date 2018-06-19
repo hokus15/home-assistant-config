@@ -399,7 +399,7 @@ netatmo:
   secret_key: !secret netatmo_secret_key
   username: !secret netatmo_username
   password: !secret netatmo_password
-  discovery: false
+  discovery: true
 
 #foursquare:
 #  access_token: !secret foursquare_access_token
@@ -454,6 +454,9 @@ folder_watcher:
   - folder: /home/camera
     patterns:
       - '*.jpg'
+
+#climate:
+#  - platform: netatmo
 
 shell_command: !include shell_command.yaml
 device_tracker: !include device_tracker.yaml

@@ -41,6 +41,8 @@
   still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}&zoom=15&size=500x500&maptype=roadmap&markers=color:grey%7Clabel:N%7C{{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}
   limit_refetch_to_url_change: true
 
+#- platform: netatmo
+
 #- platform: onvif
 #  name: pH Piscina
 #  host: !secret cam_ph_piscina_host
