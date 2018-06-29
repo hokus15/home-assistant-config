@@ -35,7 +35,7 @@
     # Updated when home iBeacon is detected from hokusphone
     hokusphone_ibeacon: location/hokusphone/ibeacon
     # Updated when geniphone is connected to a WiFi
-    geniphone_wifi: location/geniphone/wifis
+    geniphone_wifi: location/geniphone/wifi
     # Updated when home iBeacon is detected from geniphone
     geniphone_ibeacon: location/geniphone/ibeacon
 
