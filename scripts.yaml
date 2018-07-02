@@ -267,6 +267,38 @@ close_fence:
       data:
         entity_id: switch.barrera
 
+open_fence_ga:
+  alias: 'Open fence if closed'
+  sequence:
+    - service_template: >
+        {%- if is_state("sensor.switch_barrera", "Cerrada") -%}
+          homeassistant.turn_on
+        {%- endif -%}
+
+      data:
+        entity_id: switch.barrera
+    - service: telegram_bot.send_message
+      data_template:
+        message: 'Google Assistant ha abierto la barrera'
+        target: !secret hokusphone_telegram_chat_id
+        inline_keyboard: 
+          - 'Cerrar:/script.turn_on#script.close_fence'
+
+authorized_person_ga:
+  alias: 'Authorizes a person the specified number of minutes'
+  sequence:
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.empty_home_activation_delay_minutes
+        value: '{{data.minutes}}'
+    - service: homeassistant.turn_on
+      data:
+        entity_id: input_boolean.empty_home_activation_delay
+    - service: telegram_bot.send_message
+      data_template:
+        message: 'Google Assistant a autorizado presencia en casa durante {{data.minutes}} minutos'
+        target: !secret hokusphone_telegram_chat_id
+
 jordi_at_home:
   alias: 'Jordi at home'
   sequence:
