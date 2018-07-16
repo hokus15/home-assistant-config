@@ -20,8 +20,10 @@ http:
 #    - 127.0.0.1
   base_url: !secret ha_base_url
   use_x_forwarded_for: true
+  trusted_proxies:
+    - 127.0.0.1
   ip_ban_enabled: true
-  login_attempts_threshold: 5
+  login_attempts_threshold: 3
 #  ssl_certificate: !secret ha_ssl_certificate
 #  ssl_key: !secret ha_ssl_key
   #server_port: 8123
@@ -43,6 +45,9 @@ sun:
 
 # Discover some devices automatically
 discovery:
+  ignore:
+    - google_cast
+    - belkin_wemo
 
 # Checks for available updates
 updater:
