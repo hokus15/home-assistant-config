@@ -1,0 +1,36 @@
+title: Casa
+# Exclude entities from "Unused entities" view
+#excluded_entities:
+#  - weblink.router
+views:
+    # View tab title.
+  - title: Principal
+    # Optional unique id for direct access /lovelace/${id}
+    id: principal
+    # Each view can have a different theme applied.
+    theme: dark-mode
+    # Specify a tab icon if you want the view tab to be an icon.
+    icon: mdi:home-assistant
+    # The cards to show on this view.
+    cards:
+        # The filter card will filter entities for their state
+      - type: entity-filter
+        entities:
+          - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
+          - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria
+          - binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
+        state_filter:
+          - 'on'
+        card:
+          type: glance
+          title: 'Puertas abiertas'
+      - type: entity-filter
+        entities:
+          - device_tracker.geni_combined
+          - device_tracker.jordi_combined
+          - device_tracker.virtual_device
+        state_filter:
+          - 'home'
+        card:
+          type: glance
+          title: 'Ocupación'
