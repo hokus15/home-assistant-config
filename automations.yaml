@@ -603,7 +603,7 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.toyota_distance_travelled_between_updates
-    above: 10
+    above: 50
     for:
       seconds: 30
   condition:
@@ -611,8 +611,8 @@
     value_template: '{{ states.device_tracker.jordi_combined.state != "En ruta" }}'
   action:
     - service: notify.telegram
-      data:
-        message: 'Movimiento del Toyota detectado'
+      data_template:
+        message: 'Movimiento del Toyota de unos {{ sensor.toyota_distance_travelled_between_updates.state }} metros detectado'
     - service: telegram_bot.send_location
       data_template:
         latitude: '{{ states.device_tracker.toyota.attributes.latitude }}'
