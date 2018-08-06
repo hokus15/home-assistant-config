@@ -1036,17 +1036,22 @@
     entity_id: sensor.piscina_on_history
     above: 6
   condition:
-    condition: or
+    condition: and
     conditions:
-    - condition: state
-      entity_id: sensor.season
-      state: 'spring'
-    - condition: state
-      entity_id: sensor.season
-      state: 'autumn'
-    - condition: state
-      entity_id: sensor.season
-      state: 'winter'
+      - condition: state
+        entity_id: 'switch.motor_piscina'
+        state: 'on'
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: sensor.season
+          state: 'spring'
+        - condition: state
+          entity_id: sensor.season
+          state: 'autumn'
+        - condition: state
+          entity_id: sensor.season
+          state: 'winter'
   action:
     service: telegram_bot.send_message
     data:
@@ -1060,9 +1065,14 @@
     entity_id: sensor.piscina_on_history
     above: 8
   condition:
-    - condition: state
-      entity_id: sensor.season
-      state: 'summer'
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: 'switch.motor_piscina'
+        state: 'on'
+      - condition: state
+        entity_id: sensor.season
+        state: 'summer'
   action:
     service: telegram_bot.send_message
     data:
