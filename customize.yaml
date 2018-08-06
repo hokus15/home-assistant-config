@@ -273,6 +273,9 @@ sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature:
   friendly_name: 'Temp. agua'
 sensor.piscina_temperature_mean:
   friendly_name: 'Temp. media agua'
+sensor.ha_runtime_in_minutes:
+  friendly_name: 'Tiempo ejecución HA'
+  unit_of_measurement: 'mins'
 ###################################
 # Binary Sensors
 ###################################

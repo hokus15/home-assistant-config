@@ -127,6 +127,8 @@ recorder:
       - sensor.hokusnasserver_uptime
       - sensor.hokusnasserver_uptime_timeticks
 
+      - sensor.ha_runtime_in_minutes
+      
       - sensor.fibaro_fgk10x_door_opening_sensor_piscina_access_control
       - sensor.fibaro_fgk10x_door_opening_sensor_piscina_alarm_level
       - sensor.fibaro_fgk10x_door_opening_sensor_piscina_alarm_type

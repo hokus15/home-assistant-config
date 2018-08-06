@@ -1008,3 +1008,7 @@
 - platform: whois
   domain: !secret domain_name2
   name: Dominio nena
+
+- platform: uptime
+  name: "HA runtime in minutes"
+  unit_of_measurement: minutes

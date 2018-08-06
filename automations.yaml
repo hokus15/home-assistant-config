@@ -783,6 +783,10 @@
     platform: state
     entity_id: binary_sensor.ups_status_bs
     to: 'on'
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.ha_runtime_in_minutes
+      above: 2
   action:
     service: notify.telegram
     data:
