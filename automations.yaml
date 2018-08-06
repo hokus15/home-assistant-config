@@ -1059,11 +1059,11 @@
       inline_keyboard: 
         - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
 
-- alias: 'Notify when swimming pool pump on more than 8 hours [Summer]'
+- alias: 'Notify when swimming pool pump on more than 9 hours [Summer]'
   trigger:
     platform: numeric_state
     entity_id: sensor.piscina_on_history
-    above: 8
+    above: 9
   condition:
     condition: and
     conditions:
