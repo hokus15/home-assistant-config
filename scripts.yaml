@@ -90,10 +90,9 @@ set_virtual_device_home:
 leave_home:
   alias: 'Leave home'
   sequence:
-    - service: media_player.volume_set
-      entity_id: media_player.homeassistant
+    - service: script.turn_on
       data:
-        volume_level: 0.75
+        entity_id: script.set_tts_volume_level
     - service: tts.google_say
       entity_id: media_player.homeassistant
       data_template:
@@ -107,6 +106,23 @@ leave_home:
           {%- if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2", "on") %}{% set incidence = true %}Luz de la suite encendida. {% endif %}
           {%- if is_state("sensor.switch_barrera", "Abierta") %}{% set incidence = true %}Barrera abierta.{% endif -%}
           {%- if not incidence %}Todo correcto.{% endif %}
+
+set_tts_volume_level:
+  alias: 'Lower the home-assistant tts volume level between 23 and 9'
+  sequence:
+    - condition: time
+      after: '23:00'
+      before: '9:00'
+    - service: media_player.volume_set
+      entity_id: media_player.homeassistant
+      data:
+        volume_level: 0.3
+    - delay:
+        minutes: 2
+    - service: media_player.volume_set
+      entity_id: media_player.homeassistant
+      data:
+        volume_level: 0.75
 
 goto_sleep:
   alias: 'Go to sleep'
@@ -135,10 +151,9 @@ goto_sleep:
     - service: switch.turn_off
       data:
         entity_id: switch.swiid_swiidinter_lampara_recibidor_switch
-    - service: media_player.volume_set
-      entity_id: media_player.homeassistant
+    - service: script.turn_on
       data:
-        volume_level: 0.75
+        entity_id: script.set_tts_volume_level
       # Speech the found incidences and say good night.
     - service: tts.google_say
       entity_id: media_player.homeassistant
@@ -162,10 +177,9 @@ goto_sleep:
 parte_meteorologico:
   alias: 'Parte meteorológico'
   sequence:
-    - service: media_player.volume_set
-      entity_id: media_player.homeassistant
+    - service: script.turn_on
       data:
-        volume_level: 0.75
+        entity_id: script.set_tts_volume_level
     - service: tts.google_say
       entity_id: media_player.homeassistant
       data_template:
@@ -184,10 +198,9 @@ parte_meteorologico:
 parte_meteorologico_corto:
   alias: 'Parte meteorológico corto'
   sequence:
-    - service: media_player.volume_set
-      entity_id: media_player.homeassistant
+    - service: script.turn_on
       data:
-        volume_level: 0.75
+        entity_id: script.set_tts_volume_level
     - service: tts.google_say
       entity_id: media_player.homeassistant
       data_template:
