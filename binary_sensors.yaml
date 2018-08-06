@@ -32,7 +32,8 @@
   sensors:
     ups_status_bs:
       device_class: plug
-      value_template: "{{ states.sensor.nut_ups_status_data.state == 'OL' or states.sensor.nut_ups_status_data.state == 'OL CHRG' }}"
+      entity_id: sensor.nut_ups_status_data
+      value_template: "{{ is_state('sensor.nut_ups_status_data', 'OL') or is_state('sensor.nut_ups_status_data', 'OL CHRG') }}"
       delay_off:
         seconds: 30
     comfort_state:
