@@ -124,9 +124,6 @@ recorder:
       - sensor.pws_weather_1d_metric
       - sensor.pws_alerts
 
-      - sensor.hokusnasserver_uptime
-      - sensor.hokusnasserver_uptime_timeticks
-
       - sensor.ha_runtime_in_minutes
       
       - sensor.fibaro_fgk10x_door_opening_sensor_piscina_access_control

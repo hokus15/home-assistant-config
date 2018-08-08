@@ -399,22 +399,6 @@ Impresora:
     - sensor.ink_level_yellow
     - sensor.ink_level_black
 
-#NAS:
-#  entities:
-#    - sensor.hokusnasserver_status
-#    - sensor.hokusnasserver_uptime
-#    - sensor.hokusnasserver_system_temperature
-#    - sensor.hokusnasserver_cpu_usage
-#    - sensor.hokusnasserver_smart_status_drive_1
-#    - sensor.hokusnasserver_free_space_volume_1
-#    - sensor.hokusnasserver_used_space_volume_1
-#    - sensor.hokusnasserver_volume_used_volume_1
-#    - sensor.hokusnasserver_temperature_drive_1
-#    - sensor.hokusnasserver_memory_usage
-#    - sensor.hokusnasserver_network_link_eth0
-#    - sensor.hokusnasserver_network_down_eth0
-#    - sensor.hokusnasserver_network_up_eth0
-
 SAI:
   entities:
 #    - sensor.nut_ups_manufacturer

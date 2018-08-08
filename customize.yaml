@@ -153,28 +153,6 @@ sensor.ink_level_black:
 sensor.hp_photosmart_5520:
   entity_picture: /local/printer_icon.png
 
-sensor.hokusnasserver_uptime:
-  icon: 'mdi:clock'
-sensor.hokusnasserver_cpu_usage:
-  friendly_name: 'Uso CPU'
-sensor.hokusnasserver_free_space_volume_1:
-  friendly_name: 'Espacio libre'
-sensor.hokusnasserver_memory_usage:
-  friendly_name: 'Memoria usada'
-sensor.hokusnasserver_smart_status_drive_1:
-  friendly_name: 'Estado disco'
-sensor.hokusnasserver_status:
-  friendly_name: 'Estado'
-  entity_picture: /local/Qnap_TS_110.jpg
-sensor.hokusnasserver_system_temperature:
-  friendly_name: 'Temperatura del sistema'
-sensor.hokusnasserver_temperature_drive_1:
-  friendly_name: 'Temperatura disco'
-sensor.hokusnasserver_used_space_volume_1:
-  friendly_name: 'Espacio usado'
-sensor.hokusnasserver_volume_used_volume_1:
-  friendly_name: 'Uso disco'
-  
 sensor.cpu_use:
   friendly_name: 'Uso CPU'
 sensor.ram_free:

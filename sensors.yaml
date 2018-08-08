@@ -20,16 +20,6 @@
     - 'date'
     - 'date_time'
 
-# Crypto currency sensors
-#- platform: bitcoin
-#  currency: EUR
-#  display_options:
-#    - exchangerate
-
-#- platform: coinmarketcap
-#  currency: ethereum
-#  display_currency: EUR
-
 - platform: rest
   resource: https://api.gdax.com/products/ETH-EUR/ticker
   name: exchange_rate_1_eth
@@ -583,31 +573,6 @@
   name: ink_level_black
   unit_of_measurement: '%'
 
-# Uptime
-#- platform: snmp
-#  name: hokusnasserver_uptime_timeticks
-#  host: 192.168.1.2
-#  baseoid: .1.3.6.1.2.1.25.1.1.0
-
-#- platform: template
-#  sensors:
-#    hokusnasserver_uptime:
-#      friendly_name: 'Uptime'
-#      value_template: >-
-#        {% set uptimeTotalSeconds = (states.sensor.hokusnasserver_uptime_timeticks.state | int) // 100 %}
-#        {% set uptimeTotalHours = uptimeTotalSeconds // 3600 %}
-#        {% set uptimeDays = uptimeTotalSeconds // 86400 %}
-#        {% set uptimeHours = (uptimeTotalSeconds - uptimeDays * 86400) // 3600 %}
-#        {% set uptimeMinutes = (uptimeTotalSeconds - uptimeTotalHours * 3600) // 60 %}
-#        {% set uptimeSeconds = (uptimeTotalSeconds - uptimeTotalHours * 3600 - uptimeMinutes * 60 ) %}
-#        {{uptimeDays}} día(s),{{"%02d"|format(uptimeHours)}}:{{"%02d"|format(uptimeMinutes)}}:{{"%02d"|format(uptimeSeconds)}}
-
-#- platform: template
-#  sensors:
-#    hokusnasserver_uptime:
-#      friendly_name: 'Uptime'
-#      value_template: {{states.sensor.hokusnasserver_status.attributes["Uptime"]}}
-
 - platform: nut
   resources:
     - ups.status
@@ -767,28 +732,6 @@
     - alerts
     - weather
     - weather_1d_metric
-
-#- platform: qnap
-#  host: !secret qnap_host
-#  port: 8080
-#  username: !secret qnap_username
-#  password: !secret qnap_password
-#  ssl: false
-#  verify_ssl: false
-#  timeout: 60
-#  monitored_conditions:
-#    - status
-#    - system_temp
-#    - cpu_temp
-#    - cpu_usage
-#    - memory_free
-#    - memory_used
-#    - memory_percent_used
-#    - drive_smart_status
-#    - drive_temp
-#    - volume_size_free
-#    - volume_size_used
-#    - volume_percentage_used
 
 # Comfort sensors
 - platform: min_max
