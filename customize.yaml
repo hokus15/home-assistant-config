@@ -266,6 +266,9 @@ binary_sensor.piscina_camara_infrarrojo:
 binary_sensor.barbacoa_camara_infrarrojo:
   friendly_name: 'Infrarrojos barbacoa'
   icon: 'mdi:led-on'
+binary_sensor.caseta_camara_infrarrojo:
+  friendly_name: 'Infrarrojos caseta'
+  icon: 'mdi:led-on'
 binary_sensor.ups_status_bs:
   friendly_name: 'Suministro eléctrico'
 binary_sensor.piscina_camara_det_mov:

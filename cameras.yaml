@@ -23,12 +23,20 @@
   password: !secret cam_barbacoa_password
 
 # Backyard stand camera
-# For Linksys WVC54GCA http://<cam-host>:<cam_port>/img/snapshot.cgi
-- platform: generic
-  still_image_url: !secret cam_caseta_still_image_url
+- platform: foscam
+  ip: !secret cam_caseta_host
   name: caseta
+  port: !secret cam_caseta_port
   username: !secret cam_caseta_username
   password: !secret cam_caseta_password
+
+# Swimming pool stand camera
+# For Linksys WVC54GCA http://<cam-host>:<cam_port>/img/snapshot.cgi
+- platform: generic
+  still_image_url: !secret cam_ph_piscina_still_image_url
+  name: pH Piscina
+  username: !secret cam_ph_piscina_username
+  password: !secret cam_ph_piscina_password
   authentication: basic
 
 - platform: generic

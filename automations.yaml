@@ -594,7 +594,8 @@
             {%- set camera ={"/home/camera/C1_00626E615161/snap": "recibidor",
                              "/home/camera/FI9853EP_00626E563E69/snap": "piscina",
                              "/home/camera/FI9900P_00626E6D21B2/snap": "barbacoa",
-                             "/home/camera/WVC54CGA/snap": "caseta"}
+                             "/home/camera/C1_00626E8305E1/snap": "caseta",
+                             "/home/camera/WVC54CGA/snap": "ph"}
              -%}
             {{ camera[trigger.event.data.folder] }}
 

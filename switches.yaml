@@ -45,17 +45,32 @@
 
 - platform: command_line
   switches:
-    #Switch for Linksys WVC54GCA Motion Detection
+    #Switch for Foscam Motion Detection
     caseta_camara_det_mov:
       # Command used:
-      # 'curl --user <camera_username>:<camera_password> -k "http://<camera_host>:<camera_port>/adm/file.cgi?h_en_trig=1&todo=save"'
+      # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=1&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
       command_on: !secret cam_caseta_motion_detection_on
       # Command used:
-      # 'curl --user <camera_username>:<camera_password> -k "http://<camera_host>:<camera_port>/adm/file.cgi?h_en_trig=0&todo=save"'
+      # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=0&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
       command_off: !secret cam_caseta_motion_detection_off
       # Command used:
-      # 'curl --user <camera_username>:<camera_password> -k --silent "http://<camera_host>:<camera_port>/adm/file.cgi?next_file=event.htm" | grep -oP "(?<=<input type=\"Hidden\" name=\"h_en_trig\" value=\").*?(?=\">)"'
+      # 'curl -k --silent "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=getMotionDetectConfig&usr=<camera_username>&pwd=<camera_password>" | grep -oP "(?<=isEnable>).*?(?=</isEnable>)"'
       command_state: !secret cam_caseta_motion_detection_state
+      value_template: '{{ value == "1" }}'
+
+- platform: command_line
+  switches:
+    #Switch for Linksys WVC54GCA Motion Detection
+    ph_piscina_camara_det_mov:
+      # Command used:
+      # 'curl --user <camera_username>:<camera_password> -k "http://<camera_host>:<camera_port>/adm/file.cgi?h_en_trig=1&todo=save"'
+      command_on: !secret cam_ph_piscina_motion_detection_on
+      # Command used:
+      # 'curl --user <camera_username>:<camera_password> -k "http://<camera_host>:<camera_port>/adm/file.cgi?h_en_trig=0&todo=save"'
+      command_off: !secret cam_ph_piscina_motion_detection_off
+      # Command used:
+      # 'curl --user <camera_username>:<camera_password> -k --silent "http://<camera_host>:<camera_port>/adm/file.cgi?next_file=event.htm" | grep -oP "(?<=<input type=\"Hidden\" name=\"h_en_trig\" value=\").*?(?=\">)"'
+      command_state: !secret cam_ph_piscina_motion_detection_state
       value_template: '{{ value == "1" }}'
 
 - platform: mqtt
@@ -97,7 +112,18 @@
         entity_id: climate.termostato
         data:
           away_mode: false
+#    comfort_state:
+#      value_template: {{ states('sensor.temperature_first_floor')|float < states.climate.termostato.attributes.temperature|float and is_state('group.unidad_familiar', 'home') and is_state('switch.termostato', 'on') and is_state('switch.termostato_modo_ausente','off') and is_state_attr('climate.termostato', 'operation_mode', 'idle') and is_state('binary_sensor.primera_planta_temperatura_descendiendo','on') }}
+#      turn_on:
+#        service: climate.set_temperature
+#        data_template:
+#          entity_id: climate.termostato
+#          temperature: 23
+#      turn_off:
+#        service: script.turn_on
+#        entity_id: script.comfort_mode_off
 
+          
 - platform: template
   switches:
     ups_beeper:

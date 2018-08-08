@@ -256,7 +256,7 @@ Piscina:
     - sensor.piscina_off_time
 #    - history_graph.temperatura_piscina
     - camera.piscina
-#    - camera.ph_piscina
+    - camera.ph_piscina
 
 Cámara recibidor:
   entities:
@@ -283,6 +283,7 @@ Cámara caseta:
   entities:
     - camera.caseta
     - switch.caseta_camara_det_mov
+    - binary_sensor.caseta_camara_infrarrojo
     - binary_sensor.caseta_camara_det_mov
 
 Cámara entrada principal:
