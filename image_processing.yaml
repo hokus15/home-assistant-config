@@ -1,10 +1,10 @@
 - platform: seven_segments
-  x_position: 480
-  y_position: 250
-  height: 480
-  width: 240
+  x_position: 250
+  y_position: 100
+  height: 52
+  width: 120
   threshold: 50
-  extra_arguments: -D -i 4 remove_isolated closing 3
+  extra_arguments: -C rotate 358 dilation 1 erosion 2
   source:
     - entity_id: camera.ph_piscina
 
