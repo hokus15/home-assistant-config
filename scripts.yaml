@@ -216,44 +216,10 @@ parte_meteorologico_corto:
           La temperatura mínima de hoy ha sido de {{ states("sensor.exterior_termometro_min_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_min_temp"].attributes.unit_of_measurement }}.
         cache: false
 
-#refresh_location:
-#  alias: 'Refresh location'
-#  sequence:
-#    - service: mqtt.publish
-#      data:
-#        topic: 'owntracks/hokusphone/hokusphone/cmd'
-#        payload_template: '{"_type":"cmd","action":"reportLocation"}'
-
-#notify_motion_detection:
-#  alias: 'Notifies motion detection'
-#  sequence:
-#      # Only send notification if the alarm has not fired recently (state is off).
-#    - condition: template
-#      value_template: '{{ states("binary_sensor." ~ data.camera ~ "_camara_det_mov") == "off" }}'
-#      # Call script motion_detected_mqtt passing as variable the camera name
-#    - service: script.motion_detected_mqtt
-#      data_template:
-#        camera: '{{data.camera}}'
-#      # Send the notification
-#    - service: notify.telegram
-#      data_template:
-#        message: 'text'
-#        data:
-#          photo:
-#            file: '{{data.file}}'
-#            caption: 'Movimiento detectado en {{data.camera}}'
-
 notify_motion_detection:
   alias: 'Notifies motion detection'
   sequence:
-#      # Only send notification if the alarm has not fired recently (state is off).
-#    - condition: template
-#      value_template: '{{ states("binary_sensor." ~ data.camera ~ "_camara_det_mov") == "off" }}'
-#      # Call script motion_detected_mqtt passing as variable the camera name
-#    - service: script.motion_detected_mqtt
-#      data_template:
-#        camera: '{{data.camera}}'
-      # Send the notification
+    # Send the notification
     - service: telegram_bot.send_photo
       data_template:
         file: '{{data.file}}'
@@ -264,16 +230,6 @@ notify_motion_detection:
           - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
           - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
           - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
-
-motion_detected_mqtt:
-  alias: 'Set motion detected mqtt'
-  sequence:
-    - delay:
-        seconds: 10
-    - service: mqtt.publish
-      data_template:
-        topic: 'home/camera/{{camera}}/alarm'
-        payload: '1'
 
 close_fence:
   alias: 'Close fence if open'
