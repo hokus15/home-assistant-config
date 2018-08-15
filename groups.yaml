@@ -5,11 +5,12 @@ default_view:
   view: yes
   icon: mdi:home
   entities:
+    - group.alarma
     - group.barrera
     - group.familia
     - group.energia
     - group.calefaccion
-    - group.seguridad
+#    - group.seguridad
     - group.luces_interiores
     - sensor.a_la_oficina
     - sensor.al_colegio
@@ -19,6 +20,7 @@ Vista Seguridad:
   view: yes
   icon: mdi:security-home
   entities:
+    - group.alarma
     - group.familia
     - group.seguridad
     - group.camara_recibidor
@@ -88,6 +90,10 @@ Unidad Familiar:
     - device_tracker.jordi_combined
     - device_tracker.geni_combined
     - device_tracker.virtual_device
+
+Alarma:
+  entities:
+    - alarm_control_panel.casa
 
 Familia:
   entities:

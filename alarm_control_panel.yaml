@@ -1,0 +1,10 @@
+- platform: manual
+  name: Casa
+  # Time in seconds to leave the building before triggering the alarm
+  pending_time: 0
+  # Time in seconds to disarm the alarm when coming back
+  delay_time: 15
+  # Time in seconds to keep the triggered status
+  trigger_time: 120
+  # Alarm will return to it's previous state after trigger time
+  disarm_after_trigger: false

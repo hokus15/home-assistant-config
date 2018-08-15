@@ -31,6 +31,9 @@ empty_home:
     - service: homeassistant.turn_on
       data:
         entity_id: group.seguridad
+    # Arm alarm
+    - service: alarm_control_panel.alarm_arm_away
+      entity_id: alarm_control_panel.casa
     # Turn off hall lamp
     - service: switch.turn_off
       data:
@@ -63,6 +66,9 @@ someone_home:
     - service: homeassistant.turn_off
       data:
         entity_id: group.seguridad
+    # Disarm alarm
+    - service: alarm_control_panel.alarm_disarm
+      entity_id: alarm_control_panel.casa
     # Continue script only if switch.termostato is on and not in holiday mode
     - condition: state
       entity_id: switch.termostato
@@ -240,13 +246,13 @@ parte_meteorologico_corto:
 notify_motion_detection:
   alias: 'Notifies motion detection'
   sequence:
-      # Only send notification if the alarm has not fired recently (state is off).
-    - condition: template
-      value_template: '{{ states("binary_sensor." ~ data.camera ~ "_camara_det_mov") == "off" }}'
-      # Call script motion_detected_mqtt passing as variable the camera name
-    - service: script.motion_detected_mqtt
-      data_template:
-        camera: '{{data.camera}}'
+#      # Only send notification if the alarm has not fired recently (state is off).
+#    - condition: template
+#      value_template: '{{ states("binary_sensor." ~ data.camera ~ "_camara_det_mov") == "off" }}'
+#      # Call script motion_detected_mqtt passing as variable the camera name
+#    - service: script.motion_detected_mqtt
+#      data_template:
+#        camera: '{{data.camera}}'
       # Send the notification
     - service: telegram_bot.send_photo
       data_template:
@@ -256,7 +262,7 @@ notify_motion_detection:
         inline_keyboard:
           - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
           - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
-          - 'Desactivar det. mov. {{data.camera}}:/homeassistant.turn_off#switch.{{data.camera}}_camara_det_mov'
+          - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
           - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
 
 motion_detected_mqtt:

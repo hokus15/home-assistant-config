@@ -421,67 +421,92 @@
 # Alarm automations
 #############################################################
 
-# Disable alarm for recibidor after 30 seconds of detection
-- alias: 'Disable alarm for recibidor'
-  trigger:
-    platform: state
-    entity_id: binary_sensor.recibidor_camara_det_mov
-    to: 'on'
-  action:
-    - delay:
-        seconds: 30
-    - service: mqtt.publish
-      data:
-        payload: 0
-        retain: true
-        topic: 'home/camera/recibidor/alarm'
+## Disable alarm for recibidor after 30 seconds of detection
+#- alias: 'Disable alarm for recibidor'
+#  trigger:
+#    platform: state
+#    entity_id: binary_sensor.recibidor_camara_det_mov
+#    to: 'on'
+#  action:
+#    - delay:
+#        seconds: 30
+#    - service: mqtt.publish
+#      data:
+#        payload: 0
+#        retain: true
+#        topic: 'home/camera/recibidor/alarm'
+#
+## Disable alarm for piscina after 30 seconds of detection
+#- alias: 'Disable alarm for piscina'
+#  trigger:
+#    platform: state
+#    entity_id: binary_sensor.piscina_camara_det_mov
+#    to: 'on'
+#  action:
+#    - delay:
+#        seconds: 30
+#    - service: mqtt.publish
+#      data:
+#        payload: 0
+#        retain: true
+#        topic: 'home/camera/piscina/alarm'
+#
+## Disable alarm for barbacoa after 30 seconds of detection
+#- alias: 'Disable alarm for barbacoa'
+#  trigger:
+#    platform: state
+#    entity_id: binary_sensor.barbacoa_camara_det_mov
+#    to: 'on'
+#  action:
+#    - delay:
+#        seconds: 30
+#    - service: mqtt.publish
+#      data:
+#        payload: 0
+#        retain: true
+#        topic: 'home/camera/barbacoa/alarm'
+#
+## Disable alarm for caseta after 30 seconds of detection
+#- alias: 'Disable alarm for caseta'
+#  trigger:
+#    platform: state
+#    entity_id: binary_sensor.caseta_camara_det_mov
+#    to: 'on'
+#  action:
+#    - delay:
+#        seconds: 30
+#    - service: mqtt.publish
+#      data:
+#        payload: 0
+#        retain: true
+#        topic: 'home/camera/caseta/alarm'
 
-# Disable alarm for piscina after 30 seconds of detection
-- alias: 'Disable alarm for piscina'
-  trigger:
+# Notify movement detected  in main entrance when notification active and alarm armed
+- alias: 'Notify movement detected in main entrance when notification active and alarm armed'
+  trigger: 
     platform: state
-    entity_id: binary_sensor.piscina_camara_det_mov
+    entity_id: binary_sensor.entrada_principal_outdoor_human
+    from: 'off'
     to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.entrada_principal_detector_movimiento
+      state: 'on'
+    - condition: state
+      entity_id: alarm_control_panel.casa
+      state: 'triggered'
   action:
-    - delay:
-        seconds: 30
-    - service: mqtt.publish
-      data:
-        payload: 0
-        retain: true
-        topic: 'home/camera/piscina/alarm'
+    service: telegram_bot.send_message
+    data_template:
+      message: 'Movimiento detectado en la entrada principal'
+      target: !secret hokusphone_telegram_chat_id
+      inline_keyboard: 
+        - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
+        - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
+        - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
+        - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
 
-# Disable alarm for barbacoa after 30 seconds of detection
-- alias: 'Disable alarm for barbacoa'
-  trigger:
-    platform: state
-    entity_id: binary_sensor.barbacoa_camara_det_mov
-    to: 'on'
-  action:
-    - delay:
-        seconds: 30
-    - service: mqtt.publish
-      data:
-        payload: 0
-        retain: true
-        topic: 'home/camera/barbacoa/alarm'
-
-# Disable alarm for caseta after 30 seconds of detection
-- alias: 'Disable alarm for caseta'
-  trigger:
-    platform: state
-    entity_id: binary_sensor.caseta_camara_det_mov
-    to: 'on'
-  action:
-    - delay:
-        seconds: 30
-    - service: mqtt.publish
-      data:
-        payload: 0
-        retain: true
-        topic: 'home/camera/caseta/alarm'
-
-# Notify kitchen door opened when notification active
+# Notify kitchen door opened when notification active and alarm armed
 - alias: 'Notify kitchen door opened when notification active'
   trigger: 
     platform: state
@@ -489,9 +514,12 @@
     from: 'off'
     to: 'on'
   condition:
-    condition: state
-    entity_id: input_boolean.cocina_sensor_puerta
-    state: 'on'
+    - condition: state
+      entity_id: input_boolean.cocina_sensor_puerta
+      state: 'on'
+    - condition: state
+      entity_id: alarm_control_panel.casa
+      state: triggered
   action:
     service: telegram_bot.send_message
     data_template:
@@ -500,10 +528,10 @@
       inline_keyboard: 
         - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
         - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
-        - 'Desactivar det. apertura:/homeassistant.turn_off#input_boolean.cocina_sensor_puerta'
+        - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
         - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
         
-# Notify kitchen blind opened when notification active
+# Notify kitchen blind opened when notification active and alarm armed
 - alias: 'Notify kitchen blind opened when notification active'
   trigger: 
     platform: state
@@ -511,9 +539,12 @@
     from: 'off'
     to: 'on'
   condition:
-    condition: state
-    entity_id: input_boolean.cocina_sensor_persiana
-    state: 'on'
+    - condition: state
+      entity_id: input_boolean.cocina_sensor_persiana
+      state: 'on'
+    - condition: state
+      entity_id: alarm_control_panel.casa
+      state: triggered
   action:
     service: telegram_bot.send_message
     data_template:
@@ -522,7 +553,7 @@
       inline_keyboard: 
         - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
         - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
-        - 'Desactivar det. apertura:/homeassistant.turn_off#input_boolean.cocina_sensor_persiana'
+        - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
         - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
 
 - alias: 'Notify laundry door opened when notification active'
@@ -532,9 +563,12 @@
     from: 'off'
     to: 'on'
   condition:
-    condition: state
-    entity_id: input_boolean.coladuria_sensor_puerta
-    state: 'on'
+    - condition: state
+      entity_id: input_boolean.coladuria_sensor_puerta
+      state: 'on'
+    - condition: state
+      entity_id: alarm_control_panel.casa
+      state: triggered
   action:
     service: telegram_bot.send_message
     data_template:
@@ -543,7 +577,7 @@
       inline_keyboard: 
         - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
         - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
-        - 'Desactivar det. apertura:/homeassistant.turn_off#input_boolean.coladuria_sensor_puerta'
+        - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
         - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
 
 # Notify living room motion detection when notification active
@@ -553,9 +587,12 @@
     entity_id: binary_sensor.fibaro_fgms001_motion_sensor_salon
     to: 'on'
   condition:
-    condition: state
-    entity_id: input_boolean.salon_detector_movimiento
-    state: 'on'
+    - condition: state
+      entity_id: input_boolean.salon_detector_movimiento
+      state: 'on'
+    - condition: state
+      entity_id: alarm_control_panel.casa
+      state: triggered
   action:
     service: telegram_bot.send_message
     data_template:
@@ -564,7 +601,7 @@
       inline_keyboard: 
         - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
         - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
-        - 'Desactivar det. mov.:/homeassistant.turn_off#input_boolean.salon_detector_movimiento'
+        - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
         - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
 
 # Notify living room motion sensor tampering
@@ -578,14 +615,58 @@
     data:
       message: 'El sensor de movimento del salón se ha manipulado'
 
+# Trigger alarm
+- alias: 'Trigger alarm'
+  trigger:
+    # When any camera publishes an image to the FTP
+    - platform: event
+      event_type: folder_watcher
+      event_data:
+        event_type: created
+    # When Netatmo camera detects human presence
+    - platform: state
+      entity_id: binary_sensor.entrada_principal_outdoor_human
+      to: 'on'
+    # When Kitchen blind is open
+    - platform: state
+      entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
+      to: 'on'
+    # When Outside kitched door is open
+    - platform: state
+      entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
+      to: 'on'
+    # When Laundry door is open
+    - platform: state
+      entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria
+      to: 'on'
+    # When Living room motion is detected
+    - platform: state
+      entity_id: binary_sensor.fibaro_fgms001_motion_sensor_salon
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.casa
+      state: armed_away
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.casa
+    
 # Notify camera motion detection including an image
-- alias: 'Notify camera motion detection'
+- alias: 'Notify camera motion detection when alarm triggered'
   trigger:
     platform: event
     event_type: folder_watcher
     event_data:
       event_type: created
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.casa
+      state: 'triggered'
   action:
+    # Delay to allow the file to be totally written in the FTP before sending it
+    - delay:
+        seconds: 2
+    # Noitify the pictures taken
     - service: script.notify_motion_detection
       data_template:
         data:
@@ -772,6 +853,10 @@
     platform: state
     entity_id: binary_sensor.ups_status_bs
     to: 'off'
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.ha_runtime_in_minutes
+      above: 2
   action:
     - service: notify.telegram
       data:
