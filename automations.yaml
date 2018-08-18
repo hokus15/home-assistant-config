@@ -507,12 +507,13 @@
     service: telegram_bot.send_message
     data_template:
       message: 'Movimiento detectado en la entrada principal'
-      target: !secret hokusphone_telegram_chat_id
+      target: 
+        - !secret hokusphone_telegram_chat_id
+        - !secret geniphone_telegram_chat_id
       inline_keyboard: 
-        - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
-        - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
+        - 'Desarmar 30 mins:/30_mins, Desarmar 60 mins:/60_mins'
+        - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
         - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
-        - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
 
 # Notify kitchen door opened when notification active and alarm armed
 - alias: 'Notify kitchen door opened when notification active'
@@ -532,12 +533,13 @@
     service: telegram_bot.send_message
     data_template:
       message: 'Puerta de la cocina abierta'
-      target: !secret hokusphone_telegram_chat_id
+      target: 
+        - !secret hokusphone_telegram_chat_id
+        - !secret geniphone_telegram_chat_id
       inline_keyboard: 
-        - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
-        - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
+        - 'Desarmar 30 mins:/30_mins, Desarmar 60 mins:/60_mins'
+        - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
         - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
-        - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
         
 # Notify kitchen blind opened when notification active and alarm armed
 - alias: 'Notify kitchen blind opened when notification active'
@@ -557,12 +559,13 @@
     service: telegram_bot.send_message
     data_template:
       message: 'Persiana de la cocina abierta'
-      target: !secret hokusphone_telegram_chat_id
+      target: 
+        - !secret hokusphone_telegram_chat_id
+        - !secret geniphone_telegram_chat_id
       inline_keyboard: 
-        - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
-        - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
+        - 'Desarmar 30 mins:/30_mins, Desarmar 60 mins:/60_mins'
+        - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
         - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
-        - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
 
 # Notify laundry door opened when notification active and alarm armed
 - alias: 'Notify laundry door opened when notification active'
@@ -582,12 +585,13 @@
     service: telegram_bot.send_message
     data_template:
       message: 'Puerta de la coladuría abierta'
-      target: !secret hokusphone_telegram_chat_id
+      target: 
+        - !secret hokusphone_telegram_chat_id
+        - !secret geniphone_telegram_chat_id
       inline_keyboard: 
-        - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
-        - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
+        - 'Desarmar 30 mins:/30_mins, Desarmar 60 mins:/60_mins'
+        - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
         - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
-        - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
 
 # Notify living room motion detection when notification active
 - alias: 'Notify living room motion detection when notification active'
@@ -606,12 +610,13 @@
     service: telegram_bot.send_message
     data_template:
       message: 'Movimiento detectado en el salón'
-      target: !secret hokusphone_telegram_chat_id
+      target: 
+        - !secret hokusphone_telegram_chat_id
+        - !secret geniphone_telegram_chat_id
       inline_keyboard: 
-        - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
-        - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
+        - 'Desarmar 30 mins:/30_mins, Desarmar 60 mins:/60_mins'
+        - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
         - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
-        - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
 
 # Notify living room motion sensor tampering
 - alias: 'Notify living room motion sensor tampering'
@@ -892,6 +897,9 @@
     - service: telegram_bot.send_message
       data_template:
         message: 'Barrera {{ states.sensor.switch_barrera.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.switch_barrera.last_changed))|int//60 }} minutos'
+        target: 
+          - !secret hokusphone_telegram_chat_id
+          - !secret geniphone_telegram_chat_id
         inline_keyboard: 
           - 'Cerrar:/script.turn_on#script.close_fence'
 
@@ -993,7 +1001,7 @@
   action:
     service: telegram_bot.send_message
     data:
-      message: 'Motor piscina encendido hoy durante más de 8 horas'
+      message: 'Motor piscina encendido hoy durante más de 9 horas'
       inline_keyboard: 
         - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
 #############################################################
@@ -1191,11 +1199,15 @@
              message_id: '{{ trigger.event.data.message.message_id }}'
              chat_id: '{{ trigger.event.data.chat_id }}'
              message: '{{ trigger.event.data.message.text }}'
+             inline_keyboard:
+               - 'Armar alarma:/alarm_control_panel.alarm_arm_away#alarm_control_panel.casa'
     - service: telegram_bot.edit_caption
       data_template:
              message_id: '{{ trigger.event.data.message.message_id }}'
              chat_id: '{{ trigger.event.data.chat_id }}'
              caption: '{{ trigger.event.data.message.caption }}'
+             inline_keyboard:
+               - 'Armar alarma:/alarm_control_panel.alarm_arm_away#alarm_control_panel.casa'
     # Execute service with the format <service>#<entity_id>.
     # If the service or the entity id don't exist, the execution will silently fail
     - service_template: >

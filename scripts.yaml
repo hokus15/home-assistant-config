@@ -224,12 +224,14 @@ notify_motion_detection:
       data_template:
         file: '{{data.file}}'
         caption: 'Movimiento detectado en {{data.camera}}'
+        target: 
+          - !secret hokusphone_telegram_chat_id
+          - !secret geniphone_telegram_chat_id
         disable_notification: false
         inline_keyboard:
-          - 'Autorizar 30 mins:/30_mins, Autorizar 60 mins:/60_mins'
-          - 'Autorizar 120 mins:/120_mins, Autorizar 180 mins:/180_mins'
+          - 'Desarmar 30 mins:/30_mins, Desarmar 60 mins:/60_mins'
+          - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
           - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
-          - 'Estoy en casa:/script.turn_on#script.jordi_at_home'
 
 close_fence:
   alias: 'Close fence if open'
