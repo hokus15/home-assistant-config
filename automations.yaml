@@ -421,6 +421,74 @@
 # Alarm automations
 #############################################################
 
+# Trigger alarm when armed away
+- alias: 'Trigger alarm armed away'
+  trigger:
+    # When any camera publishes an image to the FTP
+    - platform: event
+      event_type: folder_watcher
+      event_data:
+        event_type: created
+    # When Netatmo camera detects human presence
+    - platform: state
+      entity_id: binary_sensor.entrada_principal_outdoor_human
+      to: 'on'
+    # When Kitchen blind is open
+    - platform: state
+      entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
+      to: 'on'
+    # When Outside kitched door is open
+    - platform: state
+      entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
+      to: 'on'
+    # When Laundry door is open
+    - platform: state
+      entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria
+      to: 'on'
+    # When Living room motion is detected
+    - platform: state
+      entity_id: binary_sensor.fibaro_fgms001_motion_sensor_salon
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.casa
+      state: armed_away
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.casa
+
+# Trigger alarm when armed home / armed night
+- alias: 'Trigger alarm armed home'
+  trigger:
+    # When Kitchen blind is open
+    - platform: state
+      entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
+      to: 'on'
+    # When Outside kitched door is open
+    - platform: state
+      entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
+      to: 'on'
+    # When Laundry door is open
+    - platform: state
+      entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria
+      to: 'on'
+    # When Living room motion is detected
+    - platform: state
+      entity_id: binary_sensor.fibaro_fgms001_motion_sensor_salon
+      to: 'on'
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: alarm_control_panel.casa
+        state: armed_home
+      - condition: state
+        entity_id: alarm_control_panel.casa
+        state: armed_night
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.casa
+
 # Notify movement detected  in main entrance when notification active and alarm armed
 - alias: 'Notify movement detected in main entrance when notification active and alarm armed'
   trigger: 
@@ -556,43 +624,7 @@
     data:
       message: 'El sensor de movimento del salón se ha manipulado'
 
-# Trigger alarm when armed away
-- alias: 'Trigger alarm'
-  trigger:
-    # When any camera publishes an image to the FTP
-    - platform: event
-      event_type: folder_watcher
-      event_data:
-        event_type: created
-    # When Netatmo camera detects human presence
-    - platform: state
-      entity_id: binary_sensor.entrada_principal_outdoor_human
-      to: 'on'
-    # When Kitchen blind is open
-    - platform: state
-      entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
-      to: 'on'
-    # When Outside kitched door is open
-    - platform: state
-      entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
-      to: 'on'
-    # When Laundry door is open
-    - platform: state
-      entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria
-      to: 'on'
-    # When Living room motion is detected
-    - platform: state
-      entity_id: binary_sensor.fibaro_fgms001_motion_sensor_salon
-      to: 'on'
-  condition:
-    - condition: state
-      entity_id: alarm_control_panel.casa
-      state: armed_away
-  action:
-    service: alarm_control_panel.alarm_trigger
-    entity_id: alarm_control_panel.casa
-    
-# Notify camera motion detection including an image
+# Notify camera motion detection including attaching an image
 - alias: 'Notify camera motion detection when alarm triggered'
   trigger:
     platform: event
@@ -646,11 +678,11 @@
 # Light automations
 #############################################################
 
-# On turn on outside lights, adjust brightness
+# When turn on outside lights, adjust brightness
 - alias: 'Luces exteriores on turn on - Adjust Brightness'
   trigger:
     platform: state
-    entity_id: group.luces_exteriores
+    entity_id: group.external_lights_group
     to: 'on'
   action:
     - service: light.turn_on
@@ -665,7 +697,7 @@
     entity_id: input_number.entrada_luz_brillo
   condition:
     condition: state
-    entity_id: group.luces_exteriores
+    entity_id: group.external_lights_group
     state: 'on'
   action:
     - service: light.turn_on
@@ -692,17 +724,17 @@
     at: '00:15'
   condition:
     condition: state
-    entity_id: group.luces_exteriores
+    entity_id: group.external_lights_group
     state: 'on'
   action:
     service: light.turn_off
-    entity_id: group.luces_exteriores
+    entity_id: group.external_lights_group
   
 # When the outside lights have been turned on at late night (later than 00:15) and before sunrise, turn them off after 5 minutes
 - alias: 'Turn off lights at late night'
   trigger:
     platform: state
-    entity_id: group.luces_exteriores
+    entity_id: group.external_lights_group
     to: 'on'
   condition:
     - condition: time
@@ -710,20 +742,20 @@
     - condition: sun
       before: sunrise
     - condition: state
-      entity_id: group.luces_exteriores
+      entity_id: group.external_lights_group
       state: 'on'
   action:
     - delay:
         minutes: 5
     - service: light.turn_off
       data:
-        entity_id: group.luces_exteriores
+        entity_id: group.external_lights_group
 
 # Turn off outside lights after 10 seconds when the sun is not set
 - alias: 'Turn off lights when sun not set'
   trigger:
     platform: state
-    entity_id: group.luces_exteriores
+    entity_id: group.external_lights_group
     to: 'on'
   condition:
     - condition: sun
@@ -735,7 +767,7 @@
         seconds: 10
     - service: light.turn_off
       data:
-        entity_id: group.luces_exteriores
+        entity_id: group.external_lights_group
 
 # Turn on outside lights when fence is opened and the sun is set.
 - alias: 'Turn on lights when fence open'

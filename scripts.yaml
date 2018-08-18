@@ -28,9 +28,9 @@ empty_home:
   alias: 'Empty home'
   sequence:
     # Turn on presence detection
-    - service: homeassistant.turn_on
-      data:
-        entity_id: group.seguridad
+#    - service: homeassistant.turn_on
+#      data:
+#        entity_id: group.seguridad
     # Arm alarm
     - service: alarm_control_panel.alarm_arm_away
       entity_id: alarm_control_panel.casa
@@ -63,9 +63,9 @@ someone_home:
   alias: 'Someone at home'
   sequence:
     # Turn off presence detection
-    - service: homeassistant.turn_off
-      data:
-        entity_id: group.seguridad
+#    - service: homeassistant.turn_off
+#      data:
+#        entity_id: group.seguridad
     # Disarm alarm
     - service: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.casa

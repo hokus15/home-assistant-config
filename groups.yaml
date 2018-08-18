@@ -237,6 +237,12 @@ Luces exteriores:
     - light.puerta_coladuria
     - input_number.entrada_luz_brillo
 
+External Lights Group:
+  entities:
+    - light.barrera_derecha
+    - light.barrera_izquierda
+    - light.puerta_coladuria
+
 Luces interiores:
   entities:
     - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
