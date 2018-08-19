@@ -152,7 +152,7 @@ goto_sleep:
     # Turn off outside lights
     - service: light.turn_off
       data:
-        entity_id: group.luces_exteriores
+        entity_id: group.external_lights_group
     # Turn off hall lamp
     - service: switch.turn_off
       data:
