@@ -28,9 +28,9 @@ empty_home:
   alias: 'Empty home'
   sequence:
     # Turn on presence detection
-#    - service: homeassistant.turn_on
-#      data:
-#        entity_id: group.seguridad
+    - service: homeassistant.turn_on
+      data:
+        entity_id: group.seguridad
     # Arm alarm
     - service: alarm_control_panel.alarm_arm_away
       entity_id: alarm_control_panel.casa
@@ -157,6 +157,10 @@ goto_sleep:
     - service: switch.turn_off
       data:
         entity_id: switch.swiid_swiidinter_lampara_recibidor_switch
+      # Alarm arm night
+    - service: alarm_control_panel.alarm_arm_night
+      entity_id: alarm_control_panel.casa
+      # Set tts volume level
     - service: script.turn_on
       data:
         entity_id: script.set_tts_volume_level
@@ -169,7 +173,7 @@ goto_sleep:
           {%- if is_state("binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche", "on") %}Persiana de la cocina abierta. {% endif %}
           {%- if is_state("binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria", "on") %}Puerta de la coladuría abierta. {% endif %}
           {%- if is_state("sensor.switch_barrera", "Abierta") -%}Cerrando barrera.{% endif -%}
-          Buenas noches
+          Alarma armada en modo noche. Buenas noches
     # Wait until tts finishes
 #    - delay: '00:00:{{ states.media_player.homeassistant.attributes.media_duration | int }}'
     # Wait 2 minutes before turning stair lights off
@@ -217,7 +221,7 @@ parte_meteorologico_corto:
         cache: false
 
 notify_motion_detection:
-  alias: 'Notifies motion detection'
+  alias: 'Notifies camera motion detection'
   sequence:
     # Send the notification
     - service: telegram_bot.send_photo
@@ -229,6 +233,7 @@ notify_motion_detection:
           - !secret geniphone_telegram_chat_id
         disable_notification: false
         inline_keyboard:
+          - 'Desactivar det. mov. {{data.camera}}:/switch.turn_off#switch.{{data.camera}}_camara_det_mov'
           - 'Desarmar 30 mins:/30_mins, Desarmar 60 mins:/60_mins'
           - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
           - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
