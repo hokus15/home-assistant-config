@@ -485,6 +485,19 @@
     service: alarm_control_panel.alarm_trigger
     entity_id: alarm_control_panel.casa
 
+# Disarm alarm at 7:00 AM when armed home / armed night and someone is at home
+- alias: 'Disarm alarm armed home'
+  trigger:
+    platform: time
+    at: '07:00:00'
+  condition:
+    condition: state
+    entity_id: 'group.unidad_familiar'
+    state: 'home'
+  action:
+    service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.casa
+
 # Notify movement detected in main entrance when notification active and alarm triggered
 - alias: 'Notify movement detected in main entrance when notification active and alarm triggered'
   trigger: 
@@ -625,7 +638,7 @@
     data:
       message: 'El sensor de movimento del salón se ha manipulado'
 
-# Notify camera motion detection including attaching an image
+# Notify camera motion detection including attached image
 - alias: 'Notify camera motion detection when alarm triggered'
   trigger:
     platform: event
