@@ -1196,7 +1196,7 @@
              chat_id: '{{ trigger.event.data.chat_id }}'
              message: '{{ trigger.event.data.message.text }}'
              inline_keyboard:
-               - 'Armar alarma:/alarm_control_panel.alarm_arm_away#alarm_control_panel.casa'
+               - 'Armar alarma:/script.turn_on#script.alarm_arm_away'
                - 'Activar todos los sensores:/homeassistant.turn_on#group.seguridad'
     - service: telegram_bot.edit_caption
       data_template:
@@ -1204,7 +1204,7 @@
              chat_id: '{{ trigger.event.data.chat_id }}'
              caption: '{{ trigger.event.data.message.caption }}'
              inline_keyboard:
-               - 'Armar alarma:/alarm_control_panel.alarm_arm_away#alarm_control_panel.casa'
+               - 'Armar alarma:/script.turn_on#script.alarm_arm_away'
                - 'Activar todos los sensores:/homeassistant.turn_on#group.seguridad'
     # Execute service with the format <service>#<entity_id>.
     # If the service or the entity id don't exist, the execution will silently fail

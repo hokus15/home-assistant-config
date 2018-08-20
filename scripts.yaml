@@ -24,16 +24,35 @@ power_on_thermostat:
       data:
         away_mode: false
 
-empty_home:
-  alias: 'Empty home'
+alarm_arm_away:
+  alias: 'Alarm arm away'
   sequence:
-    # Turn on presence detection
+    # Turn on alarm related sensors
     - service: homeassistant.turn_on
       data:
         entity_id: group.seguridad
     # Arm alarm
     - service: alarm_control_panel.alarm_arm_away
       entity_id: alarm_control_panel.casa
+
+alarm_arm_night:
+  alias: 'Alarm arm night'
+  sequence:
+    # Turn on alarm related sensors
+    - service: homeassistant.turn_on
+      data:
+        entity_id: group.seguridad
+    # Alarm arm night
+    - service: alarm_control_panel.alarm_arm_night
+      entity_id: alarm_control_panel.casa
+
+empty_home:
+  alias: 'Empty home'
+  sequence:
+    # Alarm arm away
+    - service: script.turn_on
+      data:
+        entity_id: script.alarm_arm_away
     # Turn off hall lamp
     - service: switch.turn_off
       data:
@@ -157,9 +176,10 @@ goto_sleep:
     - service: switch.turn_off
       data:
         entity_id: switch.swiid_swiidinter_lampara_recibidor_switch
-      # Alarm arm night
-    - service: alarm_control_panel.alarm_arm_night
-      entity_id: alarm_control_panel.casa
+    # Alarm arm night
+    - service: script.turn_on
+      data:
+        entity_id: script.alarm_arm_night
       # Set tts volume level
     - service: script.turn_on
       data:
