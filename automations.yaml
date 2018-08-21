@@ -485,15 +485,20 @@
     service: alarm_control_panel.alarm_trigger
     entity_id: alarm_control_panel.casa
 
-# Disarm alarm at 7:00 AM when armed home / armed night and someone is at home
-- alias: 'Disarm alarm armed home'
+# Disarm alarm at 7:00 AM when armed night and someone is at home
+- alias: 'Disarm alarm armed night'
   trigger:
     platform: time
     at: '07:00:00'
   condition:
-    condition: state
-    entity_id: 'group.unidad_familiar'
-    state: 'home'
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: 'group.unidad_familiar'
+        state: 'home'
+      - condition: state
+        entity_id: alarm_control_panel.casa
+        state: armed_night
   action:
     service: alarm_control_panel.alarm_disarm
     entity_id: alarm_control_panel.casa
