@@ -503,24 +503,60 @@
     service: alarm_control_panel.alarm_disarm
     entity_id: alarm_control_panel.casa
 
-# Notify movement detected in main entrance when notification active and alarm triggered
-- alias: 'Notify movement detected in main entrance when notification active and alarm triggered'
+# Notify presence detection in any activated sensor when sensor active and alarm triggered
+- alias: 'Notify presence detection in any activated sensor when sensor active and alarm triggered'
   trigger: 
-    platform: state
-    entity_id: binary_sensor.entrada_principal_outdoor_human
-    from: 'off'
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.entrada_principal_outdoor_human
+      from: 'off'
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.entrada_principal_outdoor_motion
+      from: 'off'
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
+      from: 'off'
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
+      from: 'off'
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria
+      from: 'off'
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.fibaro_fgms001_motion_sensor_salon
+      to: 'on'
   condition:
-    - condition: state
-      entity_id: input_boolean.entrada_principal_detector_movimiento
-      state: 'on'
+    condition: and
+    conditions:
+    - condition: template
+      value_template: >- 
+            {%- set inputBooleanMap ={"binary_sensor.entrada_principal_outdoor_human": "input_boolean.entrada_principal_detector_movimiento",
+                             "binary_sensor.entrada_principal_outdoor_motion": "input_boolean.entrada_principal_detector_movimiento",
+                             "binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche": "input_boolean.cocina_sensor_puerta",
+                             "binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche": "input_boolean.cocina_sensor_persiana",
+                             "binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria": "input_boolean.coladuria_sensor_puerta",
+                             "binary_sensor.fibaro_fgms001_motion_sensor_salon": "input_boolean.salon_detector_movimiento"}
+             -%}
+             {{is_state(inputBooleanMap[trigger.entity_id],'on')}}
     - condition: state
       entity_id: alarm_control_panel.casa
       state: 'triggered'
   action:
     service: telegram_bot.send_message
     data_template:
-      message: 'Movimiento detectado en la entrada principal'
+      message: >- 
+            {%- set messageMap ={"binary_sensor.entrada_principal_outdoor_human": "Movimiento detectado en la entrada principal",
+                             "binary_sensor.entrada_principal_outdoor_motion": "Movimiento detectado en la entrada principal",
+                             "binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche": "Puerta de la cocina abierta",
+                             "binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche": "Persiana de la cocina abierta",
+                             "binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria": "Puerta de la coladuría abierta",
+                             "binary_sensor.fibaro_fgms001_motion_sensor_salon": "Movimiento detectado en el salón"}
+             -%}
+            {{messageMap[trigger.entity_id]}}
       target: 
         - !secret hokusphone_telegram_chat_id
         - !secret geniphone_telegram_chat_id
@@ -528,120 +564,6 @@
         - 'Desarmar 30 mins:/30_mins, Desarmar 60 mins:/60_mins'
         - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
         - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
-
-# Notify kitchen door opened when notification active and alarm triggered
-- alias: 'Notify kitchen door opened when notification active and alarm triggered'
-  trigger: 
-    platform: state
-    entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
-    from: 'off'
-    to: 'on'
-  condition:
-    - condition: state
-      entity_id: input_boolean.cocina_sensor_puerta
-      state: 'on'
-    - condition: state
-      entity_id: alarm_control_panel.casa
-      state: triggered
-  action:
-    service: telegram_bot.send_message
-    data_template:
-      message: 'Puerta de la cocina abierta'
-      target: 
-        - !secret hokusphone_telegram_chat_id
-        - !secret geniphone_telegram_chat_id
-      inline_keyboard: 
-        - 'Desarmar 30 mins:/30_mins, Desarmar 60 mins:/60_mins'
-        - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
-        - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
-        
-# Notify kitchen blind opened when notification active and alarm triggered
-- alias: 'Notify kitchen blind opened when notification active and alarm triggered'
-  trigger: 
-    platform: state
-    entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
-    from: 'off'
-    to: 'on'
-  condition:
-    - condition: state
-      entity_id: input_boolean.cocina_sensor_persiana
-      state: 'on'
-    - condition: state
-      entity_id: alarm_control_panel.casa
-      state: triggered
-  action:
-    service: telegram_bot.send_message
-    data_template:
-      message: 'Persiana de la cocina abierta'
-      target: 
-        - !secret hokusphone_telegram_chat_id
-        - !secret geniphone_telegram_chat_id
-      inline_keyboard: 
-        - 'Desarmar 30 mins:/30_mins, Desarmar 60 mins:/60_mins'
-        - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
-        - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
-
-# Notify laundry door opened when notification active and alarm triggered
-- alias: 'Notify laundry door opened when notification active and alarm triggered'
-  trigger: 
-    platform: state
-    entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria
-    from: 'off'
-    to: 'on'
-  condition:
-    - condition: state
-      entity_id: input_boolean.coladuria_sensor_puerta
-      state: 'on'
-    - condition: state
-      entity_id: alarm_control_panel.casa
-      state: triggered
-  action:
-    service: telegram_bot.send_message
-    data_template:
-      message: 'Puerta de la coladuría abierta'
-      target: 
-        - !secret hokusphone_telegram_chat_id
-        - !secret geniphone_telegram_chat_id
-      inline_keyboard: 
-        - 'Desarmar 30 mins:/30_mins, Desarmar 60 mins:/60_mins'
-        - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
-        - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
-
-# Notify living room motion detection when notification active and alarm triggered
-- alias: 'Notify living room motion detection when notification active and alarm triggered'
-  trigger: 
-    platform: state
-    entity_id: binary_sensor.fibaro_fgms001_motion_sensor_salon
-    to: 'on'
-  condition:
-    - condition: state
-      entity_id: input_boolean.salon_detector_movimiento
-      state: 'on'
-    - condition: state
-      entity_id: alarm_control_panel.casa
-      state: triggered
-  action:
-    service: telegram_bot.send_message
-    data_template:
-      message: 'Movimiento detectado en el salón'
-      target: 
-        - !secret hokusphone_telegram_chat_id
-        - !secret geniphone_telegram_chat_id
-      inline_keyboard: 
-        - 'Desarmar 30 mins:/30_mins, Desarmar 60 mins:/60_mins'
-        - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
-        - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
-
-# Notify living room motion sensor tampering
-- alias: 'Notify living room motion sensor tampering'
-  trigger: 
-    platform: state
-    entity_id: binary_sensor.salon_detector_movimiento_sabotaje
-    to: 'on'
-  action:
-    service: notify.telegram
-    data:
-      message: 'El sensor de movimento del salón se ha manipulado'
 
 # Notify camera motion detection including attached image
 - alias: 'Notify camera motion detection when alarm triggered'
@@ -671,6 +593,17 @@
                              "/home/camera/WVC54CGA/snap": "ph"}
              -%}
             {{ camera[trigger.event.data.folder] }}
+
+# Notify living room motion sensor tampering
+- alias: 'Notify living room motion sensor tampering'
+  trigger: 
+    platform: state
+    entity_id: binary_sensor.salon_detector_movimiento_sabotaje
+    to: 'on'
+  action:
+    service: notify.telegram
+    data:
+      message: 'El sensor de movimento del salón se ha manipulado'
 
 # Notify Toyota movement if I'm not in the car
 - alias: 'Notify Toyota movement if I am not in the car'
