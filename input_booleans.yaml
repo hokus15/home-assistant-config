@@ -23,7 +23,7 @@ salon_detector_movimiento:
   initial: on
   icon: 'mdi:transit-transfer'
 
-entrada_principal_detector_movimiento:
+entrada_principal_det_mov:
   name: Det. mov. entrada ppal.
   initial: on
   icon: 'mdi:transit-transfer'

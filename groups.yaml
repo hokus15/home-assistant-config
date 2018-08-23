@@ -301,7 +301,7 @@ Cámara caseta:
 Cámara entrada principal:
   entities:
     - camera.entrada_principal
-    - input_boolean.entrada_principal_detector_movimiento
+    - input_boolean.entrada_principal_det_mov
     - binary_sensor.entrada_principal_outdoor_motion
     - binary_sensor.entrada_principal_outdoor_human
     - binary_sensor.entrada_principal_outdoor_animal
@@ -313,6 +313,7 @@ Seguridad:
     - switch.piscina_camara_det_mov
     - switch.barbacoa_camara_det_mov
     - switch.caseta_camara_det_mov
+    - input_boolean.entrada_principal_det_mov
     - input_boolean.salon_detector_movimiento
     - input_boolean.cocina_sensor_puerta
     - input_boolean.cocina_sensor_persiana
