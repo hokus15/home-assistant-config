@@ -81,7 +81,7 @@ recorder:
   db_url: !secret recorder_db_url
   exclude:
     domains:
-      - automation
+#      - automation
       - script
       - zone
       - group
@@ -369,6 +369,7 @@ logger:
 #    homeassistant.helpers.intent: debug
 #    homeassistant.components.intent_script: debug
 #    homeassistant.helpers.script: debug
+#    homeassistant.components.automation: debug
 #    homeassistant.components.device_tracker: info
 #    homeassistant.core: debug
 #    homeassistant.components.sensor.speedtest: debug
@@ -459,6 +460,7 @@ folder_watcher:
   - folder: /home/camera
     patterns:
       - '*.jpg'
+      - '*.mp4'
 
 #climate:
 #  - platform: netatmo
@@ -472,6 +474,7 @@ sensor: !include sensors.yaml
 binary_sensor: !include binary_sensors.yaml
 group: !include groups.yaml
 automation: !include automations.yaml
+#automation: !include_dir_merge_list automation
 script: !include scripts.yaml
 input_number: !include input_sliders.yaml
 input_boolean: !include input_booleans.yaml

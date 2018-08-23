@@ -433,6 +433,10 @@
     - platform: state
       entity_id: binary_sensor.entrada_principal_outdoor_human
       to: 'on'
+    # When Netatmo camera detects unknown presence
+    - platform: state
+      entity_id: binary_sensor.entrada_principal_outdoor_motion
+      to: 'on'
     # When Kitchen blind is open
     - platform: state
       entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
@@ -507,14 +511,6 @@
 - alias: 'Notify presence detection in any activated sensor when sensor active and alarm triggered'
   trigger: 
     - platform: state
-      entity_id: binary_sensor.entrada_principal_outdoor_human
-      from: 'off'
-      to: 'on'
-    - platform: state
-      entity_id: binary_sensor.entrada_principal_outdoor_motion
-      from: 'off'
-      to: 'on'
-    - platform: state
       entity_id: binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
       from: 'off'
       to: 'on'
@@ -534,9 +530,7 @@
     conditions:
     - condition: template
       value_template: >- 
-            {%- set inputBooleanMap ={"binary_sensor.entrada_principal_outdoor_human": "input_boolean.entrada_principal_detector_movimiento",
-                             "binary_sensor.entrada_principal_outdoor_motion": "input_boolean.entrada_principal_detector_movimiento",
-                             "binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche": "input_boolean.cocina_sensor_puerta",
+            {%- set inputBooleanMap ={"binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche": "input_boolean.cocina_sensor_puerta",
                              "binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche": "input_boolean.cocina_sensor_persiana",
                              "binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria": "input_boolean.coladuria_sensor_puerta",
                              "binary_sensor.fibaro_fgms001_motion_sensor_salon": "input_boolean.salon_detector_movimiento"}
@@ -549,9 +543,7 @@
     service: telegram_bot.send_message
     data_template:
       message: >- 
-            {%- set messageMap ={"binary_sensor.entrada_principal_outdoor_human": "Movimiento detectado en la entrada principal",
-                             "binary_sensor.entrada_principal_outdoor_motion": "Movimiento detectado en la entrada principal",
-                             "binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche": "Puerta de la cocina abierta",
+            {%- set messageMap ={"binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche": "Puerta de la cocina abierta",
                              "binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche": "Persiana de la cocina abierta",
                              "binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria": "Puerta de la coladuría abierta",
                              "binary_sensor.fibaro_fgms001_motion_sensor_salon": "Movimiento detectado en el salón"}
@@ -565,34 +557,88 @@
         - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
         - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
 
-# Notify camera motion detection including attached image
-- alias: 'Notify camera motion detection when alarm triggered'
+# Notify camera motion detection including attached photo
+- alias: 'Notify camera motion detection including attached photo when alarm triggered'
   trigger:
     platform: event
     event_type: folder_watcher
     event_data:
       event_type: created
   condition:
+    condition: and
+    conditions:
     - condition: state
       entity_id: alarm_control_panel.casa
       state: 'triggered'
+    - condition: template
+      value_template: '{{ "jpg" in trigger.event.data.file }}'
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: switch.recibidor_camara_det_mov
+        state: 'on'
+      - condition: state
+        entity_id: switch.barbacoa_camara_det_mov
+        state: 'on'
+      - condition: state
+        entity_id: switch.piscina_camara_det_mov
+        state: 'on'
+      - condition: state
+        entity_id: switch.caseta_camara_det_mov
+        state: 'on'
   action:
     # Delay to allow the file to be totally written in the FTP before sending it
     - delay:
         seconds: 2
-    # Noitify the pictures taken
+    # Notify the pictures taken
     - service: script.notify_motion_detection
       data_template:
         data:
           file: '{{ trigger.event.data.path }}'
-          camera: >-
-            {%- set camera ={"/home/camera/C1_00626E615161/snap": "recibidor",
+          camera_name: >-
+            {%- set camera_name ={"/home/camera/C1_00626E615161/snap": "recibidor",
                              "/home/camera/FI9853EP_00626E563E69/snap": "piscina",
                              "/home/camera/FI9900P_00626E6D21B2/snap": "barbacoa",
-                             "/home/camera/C1_00626E8305E1/snap": "caseta",
-                             "/home/camera/WVC54CGA/snap": "ph"}
+                             "/home/camera/C1_00626E8305E1/snap": "caseta"}
              -%}
-            {{ camera[trigger.event.data.folder] }}
+            {{ camera_name[trigger.event.data.folder] }}
+          turn_off_entity_id: >-
+            {%- set turn_off_entity_id ={"/home/camera/C1_00626E615161/snap": "switch.recibidor_camara_det_mov",
+                             "/home/camera/FI9853EP_00626E563E69/snap": "switch.piscina_camara_det_mov",
+                             "/home/camera/FI9900P_00626E6D21B2/snap": "switch.barbacoa_camara_det_mov",
+                             "/home/camera/C1_00626E8305E1/snap": " switch.caseta_camara_det_mov"}
+             -%}
+            {{ turn_off_entity_id[trigger.event.data.folder] }}
+
+# Notify camera motion detection including attached video
+- alias: 'Notify camera motion detection including attached video when alarm triggered'
+  trigger:
+    platform: event
+    event_type: folder_watcher
+    event_data:
+      event_type: created
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.casa
+      state: 'triggered'
+    - condition: template
+      value_template: '{{ "mp4" in trigger.event.data.file }}'
+    - condition: state
+      entity_id: input_boolean.entrada_principal_det_mov
+      state: 'on'
+  action:
+    # Delay to allow the file to be totally written in the FTP before sending it
+    - delay:
+        seconds: 60
+    # Notify the video taken
+    - service: script.notify_motion_detection
+      data_template:
+        data:
+          file: '{{ trigger.event.data.path }}'
+          camera_name: 'la entrada principal'
+          turn_off_entity_id: 'input_boolean.entrada_principal_det_mov'
 
 # Notify living room motion sensor tampering
 - alias: 'Notify living room motion sensor tampering'
