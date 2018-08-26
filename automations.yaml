@@ -421,14 +421,58 @@
 # Alarm automations
 #############################################################
 
+# Trigger motion detected in camera for 30 seconds
+- alias: 'Motion detected in camera'
+  trigger:
+    platform: event
+    event_type: folder_watcher
+    event_data:
+      event_type: created
+  action:
+    - service: mqtt.publish
+      data_template:
+        payload_template: 1
+        retain: true
+        topic: >- 
+            {%- set camera_name ={"/home/camera/C1_00626E615161/snap": "recibidor",
+                             "/home/camera/FI9853EP_00626E563E69/snap": "piscina",
+                             "/home/camera/FI9900P_00626E6D21B2/snap": "barbacoa",
+                             "/home/camera/C1_00626E8305E1/snap": "caseta"}
+             -%}
+            home/camera/{{ camera_name[trigger.event.data.folder] }}/alarm
+    - delay:
+        seconds: 30
+    - service: mqtt.publish
+      data_template:
+        payload: 0
+        retain: true
+        topic:  >- 
+            {%- set camera_name ={"/home/camera/C1_00626E615161/snap": "recibidor",
+                             "/home/camera/FI9853EP_00626E563E69/snap": "piscina",
+                             "/home/camera/FI9900P_00626E6D21B2/snap": "barbacoa",
+                             "/home/camera/C1_00626E8305E1/snap": "caseta"}
+             -%}
+            home/camera/{{ camera_name[trigger.event.data.folder] }}/alarm
+
 # Trigger alarm when armed away
 - alias: 'Trigger alarm armed away'
   trigger:
-    # When any camera publishes an image to the FTP
-    - platform: event
-      event_type: folder_watcher
-      event_data:
-        event_type: created
+    # When motion detected at hall camera
+    - platform: state
+      entity_id: binary_sensor.recibidor_camara_det_mov
+      to: 'on'
+    # When motion detected in swimming pool
+    - platform: state
+      entity_id: binary_sensor.piscina_camara_det_mov
+      to: 'on'
+    # When motion detected in bbq
+    - platform: state
+      entity_id: binary_sensor.barbacoa_camara_det_mov
+      to: 'on'
+    # When motion detected in backyard stand
+    - platform: state
+      entity_id: binary_sensor.caseta_camara_det_mov
+      to: 'on'
     # When Netatmo camera detects human presence
     - platform: state
       entity_id: binary_sensor.entrada_principal_outdoor_human
@@ -631,7 +675,7 @@
   action:
     # Delay to allow the file to be totally written in the FTP before sending it
     - delay:
-        seconds: 60
+        seconds: 90
     # Notify the video taken
     - service: script.notify_motion_detection
       data_template:
