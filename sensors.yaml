@@ -205,10 +205,10 @@
           {% else %}
               Cerrada
           {%- endif %}
-    ph_piscina:
-      value_template: '{{states. image_processing.sevensegment_ocr_ph_piscina.state | int / 100}}'
-      friendly_name: 'pH'
-      icon_template: mdi:beaker
+#    ph_piscina:
+#      value_template: '{{states. image_processing.sevensegment_ocr_ph_piscina.state | int / 100}}'
+#      friendly_name: 'pH'
+#      icon_template: mdi:beaker
 
 - platform: template
   sensors:

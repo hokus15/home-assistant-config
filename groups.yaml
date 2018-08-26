@@ -257,7 +257,7 @@ Barrera:
 Piscina:
   entities:
     - switch.motor_piscina
-    - sensor.ph_piscina
+#    - sensor.ph_piscina
     - sensor.piscina_on_history
 #    - sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature
     - input_number.piscina_temperature
