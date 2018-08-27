@@ -421,6 +421,24 @@
 # Alarm automations
 #############################################################
 
+# Convert mkv videos to mp4 as soon as they are created to be able to send them through telegram
+- alias: 'Convert MKV to MP4'
+  trigger:
+    platform: event
+    event_type: folder_watcher
+    event_data:
+      event_type: created
+  condition:
+    condition: template
+    value_template: '{{ "mkv" in trigger.event.data.file }}'
+  action:
+    # Delay execution to let the file to be fully loaded in the ftp
+    - delay:
+        seconds: 15
+    - service: shell_command.mp4_convert
+      data_template:
+        file: '{{ trigger.event.data.path }}'
+
 # Trigger motion detected in camera for 30 seconds
 - alias: 'Motion detected in camera'
   trigger:
@@ -434,12 +452,12 @@
         payload_template: 1
         retain: true
         topic: >- 
-            {%- set camera_name ={"/home/camera/C1_00626E615161/snap": "recibidor",
-                             "/home/camera/FI9853EP_00626E563E69/snap": "piscina",
-                             "/home/camera/FI9900P_00626E6D21B2/snap": "barbacoa",
-                             "/home/camera/C1_00626E8305E1/snap": "caseta"}
-             -%}
-            home/camera/{{ camera_name[trigger.event.data.folder] }}/alarm
+            {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/camera/recibidor/alarm
+            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/camera/piscina/alarm
+            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/camera/barbacoa/alarm
+            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/caseta/alarm
+            {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/alarm
+            {%- else -%}desconocido{%-endif-%}
     - delay:
         seconds: 30
     - service: mqtt.publish
@@ -447,12 +465,12 @@
         payload: 0
         retain: true
         topic:  >- 
-            {%- set camera_name ={"/home/camera/C1_00626E615161/snap": "recibidor",
-                             "/home/camera/FI9853EP_00626E563E69/snap": "piscina",
-                             "/home/camera/FI9900P_00626E6D21B2/snap": "barbacoa",
-                             "/home/camera/C1_00626E8305E1/snap": "caseta"}
-             -%}
-            home/camera/{{ camera_name[trigger.event.data.folder] }}/alarm
+            {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/camera/recibidor/alarm
+            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/camera/piscina/alarm
+            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/camera/barbacoa/alarm
+            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/caseta/alarm
+            {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/alarm
+            {%- else -%}desconocido{%-endif-%}
 
 # Trigger alarm when armed away
 - alias: 'Trigger alarm armed away'
@@ -648,19 +666,19 @@
         data:
           file: '{{ trigger.event.data.path }}'
           camera_name: >-
-            {%- set camera_name ={"/home/camera/C1_00626E615161/snap": "recibidor",
-                             "/home/camera/FI9853EP_00626E563E69/snap": "piscina",
-                             "/home/camera/FI9900P_00626E6D21B2/snap": "barbacoa",
-                             "/home/camera/C1_00626E8305E1/snap": "caseta"}
-             -%}
-            {{ camera_name[trigger.event.data.folder] }}
+            {%- if "C1_00626E615161" in trigger.event.data.folder -%}recibidor
+            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}piscina
+            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}barbacoa
+            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}caseta
+            {%- elif "puerta_principal" in trigger.event.data.folder -%}entrada
+            {%- else -%}desconocido{%-endif-%}
           turn_off_entity_id: >-
-            {%- set turn_off_entity_id ={"/home/camera/C1_00626E615161/snap": "switch.recibidor_camara_det_mov",
-                             "/home/camera/FI9853EP_00626E563E69/snap": "switch.piscina_camara_det_mov",
-                             "/home/camera/FI9900P_00626E6D21B2/snap": "switch.barbacoa_camara_det_mov",
-                             "/home/camera/C1_00626E8305E1/snap": " switch.caseta_camara_det_mov"}
-             -%}
-            {{ turn_off_entity_id[trigger.event.data.folder] }}
+            {%- if "C1_00626E615161" in trigger.event.data.folder -%}switch.recibidor_camara_det_mov
+            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}switch.piscina_camara_det_mov
+            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}switch.barbacoa_camara_det_mov
+            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}switch.caseta_camara_det_mov
+            {%- elif "puerta_principal" in trigger.event.data.folder -%}input_boolean.entrada_principal_det_mov
+            {%- else -%}desconocido{%-endif-%}
 
 # Notify camera motion detection including attached video
 - alias: 'Notify camera motion detection including attached video when alarm triggered'
@@ -677,20 +695,46 @@
       state: 'triggered'
     - condition: template
       value_template: '{{ "mp4" in trigger.event.data.file }}'
-    - condition: state
-      entity_id: input_boolean.entrada_principal_det_mov
-      state: 'on'
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: switch.recibidor_camara_det_mov
+        state: 'on'
+      - condition: state
+        entity_id: switch.barbacoa_camara_det_mov
+        state: 'on'
+      - condition: state
+        entity_id: switch.piscina_camara_det_mov
+        state: 'on'
+      - condition: state
+        entity_id: switch.caseta_camara_det_mov
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.entrada_principal_det_mov
+        state: 'on'
   action:
     # Delay to allow the file to be totally written in the FTP before sending it
     - delay:
-        seconds: 90
+        seconds: 60
     # Notify the video taken
     - service: script.notify_motion_detection
       data_template:
         data:
           file: '{{ trigger.event.data.path }}'
-          camera_name: 'la entrada principal'
-          turn_off_entity_id: 'input_boolean.entrada_principal_det_mov'
+          camera_name: >-
+            {%- if "C1_00626E615161" in trigger.event.data.folder -%}recibidor
+            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}piscina
+            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}barbacoa
+            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}caseta
+            {%- elif "puerta_principal" in trigger.event.data.folder -%}entrada
+            {%- else -%}desconocido{%-endif-%}
+          turn_off_entity_id: >-
+            {%- if "C1_00626E615161" in trigger.event.data.folder -%}switch.recibidor_camara_det_mov
+            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}switch.piscina_camara_det_mov
+            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}switch.barbacoa_camara_det_mov
+            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}switch.caseta_camara_det_mov
+            {%- elif "puerta_principal" in trigger.event.data.folder -%}input_boolean.entrada_principal_det_mov
+            {%- else -%}desconocido{%-endif-%}
 
 # Notify living room motion sensor tampering
 - alias: 'Notify living room motion sensor tampering'

@@ -363,6 +363,7 @@ logger:
     homeassistant.components.websocket_api: warn
     homeassistant.components.switch.command_line: warn
     homeassistant.components.sensor.command_line: warn
+#    homeassistant.components.shell_command: debug
 #    homeassistant.components.dialogflow: debug
 #    homeassistant.components.telegram_bot: debug
 #    homeassistant.components.dialogflow: debug
@@ -461,6 +462,7 @@ folder_watcher:
     patterns:
       - '*.jpg'
       - '*.mp4'
+      - '*.mkv'
 
 #climate:
 #  - platform: netatmo

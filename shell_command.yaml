@@ -10,3 +10,5 @@ nut_ups_disable_beeper: !secret nut_ups_disable_beeper_cmd
 restart_ups_driver_controller: sudo upsdrvctl start
 
 start_nut_server: sudo systemctl start nut-server.service
+
+mp4_convert: sudo ffmpeg -i {{file}} -c copy --movflags +faststart {{file[1:file.find(".mkv")]}}.mp4
