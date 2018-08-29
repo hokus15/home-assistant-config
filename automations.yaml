@@ -797,9 +797,9 @@
     entity_id: group.external_lights_group
     to: 'on'
   action:
-    - service: light.turn_on
+    - service: homeassistant.turn_on
       data_template:
-        entity_id: group.luces_exteriores
+        entity_id: group.external_lights_group
         brightness: '{{ ((states.input_number.entrada_luz_brillo.state | int) * 255) // 100 }}'
 
 # Adjust luces exteriores brightness
@@ -812,9 +812,9 @@
     entity_id: group.external_lights_group
     state: 'on'
   action:
-    - service: light.turn_on
+    - service: homeassistant.turn_on
       data_template:
-        entity_id: group.luces_exteriores
+        entity_id: group.external_lights_group
         brightness: '{{ ((trigger.to_state.state | int) * 255) // 100 }}'
 
 # Turn on outside lights at sunset (+15 minutes)
@@ -824,10 +824,16 @@
     event: 'sunset'
     offset: '00:15:00'
   action:
-    - service: light.turn_on
+    - service: homeassistant.turn_on
       data_template:
-        entity_id: group.luces_exteriores
+        entity_id: group.external_lights_group
         brightness: '{{ ((states.input_number.entrada_luz_brillo.state | int) * 255) // 100 }}'
+    - service: logbook.log
+      data:
+        name: 'Luces exteriores'
+        message: 'encendidas por la puesta de sol'
+        entity_id: group.external_lights_group
+        domain: light
 
 # Turn off outside lights at night (at 00:15)
 - alias: 'Turn off lights at night'
@@ -839,8 +845,15 @@
     entity_id: group.external_lights_group
     state: 'on'
   action:
-    service: light.turn_off
-    entity_id: group.external_lights_group
+    - service: homeassistant.turn_off
+      entity_id: group.external_lights_group
+    - service: logbook.log
+      data:
+        name: 'Luces exteriores'
+        message: 'apagadas a las 00:15'
+        entity_id: group.external_lights_group
+        domain: light
+
   
 # When the outside lights have been turned on at late night (later than 00:15) and before sunrise, turn them off after 5 minutes
 - alias: 'Turn off lights at late night'
@@ -859,9 +872,16 @@
   action:
     - delay:
         minutes: 5
-    - service: light.turn_off
+    - service: homeassistant.turn_off
       data:
         entity_id: group.external_lights_group
+    - service: logbook.log
+      data:
+        name: 'Luces exteriores'
+        message: 'apagadas más tarde de las 00:15'
+        entity_id: group.external_lights_group
+        domain: light
+
 
 # Turn off outside lights after 10 seconds when the sun is not set
 - alias: 'Turn off lights when sun not set'
@@ -870,16 +890,24 @@
     entity_id: group.external_lights_group
     to: 'on'
   condition:
+    condition: or
+    conditions:
     - condition: sun
-      after: sunrise
+      after: sunset
     - condition: sun
-      before: sunset
+      before: sunrise
   action:
     - delay:
         seconds: 10
-    - service: light.turn_off
+    - service: homeassistant.turn_off
       data:
         entity_id: group.external_lights_group
+    - service: logbook.log
+      data:
+        name: 'Luces exteriores'
+        message: 'apagadas porque es de dia'
+        entity_id: group.external_lights_group
+        domain: light
 
 # Turn on outside lights when fence is opened and the sun is set.
 - alias: 'Turn on lights when fence open'
@@ -895,10 +923,16 @@
     - condition: sun
       before: sunrise
   action:
-    - service: light.turn_on
+    - service: homeassistant.turn_on
       data_template:
-        entity_id: group.luces_exteriores
+        entity_id: group.external_lights_group
         brightness: '{{ ((states.input_number.entrada_luz_brillo.state | int) * 255) // 100 }}'
+    - service: logbook.log
+      data:
+        name: 'Luces exteriores'
+        message: 'encendidas porque se ha abierto la barrera y es de noche'
+        entity_id: group.external_lights_group
+        domain: light
 
 # Turn on hall lamp when the sun is set and someone at home
 - alias: 'Turn on hall lamp when the sun is set and someone at home'
