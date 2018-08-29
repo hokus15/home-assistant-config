@@ -138,39 +138,39 @@ recorder:
       - sensor.fibaro_fgk10x_door_opening_sensor_piscina_heat
       - binary_sensor.fibaro_fgk10x_door_opening_sensor_piscina
 
-      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_access_control
-      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_alarm_level
-      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_alarm_type
-      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_burglar
-      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_general
-      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_sourcenodeid
-      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_system
-      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_heat
-      - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
+      - sensor.porche_sensor_puerta_access_control
+      - sensor.porche_sensor_puerta_alarm_level
+      - sensor.porche_sensor_puerta_alarm_type
+      - sensor.porche_sensor_puerta_burglar
+      - sensor.porche_sensor_puerta_general
+      - sensor.porche_sensor_puerta_sourcenodeid
+      - sensor.porche_sensor_puerta_system
+      - sensor.porche_sensor_puerta_heat
+      - binary_sensor.porche_sensor_puerta
 
-      - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_access_control
-      - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_alarm_level
-      - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_alarm_type
-      - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_burglar
-      - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_general
-      - sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche_sourcenodeid
-      - binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
+      - sensor.porche_sensor_persiana_access_control
+      - sensor.porche_sensor_persiana_alarm_level
+      - sensor.porche_sensor_persiana_alarm_type
+      - sensor.porche_sensor_persiana_burglar
+      - sensor.porche_sensor_persiana_general
+      - sensor.porche_sensor_persiana_sourcenodeid
+      - binary_sensor.porche_sensor_persiana
 
-      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_access_control
-      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_alarm_level
-      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_alarm_type
-      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_burglar
-      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_general
-      - sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria_sourcenodeid
-      - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria
+      - sensor.coladuria_sensor_puerta_access_control
+      - sensor.coladuria_sensor_puerta_alarm_level
+      - sensor.coladuria_sensor_puerta_alarm_type
+      - sensor.coladuria_sensor_puerta_burglar
+      - sensor.coladuria_sensor_puerta_general
+      - sensor.coladuria_sensor_puerta_sourcenodeid
+      - binary_sensor.coladuria_sensor_puerta
 
-      - binary_sensor.fibaro_fgms001_motion_sensor_salon
-      - sensor.fibaro_fgms001_motion_sensor_salon_alarm_level
-      - sensor.fibaro_fgms001_motion_sensor_salon_alarm_type
-      - sensor.fibaro_fgms001_motion_sensor_salon_burglar
-      - sensor.fibaro_fgms001_motion_sensor_salon_general
-      - sensor.fibaro_fgms001_motion_sensor_salon_seismic_intensity
-      - sensor.fibaro_fgms001_motion_sensor_salon_sourcenodeid
+      - binary_sensor.salon_sensor_movimiento
+      - sensor.salon_sensor_movimiento_alarm_level
+      - sensor.salon_sensor_movimiento_alarm_type
+      - sensor.salon_sensor_movimiento_burglar
+      - sensor.salon_sensor_movimiento_general
+      - sensor.salon_sensor_movimiento_seismic_intensity
+      - sensor.salon_sensor_movimiento_sourcenodeid
 
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_alarm_level
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_alarm_type
@@ -239,7 +239,7 @@ recorder:
       - sensor.on_off_switch_caseta_camara_det_mov
       - sensor.on_off_switch_piscina_camara_det_mov
       - sensor.on_off_switch_recibidor_camara_det_mov
-      - sensor.on_off_input_boolean_salon_detector_movimiento
+      - sensor.on_off_input_boolean_salon_sensor_movimiento
       - sensor.on_off_input_boolean_cocina_sensor_puerta
       - sensor.on_off_input_boolean_cocina_sensor_persiana
       - sensor.on_off_switch_holiday
@@ -257,7 +257,7 @@ recorder:
       - sensor.check_switch_caseta_camara_det_mov
       - sensor.check_switch_piscina_camara_det_mov
       - sensor.check_switch_recibidor_camara_det_mov
-      - sensor.check_input_boolean_salon_detector_movimiento
+      - sensor.check_input_boolean_salon_sensor_movimiento
       - sensor.check_input_boolean_cocina_sensor_puerta
       - sensor.check_input_boolean_cocina_sensor_persiana
       - sensor.check_switch_holiday

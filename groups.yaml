@@ -176,11 +176,11 @@ Salón:
     - sensor.netatmo_salon_co2
     - sensor.salon_termometro_co2_tendencia
     - sensor.netatmo_salon_wifi
-    - binary_sensor.fibaro_fgms001_motion_sensor_salon
-    - binary_sensor.salon_detector_movimiento_sabotaje
-    - input_boolean.salon_detector_movimiento
-    - sensor.fibaro_fgms001_motion_sensor_salon_luminance
-    - sensor.fibaro_fgms001_motion_sensor_salon_temperature
+    - binary_sensor.salon_sensor_movimiento
+    - binary_sensor.salon_sensor_movimiento_sabotaje
+    - input_boolean.salon_sensor_movimiento
+    - sensor.salon_sensor_movimiento_luminance
+    - sensor.salon_sensor_movimiento_temperature
 
 Escalera:
   entities:
@@ -222,13 +222,13 @@ Recibidor:
 
 Cocina:
   entities:
-    - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
+    - binary_sensor.porche_sensor_puerta
     - input_boolean.cocina_sensor_puerta
-    - binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
+    - binary_sensor.porche_sensor_persiana
     - input_boolean.cocina_sensor_persiana
-    - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria
+    - binary_sensor.coladuria_sensor_puerta
     - input_boolean.coladuria_sensor_puerta
-    - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_temperature
+    - sensor.porche_sensor_puerta_temperature
 
 Luces exteriores:
   entities:
@@ -314,7 +314,7 @@ Seguridad:
     - switch.barbacoa_camara_det_mov
     - switch.caseta_camara_det_mov
     - input_boolean.entrada_principal_det_mov
-    - input_boolean.salon_detector_movimiento
+    - input_boolean.salon_sensor_movimiento
     - input_boolean.cocina_sensor_puerta
     - input_boolean.cocina_sensor_persiana
     - input_boolean.coladuria_sensor_puerta
@@ -322,7 +322,7 @@ Seguridad:
 Seguridad interior:
   entities:
     - switch.recibidor_camara_det_mov
-    - input_boolean.salon_detector_movimiento
+    - input_boolean.salon_sensor_movimiento
     - input_boolean.cocina_sensor_puerta
     - input_boolean.coladuria_sensor_puerta
 
@@ -335,24 +335,24 @@ Seguridad exterior:
 
 Sensor salón:
   entities:
-    - binary_sensor.fibaro_fgms001_motion_sensor_salon
-    - binary_sensor.salon_detector_movimiento_sabotaje
-#    - sensor.salon_detector_movimiento_bateria
-    - input_boolean.salon_detector_movimiento
+    - binary_sensor.salon_sensor_movimiento
+    - binary_sensor.salon_sensor_movimiento_sabotaje
+#    - sensor.salon_sensor_movimiento_bateria
+    - input_boolean.salon_sensor_movimiento
 
 Puerta porche cocina:
   entities:
-    - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
+    - binary_sensor.porche_sensor_puerta
     - input_boolean.cocina_sensor_puerta
 
 Persiana porche cocina:
   entities:
-    - binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
+    - binary_sensor.porche_sensor_persiana
     - input_boolean.cocina_sensor_persiana
 
 Puerta coladuria cocina:
   entities:
-    - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria
+    - binary_sensor.coladuria_sensor_puerta
     - input_boolean.coladuria_sensor_puerta
 
 Internet:
@@ -432,7 +432,7 @@ Estado baterías:
     - sensor.cocina_sensor_puerta_bateria
     - sensor.cocina_sensor_persiana_bateria
     - sensor.coladuria_sensor_puerta_bateria
-    - sensor.salon_detector_movimiento_bateria
+    - sensor.salon_sensor_movimiento_bateria
     - sensor.piscina_sensor_piscina_bateria
     - sensor.recibidor_boton_bateria
 #Escalera:

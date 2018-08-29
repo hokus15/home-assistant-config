@@ -193,16 +193,16 @@ sensor.nut_ups_battery_charge:
   friendly_name: 'Carga'
 sensor.nut_ups_battery_runtime:
   friendly_name: 'Tiempo restante'
-sensor.fibaro_fgms001_motion_sensor_salon_luminance:
+sensor.salon_sensor_movimiento_luminance:
   icon: 'mdi:weather-sunny'
   friendly_name: 'Luminosidad'
-sensor.salon_detector_movimiento_bateria:
+sensor.salon_sensor_movimiento_bateria:
   device_class: 'battery'
   friendly_name: 'Detector movimiento salón'
 sensor.recibidor_boton_bateria:
   device_class: 'battery'
   friendly_name: 'Nodon'
-sensor.fibaro_fgms001_motion_sensor_salon_temperature:
+sensor.salon_sensor_movimiento_temperature:
   friendly_name: 'Temperatura'
 sensor.recibidor_termometro_temperatura:
   friendly_name: 'Temperatura'
@@ -279,10 +279,10 @@ binary_sensor.barbacoa_camara_det_mov:
   friendly_name: 'Movimiento barbacoa'
 binary_sensor.caseta_camara_det_mov:
   friendly_name: 'Movimiento caseta'
-binary_sensor.fibaro_fgms001_motion_sensor_salon:
+binary_sensor.salon_sensor_movimiento:
   friendly_name: 'Movimiento salón'
   device_class: 'motion'
-binary_sensor.salon_detector_movimiento_sabotaje:
+binary_sensor.salon_sensor_movimiento_sabotaje:
   friendly_name: 'Manipulación sensor'
 binary_sensor.entrada_principal_outdoor_motion:
   friendly_name: 'Movimiento desconocido'
@@ -294,13 +294,13 @@ binary_sensor.entrada_principal_outdoor_animal:
 binary_sensor.entrada_principal_outdoor_vehicle:
   friendly_name: 'Vehiculo detectado'
   icon: 'mdi:car'
-binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche:
+binary_sensor.porche_sensor_puerta:
   device_class: 'door'
   friendly_name: 'Puerta porche'
-binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche:
+binary_sensor.porche_sensor_persiana:
   device_class: 'door'
   friendly_name: 'Persiana porche'
-binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria:
+binary_sensor.coladuria_sensor_puerta:
   device_class: 'door'
   friendly_name: 'Puerta coladuría'
 
@@ -357,7 +357,7 @@ switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch:
 switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2:
   friendly_name: 'Luz suite'
   icon: mdi:ceiling-light
-sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_temperature:
+sensor.porche_sensor_puerta_temperature:
   friendly_name: 'Temperatura'
   icon: mdi:thermometer
 

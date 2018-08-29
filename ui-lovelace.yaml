@@ -16,9 +16,9 @@ views:
         # The filter card will filter entities for their state
       - type: entity-filter
         entities:
-          - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche
-          - binary_sensor.fibaro_fgk10x_door_opening_sensor_puerta_coladuria
-          - binary_sensor.fibaro_fgk10x_door_opening_sensor_persiana_porche
+          - binary_sensor.porche_sensor_puerta
+          - binary_sensor.coladuria_sensor_puerta
+          - binary_sensor.porche_sensor_persiana
         state_filter:
           - 'on'
         card:

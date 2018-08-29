@@ -18,7 +18,7 @@ coladuria_sensor_puerta:
   initial: on
   icon: 'mdi:glassdoor'
 
-salon_detector_movimiento:
+salon_sensor_movimiento:
   name: Det. mov. salón
   initial: on
   icon: 'mdi:transit-transfer'

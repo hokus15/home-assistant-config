@@ -214,17 +214,17 @@
   sensors:
     # Fibaro FGK10x door sensor battery level - kitchen door
     cocina_sensor_puerta_bateria:
-      value_template: '{% if states.zwave.fibaro_fgk10x_door_opening_sensor_puerta_porche %}{{ states.zwave.fibaro_fgk10x_door_opening_sensor_puerta_porche.attributes.battery_level }}{% else %}Desconocido{% endif %}'
+      value_template: '{% if states.zwave.porche_sensor_puerta %}{{ states.zwave.porche_sensor_puerta.attributes.battery_level }}{% else %}Desconocido{% endif %}'
       unit_of_measurement: '%'
 
     # Fibaro FGK10x door sensor battery level - kitchen blind
     cocina_sensor_persiana_bateria:
-      value_template: '{% if states.zwave.fibaro_fgk10x_door_opening_sensor_persiana_porche %}{{ states.zwave.fibaro_fgk10x_door_opening_sensor_persiana_porche.attributes.battery_level }}{% else %}Desconocido{% endif %}'
+      value_template: '{% if states.zwave.porche_sensor_persiana %}{{ states.zwave.porche_sensor_persiana.attributes.battery_level }}{% else %}Desconocido{% endif %}'
       unit_of_measurement: '%'
 
     # Fibaro FGK10x door sensor battery level - kitchen door
     coladuria_sensor_puerta_bateria:
-      value_template: '{% if states.zwave.fibaro_fgk10x_door_opening_sensor_puerta_coladuria %}{{ states.zwave.fibaro_fgk10x_door_opening_sensor_puerta_coladuria.attributes.battery_level }}{% else %}Desconocido{% endif %}'
+      value_template: '{% if states.zwave.coladuria_sensor_puerta %}{{ states.zwave.coladuria_sensor_puerta.attributes.battery_level }}{% else %}Desconocido{% endif %}'
       unit_of_measurement: '%'
 
     # Fibaro FGK10x door sensor battery level - swimming pool
@@ -233,8 +233,8 @@
       unit_of_measurement: '%'
 
     # Fibaro FGMS-001 Motion sensor
-    salon_detector_movimiento_bateria:
-      value_template: '{% if states.zwave.fibaro_fgms001_motion_sensor_salon %}{{ states.zwave.fibaro_fgms001_motion_sensor_salon.attributes.battery_level }}{% else %}Desconocido{% endif %}'
+    salon_sensor_movimiento_bateria:
+      value_template: '{% if states.zwave.salon_sensor_movimiento %}{{ states.zwave.salon_sensor_movimiento.attributes.battery_level }}{% else %}Desconocido{% endif %}'
       unit_of_measurement: '%'
 
     # Nodon Octan button battery level
@@ -386,8 +386,8 @@
     on_off_switch_recibidor_camara_det_mov:
       value_template: '{% if is_state("switch.recibidor_camara_det_mov", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el detector de movimiento del recibidor'
-    on_off_input_boolean_salon_detector_movimiento:
-      value_template: '{% if is_state("input_boolean.salon_detector_movimiento", "off") %}activado{% else %}desactivado{% endif %}'
+    on_off_input_boolean_salon_sensor_movimiento:
+      value_template: '{% if is_state("input_boolean.salon_sensor_movimiento", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el detector de movimiento del salón'
     on_off_input_boolean_cocina_sensor_puerta:
       value_template: '{% if is_state("input_boolean.cocina_sensor_puerta", "off") %}conectado{% else %}desconectado{% endif %}'
@@ -453,8 +453,8 @@
       value_template: '{% if is_state("switch.recibidor_camara_det_mov", "off") %}desactivado{% else %}activado{% endif %}'
       friendly_name: 'el detector de movimiento del recibidor'
       unit_of_measurement: 'enabled-disabled'
-    check_input_boolean_salon_detector_movimiento:
-      value_template: '{% if is_state("input_boolean.salon_detector_movimiento", "off") %}desactivado{% else %}activado{% endif %}'
+    check_input_boolean_salon_sensor_movimiento:
+      value_template: '{% if is_state("input_boolean.salon_sensor_movimiento", "off") %}desactivado{% else %}activado{% endif %}'
       friendly_name: 'el detector de movimiento del salón'
       unit_of_measurement: 'enabled-disabled'
     check_input_boolean_cocina_sensor_puerta:
@@ -741,8 +741,8 @@
   entity_ids:
     - sensor.recibidor_termometro_temperatura
     - sensor.netatmo_salon_temperature
-    - sensor.fibaro_fgms001_motion_sensor_salon_temperature
-    - sensor.fibaro_fgk10x_door_opening_sensor_puerta_porche_temperature
+    - sensor.salon_sensor_movimiento_temperature
+    - sensor.porche_sensor_puerta_temperature
 
 - platform: min_max
   name: temperature_first_floor
