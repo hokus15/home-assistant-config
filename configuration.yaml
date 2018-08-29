@@ -55,6 +55,9 @@ updater:
 
 # Enables support for tracking state changes over time.
 history:
+  exclude:
+    domains:
+      - camera
 
 config:
 
@@ -81,14 +84,13 @@ recorder:
   db_url: !secret recorder_db_url
   exclude:
     domains:
-#      - automation
+      - automation
       - script
       - zone
       - group
       - calendar
       - zwave
       - updater
-      - camera
       - media_player
     entities:
       - sensor.since_last_boot
