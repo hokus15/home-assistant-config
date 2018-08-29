@@ -272,15 +272,15 @@ binary_sensor.caseta_camara_infrarrojo:
 binary_sensor.ups_status_bs:
   friendly_name: 'Suministro eléctrico'
 binary_sensor.piscina_camara_det_mov:
-  friendly_name: 'Movimiento'
+  friendly_name: 'Movimiento piscina'
 binary_sensor.recibidor_camara_det_mov:
-  friendly_name: 'Movimiento'
+  friendly_name: 'Movimiento recibidor'
 binary_sensor.barbacoa_camara_det_mov:
-  friendly_name: 'Movimiento'
+  friendly_name: 'Movimiento barbacoa'
 binary_sensor.caseta_camara_det_mov:
-  friendly_name: 'Movimiento'
+  friendly_name: 'Movimiento caseta'
 binary_sensor.fibaro_fgms001_motion_sensor_salon:
-  friendly_name: 'Movimiento'
+  friendly_name: 'Movimiento salón'
   device_class: 'motion'
 binary_sensor.salon_detector_movimiento_sabotaje:
   friendly_name: 'Manipulación sensor'
