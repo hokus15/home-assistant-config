@@ -471,6 +471,24 @@
             {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/caseta/alarm
             {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/alarm
             {%- else -%}desconocido{%-endif-%}
+    - service: logbook.log
+      data_template:
+        name: >-
+            {%- if "C1_00626E615161" in trigger.event.data.folder -%}Recibidor
+            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}Piscina
+            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}Barbacoa
+            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}Caseta
+            {%- elif "puerta_principal" in trigger.event.data.folder -%}Entrada principal
+            {%- else -%}desconocido{%-endif-%}
+        message: 'Movimiento detectado'
+        entity_id: >-
+            {%- if "C1_00626E615161" in trigger.event.data.folder -%}camera.recibidor
+            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}camera.piscina
+            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}camera.barbacoa
+            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}camera.caseta
+            {%- elif "puerta_principal" in trigger.event.data.folder -%}camera.entrada_principal
+            {%- else -%}desconocido{%-endif-%}
+        domain: camera
 
 # Trigger alarm when armed away
 - alias: 'Trigger alarm armed away'
