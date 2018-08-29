@@ -240,7 +240,7 @@ parte_meteorologico_corto:
           La temperatura mínima de hoy ha sido de {{ states("sensor.exterior_termometro_min_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_min_temp"].attributes.unit_of_measurement }}.
         cache: false
 
-notify_motion_detection:
+notify_alarm_camera:
   alias: 'Notifies camera motion detection with photo/video attached'
   sequence:
     # Send the notification
@@ -260,6 +260,23 @@ notify_motion_detection:
         disable_notification: false
         inline_keyboard:
           - 'Desactivar det. mov. {{data.camera_name}}:/homeassistant.turn_off#{{data.turn_off_entity_id}}'
+          - 'Desarmar 30 mins:/30_mins, Desarmar 60 mins:/60_mins'
+          - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
+          - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
+
+notify_alarm:
+  alias: 'Notifies alarm'
+  sequence:
+    # Send the notification
+    - service: telegram_bot.send_message
+      data_template:
+        message: '{{data.message}}'
+        target: 
+          - !secret hokusphone_telegram_chat_id
+          - !secret geniphone_telegram_chat_id
+        disable_notification: false
+        inline_keyboard:
+          - 'Desactivar sensor:/homeassistant.turn_off#{{data.turn_off_entity_id}}'
           - 'Desarmar 30 mins:/30_mins, Desarmar 60 mins:/60_mins'
           - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
           - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
