@@ -46,6 +46,24 @@ alarm_arm_night:
     - service: alarm_control_panel.alarm_arm_night
       entity_id: alarm_control_panel.casa
 
+alarm_disarm_telegram:
+  alias: 'Alarm disarm from telegram'
+  sequence:
+    # Alarm disarm
+    - service: alarm_control_panel.alarm_disarm
+      data:
+        entity_id: alarm_control_panel.casa
+    # Send message
+    - service: telegram_bot.send_message
+      data_template:
+        message: 'Alarma desarmada manualmente desde Telegram'
+        target: 
+          - !secret hokusphone_telegram_chat_id
+          - !secret geniphone_telegram_chat_id
+        disable_notification: false
+        inline_keyboard:
+               - 'Armar alarma:/script.turn_on#script.alarm_arm_away'
+
 empty_home:
   alias: 'Empty home'
   sequence:
@@ -260,9 +278,9 @@ notify_alarm_camera:
         disable_notification: false
         inline_keyboard:
           - 'Desactivar det. mov. {{data.camera_name}}:/homeassistant.turn_off#{{data.turn_off_entity_id}}'
-          - 'Desarmar 30 mins:/30_mins, Desarmar 60 mins:/60_mins'
-          - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
-          - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
+          - 'Desarmar 30 mins:/30_mins, Desarmar 1 hora:/60_mins'
+          - 'Desarmar 2 horas:/120_mins, Desarmar 3 horas:/180_mins'
+          - 'Desarmar alarma:/script.turn_on#script.alarm_disarm_telegram'
 
 notify_alarm:
   alias: 'Notifies alarm'
@@ -277,9 +295,9 @@ notify_alarm:
         disable_notification: false
         inline_keyboard:
           - 'Desactivar sensor:/homeassistant.turn_off#{{data.turn_off_entity_id}}'
-          - 'Desarmar 30 mins:/30_mins, Desarmar 60 mins:/60_mins'
-          - 'Desarmar 120 mins:/120_mins, Desarmar 180 mins:/180_mins'
-          - 'Desarmar alarma:/alarm_control_panel.alarm_disarm#alarm_control_panel.casa'
+          - 'Desarmar 30 mins:/30_mins, Desarmar 1 hora:/60_mins'
+          - 'Desarmar 2 horas:/120_mins, Desarmar 3 horas:/180_mins'
+          - 'Desarmar alarma:/script.turn_on#script.alarm_disarm_telegram'
 
 close_fence:
   alias: 'Close fence if open'
