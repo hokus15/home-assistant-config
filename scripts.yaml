@@ -24,46 +24,6 @@ power_on_thermostat:
       data:
         away_mode: false
 
-alarm_arm_away:
-  alias: 'Alarm arm away'
-  sequence:
-    # Turn on alarm related sensors
-    - service: homeassistant.turn_on
-      data:
-        entity_id: group.seguridad
-    # Arm alarm
-    - service: alarm_control_panel.alarm_arm_away
-      entity_id: alarm_control_panel.casa
-
-alarm_arm_night:
-  alias: 'Alarm arm night'
-  sequence:
-    # Turn on alarm related sensors
-    - service: homeassistant.turn_on
-      data:
-        entity_id: group.seguridad
-    # Alarm arm night
-    - service: alarm_control_panel.alarm_arm_night
-      entity_id: alarm_control_panel.casa
-
-alarm_disarm_telegram:
-  alias: 'Alarm disarm from telegram'
-  sequence:
-    # Alarm disarm
-    - service: alarm_control_panel.alarm_disarm
-      data:
-        entity_id: alarm_control_panel.casa
-    # Send message
-    - service: telegram_bot.send_message
-      data_template:
-        message: 'Alarma desarmada manualmente desde Telegram'
-        target: 
-          - !secret hokusphone_telegram_chat_id
-          - !secret geniphone_telegram_chat_id
-        disable_notification: false
-        inline_keyboard:
-               - 'Armar alarma:/script.turn_on#script.alarm_arm_away'
-
 empty_home:
   alias: 'Empty home'
   sequence:
@@ -258,7 +218,71 @@ parte_meteorologico_corto:
           La temperatura mínima de hoy ha sido de {{ states("sensor.exterior_termometro_min_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_min_temp"].attributes.unit_of_measurement }}.
         cache: false
 
-notify_alarm_camera:
+alarm_arm_away:
+  alias: 'Alarm arm away'
+  sequence:
+    # Turn on alarm related sensors
+    - service: homeassistant.turn_on
+      data:
+        entity_id: group.seguridad
+    # Arm alarm
+    - service: alarm_control_panel.alarm_arm_away
+      entity_id: alarm_control_panel.casa
+
+alarm_arm_night:
+  alias: 'Alarm arm night'
+  sequence:
+    # Turn on alarm related sensors
+    - service: homeassistant.turn_on
+      data:
+        entity_id: group.seguridad
+    # Alarm arm night
+    - service: alarm_control_panel.alarm_arm_night
+      entity_id: alarm_control_panel.casa
+
+alarm_disarm_telegram:
+  alias: 'Alarm disarm from telegram'
+  sequence:
+    # Alarm disarm
+    - service: alarm_control_panel.alarm_disarm
+      data:
+        entity_id: alarm_control_panel.casa
+    # Send message
+    - service: telegram_bot.send_message
+      data_template:
+        message: 'Alarma desarmada manualmente desde Telegram'
+        target: 
+          - !secret hokusphone_telegram_chat_id
+          - !secret geniphone_telegram_chat_id
+        disable_notification: false
+        inline_keyboard:
+               - 'Armar alarma:/script.turn_on#script.alarm_arm_away'
+
+alarm_disarm_telegram_temporary:
+  alias: 'Temporary alarm disarm from telegram'
+  sequence:
+    # Alarm disarm
+    - service: alarm_control_panel.alarm_disarm
+      data:
+        entity_id: alarm_control_panel.casa
+    # Send message
+    - service: telegram_bot.send_message
+      data_template:
+        message: 'Alarma desarmada durante {{data.minutes}} minutos desde Telegram'
+        target: 
+          - !secret hokusphone_telegram_chat_id
+          - !secret geniphone_telegram_chat_id
+        disable_notification: false
+        inline_keyboard:
+               - 'Armar alarma:/script.turn_on#script.alarm_arm_away'
+    # Wait specified time before arming the alarm again
+    - delay: "{{ data.minutes | multiply(60) | timestamp_custom('%H:%M:%S',False) }}"
+    # Alarm arm away
+    - service: script.turn_on
+      data:
+        entity_id: script.alarm_arm_away
+
+alarm_notify_camera:
   alias: 'Notifies camera motion detection with photo/video attached'
   sequence:
     # Send the notification
@@ -282,7 +306,7 @@ notify_alarm_camera:
           - 'Desarmar 2 horas:/120_mins, Desarmar 3 horas:/180_mins'
           - 'Desarmar alarma:/script.turn_on#script.alarm_disarm_telegram'
 
-notify_alarm:
+alarm_notify_sensor:
   alias: 'Notifies alarm'
   sequence:
     # Send the notification

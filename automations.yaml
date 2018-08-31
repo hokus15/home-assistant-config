@@ -628,7 +628,7 @@
       entity_id: alarm_control_panel.casa
       state: 'triggered'
   action:
-    - service: script.notify_alarm
+    - service: script.alarm_notify_sensor
       data_template:
         data:
           message: >-
@@ -680,7 +680,7 @@
     - delay:
         seconds: 2
     # Notify the pictures taken
-    - service: script.notify_alarm_camera
+    - service: script.alarm_notify_camera
       data_template:
         data:
           file: '{{ trigger.event.data.path }}'
@@ -736,7 +736,7 @@
     - delay:
         seconds: 60
     # Notify the video taken
-    - service: script.notify_alarm_camera
+    - service: script.alarm_notify_camera
       data_template:
         data:
           file: '{{ trigger.event.data.path }}'
@@ -754,6 +754,45 @@
             {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}switch.caseta_camara_det_mov
             {%- elif "puerta_principal" in trigger.event.data.folder -%}input_boolean.entrada_principal_det_mov
             {%- else -%}desconocido{%-endif-%}
+
+# Telegram callback that disarms alarm for specified minutes
+- alias: 'Telegram callback that disarms alarm for specified minutes'
+  hide_entity: true
+  trigger:
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/30_mins'
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/60_mins'
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/120_mins'
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/180_mins'
+  action:
+    # Answer callback
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
+        message: 'Alarma desarmada durante {{ trigger.event.data.data[1:-5] }} mins.'
+        show_alert: true
+    # Remove inline keyboard from original message.
+    - service: telegram_bot.edit_replymarkup
+      data_template:
+             message_id: '{{ trigger.event.data.message.message_id }}'
+             chat_id: '{{ trigger.event.data.chat_id }}'
+             inline_keyboard: []
+    # Disarm alarm temporarily
+    - service: script.alarm_disarm_telegram_temporary
+      data_template:
+        data:
+          minutes: '{{ trigger.event.data.data[1:-5] }}'
 
 # Notify living room motion sensor tampering
 - alias: 'Notify living room motion sensor tampering'
@@ -1280,54 +1319,6 @@
 #############################################################
 # Telegram automations
 #############################################################
-- alias: 'Telegram bot that authorizes a person for x mins'
-  hide_entity: true
-  trigger:
-    - platform: event
-      event_type: telegram_callback
-      event_data:
-        data: '/30_mins'
-    - platform: event
-      event_type: telegram_callback
-      event_data:
-        data: '/60_mins'
-    - platform: event
-      event_type: telegram_callback
-      event_data:
-        data: '/120_mins'
-    - platform: event
-      event_type: telegram_callback
-      event_data:
-        data: '/180_mins'
-  action:
-    - service: telegram_bot.answer_callback_query
-      data_template:
-        callback_query_id: '{{ trigger.event.data.id }}'
-        message: 'Alarma desarmada durante {{ trigger.event.data.data[1:-5] }} mins.'
-        show_alert: false
-    # Remove buttons from original message
-    - service: telegram_bot.edit_caption
-      data_template:
-             message_id: '{{ trigger.event.data.message.message_id }}'
-             chat_id: '{{ trigger.event.data.chat_id }}'
-             caption: '{{ trigger.event.data.message.caption }}'
-    - service: input_number.set_value
-      data_template:
-        entity_id: input_number.empty_home_activation_delay_minutes
-        value: '{{ trigger.event.data.data[1:-5] }}'
-    - service: homeassistant.turn_on
-      data:
-        entity_id: input_boolean.empty_home_activation_delay
-    - service: telegram_bot.send_message
-      data_template:
-        message: 'Alarma desarmada durante {{ trigger.event.data.data[1:-5] }} mins.'
-        target: 
-          - !secret hokusphone_telegram_chat_id
-          - !secret geniphone_telegram_chat_id
-        disable_notification: false
-        inline_keyboard:
-               - 'Armar alarma:/script.turn_on#script.alarm_arm_away'
-
 # Telegram bot that executes a service from a callback with the format <service>#<entity_id>. i.e.: script.turn_on#script.close_fence
 # It also removes the buttons from original message.
 - alias: 'Telegram bot that executes a service'
@@ -1335,26 +1326,23 @@
   trigger:
     - platform: event
       event_type: telegram_callback
+  condition:
+    # Run only in case it has a # in the event data
+    condition: template
+    value_template: '{{ trigger.event.data.data.find("#") != -1 }}'
   action:
-    # Respond to callback
+    # Answer callback
     - service: telegram_bot.answer_callback_query
       data_template:
         callback_query_id: '{{ trigger.event.data.id }}'
         message: 'Respuesta recibida!'
         show_alert: false
-    # Remove buttons from original message.
-    # Try to use both services 'edit_message' and 'edit_caption'
-    # one of them will silently fail but the other should remove the buttons.
-    - service: telegram_bot.edit_message
+    # Remove inline keyboard from original message.
+    - service: telegram_bot.edit_replymarkup
       data_template:
              message_id: '{{ trigger.event.data.message.message_id }}'
              chat_id: '{{ trigger.event.data.chat_id }}'
-             message: '{{ trigger.event.data.message.text }}'
-    - service: telegram_bot.edit_caption
-      data_template:
-             message_id: '{{ trigger.event.data.message.message_id }}'
-             chat_id: '{{ trigger.event.data.chat_id }}'
-             caption: '{{ trigger.event.data.message.caption }}'
+             inline_keyboard: []
     # Execute service with the format <service>#<entity_id>.
     # If the service or the entity id don't exist, the execution will silently fail
     - service_template: >
