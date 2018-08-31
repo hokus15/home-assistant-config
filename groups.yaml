@@ -393,8 +393,8 @@ Confort:
 
 Estado HA:
   entities:
-    - script.restart_ha
-    - script.reboot_pi
+    - script.system_restart_ha
+    - script.system_reboot_pi
     - sensor.cpu_use
     - sensor.ram_free
     - sensor.disk_free_

@@ -11,7 +11,7 @@
   action:
     - service: script.turn_on
       data:
-        entity_id: script.empty_home
+        entity_id: script.presence_empty_home
 
 # Someone home automation when someone of the Familia group is at home
 - alias: 'Someone home'
@@ -22,7 +22,7 @@
   action:
     - service: script.turn_on
       data:
-        entity_id: script.someone_home
+        entity_id: script.presence_someone_home
 
 # Turn on hall lamp when someone at home and the sun is set
 - alias: 'Turn on hall lamp when someone at home and the sun is set'
@@ -159,7 +159,7 @@
       data_template:
         message: 'Barrera abierta automáticamente para Geni'
         inline_keyboard: 
-          - 'Cerrar:/script.turn_on#script.close_fence'
+          - 'Cerrar:/script.turn_on#script.fence_close'
     - delay:
         seconds: 5
     - service: device_tracker.see
@@ -234,7 +234,7 @@
         message: 'Barrera abierta automáticamente'
         target: !secret hokusphone_telegram_chat_id
         inline_keyboard: 
-          - 'Cerrar:/script.turn_on#script.close_fence'
+          - 'Cerrar:/script.turn_on#script.fence_close'
     - service: device_tracker.see
       data:
         dev_id: 'jordi_combined'
@@ -287,7 +287,7 @@
   action:
     # Turn on thermostat
     - service: script.turn_on
-      entity_id: script.power_on_thermostat
+      entity_id: script.climate_power_on
 
 # When the switch.termostato changes to off
 - alias: 'Heating off'
@@ -298,7 +298,7 @@
   action:
     # Turn off thermostat
     - service: script.turn_on
-      entity_id: script.power_off_thermostat
+      entity_id: script.climate_power_off
 
 # When average temp on ground floor or first floor is under target climate temperature
 # If:
@@ -391,7 +391,7 @@
   action:
     # Turn off thermostat
     - service: script.turn_on
-      entity_id: script.power_off_thermostat
+      entity_id: script.climate_power_off
     - service: notify.telegram
       data:
         message: 'Modo vacaciones activado'
@@ -1069,7 +1069,7 @@
   action:
     - service: script.turn_on
       data:
-        entity_id: script.set_tts_volume_level
+        entity_id: script.speech_set_tts_volume_level
     - service: tts.google_say
       entity_id: media_player.homeassistant
       data_template:
@@ -1082,7 +1082,7 @@
           - !secret hokusphone_telegram_chat_id
           - !secret geniphone_telegram_chat_id
         inline_keyboard: 
-          - 'Cerrar:/script.turn_on#script.close_fence'
+          - 'Cerrar:/script.turn_on#script.fence_close'
 
 #############################################################
 # Laundry door automations
@@ -1108,7 +1108,7 @@
   action:
     - service: script.turn_on
       data:
-        entity_id: script.set_tts_volume_level
+        entity_id: script.speech_set_tts_volume_level
     - service: tts.google_say
       entity_id: media_player.homeassistant
       data_template:
@@ -1230,7 +1230,7 @@
   action:
     - service: script.turn_on
       data:
-        entity_id: script.leave_home
+        entity_id: script.presence_leave_home
 
 - alias: Nodon Octan button 2 pressed
   trigger:
@@ -1302,7 +1302,7 @@
   action:
     - service: script.turn_on
       data:
-        entity_id: script.jordi_at_home
+        entity_id: script.presence_jordi_at_home
 
 - alias: Nodon Octan button 4 double click
   trigger:
@@ -1314,12 +1314,12 @@
   action:
     - service: script.turn_on
       data:
-        entity_id: script.set_virtual_device_home
+        entity_id: script.presence_set_virtual_device_home
 
 #############################################################
 # Telegram automations
 #############################################################
-# Telegram bot that executes a service from a callback with the format <service>#<entity_id>. i.e.: script.turn_on#script.close_fence
+# Telegram bot that executes a service from a callback with the format <service>#<entity_id>. i.e.: script.turn_on#script.fence_close
 # It also removes the buttons from original message.
 - alias: 'Telegram bot that executes a service'
   hide_entity: true

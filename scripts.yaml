@@ -1,14 +1,54 @@
-restart_ha:
+#############################################################
+# Fence scripts
+#############################################################
+
+fence_close:
+  alias: 'Close fence if open'
+  sequence:
+    - service_template: >
+        {%- if is_state("sensor.switch_barrera", "Abierta") -%}
+          homeassistant.turn_on
+        {%- endif -%}
+
+      data:
+        entity_id: switch.barrera
+
+fence_open_ga:
+  alias: 'Open fence if closed'
+  sequence:
+    - service_template: >
+        {%- if is_state("sensor.switch_barrera", "Cerrada") -%}
+          homeassistant.turn_on
+        {%- endif -%}
+
+      data:
+        entity_id: switch.barrera
+    - service: telegram_bot.send_message
+      data_template:
+        message: 'Google Assistant ha abierto la barrera'
+        target: !secret hokusphone_telegram_chat_id
+        inline_keyboard: 
+          - 'Cerrar:/script.turn_on#script.fence_close'
+
+#############################################################
+# System scripts
+#############################################################
+
+system_restart_ha:
   alias: 'Reiniciar HA'
   sequence:
       - service: homeassistant.restart
 
-reboot_pi:
+system_reboot_pi:
   alias: 'Reiniciar Pi'
   sequence:
       - service: shell_command.reboot_pi
 
-power_off_thermostat:
+#############################################################
+# Climate scripts
+#############################################################
+
+climate_power_off:
   alias: 'Power off thermostat'
   sequence:
     - service: climate.set_temperature
@@ -16,13 +56,17 @@ power_off_thermostat:
       data:
         temperature: 11.5
 
-power_on_thermostat:
+climate_power_on:
   alias: 'Power on thermostat'
   sequence:
     - service: climate.set_away_mode
       entity_id: climate.termostato
       data:
         away_mode: false
+
+#############################################################
+# Presence scripts
+#############################################################
 
 presence_empty_home:
   alias: 'Empty home'
@@ -59,10 +103,6 @@ presence_empty_home:
 presence_someone_home:
   alias: 'Someone at home'
   sequence:
-    # Turn off presence detection
-#    - service: homeassistant.turn_off
-#      data:
-#        entity_id: group.seguridad
     # Disarm alarm
     - service: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.casa
@@ -95,7 +135,7 @@ presence_leave_home:
   sequence:
     - service: script.turn_on
       data:
-        entity_id: script.set_tts_volume_level
+        entity_id: script.speech_set_tts_volume_level
     - service: tts.google_say
       entity_id: media_player.homeassistant
       data_template:
@@ -133,113 +173,9 @@ presence_jordi_at_home:
         dev_id: 'jordi_combined'
         location_name: 'home'
 
-set_tts_volume_level:
-  alias: 'Lower the home-assistant tts volume level between 23 and 9'
-  sequence:
-    - condition: time
-      after: '23:00'
-      before: '9:00'
-    - service: media_player.volume_set
-      entity_id: media_player.homeassistant
-      data:
-        volume_level: 0.3
-    - delay:
-        minutes: 2
-    - service: media_player.volume_set
-      entity_id: media_player.homeassistant
-      data:
-        volume_level: 0.75
-
-goto_sleep:
-  alias: 'Go to sleep'
-  sequence:
-    # Only execute script between 21:00 and 6:00
-    - condition: time
-      after: '21:00'
-      before: '6:00'
-    # Turn on stairs lights
-    - service: switch.turn_on
-      data:
-        entity_id: switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
-    # Close fence if open
-    - service_template: >
-        {%- if is_state("sensor.switch_barrera", "Abierta") -%}
-          homeassistant.turn_on
-        {%- endif -%}
-
-      data:
-        entity_id: switch.barrera
-    # Turn off outside lights
-    - service: light.turn_off
-      data:
-        entity_id: group.external_lights_group
-    # Turn off hall lamp
-    - service: switch.turn_off
-      data:
-        entity_id: switch.swiid_swiidinter_lampara_recibidor_switch
-    # Alarm arm night
-    - service: script.turn_on
-      data:
-        entity_id: script.alarm_arm_night
-      # Set tts volume level
-    - service: script.turn_on
-      data:
-        entity_id: script.set_tts_volume_level
-      # Speech the found incidences and say good night.
-    - service: tts.google_say
-      entity_id: media_player.homeassistant
-      data_template:
-        message: >
-          {%- if is_state("binary_sensor.porche_sensor_puerta", "on") %}Puerta de la cocina abierta. {% endif %}
-          {%- if is_state("binary_sensor.porche_sensor_persiana", "on") %}Persiana de la cocina abierta. {% endif %}
-          {%- if is_state("binary_sensor.coladuria_sensor_puerta", "on") %}Puerta de la coladuría abierta. {% endif %}
-          {%- if is_state("sensor.switch_barrera", "Abierta") -%}Cerrando barrera.{% endif -%}
-          Alarma armada en modo noche. Buenas noches
-    # Wait until tts finishes
-#    - delay: '00:00:{{ states.media_player.homeassistant.attributes.media_duration | int }}'
-    # Wait 2 minutes before turning stair lights off
-    - delay:
-        minutes: 2
-    # Turn stairs lights off
-    - service: switch.turn_off
-      data:
-        entity_id: switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
-
-parte_meteorologico:
-  alias: 'Parte meteorológico'
-  sequence:
-    - service: script.turn_on
-      data:
-        entity_id: script.set_tts_volume_level
-    - service: tts.google_say
-      entity_id: media_player.homeassistant
-      data_template:
-        message: >
-          La temperatura exterior es de {{ states("sensor.exterior_termometro_temperatura") | replace("."," con ") }} {{states.sensor["exterior_termometro_temperatura"].attributes.unit_of_measurement }} 
-          y una humedad del {{ states("sensor.exterior_termometro_humedad") }} {{states.sensor["exterior_termometro_humedad"].attributes.unit_of_measurement }}.
-          La temperatura máxima de hoy ha sido de {{ states("sensor.exterior_termometro_max_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_max_temp"].attributes.unit_of_measurement }}.
-          La temperatura mínima de hoy ha sido de {{ states("sensor.exterior_termometro_min_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_min_temp"].attributes.unit_of_measurement }}.
-          La presión atmosférica es de {{ states("sensor.salon_termometro_presion") | replace("."," con ") }} {{states.sensor["salon_termometro_presion"].attributes.unit_of_measurement }}.
-          Las rachas de viento son de {{ states("sensor.exterior_anemometro_velocidad_viento") }} {{states.sensor["exterior_anemometro_velocidad_viento"].attributes.unit_of_measurement }}'
-          {%- if states("sensor.exterior_pluviometro_lluvia") == "0" %} No está lloviendo.{% else %} Está lloviendo unos {{ states("sensor.exterior_pluviometro_lluvia") | replace("."," con ") }} {{states.sensor["exterior_pluviometro_lluvia"].attributes.unit_of_measurement }}.{% endif %}
-          {%- if states("sensor.exterior_pluviometro_lluvia_1") == "0" %} No ha llovido durante la última hora.{% else %} La precipitación de la última hora ha sido de {{ states("sensor.exterior_pluviometro_lluvia_1") | replace("."," con ") }} {{states.sensor["exterior_pluviometro_lluvia_1"].attributes.unit_of_measurement }}.{% endif %}
-          {%- if states("sensor.exterior_pluviometro_lluvia_24") == "0" %} No ha llovido durante las últimas 24 horas.{% else %} La precipitación de las últimas 24 horas ha sido de {{ states("sensor.exterior_pluviometro_lluvia_24") | replace("."," con ") }} {{states.sensor["exterior_pluviometro_lluvia_24"].attributes.unit_of_measurement }}.{% endif %}
-        cache: false
-
-parte_meteorologico_corto:
-  alias: 'Parte meteorológico corto'
-  sequence:
-    - service: script.turn_on
-      data:
-        entity_id: script.set_tts_volume_level
-    - service: tts.google_say
-      entity_id: media_player.homeassistant
-      data_template:
-        message: >
-          La temperatura exterior es de {{ states("sensor.exterior_termometro_temperatura") | replace("."," con ") }} {{states.sensor["exterior_termometro_temperatura"].attributes.unit_of_measurement }}.
-          La temperatura máxima de hoy ha sido de {{ states("sensor.exterior_termometro_max_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_max_temp"].attributes.unit_of_measurement }}.
-          La temperatura mínima de hoy ha sido de {{ states("sensor.exterior_termometro_min_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_min_temp"].attributes.unit_of_measurement }}.
-        cache: false
+#############################################################
+# Alarm scripts
+#############################################################
 
 alarm_arm_away:
   alias: 'Alarm arm away'
@@ -346,33 +282,66 @@ alarm_notify_sensor:
           - 'Desarmar 2 horas:/120_mins, Desarmar 3 horas:/180_mins'
           - 'Desarmar alarma:/script.turn_on#script.alarm_disarm_telegram'
 
-close_fence:
-  alias: 'Close fence if open'
+#############################################################
+# Speech scripts
+#############################################################
+
+speech_set_tts_volume_level:
+  alias: 'Lower the home-assistant tts volume level between 23 and 9'
   sequence:
-    - service_template: >
-        {%- if is_state("sensor.switch_barrera", "Abierta") -%}
-          homeassistant.turn_on
-        {%- endif -%}
-
+    - condition: time
+      after: '23:00'
+      before: '9:00'
+    - service: media_player.volume_set
+      entity_id: media_player.homeassistant
       data:
-        entity_id: switch.barrera
+        volume_level: 0.3
+    - delay:
+        minutes: 2
+    - service: media_player.volume_set
+      entity_id: media_player.homeassistant
+      data:
+        volume_level: 0.75
 
-open_fence_ga:
-  alias: 'Open fence if closed'
+speech_parte_meteorologico:
+  alias: 'Parte meteorológico'
   sequence:
-    - service_template: >
-        {%- if is_state("sensor.switch_barrera", "Cerrada") -%}
-          homeassistant.turn_on
-        {%- endif -%}
-
+    - service: script.turn_on
       data:
-        entity_id: switch.barrera
-    - service: telegram_bot.send_message
+        entity_id: script.speech_set_tts_volume_level
+    - service: tts.google_say
+      entity_id: media_player.homeassistant
       data_template:
-        message: 'Google Assistant ha abierto la barrera'
-        target: !secret hokusphone_telegram_chat_id
-        inline_keyboard: 
-          - 'Cerrar:/script.turn_on#script.close_fence'
+        message: >
+          La temperatura exterior es de {{ states("sensor.exterior_termometro_temperatura") | replace("."," con ") }} {{states.sensor["exterior_termometro_temperatura"].attributes.unit_of_measurement }} 
+          y una humedad del {{ states("sensor.exterior_termometro_humedad") }} {{states.sensor["exterior_termometro_humedad"].attributes.unit_of_measurement }}.
+          La temperatura máxima de hoy ha sido de {{ states("sensor.exterior_termometro_max_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_max_temp"].attributes.unit_of_measurement }}.
+          La temperatura mínima de hoy ha sido de {{ states("sensor.exterior_termometro_min_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_min_temp"].attributes.unit_of_measurement }}.
+          La presión atmosférica es de {{ states("sensor.salon_termometro_presion") | replace("."," con ") }} {{states.sensor["salon_termometro_presion"].attributes.unit_of_measurement }}.
+          Las rachas de viento son de {{ states("sensor.exterior_anemometro_velocidad_viento") }} {{states.sensor["exterior_anemometro_velocidad_viento"].attributes.unit_of_measurement }}'
+          {%- if states("sensor.exterior_pluviometro_lluvia") == "0" %} No está lloviendo.{% else %} Está lloviendo unos {{ states("sensor.exterior_pluviometro_lluvia") | replace("."," con ") }} {{states.sensor["exterior_pluviometro_lluvia"].attributes.unit_of_measurement }}.{% endif %}
+          {%- if states("sensor.exterior_pluviometro_lluvia_1") == "0" %} No ha llovido durante la última hora.{% else %} La precipitación de la última hora ha sido de {{ states("sensor.exterior_pluviometro_lluvia_1") | replace("."," con ") }} {{states.sensor["exterior_pluviometro_lluvia_1"].attributes.unit_of_measurement }}.{% endif %}
+          {%- if states("sensor.exterior_pluviometro_lluvia_24") == "0" %} No ha llovido durante las últimas 24 horas.{% else %} La precipitación de las últimas 24 horas ha sido de {{ states("sensor.exterior_pluviometro_lluvia_24") | replace("."," con ") }} {{states.sensor["exterior_pluviometro_lluvia_24"].attributes.unit_of_measurement }}.{% endif %}
+        cache: false
+
+speech_parte_meteorologico_corto:
+  alias: 'Parte meteorológico corto'
+  sequence:
+    - service: script.turn_on
+      data:
+        entity_id: script.speech_set_tts_volume_level
+    - service: tts.google_say
+      entity_id: media_player.homeassistant
+      data_template:
+        message: >
+          La temperatura exterior es de {{ states("sensor.exterior_termometro_temperatura") | replace("."," con ") }} {{states.sensor["exterior_termometro_temperatura"].attributes.unit_of_measurement }}.
+          La temperatura máxima de hoy ha sido de {{ states("sensor.exterior_termometro_max_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_max_temp"].attributes.unit_of_measurement }}.
+          La temperatura mínima de hoy ha sido de {{ states("sensor.exterior_termometro_min_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_min_temp"].attributes.unit_of_measurement }}.
+        cache: false
+
+#############################################################
+# Misc scripts
+#############################################################
 
 comfort_mode_off:
   alias: 'Turn off comfort mode'
@@ -389,3 +358,58 @@ comfort_mode_off:
       entity_id: climate.termostato
       data:
         away_mode: false
+
+goto_sleep:
+  alias: 'Go to sleep'
+  sequence:
+    # Only execute script between 21:00 and 6:00
+    - condition: time
+      after: '21:00'
+      before: '6:00'
+    # Turn on stairs lights
+    - service: switch.turn_on
+      data:
+        entity_id: switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
+    # Close fence if open
+    - service_template: >
+        {%- if is_state("sensor.switch_barrera", "Abierta") -%}
+          homeassistant.turn_on
+        {%- endif -%}
+
+      data:
+        entity_id: switch.barrera
+    # Turn off outside lights
+    - service: light.turn_off
+      data:
+        entity_id: group.external_lights_group
+    # Turn off hall lamp
+    - service: switch.turn_off
+      data:
+        entity_id: switch.swiid_swiidinter_lampara_recibidor_switch
+    # Alarm arm night
+    - service: script.turn_on
+      data:
+        entity_id: script.alarm_arm_night
+      # Set tts volume level
+    - service: script.turn_on
+      data:
+        entity_id: script.speech_set_tts_volume_level
+      # Speech the found incidences and say good night.
+    - service: tts.google_say
+      entity_id: media_player.homeassistant
+      data_template:
+        message: >
+          {%- if is_state("binary_sensor.porche_sensor_puerta", "on") %}Puerta de la cocina abierta. {% endif %}
+          {%- if is_state("binary_sensor.porche_sensor_persiana", "on") %}Persiana de la cocina abierta. {% endif %}
+          {%- if is_state("binary_sensor.coladuria_sensor_puerta", "on") %}Puerta de la coladuría abierta. {% endif %}
+          {%- if is_state("sensor.switch_barrera", "Abierta") -%}Cerrando barrera.{% endif -%}
+          Alarma armada en modo noche. Buenas noches
+    # Wait until tts finishes
+#    - delay: '00:00:{{ states.media_player.homeassistant.attributes.media_duration | int }}'
+    # Wait 2 minutes before turning stair lights off
+    - delay:
+        minutes: 2
+    # Turn stairs lights off
+    - service: switch.turn_off
+      data:
+        entity_id: switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
