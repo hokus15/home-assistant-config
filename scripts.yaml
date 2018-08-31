@@ -24,7 +24,7 @@ power_on_thermostat:
       data:
         away_mode: false
 
-empty_home:
+presence_empty_home:
   alias: 'Empty home'
   sequence:
     # Alarm arm away
@@ -56,7 +56,7 @@ empty_home:
       data:
         away_mode: true
 
-someone_home:
+presence_someone_home:
   alias: 'Someone at home'
   sequence:
     # Turn off presence detection
@@ -79,7 +79,7 @@ someone_home:
       data:
         away_mode: false
 
-set_virtual_device_home:
+presence_set_virtual_device_home:
   alias: 'Set virtual device at home for 180 minutes'
   sequence:
     - service: input_number.set_value
@@ -90,7 +90,7 @@ set_virtual_device_home:
       data:
         entity_id: input_boolean.empty_home_activation_delay
 
-leave_home:
+presence_leave_home:
   alias: 'Leave home'
   sequence:
     - service: script.turn_on
@@ -109,6 +109,29 @@ leave_home:
           {%- if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2", "on") %}{% set incidence = true %}Luz de la suite encendida. {% endif %}
           {%- if is_state("sensor.switch_barrera", "Abierta") %}{% set incidence = true %}Barrera abierta.{% endif -%}
           {%- if not incidence %}Todo correcto.{% endif %}
+
+presence_authorized_person_ga:
+  alias: 'Authorizes a person the specified number of minutes'
+  sequence:
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.empty_home_activation_delay_minutes
+        value: '{{data.minutes}}'
+    - service: homeassistant.turn_on
+      data:
+        entity_id: input_boolean.empty_home_activation_delay
+    - service: telegram_bot.send_message
+      data_template:
+        message: 'Google Assistant a autorizado presencia en casa durante {{data.minutes}} minutos'
+        target: !secret hokusphone_telegram_chat_id
+
+presence_jordi_at_home:
+  alias: 'Jordi at home'
+  sequence:
+    - service: device_tracker.see
+      data:
+        dev_id: 'jordi_combined'
+        location_name: 'home'
 
 set_tts_volume_level:
   alias: 'Lower the home-assistant tts volume level between 23 and 9'
@@ -350,29 +373,6 @@ open_fence_ga:
         target: !secret hokusphone_telegram_chat_id
         inline_keyboard: 
           - 'Cerrar:/script.turn_on#script.close_fence'
-
-authorized_person_ga:
-  alias: 'Authorizes a person the specified number of minutes'
-  sequence:
-    - service: input_number.set_value
-      data_template:
-        entity_id: input_number.empty_home_activation_delay_minutes
-        value: '{{data.minutes}}'
-    - service: homeassistant.turn_on
-      data:
-        entity_id: input_boolean.empty_home_activation_delay
-    - service: telegram_bot.send_message
-      data_template:
-        message: 'Google Assistant a autorizado presencia en casa durante {{data.minutes}} minutos'
-        target: !secret hokusphone_telegram_chat_id
-
-jordi_at_home:
-  alias: 'Jordi at home'
-  sequence:
-    - service: device_tracker.see
-      data:
-        dev_id: 'jordi_combined'
-        location_name: 'home'
 
 comfort_mode_off:
   alias: 'Turn off comfort mode'
