@@ -331,6 +331,7 @@ Seguridad exterior:
     - switch.piscina_camara_det_mov
     - switch.barbacoa_camara_det_mov
     - switch.caseta_camara_det_mov
+    - input_boolean.entrada_principal_det_mov
     - input_boolean.cocina_sensor_persiana
 
 Sensor salón:
