@@ -1,4 +1,7 @@
 title: Casa
+resources:
+  - url: /local/alarm_control_panel-card.js?v=1
+    type: js
 # Exclude entities from "Unused entities" view
 #excluded_entities:
 #  - weblink.router
@@ -34,3 +37,10 @@ views:
         card:
           type: glance
           title: 'Ocupación'
+      - type: custom:alarm_control_panel-card
+        entity: alarm_control_panel.casa
+        title: Alarma
+        hide_keypad: true
+        states:
+          - arm_away
+          - arm_night
