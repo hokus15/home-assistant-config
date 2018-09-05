@@ -1,5 +1,47 @@
 dialogflow:
 
+recorder:
+  exclude:
+    entities:
+      - sensor.on_off_switch_termostato
+      - sensor.on_off_switch_termostato_modo_ausente
+      - sensor.on_off_switch_piscina
+      - sensor.on_off_group_luces_exteriores
+      - sensor.on_off_group_luces_interiores
+      - sensor.on_off_switch_swiid_swiidinter_lampara_recibidor_switch
+      - sensor.on_off_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
+      - sensor.on_off_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
+      - sensor.on_off_switch_caseta_camara_det_mov
+      - sensor.on_off_switch_piscina_camara_det_mov
+      - sensor.on_off_switch_recibidor_camara_det_mov
+      - sensor.on_off_input_boolean_salon_sensor_movimiento
+      - sensor.on_off_input_boolean_cocina_sensor_puerta
+      - sensor.on_off_input_boolean_cocina_sensor_persiana
+      - sensor.on_off_switch_holiday
+      - sensor.on_off_switch_ups_beeper
+      - sensor.on_off_group_seguridad
+      - sensor.on_off_switch_barrera
+      - sensor.check_switch_termostato
+      - sensor.check_switch_termostato_modo_ausente
+      - sensor.check_switch_piscina
+      - sensor.check_group_luces_exteriores
+      - sensor.check_group_luces_interiores
+      - sensor.check_switch_swiid_swiidinter_lampara_recibidor_switch
+      - sensor.check_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
+      - sensor.check_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
+      - sensor.check_switch_caseta_camara_det_mov
+      - sensor.check_switch_piscina_camara_det_mov
+      - sensor.check_switch_recibidor_camara_det_mov
+      - sensor.check_input_boolean_salon_sensor_movimiento
+      - sensor.check_input_boolean_cocina_sensor_puerta
+      - sensor.check_input_boolean_cocina_sensor_persiana
+      - sensor.check_switch_holiday
+      - sensor.check_switch_ups_beeper
+      - sensor.check_group_seguridad
+      - sensor.check_switch_barrera
+      - sensor.check_sensor_cocina_sensor_persiana
+      - sensor.check_sensor_cocina_sensor_puerta
+
 intent_script:
   ##############################################
   # Heating intents
