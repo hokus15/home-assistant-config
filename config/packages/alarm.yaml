@@ -1,0 +1,517 @@
+alarm_control_panel:
+  - platform: manual
+    name: Casa
+    # Time in seconds to leave the building before triggering the alarm
+    pending_time: 0
+    # Time in seconds to disarm the alarm when coming back
+    delay_time: 0
+    # Time in seconds to keep the triggered status
+    trigger_time: 120
+    # Alarm will return to it's previous state after trigger time
+    disarm_after_trigger: false
+    disarmed:
+      # Never triggers the alarm
+      trigger_time: 0
+    armed_home:
+      # Don't wait to trigger the alarm
+      delay_time: 0
+    armed_night:
+      # Don't wait to trigger the alarm
+      delay_time: 0
+
+group:
+  Alarma:
+    entities:
+      - alarm_control_panel.casa
+
+automation:
+  # Convert mkv videos to mp4 as soon as they are created to be able to send them through telegram
+  - alias: 'Convert MKV to MP4'
+    trigger:
+      platform: event
+      event_type: folder_watcher
+      event_data:
+        event_type: created
+    condition:
+      condition: template
+      value_template: '{{ "mkv" in trigger.event.data.file }}'
+    action:
+      # Delay execution to let the file to be fully loaded in the ftp
+      - delay:
+          seconds: 15
+      - service: shell_command.mp4_convert
+        data_template:
+          file: '{{ trigger.event.data.path }}'
+  
+  # Trigger motion detected in camera for 30 seconds
+  - alias: 'Motion detected in camera'
+    trigger:
+      platform: event
+      event_type: folder_watcher
+      event_data:
+        event_type: created
+    action:
+      - service: mqtt.publish
+        data_template:
+          payload_template: 1
+          retain: true
+          topic: >- 
+              {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/camera/recibidor/alarm
+              {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/camera/piscina/alarm
+              {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/camera/barbacoa/alarm
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/caseta/alarm
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/alarm
+              {%- else -%}desconocido{%-endif-%}
+      - delay:
+          seconds: 30
+      - service: mqtt.publish
+        data_template:
+          payload: 0
+          retain: true
+          topic:  >- 
+              {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/camera/recibidor/alarm
+              {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/camera/piscina/alarm
+              {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/camera/barbacoa/alarm
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/caseta/alarm
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/alarm
+              {%- else -%}desconocido{%-endif-%}
+      - service: logbook.log
+        data_template:
+          name: >-
+              {%- if "C1_00626E615161" in trigger.event.data.folder -%}Recibidor
+              {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}Piscina
+              {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}Barbacoa
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}Caseta
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}Entrada principal
+              {%- else -%}desconocido{%-endif-%}
+          message: 'Movimiento detectado'
+          entity_id: >-
+              {%- if "C1_00626E615161" in trigger.event.data.folder -%}camera.recibidor
+              {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}camera.piscina
+              {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}camera.barbacoa
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}camera.caseta
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}camera.entrada_principal
+              {%- else -%}desconocido{%-endif-%}
+          domain: camera
+  
+  # Trigger alarm when armed away
+  - alias: 'Trigger alarm armed away'
+    trigger:
+      # When motion detected at hall camera
+      - platform: state
+        entity_id: binary_sensor.recibidor_camara_det_mov
+        to: 'on'
+      # When motion detected in swimming pool
+      - platform: state
+        entity_id: binary_sensor.piscina_camara_det_mov
+        to: 'on'
+      # When motion detected in bbq
+      - platform: state
+        entity_id: binary_sensor.barbacoa_camara_det_mov
+        to: 'on'
+      # When motion detected in backyard stand
+      - platform: state
+        entity_id: binary_sensor.caseta_camara_det_mov
+        to: 'on'
+      # When Netatmo camera detects human presence
+      - platform: state
+        entity_id: binary_sensor.entrada_principal_outdoor_human
+        to: 'on'
+      # When Netatmo camera detects unknown presence
+      - platform: state
+        entity_id: binary_sensor.entrada_principal_outdoor_motion
+        to: 'on'
+      # When Kitchen blind is open
+      - platform: state
+        entity_id: binary_sensor.porche_sensor_persiana
+        to: 'on'
+      # When Outside kitched door is open
+      - platform: state
+        entity_id: binary_sensor.porche_sensor_puerta
+        to: 'on'
+      # When Laundry door is open
+      - platform: state
+        entity_id: binary_sensor.coladuria_sensor_puerta
+        to: 'on'
+      # When Living room motion is detected
+      - platform: state
+        entity_id: binary_sensor.salon_sensor_movimiento
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: alarm_control_panel.casa
+        state: armed_away
+    action:
+      service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.casa
+  
+  # Trigger alarm when armed home / armed night
+  - alias: 'Trigger alarm armed home'
+    trigger:
+      # When Netatmo camera detects human presence
+      - platform: state
+        entity_id: binary_sensor.entrada_principal_outdoor_human
+        to: 'on'
+      # When Netatmo camera detects unknown presence
+      - platform: state
+        entity_id: binary_sensor.entrada_principal_outdoor_motion
+        to: 'on'
+      # When Kitchen blind is open
+      - platform: state
+        entity_id: binary_sensor.porche_sensor_persiana
+        to: 'on'
+      # When Outside kitched door is open
+      - platform: state
+        entity_id: binary_sensor.porche_sensor_puerta
+        to: 'on'
+      # When Laundry door is open
+      - platform: state
+        entity_id: binary_sensor.coladuria_sensor_puerta
+        to: 'on'
+    condition:
+      condition: or
+      conditions:
+        - condition: state
+          entity_id: alarm_control_panel.casa
+          state: armed_home
+        - condition: state
+          entity_id: alarm_control_panel.casa
+          state: armed_night
+    action:
+      service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.casa
+  
+  # Disarm alarm at 7:00 AM when armed night and someone is at home
+  - alias: 'Disarm alarm armed night'
+    trigger:
+      platform: time
+      at: '07:00:00'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: 'group.unidad_familiar'
+          state: 'home'
+        - condition: state
+          entity_id: alarm_control_panel.casa
+          state: armed_night
+    action:
+      service: alarm_control_panel.alarm_disarm
+      entity_id: alarm_control_panel.casa
+  
+  # Notify presence detection in any activated sensor when sensor active and alarm triggered
+  - alias: 'Notify presence detection in any activated sensor when sensor active and alarm triggered'
+    trigger: 
+      - platform: state
+        entity_id: binary_sensor.porche_sensor_puerta
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.porche_sensor_persiana
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.coladuria_sensor_puerta
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.salon_sensor_movimiento
+        to: 'on'
+    condition:
+      condition: and
+      conditions:
+      - condition: template
+        value_template: >- 
+          {%- set inputBooleanMap ={"binary_sensor.porche_sensor_puerta": "input_boolean.cocina_sensor_puerta",
+                           "binary_sensor.porche_sensor_persiana": "input_boolean.cocina_sensor_persiana",
+                           "binary_sensor.coladuria_sensor_puerta": "input_boolean.coladuria_sensor_puerta",
+                           "binary_sensor.salon_sensor_movimiento": "input_boolean.salon_sensor_movimiento"}
+           -%}
+           {{is_state(inputBooleanMap[trigger.entity_id],'on')}}
+      - condition: state
+        entity_id: alarm_control_panel.casa
+        state: 'triggered'
+    action:
+      - service: script.alarm_notify_sensor
+        data_template:
+          data:
+            message: >-
+              {%- set messageMap ={"binary_sensor.porche_sensor_puerta": "Puerta de la cocina abierta",
+                               "binary_sensor.porche_sensor_persiana": "Persiana de la cocina abierta",
+                               "binary_sensor.coladuria_sensor_puerta": "Puerta de la coladuría abierta",
+                               "binary_sensor.salon_sensor_movimiento": "Movimiento detectado en el salón"}
+               -%}
+              {{messageMap[trigger.entity_id]}}
+            turn_off_entity_id: >-
+              {%- set turnOffEntityId ={"binary_sensor.porche_sensor_puerta": "input_boolean.cocina_sensor_puerta",
+                               "binary_sensor.porche_sensor_persiana": "input_boolean.cocina_sensor_persiana",
+                               "binary_sensor.coladuria_sensor_puerta": "input_boolean.coladuria_sensor_puerta",
+                               "binary_sensor.salon_sensor_movimiento": "input_boolean.salon_sensor_movimiento"}
+               -%}
+              {{turnOffEntityId[trigger.entity_id]}}
+  
+  # Notify camera motion detection including attached photo
+  - alias: 'Notify camera motion detection including attached photo when alarm triggered'
+    trigger:
+      platform: event
+      event_type: folder_watcher
+      event_data:
+        event_type: created
+    condition:
+      condition: and
+      conditions:
+      - condition: state
+        entity_id: alarm_control_panel.casa
+        state: 'triggered'
+      - condition: template
+        value_template: '{{ "jpg" in trigger.event.data.file }}'
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: switch.recibidor_camara_det_mov
+          state: 'on'
+        - condition: state
+          entity_id: switch.barbacoa_camara_det_mov
+          state: 'on'
+        - condition: state
+          entity_id: switch.piscina_camara_det_mov
+          state: 'on'
+        - condition: state
+          entity_id: switch.caseta_camara_det_mov
+          state: 'on'
+    action:
+      # Delay to allow the file to be totally written in the FTP before sending it
+      - delay:
+          seconds: 2
+      # Notify the pictures taken
+      - service: script.alarm_notify_camera
+        data_template:
+          data:
+            file: '{{ trigger.event.data.path }}'
+            camera_name: >-
+              {%- if "C1_00626E615161" in trigger.event.data.folder -%}recibidor
+              {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}piscina
+              {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}barbacoa
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}caseta
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}entrada
+              {%- else -%}desconocido{%-endif-%}
+            turn_off_entity_id: >-
+              {%- if "C1_00626E615161" in trigger.event.data.folder -%}switch.recibidor_camara_det_mov
+              {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}switch.piscina_camara_det_mov
+              {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}switch.barbacoa_camara_det_mov
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}switch.caseta_camara_det_mov
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}input_boolean.entrada_principal_det_mov
+              {%- else -%}desconocido{%-endif-%}
+  
+  # Notify camera motion detection including attached video
+  - alias: 'Notify camera motion detection including attached video when alarm triggered'
+    trigger:
+      platform: event
+      event_type: folder_watcher
+      event_data:
+        event_type: created
+    condition:
+      condition: and
+      conditions:
+      - condition: state
+        entity_id: alarm_control_panel.casa
+        state: 'triggered'
+      - condition: template
+        value_template: '{{ "mp4" in trigger.event.data.file }}'
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: switch.recibidor_camara_det_mov
+          state: 'on'
+        - condition: state
+          entity_id: switch.barbacoa_camara_det_mov
+          state: 'on'
+        - condition: state
+          entity_id: switch.piscina_camara_det_mov
+          state: 'on'
+        - condition: state
+          entity_id: switch.caseta_camara_det_mov
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.entrada_principal_det_mov
+          state: 'on'
+    action:
+      # Delay to allow the file to be totally written in the FTP before sending it
+      - delay:
+          seconds: 60
+      # Notify the video taken
+      - service: script.alarm_notify_camera
+        data_template:
+          data:
+            file: '{{ trigger.event.data.path }}'
+            camera_name: >-
+              {%- if "C1_00626E615161" in trigger.event.data.folder -%}recibidor
+              {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}piscina
+              {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}barbacoa
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}caseta
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}entrada
+              {%- else -%}desconocido{%-endif-%}
+            turn_off_entity_id: >-
+              {%- if "C1_00626E615161" in trigger.event.data.folder -%}switch.recibidor_camara_det_mov
+              {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}switch.piscina_camara_det_mov
+              {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}switch.barbacoa_camara_det_mov
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}switch.caseta_camara_det_mov
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}input_boolean.entrada_principal_det_mov
+              {%- else -%}desconocido{%-endif-%}
+  
+  # Telegram callback that disarms alarm for specified minutes
+  - alias: 'Telegram callback that disarms alarm for specified minutes'
+    hide_entity: true
+    trigger:
+      - platform: event
+        event_type: telegram_callback
+        event_data:
+          data: '/30_mins'
+      - platform: event
+        event_type: telegram_callback
+        event_data:
+          data: '/60_mins'
+      - platform: event
+        event_type: telegram_callback
+        event_data:
+          data: '/120_mins'
+      - platform: event
+        event_type: telegram_callback
+        event_data:
+          data: '/180_mins'
+    action:
+      # Answer callback
+      - service: telegram_bot.answer_callback_query
+        data_template:
+          callback_query_id: '{{ trigger.event.data.id }}'
+          message: 'Alarma desarmada durante {{ trigger.event.data.data[1:-5] }} mins.'
+          show_alert: true
+      # Remove inline keyboard from original message.
+      - service: telegram_bot.edit_replymarkup
+        data_template:
+               message_id: '{{ trigger.event.data.message.message_id }}'
+               chat_id: '{{ trigger.event.data.chat_id }}'
+               inline_keyboard: []
+      # Disarm alarm temporarily
+      - service: script.alarm_disarm_telegram_temporary
+        data_template:
+          data:
+            minutes: '{{ trigger.event.data.data[1:-5] }}'
+  
+  # Notify living room motion sensor tampering
+  - alias: 'Notify living room motion sensor tampering'
+    trigger: 
+      platform: state
+      entity_id: binary_sensor.salon_sensor_movimiento_sabotaje
+      to: 'on'
+    action:
+      service: notify.telegram
+      data:
+        message: 'El sensor de movimento del salón se ha manipulado'
+
+script:
+  alarm_arm_away:
+    alias: 'Alarm arm away'
+    sequence:
+      # Turn on alarm related sensors
+      - service: homeassistant.turn_on
+        data:
+          entity_id: group.seguridad
+      # Arm alarm
+      - service: alarm_control_panel.alarm_arm_away
+        entity_id: alarm_control_panel.casa
+
+  alarm_arm_night:
+    alias: 'Alarm arm night'
+    sequence:
+      # Turn on alarm related sensors
+      - service: homeassistant.turn_on
+        data:
+          entity_id: group.seguridad
+      # Alarm arm night
+      - service: alarm_control_panel.alarm_arm_night
+        entity_id: alarm_control_panel.casa
+
+  alarm_disarm_telegram:
+    alias: 'Alarm disarm from telegram'
+    sequence:
+      # Alarm disarm
+      - service: alarm_control_panel.alarm_disarm
+        data:
+          entity_id: alarm_control_panel.casa
+      # Send message
+      - service: telegram_bot.send_message
+        data_template:
+          message: 'Alarma desarmada manualmente desde Telegram'
+          target: 
+            - !secret hokusphone_telegram_chat_id
+            - !secret geniphone_telegram_chat_id
+          disable_notification: false
+          inline_keyboard:
+                 - 'Armar alarma:/script.turn_on#script.alarm_arm_away'
+
+  alarm_disarm_telegram_temporary:
+    alias: 'Temporary alarm disarm from telegram'
+    sequence:
+      # Alarm disarm
+      - service: alarm_control_panel.alarm_disarm
+        data:
+          entity_id: alarm_control_panel.casa
+      # Send message
+      - service: telegram_bot.send_message
+        data_template:
+          message: 'Alarma desarmada durante {{data.minutes}} minutos desde Telegram'
+          target: 
+            - !secret hokusphone_telegram_chat_id
+            - !secret geniphone_telegram_chat_id
+          disable_notification: false
+          inline_keyboard:
+                 - 'Armar alarma:/script.turn_on#script.alarm_arm_away'
+      # Wait specified time before arming the alarm again
+      - delay: "{{ data.minutes | multiply(60) | timestamp_custom('%H:%M:%S',False) }}"
+      # Alarm arm away
+      - service: script.turn_on
+        data:
+          entity_id: script.alarm_arm_away
+
+  alarm_notify_camera:
+    alias: 'Notifies camera motion detection with photo/video attached'
+    sequence:
+      # Send the notification
+      - service_template: >-
+          {%- if "jpg" in data.file -%}
+            telegram_bot.send_photo
+          {%- elif "mp4" in data.file -%}
+            telegram_bot.send_video
+          {%- endif -%}
+  
+        data_template:
+          file: '{{data.file}}'
+          caption: 'Movimiento detectado en {{data.camera_name}}'
+          target: 
+            - !secret hokusphone_telegram_chat_id
+            - !secret geniphone_telegram_chat_id
+          disable_notification: false
+          inline_keyboard:
+            - 'Desactivar det. mov. {{data.camera_name}}:/homeassistant.turn_off#{{data.turn_off_entity_id}}'
+            - 'Desarmar 30 mins:/30_mins, Desarmar 1 hora:/60_mins'
+            - 'Desarmar 2 horas:/120_mins, Desarmar 3 horas:/180_mins'
+            - 'Desarmar alarma:/script.turn_on#script.alarm_disarm_telegram'
+
+  alarm_notify_sensor:
+    alias: 'Notifies alarm'
+    sequence:
+      # Send the notification
+      - service: telegram_bot.send_message
+        data_template:
+          message: '{{data.message}}'
+          target: 
+            - !secret hokusphone_telegram_chat_id
+            - !secret geniphone_telegram_chat_id
+          disable_notification: false
+          inline_keyboard:
+            - 'Desactivar sensor:/homeassistant.turn_off#{{data.turn_off_entity_id}}'
+            - 'Desarmar 30 mins:/30_mins, Desarmar 1 hora:/60_mins'
+            - 'Desarmar 2 horas:/120_mins, Desarmar 3 horas:/180_mins'
+            - 'Desarmar alarma:/script.turn_on#script.alarm_disarm_telegram'
+  

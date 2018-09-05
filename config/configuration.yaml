@@ -454,4 +454,3 @@ panel_iframe: !include panel_iframes.yaml
 #image_processing: !include image_processing.yaml
 history_graph: !include history_graph.yaml
 #scene: !include scenes.yaml
-alarm_control_panel: !include alarm_control_panel.yaml

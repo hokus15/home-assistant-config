@@ -91,10 +91,6 @@ Unidad Familiar:
     - device_tracker.geni_combined
     - device_tracker.virtual_device
 
-Alarma:
-  entities:
-    - alarm_control_panel.casa
-
 Familia:
   entities:
     - device_tracker.jordi_combined
