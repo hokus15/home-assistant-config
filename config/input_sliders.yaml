@@ -5,13 +5,3 @@ entrada_luz_brillo:
   min: 5
   max: 100
   step: 5
-
-piscina_temperature:
-  name: Temp. agua
-  min: 0
-  max: 40
-  initial: 25
-  step: 0.1
-#  mode: box
-  unit_of_measurement: 'ºC'
-  icon: 'mdi:thermometer'

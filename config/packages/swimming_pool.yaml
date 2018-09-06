@@ -1,0 +1,209 @@
+group:
+  Piscina:
+    entities:
+      - switch.motor_piscina
+  #    - sensor.ph_piscina
+      - sensor.piscina_on_history
+  #    - sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature
+      - input_number.piscina_temperature
+      - sensor.piscina_temperature_mean
+      - sensor.piscina_k_factor
+      - sensor.piscina_filtering_time
+      - sensor.piscina_on_time
+      - sensor.piscina_off_time
+  #    - history_graph.temperatura_piscina
+      - camera.piscina
+      - camera.ph_piscina
+
+camera:
+  # Swimming pool stand camera
+  # For Linksys WVC54GCA http://<cam-host>:<cam_port>/img/snapshot.cgi
+  - platform: generic
+    still_image_url: !secret cam_ph_piscina_still_image_url
+    name: pH Piscina
+    username: !secret cam_ph_piscina_username
+    password: !secret cam_ph_piscina_password
+    authentication: basic
+
+sensor:
+  - platform: template
+    sensors:
+      piscina_width:
+        friendly_name: 'Ancho'
+        value_template: 3.5
+        unit_of_measurement: m
+      piscina_height:
+        friendly_name: 'Largo'
+        value_template: 7
+        unit_of_measurement: m
+      piscina_average_depth:
+        friendly_name: 'Profundidad media'
+        value_template: 1.6
+        unit_of_measurement: m
+      piscina_pump_power:
+        friendly_name: 'Potencia'
+        value_template: 16
+        unit_of_measurement: 'm3/h'
+      piscina_pump_efficiency:
+        friendly_name: 'Eficiencia'
+        value_template: 0.8
+      piscina_capacity:
+        friendly_name: 'Capacidad'
+        value_template: >-
+          {%- if states.sensor.piscina_width and states.sensor.piscina_height and states.sensor.piscina_average_depth %}
+          {{ states.sensor.piscina_width.state | float * states.sensor.piscina_height.state | float * states.sensor.piscina_average_depth.state | float}}
+          {%- endif %}
+        unit_of_measurement: 'm3'
+      piscina_recirculation:
+        friendly_name: 'Recirculación'
+        value_template: >-
+          {%- if states.sensor.piscina_capacity and states.sensor.piscina_pump_power and states.sensor.piscina_pump_efficiency %}
+          {{ (states.sensor.piscina_capacity.state | float / (states.sensor.piscina_pump_power.state | float * states.sensor.piscina_pump_efficiency.state | float )) | round(1) }}
+          {%- endif %}
+        unit_of_measurement: 'h'
+      piscina_k_factor:
+        friendly_name: 'Factor reduccion (K)'
+        value_template: >-
+          {%- if states.sensor.piscina_temperature_mean.state | float > 15 %}
+            1
+          {% elif states.sensor.piscina_temperature_mean.state | float <= 15 and states.sensor.piscina_temperature_mean.state | float > 13 %}
+            0.5
+          {% elif states.sensor.piscina_temperature_mean.state | float <= 13 and states.sensor.piscina_temperature_mean.state | float > 10 %}
+            0.33
+          {% elif states.sensor.piscina_temperature_mean.state | float <= 10 and states.sensor.piscina_temperature_mean.state | float > 5 %}
+            0.25
+          {% elif states.sensor.piscina_temperature_mean.state | float <= 5 %}
+            0.15
+          {%- endif %}
+  
+        icon_template: 'mdi:oil-temperature'
+      piscina_filtering_time:
+        friendly_name: 'Tiempo de filtrado'
+        value_template: >- 
+          {% set filtering_time = (states.sensor.piscina_k_factor.state | float * ((states.sensor.piscina_temperature_mean.state | float / 10) * states.sensor.piscina_recirculation.state | float )) | float | round(2)%}
+          {%- if filtering_time < 2 %}
+            {{ 2 | float }}
+          {% elif filtering_time > 12 %}
+            {{ 12 | float }}
+          {% else %}
+            {{ filtering_time }}
+          {%- endif %}
+          
+        unit_of_measurement: 'h'
+        icon_template: 'mdi:clock'
+      piscina_off_time:
+        friendly_name: 'Apagado'
+        value_template: >- 
+          {%- set timezone = as_timestamp(strptime(states.sensor.date__time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
+          {%- if timezone == 'CEST' %}
+            {{ as_timestamp(strptime(states.sensor.date__time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
+          {% else %}
+            {{ as_timestamp(strptime(states.sensor.date__time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
+          {%- endif %}
+        icon_template: 'mdi:power-plug-off'
+      piscina_on_time:
+        friendly_name: 'Encendido'
+        # The time round to the minute
+        value_template: >-
+          {%- if states.sensor.piscina_off_time %}
+            {{(((as_timestamp(strptime(states.sensor.piscina_off_time.state, "%Y-%m-%d, %H:%M"))-(states.sensor.piscina_filtering_time.state | float * 60 * 60)) // 60) * 60)|timestamp_custom("%Y-%m-%d, %H:%M")}}
+          {%- endif %}
+        icon_template: 'mdi:power-plug'
+  - platform: statistics
+    name: piscina_temperature
+    #entity_id: sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature
+    entity_id: input_number.piscina_temperature
+    max_age:
+      hours: 24
+  
+  # Use of the swimming pool pump today
+  - platform: history_stats
+    name: piscina_on_history
+    entity_id: switch.motor_piscina
+    state: 'on'
+    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+    end: '{{ now() }}'
+
+input_number:
+  piscina_temperature:
+    name: Temp. agua
+    min: 0
+    max: 40
+    initial: 25
+    step: 0.1
+  #  mode: box
+    unit_of_measurement: 'ºC'
+    icon: 'mdi:thermometer'
+
+automation:
+  #############################################################
+  # Turn on and off Swimming pool based on water temperature
+  # and the valley price of electricity
+  #############################################################
+  
+  - alias: 'Turn on swimming pool'
+    trigger: 
+      platform: template
+      value_template: '{{states.sensor.date__time.state == states.sensor.piscina_on_time.state}}'
+    action:
+      service: switch.turn_on
+      entity_id: switch.motor_piscina
+  
+  - alias: 'Turn off swimming pool'
+    trigger: 
+      platform: template
+      value_template: '{{states.sensor.date__time.state == states.sensor.piscina_off_time.state}}'
+    action:
+      service: switch.turn_off
+      entity_id: switch.motor_piscina
+  
+  - alias: 'Notify when swimming pool pump on more than 6 hours [Spring - Autumn - Winter]'
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.piscina_on_history
+      above: 6
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: 'switch.motor_piscina'
+          state: 'on'
+        - condition: or
+          conditions:
+          - condition: state
+            entity_id: sensor.season
+            state: 'spring'
+          - condition: state
+            entity_id: sensor.season
+            state: 'autumn'
+          - condition: state
+            entity_id: sensor.season
+            state: 'winter'
+    action:
+      service: telegram_bot.send_message
+      data:
+        message: 'Motor piscina encendido hoy durante más de 6 horas'
+        inline_keyboard: 
+          - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
+  
+  - alias: 'Notify when swimming pool pump on more than 9 hours [Summer]'
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.piscina_on_history
+      above: 9
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: 'switch.motor_piscina'
+          state: 'on'
+        - condition: state
+          entity_id: sensor.season
+          state: 'summer'
+    action:
+      service: telegram_bot.send_message
+      data:
+        message: 'Motor piscina encendido hoy durante más de 9 horas'
+        inline_keyboard: 
+          - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
+  
