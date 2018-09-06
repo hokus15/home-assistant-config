@@ -106,7 +106,7 @@
 # Presence automations - Geni
 #############################################################
 
-# When some related entities (device_tracker.geniphone, device_tracker.geniphone_wifi, device_tracker.geniphone_ibeacon, sensor.geni_keyfob) changes its state:
+# When some related entities (device_tracker.geniphone, device_tracker.geniphone_wifi, device_tracker.geniphone_ibeacon) changes its state:
 # Set Geni to 'En ruta' if ibeacon is not 'home' and don't have the 'not_detected' value.
 # Else set Geni to 'home' when at least ONE of related entities are set to 'home'
 # Else set Geni to 'not_home' when ALL related entities are in a state different from 'home' and not 'En ruta'
@@ -114,7 +114,7 @@
 - alias: 'Geni location'
   trigger:
     - platform: state
-      entity_id: device_tracker.geniphone, device_tracker.geniphone_wifi, device_tracker.geniphone_ibeacon, sensor.geni_keyfob
+      entity_id: device_tracker.geniphone, device_tracker.geniphone_wifi, device_tracker.geniphone_ibeacon
     - platform: homeassistant
       event: start
   action:
@@ -125,10 +125,10 @@
           {%- if not(is_state('device_tracker.geniphone_ibeacon', 'home')) and not(is_state('device_tracker.geniphone_ibeacon', 'not_detected'))-%}
             {{ states.device_tracker.geniphone_ibeacon.state }}
           {%- else -%}
-            {%- if is_state('device_tracker.geniphone', 'home') or is_state('device_tracker.geniphone_wifi', 'home') or is_state('device_tracker.geniphone_ibeacon', 'home') or is_state('sensor.geni_keyfob', 'home')-%}
+            {%- if is_state('device_tracker.geniphone', 'home') or is_state('device_tracker.geniphone_wifi', 'home') or is_state('device_tracker.geniphone_ibeacon', 'home') -%}
               home
             {%- else -%}
-              {%- if is_state('device_tracker.geniphone', 'not_home') and is_state('device_tracker.geniphone_wifi', 'not_connected') and is_state('device_tracker.geniphone_ibeacon', 'not_detected') and is_state('sensor.geni_keyfob', 'not_home')-%}
+              {%- if is_state('device_tracker.geniphone', 'not_home') and is_state('device_tracker.geniphone_wifi', 'not_connected') and is_state('device_tracker.geniphone_ibeacon', 'not_detected') -%}
                 not_home
               {%- else -%}
                 {{ states.device_tracker.geniphone_wifi.state }}
@@ -171,7 +171,7 @@
 # Presence automations - Jordi
 #############################################################
 
-# When some related entities (device_tracker.hokusphone, device_tracker.hokusphone_wifi, device_tracker.hokusphone_ibeacon, sensor.hokus_keyfob) changes its state:
+# When some related entities (device_tracker.hokusphone, device_tracker.hokusphone_wifi, device_tracker.hokusphone_ibeacon) changes its state:
 # Set Jordi to 'En ruta' if ibeacon is not 'home' and don't have the 'not_detected' value.
 # Else set Jordi to 'home' when at least ONE of related entities are set to 'home'
 # Else set Jordi to 'not_home' when ALL related entities are in a state different from 'home' and not 'En ruta'
@@ -179,7 +179,7 @@
 - alias: 'Jordi location'
   trigger:
     - platform: state
-      entity_id: device_tracker.hokusphone, device_tracker.hokusphone_wifi, device_tracker.hokusphone_ibeacon, sensor.hokus_keyfob
+      entity_id: device_tracker.hokusphone, device_tracker.hokusphone_wifi, device_tracker.hokusphone_ibeacon
     - platform: homeassistant
       event: start
   action:
@@ -190,10 +190,10 @@
           {%- if not(is_state('device_tracker.hokusphone_ibeacon', 'home')) and not(is_state('device_tracker.hokusphone_ibeacon', 'not_detected'))-%}
             {{ states.device_tracker.hokusphone_ibeacon.state }}
           {%- else -%}
-            {%- if is_state('device_tracker.hokusphone', 'home') or is_state('device_tracker.hokusphone_wifi', 'home') or is_state('device_tracker.hokusphone_ibeacon', 'home') or is_state('sensor.hokus_keyfob', 'home')-%}
+            {%- if is_state('device_tracker.hokusphone', 'home') or is_state('device_tracker.hokusphone_wifi', 'home') or is_state('device_tracker.hokusphone_ibeacon', 'home') -%}
               home
             {%- else -%}
-              {%- if is_state('device_tracker.hokusphone', 'not_home') and is_state('device_tracker.hokusphone_wifi', 'not_connected') and is_state('device_tracker.hokusphone_ibeacon', 'not_detected')  and is_state('sensor.hokus_keyfob', 'not_home')-%}
+              {%- if is_state('device_tracker.hokusphone', 'not_home') and is_state('device_tracker.hokusphone_wifi', 'not_connected') and is_state('device_tracker.hokusphone_ibeacon', 'not_detected') -%}
                 not_home
               {%- else -%}
                 {{ states.device_tracker.hokusphone_wifi.state }}

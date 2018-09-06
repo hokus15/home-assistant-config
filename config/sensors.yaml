@@ -1,19 +1,5 @@
 - platform: api_streams
 
-- platform: mqtt_room
-  device_id: B5B182C7-EAB1-4988-AA99-B5C1517008D9-1-50776
-  name: 'Geni_KeyFob'
-  state_topic: 'room_presence'
-  timeout: 5
-  away_timeout: 60
-
-- platform: mqtt_room
-  device_id: B5B182C7-EAB1-4988-AA99-B5C1517008D9-1-32088
-  name: 'Hokus_KeyFob'
-  state_topic: 'room_presence'
-  timeout: 5
-  away_timeout: 60
-
 - platform: time_date
   display_options:
     - 'time'
