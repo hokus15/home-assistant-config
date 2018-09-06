@@ -147,31 +147,6 @@
 
 - platform: template
   sensors:
-    # Fibaro FGK10x door sensor battery level - kitchen door
-    cocina_sensor_puerta_bateria:
-      value_template: '{% if states.zwave.porche_sensor_puerta %}{{ states.zwave.porche_sensor_puerta.attributes.battery_level }}{% else %}Desconocido{% endif %}'
-      unit_of_measurement: '%'
-
-    # Fibaro FGK10x door sensor battery level - kitchen blind
-    cocina_sensor_persiana_bateria:
-      value_template: '{% if states.zwave.porche_sensor_persiana %}{{ states.zwave.porche_sensor_persiana.attributes.battery_level }}{% else %}Desconocido{% endif %}'
-      unit_of_measurement: '%'
-
-    # Fibaro FGK10x door sensor battery level - kitchen door
-    coladuria_sensor_puerta_bateria:
-      value_template: '{% if states.zwave.coladuria_sensor_puerta %}{{ states.zwave.coladuria_sensor_puerta.attributes.battery_level }}{% else %}Desconocido{% endif %}'
-      unit_of_measurement: '%'
-
-    # Fibaro FGK10x door sensor battery level - swimming pool
-    piscina_sensor_piscina_bateria:
-      value_template: '{% if states.zwave.fibaro_fgk10x_door_opening_sensor_piscina %}{{ states.zwave.fibaro_fgk10x_door_opening_sensor_piscina.attributes.battery_level }}{% else %}Desconocido{% endif %}'
-      unit_of_measurement: '%'
-
-    # Fibaro FGMS-001 Motion sensor
-    salon_sensor_movimiento_bateria:
-      value_template: '{% if states.zwave.salon_sensor_movimiento %}{{ states.zwave.salon_sensor_movimiento.attributes.battery_level }}{% else %}Desconocido{% endif %}'
-      unit_of_measurement: '%'
-
     # Nodon Octan button battery level
     recibidor_boton_bateria:
       value_template: '{% if states.zwave.nodon_crc3100_octan_remote %}{{ states.zwave.nodon_crc3100_octan_remote.attributes.battery_level }}{% else %}Desconocido{% endif %}'
