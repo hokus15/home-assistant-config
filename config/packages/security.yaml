@@ -1,3 +1,40 @@
+recorder:
+  exclude:
+    entities:
+      - sensor.porche_sensor_puerta_access_control
+      - sensor.porche_sensor_puerta_alarm_level
+      - sensor.porche_sensor_puerta_alarm_type
+      - sensor.porche_sensor_puerta_burglar
+      - sensor.porche_sensor_puerta_general
+      - sensor.porche_sensor_puerta_sourcenodeid
+      - sensor.porche_sensor_puerta_system
+      - sensor.porche_sensor_puerta_heat
+      - binary_sensor.porche_sensor_puerta
+
+      - sensor.porche_sensor_persiana_access_control
+      - sensor.porche_sensor_persiana_alarm_level
+      - sensor.porche_sensor_persiana_alarm_type
+      - sensor.porche_sensor_persiana_burglar
+      - sensor.porche_sensor_persiana_general
+      - sensor.porche_sensor_persiana_sourcenodeid
+      - binary_sensor.porche_sensor_persiana
+
+      - sensor.coladuria_sensor_puerta_access_control
+      - sensor.coladuria_sensor_puerta_alarm_level
+      - sensor.coladuria_sensor_puerta_alarm_type
+      - sensor.coladuria_sensor_puerta_burglar
+      - sensor.coladuria_sensor_puerta_general
+      - sensor.coladuria_sensor_puerta_sourcenodeid
+      - binary_sensor.coladuria_sensor_puerta
+
+      - binary_sensor.salon_sensor_movimiento
+      - sensor.salon_sensor_movimiento_alarm_level
+      - sensor.salon_sensor_movimiento_alarm_type
+      - sensor.salon_sensor_movimiento_burglar
+      - sensor.salon_sensor_movimiento_general
+      - sensor.salon_sensor_movimiento_seismic_intensity
+      - sensor.salon_sensor_movimiento_sourcenodeid
+
 group:
   Seguridad:
     entities:

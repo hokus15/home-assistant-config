@@ -1,3 +1,18 @@
+recorder:
+  exclude:
+    entities:
+      - sensor.piscina_k_factor
+      - sensor.piscina_pump_efficiency
+      - sensor.piscina_off_time
+      - sensor.piscina_on_time
+      - sensor.piscina_width
+      - sensor.piscina_height
+      - sensor.piscina_average_depth
+      - sensor.piscina_pump_power
+      - sensor.piscina_capacity
+      - sensor.piscina_recirculation
+      - sensor.piscina_filtering_time
+
 group:
   Piscina:
     entities:
