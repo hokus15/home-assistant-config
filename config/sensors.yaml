@@ -111,57 +111,6 @@
     - download
     - upload
 
-- platform: mqtt
-  state_topic: 'location/car/nissan'
-  name: nissan_batt
-  unit_of_measurement: '%'
-  value_template: '{{ value_json.battery_level }}'
-
-- platform: mqtt
-  state_topic: 'location/car/nissan'
-  name: nissan_gps_accuracy
-  unit_of_measurement: 'm'
-  value_template: '{{ value_json.gps_accuracy }}'
-
-- platform: mqtt
-  state_topic: 'location/car/nissan'
-  name: nissan_last_update
-  value_template: '{{ value_json.last_update|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
-
-- platform: mqtt
-  state_topic: 'location/car/toyota'
-  name: toyota_batt
-  unit_of_measurement: '%'
-  value_template: '{{ value_json.battery_level }}'
-
-- platform: mqtt
-  state_topic: 'location/car/toyota'
-  name: toyota_gps_accuracy
-  unit_of_measurement: 'm'
-  value_template: '{{ value_json.gps_accuracy }}'
-
-- platform: mqtt
-  state_topic: 'location/car/toyota'
-  name: toyota_last_update
-  value_template: '{{ value_json.last_update|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
-
-- platform: mqtt
-  state_topic: 'location/car/toyota'
-  name: toyota_previous_latitude
-  value_template: '{{ value_json.platitude }}'
-
-- platform: mqtt
-  state_topic: 'location/car/toyota'
-  name: toyota_previous_longitude
-  value_template: '{{ value_json.plongitude }}'
-
-- platform: template
-  sensors:
-    toyota_distance_travelled_between_updates:
-      unit_of_measurement: 'm'
-      friendly_name: 'Dist. entre actualizaciones'
-      value_template: '{% if states.device_tracker.toyota.attributes.latitude %} {{ (distance(states("sensor.toyota_previous_latitude"), states("sensor.toyota_previous_longitude"), states.device_tracker.toyota.attributes.latitude, states.device_tracker.toyota.attributes.longitude) * 1000) | round (2) }} {% else %} -1 {% endif %}'
-      icon_template: 'mdi:ruler'
 - platform: template
   sensors:
     ups_status:
@@ -261,28 +210,6 @@
               Apagada
           {%- endif %}
 
-# Google travel time to work
-- platform: google_travel_time
-  name: 'a la oficina'
-  api_key: !secret google_api_key
-  origin: device_tracker.toyota
-  destination: zone.oficina
-  options:
-    language: es
-    departure_time: now
-    traffic_model: pessimistic
-
-# Google travel time to school
-- platform: google_travel_time
-  name: 'al colegio'
-  api_key: !secret google_api_key
-  origin: device_tracker.toyota
-  destination: zone.colegio
-  options:
-    language: es
-    departure_time: now
-    traffic_model: pessimistic
-
 #- platform: cups
 #  printers:
 #    - HP_Photosmart_5520
@@ -319,46 +246,6 @@
     - ups.beeper.status
     - ups.mfr
     - ups.model
-
-- platform: template
-  sensors:
-    next_holiday_mode_start:
-      friendly_name: 'Inicio vacaciones'
-      value_template: >-
-           {%- if states.calendar.holiday_mode.attributes.start_time is not none %}
-               {{ as_timestamp(states.calendar.holiday_mode.attributes.start_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}
-           {% else %}
-               No previstas
-           {%- endif %}
-    next_holiday_mode_end:
-      friendly_name: 'Fin vacaciones'
-      value_template: >-
-           {%- if states.calendar.holiday_mode.attributes.end_time is not none %}
-               {{ as_timestamp(states.calendar.holiday_mode.attributes.end_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}
-           {% else %}
-               No previstas
-           {%- endif %}
-    next_shift_event:
-      friendly_name: 'Próx. turno'
-      value_template: '{{ states.calendar.turnos_geni_everything.attributes.message }}'
-    next_shift_date:
-      friendly_name: 'Próx. turno'
-      value_template: >-
-          {%- if as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 0 %}
-              Domingo, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
-          {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 1 %}
-              Lunes, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
-          {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 2 %}
-              Martes, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
-          {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 3 %}
-              Miércoles, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
-          {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 4 %}
-              Jueves, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
-          {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 5 %}
-              Viernes, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
-          {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 6 %}
-              Sábado, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
-          {%- endif %}
 
 # Swimming pool related sensors
 - platform: template

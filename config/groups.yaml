@@ -85,42 +85,6 @@ Varios:
 ################################################
 # Groups
 ################################################
-Unidad Familiar:
-  entities:
-    - device_tracker.jordi_combined
-    - device_tracker.geni_combined
-    - device_tracker.virtual_device
-
-Familia:
-  entities:
-    - device_tracker.jordi_combined
-    - device_tracker.geni_combined
-    - device_tracker.virtual_device
-    - input_boolean.empty_home_activation_delay
-    - input_number.empty_home_activation_delay_minutes
-    - switch.holiday
-    - sensor.next_holiday_mode_start
-    - sensor.next_holiday_mode_end
-    - sensor.next_shift_event
-    - sensor.next_shift_date
-
-Toyota:
-  entities:
-    - device_tracker.toyota
-    - sensor.toyota_batt
-    - sensor.toyota_gps_accuracy
-    - sensor.toyota_last_update
-    - camera.toyota
-    - sensor.toyota_distance_travelled_between_updates
-
-Nissan:
-  entities:
-    - device_tracker.nissan
-    - sensor.nissan_batt
-    - sensor.nissan_gps_accuracy
-    - sensor.nissan_last_update
-    - camera.nissan
-
 Energía:
   entities:
     - binary_sensor.ups_status_bs

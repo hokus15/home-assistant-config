@@ -437,9 +437,7 @@ folder_watcher:
 #  - platform: netatmo
 
 shell_command: !include shell_command.yaml
-device_tracker: !include device_tracker.yaml
 zone: !include zones.yaml
-camera: !include cameras.yaml
 switch: !include switches.yaml
 sensor: !include sensors.yaml
 binary_sensor: !include binary_sensors.yaml
@@ -448,7 +446,6 @@ automation: !include automations.yaml
 #automation: !include_dir_merge_list automation
 script: !include scripts.yaml
 input_number: !include input_sliders.yaml
-input_boolean: !include input_booleans.yaml
 panel_iframe: !include panel_iframes.yaml
 #panel_custom: !include panel_custom.yaml
 #image_processing: !include image_processing.yaml

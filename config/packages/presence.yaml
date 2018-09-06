@@ -1,0 +1,580 @@
+group:
+  Unidad Familiar:
+    entities:
+      - device_tracker.jordi_combined
+      - device_tracker.geni_combined
+      - device_tracker.virtual_device
+  
+  Familia:
+    entities:
+      - device_tracker.jordi_combined
+      - device_tracker.geni_combined
+      - device_tracker.virtual_device
+      - input_boolean.empty_home_activation_delay
+      - input_number.empty_home_activation_delay_minutes
+      - switch.holiday
+      - sensor.next_holiday_mode_start
+      - sensor.next_holiday_mode_end
+      - sensor.next_shift_event
+      - sensor.next_shift_date
+  
+  Toyota:
+    entities:
+      - device_tracker.toyota
+      - sensor.toyota_batt
+      - sensor.toyota_gps_accuracy
+      - sensor.toyota_last_update
+      - camera.toyota
+      - sensor.toyota_distance_travelled_between_updates
+  
+  Nissan:
+    entities:
+      - device_tracker.nissan
+      - sensor.nissan_batt
+      - sensor.nissan_gps_accuracy
+      - sensor.nissan_last_update
+      - camera.nissan
+
+input_boolean:
+  empty_home_activation_delay:
+    name: Retardo
+  #  initial: off
+    icon: 'mdi:clock'
+
+input_number:
+  # Delay to change the state of the virtual_device (in minutes)
+  empty_home_activation_delay_minutes:
+    name: Minutos
+    initial: 180
+    min: 0
+    max: 240
+    step: 5
+
+device_tracker:
+  - platform: linksys_smart
+    host: !secret wrt1900acs_host
+  #  username: !secret wrt1900acs_username 
+  #  password: !secret wrt1900acs_password
+  
+  - platform: mqtt_json
+    devices:
+      # Toyota tracker
+      toyota: location/car/toyota
+      # Nissan tracker
+      nissan: location/car/nissan
+  
+  - platform: mqtt
+    devices:
+      # Updated when hokusphone is connected to a WiFi
+      hokusphone_wifi: location/hokusphone/wifi
+      # Updated when iBeacon is detected from hokusphone
+      hokusphone_ibeacon: location/hokusphone/ibeacon
+      # Updated when geniphone is connected to a WiFi
+      geniphone_wifi: location/geniphone/wifi
+      # Updated when iBeacon is detected from geniphone
+      geniphone_ibeacon: location/geniphone/ibeacon
+
+sensor:
+  - platform: mqtt
+    state_topic: 'location/car/nissan'
+    name: nissan_batt
+    unit_of_measurement: '%'
+    value_template: '{{ value_json.battery_level }}'
+  
+  - platform: mqtt
+    state_topic: 'location/car/nissan'
+    name: nissan_gps_accuracy
+    unit_of_measurement: 'm'
+    value_template: '{{ value_json.gps_accuracy }}'
+  
+  - platform: mqtt
+    state_topic: 'location/car/nissan'
+    name: nissan_last_update
+    value_template: '{{ value_json.last_update|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
+  
+  - platform: mqtt
+    state_topic: 'location/car/toyota'
+    name: toyota_batt
+    unit_of_measurement: '%'
+    value_template: '{{ value_json.battery_level }}'
+  
+  - platform: mqtt
+    state_topic: 'location/car/toyota'
+    name: toyota_gps_accuracy
+    unit_of_measurement: 'm'
+    value_template: '{{ value_json.gps_accuracy }}'
+  
+  - platform: mqtt
+    state_topic: 'location/car/toyota'
+    name: toyota_last_update
+    value_template: '{{ value_json.last_update|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
+  
+  - platform: mqtt
+    state_topic: 'location/car/toyota'
+    name: toyota_previous_latitude
+    value_template: '{{ value_json.platitude }}'
+  
+  - platform: mqtt
+    state_topic: 'location/car/toyota'
+    name: toyota_previous_longitude
+    value_template: '{{ value_json.plongitude }}'
+  
+  - platform: template
+    sensors:
+      toyota_distance_travelled_between_updates:
+        unit_of_measurement: 'm'
+        friendly_name: 'Dist. entre actualizaciones'
+        value_template: '{% if states.device_tracker.toyota.attributes.latitude %} {{ (distance(states("sensor.toyota_previous_latitude"), states("sensor.toyota_previous_longitude"), states.device_tracker.toyota.attributes.latitude, states.device_tracker.toyota.attributes.longitude) * 1000) | round (2) }} {% else %} -1 {% endif %}'
+        icon_template: 'mdi:ruler'
+
+  # Google travel time to work
+  - platform: google_travel_time
+    name: 'a la oficina'
+    api_key: !secret google_api_key
+    origin: device_tracker.toyota
+    destination: zone.oficina
+    options:
+      language: es
+      departure_time: now
+      traffic_model: pessimistic
+  
+  # Google travel time to school
+  - platform: google_travel_time
+    name: 'al colegio'
+    api_key: !secret google_api_key
+    origin: device_tracker.toyota
+    destination: zone.colegio
+    options:
+      language: es
+      departure_time: now
+      traffic_model: pessimistic
+
+  - platform: template
+    sensors:
+      next_holiday_mode_start:
+        friendly_name: 'Inicio vacaciones'
+        value_template: >-
+             {%- if states.calendar.holiday_mode.attributes.start_time is not none %}
+                 {{ as_timestamp(states.calendar.holiday_mode.attributes.start_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}
+             {% else %}
+                 No previstas
+             {%- endif %}
+      next_holiday_mode_end:
+        friendly_name: 'Fin vacaciones'
+        value_template: >-
+             {%- if states.calendar.holiday_mode.attributes.end_time is not none %}
+                 {{ as_timestamp(states.calendar.holiday_mode.attributes.end_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}
+             {% else %}
+                 No previstas
+             {%- endif %}
+      next_shift_event:
+        friendly_name: 'Próx. turno'
+        value_template: '{{ states.calendar.turnos_geni_everything.attributes.message }}'
+      next_shift_date:
+        friendly_name: 'Próx. turno'
+        value_template: >-
+            {%- if as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 0 %}
+                Domingo, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
+            {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 1 %}
+                Lunes, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
+            {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 2 %}
+                Martes, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
+            {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 3 %}
+                Miércoles, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
+            {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 4 %}
+                Jueves, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
+            {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 5 %}
+                Viernes, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
+            {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 6 %}
+                Sábado, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
+            {%- endif %}
+
+camera:
+  - platform: generic
+    name: Toyota
+    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.toyota.attributes.latitude }},{{ states.device_tracker.toyota.attributes.longitude }}&zoom=15&size=1280x1024&maptype=roadmap&markers=icon:https%3A%2F%2Fhome.hokusnet.com%2Flocal%2Ftoyota-small-t.png%7C{{ states.device_tracker.toyota.attributes.latitude }},{{ states.device_tracker.toyota.attributes.longitude }}
+    limit_refetch_to_url_change: true
+  
+  - platform: generic
+    name: Nissan
+    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}&zoom=15&size=500x500&maptype=roadmap&markers=color:grey%7Clabel:N%7C{{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}
+    limit_refetch_to_url_change: true
+
+automation:
+  # Empty home automation when no one of the Familia group is at home
+  - alias: 'Empty home'
+    trigger:
+      platform: state
+      entity_id: group.unidad_familiar
+      to: 'not_home'
+    action:
+      - service: script.turn_on
+        data:
+          entity_id: script.presence_empty_home
+  
+  # Someone home automation when someone of the Familia group is at home
+  - alias: 'Someone home'
+    trigger:
+      platform: state
+      entity_id: group.unidad_familiar
+      to: 'home'
+    action:
+      - service: script.turn_on
+        data:
+          entity_id: script.presence_someone_home
+  
+  # Turn on hall lamp when someone at home and the sun is set
+  - alias: 'Turn on hall lamp when someone at home and the sun is set'
+    trigger:
+      platform: state
+      entity_id: group.unidad_familiar
+      to: 'home'
+    condition:
+      condition: sun
+      after: sunset
+    action:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.swiid_swiidinter_lampara_recibidor_switch
+  
+  # When input_boolean.empty_home_activation_delay turns on,
+  # Change virtual_device location to home
+  # Wait the specified amount of minutes 
+  # Turn off input_boolean.empty_home_activation_delay
+  - alias: 'empty_home_activation_delay on'
+    trigger:
+      platform: state
+      entity_id: input_boolean.empty_home_activation_delay
+      to: 'on'
+    action:
+      - service: device_tracker.see
+        data:
+          dev_id: 'virtual_device'
+          location_name: 'home'
+      - service: notify.telegram
+        data_template:
+          message: >
+            Activada persona autorizada durante {{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }} hora(s) y {{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }} minutos
+      - delay: '{{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }}:{{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }}'
+      - service: homeassistant.turn_off
+        data:
+          entity_id: input_boolean.empty_home_activation_delay
+  
+  # When input_boolean.empty_home_activation_delay turns off,
+  # Change virtual_device location to not_home
+  - alias: 'empty_home_activation_delay off'
+    trigger:
+      platform: state
+      entity_id: input_boolean.empty_home_activation_delay
+      to: 'off'
+    action:
+      - service: device_tracker.see
+        data:
+          dev_id: 'virtual_device'
+          location_name: 'not_home'
+  
+  # Turn on for 4 hours authorized person at 7:00 if it's a workday and the shift in calendar is "Mañana" or "Saliente"
+  - alias: 'Authorized person'
+    trigger:
+      platform: time
+      at: '07:00:00'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: 'binary_sensor.workday_sensor'
+          state: 'on'
+        - condition: or
+          conditions:
+          - condition: state
+            entity_id: 'calendar.turnos_geni_manyana'
+            state: 'on'
+          - condition: state
+            entity_id: 'calendar.turnos_geni_saliente'
+            state: 'on'
+    action:
+      - service: input_number.set_value
+        data:
+          entity_id: input_number.empty_home_activation_delay_minutes
+          value: 240.0
+      - service: homeassistant.turn_on
+        data:
+          entity_id: input_boolean.empty_home_activation_delay
+  
+  #############################################################
+  # Presence automations - Geni
+  #############################################################
+  
+  # When some related entities (device_tracker.geniphone, device_tracker.geniphone_wifi, device_tracker.geniphone_ibeacon) changes its state:
+  # Set Geni to 'En ruta' if ibeacon is not 'home' and don't have the 'not_detected' value.
+  # Else set Geni to 'home' when at least ONE of related entities are set to 'home'
+  # Else set Geni to 'not_home' when ALL related entities are in a state different from 'home' and not 'En ruta'
+  # Set Geni to the WiFi name otherwise
+  - alias: 'Geni location'
+    trigger:
+      - platform: state
+        entity_id: device_tracker.geniphone, device_tracker.geniphone_wifi, device_tracker.geniphone_ibeacon
+      - platform: homeassistant
+        event: start
+    action:
+      - service: device_tracker.see
+        data_template:
+          dev_id: 'geni_combined'
+          location_name: >
+            {%- if not(is_state('device_tracker.geniphone_ibeacon', 'home')) and not(is_state('device_tracker.geniphone_ibeacon', 'not_detected'))-%}
+              {{ states.device_tracker.geniphone_ibeacon.state }}
+            {%- else -%}
+              {%- if is_state('device_tracker.geniphone', 'home') or is_state('device_tracker.geniphone_wifi', 'home') or is_state('device_tracker.geniphone_ibeacon', 'home') -%}
+                home
+              {%- else -%}
+                {%- if is_state('device_tracker.geniphone', 'not_home') and is_state('device_tracker.geniphone_wifi', 'not_connected') and is_state('device_tracker.geniphone_ibeacon', 'not_detected') -%}
+                  not_home
+                {%- else -%}
+                  {{ states.device_tracker.geniphone_wifi.state }}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endif -%}
+  
+  # If fence is closed, Nissan enter 'home' zone and Geni is 'En Ruta'
+  # Open fence, notify it and set Geni as 'home'
+  - alias: 'Geni arriving home'
+    trigger:
+       - platform: zone
+         entity_id: device_tracker.nissan
+         zone: zone.home
+         event: enter
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: sensor.switch_barrera
+          state: 'Cerrada'
+        - condition: state
+          entity_id: device_tracker.geni_combined
+          state: 'En ruta'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.barrera
+        data_template:
+          message: 'Barrera abierta automáticamente para Geni'
+          inline_keyboard: 
+            - 'Cerrar:/script.turn_on#script.fence_close'
+      - delay:
+          seconds: 5
+      - service: device_tracker.see
+        data:
+          dev_id: 'geni_combined'
+          location_name: 'home'
+  
+  #############################################################
+  # Presence automations - Jordi
+  #############################################################
+  
+  # When some related entities (device_tracker.hokusphone, device_tracker.hokusphone_wifi, device_tracker.hokusphone_ibeacon) changes its state:
+  # Set Jordi to 'En ruta' if ibeacon is not 'home' and don't have the 'not_detected' value.
+  # Else set Jordi to 'home' when at least ONE of related entities are set to 'home'
+  # Else set Jordi to 'not_home' when ALL related entities are in a state different from 'home' and not 'En ruta'
+  # Set Jordi to the WiFi name otherwise
+  - alias: 'Jordi location'
+    trigger:
+      - platform: state
+        entity_id: device_tracker.hokusphone, device_tracker.hokusphone_wifi, device_tracker.hokusphone_ibeacon
+      - platform: homeassistant
+        event: start
+    action:
+      - service: device_tracker.see
+        data_template:
+          dev_id: 'jordi_combined'
+          location_name: >
+            {%- if not(is_state('device_tracker.hokusphone_ibeacon', 'home')) and not(is_state('device_tracker.hokusphone_ibeacon', 'not_detected'))-%}
+              {{ states.device_tracker.hokusphone_ibeacon.state }}
+            {%- else -%}
+              {%- if is_state('device_tracker.hokusphone', 'home') or is_state('device_tracker.hokusphone_wifi', 'home') or is_state('device_tracker.hokusphone_ibeacon', 'home') -%}
+                home
+              {%- else -%}
+                {%- if is_state('device_tracker.hokusphone', 'not_home') and is_state('device_tracker.hokusphone_wifi', 'not_connected') and is_state('device_tracker.hokusphone_ibeacon', 'not_detected') -%}
+                  not_home
+                {%- else -%}
+                  {{ states.device_tracker.hokusphone_wifi.state }}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endif -%}
+  
+  # If fence is closed, Toyota enter 'home' zone and Jordi is 'En Ruta'
+  # Open fence, notify it, send a meessage to mqtt topic, and set Jordi as 'home'
+  - alias: 'Jordi arriving home'
+    trigger:
+       - platform: zone
+         entity_id: device_tracker.toyota
+         zone: zone.home
+         event: enter
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: sensor.switch_barrera
+          state: 'Cerrada'
+        - condition: state
+          entity_id: device_tracker.jordi_combined
+          state: 'En ruta'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.barrera
+      - service: mqtt.publish
+        data:
+          payload_template: >
+            He abierto la barrera. {%- if is_state("device_tracker.geni_combined", "home") -%}Jeni está en casa. {%- else -%}Es posible que Jeni no esté en casa.{%- endif -%}
+          retain: false
+          topic: 'device/carphone/say'
+      - delay:
+          seconds: 5
+      - service: telegram_bot.send_message
+        data_template:
+          message: 'Barrera abierta automáticamente'
+          target: !secret hokusphone_telegram_chat_id
+          inline_keyboard: 
+            - 'Cerrar:/script.turn_on#script.fence_close'
+      - service: device_tracker.see
+        data:
+          dev_id: 'jordi_combined'
+          location_name: 'home'
+  
+  # When Jordi leave home zone and in the car:
+  #   - Set hokusphone 'not_home'
+  #   - If nobody at home, close the fence if open, and notify if porch door or blind is open.
+  - alias: 'Jordi leaving home with car'
+    trigger:
+       - platform: zone
+         entity_id: device_tracker.toyota
+         zone: zone.home
+         event: leave
+    condition:
+      - condition: state
+        entity_id: device_tracker.jordi_combined
+        state: 'En ruta'
+    action:
+      - service: device_tracker.see
+        data:
+          dev_id: 'hokusphone'
+          location_name: 'not_home'
+      - service: mqtt.publish
+        data:
+          payload_template: >
+            {%- if is_state("group.unidad_familiar", "not_home") -%}{%- if is_state("sensor.switch_barrera", "Abierta") -%}Te has dejado la barrera abierta, la voy a cerrar. {%- endif -%}{%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif -%}{%- endif -%}La previsión del tiempo es de {{ states.sensor.pws_weather_1d_metric.state | replace(" C."," grados") }}
+          retain: false
+          topic: 'device/carphone/say'
+      - service_template: >
+          {%- if is_state("group.unidad_familiar", "not_home") -%}
+            {%- if is_state("sensor.switch_barrera", "Abierta") -%}
+              homeassistant.turn_on
+            {%- endif -%}
+          {%- endif -%}
+  
+        data:
+          entity_id: switch.barrera
+
+script:
+  presence_empty_home:
+    alias: 'Empty home'
+    sequence:
+      # Alarm arm away
+      - service: script.turn_on
+        data:
+          entity_id: script.alarm_arm_away
+      # Turn off hall lamp
+      - service: switch.turn_off
+        data:
+          entity_id: switch.swiid_swiidinter_lampara_recibidor_switch
+      # Turn off stair lights
+      - service: switch.turn_off
+        data:
+          entity_id: switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
+      # Turn off suite light
+      - service: switch.turn_off
+        data:
+          entity_id: switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
+      # Continue script only if switch.termostato is on and not in holiday mode
+      - condition: state
+        entity_id: switch.termostato
+        state: 'on'
+      - condition: state
+        entity_id: switch.holiday
+        state: 'off'
+     # Turn on thermostat away mode 
+      - service: climate.set_away_mode
+        entity_id: climate.termostato
+        data:
+          away_mode: true
+  
+  presence_someone_home:
+    alias: 'Someone at home'
+    sequence:
+      # Disarm alarm
+      - service: alarm_control_panel.alarm_disarm
+        entity_id: alarm_control_panel.casa
+      # Continue script only if switch.termostato is on and not in holiday mode
+      - condition: state
+        entity_id: switch.termostato
+        state: 'on'
+      - condition: state
+        entity_id: switch.holiday
+        state: 'off'
+     # Turn off thermostat away mode 
+      - service: climate.set_away_mode
+        entity_id: climate.termostato
+        data:
+          away_mode: false
+  
+  presence_set_virtual_device_home:
+    alias: 'Set virtual device at home for 180 minutes'
+    sequence:
+      - service: input_number.set_value
+        data:
+          entity_id: input_number.empty_home_activation_delay_minutes
+          value: 180.0
+      - service: homeassistant.turn_on
+        data:
+          entity_id: input_boolean.empty_home_activation_delay
+  
+  presence_leave_home:
+    alias: 'Leave home'
+    sequence:
+      - service: script.turn_on
+        data:
+          entity_id: script.speech_set_tts_volume_level
+      - service: tts.google_say
+        entity_id: media_player.homeassistant
+        data_template:
+          message: >
+            {% set incidence = false %}
+            {%- if is_state("binary_sensor.porche_sensor_puerta", "on") %}{% set incidence = true %}Puerta de la cocina abierta. {% endif %}
+            {%- if is_state("binary_sensor.porche_sensor_persiana", "on") %}{% set incidence = true %}Persiana de la cocina abierta. {% endif %}
+            {%- if is_state("binary_sensor.coladuria_sensor_puerta", "on") %}{% set incidence = true %}Puerta de la coladuria abierta. {% endif %}
+            {%- if is_state("switch.swiid_swiidinter_lampara_recibidor_switch", "on") %}{% set incidence = true %}Lámpara del recibidor encendida. {% endif %}
+            {%- if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch", "on") %}{% set incidence = true %}Luz de la escalera encendida. {% endif %}
+            {%- if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2", "on") %}{% set incidence = true %}Luz de la suite encendida. {% endif %}
+            {%- if is_state("sensor.switch_barrera", "Abierta") %}{% set incidence = true %}Barrera abierta.{% endif -%}
+            {%- if not incidence %}Todo correcto.{% endif %}
+  
+  presence_authorized_person_ga:
+    alias: 'Authorizes a person the specified number of minutes'
+    sequence:
+      - service: input_number.set_value
+        data_template:
+          entity_id: input_number.empty_home_activation_delay_minutes
+          value: '{{data.minutes}}'
+      - service: homeassistant.turn_on
+        data:
+          entity_id: input_boolean.empty_home_activation_delay
+      - service: telegram_bot.send_message
+        data_template:
+          message: 'Google Assistant a autorizado presencia en casa durante {{data.minutes}} minutos'
+          target: !secret hokusphone_telegram_chat_id
+  
+  presence_jordi_at_home:
+    alias: 'Jordi at home'
+    sequence:
+      - service: device_tracker.see
+        data:
+          dev_id: 'jordi_combined'
+          location_name: 'home'

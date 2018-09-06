@@ -6,14 +6,6 @@ entrada_luz_brillo:
   max: 100
   step: 5
 
-# Delay to change the state of the virtual_device (in minutes)
-empty_home_activation_delay_minutes:
-  name: Minutos
-  initial: 180
-  min: 0
-  max: 240
-  step: 5
-
 piscina_temperature:
   name: Temp. agua
   min: 0
