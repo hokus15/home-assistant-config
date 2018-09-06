@@ -2,28 +2,3 @@ empty_home_activation_delay:
   name: Retardo
 #  initial: off
   icon: 'mdi:clock'
-
-cocina_sensor_puerta:
-  name: Det. apert. puerta porche
-  initial: on
-  icon: 'mdi:glassdoor'
-
-cocina_sensor_persiana:
-  name: Det. apert. persiana porche
-  initial: on
-  icon: 'mdi:glassdoor'
-
-coladuria_sensor_puerta:
-  name: Det. apert. puerta coladuría
-  initial: on
-  icon: 'mdi:glassdoor'
-
-salon_sensor_movimiento:
-  name: Det. mov. salón
-  initial: on
-  icon: 'mdi:transit-transfer'
-
-entrada_principal_det_mov:
-  name: Det. mov. entrada ppal.
-  initial: on
-  icon: 'mdi:transit-transfer'

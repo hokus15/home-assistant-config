@@ -1,0 +1,333 @@
+group:
+  Seguridad:
+    entities:
+      - switch.recibidor_camara_det_mov
+      - switch.piscina_camara_det_mov
+      - switch.barbacoa_camara_det_mov
+      - switch.caseta_camara_det_mov
+      - input_boolean.entrada_principal_det_mov
+      - input_boolean.salon_sensor_movimiento
+      - input_boolean.cocina_sensor_puerta
+      - input_boolean.cocina_sensor_persiana
+      - input_boolean.coladuria_sensor_puerta
+
+  Cámara recibidor:
+    entities:
+      - camera.recibidor
+      - switch.recibidor_camara_det_mov
+      - binary_sensor.recibidor_camara_infrarrojo
+      - binary_sensor.recibidor_camara_det_mov
+  
+  Cámara barbacoa:
+    entities:
+      - camera.barbacoa
+      - switch.barbacoa_camara_det_mov
+      - binary_sensor.barbacoa_camara_infrarrojo
+      - binary_sensor.barbacoa_camara_det_mov
+  
+  Cámara piscina:
+    entities:
+      - camera.piscina
+      - switch.piscina_camara_det_mov
+      - binary_sensor.piscina_camara_infrarrojo
+      - binary_sensor.piscina_camara_det_mov
+  
+  Cámara caseta:
+    entities:
+      - camera.caseta
+      - switch.caseta_camara_det_mov
+      - binary_sensor.caseta_camara_infrarrojo
+      - binary_sensor.caseta_camara_det_mov
+  
+  Cámara entrada principal:
+    entities:
+      - camera.entrada_principal
+      - input_boolean.entrada_principal_det_mov
+      - binary_sensor.entrada_principal_outdoor_motion
+      - binary_sensor.entrada_principal_outdoor_human
+      - binary_sensor.entrada_principal_outdoor_animal
+      - binary_sensor.entrada_principal_outdoor_vehicle
+  
+  Seguridad interior:
+    entities:
+      - switch.recibidor_camara_det_mov
+      - input_boolean.salon_sensor_movimiento
+      - input_boolean.cocina_sensor_puerta
+      - input_boolean.coladuria_sensor_puerta
+  
+  Seguridad exterior:
+    entities:
+      - switch.piscina_camara_det_mov
+      - switch.barbacoa_camara_det_mov
+      - switch.caseta_camara_det_mov
+      - input_boolean.entrada_principal_det_mov
+      - input_boolean.cocina_sensor_persiana
+  
+  Sensor salón:
+    entities:
+      - binary_sensor.salon_sensor_movimiento
+      - binary_sensor.salon_sensor_movimiento_sabotaje
+  #    - sensor.salon_sensor_movimiento_bateria
+      - input_boolean.salon_sensor_movimiento
+  
+  Puerta porche cocina:
+    entities:
+      - binary_sensor.porche_sensor_puerta
+      - input_boolean.cocina_sensor_puerta
+  
+  Persiana porche cocina:
+    entities:
+      - binary_sensor.porche_sensor_persiana
+      - input_boolean.cocina_sensor_persiana
+  
+  Puerta coladuria cocina:
+    entities:
+      - binary_sensor.coladuria_sensor_puerta
+      - input_boolean.coladuria_sensor_puerta
+
+switch:
+  - platform: command_line
+    switches:
+      #Switch for Foscam Motion Detection
+      recibidor_camara_det_mov:
+        # Command used:
+        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=1&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
+        command_on: !secret cam_recibidor_motion_detection_on
+        # Command used:
+        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=0&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
+        command_off: !secret cam_recibidor_motion_detection_off
+        # Command used:
+        # 'curl -k --silent "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=getMotionDetectConfig&usr=<camera_username>&pwd=<camera_password>" | grep -oP "(?<=isEnable>).*?(?=</isEnable>)"'
+        command_state: !secret cam_recibidor_motion_detection_state
+        value_template: '{{ value == "1" }}'
+  
+  - platform: command_line
+    switches:
+      #Switch for Foscam Motion Detection
+      piscina_camara_det_mov:
+        # Command used:
+        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=1&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1009&area5=992&area6=992&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
+        command_on: !secret cam_piscina_motion_detection_on
+        # Command used:
+        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=0&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1009&area5=992&area6=992&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
+        command_off: !secret cam_piscina_motion_detection_off
+        # Command used:
+        # 'curl -k --silent "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=getMotionDetectConfig&usr=<camera_username>&pwd=<camera_password>" | grep -oP "(?<=isEnable>).*?(?=</isEnable>)"'
+        command_state: !secret cam_piscina_motion_detection_state
+        value_template: '{{ value == "1" }}'
+  
+  - platform: command_line
+    switches:
+      #Switch for Foscam Motion Detection
+      barbacoa_camara_det_mov:
+        # Command used:
+        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig1&isEnable=1&linkage=4&snapInterval=5&triggerInterval=5&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&x1=0&y1=0&width1=10000&height1=10000&threshold1=50&sensitivity1=0&valid1=1&x2=0&y2=0&width2=0&height2=0&threshold2=50&sensitivity2=0&valid2=0&x3=0&y3=0&width3=0&height3=0&threshold3=50&sensitivity3=0&valid3=0&usr=<camera_username>&pwd=<camera_password>"'
+        command_on: !secret cam_barbacoa_motion_detection_on
+        # Command used:
+        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig1&isEnable=0&linkage=4&snapInterval=5&triggerInterval=5&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&x1=0&y1=0&width1=10000&height1=10000&threshold1=50&sensitivity1=0&valid1=1&x2=0&y2=0&width2=0&height2=0&threshold2=50&sensitivity2=0&valid2=0&x3=0&y3=0&width3=0&height3=0&threshold3=50&sensitivity3=0&valid3=0&usr=<camera_username>&pwd=<camera_password>"'
+        command_off: !secret cam_barbacoa_motion_detection_off
+        # Command used:
+        # 'curl -k --silent "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=getMotionDetectConfig1&usr=<camera_username>&pwd=<camera_password>" | grep -oP "(?<=isEnable>).*?(?=</isEnable>)"'
+        command_state: !secret cam_barbacoa_motion_detection_state
+        value_template: '{{ value == "1" }}'
+  
+  - platform: command_line
+    switches:
+      #Switch for Foscam Motion Detection
+      caseta_camara_det_mov:
+        # Command used:
+        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=1&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
+        command_on: !secret cam_caseta_motion_detection_on
+        # Command used:
+        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=0&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
+        command_off: !secret cam_caseta_motion_detection_off
+        # Command used:
+        # 'curl -k --silent "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=getMotionDetectConfig&usr=<camera_username>&pwd=<camera_password>" | grep -oP "(?<=isEnable>).*?(?=</isEnable>)"'
+        command_state: !secret cam_caseta_motion_detection_state
+        value_template: '{{ value == "1" }}'
+  
+  - platform: command_line
+    switches:
+      #Switch for Linksys WVC54GCA Motion Detection
+      ph_piscina_camara_det_mov:
+        # Command used:
+        # 'curl --user <camera_username>:<camera_password> -k "http://<camera_host>:<camera_port>/adm/file.cgi?h_en_trig=1&todo=save"'
+        command_on: !secret cam_ph_piscina_motion_detection_on
+        # Command used:
+        # 'curl --user <camera_username>:<camera_password> -k "http://<camera_host>:<camera_port>/adm/file.cgi?h_en_trig=0&todo=save"'
+        command_off: !secret cam_ph_piscina_motion_detection_off
+        # Command used:
+        # 'curl --user <camera_username>:<camera_password> -k --silent "http://<camera_host>:<camera_port>/adm/file.cgi?next_file=event.htm" | grep -oP "(?<=<input type=\"Hidden\" name=\"h_en_trig\" value=\").*?(?=\">)"'
+        command_state: !secret cam_ph_piscina_motion_detection_state
+        value_template: '{{ value == "1" }}'
+
+input_boolean:
+  cocina_sensor_puerta:
+    name: Det. apert. puerta porche
+    initial: on
+    icon: 'mdi:glassdoor'
+  
+  cocina_sensor_persiana:
+    name: Det. apert. persiana porche
+    initial: on
+    icon: 'mdi:glassdoor'
+  
+  coladuria_sensor_puerta:
+    name: Det. apert. puerta coladuría
+    initial: on
+    icon: 'mdi:glassdoor'
+  
+  salon_sensor_movimiento:
+    name: Det. mov. salón
+    initial: on
+    icon: 'mdi:transit-transfer'
+  
+  entrada_principal_det_mov:
+    name: Det. mov. entrada ppal.
+    initial: on
+    icon: 'mdi:transit-transfer'
+
+camera:
+  # Hall camera
+  - platform: foscam
+    ip: !secret cam_recibidor_host
+    name: recibidor
+    port: !secret cam_recibidor_port
+    username: !secret cam_recibidor_username
+    password: !secret cam_recibidor_password
+  
+   # Swiming pool camera
+  - platform: foscam
+    ip: !secret cam_piscina_host
+    name: piscina
+    port: !secret cam_piscina_port
+    username: !secret cam_piscina_username
+    password: !secret cam_piscina_password
+  
+   # Bbq camera
+  - platform: foscam
+    ip: !secret cam_barbacoa_host
+    name: barbacoa
+    port: !secret cam_barbacoa_port
+    username: !secret cam_barbacoa_username
+    password: !secret cam_barbacoa_password
+  
+  # Backyard stand camera
+  - platform: foscam
+    ip: !secret cam_caseta_host
+    name: caseta
+    port: !secret cam_caseta_port
+    username: !secret cam_caseta_username
+    password: !secret cam_caseta_password
+  
+  # Swimming pool stand camera
+  # For Linksys WVC54GCA http://<cam-host>:<cam_port>/img/snapshot.cgi
+  - platform: generic
+    still_image_url: !secret cam_ph_piscina_still_image_url
+    name: pH Piscina
+    username: !secret cam_ph_piscina_username
+    password: !secret cam_ph_piscina_password
+    authentication: basic
+
+binary_sensor:
+  # Infrared status for foscam cam in hall
+  - platform: command_line
+    # Command used to get infrared status for a foscam camera:
+    # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
+    command: !secret cam_recibidor_infrared_command
+    name: recibidor_camara_infrarrojo
+    payload_on: '1'
+    payload_off: '0'
+    #device_class: light
+  
+  # Infrared status for foscam cam in swimming pool
+  - platform: command_line
+    # Command used to get infrared status for a foscam camera:
+    # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
+    command: !secret cam_piscina_infrared_command
+    name: piscina_camara_infrarrojo
+    payload_on: '1'
+    payload_off: '0'
+    #device_class: light
+  
+  # Infrared status for foscam cam in bbq
+  - platform: command_line
+    # Command used to get infrared status for a foscam camera:
+    # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
+    command: !secret cam_barbacoa_infrared_command
+    name: barbacoa_camara_infrarrojo
+    payload_on: '1'
+    payload_off: '0'
+    #device_class: light
+  
+  # Infrared status for foscam cam in hall
+  - platform: command_line
+    # Command used to get infrared status for a foscam camera:
+    # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
+    command: !secret cam_caseta_infrared_command
+    name: caseta_camara_infrarrojo
+    payload_on: '1'
+    payload_off: '0'
+    #device_class: light
+  
+  # Alarm status for foscam cam in hall
+  - platform: mqtt
+    state_topic: 'home/camera/recibidor/alarm'
+    name: 'recibidor_camara_det_mov'
+    device_class: motion
+    # 0: No alarm
+    # 1: Alarm triggered
+    value_template: >-
+            {%- if value != "0" %}
+                ON
+            {% else %}
+                OFF
+            {%- endif %}
+  
+  # Alarm status for foscam cam in swimming pool
+  - platform: mqtt
+    state_topic: 'home/camera/piscina/alarm'
+    name: 'piscina_camara_det_mov'
+    device_class: motion
+    # 0: No alarm
+    # 1: Alarm triggered
+    value_template: >-
+            {%- if value != "0" %}
+                ON
+            {% else %}
+                OFF
+            {%- endif %}
+  
+  # Alarm status for foscam cam in bbq
+  - platform: mqtt
+    state_topic: 'home/camera/barbacoa/alarm'
+    name: 'barbacoa_camara_det_mov'
+    device_class: motion
+    # 0: No alarm
+    # 1: Alarm triggered
+    value_template: >-
+            {%- if value != "0" %}
+                ON
+            {% else %}
+                OFF
+            {%- endif %}
+  
+  # Alarm status for Linksys cam in caseta
+  - platform: mqtt
+    state_topic: 'home/camera/caseta/alarm'
+    name: 'caseta_camara_det_mov'
+    device_class: motion
+    # 0: No alarm
+    # 1: Alarm triggered
+    value_template: >-
+            {%- if value != "0" %}
+                ON
+            {% else %}
+                OFF
+            {%- endif %}
+  
+  - platform: template
+    sensors:
+      salon_sensor_movimiento_sabotaje:
+        value_template: "{{ is_state('sensor.salon_sensor_movimiento_burglar', '3') }}"
+        device_class: vibration
