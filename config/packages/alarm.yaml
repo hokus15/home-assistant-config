@@ -338,7 +338,7 @@ automation:
     action:
       # Delay to allow the file to be totally written in the FTP before sending it
       - delay:
-          seconds: 60
+          seconds: 90
       # Notify the video taken
       - service: script.alarm_notify_camera
         data_template:
