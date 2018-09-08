@@ -1,3 +1,10 @@
+folder_watcher:
+  - folder: /home/camera
+    patterns:
+      - '*.jpg'
+      - '*.mp4'
+      - '*.mkv'
+
 recorder:
   exclude:
     entities:
@@ -168,34 +175,34 @@ switch:
         command_state: !secret cam_barbacoa_motion_detection_state
         value_template: '{{ value == "1" }}'
   
-  - platform: command_line
-    switches:
-      #Switch for Foscam Motion Detection
-      caseta_camara_det_mov:
-        # Command used:
-        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=1&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
-        command_on: !secret cam_caseta_motion_detection_on
-        # Command used:
-        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=0&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
-        command_off: !secret cam_caseta_motion_detection_off
-        # Command used:
-        # 'curl -k --silent "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=getMotionDetectConfig&usr=<camera_username>&pwd=<camera_password>" | grep -oP "(?<=isEnable>).*?(?=</isEnable>)"'
-        command_state: !secret cam_caseta_motion_detection_state
-        value_template: '{{ value == "1" }}'
+#  - platform: command_line
+#    switches:
+#      #Switch for Foscam Motion Detection
+#      caseta_camara_det_mov:
+#        # Command used:
+#        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=1&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
+#        command_on: !secret cam_caseta_motion_detection_on
+#        # Command used:
+#        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=0&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
+#        command_off: !secret cam_caseta_motion_detection_off
+#        # Command used:
+#        # 'curl -k --silent "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=getMotionDetectConfig&usr=<camera_username>&pwd=<camera_password>" | grep -oP "(?<=isEnable>).*?(?=</isEnable>)"'
+#        command_state: !secret cam_caseta_motion_detection_state
+#        value_template: '{{ value == "1" }}'
   
   - platform: command_line
     switches:
       #Switch for Linksys WVC54GCA Motion Detection
-      ph_piscina_camara_det_mov:
+      caseta_camara_det_mov:
         # Command used:
         # 'curl --user <camera_username>:<camera_password> -k "http://<camera_host>:<camera_port>/adm/file.cgi?h_en_trig=1&todo=save"'
-        command_on: !secret cam_ph_piscina_motion_detection_on
+        command_on: !secret cam_caseta_motion_detection_on
         # Command used:
         # 'curl --user <camera_username>:<camera_password> -k "http://<camera_host>:<camera_port>/adm/file.cgi?h_en_trig=0&todo=save"'
-        command_off: !secret cam_ph_piscina_motion_detection_off
+        command_off: !secret cam_caseta_motion_detection_off
         # Command used:
         # 'curl --user <camera_username>:<camera_password> -k --silent "http://<camera_host>:<camera_port>/adm/file.cgi?next_file=event.htm" | grep -oP "(?<=<input type=\"Hidden\" name=\"h_en_trig\" value=\").*?(?=\">)"'
-        command_state: !secret cam_ph_piscina_motion_detection_state
+        command_state: !secret cam_caseta_motion_detection_state
         value_template: '{{ value == "1" }}'
 
 input_boolean:
@@ -250,12 +257,20 @@ camera:
     password: !secret cam_barbacoa_password
   
   # Backyard stand camera
-  - platform: foscam
-    ip: !secret cam_caseta_host
+#  - platform: foscam
+#    ip: !secret cam_caseta_host
+#    name: caseta
+#    port: !secret cam_caseta_port
+#    username: !secret cam_caseta_username
+#    password: !secret cam_caseta_password
+
+  # For Linksys WVC54GCA http://<cam-host>:<cam_port>/img/snapshot.cgi
+  - platform: generic
+    still_image_url: !secret cam_caseta_still_image_url
     name: caseta
-    port: !secret cam_caseta_port
     username: !secret cam_caseta_username
     password: !secret cam_caseta_password
+    authentication: basic
 
 binary_sensor:
   # Infrared status for foscam cam in hall
@@ -288,15 +303,15 @@ binary_sensor:
     payload_off: '0'
     #device_class: light
   
-  # Infrared status for foscam cam in hall
-  - platform: command_line
-    # Command used to get infrared status for a foscam camera:
-    # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
-    command: !secret cam_caseta_infrared_command
-    name: caseta_camara_infrarrojo
-    payload_on: '1'
-    payload_off: '0'
-    #device_class: light
+  # Infrared status for foscam cam in 
+#  - platform: command_line
+#    # Command used to get infrared status for a foscam camera:
+#    # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
+#    command: !secret cam_caseta_infrared_command
+#    name: caseta_camara_infrarrojo
+#    payload_on: '1'
+#    payload_off: '0'
+#    #device_class: light
   
   # Alarm status for foscam cam in hall
   - platform: mqtt
@@ -387,4 +402,77 @@ sensor:
       salon_sensor_movimiento_bateria:
         value_template: '{% if states.zwave.salon_sensor_movimiento %}{{ states.zwave.salon_sensor_movimiento.attributes.battery_level }}{% else %}Desconocido{% endif %}'
         unit_of_measurement: '%'
-  
+
+automation:
+  # Convert mkv videos to mp4 as soon as they are created to be able to send them through telegram
+  - alias: 'Convert MKV to MP4'
+    trigger:
+      platform: event
+      event_type: folder_watcher
+      event_data:
+        event_type: created
+    condition:
+      condition: template
+      value_template: '{{ "mkv" in trigger.event.data.file }}'
+    action:
+      # Delay execution to let the file to be fully loaded in the ftp
+      - delay:
+          seconds: 15
+      - service: shell_command.mp4_convert
+        data_template:
+          file: '{{ trigger.event.data.path }}'
+
+  # Trigger motion detected in camera for 30 seconds
+  - alias: 'Motion detected in camera'
+    trigger:
+      platform: event
+      event_type: folder_watcher
+      event_data:
+        event_type: created
+    action:
+      - service: mqtt.publish
+        data_template:
+          payload_template: 1
+          retain: true
+          topic: >- 
+              {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/camera/recibidor/alarm
+              {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/camera/piscina/alarm
+              {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/camera/barbacoa/alarm
+              {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/camera/caseta/alarm
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/alarm
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/xxxxx/alarm
+              {%- else -%}desconocido{%-endif-%}
+      - delay:
+          seconds: 30
+      - service: mqtt.publish
+        data_template:
+          payload: 0
+          retain: true
+          topic:  >- 
+              {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/camera/recibidor/alarm
+              {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/camera/piscina/alarm
+              {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/camera/barbacoa/alarm
+              {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/camera/caseta/alarm
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/alarm
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/xxxxx/alarm
+              {%- else -%}desconocido{%-endif-%}
+      - service: logbook.log
+        data_template:
+          name: >-
+              {%- if "C1_00626E615161" in trigger.event.data.folder -%}Recibidor
+              {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}Piscina
+              {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}Barbacoa
+              {%- elif "WVC54CGA" in trigger.event.data.folder -%}Caseta
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}Entrada principal
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}xxxxx
+              {%- else -%}desconocido{%-endif-%}
+          message: 'Movimiento detectado'
+          entity_id: >-
+              {%- if "C1_00626E615161" in trigger.event.data.folder -%}camera.recibidor
+              {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}camera.piscina
+              {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}camera.barbacoa
+              {%- elif "WVC54CGA" in trigger.event.data.folder -%}camera.caseta
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}camera.entrada_principal
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}camera.xxxxx
+              {%- else -%}desconocido{%-endif-%}
+          domain: camera

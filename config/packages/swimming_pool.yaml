@@ -30,16 +30,6 @@ group:
       - camera.piscina
       - camera.ph_piscina
 
-camera:
-  # Swimming pool stand camera
-  # For Linksys WVC54GCA http://<cam-host>:<cam_port>/img/snapshot.cgi
-  - platform: generic
-    still_image_url: !secret cam_ph_piscina_still_image_url
-    name: pH Piscina
-    username: !secret cam_ph_piscina_username
-    password: !secret cam_ph_piscina_password
-    authentication: basic
-
 sensor:
   - platform: template
     sensors:

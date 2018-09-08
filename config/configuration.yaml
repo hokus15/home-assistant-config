@@ -328,13 +328,6 @@ tts:
 freedns:
   access_token: !secret freedns_token
 
-folder_watcher:
-  - folder: /home/camera
-    patterns:
-      - '*.jpg'
-      - '*.mp4'
-      - '*.mkv'
-
 #climate:
 #  - platform: netatmo
 
