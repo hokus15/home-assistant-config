@@ -149,8 +149,6 @@ automation:
         entity_id: binary_sensor.salon_sensor_movimiento
         to: 'on'
     condition:
-      condition: and
-      conditions:
       - condition: template
         value_template: >- 
           {%- set inputBooleanMap ={"binary_sensor.porche_sensor_puerta": "input_boolean.cocina_sensor_puerta",
@@ -159,10 +157,14 @@ automation:
                            "binary_sensor.salon_sensor_movimiento": "input_boolean.salon_sensor_movimiento"}
            -%}
            {{is_state(inputBooleanMap[trigger.entity_id],'on')}}
+    action:
+      # Delay before evaluating alarm state. This is needed to avoid skipping notifications
+      - delay:
+          seconds: 1
+      # Only continue execution if alarm has been triggered
       - condition: state
         entity_id: alarm_control_panel.casa
         state: 'triggered'
-    action:
       - service: script.alarm_notify_sensor
         data_template:
           data:
@@ -191,9 +193,6 @@ automation:
     condition:
       condition: and
       conditions:
-      - condition: state
-        entity_id: alarm_control_panel.casa
-        state: 'triggered'
       - condition: template
         value_template: '{{ "jpg" in trigger.event.data.file }}'
       - condition: or
@@ -211,9 +210,16 @@ automation:
           entity_id: switch.caseta_camara_det_mov
           state: 'on'
     action:
+      # Delay before evaluating alarm state. This is needed to avoid skipping notifications
+      - delay:
+          seconds: 1
+      # Only continue execution if alarm has been triggered
+      - condition: state
+        entity_id: alarm_control_panel.casa
+        state: 'triggered'
       # Delay to allow the file to be totally written in the FTP before sending it
       - delay:
-          seconds: 2
+          seconds: 1
       # Notify the pictures taken
       - service: script.alarm_notify_camera
         data_template:
@@ -246,9 +252,6 @@ automation:
     condition:
       condition: and
       conditions:
-      - condition: state
-        entity_id: alarm_control_panel.casa
-        state: 'triggered'
       - condition: template
         value_template: '{{ "mp4" in trigger.event.data.file }}'
       - condition: or
@@ -269,6 +272,13 @@ automation:
           entity_id: input_boolean.entrada_principal_det_mov
           state: 'on'
     action:
+      # Delay before evaluating alarm state. This is needed to avoid skipping notifications
+      - delay:
+          seconds: 1
+      # Only continue execution if alarm has been triggered
+      - condition: state
+        entity_id: alarm_control_panel.casa
+        state: 'triggered'
       # Delay to allow the file to be totally written in the FTP before sending it
       - delay:
           seconds: 90
