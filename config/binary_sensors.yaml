@@ -28,10 +28,16 @@
       entity_id: sensor.netatmo_exterior_temperature
 
     salon_termometro_temperatura_descendiendo:
-      entity_id: sensor.salon_termometro_temperatura
+      entity_id: sensor.netatmo_salon_temperature
       invert: true
     salon_termometro_temperatura_aumentando:
-      entity_id: sensor.salon_termometro_temperatura
+      entity_id: sensor.netatmo_salon_temperature
+
+    despacho_termometro_temperatura_descendiendo:
+      entity_id: sensor.despacho_termometro_temperatura
+      invert: true
+    despacho_termometro_temperatura_aumentando:
+      entity_id: sensor.despacho_termometro_temperatura
 
     recibidor_termometro_temperatura_descendiendo:
       entity_id: sensor.recibidor_termometro_temperatura

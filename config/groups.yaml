@@ -95,38 +95,6 @@ Energía:
     - sensor.efergy_2577
     - sensor.ups_status
 
-Temperatura:
-  entities:
-    - sensor.netatmo_exterior_temperature
-    - sensor.netatmo_exterior_min_temp
-    - sensor.netatmo_exterior_max_temp
-    - history_graph.temperatura_exterior
-    - sensor.netatmo_exterior_humidity
-    - sensor.exterior_termometro_temperatura_tendencia
-    - sensor.netatmo_exterior_radio
-
-Meteorología:
-  entities:
-    - sensor.pws_weather_1d_metric
-    - sensor.sunrise
-    - sensor.sunset
-    - sensor.season
-
-Lluvia:
-  entities:
-    - sensor.netatmo_pluviometro_rain
-    - sensor.netatmo_pluviometro_sum_rain_1
-    - sensor.netatmo_pluviometro_sum_rain_24
-    - sensor.netatmo_pluviometro_radio
-
-Viento:
-  entities:
-    - sensor.netatmo_anemometro_strength
-    - sensor.netatmo_anemometro_angle
-    - sensor.netatmo_anemometro_gust_strength
-    - sensor.netatmo_anemometro_gust_angle
-    - sensor.netatmo_anemometro_radio
-
 Salón:
   entities:
     - camera.salon
@@ -145,6 +113,7 @@ Despacho:
   entities:
     - sensor.despacho_sensor_movimiento_luminance
     - sensor.despacho_sensor_movimiento_temperature
+    - sensor.despacho_termometro_temperatura_tendencia
 
 Escalera:
   entities:
@@ -235,24 +204,6 @@ Crypto Currency:
     - sensor.exchange_rate_1_eth
     - sensor.ethereum_balance
     - sensor.ethereum_walet_value
-
-Calefacción:
-  entities:
-    - switch.termostato
-    - switch.termostato_modo_ausente
-    - climate.termostato
-
-Confort:
-  entities:
-    - binary_sensor.confort_state
-    - sensor.temperature_ground_floor
-    - sensor.planta_baja_temperatura_tendencia
-    - sensor.temperature_first_floor
-    - sensor.primera_planta_temperatura_tendencia
-    - group.unidad_familiar
-    - switch.termostato
-    - switch.termostato_modo_ausente
-    - climate.termostato
 
 Estado HA:
   entities:

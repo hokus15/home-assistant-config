@@ -1,89 +1,6 @@
 ###################################
 # Sensors
 ###################################
-sensor.netatmo_exterior_temperature:
-  friendly_name: 'Temperatura'
-sensor.netatmo_exterior_humidity:
-  friendly_name: 'Humedad'
-sensor.netatmo_exterior_min_temp:
-  friendly_name: 'Mínima de hoy'
-sensor.netatmo_exterior_max_temp:
-  friendly_name: 'Máxima de hoy'
-sensor.netatmo_exterior_battery:
-  friendly_name: 'Netatmo exterior'
-  device_class: 'battery'
-sensor.netatmo_exterior_radio:
-  friendly_name: 'Señal exterior'
-sensor.netatmo_pluviometro_rain:
-  friendly_name: 'Previsión lluvia'
-sensor.netatmo_pluviometro_sum_rain_1:
-  friendly_name: 'Lluvia última hora'
-sensor.netatmo_pluviometro_sum_rain_24:
-  friendly_name: 'Lluvia 24 horas'
-sensor.netatmo_pluviometro_battery:
-  friendly_name: 'Netatmo pluviómetro'
-  device_class: 'battery'
-sensor.netatmo_pluviometro_radio:
-  friendly_name: 'Señal pluviómetro'
-sensor.netatmo_salon_temperature:
-  friendly_name: 'Temperatura'
-sensor.netatmo_salon_min_temp:
-  friendly_name: 'Mínima de hoy'
-sensor.netatmo_salon_max_temp:
-  friendly_name: 'Máxima de hoy'
-sensor.netatmo_salon_humidity:
-  friendly_name: 'Humedad'
-sensor.netatmo_salon_noise:
-  friendly_name: 'Nivel de ruido'
-sensor.netatmo_salon_pressure:
-  friendly_name: 'Presión atmosférica'
-sensor.netatmo_salon_co2:
-  friendly_name: 'Nivel CO2'
-sensor.netatmo_salon_wifi:
-  friendly_name: 'Señal Wifi Netatmo'
-sensor.netatmo_anemometro_angle:
-  friendly_name: 'Dirección viento'
-sensor.netatmo_anemometro_battery:
-  friendly_name: 'Netatmo anemómetro'
-  device_class: 'battery'
-sensor.netatmo_anemometro_gust_angle:
-  friendly_name: 'Dirección rachas'
-sensor.netatmo_anemometro_gust_strength:
-  friendly_name: 'Velocidad rachas'
-sensor.netatmo_anemometro_radio:
-  friendly_name: 'Señal anemómetro'
-sensor.netatmo_anemometro_strength:
-  friendly_name: 'Velocidad viento'
-sensor.netatmo_suite_temperature:
-  friendly_name: 'Temperatura'
-sensor.netatmo_suite_min_temp:
-  friendly_name: 'Mínima de hoy'
-sensor.netatmo_suite_max_temp:
-  friendly_name: 'Máxima de hoy'
-sensor.netatmo_suite_co2:
-  friendly_name: 'Nivel CO2'
-sensor.netatmo_suite_humidity:
-  friendly_name: 'Humedad'
-sensor.netatmo_suite_battery:
-  friendly_name: 'Netatmo suite'
-  device_class: 'battery'
-sensor.netatmo_suite_radio:
-  friendly_name: 'Señal suite'
-sensor.netatmo_habitacion_temperature:
-  friendly_name: 'Temperatura'
-sensor.netatmo_habitacion_min_temp:
-  friendly_name: 'Mínima de hoy'
-sensor.netatmo_habitacion_max_temp:
-  friendly_name: 'Máxima de hoy'
-sensor.netatmo_habitacion_co2:
-  friendly_name: 'Nivel CO2'
-sensor.netatmo_habitacion_humidity:
-  friendly_name: 'Humedad'
-sensor.netatmo_habitacion_battery:
-  friendly_name: 'Netatmo hab. niños'
-  device_class: 'battery'
-sensor.netatmo_habitacion_radio:
-  friendly_name: 'Señal hab.niños'
 sensor.speedtest_ping:
   friendly_name: 'Ping'
   icon: mdi:lan-connect
@@ -174,18 +91,6 @@ sensor.connected_clients:
   friendly_name: 'Clientes conectados'
   unit_of_measurement: 'cliente(s)'
   icon: 'mdi:account'
-sensor.temperature_ground_floor:
-  friendly_name: 'Temp media planta baja'
-  icon: 'mdi:thermometer'
-  unit_of_measurement: '°C'
-sensor.temperature_first_floor:
-  friendly_name: 'Temp media 1ª planta'
-  icon: 'mdi:thermometer'
-  unit_of_measurement: '°C'
-sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature:
-  friendly_name: 'Temp. agua'
-sensor.piscina_temperature_mean:
-  friendly_name: 'Temp. media agua'
 sensor.ha_runtime_in_minutes:
   friendly_name: 'Tiempo ejecución HA'
   unit_of_measurement: 'mins'
@@ -201,12 +106,6 @@ binary_sensor.ups_status_bs:
 switch.barrera:
   friendly_name: 'Barrera'
   icon: mdi:gate
-switch.termostato:
-  friendly_name: 'Calefacción'
-  icon: mdi:radiator
-switch.termostato_modo_ausente:
-  friendly_name: 'Modo ausente'
-  icon: mdi:home-outline
 switch.ups_beeper:
   friendly_name: 'Pitido'
   icon: mdi:music-note

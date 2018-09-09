@@ -1,0 +1,630 @@
+homeassistant:
+  customize:
+    sensor.netatmo_exterior_temperature:
+      friendly_name: 'Temperatura'
+    sensor.netatmo_exterior_humidity:
+      friendly_name: 'Humedad'
+    sensor.netatmo_exterior_min_temp:
+      friendly_name: 'Mínima de hoy'
+    sensor.netatmo_exterior_max_temp:
+      friendly_name: 'Máxima de hoy'
+    sensor.netatmo_exterior_battery:
+      friendly_name: 'Netatmo exterior'
+      device_class: 'battery'
+    sensor.netatmo_exterior_radio:
+      friendly_name: 'Señal exterior'
+    sensor.netatmo_pluviometro_rain:
+      friendly_name: 'Previsión lluvia'
+    sensor.netatmo_pluviometro_sum_rain_1:
+      friendly_name: 'Lluvia última hora'
+    sensor.netatmo_pluviometro_sum_rain_24:
+      friendly_name: 'Lluvia 24 horas'
+    sensor.netatmo_pluviometro_battery:
+      friendly_name: 'Netatmo pluviómetro'
+      device_class: 'battery'
+    sensor.netatmo_pluviometro_radio:
+      friendly_name: 'Señal pluviómetro'
+    sensor.netatmo_salon_temperature:
+      friendly_name: 'Temperatura'
+    sensor.netatmo_salon_min_temp:
+      friendly_name: 'Mínima de hoy'
+    sensor.netatmo_salon_max_temp:
+      friendly_name: 'Máxima de hoy'
+    sensor.netatmo_salon_humidity:
+      friendly_name: 'Humedad'
+    sensor.netatmo_salon_noise:
+      friendly_name: 'Nivel de ruido'
+    sensor.netatmo_salon_pressure:
+      friendly_name: 'Presión atmosférica'
+    sensor.netatmo_salon_co2:
+      friendly_name: 'Nivel CO2'
+    sensor.netatmo_salon_wifi:
+      friendly_name: 'Señal Wifi Netatmo'
+    sensor.netatmo_anemometro_angle:
+      friendly_name: 'Dirección viento'
+    sensor.netatmo_anemometro_battery:
+      friendly_name: 'Netatmo anemómetro'
+      device_class: 'battery'
+    sensor.netatmo_anemometro_gust_angle:
+      friendly_name: 'Dirección rachas'
+    sensor.netatmo_anemometro_gust_strength:
+      friendly_name: 'Velocidad rachas'
+    sensor.netatmo_anemometro_radio:
+      friendly_name: 'Señal anemómetro'
+    sensor.netatmo_anemometro_strength:
+      friendly_name: 'Velocidad viento'
+    sensor.netatmo_suite_temperature:
+      friendly_name: 'Temperatura'
+    sensor.netatmo_suite_min_temp:
+      friendly_name: 'Mínima de hoy'
+    sensor.netatmo_suite_max_temp:
+      friendly_name: 'Máxima de hoy'
+    sensor.netatmo_suite_co2:
+      friendly_name: 'Nivel CO2'
+    sensor.netatmo_suite_humidity:
+      friendly_name: 'Humedad'
+    sensor.netatmo_suite_battery:
+      friendly_name: 'Netatmo suite'
+      device_class: 'battery'
+    sensor.netatmo_suite_radio:
+      friendly_name: 'Señal suite'
+    sensor.netatmo_habitacion_temperature:
+      friendly_name: 'Temperatura'
+    sensor.netatmo_habitacion_min_temp:
+      friendly_name: 'Mínima de hoy'
+    sensor.netatmo_habitacion_max_temp:
+      friendly_name: 'Máxima de hoy'
+    sensor.netatmo_habitacion_co2:
+      friendly_name: 'Nivel CO2'
+    sensor.netatmo_habitacion_humidity:
+      friendly_name: 'Humedad'
+    sensor.netatmo_habitacion_battery:
+      friendly_name: 'Netatmo hab. niños'
+      device_class: 'battery'
+    sensor.netatmo_habitacion_radio:
+      friendly_name: 'Señal hab.niños'
+    sensor.temperature_ground_floor:
+      friendly_name: 'Temp media planta baja'
+      icon: 'mdi:thermometer'
+      unit_of_measurement: '°C'
+    sensor.temperature_first_floor:
+      friendly_name: 'Temp media 1ª planta'
+      icon: 'mdi:thermometer'
+      unit_of_measurement: '°C'
+    switch.termostato:
+      friendly_name: 'Calefacción'
+      icon: mdi:radiator
+    switch.termostato_modo_ausente:
+      friendly_name: 'Modo ausente'
+      icon: mdi:home-outline
+
+recorder:
+  exclude:
+    entities:
+      - sensor.season
+
+      - sensor.pws_weather
+      - sensor.pws_weather_1d_metric
+      - sensor.pws_alerts
+      - sensor.recibidor_termometro_temperatura
+      - sensor.exterior_termometro_temperatura
+      - sensor.exterior_termometro_humedad
+      - sensor.exterior_termometro_max_temp
+      - sensor.exterior_termometro_min_temp
+      - sensor.netatmo_exterior_radio
+      - sensor.netatmo_exterior_battery
+
+      - sensor.salon_termometro_co2
+      - sensor.salon_termometro_temperatura
+      - sensor.salon_termometro_humedad
+      - sensor.salon_termometro_max_temp
+      - sensor.salon_termometro_min_temp
+      - sensor.salon_termometro_ruido
+      - sensor.salon_termometro_presion
+
+      - sensor.suite_termometro_co2
+      - sensor.suite_termometro_temperatura
+      - sensor.suite_termometro_humedad
+      - sensor.suite_termometro_max_temp
+      - sensor.suite_termometro_min_temp
+      - sensor.netatmo_suite_radio
+      - sensor.netatmo_suite_battery
+
+      - sensor.habitacion_termometro_co2
+      - sensor.habitacion_termometro_temperatura
+      - sensor.habitacion_termometro_humedad
+      - sensor.habitacion_termometro_max_temp
+      - sensor.habitacion_termometro_min_temp
+      - sensor.netatmo_habitacion_radio
+      - sensor.netatmo_habitacion_battery
+
+      - sensor.exterior_pluviometro_lluvia
+      - sensor.exterior_pluviometro_lluvia_1
+      - sensor.exterior_pluviometro_lluvia_24
+      - sensor.netatmo_pluviometro_radio
+      - sensor.netatmo_pluviometro_battery
+
+      - sensor.exterior_anemometro_velocidad_viento
+      - sensor.netatmo_anemometro_gust_angle
+      - sensor.netatmo_anemometro_angle
+      - sensor.netatmo_anemometro_radio
+      - sensor.netatmo_anemometro_battery
+
+      - binary_sensor.exterior_termometro_temperatura_descendiendo
+      - binary_sensor.exterior_termometro_temperatura_aumentando
+      - sensor.exterior_termometro_temperatura_tendencia
+
+      - binary_sensor.salon_termometro_temperatura_descendiendo
+      - binary_sensor.salon_termometro_temperatura_aumentando
+      - sensor.salon_termometro_temperatura_tendencia
+
+      - binary_sensor.despacho_termometro_temperatura_descendiendo
+      - binary_sensor.despacho_termometro_temperatura_aumentando
+      - sensor.despacho_termometro_temperatura_tendencia
+
+      - binary_sensor.recibidor_termometro_temperatura_descendiendo
+      - binary_sensor.recibidor_termometro_temperatura_aumentando
+      - sensor.recibidor_termometro_temperatura_tendencia
+
+      - binary_sensor.suite_termometro_temperatura_descendiendo
+      - binary_sensor.suite_termometro_temperatura_aumentando
+      - sensor.suite_termometro_temperatura_tendencia
+
+      - binary_sensor.habitacion_termometro_temperatura_descendiendo
+      - binary_sensor.habitacion_termometro_temperatura_aumentando
+      - sensor.habitacion_termometro_temperatura_tendencia
+
+      - binary_sensor.primera_planta_temperatura_aumentando
+      - binary_sensor.primera_planta_temperatura_descendiendo
+      - sensor.primera_planta_temperatura_tendencia
+
+      - binary_sensor.salon_termometro_co2_descendiendo
+      - binary_sensor.salon_termometro_co2_aumentando
+      - sensor.salon_termometro_co2_tendencia
+      
+      - binary_sensor.suite_termometro_co2_descendiendo
+      - binary_sensor.suite_termometro_co2_aumentando
+      - sensor.suite_termometro_co2_tendencia
+
+      - binary_sensor.habitacion_termometro_co2_descendiendo
+      - binary_sensor.habitacion_termometro_co2_aumentando
+      - sensor.habitacion_termometro_co2_tendencia
+
+      - binary_sensor.planta_baja_temperatura_aumentando
+      - binary_sensor.planta_baja_temperatura_descendiendo
+      - sensor.planta_baja_temperatura_tendencia
+
+group:
+  Temperatura:
+    entities:
+      - sensor.netatmo_exterior_temperature
+      - sensor.netatmo_exterior_min_temp
+      - sensor.netatmo_exterior_max_temp
+      - history_graph.temperatura_exterior
+      - sensor.netatmo_exterior_humidity
+      - sensor.exterior_termometro_temperatura_tendencia
+      - sensor.netatmo_exterior_radio
+  
+  Meteorología:
+    entities:
+      - sensor.pws_weather_1d_metric
+      - sensor.sunrise
+      - sensor.sunset
+      - sensor.season
+  
+  Lluvia:
+    entities:
+      - sensor.netatmo_pluviometro_rain
+      - sensor.netatmo_pluviometro_sum_rain_1
+      - sensor.netatmo_pluviometro_sum_rain_24
+      - sensor.netatmo_pluviometro_radio
+  
+  Viento:
+    entities:
+      - sensor.netatmo_anemometro_strength
+      - sensor.netatmo_anemometro_angle
+      - sensor.netatmo_anemometro_gust_strength
+      - sensor.netatmo_anemometro_gust_angle
+      - sensor.netatmo_anemometro_radio
+
+  Calefacción:
+    entities:
+      - switch.termostato
+      - switch.termostato_modo_ausente
+      - climate.termostato
+  
+  Confort:
+    entities:
+      - binary_sensor.confort_state
+      - sensor.temperature_ground_floor
+      - sensor.planta_baja_temperatura_tendencia
+      - sensor.temperature_first_floor
+      - sensor.primera_planta_temperatura_tendencia
+      - group.unidad_familiar
+      - switch.termostato
+      - switch.termostato_modo_ausente
+      - climate.termostato
+
+history_graph:
+  temperature_outside:
+    name: Temperatura exterior
+    entities:
+      - sensor.netatmo_exterior_temperature
+    hours_to_show: 24
+    refresh: 60
+
+sensor:
+  - platform: netatmo
+    modules:
+      Salón:
+        - temperature
+        - min_temp
+        - max_temp
+        - humidity
+        - noise
+        - pressure
+        - co2
+        - wifi_status
+      Suite:
+        - temperature
+        - min_temp
+        - max_temp
+        - humidity
+        - co2
+        - battery_vp
+        - rf_status
+      Habitación:
+        - temperature
+        - min_temp
+        - max_temp
+        - humidity
+        - co2
+        - battery_vp
+        - rf_status
+      Exterior:
+        - temperature
+        - min_temp
+        - max_temp
+        - humidity
+        - battery_vp
+        - rf_status
+      Pluviómetro:
+        - rain
+        - sum_rain_1
+        - sum_rain_24
+        - battery_vp
+        - rf_status
+      Anemómetro:
+        - windangle
+        - windstrength
+        - gustangle
+        - guststrength
+        - battery_vp
+        - rf_status
+
+  # Sensor to define the season of the year
+  - platform: season
+  
+  # Sensor to get sunset and sunrise hours with a custom format.
+  - platform: template
+    sensors:
+      sunrise:
+        friendly_name: 'Amanecer'
+        value_template: '{{ as_timestamp(states.sun.sun.attributes.next_rising)|timestamp_custom("%H:%M:%S") }}'
+      sunset:
+        friendly_name: 'Puesta de sol'
+        value_template: '{{ as_timestamp(states.sun.sun.attributes.next_setting)|timestamp_custom("%H:%M:%S") }}'
+
+  - platform: wunderground
+    api_key: !secret weather_underground_api_key
+    lang: SP
+    monitored_conditions:
+      - alerts
+      - weather
+      - weather_1d_metric
+  
+  # Comfort sensors
+  - platform: min_max
+    name: temperature_ground_floor
+    type: mean
+    round_digits: 1
+    entity_ids:
+      - sensor.recibidor_termometro_temperatura
+      - sensor.netatmo_salon_temperature
+      - sensor.despacho_sensor_movimiento_temperature
+      - sensor.porche_sensor_puerta_temperature
+  
+  - platform: min_max
+    name: temperature_first_floor
+    type: mean
+    round_digits: 1
+    entity_ids:
+      - sensor.netatmo_suite_temperature
+      - sensor.netatmo_habitacion_temperature
+  
+  - platform: template
+    sensors:
+      planta_baja_temperatura_tendencia:
+        friendly_name: 'Tend temp planta baja'
+        value_template: >-
+          {%- if is_state("binary_sensor.planta_baja_temperatura_descendiendo", "on") -%}
+          En descenso
+          {%- elif is_state("binary_sensor.planta_baja_temperatura_aumentando", "on") -%}
+          En aumento
+          {%- else -%}
+          Sin cambio
+          {%- endif %}
+        icon_template: >-
+          {%- if is_state("binary_sensor.planta_baja_temperatura_descendiendo", "on") -%}
+          mdi:arrow-down-thick
+          {%- elif is_state("binary_sensor.planta_baja_temperatura_aumentando", "on") -%}
+          mdi:arrow-up-thick
+          {%- else -%}
+          mdi:window-minimize
+          {%- endif %}
+  
+      primera_planta_temperatura_tendencia:
+        friendly_name: 'Tend temp 1ª planta'
+        value_template: >-
+          {%- if is_state("binary_sensor.primera_planta_temperatura_descendiendo", "on") -%}
+          En descenso
+          {%- elif is_state("binary_sensor.primera_planta_temperatura_aumentando", "on") -%}
+          En aumento
+          {%- else -%}
+          Sin cambio
+          {%- endif %}
+        icon_template: >-
+          {%- if is_state("binary_sensor.primera_planta_temperatura_descendiendo", "on") -%}
+          mdi:arrow-down-thick
+          {%- elif is_state("binary_sensor.primera_planta_temperatura_aumentando", "on") -%}
+          mdi:arrow-up-thick
+          {%- else -%}
+          mdi:window-minimize
+          {%- endif %}
+  
+      exterior_termometro_temperatura_tendencia:
+        friendly_name: 'Tendencia temp'
+        value_template: >-
+          {%- if is_state("binary_sensor.exterior_termometro_temperatura_descendiendo", "on") -%}
+          En descenso
+          {%- elif is_state("binary_sensor.exterior_termometro_temperatura_aumentando", "on") -%}
+          En aumento
+          {%- else -%}
+          Sin cambio
+          {%- endif %}
+        icon_template: >-
+          {%- if is_state("binary_sensor.exterior_termometro_temperatura_descendiendo", "on") -%}
+          mdi:arrow-down-thick
+          {%- elif is_state("binary_sensor.exterior_termometro_temperatura_aumentando", "on") -%}
+          mdi:arrow-up-thick
+          {%- else -%}
+          mdi:window-minimize
+          {%- endif %}
+  
+      despacho_termometro_temperatura_tendencia:
+        friendly_name: 'Tendencia temp'
+        value_template: >-
+          {%- if is_state("binary_sensor.despacho_termometro_temperatura_descendiendo", "on") -%}
+          En descenso
+          {%- elif is_state("binary_sensor.despacho_termometro_temperatura_aumentando", "on") -%}
+          En aumento
+          {%- else -%}
+          Sin cambio
+          {%- endif %}
+        icon_template: >-
+          {%- if is_state("binary_sensor.despacho_termometro_temperatura_descendiendo", "on") -%}
+          mdi:arrow-down-thick
+          {%- elif is_state("binary_sensor.despacho_termometro_temperatura_aumentando", "on") -%}
+          mdi:arrow-up-thick
+          {%- else -%}
+          mdi:window-minimize
+          {%- endif %}
+  
+      salon_termometro_temperatura_tendencia:
+        friendly_name: 'Tendencia temp'
+        value_template: >-
+          {%- if is_state("binary_sensor.salon_termometro_temperatura_descendiendo", "on") -%}
+          En descenso
+          {%- elif is_state("binary_sensor.salon_termometro_temperatura_aumentando", "on") -%}
+          En aumento
+          {%- else -%}
+          Sin cambio
+          {%- endif %}
+        icon_template: >-
+          {%- if is_state("binary_sensor.salon_termometro_temperatura_descendiendo", "on") -%}
+          mdi:arrow-down-thick
+          {%- elif is_state("binary_sensor.salon_termometro_temperatura_aumentando", "on") -%}
+          mdi:arrow-up-thick
+          {%- else -%}
+          mdi:window-minimize
+          {%- endif %}
+  
+      salon_termometro_co2_tendencia:
+        friendly_name: 'Tendencia co2'
+        value_template: >-
+          {%- if is_state("binary_sensor.salon_termometro_co2_descendiendo", "on") -%}
+          En descenso
+          {%- elif is_state("binary_sensor.salon_termometro_co2_aumentando", "on") -%}
+          En aumento
+          {%- else -%}
+          Sin cambio
+          {%- endif %}
+        icon_template: >-
+          {%- if is_state("binary_sensor.salon_termometro_co2_descendiendo", "on") -%}
+          mdi:arrow-down-thick
+          {%- elif is_state("binary_sensor.salon_termometro_co2_aumentando", "on") -%}
+          mdi:arrow-up-thick
+          {%- else -%}
+          mdi:window-minimize
+          {%- endif %}
+  
+      recibidor_termometro_temperatura_tendencia:
+        friendly_name: 'Tendencia temp'
+        value_template: >-
+          {%- if is_state("binary_sensor.recibidor_termometro_temperatura_descendiendo", "on") -%}
+          En descenso
+          {%- elif is_state("binary_sensor.recibidor_termometro_temperatura_aumentando", "on") -%}
+          En aumento
+          {%- else -%}
+          Sin cambio
+          {%- endif %}
+        icon_template: >-
+          {%- if is_state("binary_sensor.recibidor_termometro_temperatura_descendiendo", "on") -%}
+          mdi:arrow-down-thick
+          {%- elif is_state("binary_sensor.recibidor_termometro_temperatura_aumentando", "on") -%}
+          mdi:arrow-up-thick
+          {%- else -%}
+          mdi:window-minimize
+          {%- endif %}
+  
+      suite_termometro_temperatura_tendencia:
+        friendly_name: 'Tendencia temp'
+        value_template: >-
+          {%- if is_state("binary_sensor.suite_termometro_temperatura_descendiendo", "on") -%}
+          En descenso
+          {%- elif is_state("binary_sensor.suite_termometro_temperatura_aumentando", "on") -%}
+          En aumento
+          {%- else -%}
+          Sin cambio
+          {%- endif %}
+        icon_template: >-
+          {%- if is_state("binary_sensor.suite_termometro_temperatura_descendiendo", "on") -%}
+          mdi:arrow-down-thick
+          {%- elif is_state("binary_sensor.suite_termometro_temperatura_aumentando", "on") -%}
+          mdi:arrow-up-thick
+          {%- else -%}
+          mdi:window-minimize
+          {%- endif %}
+  
+      suite_termometro_co2_tendencia:
+        friendly_name: 'Tendencia CO2'
+        value_template: >-
+          {%- if is_state("binary_sensor.suite_termometro_co2_descendiendo", "on") -%}
+          En descenso
+          {%- elif is_state("binary_sensor.suite_termometro_co2_aumentando", "on") -%}
+          En aumento
+          {%- else -%}
+          Sin cambio
+          {%- endif %}
+        icon_template: >-
+          {%- if is_state("binary_sensor.suite_termometro_co2_descendiendo", "on") -%}
+          mdi:arrow-down-thick
+          {%- elif is_state("binary_sensor.suite_termometro_co2_aumentando", "on") -%}
+          mdi:arrow-up-thick
+          {%- else -%}
+          mdi:window-minimize
+          {%- endif %}
+  
+      habitacion_termometro_temperatura_tendencia:
+        friendly_name: 'Tendencia temp'
+        value_template: >-
+          {%- if is_state("binary_sensor.habitacion_termometro_temperatura_descendiendo", "on") -%}
+          En descenso
+          {%- elif is_state("binary_sensor.habitacion_termometro_temperatura_aumentando", "on") -%}
+          En aumento
+          {%- else -%}
+          Sin cambio
+          {%- endif %}
+        icon_template: >-
+          {%- if is_state("binary_sensor.habitacion_termometro_temperatura_descendiendo", "on") -%}
+          mdi:arrow-down-thick
+          {%- elif is_state("binary_sensor.habitacion_termometro_temperatura_aumentando", "on") -%}
+          mdi:arrow-up-thick
+          {%- else -%}
+          mdi:window-minimize
+          {%- endif %}
+  
+      habitacion_termometro_co2_tendencia:
+        friendly_name: 'Tendencia CO2'
+        value_template: >-
+          {%- if is_state("binary_sensor.habitacion_termometro_co2_descendiendo", "on") -%}
+          En descenso
+          {%- elif is_state("binary_sensor.habitacion_termometro_co2_aumentando", "on") -%}
+          En aumento
+          {%- else -%}
+          Sin cambio
+          {%- endif %}
+        icon_template: >-
+          {%- if is_state("binary_sensor.habitacion_termometro_co2_descendiendo", "on") -%}
+          mdi:arrow-down-thick
+          {%- elif is_state("binary_sensor.habitacion_termometro_co2_aumentando", "on") -%}
+          mdi:arrow-up-thick
+          {%- else -%}
+          mdi:window-minimize
+          {%- endif %}
+
+automation:
+  #############################################################
+  # Heating automations
+  #############################################################
+  
+  # When the switch.termostato changes to on
+  - alias: 'Heating on'
+    trigger:
+      platform: state
+      entity_id: switch.termostato
+      to: 'on'
+    action:
+      # Turn on thermostat
+      - service: script.turn_on
+        entity_id: script.climate_power_on
+  
+  # When the switch.termostato changes to off
+  - alias: 'Heating off'
+    trigger:
+      platform: state
+      entity_id: switch.termostato
+      to: 'off'
+    action:
+      # Turn off thermostat
+      - service: script.turn_on
+        entity_id: script.climate_power_off
+  
+  # When average temp on ground floor or first floor is under target climate temperature
+  # If:
+  #  - There is someone at home
+  #  - Heating is connected
+  #  - Heating is idle
+  #  - Temperature trend in ground floor or first floor is going down
+  # Then turn on temperature by setting target temperature to 23 degrees
+  - alias: 'Heating comfort'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.comfort_state
+      to: 'on'
+    condition:
+      - condition: time
+        after: '16:00'
+    action:
+    - service: telegram_bot.send_message
+      data_template:
+        message: > 
+          Calefacción encendida para mejorar el confort
+          
+          Temperatura objetivo: {{ states.climate.termostato.attributes.temperature }}
+          
+          Temperatura media planta baja: {{states.sensor.temperature_ground_floor.state}}
+          
+          Temperatura media primera planta: {{states.sensor.temperature_first_floor.state}}
+          
+          Ocupación: {{states.group.unidad_familiar.state}}
+          
+          Estado calefacción: {{states.switch.termostato.state}}
+          
+          Modo ausente: {{states.switch.termostato_modo_ausente.state}}
+          
+          Estado termostato: {{states.climate.termostato.attributes.operation_mode}}
+          
+          Tendencia temperatura planta baja: {{states.sensor.planta_baja_temperatura_tendencia.state}}
+          
+          Tendencia temperatura primera planta: {{states.sensor.primera_planta_temperatura_tendencia.state}}
+  
+        inline_keyboard: 
+          - 'Desconectar:/script.turn_on#script.comfort_mode_off'
+  
+    - delay:
+        seconds: 30
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.termostato
+        temperature: 23
