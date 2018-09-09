@@ -32,6 +32,10 @@ automation:
       - platform: state
         entity_id: binary_sensor.recibidor_camara_det_mov
         to: 'on'
+      # When motion detected at living room camera
+      - platform: state
+        entity_id: binary_sensor.salon_camara_det_mov
+        to: 'on'
       # When motion detected in swimming pool
       - platform: state
         entity_id: binary_sensor.piscina_camara_det_mov
@@ -201,6 +205,9 @@ automation:
           entity_id: switch.recibidor_camara_det_mov
           state: 'on'
         - condition: state
+          entity_id: switch.salon_camara_det_mov
+          state: 'on'
+        - condition: state
           entity_id: switch.barbacoa_camara_det_mov
           state: 'on'
         - condition: state
@@ -231,7 +238,7 @@ automation:
               {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}barbacoa
               {%- elif "WVC54CGA" in trigger.event.data.folder -%}Caseta
               {%- elif "puerta_principal" in trigger.event.data.folder -%}entrada
-              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}xxxx
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}salon
               {%- else -%}desconocido{%-endif-%}
             turn_off_entity_id: >-
               {%- if "C1_00626E615161" in trigger.event.data.folder -%}switch.recibidor_camara_det_mov
@@ -239,7 +246,7 @@ automation:
               {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}switch.barbacoa_camara_det_mov
               {%- elif "WVC54CGA" in trigger.event.data.folder -%}switch.caseta_camara_det_mov
               {%- elif "puerta_principal" in trigger.event.data.folder -%}input_boolean.entrada_principal_det_mov
-              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}switch.xxxx_camara_det_mov
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}switch.salon_camara_det_mov
               {%- else -%}desconocido{%-endif-%}
   
   # Notify camera motion detection including attached video
@@ -258,6 +265,9 @@ automation:
         conditions:
         - condition: state
           entity_id: switch.recibidor_camara_det_mov
+          state: 'on'
+        - condition: state
+          entity_id: switch.salon_camara_det_mov
           state: 'on'
         - condition: state
           entity_id: switch.barbacoa_camara_det_mov
@@ -293,7 +303,7 @@ automation:
               {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}barbacoa
               {%- elif "WVC54CGA" in trigger.event.data.folder -%}caseta
               {%- elif "puerta_principal" in trigger.event.data.folder -%}entrada
-              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}xxxx
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}salon
               {%- else -%}desconocido{%-endif-%}
             turn_off_entity_id: >-
               {%- if "C1_00626E615161" in trigger.event.data.folder -%}switch.recibidor_camara_det_mov
@@ -301,7 +311,7 @@ automation:
               {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}switch.barbacoa_camara_det_mov
               {%- elif "WVC54CGA" in trigger.event.data.folder -%}switch.caseta_camara_det_mov
               {%- elif "puerta_principal" in trigger.event.data.folder -%}input_boolean.entrada_principal_det_mov
-              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}switch.xxxx_camara_det_mov
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}switch.salon_camara_det_mov
               {%- else -%}desconocido{%-endif-%}
   
   # Telegram callback that disarms alarm for specified minutes

@@ -24,6 +24,7 @@ Vista Seguridad:
     - group.familia
     - group.seguridad
     - group.camara_recibidor
+    - group.camara_salon
     - group.camara_entrada_principal
     - group.camara_piscina
     - group.camara_barbacoa
@@ -141,6 +142,7 @@ Salón:
     - input_boolean.salon_sensor_movimiento
     - sensor.salon_sensor_movimiento_luminance
     - sensor.salon_sensor_movimiento_temperature
+    - group.camara_salon
 
 Escalera:
   entities:

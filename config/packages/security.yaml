@@ -1,3 +1,25 @@
+homeassistant:
+  customize:
+    ###################################
+    # Binary Sensors customization
+    ###################################
+    binary_sensor.salon_camara_infrarrojo:
+      friendly_name: 'Infrarrojos salón'
+      icon: 'mdi:led-on'
+    binary_sensor.salon_camara_det_mov:
+      friendly_name: 'Movimiento salón'
+    ###################################
+    # Cameras customization
+    ###################################
+    camera.salon:
+      friendly_name: 'Salón'
+    ###################################
+    # Switches customization
+    ###################################
+    switch.salon_camara_det_mov:
+      friendly_name: 'Det. mov. salón'
+      icon: 'mdi:transit-transfer'
+
 folder_watcher:
   - folder: /home/camera
     patterns:
@@ -46,6 +68,7 @@ group:
   Seguridad:
     entities:
       - switch.recibidor_camara_det_mov
+      - switch.salon_camara_det_mov
       - switch.piscina_camara_det_mov
       - switch.barbacoa_camara_det_mov
       - switch.caseta_camara_det_mov
@@ -61,7 +84,14 @@ group:
       - switch.recibidor_camara_det_mov
       - binary_sensor.recibidor_camara_infrarrojo
       - binary_sensor.recibidor_camara_det_mov
-  
+
+  Cámara salón:
+    entities:
+      - camera.salon
+      - switch.salon_camara_det_mov
+      - binary_sensor.salon_camara_infrarrojo
+      - binary_sensor.salon_camara_det_mov
+
   Cámara barbacoa:
     entities:
       - camera.barbacoa
@@ -80,7 +110,6 @@ group:
     entities:
       - camera.caseta
       - switch.caseta_camara_det_mov
-      - binary_sensor.caseta_camara_infrarrojo
       - binary_sensor.caseta_camara_det_mov
   
   Cámara entrada principal:
@@ -95,6 +124,7 @@ group:
   Seguridad interior:
     entities:
       - switch.recibidor_camara_det_mov
+      - switch.salon_camara_det_mov
       - input_boolean.salon_sensor_movimiento
       - input_boolean.cocina_sensor_puerta
       - input_boolean.coladuria_sensor_puerta
@@ -175,20 +205,20 @@ switch:
         command_state: !secret cam_barbacoa_motion_detection_state
         value_template: '{{ value == "1" }}'
   
-#  - platform: command_line
-#    switches:
-#      #Switch for Foscam Motion Detection
-#      caseta_camara_det_mov:
-#        # Command used:
-#        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=1&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
-#        command_on: !secret cam_caseta_motion_detection_on
-#        # Command used:
-#        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=0&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
-#        command_off: !secret cam_caseta_motion_detection_off
-#        # Command used:
-#        # 'curl -k --silent "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=getMotionDetectConfig&usr=<camera_username>&pwd=<camera_password>" | grep -oP "(?<=isEnable>).*?(?=</isEnable>)"'
-#        command_state: !secret cam_caseta_motion_detection_state
-#        value_template: '{{ value == "1" }}'
+  - platform: command_line
+    switches:
+      #Switch for Foscam Motion Detection
+      salon_camara_det_mov:
+        # Command used:
+        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=1&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
+        command_on: !secret cam_salon_motion_detection_on
+        # Command used:
+        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=0&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
+        command_off: !secret cam_salon_motion_detection_off
+        # Command used:
+        # 'curl -k --silent "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=getMotionDetectConfig&usr=<camera_username>&pwd=<camera_password>" | grep -oP "(?<=isEnable>).*?(?=</isEnable>)"'
+        command_state: !secret cam_salon_motion_detection_state
+        value_template: '{{ value == "1" }}'
   
   - platform: command_line
     switches:
@@ -257,12 +287,12 @@ camera:
     password: !secret cam_barbacoa_password
   
   # Backyard stand camera
-#  - platform: foscam
-#    ip: !secret cam_caseta_host
-#    name: caseta
-#    port: !secret cam_caseta_port
-#    username: !secret cam_caseta_username
-#    password: !secret cam_caseta_password
+  - platform: foscam
+    ip: !secret cam_salon_host
+    name: salon
+    port: !secret cam_salon_port
+    username: !secret cam_salon_username
+    password: !secret cam_salon_password
 
   # For Linksys WVC54GCA http://<cam-host>:<cam_port>/img/snapshot.cgi
   - platform: generic
@@ -304,14 +334,14 @@ binary_sensor:
     #device_class: light
   
   # Infrared status for foscam cam in 
-#  - platform: command_line
-#    # Command used to get infrared status for a foscam camera:
-#    # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
-#    command: !secret cam_caseta_infrared_command
-#    name: caseta_camara_infrarrojo
-#    payload_on: '1'
-#    payload_off: '0'
-#    #device_class: light
+  - platform: command_line
+    # Command used to get infrared status for a foscam camera:
+    # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
+    command: !secret cam_salon_infrared_command
+    name: salon_camara_infrarrojo
+    payload_on: '1'
+    payload_off: '0'
+    #device_class: light
   
   # Alarm status for foscam cam in hall
   - platform: mqtt
@@ -354,7 +384,21 @@ binary_sensor:
             {% else %}
                 OFF
             {%- endif %}
-  
+
+  # Alarm status for foscam cam in living room
+  - platform: mqtt
+    state_topic: 'home/camera/salon/alarm'
+    name: 'salon_camara_det_mov'
+    device_class: motion
+    # 0: No alarm
+    # 1: Alarm triggered
+    value_template: >-
+            {%- if value != "0" %}
+                ON
+            {% else %}
+                OFF
+            {%- endif %}
+
   # Alarm status for Linksys cam in caseta
   - platform: mqtt
     state_topic: 'home/camera/caseta/alarm'
@@ -440,7 +484,7 @@ automation:
               {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/camera/barbacoa/alarm
               {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/camera/caseta/alarm
               {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/alarm
-              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/xxxxx/alarm
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/salon/alarm
               {%- else -%}desconocido{%-endif-%}
       - delay:
           seconds: 30
@@ -454,7 +498,7 @@ automation:
               {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/camera/barbacoa/alarm
               {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/camera/caseta/alarm
               {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/alarm
-              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/xxxxx/alarm
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/salon/alarm
               {%- else -%}desconocido{%-endif-%}
       - service: logbook.log
         data_template:
@@ -464,7 +508,7 @@ automation:
               {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}Barbacoa
               {%- elif "WVC54CGA" in trigger.event.data.folder -%}Caseta
               {%- elif "puerta_principal" in trigger.event.data.folder -%}Entrada principal
-              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}xxxxx
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}Salón
               {%- else -%}desconocido{%-endif-%}
           message: 'Movimiento detectado'
           entity_id: >-
@@ -473,6 +517,6 @@ automation:
               {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}camera.barbacoa
               {%- elif "WVC54CGA" in trigger.event.data.folder -%}camera.caseta
               {%- elif "puerta_principal" in trigger.event.data.folder -%}camera.entrada_principal
-              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}camera.xxxxx
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}camera.salon
               {%- else -%}desconocido{%-endif-%}
           domain: camera
