@@ -25,6 +25,7 @@ Vista Seguridad:
     - group.seguridad
     - group.camara_recibidor
     - group.camara_salon
+    - group.sensor_despacho
     - group.camara_entrada_principal
     - group.camara_piscina
     - group.camara_barbacoa

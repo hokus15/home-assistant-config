@@ -354,7 +354,7 @@ automation:
             minutes: '{{ trigger.event.data.data[1:-5] }}'
   
   # Notify living room motion sensor tampering
-  - alias: 'Notify living room motion sensor tampering'
+  - alias: 'Notify office motion sensor tampering'
     trigger: 
       platform: state
       entity_id: binary_sensor.despacho_sensor_movimiento_sabotaje
@@ -362,7 +362,7 @@ automation:
     action:
       service: notify.telegram
       data:
-        message: 'El sensor de movimento del salón se ha manipulado'
+        message: 'El sensor de movimento del despacho se ha manipulado'
 
 script:
   alarm_arm_away:
