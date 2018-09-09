@@ -116,24 +116,6 @@ sensor.season:
 sensor.ups_status:
   friendly_name: 'SAI'
   icon: 'mdi:power-socket-eu'
-sensor.toyota_batt:
-  friendly_name: 'Batería'
-  device_class: 'battery'
-sensor.toyota_gps_accuracy:
-  friendly_name: 'Precisión GPS'
-  icon: 'mdi:map-marker-radius'
-sensor.toyota_last_update:
-  friendly_name: 'Última actualización'
-  icon: 'mdi:clock'
-sensor.nissan_batt:
-  friendly_name: 'Batería'
-  device_class: 'battery'
-sensor.nissan_gps_accuracy:
-  friendly_name: 'Precisión GPS'
-  icon: 'mdi:map-marker-radius'
-sensor.nissan_last_update:
-  friendly_name: 'Última actualización'
-  icon: 'mdi:clock'
 sensor.sunset:
   icon: mdi:weather-sunset-down
 sensor.sunrise:
@@ -152,7 +134,6 @@ sensor.ink_level_black:
   entity_picture: /local/printer_ink_black.png
 sensor.hp_photosmart_5520:
   entity_picture: /local/printer_icon.png
-
 sensor.cpu_use:
   friendly_name: 'Uso CPU'
 sensor.ram_free:
@@ -175,11 +156,6 @@ sensor.nut_ups_battery_runtime:
 sensor.recibidor_boton_bateria:
   device_class: 'battery'
   friendly_name: 'Nodon'
-sensor.salon_sensor_movimiento_temperature:
-  friendly_name: 'Temperatura'
-sensor.recibidor_termometro_temperatura:
-  friendly_name: 'Temperatura'
-  unit_of_measurement: '°C'
 sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_energy:
   icon: 'mdi:speedometer'
   friendly_name: 'Consumo luz escalera'
@@ -192,14 +168,6 @@ sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_energy_2:
 sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_power_2:
   icon: 'mdi:power-plug'
   friendly_name: 'Potencia luz suite'
-sensor.next_holiday_mode_start:
-  icon: mdi:airplane-takeoff
-sensor.next_holiday_mode_end:
-  icon: mdi:airplane-landing
-sensor.next_shift_event:
-  icon: mdi:message
-sensor.next_shift_date:
-  icon: mdi:calendar
 sensor.piscina_on_history:
   friendly_name: 'Uso bomba hoy'
 sensor.switch_piscina_current_power_w:
@@ -242,9 +210,6 @@ switch.motor_piscina:
 switch.barrera:
   friendly_name: 'Barrera'
   icon: mdi:gate
-switch.holiday:
-  friendly_name: 'Vacaciones'
-  icon: mdi:airplane
 switch.termostato:
   friendly_name: 'Calefacción'
   icon: mdi:radiator
@@ -263,15 +228,10 @@ switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch:
 switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2:
   friendly_name: 'Luz suite'
   icon: mdi:ceiling-light
-sensor.porche_sensor_puerta_temperature:
-  friendly_name: 'Temperatura'
-  icon: mdi:thermometer
 
 ###################################
 # Input sliders
 ###################################
-input_number.empty_home_activation_delay_minutes:
-  icon: mdi:clock-end
 input_number.entrada_luz_brillo:
   icon: mdi:brightness-6
 ###################################
@@ -284,8 +244,6 @@ script.turn_on_swimmingpool_1_hour:
 script.turn_on_swimmingpool_2_hours:
   hidden: true
 script.turn_on_swimmingpool_3_hours:
-  hidden: true
-script.check_caseta_motion_detection:
   hidden: true
 script.restart_ha:
   icon: mdi:autorenew
