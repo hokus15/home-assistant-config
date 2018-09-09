@@ -552,6 +552,75 @@ automation:
         data:
           entity_id: switch.barrera
 
+  #############################################################
+  # Holiday automations
+  #############################################################
+  
+  # Enters on holiday mode based on google calendar event
+  - alias: 'Calendar holiday mode'
+    trigger:
+      platform: state
+      entity_id: calendar.holiday_mode
+      from: 'off'
+      to: 'on'
+    action:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.holiday
+  
+  # Exits on holiday mode based on google calendar event
+  - alias: 'Calendar holiday mode exit'
+    trigger:
+      platform: state
+      entity_id: calendar.holiday_mode
+      from: 'on'
+      to: 'off'
+    action:
+      - service: switch.turn_off
+        data:
+          entity_id: switch.holiday
+  
+  # Enters holiday mode based on switch
+  - alias: 'Switch holiday mode'
+    trigger:
+      platform: state
+      entity_id: switch.holiday
+      from: 'off'
+      to: 'on'
+    condition:
+      condition: state
+      entity_id: switch.termostato
+      state: 'on'
+    action:
+      # Turn off thermostat
+      - service: script.turn_on
+        entity_id: script.climate_power_off
+      - service: notify.telegram
+        data:
+          message: 'Modo vacaciones activado'
+  
+  # Exits holiday mode based on switch
+  - alias: 'Exit holiday mode'
+    trigger:
+      platform: state
+      entity_id: switch.holiday
+      from: 'on'
+      to: 'off'
+    condition:
+      condition: state
+      entity_id: switch.termostato
+      state: 'on'
+    action:
+      # Turn on thermostat an set it to away mode
+      - service: climate.set_away_mode
+        entity_id: climate.termostato
+        data:
+          away_mode: true
+      - service: notify.telegram
+        data:
+          message: 'Modo vacaciones desactivado'
+
+
 script:
   presence_empty_home:
     alias: 'Empty home'
