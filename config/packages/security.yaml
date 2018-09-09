@@ -82,20 +82,20 @@ homeassistant:
       icon: 'mdi:car'
 
     ###################################
-    # Living room motion sensor customization
+    # Office motion sensor customization
     ###################################
-    binary_sensor.salon_sensor_movimiento:
-      friendly_name: 'Movimiento salón'
+    binary_sensor.despacho_sensor_movimiento:
+      friendly_name: 'Movimiento despacho'
       device_class: 'motion'
-    binary_sensor.salon_sensor_movimiento_sabotaje:
+    binary_sensor.despacho_sensor_movimiento_sabotaje:
       friendly_name: 'Manipulación sensor'
-    sensor.salon_sensor_movimiento_luminance:
+    sensor.despacho_sensor_movimiento_luminance:
       icon: 'mdi:weather-sunny'
       friendly_name: 'Luminosidad'
-    sensor.salon_sensor_movimiento_bateria:
+    sensor.despacho_sensor_movimiento_bateria:
       device_class: 'battery'
-      friendly_name: 'Detector movimiento salón'
-    sensor.salon_sensor_movimiento_temperature:
+      friendly_name: 'Detector movimiento despacho'
+    sensor.despacho_sensor_movimiento_temperature:
       friendly_name: 'Temperatura'
     sensor.recibidor_termometro_temperatura:
       friendly_name: 'Temperatura'
@@ -179,13 +179,13 @@ recorder:
       - sensor.coladuria_sensor_puerta_sourcenodeid
       - binary_sensor.coladuria_sensor_puerta
 
-      - binary_sensor.salon_sensor_movimiento
-      - sensor.salon_sensor_movimiento_alarm_level
-      - sensor.salon_sensor_movimiento_alarm_type
-      - sensor.salon_sensor_movimiento_burglar
-      - sensor.salon_sensor_movimiento_general
-      - sensor.salon_sensor_movimiento_seismic_intensity
-      - sensor.salon_sensor_movimiento_sourcenodeid
+      - binary_sensor.despacho_sensor_movimiento
+      - sensor.despacho_sensor_movimiento_alarm_level
+      - sensor.despacho_sensor_movimiento_alarm_type
+      - sensor.despacho_sensor_movimiento_burglar
+      - sensor.despacho_sensor_movimiento_general
+      - sensor.despacho_sensor_movimiento_seismic_intensity
+      - sensor.despacho_sensor_movimiento_sourcenodeid
 
 group:
   Seguridad:
@@ -196,7 +196,7 @@ group:
       - switch.barbacoa_camara_det_mov
       - switch.caseta_camara_det_mov
       - input_boolean.entrada_principal_det_mov
-      - input_boolean.salon_sensor_movimiento
+      - input_boolean.despacho_sensor_movimiento
       - input_boolean.cocina_sensor_puerta
       - input_boolean.cocina_sensor_persiana
       - input_boolean.coladuria_sensor_puerta
@@ -248,7 +248,7 @@ group:
     entities:
       - switch.recibidor_camara_det_mov
       - switch.salon_camara_det_mov
-      - input_boolean.salon_sensor_movimiento
+      - input_boolean.despacho_sensor_movimiento
       - input_boolean.cocina_sensor_puerta
       - input_boolean.coladuria_sensor_puerta
   
@@ -260,12 +260,12 @@ group:
       - input_boolean.entrada_principal_det_mov
       - input_boolean.cocina_sensor_persiana
   
-  Sensor salón:
+  Sensor despacho:
     entities:
-      - binary_sensor.salon_sensor_movimiento
-      - binary_sensor.salon_sensor_movimiento_sabotaje
-  #    - sensor.salon_sensor_movimiento_bateria
-      - input_boolean.salon_sensor_movimiento
+      - binary_sensor.despacho_sensor_movimiento
+      - binary_sensor.despacho_sensor_movimiento_sabotaje
+  #    - sensor.despacho_sensor_movimiento_bateria
+      - input_boolean.despacho_sensor_movimiento
   
   Puerta porche cocina:
     entities:
@@ -374,8 +374,8 @@ input_boolean:
     initial: on
     icon: 'mdi:glassdoor'
   
-  salon_sensor_movimiento:
-    name: Det. mov. salón
+  despacho_sensor_movimiento:
+    name: Det. mov. despacho
     initial: on
     icon: 'mdi:transit-transfer'
   
@@ -538,8 +538,8 @@ binary_sensor:
   
   - platform: template
     sensors:
-      salon_sensor_movimiento_sabotaje:
-        value_template: "{{ is_state('sensor.salon_sensor_movimiento_burglar', '3') }}"
+      despacho_sensor_movimiento_sabotaje:
+        value_template: "{{ is_state('sensor.despacho_sensor_movimiento_burglar', '3') }}"
         device_class: vibration
 
 sensor:
@@ -561,8 +561,8 @@ sensor:
         unit_of_measurement: '%'
 
       # Fibaro FGMS-001 Motion sensor
-      salon_sensor_movimiento_bateria:
-        value_template: '{% if states.zwave.salon_sensor_movimiento %}{{ states.zwave.salon_sensor_movimiento.attributes.battery_level }}{% else %}Desconocido{% endif %}'
+      despacho_sensor_movimiento_bateria:
+        value_template: '{% if states.zwave.despacho_sensor_movimiento %}{{ states.zwave.despacho_sensor_movimiento.attributes.battery_level }}{% else %}Desconocido{% endif %}'
         unit_of_measurement: '%'
 
 automation:

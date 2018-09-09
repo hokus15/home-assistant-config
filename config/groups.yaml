@@ -42,6 +42,7 @@ Interior:
     - group.salon
     - group.cocina
     - group.recibidor
+    - group.despacho
     - group.escalera
     - group.suite
     - group.habitacion_ninos
@@ -138,11 +139,11 @@ Salón:
     - sensor.netatmo_salon_co2
     - sensor.salon_termometro_co2_tendencia
     - sensor.netatmo_salon_wifi
-    - binary_sensor.salon_sensor_movimiento
-    - binary_sensor.salon_sensor_movimiento_sabotaje
-    - input_boolean.salon_sensor_movimiento
-    - sensor.salon_sensor_movimiento_luminance
-    - sensor.salon_sensor_movimiento_temperature
+
+Despacho:
+  entities:
+    - sensor.despacho_sensor_movimiento_luminance
+    - sensor.despacho_sensor_movimiento_temperature
 
 Escalera:
   entities:
