@@ -127,6 +127,7 @@ Viento:
 
 Salón:
   entities:
+    - camera.recibidor
     - sensor.netatmo_salon_temperature
     - sensor.salon_termometro_temperatura_tendencia
     - sensor.netatmo_salon_min_temp
@@ -142,7 +143,6 @@ Salón:
     - input_boolean.salon_sensor_movimiento
     - sensor.salon_sensor_movimiento_luminance
     - sensor.salon_sensor_movimiento_temperature
-    - group.camara_salon
 
 Escalera:
   entities:
@@ -177,10 +177,10 @@ Habitación niños:
 
 Recibidor:
   entities:
+    - camera.recibidor
     - switch.swiid_swiidinter_lampara_recibidor_switch
     - sensor.recibidor_termometro_temperatura
     - sensor.recibidor_termometro_temperatura_tendencia
-    - camera.recibidor
 
 Cocina:
   entities:
