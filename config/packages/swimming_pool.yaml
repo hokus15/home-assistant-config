@@ -15,6 +15,8 @@ homeassistant:
       hidden: true
     script.turn_on_swimmingpool_3_hours:
       hidden: true
+    sensor.piscina_temperature_mean:
+      friendly_name: 'Temp. media agua'
 
 recorder:
   exclude:
@@ -47,6 +49,15 @@ group:
   #    - history_graph.temperatura_piscina
       - camera.piscina
       - camera.ph_piscina
+
+history_graph:
+  temperature_swimmingpool:
+    name: Temperatura piscina
+    entities:
+      - sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature
+      - sensor.piscina_temperature_mean
+    hours_to_show: 336
+    refresh: 600
 
 sensor:
   - platform: template
