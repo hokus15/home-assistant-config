@@ -164,27 +164,6 @@ sensor.last_boot:
   friendly_name: 'Último reinicio'
 sensor.since_last_boot:
   friendly_name: 'Uptime'
-sensor.cocina_sensor_puerta:
-#  icon: 'mdi:glassdoor'
-  friendly_name: 'Estado puerta porche'
-sensor.cocina_sensor_puerta_bateria:
-  device_class: 'battery'
-  friendly_name: 'Sensor puerta cocina'
-sensor.cocina_sensor_persiana:
-#  icon: 'mdi:glassdoor'
-  friendly_name: 'Estado persiana porche'
-sensor.cocina_sensor_persiana_bateria:
-  device_class: 'battery'
-  friendly_name: 'Sensor persiana cocina'
-sensor.coladuria_sensor_puerta:
-#  icon: 'mdi:glassdoor'
-  friendly_name: 'Estado puerta coladuria'
-sensor.coladuria_sensor_puerta_bateria:
-  device_class: 'battery'
-  friendly_name: 'Sensor puerta coladuria'
-sensor.piscina_sensor_piscina_bateria:
-  device_class: 'battery'
-  friendly_name: 'Sensor temp. piscina'
 sensor.nut_ups_manufacturer:
   friendly_name: 'Marca'
 sensor.nut_ups_model:
@@ -193,12 +172,6 @@ sensor.nut_ups_battery_charge:
   friendly_name: 'Carga'
 sensor.nut_ups_battery_runtime:
   friendly_name: 'Tiempo restante'
-sensor.salon_sensor_movimiento_luminance:
-  icon: 'mdi:weather-sunny'
-  friendly_name: 'Luminosidad'
-sensor.salon_sensor_movimiento_bateria:
-  device_class: 'battery'
-  friendly_name: 'Detector movimiento salón'
 sensor.recibidor_boton_bateria:
   device_class: 'battery'
   friendly_name: 'Nodon'
@@ -257,79 +230,12 @@ sensor.ha_runtime_in_minutes:
 ###################################
 # Binary Sensors
 ###################################
-binary_sensor.recibidor_camara_infrarrojo:
-  friendly_name: 'Infrarrojos recibidor'
-  icon: 'mdi:led-on'
-binary_sensor.piscina_camara_infrarrojo:
-  friendly_name: 'Infrarrojos piscina'
-  icon: 'mdi:led-on'
-binary_sensor.barbacoa_camara_infrarrojo:
-  friendly_name: 'Infrarrojos barbacoa'
-  icon: 'mdi:led-on'
-binary_sensor.caseta_camara_infrarrojo:
-  friendly_name: 'Infrarrojos caseta'
-  icon: 'mdi:led-on'
 binary_sensor.ups_status_bs:
   friendly_name: 'Suministro eléctrico'
-binary_sensor.piscina_camara_det_mov:
-  friendly_name: 'Movimiento piscina'
-binary_sensor.recibidor_camara_det_mov:
-  friendly_name: 'Movimiento recibidor'
-binary_sensor.barbacoa_camara_det_mov:
-  friendly_name: 'Movimiento barbacoa'
-binary_sensor.caseta_camara_det_mov:
-  friendly_name: 'Movimiento caseta'
-binary_sensor.salon_sensor_movimiento:
-  friendly_name: 'Movimiento salón'
-  device_class: 'motion'
-binary_sensor.salon_sensor_movimiento_sabotaje:
-  friendly_name: 'Manipulación sensor'
-binary_sensor.entrada_principal_outdoor_motion:
-  friendly_name: 'Movimiento desconocido'
-binary_sensor.entrada_principal_outdoor_human:
-  friendly_name: 'Persona detectada'
-binary_sensor.entrada_principal_outdoor_animal:
-  friendly_name: 'Animal detectado'
-  icon: 'mdi:paw'
-binary_sensor.entrada_principal_outdoor_vehicle:
-  friendly_name: 'Vehiculo detectado'
-  icon: 'mdi:car'
-binary_sensor.porche_sensor_puerta:
-  device_class: 'door'
-  friendly_name: 'Puerta porche'
-binary_sensor.porche_sensor_persiana:
-  device_class: 'door'
-  friendly_name: 'Persiana porche'
-binary_sensor.coladuria_sensor_puerta:
-  device_class: 'door'
-  friendly_name: 'Puerta coladuría'
 
-###################################
-# Cameras
-###################################
-camera.recibidor:
-  friendly_name: 'Recibidor'
-camera.piscina:
-  friendly_name: 'Piscina'
-camera.barbacoa:
-  friendly_name: 'Barbacoa'
-camera.caseta:
-  friendly_name: 'Caseta'
 ###################################
 # Switches
 ###################################
-switch.recibidor_camara_det_mov:
-  friendly_name: 'Det. mov. recibidor'
-  icon: 'mdi:transit-transfer'
-switch.piscina_camara_det_mov:
-  friendly_name: 'Det. mov. piscina'
-  icon: 'mdi:transit-transfer'
-switch.barbacoa_camara_det_mov:
-  friendly_name: 'Det. mov. barbacoa'
-  icon: 'mdi:transit-transfer'
-switch.caseta_camara_det_mov:
-  friendly_name: 'Det. mov. caseta'
-  icon: 'mdi:transit-transfer'
 switch.motor_piscina:
   friendly_name: 'Depuradora'
   icon: mdi:pool
