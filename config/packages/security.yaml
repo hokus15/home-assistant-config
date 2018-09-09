@@ -638,3 +638,6 @@ automation:
               {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}camera.salon
               {%- else -%}desconocido{%-endif-%}
           domain: camera
+
+shell_command:
+  mp4_convert: sudo ffmpeg -i {{file}} -c copy {{file[1:file.find(".mkv")]}}.mp4
