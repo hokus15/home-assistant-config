@@ -95,6 +95,11 @@ homeassistant:
     sensor.salon_sensor_movimiento_bateria:
       device_class: 'battery'
       friendly_name: 'Detector movimiento salón'
+    sensor.salon_sensor_movimiento_temperature:
+      friendly_name: 'Temperatura'
+    sensor.recibidor_termometro_temperatura:
+      friendly_name: 'Temperatura'
+      unit_of_measurement: '°C'
 
     ###################################
     # Porch door sensor customization
@@ -108,6 +113,9 @@ homeassistant:
     sensor.cocina_sensor_puerta_bateria:
       device_class: 'battery'
       friendly_name: 'Sensor puerta cocina'
+    sensor.porche_sensor_puerta_temperature:
+      friendly_name: 'Temperatura'
+      icon: mdi:thermometer
 
     ###################################
     # Porch blind door sensor customization
