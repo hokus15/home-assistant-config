@@ -127,7 +127,7 @@ Viento:
 
 Salón:
   entities:
-    - camera.recibidor
+    - camera.salon
     - sensor.netatmo_salon_temperature
     - sensor.salon_termometro_temperatura_tendencia
     - sensor.netatmo_salon_min_temp
