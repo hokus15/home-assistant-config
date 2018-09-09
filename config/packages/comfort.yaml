@@ -253,6 +253,89 @@ history_graph:
     hours_to_show: 24
     refresh: 60
 
+binary_sensor:
+  - platform: template
+    sensors:
+      comfort_state:
+        device_class: heat
+        friendly_name: 'Auto confort'
+        value_template: "{{ states('sensor.temperature_first_floor')|float < states.climate.termostato.attributes.temperature|float and is_state('group.unidad_familiar', 'home') and is_state('switch.termostato', 'on') and is_state('switch.termostato_modo_ausente','off') and is_state_attr('climate.termostato', 'operation_mode', 'idle') and is_state('binary_sensor.primera_planta_temperatura_descendiendo','on') }}"
+        delay_off:
+            minutes: 90
+  # Trend sensors
+  - platform: trend
+    sensors:
+      exterior_termometro_temperatura_descendiendo:
+        entity_id: sensor.netatmo_exterior_temperature
+        invert: true
+  
+      exterior_termometro_temperatura_aumentando:
+        entity_id: sensor.netatmo_exterior_temperature
+  
+      salon_termometro_temperatura_descendiendo:
+        entity_id: sensor.netatmo_salon_temperature
+        invert: true
+      salon_termometro_temperatura_aumentando:
+        entity_id: sensor.netatmo_salon_temperature
+  
+      despacho_termometro_temperatura_descendiendo:
+        entity_id: sensor.despacho_termometro_temperatura
+        invert: true
+      despacho_termometro_temperatura_aumentando:
+        entity_id: sensor.despacho_termometro_temperatura
+  
+      recibidor_termometro_temperatura_descendiendo:
+        entity_id: sensor.recibidor_termometro_temperatura
+        invert: true
+      recibidor_termometro_temperatura_aumentando:
+        entity_id: sensor.recibidor_termometro_temperatura
+        
+      suite_termometro_temperatura_descendiendo:
+        entity_id: sensor.suite_termometro_temperatura
+        invert: true
+      suite_termometro_temperatura_aumentando:
+        entity_id: sensor.suite_termometro_temperatura
+  
+      habitacion_termometro_temperatura_descendiendo:
+        entity_id: sensor.habitacion_termometro_temperatura
+        invert: true
+      habitacion_termometro_temperatura_aumentando:
+        entity_id: sensor.habitacion_termometro_temperatura
+  
+      salon_termometro_co2_descendiendo:
+        entity_id: sensor.salon_termometro_co2
+        invert: true
+      salon_termometro_co2_aumentando:
+        entity_id: sensor.salon_termometro_co2
+  
+      suite_termometro_co2_descendiendo:
+        entity_id: sensor.suite_termometro_co2
+        invert: true
+      suite_termometro_co2_aumentando:
+        entity_id: sensor.suite_termometro_co2
+  
+      habitacion_termometro_co2_descendiendo:
+        entity_id: sensor.habitacion_termometro_co2
+        invert: true
+      habitacion_termometro_co2_aumentando:
+        entity_id: sensor.habitacion_termometro_co2
+  
+      planta_baja_temperatura_descendiendo:
+        entity_id: sensor.temperature_ground_floor
+        invert: true
+        max_samples: 5
+      planta_baja_temperatura_aumentando:
+        entity_id: sensor.temperature_ground_floor
+        max_samples: 5
+  
+      primera_planta_temperatura_descendiendo:
+        entity_id: sensor.temperature_first_floor
+        invert: true
+        max_samples: 5
+      primera_planta_temperatura_aumentando:
+        entity_id: sensor.temperature_first_floor
+        max_samples: 5
+
 sensor:
   - platform: netatmo
     modules:
