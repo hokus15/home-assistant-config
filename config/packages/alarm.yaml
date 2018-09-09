@@ -390,7 +390,7 @@ script:
           message: 'Alarma desarmada manualmente desde Telegram'
           target: 
             - !secret hokusphone_telegram_chat_id
-            #- !secret geniphone_telegram_chat_id
+            - !secret geniphone_telegram_chat_id
           disable_notification: false
           inline_keyboard:
                  - 'Armar alarma:/script.turn_on#script.alarm_arm_away'
@@ -408,7 +408,7 @@ script:
           message: 'Alarma desarmada durante {{data.minutes}} minutos desde Telegram'
           target: 
             - !secret hokusphone_telegram_chat_id
-            #- !secret geniphone_telegram_chat_id
+            - !secret geniphone_telegram_chat_id
           disable_notification: false
           inline_keyboard:
                  - 'Armar alarma:/script.turn_on#script.alarm_arm_away'
@@ -435,7 +435,7 @@ script:
           caption: 'Movimiento detectado en {{data.camera_name}}'
           target: 
             - !secret hokusphone_telegram_chat_id
-            #- !secret geniphone_telegram_chat_id
+            - !secret geniphone_telegram_chat_id
           disable_notification: false
           inline_keyboard:
             - 'Desactivar det. mov. {{data.camera_name}}:/homeassistant.turn_off#{{data.turn_off_entity_id}}'
@@ -452,7 +452,7 @@ script:
           message: '{{data.message}}'
           target: 
             - !secret hokusphone_telegram_chat_id
-            #- !secret geniphone_telegram_chat_id
+            - !secret geniphone_telegram_chat_id
           disable_notification: false
           inline_keyboard:
             - 'Desactivar sensor:/homeassistant.turn_off#{{data.turn_off_entity_id}}'
