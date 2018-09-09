@@ -112,7 +112,7 @@ recorder:
       - sensor.sunset
 
       - sensor.ha_runtime_in_minutes
-      
+
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_alarm_level
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_alarm_type
       - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_exporting

@@ -91,7 +91,6 @@
         entity_id: group.external_lights_group
         domain: light
 
-  
 # When the outside lights have been turned on at late night (later than 00:15) and before sunrise, turn them off after 5 minutes
 - alias: 'Turn off lights at late night'
   trigger:

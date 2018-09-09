@@ -1,7 +1,6 @@
 #############################################################
 # Fence scripts
 #############################################################
-
 fence_close:
   alias: 'Close fence if open'
   sequence:
@@ -33,7 +32,6 @@ fence_open_ga:
 #############################################################
 # System scripts
 #############################################################
-
 system_restart_ha:
   alias: 'Reiniciar HA'
   sequence:
@@ -45,29 +43,8 @@ system_reboot_pi:
       - service: shell_command.reboot_pi
 
 #############################################################
-# Climate scripts
-#############################################################
-
-climate_power_off:
-  alias: 'Power off thermostat'
-  sequence:
-    - service: climate.set_temperature
-      entity_id: climate.termostato
-      data:
-        temperature: 11.5
-
-climate_power_on:
-  alias: 'Power on thermostat'
-  sequence:
-    - service: climate.set_away_mode
-      entity_id: climate.termostato
-      data:
-        away_mode: false
-
-#############################################################
 # Speech scripts
 #############################################################
-
 speech_set_tts_volume_level:
   alias: 'Lower the home-assistant tts volume level between 23 and 9'
   sequence:
@@ -124,23 +101,6 @@ speech_parte_meteorologico_corto:
 #############################################################
 # Misc scripts
 #############################################################
-
-comfort_mode_off:
-  alias: 'Turn off comfort mode'
-  sequence:
-   # Turn on thermostat away mode 
-    - service: climate.set_away_mode
-      entity_id: climate.termostato
-      data:
-        away_mode: true
-    - delay:
-        seconds: 5
-   # Turn off thermostat away mode 
-    - service: climate.set_away_mode
-      entity_id: climate.termostato
-      data:
-        away_mode: false
-
 goto_sleep:
   alias: 'Go to sleep'
   sequence:

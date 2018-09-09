@@ -97,6 +97,8 @@ homeassistant:
     switch.termostato_modo_ausente:
       friendly_name: 'Modo ausente'
       icon: mdi:home-outline
+    sensor.season:
+      friendly_name: 'Estación'
 
 recorder:
   exclude:
@@ -636,6 +638,47 @@ sensor:
           mdi:window-minimize
           {%- endif %}
 
+switch:
+  - platform: mqtt
+    name: 'termostato'
+    state_topic: 'home/heating/status'
+    command_topic: 'home/heating/status'
+    payload_on: 'ON'
+    payload_off: 'OFF'
+    optimistic: false
+    qos: 0
+    retain: true
+  
+  - platform: template
+    switches:
+      termostato_modo_ausente:
+        value_template: >-
+          {%- if states("climate.termostato") != "unknown" -%}
+            {{ states.climate.termostato.attributes.away_mode }}
+          {%- else -%}
+            off
+          {%- endif %}
+        turn_on:
+          service: climate.set_away_mode
+          entity_id: climate.termostato
+          data:
+            away_mode: true
+        turn_off:
+          service: climate.set_away_mode
+          entity_id: climate.termostato
+          data:
+            away_mode: false
+  #    comfort_state:
+  #      value_template: {{ states('sensor.temperature_first_floor')|float < states.climate.termostato.attributes.temperature|float and is_state('group.unidad_familiar', 'home') and is_state('switch.termostato', 'on') and is_state('switch.termostato_modo_ausente','off') and is_state_attr('climate.termostato', 'operation_mode', 'idle') and is_state('binary_sensor.primera_planta_temperatura_descendiendo','on') }}
+  #      turn_on:
+  #        service: climate.set_temperature
+  #        data_template:
+  #          entity_id: climate.termostato
+  #          temperature: 23
+  #      turn_off:
+  #        service: script.turn_on
+  #        entity_id: script.comfort_mode_off
+
 automation:
   #############################################################
   # Heating automations
@@ -711,3 +754,39 @@ automation:
       data_template:
         entity_id: climate.termostato
         temperature: 23
+
+script:
+  #############################################################
+  # Climate scripts
+  #############################################################
+  climate_power_off:
+    alias: 'Power off thermostat'
+    sequence:
+      - service: climate.set_temperature
+        entity_id: climate.termostato
+        data:
+          temperature: 11.5
+  
+  climate_power_on:
+    alias: 'Power on thermostat'
+    sequence:
+      - service: climate.set_away_mode
+        entity_id: climate.termostato
+        data:
+          away_mode: false
+
+  comfort_mode_off:
+    alias: 'Turn off comfort mode'
+    sequence:
+     # Turn on thermostat away mode 
+      - service: climate.set_away_mode
+        entity_id: climate.termostato
+        data:
+          away_mode: true
+      - delay:
+          seconds: 5
+     # Turn off thermostat away mode 
+      - service: climate.set_away_mode
+        entity_id: climate.termostato
+        data:
+          away_mode: false
