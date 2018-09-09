@@ -279,6 +279,17 @@ camera:
     still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}&zoom=15&size=500x500&maptype=roadmap&markers=color:grey%7Clabel:N%7C{{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}
     limit_refetch_to_url_change: true
 
+switch:
+  - platform: mqtt
+    name: 'holiday'
+    state_topic: 'home/holiday/status'
+    command_topic: 'home/holiday/status'
+    payload_on: 'ON'
+    payload_off: 'OFF'
+    optimistic: false
+    qos: 0
+    retain: true
+
 automation:
   # Empty home automation when no one of the Familia group is at home
   - alias: 'Empty home'
