@@ -168,12 +168,6 @@ sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_energy_2:
 sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_power_2:
   icon: 'mdi:power-plug'
   friendly_name: 'Potencia luz suite'
-sensor.piscina_on_history:
-  friendly_name: 'Uso bomba hoy'
-sensor.switch_piscina_current_power_w:
-  icon: mdi:speedometer
-sensor.switch_piscina_today_energy_kwh:
-  icon: mdi:calendar-today
 sensor.caducidad_certificado_ssl:
   unit_of_measurement: días
 sensor.connected_clients:
@@ -204,9 +198,6 @@ binary_sensor.ups_status_bs:
 ###################################
 # Switches
 ###################################
-switch.motor_piscina:
-  friendly_name: 'Depuradora'
-  icon: mdi:pool
 switch.barrera:
   friendly_name: 'Barrera'
   icon: mdi:gate
@@ -238,12 +229,6 @@ input_number.entrada_luz_brillo:
 # Scripts
 ###################################
 script.turn_off_lights_exterior:
-  hidden: true
-script.turn_on_swimmingpool_1_hour:
-  hidden: true
-script.turn_on_swimmingpool_2_hours:
-  hidden: true
-script.turn_on_swimmingpool_3_hours:
   hidden: true
 script.restart_ha:
   icon: mdi:autorenew
