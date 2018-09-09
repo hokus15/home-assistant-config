@@ -14,7 +14,7 @@ recorder:
       - sensor.on_off_switch_caseta_camara_det_mov
       - sensor.on_off_switch_piscina_camara_det_mov
       - sensor.on_off_switch_recibidor_camara_det_mov
-      - sensor.on_off_input_boolean_salon_sensor_movimiento
+      - sensor.on_off_input_boolean_despacho_sensor_movimiento
       - sensor.on_off_input_boolean_cocina_sensor_puerta
       - sensor.on_off_input_boolean_cocina_sensor_persiana
       - sensor.on_off_switch_holiday
@@ -32,7 +32,7 @@ recorder:
       - sensor.check_switch_caseta_camara_det_mov
       - sensor.check_switch_piscina_camara_det_mov
       - sensor.check_switch_recibidor_camara_det_mov
-      - sensor.check_input_boolean_salon_sensor_movimiento
+      - sensor.check_input_boolean_despacho_sensor_movimiento
       - sensor.check_input_boolean_cocina_sensor_puerta
       - sensor.check_input_boolean_cocina_sensor_persiana
       - sensor.check_switch_holiday
@@ -438,8 +438,8 @@ sensor:
     on_off_switch_recibidor_camara_det_mov:
       value_template: '{% if is_state("switch.recibidor_camara_det_mov", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el detector de movimiento del recibidor'
-    on_off_input_boolean_salon_sensor_movimiento:
-      value_template: '{% if is_state("input_boolean.salon_sensor_movimiento", "off") %}activado{% else %}desactivado{% endif %}'
+    on_off_input_boolean_despacho_sensor_movimiento:
+      value_template: '{% if is_state("input_boolean.despacho_sensor_movimiento", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el detector de movimiento del salón'
     on_off_input_boolean_cocina_sensor_puerta:
       value_template: '{% if is_state("input_boolean.cocina_sensor_puerta", "off") %}conectado{% else %}desconectado{% endif %}'
@@ -505,8 +505,8 @@ sensor:
       value_template: '{% if is_state("switch.recibidor_camara_det_mov", "off") %}desactivado{% else %}activado{% endif %}'
       friendly_name: 'el detector de movimiento del recibidor'
       unit_of_measurement: 'enabled-disabled'
-    check_input_boolean_salon_sensor_movimiento:
-      value_template: '{% if is_state("input_boolean.salon_sensor_movimiento", "off") %}desactivado{% else %}activado{% endif %}'
+    check_input_boolean_despacho_sensor_movimiento:
+      value_template: '{% if is_state("input_boolean.despacho_sensor_movimiento", "off") %}desactivado{% else %}activado{% endif %}'
       friendly_name: 'el detector de movimiento del salón'
       unit_of_measurement: 'enabled-disabled'
     check_input_boolean_cocina_sensor_puerta:
