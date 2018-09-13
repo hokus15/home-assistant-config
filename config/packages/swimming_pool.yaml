@@ -2,10 +2,9 @@ homeassistant:
   customize:
     sensor.piscina_on_history:
       friendly_name: 'Uso bomba hoy'
-    sensor.switch_piscina_current_power_w:
-      icon: mdi:speedometer
-    sensor.switch_piscina_today_energy_kwh:
-      icon: mdi:calendar-today
+    sensor.piscina_water_temperature:
+      friendly_name: 'Temperatura agua'
+      icon: mdi:oil-temperature
     switch.motor_piscina:
       friendly_name: 'Depuradora'
       icon: mdi:pool
@@ -39,22 +38,22 @@ group:
       - switch.motor_piscina
   #    - sensor.ph_piscina
       - sensor.piscina_on_history
-  #    - sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature
-      - input_number.piscina_temperature
+#      - input_number.piscina_temperature
+      - sensor.piscina_water_temperature
       - sensor.piscina_temperature_mean
       - sensor.piscina_k_factor
       - sensor.piscina_filtering_time
       - sensor.piscina_on_time
       - sensor.piscina_off_time
-  #    - history_graph.temperatura_piscina
+      - history_graph.temperatura_piscina
       - camera.piscina
-      - camera.ph_piscina
+  #    - camera.ph_piscina
 
 history_graph:
   temperature_swimmingpool:
     name: Temperatura piscina
     entities:
-      - sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature
+      - sensor.piscina_water_temperature
       - sensor.piscina_temperature_mean
     hours_to_show: 336
     refresh: 600
@@ -145,8 +144,8 @@ sensor:
         icon_template: 'mdi:power-plug'
   - platform: statistics
     name: piscina_temperature
-    #entity_id: sensor.fibaro_fgk10x_door_opening_sensor_piscina_temperature
-    entity_id: input_number.piscina_temperature
+    #entity_id: input_number.piscina_temperature
+    entity_id: sensor.piscina_water_temperature
     max_age:
       hours: 24
   
@@ -158,16 +157,22 @@ sensor:
     start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
     end: '{{ now() }}'
 
-input_number:
-  piscina_temperature:
-    name: Temp. agua
-    min: 0
-    max: 40
-    initial: 25
-    step: 0.1
-  #  mode: box
-    unit_of_measurement: 'ºC'
-    icon: 'mdi:thermometer'
+  - platform: mqtt
+    name: piscina_water_temperature
+    state_topic: "tele/motor_piscina/SENSOR"
+    value_template: "{{ value_json.DS18B20.Temperature }}"
+    unit_of_measurement: "ºC"
+
+#input_number:
+#  piscina_temperature:
+#    name: Temp. agua
+#    min: 0
+#    max: 40
+#    initial: 25
+#    step: 0.1
+#  #  mode: box
+#    unit_of_measurement: 'ºC'
+#    icon: 'mdi:thermometer'
 
 automation:
   #############################################################
