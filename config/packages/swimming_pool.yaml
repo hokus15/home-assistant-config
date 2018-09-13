@@ -146,6 +146,7 @@ sensor:
     name: piscina_temperature
     #entity_id: input_number.piscina_temperature
     entity_id: sensor.piscina_water_temperature
+    sampling_size: 1440
     max_age:
       hours: 24
   
