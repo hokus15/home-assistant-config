@@ -259,3 +259,24 @@ automation:
         message: 'Motor piscina encendido hoy durante más de 9 horas'
         inline_keyboard: 
           - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
+
+script:
+  turn_on_swimmingpool_light_ga:
+    alias: 'Turn on swimming pool lights if off'
+    sequence:
+      - condition: state
+        entity_id: switch.luz_piscina
+        state: 'off'
+      - service: switch.turn_on
+        data:
+          entity_id: switch.luz_piscina
+
+  turn_off_swimmingpool_light_ga:
+    alias: 'Turn off swimming pool lights if on'
+    sequence:
+      - condition: state
+        entity_id: switch.luz_piscina
+        state: 'on'
+      - service: switch.turn_off
+        data:
+          entity_id: switch.luz_piscina
