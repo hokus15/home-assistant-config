@@ -39,6 +39,7 @@ group:
   #    - sensor.ph_piscina
       - sensor.piscina_on_history
 #      - input_number.piscina_temperature
+      - input_number.temperature_correction
       - sensor.piscina_water_temperature
       - sensor.piscina_temperature_mean
       - sensor.piscina_k_factor
@@ -161,10 +162,19 @@ sensor:
   - platform: mqtt
     name: piscina_water_temperature
     state_topic: "tele/motor_piscina/SENSOR"
-    value_template: "{{ value_json.DS18B20.Temperature }}"
+    value_template: "{{ value_json.DS18B20.Temperature | float + states.input_number.temperature_correction.state | float }}"
     unit_of_measurement: "ºC"
 
-#input_number:
+input_number:
+  temperature_correction:
+    name: 'Corrección temp.'
+    unit_of_measurement: 'ºC'
+    icon: 'mdi:thermometer-lines'
+    min: -5
+    max: 5
+    step: 0.5
+    mode: box
+
 #  piscina_temperature:
 #    name: Temp. agua
 #    min: 0
@@ -246,4 +256,3 @@ automation:
         message: 'Motor piscina encendido hoy durante más de 9 horas'
         inline_keyboard: 
           - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
-  
