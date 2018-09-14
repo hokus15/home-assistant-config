@@ -4,7 +4,7 @@ homeassistant:
       friendly_name: 'Uso bomba hoy'
     sensor.piscina_water_temperature:
       friendly_name: 'Temperatura agua'
-      icon: mdi:oil-temperature
+      icon: 'mdi:oil-temperature'
     switch.motor_piscina:
       friendly_name: 'Depuradora'
       icon: mdi:pool
@@ -16,7 +16,9 @@ homeassistant:
       hidden: true
     sensor.piscina_temperature_mean:
       friendly_name: 'Temp. media agua'
-
+    switch.luz_piscina:
+      friendly_name: 'Luz'
+      icon: 'mdi:lightbulb'
 recorder:
   exclude:
     entities:
@@ -36,6 +38,7 @@ group:
   Piscina:
     entities:
       - switch.motor_piscina
+      - switch.luz_piscina
   #    - sensor.ph_piscina
       - sensor.piscina_on_history
 #      - input_number.piscina_temperature
@@ -110,7 +113,7 @@ sensor:
             0.15
           {%- endif %}
   
-        icon_template: 'mdi:oil-temperature'
+        icon_template: 'mdi:arrow-down-bold'
       piscina_filtering_time:
         friendly_name: 'Tiempo de filtrado'
         value_template: >- 
