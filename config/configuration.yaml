@@ -46,9 +46,6 @@ sun:
 
 # Discover some devices automatically
 discovery:
-  ignore:
-    - google_cast
-    - belkin_wemo
 
 # Checks for available updates
 updater:
@@ -61,23 +58,6 @@ history:
       - camera
 
 config:
-
-wemo:
-  static:
-    # Maker
-    - 10.155.106.110
-    # Switch
-#    - 10.155.106.111
-    # Link
-    - 10.155.106.112
-
-media_player:
-    # TV
-  - platform: cast
-    host: 10.155.106.114
-    # Home-Assistant
-  - platform: cast
-    host: 10.155.106.143
 
 recorder:
   purge_interval: 1
@@ -149,12 +129,12 @@ logger:
 #    homeassistant.components.shell_command: debug
 #    homeassistant.components.dialogflow: debug
 #    homeassistant.components.telegram_bot: debug
-#    homeassistant.components.dialogflow: debug
 #    homeassistant.helpers.intent: debug
 #    homeassistant.components.intent_script: debug
 #    homeassistant.helpers.script: debug
 #    homeassistant.components.automation: debug
-#    homeassistant.components.device_tracker: info
+#    homeassistant.components.device_tracker: debug
+#    homeassistant.components.device_tracker.luci: debug
 #    homeassistant.core: debug
 #    homeassistant.components.sensor.speedtest: debug
 #    homeassistant.core: debug

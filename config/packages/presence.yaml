@@ -130,11 +130,18 @@ input_number:
     step: 5
 
 device_tracker:
-  - platform: linksys_smart
-    host: !secret wrt1900acs_host
+#  - platform: linksys_smart
+#    host: !secret wrt1900acs_host
   #  username: !secret wrt1900acs_username 
   #  password: !secret wrt1900acs_password
-  
+#  - platform: nmap_tracker
+#    hosts: 192.168.1.0/24 
+
+  - platform: ubus
+    host: !secret wrt1900acs_host
+    username: !secret wrt1900acs_username 
+    password: !secret wrt1900acs_password
+    
   - platform: mqtt_json
     devices:
       # Toyota tracker
