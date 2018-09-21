@@ -574,8 +574,12 @@ automation:
       event_data:
         event_type: created
     condition:
-      condition: template
-      value_template: '{{ "mkv" in trigger.event.data.file }}'
+      condition: and
+      conditions:
+        - condition: template
+          value_template: '{{ "mkv" in trigger.event.data.file }}'
+        - condition: template
+          value_template: '{{ not(is_state("alarm_control_panel.casa", "disarmed")) }}'
     action:
       # Delay execution to let the file to be fully loaded in the ftp
       - delay:
