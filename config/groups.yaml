@@ -55,7 +55,7 @@ Exterior:
   view: yes
   icon: mdi:tree
   entities:
-    - group.luces_exteriores
+#    - group.luces_exteriores
     - group.meteorologia
     - group.temperatura
     - group.lluvia
@@ -163,18 +163,18 @@ Cocina:
     - input_boolean.coladuria_sensor_puerta
     - sensor.porche_sensor_puerta_temperature
 
-Luces exteriores:
-  entities:
-    - light.barrera_derecha
-    - light.barrera_izquierda
-    - light.puerta_coladuria
-    - input_number.entrada_luz_brillo
-
-External Lights Group:
-  entities:
-    - light.barrera_derecha
-    - light.barrera_izquierda
-    - light.puerta_coladuria
+#Luces exteriores:
+#  entities:
+#    - light.barrera_derecha
+#    - light.barrera_izquierda
+#    - light.puerta_coladuria
+#    - input_number.entrada_luz_brillo
+#
+#External Lights Group:
+#  entities:
+#    - light.barrera_derecha
+#    - light.barrera_izquierda
+#    - light.puerta_coladuria
 
 Luces interiores:
   entities:

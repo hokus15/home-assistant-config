@@ -46,6 +46,13 @@ sun:
 
 # Discover some devices automatically
 discovery:
+  ignore:
+    - belkin_wemo
+
+wemo:
+  static:
+    # Maker
+    - 192.168.1.121
 
 # Checks for available updates
 updater:
