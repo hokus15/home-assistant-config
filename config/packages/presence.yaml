@@ -458,6 +458,11 @@ automation:
             - 'Cerrar:/script.turn_on#script.fence_close'
       - delay:
           seconds: 5
+      - service: mqtt.publish
+        data:
+          payload: not_detected
+          retain: false
+          topic: 'location/geniphone/ibeacon'
       - service: device_tracker.see
         data:
           dev_id: 'geni_combined'
@@ -525,6 +530,11 @@ automation:
           topic: 'device/carphone/say'
       - delay:
           seconds: 5
+      - service: mqtt.publish
+        data:
+          payload: not_detected
+          retain: false
+          topic: 'location/hokusphone/ibeacon'
       - service: telegram_bot.send_message
         data_template:
           message: 'Barrera abierta automáticamente'
