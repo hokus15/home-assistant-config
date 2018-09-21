@@ -99,6 +99,10 @@ homeassistant:
       icon: mdi:home-outline
     sensor.season:
       friendly_name: 'Estación'
+    sensor.temperature_home_mean:
+      friendly_name: 'Temp. media 24h'
+      icon: 'mdi:thermometer'
+      unit_of_measurement: '°C'
 
 recorder:
   exclude:
@@ -242,6 +246,8 @@ group:
       - sensor.planta_baja_temperatura_tendencia
       - sensor.temperature_first_floor
       - sensor.primera_planta_temperatura_tendencia
+      - sensor.temperature_home_mean
+      - history_graph.temperatura_media_casa
       - group.unidad_familiar
       - switch.termostato
       - switch.termostato_modo_ausente
@@ -254,6 +260,13 @@ history_graph:
       - sensor.netatmo_exterior_temperature
     hours_to_show: 24
     refresh: 60
+
+  temperature_home:
+    name: Temperatura media casa
+    entities:
+      - sensor.temperature_home
+    hours_to_show: 336
+    refresh: 600
 
 binary_sensor:
   - platform: template
@@ -426,7 +439,26 @@ sensor:
     entity_ids:
       - sensor.netatmo_suite_temperature
       - sensor.netatmo_habitacion_temperature
-  
+
+  - platform: min_max
+    name: temperature_home
+    type: mean
+    round_digits: 1
+    entity_ids:
+      - sensor.netatmo_suite_temperature
+      - sensor.netatmo_habitacion_temperature
+      - sensor.netatmo_salon_temperature
+      - sensor.recibidor_termometro_temperatura
+      - sensor.despacho_sensor_movimiento_temperature
+      - sensor.porche_sensor_puerta_temperature
+
+  - platform: statistics
+    name: temperature_home
+    entity_id: sensor.temperature_home
+    sampling_size: 1440
+    max_age:
+      hours: 24
+
   - platform: template
     sensors:
       planta_baja_temperatura_tendencia:
@@ -705,7 +737,63 @@ automation:
       # Turn off thermostat
       - service: script.turn_on
         entity_id: script.climate_power_off
-  
+
+  - alias: 'Automatic Heating on when home mean temperature for last 24 hours is below 18.5 degrees'
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.temperature_home_mean
+      below: 19
+    condition:
+      condition: state
+      entity_id: 'switch.termostato'
+      state: 'off'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.termostato
+      - service: logbook.log
+        data:
+          name: 'Calefacción'
+          message: 'encendida por baja temperatura'
+          entity_id: climate.termostato
+          domain: climate
+      - service: telegram_bot.send_message
+        data_template:
+          message: 'Como ya empeiza a hacer fresquito, he encendido la calefaccción. Convendría hacer un purgado de los radiadores.'
+          target: 
+            - !secret hokusphone_telegram_chat_id
+            - !secret geniphone_telegram_chat_id
+          disable_notification: false
+          inline_keyboard:
+                 - 'Apaga la calefacción:/switch.turn_off#switch.termostato'
+
+  - alias: 'Automatic Heating off when home mean temperature for last 24 hours is above 22 degrees'
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.temperature_home_mean
+      above: 22
+    condition:
+      condition: state
+      entity_id: 'switch.termostato'
+      state: 'on'
+    action:
+      - service: switch.turn_off
+        entity_id: switch.termostato
+      - service: logbook.log
+        data:
+          name: 'Calefacción'
+          message: 'apagada por alta temperatura'
+          entity_id: climate.termostato
+          domain: climate
+      - service: telegram_bot.send_message
+        data_template:
+          message: 'Empieza el calor!!!! He apagado la calefaccción.'
+          target: 
+            - !secret hokusphone_telegram_chat_id
+            - !secret geniphone_telegram_chat_id
+          disable_notification: false
+          inline_keyboard:
+                 - 'Enciende la calefacción:/switch.turn_on#switch.termostato'
+
   # When average temp on ground floor or first floor is under target climate temperature
   # If:
   #  - There is someone at home
