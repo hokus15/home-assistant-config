@@ -97,9 +97,6 @@ homeassistant:
       friendly_name: 'Detector movimiento despacho'
     sensor.despacho_sensor_movimiento_temperature:
       friendly_name: 'Temperatura'
-    sensor.recibidor_termometro_temperatura:
-      friendly_name: 'Temperatura'
-      unit_of_measurement: '°C'
 
     ###################################
     # Porch door sensor customization

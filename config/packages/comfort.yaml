@@ -103,6 +103,9 @@ homeassistant:
       friendly_name: 'Temp. media 24h'
       icon: 'mdi:thermometer'
       unit_of_measurement: '°C'
+    sensor.recibidor_termometro_temperatura:
+      friendly_name: 'Temperatura'
+      unit_of_measurement: '°C'
 
 recorder:
   exclude:
@@ -738,11 +741,12 @@ automation:
       - service: script.turn_on
         entity_id: script.climate_power_off
 
-  - alias: 'Automatic Heating on when home mean temperature for last 24 hours is below 18.5 degrees'
+    # Automatic Heating on when home mean temperature for last 24 hours is below 18.5 degrees
+  - alias: 'Automatic heating on'
     trigger:
       platform: numeric_state
       entity_id: sensor.temperature_home_mean
-      below: 19
+      below: 18.5
     condition:
       condition: state
       entity_id: 'switch.termostato'
@@ -766,7 +770,8 @@ automation:
           inline_keyboard:
                  - 'Apaga la calefacción:/switch.turn_off#switch.termostato'
 
-  - alias: 'Automatic Heating off when home mean temperature for last 24 hours is above 22 degrees'
+    # Automatic Heating off when home mean temperature for last 24 hours is above 22 degrees
+  - alias: 'Automatic heating off'
     trigger:
       platform: numeric_state
       entity_id: sensor.temperature_home_mean
