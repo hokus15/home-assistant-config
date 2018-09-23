@@ -87,20 +87,25 @@ sensor:
       piscina_capacity:
         friendly_name: 'Capacidad'
         value_template: >-
+          {%if states.sensor.ha_runtime_in_minutes.state|float > 2 %}
           {%- if states.sensor.piscina_width and states.sensor.piscina_height and states.sensor.piscina_average_depth %}
           {{ states.sensor.piscina_width.state | float * states.sensor.piscina_height.state | float * states.sensor.piscina_average_depth.state | float}}
           {%- endif %}
+          {% else %}Calculando...{%- endif %}
         unit_of_measurement: 'm3'
       piscina_recirculation:
         friendly_name: 'Recirculación'
         value_template: >-
+          {%if states.sensor.ha_runtime_in_minutes.state|float > 2 %}
           {%- if states.sensor.piscina_capacity and states.sensor.piscina_pump_power and states.sensor.piscina_pump_efficiency %}
           {{ (states.sensor.piscina_capacity.state | float / (states.sensor.piscina_pump_power.state | float * states.sensor.piscina_pump_efficiency.state | float )) | round(1) }}
           {%- endif %}
+          {% else %}Calculando...{%- endif %}
         unit_of_measurement: 'h'
       piscina_k_factor:
         friendly_name: 'Factor reduccion (K)'
         value_template: >-
+          {%if states.sensor.ha_runtime_in_minutes.state|float > 2 %}
           {%- if states.sensor.piscina_temperature_mean.state | float > 15 %}
             1
           {% elif states.sensor.piscina_temperature_mean.state | float <= 15 and states.sensor.piscina_temperature_mean.state | float > 13 %}
@@ -112,11 +117,12 @@ sensor:
           {% elif states.sensor.piscina_temperature_mean.state | float <= 5 %}
             0.15
           {%- endif %}
-  
+          {% else %}Calculando...{%- endif %}
         icon_template: 'mdi:arrow-down-bold'
       piscina_filtering_time:
         friendly_name: 'Tiempo de filtrado'
         value_template: >- 
+          {%if states.sensor.ha_runtime_in_minutes.state|float > 2 %}
           {% set filtering_time = (states.sensor.piscina_k_factor.state | float * ((states.sensor.piscina_temperature_mean.state | float / 10) * states.sensor.piscina_recirculation.state | float )) | float | round(2)%}
           {%- if filtering_time < 2 %}
             {{ 2 | float }}
@@ -125,7 +131,7 @@ sensor:
           {% else %}
             {{ filtering_time }}
           {%- endif %}
-          
+          {% else %}Calculando...{%- endif %}
         unit_of_measurement: 'h'
         icon_template: 'mdi:clock'
       piscina_off_time:

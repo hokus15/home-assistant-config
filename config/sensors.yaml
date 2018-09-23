@@ -32,7 +32,7 @@
     bitcoin_walet_value: 
       friendly_name: 'Valor cartera Bitcoin'
       icon_template: mdi:currency-eur
-      value_template: '{%if states.sensor.exchange_rate_1_btc is not none %}{{(float(states.sensor.exchange_rate_1_btc.state) * float(states.sensor.bitcoin_balance.state)) | round(2)}}{% else %}Calculando...{% endif %}'
+      value_template: '{%if states.sensor.ha_runtime_in_minutes.state|float > 2 %}{%if states.sensor.exchange_rate_1_btc is not none %}{{(float(states.sensor.exchange_rate_1_btc.state) * float(states.sensor.bitcoin_balance.state)) | round(2)}}{% endif %}{% else %}Calculando...{% endif %}'
       unit_of_measurement: '€'
     ethereum_balance:
       friendly_name: 'Saldo Ethereum'
@@ -42,7 +42,7 @@
     ethereum_walet_value: 
       friendly_name: 'Valor cartera Ethereum'
       icon_template: mdi:currency-eur
-      value_template: '{% if states.sensor.exchange_rate_1_eth is not none %}{{(float(states.sensor.exchange_rate_1_eth.state) * float(states.sensor.ethereum_balance.state)) | round(2)}}{% else %}Calculando...{% endif %}'
+      value_template: '{%if states.sensor.ha_runtime_in_minutes.state|float > 2 %}{% if states.sensor.exchange_rate_1_eth is not none %}{{(float(states.sensor.exchange_rate_1_eth.state) * float(states.sensor.ethereum_balance.state)) | round(2)}}{% endif %}{% else %}Calculando...{% endif %}'
       unit_of_measurement: '€'
 
 - platform: efergy
