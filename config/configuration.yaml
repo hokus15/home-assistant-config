@@ -222,8 +222,8 @@ tts:
     time_memory: 300
     language: 'es'
 
-freedns:
-  access_token: !secret freedns_token
+#freedns:
+#  access_token: !secret freedns_token
 
 #climate:
 #  - platform: netatmo
