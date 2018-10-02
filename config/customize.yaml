@@ -49,9 +49,9 @@ sensor.ink_level_black:
   entity_picture: /local/printer_ink_black.png
 sensor.hp_photosmart_5520:
   entity_picture: /local/printer_icon.png
-sensor.cpu_use:
+sensor.processor_use:
   friendly_name: 'Uso CPU'
-sensor.ram_free:
+sensor.memory_free:
   friendly_name: 'RAM libre'
   icon: mdi:chip
 sensor.disk_free_:

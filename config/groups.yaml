@@ -209,8 +209,8 @@ Estado HA:
   entities:
     - script.system_restart_ha
     - script.system_reboot_pi
-    - sensor.cpu_use
-    - sensor.ram_free
+    - sensor.processor_use
+    - sensor.memory_free
     - sensor.disk_free_
     - sensor.last_boot
     - sensor.since_last_boot
