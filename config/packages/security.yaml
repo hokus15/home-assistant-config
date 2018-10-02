@@ -195,7 +195,7 @@ group:
       - switch.piscina_camara_det_mov
       - switch.barbacoa_camara_det_mov
       - switch.caseta_camara_det_mov
-      - input_boolean.entrada_principal_det_mov
+      - input_boolean.entrada_principal_camara_det_mov
       - input_boolean.despacho_sensor_movimiento
       - input_boolean.cocina_sensor_puerta
       - input_boolean.cocina_sensor_persiana
@@ -238,7 +238,7 @@ group:
   Cámara entrada principal:
     entities:
       - camera.entrada_principal
-      - input_boolean.entrada_principal_det_mov
+      - input_boolean.entrada_principal_camara_det_mov
       - binary_sensor.entrada_principal_outdoor_motion
       - binary_sensor.entrada_principal_outdoor_human
       - binary_sensor.entrada_principal_outdoor_animal
@@ -257,7 +257,7 @@ group:
       - switch.piscina_camara_det_mov
       - switch.barbacoa_camara_det_mov
       - switch.caseta_camara_det_mov
-      - input_boolean.entrada_principal_det_mov
+      - input_boolean.entrada_principal_camara_det_mov
       - input_boolean.cocina_sensor_persiana
   
   Sensor despacho:
@@ -379,7 +379,7 @@ input_boolean:
     initial: on
     icon: 'mdi:transit-transfer'
   
-  entrada_principal_det_mov:
+  entrada_principal_camara_det_mov:
     name: Det. mov. entrada ppal.
     initial: on
     icon: 'mdi:transit-transfer'
