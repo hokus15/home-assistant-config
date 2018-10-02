@@ -104,10 +104,10 @@ homeassistant:
     binary_sensor.porche_sensor_puerta:
       device_class: 'door'
       friendly_name: 'Puerta porche'
-    sensor.cocina_sensor_puerta:
+    sensor.porche_sensor_puerta:
     #  icon: 'mdi:glassdoor'
       friendly_name: 'Estado puerta porche'
-    sensor.cocina_sensor_puerta_bateria:
+    sensor.porche_sensor_puerta_bateria:
       device_class: 'battery'
       friendly_name: 'Sensor puerta cocina'
     sensor.porche_sensor_puerta_temperature:
@@ -120,10 +120,10 @@ homeassistant:
     binary_sensor.porche_sensor_persiana:
       device_class: 'door'
       friendly_name: 'Persiana porche'
-    sensor.cocina_sensor_persiana:
+    sensor.porche_sensor_persiana:
     #  icon: 'mdi:glassdoor'
       friendly_name: 'Estado persiana porche'
-    sensor.cocina_sensor_persiana_bateria:
+    sensor.porche_sensor_persiana_bateria:
       device_class: 'battery'
       friendly_name: 'Sensor persiana cocina'
 
@@ -158,6 +158,7 @@ recorder:
       - sensor.porche_sensor_puerta_sourcenodeid
       - sensor.porche_sensor_puerta_system
       - sensor.porche_sensor_puerta_heat
+      - sensor.porche_sensor_puerta
       - binary_sensor.porche_sensor_puerta
 
       - sensor.porche_sensor_persiana_access_control
@@ -166,6 +167,7 @@ recorder:
       - sensor.porche_sensor_persiana_burglar
       - sensor.porche_sensor_persiana_general
       - sensor.porche_sensor_persiana_sourcenodeid
+      - sensor.porche_sensor_persiana
       - binary_sensor.porche_sensor_persiana
 
       - sensor.coladuria_sensor_puerta_access_control
@@ -174,15 +176,16 @@ recorder:
       - sensor.coladuria_sensor_puerta_burglar
       - sensor.coladuria_sensor_puerta_general
       - sensor.coladuria_sensor_puerta_sourcenodeid
+      - sensor.coladuria_sensor_puerta
       - binary_sensor.coladuria_sensor_puerta
 
-      - binary_sensor.despacho_sensor_movimiento
       - sensor.despacho_sensor_movimiento_alarm_level
       - sensor.despacho_sensor_movimiento_alarm_type
       - sensor.despacho_sensor_movimiento_burglar
       - sensor.despacho_sensor_movimiento_general
       - sensor.despacho_sensor_movimiento_seismic_intensity
       - sensor.despacho_sensor_movimiento_sourcenodeid
+      - binary_sensor.despacho_sensor_movimiento
 
 group:
   Seguridad:
@@ -267,12 +270,12 @@ group:
   Puerta porche cocina:
     entities:
       - binary_sensor.porche_sensor_puerta
-      - input_boolean.cocina_sensor_puerta
+      - input_boolean.porche_sensor_puerta
   
   Persiana porche cocina:
     entities:
       - binary_sensor.porche_sensor_persiana
-      - input_boolean.cocina_sensor_persiana
+      - input_boolean.porche_sensor_persiana
   
   Puerta coladuria cocina:
     entities:
@@ -356,12 +359,12 @@ switch:
         value_template: '{{ value == "1" }}'
 
 input_boolean:
-  cocina_sensor_puerta:
+  porche_sensor_puerta:
     name: Det. apert. puerta porche
     initial: on
     icon: 'mdi:glassdoor'
   
-  cocina_sensor_persiana:
+  porche_sensor_persiana:
     name: Det. apert. persiana porche
     initial: on
     icon: 'mdi:glassdoor'
@@ -466,7 +469,7 @@ binary_sensor:
   # Alarm status for foscam cam in hall
   - platform: mqtt
     state_topic: 'home/camera/recibidor/alarm'
-    name: 'recibidor_camara_det_mov'
+    name: recibidor_camara_det_mov
     device_class: motion
     # 0: No alarm
     # 1: Alarm triggered
@@ -480,7 +483,7 @@ binary_sensor:
   # Alarm status for foscam cam in swimming pool
   - platform: mqtt
     state_topic: 'home/camera/piscina/alarm'
-    name: 'piscina_camara_det_mov'
+    name: piscina_camara_det_mov
     device_class: motion
     # 0: No alarm
     # 1: Alarm triggered
@@ -494,7 +497,7 @@ binary_sensor:
   # Alarm status for foscam cam in bbq
   - platform: mqtt
     state_topic: 'home/camera/barbacoa/alarm'
-    name: 'barbacoa_camara_det_mov'
+    name: barbacoa_camara_det_mov
     device_class: motion
     # 0: No alarm
     # 1: Alarm triggered
@@ -508,7 +511,7 @@ binary_sensor:
   # Alarm status for foscam cam in living room
   - platform: mqtt
     state_topic: 'home/camera/salon/alarm'
-    name: 'salon_camara_det_mov'
+    name: salon_camara_det_mov
     device_class: motion
     # 0: No alarm
     # 1: Alarm triggered
@@ -522,7 +525,7 @@ binary_sensor:
   # Alarm status for Linksys cam in caseta
   - platform: mqtt
     state_topic: 'home/camera/caseta/alarm'
-    name: 'caseta_camara_det_mov'
+    name: caseta_camara_det_mov
     device_class: motion
     # 0: No alarm
     # 1: Alarm triggered
@@ -542,13 +545,13 @@ binary_sensor:
 sensor:
   - platform: template
     sensors:
-      # Fibaro FGK10x door sensor battery level - kitchen door
-      cocina_sensor_puerta_bateria:
+      # Fibaro FGK10x door sensor battery level - porch door
+      porche_sensor_puerta_bateria:
         value_template: '{% if states.zwave.porche_sensor_puerta %}{{ states.zwave.porche_sensor_puerta.attributes.battery_level }}{% else %}Desconocido{% endif %}'
         unit_of_measurement: '%'
 
-      # Fibaro FGK10x door sensor battery level - kitchen blind
-      cocina_sensor_persiana_bateria:
+      # Fibaro FGK10x door sensor battery level - porch blind
+      porche_sensor_persiana_bateria:
         value_template: '{% if states.zwave.porche_sensor_persiana %}{{ states.zwave.porche_sensor_persiana.attributes.battery_level }}{% else %}Desconocido{% endif %}'
         unit_of_measurement: '%'
 

@@ -83,11 +83,11 @@ homeassistant:
       device_class: 'battery'
     sensor.netatmo_habitacion_radio:
       friendly_name: 'Señal hab.niños'
-    sensor.temperature_ground_floor:
+    sensor.ground_floor_temperature:
       friendly_name: 'Temp media planta baja'
       icon: 'mdi:thermometer'
       unit_of_measurement: '°C'
-    sensor.temperature_first_floor:
+    sensor.first_floor_temperature:
       friendly_name: 'Temp media 1ª planta'
       icon: 'mdi:thermometer'
       unit_of_measurement: '°C'
@@ -99,10 +99,12 @@ homeassistant:
       icon: mdi:home-outline
     sensor.season:
       friendly_name: 'Estación'
-    sensor.temperature_home_mean:
+    sensor.home_temperature_mean:
       friendly_name: 'Temp. media 24h'
       icon: 'mdi:thermometer'
       unit_of_measurement: '°C'
+    sensor.home_temperature:
+      friendly_name: 'Temp. media'
     sensor.recibidor_termometro_temperatura:
       friendly_name: 'Temperatura'
       unit_of_measurement: '°C'
@@ -159,49 +161,49 @@ recorder:
       - sensor.netatmo_anemometro_radio
       - sensor.netatmo_anemometro_battery
 
-      - binary_sensor.exterior_termometro_temperatura_descendiendo
-      - binary_sensor.exterior_termometro_temperatura_aumentando
-      - sensor.exterior_termometro_temperatura_tendencia
+      - binary_sensor.netatmo_exterior_temperature_down
+      - binary_sensor.netatmo_exterior_temperature_up
+      - sensor.netatmo_exterior_temperature_trend
 
-      - binary_sensor.salon_termometro_temperatura_descendiendo
-      - binary_sensor.salon_termometro_temperatura_aumentando
-      - sensor.salon_termometro_temperatura_tendencia
+      - binary_sensor.netatmo_salon_temperature_down
+      - binary_sensor.netatmo_salon_temperature_up
+      - sensor.netatmo_salon_temperature_trend
 
-      - binary_sensor.despacho_termometro_temperatura_descendiendo
-      - binary_sensor.despacho_termometro_temperatura_aumentando
-      - sensor.despacho_termometro_temperatura_tendencia
+      - binary_sensor.office_sensor_temperature_down
+      - binary_sensor.office_sensor_temperature_up
+      - sensor.office_sensor_temperature_trend
 
-      - binary_sensor.recibidor_termometro_temperatura_descendiendo
-      - binary_sensor.recibidor_termometro_temperatura_aumentando
-      - sensor.recibidor_termometro_temperatura_tendencia
+      - binary_sensor.entrance_hall_termostato_temperature_down
+      - binary_sensor.entrance_hall_termostato_temperature_up
+      - sensor.entrance_hall_termostato_temperature_trend
 
-      - binary_sensor.suite_termometro_temperatura_descendiendo
-      - binary_sensor.suite_termometro_temperatura_aumentando
-      - sensor.suite_termometro_temperatura_tendencia
+      - binary_sensor.netatmo_suite_temperature_down
+      - binary_sensor.netatmo_suite_temperature_up
+      - sensor.netatmo_suite_temperature_trend
 
-      - binary_sensor.habitacion_termometro_temperatura_descendiendo
-      - binary_sensor.habitacion_termometro_temperatura_aumentando
-      - sensor.habitacion_termometro_temperatura_tendencia
+      - binary_sensor.netatmo_habitacion_temperature_down
+      - binary_sensor.netatmo_habitacion_temperature_up
+      - sensor.netatmo_habitacion_temperature_trend
 
-      - binary_sensor.primera_planta_temperatura_aumentando
-      - binary_sensor.primera_planta_temperatura_descendiendo
-      - sensor.primera_planta_temperatura_tendencia
+      - binary_sensor.first_floor_temperature_up
+      - binary_sensor.first_floor_temperature_down
+      - sensor.first_floor_temperature_trend
 
-      - binary_sensor.salon_termometro_co2_descendiendo
-      - binary_sensor.salon_termometro_co2_aumentando
-      - sensor.salon_termometro_co2_tendencia
+      - binary_sensor.netatmo_salon_co2_down
+      - binary_sensor.netatmo_salon_co2_up
+      - sensor.netatmo_salon_co2_trend
       
-      - binary_sensor.suite_termometro_co2_descendiendo
-      - binary_sensor.suite_termometro_co2_aumentando
-      - sensor.suite_termometro_co2_tendencia
+      - binary_sensor.netatmo_suite_co2_down
+      - binary_sensor.netatmo_suite_co2_up
+      - sensor.netatmo_suite_co2_trend
 
-      - binary_sensor.habitacion_termometro_co2_descendiendo
-      - binary_sensor.habitacion_termometro_co2_aumentando
-      - sensor.habitacion_termometro_co2_tendencia
+      - binary_sensor.netatmo_habitacion_co2_down
+      - binary_sensor.netatmo_habitacion_co2_up
+      - sensor.netatmo_habitacion_co2_trend
 
-      - binary_sensor.planta_baja_temperatura_aumentando
-      - binary_sensor.planta_baja_temperatura_descendiendo
-      - sensor.planta_baja_temperatura_tendencia
+      - binary_sensor.ground_floor_temperature_up
+      - binary_sensor.ground_floor_temperature_down
+      - sensor.ground_floor_temperature_trend
 
 group:
   Temperatura:
@@ -211,7 +213,7 @@ group:
       - sensor.netatmo_exterior_max_temp
       - history_graph.temperatura_exterior
       - sensor.netatmo_exterior_humidity
-      - sensor.exterior_termometro_temperatura_tendencia
+      - sensor.netatmo_exterior_temperature_trend
       - sensor.netatmo_exterior_radio
   
   Meteorología:
@@ -245,11 +247,11 @@ group:
   Confort:
     entities:
       - binary_sensor.confort_state
-      - sensor.temperature_ground_floor
-      - sensor.planta_baja_temperatura_tendencia
-      - sensor.temperature_first_floor
-      - sensor.primera_planta_temperatura_tendencia
-      - sensor.temperature_home_mean
+      - sensor.ground_floor_temperature
+      - sensor.ground_floor_temperature_trend
+      - sensor.first_floor_temperature
+      - sensor.first_floor_temperature_trend
+      - sensor.home_temperature_mean
       - history_graph.temperatura_media_casa
       - group.unidad_familiar
       - switch.termostato
@@ -264,10 +266,10 @@ history_graph:
     hours_to_show: 24
     refresh: 60
 
-  temperature_home:
+  home_temperature:
     name: Temperatura media casa
     entities:
-      - sensor.temperature_home
+      - sensor.home_temperature
     hours_to_show: 336
     refresh: 600
 
@@ -277,81 +279,80 @@ binary_sensor:
       comfort_state:
         device_class: heat
         friendly_name: 'Auto confort'
-        value_template: "{{ states('sensor.temperature_first_floor')|float < states.climate.termostato.attributes.temperature|float and is_state('group.unidad_familiar', 'home') and is_state('switch.termostato', 'on') and is_state('switch.termostato_modo_ausente','off') and is_state_attr('climate.termostato', 'operation_mode', 'idle') and is_state('binary_sensor.primera_planta_temperatura_descendiendo','on') }}"
+        value_template: "{{ states('sensor.first_floor_temperature')|float < states.climate.termostato.attributes.temperature|float and is_state('group.unidad_familiar', 'home') and is_state('switch.termostato', 'on') and is_state('switch.termostato_modo_ausente','off') and is_state_attr('climate.termostato', 'operation_mode', 'idle') and is_state('binary_sensor.first_floor_temperature_down','on') }}"
         delay_off:
             minutes: 90
   # Trend sensors
   - platform: trend
     sensors:
-      exterior_termometro_temperatura_descendiendo:
+      netatmo_exterior_temperature_down:
         entity_id: sensor.netatmo_exterior_temperature
         invert: true
-  
-      exterior_termometro_temperatura_aumentando:
+      netatmo_exterior_temperature_up:
         entity_id: sensor.netatmo_exterior_temperature
   
-      salon_termometro_temperatura_descendiendo:
+      netatmo_salon_temperature_down:
         entity_id: sensor.netatmo_salon_temperature
         invert: true
-      salon_termometro_temperatura_aumentando:
+      netatmo_salon_temperature_up:
         entity_id: sensor.netatmo_salon_temperature
   
-      despacho_termometro_temperatura_descendiendo:
+      office_sensor_temperature_down:
         entity_id: sensor.despacho_termometro_temperatura
         invert: true
-      despacho_termometro_temperatura_aumentando:
+      office_sensor_temperature_up:
         entity_id: sensor.despacho_termometro_temperatura
   
-      recibidor_termometro_temperatura_descendiendo:
+      entrance_hall_termostato_temperature_down:
         entity_id: sensor.recibidor_termometro_temperatura
         invert: true
-      recibidor_termometro_temperatura_aumentando:
+      entrance_hall_termostato_temperature_up:
         entity_id: sensor.recibidor_termometro_temperatura
         
-      suite_termometro_temperatura_descendiendo:
+      netatmo_suite_temperature_down:
         entity_id: sensor.suite_termometro_temperatura
         invert: true
-      suite_termometro_temperatura_aumentando:
+      netatmo_suite_temperature_up:
         entity_id: sensor.suite_termometro_temperatura
   
-      habitacion_termometro_temperatura_descendiendo:
+      netatmo_habitacion_temperature_down:
         entity_id: sensor.habitacion_termometro_temperatura
         invert: true
-      habitacion_termometro_temperatura_aumentando:
+      netatmo_habitacion_temperature_up:
         entity_id: sensor.habitacion_termometro_temperatura
   
-      salon_termometro_co2_descendiendo:
+      netatmo_salon_co2_down:
         entity_id: sensor.salon_termometro_co2
         invert: true
-      salon_termometro_co2_aumentando:
+      netatmo_salon_co2_up:
         entity_id: sensor.salon_termometro_co2
   
-      suite_termometro_co2_descendiendo:
+      netatmo_suite_co2_down:
         entity_id: sensor.suite_termometro_co2
         invert: true
-      suite_termometro_co2_aumentando:
+      netatmo_suite_co2_up:
         entity_id: sensor.suite_termometro_co2
   
-      habitacion_termometro_co2_descendiendo:
+      netatmo_habitacion_co2_down:
         entity_id: sensor.habitacion_termometro_co2
         invert: true
-      habitacion_termometro_co2_aumentando:
+      netatmo_habitacion_co2_up:
         entity_id: sensor.habitacion_termometro_co2
   
-      planta_baja_temperatura_descendiendo:
-        entity_id: sensor.temperature_ground_floor
+      ground_floor_temperature_down:
+        entity_id: sensor.ground_floor_temperature
         invert: true
         max_samples: 5
-      planta_baja_temperatura_aumentando:
-        entity_id: sensor.temperature_ground_floor
+      ground_floor_temperature_up:
+        entity_id: sensor.ground_floor_temperature
         max_samples: 5
   
-      primera_planta_temperatura_descendiendo:
-        entity_id: sensor.temperature_first_floor
+      first_floor_temperature_down:
+        entity_id: sensor.first_floor_temperature
         invert: true
         max_samples: 5
-      primera_planta_temperatura_aumentando:
-        entity_id: sensor.temperature_first_floor
+      first_floor_temperature_up:
+        entity_id: sensor.first_floor_temperature
         max_samples: 5
 
 sensor:
@@ -426,7 +427,7 @@ sensor:
   
   # Comfort sensors
   - platform: min_max
-    name: temperature_ground_floor
+    name: ground_floor_temperature
     type: mean
     round_digits: 1
     entity_ids:
@@ -436,7 +437,7 @@ sensor:
       - sensor.porche_sensor_puerta_temperature
   
   - platform: min_max
-    name: temperature_first_floor
+    name: first_floor_temperature
     type: mean
     round_digits: 1
     entity_ids:
@@ -444,7 +445,7 @@ sensor:
       - sensor.netatmo_habitacion_temperature
 
   - platform: min_max
-    name: temperature_home
+    name: home_temperature
     type: mean
     round_digits: 1
     entity_ids:
@@ -456,218 +457,218 @@ sensor:
       - sensor.porche_sensor_puerta_temperature
 
   - platform: statistics
-    name: temperature_home
-    entity_id: sensor.temperature_home
+    name: home_temperature
+    entity_id: sensor.home_temperature
     sampling_size: 1440
     max_age:
       hours: 24
 
   - platform: template
     sensors:
-      planta_baja_temperatura_tendencia:
+      ground_floor_temperature_trend:
         friendly_name: 'Tend temp planta baja'
         value_template: >-
-          {%- if is_state("binary_sensor.planta_baja_temperatura_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.ground_floor_temperature_down", "on") -%}
           En descenso
-          {%- elif is_state("binary_sensor.planta_baja_temperatura_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.ground_floor_temperature_up", "on") -%}
           En aumento
           {%- else -%}
           Sin cambio
           {%- endif %}
         icon_template: >-
-          {%- if is_state("binary_sensor.planta_baja_temperatura_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.ground_floor_temperature_down", "on") -%}
           mdi:arrow-down-thick
-          {%- elif is_state("binary_sensor.planta_baja_temperatura_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.ground_floor_temperature_up", "on") -%}
           mdi:arrow-up-thick
           {%- else -%}
           mdi:window-minimize
           {%- endif %}
   
-      primera_planta_temperatura_tendencia:
+      first_floor_temperature_trend:
         friendly_name: 'Tend temp 1ª planta'
         value_template: >-
-          {%- if is_state("binary_sensor.primera_planta_temperatura_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.first_floor_temperature_down", "on") -%}
           En descenso
-          {%- elif is_state("binary_sensor.primera_planta_temperatura_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.first_floor_temperature_up", "on") -%}
           En aumento
           {%- else -%}
           Sin cambio
           {%- endif %}
         icon_template: >-
-          {%- if is_state("binary_sensor.primera_planta_temperatura_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.first_floor_temperature_down", "on") -%}
           mdi:arrow-down-thick
-          {%- elif is_state("binary_sensor.primera_planta_temperatura_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.first_floor_temperature_up", "on") -%}
           mdi:arrow-up-thick
           {%- else -%}
           mdi:window-minimize
           {%- endif %}
   
-      exterior_termometro_temperatura_tendencia:
+      netatmo_exterior_temperature_trend:
         friendly_name: 'Tendencia temp'
         value_template: >-
-          {%- if is_state("binary_sensor.exterior_termometro_temperatura_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.netatmo_exterior_temperature_down", "on") -%}
           En descenso
-          {%- elif is_state("binary_sensor.exterior_termometro_temperatura_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.netatmo_exterior_temperature_up", "on") -%}
           En aumento
           {%- else -%}
           Sin cambio
           {%- endif %}
         icon_template: >-
-          {%- if is_state("binary_sensor.exterior_termometro_temperatura_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.netatmo_exterior_temperature_down", "on") -%}
           mdi:arrow-down-thick
-          {%- elif is_state("binary_sensor.exterior_termometro_temperatura_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.netatmo_exterior_temperature_up", "on") -%}
           mdi:arrow-up-thick
           {%- else -%}
           mdi:window-minimize
           {%- endif %}
   
-      despacho_termometro_temperatura_tendencia:
+      office_sensor_temperature_trend:
         friendly_name: 'Tendencia temp'
         value_template: >-
-          {%- if is_state("binary_sensor.despacho_termometro_temperatura_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.office_sensor_temperature_down", "on") -%}
           En descenso
-          {%- elif is_state("binary_sensor.despacho_termometro_temperatura_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.office_sensor_temperature_up", "on") -%}
           En aumento
           {%- else -%}
           Sin cambio
           {%- endif %}
         icon_template: >-
-          {%- if is_state("binary_sensor.despacho_termometro_temperatura_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.office_sensor_temperature_down", "on") -%}
           mdi:arrow-down-thick
-          {%- elif is_state("binary_sensor.despacho_termometro_temperatura_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.office_sensor_temperature_up", "on") -%}
           mdi:arrow-up-thick
           {%- else -%}
           mdi:window-minimize
           {%- endif %}
   
-      salon_termometro_temperatura_tendencia:
+      netatmo_salon_temperature_trend:
         friendly_name: 'Tendencia temp'
         value_template: >-
-          {%- if is_state("binary_sensor.salon_termometro_temperatura_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.netatmo_salon_temperature_down", "on") -%}
           En descenso
-          {%- elif is_state("binary_sensor.salon_termometro_temperatura_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.netatmo_salon_temperature_up", "on") -%}
           En aumento
           {%- else -%}
           Sin cambio
           {%- endif %}
         icon_template: >-
-          {%- if is_state("binary_sensor.salon_termometro_temperatura_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.netatmo_salon_temperature_down", "on") -%}
           mdi:arrow-down-thick
-          {%- elif is_state("binary_sensor.salon_termometro_temperatura_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.netatmo_salon_temperature_up", "on") -%}
           mdi:arrow-up-thick
           {%- else -%}
           mdi:window-minimize
           {%- endif %}
   
-      salon_termometro_co2_tendencia:
+      netatmo_salon_co2_trend:
         friendly_name: 'Tendencia co2'
         value_template: >-
-          {%- if is_state("binary_sensor.salon_termometro_co2_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.netatmo_salon_co2_down", "on") -%}
           En descenso
-          {%- elif is_state("binary_sensor.salon_termometro_co2_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.netatmo_salon_co2_up", "on") -%}
           En aumento
           {%- else -%}
           Sin cambio
           {%- endif %}
         icon_template: >-
-          {%- if is_state("binary_sensor.salon_termometro_co2_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.netatmo_salon_co2_down", "on") -%}
           mdi:arrow-down-thick
-          {%- elif is_state("binary_sensor.salon_termometro_co2_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.netatmo_salon_co2_up", "on") -%}
           mdi:arrow-up-thick
           {%- else -%}
           mdi:window-minimize
           {%- endif %}
   
-      recibidor_termometro_temperatura_tendencia:
+      entrance_hall_termostato_temperature_trend:
         friendly_name: 'Tendencia temp'
         value_template: >-
-          {%- if is_state("binary_sensor.recibidor_termometro_temperatura_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.entrance_hall_termostato_temperature_down", "on") -%}
           En descenso
-          {%- elif is_state("binary_sensor.recibidor_termometro_temperatura_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.entrance_hall_termostato_temperature_up", "on") -%}
           En aumento
           {%- else -%}
           Sin cambio
           {%- endif %}
         icon_template: >-
-          {%- if is_state("binary_sensor.recibidor_termometro_temperatura_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.entrance_hall_termostato_temperature_down", "on") -%}
           mdi:arrow-down-thick
-          {%- elif is_state("binary_sensor.recibidor_termometro_temperatura_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.entrance_hall_termostato_temperature_up", "on") -%}
           mdi:arrow-up-thick
           {%- else -%}
           mdi:window-minimize
           {%- endif %}
   
-      suite_termometro_temperatura_tendencia:
+      netatmo_suite_temperature_trend:
         friendly_name: 'Tendencia temp'
         value_template: >-
-          {%- if is_state("binary_sensor.suite_termometro_temperatura_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.netatmo_suite_temperature_down", "on") -%}
           En descenso
-          {%- elif is_state("binary_sensor.suite_termometro_temperatura_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.netatmo_suite_temperature_up", "on") -%}
           En aumento
           {%- else -%}
           Sin cambio
           {%- endif %}
         icon_template: >-
-          {%- if is_state("binary_sensor.suite_termometro_temperatura_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.netatmo_suite_temperature_down", "on") -%}
           mdi:arrow-down-thick
-          {%- elif is_state("binary_sensor.suite_termometro_temperatura_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.netatmo_suite_temperature_up", "on") -%}
           mdi:arrow-up-thick
           {%- else -%}
           mdi:window-minimize
           {%- endif %}
   
-      suite_termometro_co2_tendencia:
+      netatmo_suite_co2_trend:
         friendly_name: 'Tendencia CO2'
         value_template: >-
-          {%- if is_state("binary_sensor.suite_termometro_co2_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.netatmo_suite_co2_down", "on") -%}
           En descenso
-          {%- elif is_state("binary_sensor.suite_termometro_co2_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.netatmo_suite_co2_up", "on") -%}
           En aumento
           {%- else -%}
           Sin cambio
           {%- endif %}
         icon_template: >-
-          {%- if is_state("binary_sensor.suite_termometro_co2_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.netatmo_suite_co2_down", "on") -%}
           mdi:arrow-down-thick
-          {%- elif is_state("binary_sensor.suite_termometro_co2_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.netatmo_suite_co2_up", "on") -%}
           mdi:arrow-up-thick
           {%- else -%}
           mdi:window-minimize
           {%- endif %}
   
-      habitacion_termometro_temperatura_tendencia:
+      netatmo_habitacion_temperature_trend:
         friendly_name: 'Tendencia temp'
         value_template: >-
-          {%- if is_state("binary_sensor.habitacion_termometro_temperatura_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.netatmo_habitacion_temperature_down", "on") -%}
           En descenso
-          {%- elif is_state("binary_sensor.habitacion_termometro_temperatura_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.netatmo_habitacion_temperature_up", "on") -%}
           En aumento
           {%- else -%}
           Sin cambio
           {%- endif %}
         icon_template: >-
-          {%- if is_state("binary_sensor.habitacion_termometro_temperatura_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.netatmo_habitacion_temperature_down", "on") -%}
           mdi:arrow-down-thick
-          {%- elif is_state("binary_sensor.habitacion_termometro_temperatura_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.netatmo_habitacion_temperature_up", "on") -%}
           mdi:arrow-up-thick
           {%- else -%}
           mdi:window-minimize
           {%- endif %}
   
-      habitacion_termometro_co2_tendencia:
+      netatmo_habitacion_co2_trend:
         friendly_name: 'Tendencia CO2'
         value_template: >-
-          {%- if is_state("binary_sensor.habitacion_termometro_co2_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.netatmo_habitacion_co2_down", "on") -%}
           En descenso
-          {%- elif is_state("binary_sensor.habitacion_termometro_co2_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.netatmo_habitacion_co2_up", "on") -%}
           En aumento
           {%- else -%}
           Sin cambio
           {%- endif %}
         icon_template: >-
-          {%- if is_state("binary_sensor.habitacion_termometro_co2_descendiendo", "on") -%}
+          {%- if is_state("binary_sensor.netatmo_habitacion_co2_down", "on") -%}
           mdi:arrow-down-thick
-          {%- elif is_state("binary_sensor.habitacion_termometro_co2_aumentando", "on") -%}
+          {%- elif is_state("binary_sensor.netatmo_habitacion_co2_up", "on") -%}
           mdi:arrow-up-thick
           {%- else -%}
           mdi:window-minimize
@@ -704,7 +705,7 @@ switch:
           data:
             away_mode: false
   #    comfort_state:
-  #      value_template: {{ states('sensor.temperature_first_floor')|float < states.climate.termostato.attributes.temperature|float and is_state('group.unidad_familiar', 'home') and is_state('switch.termostato', 'on') and is_state('switch.termostato_modo_ausente','off') and is_state_attr('climate.termostato', 'operation_mode', 'idle') and is_state('binary_sensor.primera_planta_temperatura_descendiendo','on') }}
+  #      value_template: {{ states('sensor.first_floor_temperature')|float < states.climate.termostato.attributes.temperature|float and is_state('group.unidad_familiar', 'home') and is_state('switch.termostato', 'on') and is_state('switch.termostato_modo_ausente','off') and is_state_attr('climate.termostato', 'operation_mode', 'idle') and is_state('binary_sensor.first_floor_temperature_down','on') }}
   #      turn_on:
   #        service: climate.set_temperature
   #        data_template:
@@ -745,7 +746,7 @@ automation:
   - alias: 'Automatic heating on'
     trigger:
       platform: numeric_state
-      entity_id: sensor.temperature_home_mean
+      entity_id: sensor.home_temperature_mean
       below: 18.5
     condition:
       condition: state
@@ -774,7 +775,7 @@ automation:
   - alias: 'Automatic heating off'
     trigger:
       platform: numeric_state
-      entity_id: sensor.temperature_home_mean
+      entity_id: sensor.home_temperature_mean
       above: 22
     condition:
       condition: state
@@ -822,9 +823,9 @@ automation:
           
           Temperatura objetivo: {{ states.climate.termostato.attributes.temperature }}
           
-          Temperatura media planta baja: {{states.sensor.temperature_ground_floor.state}}
+          Temperatura media planta baja: {{states.sensor.ground_floor_temperature.state}}
           
-          Temperatura media primera planta: {{states.sensor.temperature_first_floor.state}}
+          Temperatura media primera planta: {{states.sensor.first_floor_temperature.state}}
           
           Ocupación: {{states.group.unidad_familiar.state}}
           
@@ -834,9 +835,9 @@ automation:
           
           Estado termostato: {{states.climate.termostato.attributes.operation_mode}}
           
-          Tendencia temperatura planta baja: {{states.sensor.planta_baja_temperatura_tendencia.state}}
+          Tendencia temperatura planta baja: {{states.sensor.ground_floor_temperature_trend.state}}
           
-          Tendencia temperatura primera planta: {{states.sensor.primera_planta_temperatura_tendencia.state}}
+          Tendencia temperatura primera planta: {{states.sensor.first_floor_temperature_trend.state}}
   
         inline_keyboard: 
           - 'Desconectar:/script.turn_on#script.comfort_mode_off'
