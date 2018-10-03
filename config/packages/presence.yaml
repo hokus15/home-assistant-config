@@ -565,6 +565,8 @@ automation:
         entity_id: device_tracker.jordi_combined
         state: 'En ruta'
     action:
+      - service: counter.reset
+        entity_id: counter.toyota_notification
       - service: device_tracker.see
         data:
           dev_id: 'hokusphone'
@@ -653,6 +655,32 @@ automation:
         data:
           message: 'Modo vacaciones desactivado'
 
+  - alias: 'Count mqtt messages received from car when at home'
+    trigger:
+      platform: mqtt
+      topic: location/car/toyota
+    condition:
+      condition: state
+      entity_id: device_tracker.toyota
+      state: home
+    action:
+      - service: counter.increment
+        entity_id: counter.toyota_notification
+
+  - alias: 'Notify if I leave the car keys in the car'
+    trigger:
+      platform: numeric_state
+      entity_id: counter.toyota_notification
+      above: 5
+    action:
+      - service: notify.telegram
+        data:
+          message: '¿Te has dejado las llaves puestas en el contacto del coche?'
+
+counter:
+  toyota_notification:
+    initial: 0
+    step: 1
 
 script:
   presence_empty_home:
