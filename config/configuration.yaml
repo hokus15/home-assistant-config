@@ -149,6 +149,7 @@ logger:
 telegram_bot:
   platform: polling
   api_key: !secret telegram_api_key
+  parse_mode: html
   allowed_chat_ids:
     - !secret hokusphone_telegram_chat_id
     - !secret hokuscar_telegram_chat_id
