@@ -31,12 +31,12 @@
 - alias: 'Luces exteriores on turn on - Adjust Brightness'
   trigger:
     platform: state
-    entity_id: group.external_lights_group
+    entity_id: group.luces_exteriores
     to: 'on'
   action:
     - service: homeassistant.turn_on
       data_template:
-        entity_id: group.external_lights_group
+        entity_id: group.luces_exteriores
         brightness: '{{ ((states.input_number.entrada_luz_brillo.state | int) * 255) // 100 }}'
 
 # Adjust luces exteriores brightness
@@ -46,12 +46,12 @@
     entity_id: input_number.entrada_luz_brillo
   condition:
     condition: state
-    entity_id: group.external_lights_group
+    entity_id: group.luces_exteriores
     state: 'on'
   action:
     - service: homeassistant.turn_on
       data_template:
-        entity_id: group.external_lights_group
+        entity_id: group.luces_exteriores
         brightness: '{{ ((trigger.to_state.state | int) * 255) // 100 }}'
 
 # Turn on outside lights at sunset (+15 minutes)
@@ -63,13 +63,13 @@
   action:
     - service: homeassistant.turn_on
       data_template:
-        entity_id: group.external_lights_group
+        entity_id: group.luces_exteriores
         brightness: '{{ ((states.input_number.entrada_luz_brillo.state | int) * 255) // 100 }}'
     - service: logbook.log
       data:
         name: 'Luces exteriores'
         message: 'encendidas por la puesta de sol'
-        entity_id: group.external_lights_group
+        entity_id: group.luces_exteriores
         domain: light
 
 # Turn off outside lights at night (at 00:15)
@@ -79,23 +79,23 @@
     at: '00:15'
   condition:
     condition: state
-    entity_id: group.external_lights_group
+    entity_id: group.luces_exteriores
     state: 'on'
   action:
     - service: homeassistant.turn_off
-      entity_id: group.external_lights_group
+      entity_id: group.luces_exteriores
     - service: logbook.log
       data:
         name: 'Luces exteriores'
         message: 'apagadas a las 00:15'
-        entity_id: group.external_lights_group
+        entity_id: group.luces_exteriores
         domain: light
 
 # When the outside lights have been turned on at late night (later than 00:15) and before sunrise, turn them off after 5 minutes
 - alias: 'Turn off lights at late night'
   trigger:
     platform: state
-    entity_id: group.external_lights_group
+    entity_id: group.luces_exteriores
     to: 'on'
   condition:
     - condition: time
@@ -103,19 +103,19 @@
     - condition: sun
       before: sunrise
     - condition: state
-      entity_id: group.external_lights_group
+      entity_id: group.luces_exteriores
       state: 'on'
   action:
     - delay:
         minutes: 5
     - service: homeassistant.turn_off
       data:
-        entity_id: group.external_lights_group
+        entity_id: group.luces_exteriores
     - service: logbook.log
       data:
         name: 'Luces exteriores'
         message: 'apagadas más tarde de las 00:15'
-        entity_id: group.external_lights_group
+        entity_id: group.luces_exteriores
         domain: light
 
 
@@ -123,7 +123,7 @@
 - alias: 'Turn off lights when sun not set'
   trigger:
     platform: state
-    entity_id: group.external_lights_group
+    entity_id: group.luces_exteriores
     to: 'on'
   condition:
     condition: or
@@ -137,12 +137,12 @@
         seconds: 10
     - service: homeassistant.turn_off
       data:
-        entity_id: group.external_lights_group
+        entity_id: group.luces_exteriores
     - service: logbook.log
       data:
         name: 'Luces exteriores'
         message: 'apagadas porque es de dia'
-        entity_id: group.external_lights_group
+        entity_id: group.luces_exteriores
         domain: light
 
 # Turn on outside lights when fence is opened and the sun is set.
@@ -161,13 +161,13 @@
   action:
     - service: homeassistant.turn_on
       data_template:
-        entity_id: group.external_lights_group
+        entity_id: group.luces_exteriores
         brightness: '{{ ((states.input_number.entrada_luz_brillo.state | int) * 255) // 100 }}'
     - service: logbook.log
       data:
         name: 'Luces exteriores'
         message: 'encendidas porque se ha abierto la barrera y es de noche'
-        entity_id: group.external_lights_group
+        entity_id: group.luces_exteriores
         domain: light
 
 # Turn on hall lamp when the sun is set and someone at home
@@ -324,15 +324,6 @@
     service: notify.telegram
     data_template:
       message: 'Bitcoin ha llegado a un valor de {{states.sensor.exchange_rate_1_btc.state}} {{states.sensor.exchange_rate_1_btc.attributes.unit_of_measurement}}'
-
-- alias: 'Notify for every new device'
-  trigger:
-    platform: event
-    event_type: device_tracker_new_device
-  action:
-    - service: notify.telegram
-      data_template:
-        message: 'Nuevo dispositivo encontrado {{ trigger.event.data }}'
 
 - alias: 'Update Notification'
   trigger:
