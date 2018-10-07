@@ -302,6 +302,11 @@ switch:
     qos: 0
     retain: true
 
+counter:
+  toyota_notification:
+    initial: 0
+    step: 1
+
 automation:
   # Empty home automation when no one of the Familia group is at home
   - alias: 'Empty home'
@@ -671,17 +676,24 @@ automation:
     trigger:
       platform: numeric_state
       entity_id: counter.toyota_notification
-      above: 5
+      above: 10
     action:
       - service: notify.telegram
         data:
           message: '¿Te has dejado las llaves puestas en el contacto del coche?'
 
-counter:
-  toyota_notification:
-    initial: 0
-    step: 1
-
+  - alias: Notify for new devices
+    trigger:
+      platform: event
+      event_type: device_tracker_new_device
+    action:
+      - service: notify.telegram
+        data_template:
+          message: >
+            Nuevo dispositivo detectado:
+            {{trigger.event.data.host_name}}
+            ({{trigger.event.data.entity_id}})
+          title: Nuevo dispositivo
 script:
   presence_empty_home:
     alias: 'Empty home'
