@@ -71,16 +71,16 @@ sensor.nut_ups_battery_runtime:
 sensor.recibidor_boton_bateria:
   device_class: 'battery'
   friendly_name: 'Nodon'
-sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_energy:
+sensor.escalera_switch_energy:
   icon: 'mdi:speedometer'
   friendly_name: 'Consumo luz escalera'
-sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_power:
+sensor.escalera_switch_power:
   icon: 'mdi:power-plug'
   friendly_name: 'Potencia luz escalera'
-sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_energy_2:
+sensor.suite_switch_energy:
   icon: 'mdi:speedometer'
   friendly_name: 'Consumo luz suite'
-sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_power_2:
+sensor.suite_switch_power:
   icon: 'mdi:power-plug'
   friendly_name: 'Potencia luz suite'
 sensor.caducidad_certificado_ssl:
@@ -110,10 +110,10 @@ switch.ups_beeper:
 switch.swiid_swiidinter_lampara_recibidor_switch:
   friendly_name: 'Lámpara recibidor'
   icon: mdi:lamp
-switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch:
+switch.escalera_switch:
   friendly_name: 'Luz escalera'
   icon: mdi:ceiling-light
-switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2:
+switch.suite_switch:
   friendly_name: 'Luz suite'
   icon: mdi:ceiling-light
 

@@ -111,7 +111,7 @@ goto_sleep:
     # Turn on stairs lights
     - service: switch.turn_on
       data:
-        entity_id: switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
+        entity_id: switch.escalera_switch
     # Close fence if open
     - service_template: >
         {%- if is_state("sensor.switch_barrera", "Abierta") -%}
@@ -154,4 +154,4 @@ goto_sleep:
     # Turn stairs lights off
     - service: switch.turn_off
       data:
-        entity_id: switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
+        entity_id: switch.escalera_switch

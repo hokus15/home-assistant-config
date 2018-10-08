@@ -55,7 +55,7 @@ Exterior:
   view: yes
   icon: mdi:tree
   entities:
-#    - group.luces_exteriores
+    - group.luces_exteriores
     - group.meteorologia
     - group.temperatura
     - group.lluvia
@@ -117,15 +117,15 @@ Despacho:
 
 Escalera:
   entities:
-    - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
-    - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_energy
-    - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_power
+    - switch.escalera_switch
+    - sensor.escalera_switch_energy
+    - sensor.escalera_switch_power
 
 Suite:
   entities:
-    - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
-    - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_energy_2
-    - sensor.fibaro_fgs223_double_relay_luz_escalera_y_suite_power_2
+    - switch.suite_switch
+    - sensor.suite_switch_energy
+    - sensor.suite_power
     - sensor.netatmo_suite_temperature
     - sensor.netatmo_suite_temperature_trend
     - sensor.netatmo_suite_min_temp
@@ -169,7 +169,7 @@ Cocina:
 #    - light.barrera_izquierda
 #    - light.puerta_coladuria
 #    - input_number.entrada_luz_brillo
-#
+
 #External Lights Group:
 #  entities:
 #    - light.barrera_derecha
@@ -178,8 +178,8 @@ Cocina:
 
 Luces interiores:
   entities:
-    - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
-    - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
+    - switch.suite_switch
+    - switch.escalera_switch
     - switch.swiid_swiidinter_lampara_recibidor_switch
 
 Barrera:
