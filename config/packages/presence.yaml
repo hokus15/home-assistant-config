@@ -535,7 +535,7 @@ automation:
       - service: mqtt.publish
         data:
           payload_template: >
-            He abierto la barrera. {%- if is_state("device_tracker.geni_combined", "home") -%}Jeni está en casa. {%- else -%}Es posible que Jeni no esté en casa.{%- endif -%}
+            He abierto la barrera. {%- if is_state("device_tracker.geni_combined", "home") -%}Jeni está en casa.{%- else -%}Jeni no está en casa.{%- endif -%}
           retain: false
           topic: 'device/carphone/say'
       - delay:
