@@ -244,5 +244,5 @@ Estado baterías:
     - sensor.porche_sensor_puerta_bateria
     - sensor.porche_sensor_persiana_bateria
     - sensor.coladuria_sensor_puerta_bateria
-    - sensor.salon_sensor_movimiento_bateria
+    - sensor.despacho_sensor_movimiento_bateria
     - sensor.recibidor_boton_bateria
