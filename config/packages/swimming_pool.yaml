@@ -16,7 +16,7 @@ homeassistant:
 recorder:
   exclude:
     entities:
-      - sensor.piscina_k_factor
+#      - sensor.piscina_k_factor
       - sensor.piscina_pump_efficiency
       - sensor.piscina_off_time
       - sensor.piscina_on_time
@@ -26,7 +26,7 @@ recorder:
       - sensor.piscina_pump_power
       - sensor.piscina_capacity
       - sensor.piscina_recirculation
-      - sensor.piscina_filtering_time
+#      - sensor.piscina_filtering_time
 
 group:
   Piscina:

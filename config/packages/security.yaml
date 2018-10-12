@@ -185,7 +185,7 @@ recorder:
       - sensor.despacho_sensor_movimiento_general
       - sensor.despacho_sensor_movimiento_seismic_intensity
       - sensor.despacho_sensor_movimiento_sourcenodeid
-      - binary_sensor.despacho_sensor_movimiento
+#      - binary_sensor.despacho_sensor_movimiento
 
 group:
   Seguridad:
@@ -264,7 +264,7 @@ group:
     entities:
       - binary_sensor.despacho_sensor_movimiento
       - binary_sensor.despacho_sensor_movimiento_sabotaje
-  #    - sensor.despacho_sensor_movimiento_bateria
+#      - sensor.despacho_sensor_movimiento_bateria
       - input_boolean.despacho_sensor_movimiento
   
   Puerta porche cocina:
