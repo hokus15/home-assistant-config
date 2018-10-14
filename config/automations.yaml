@@ -314,7 +314,6 @@
 #############################################################
 # Other automations
 #############################################################
-
 - alias: 'Notify bitcoin price above threshold'
   trigger:
     platform: numeric_state
@@ -432,6 +431,20 @@
     - service: script.turn_on
       data:
         entity_id: script.presence_set_virtual_device_home
+
+#############################################################
+# Ifttt automations
+#############################################################
+- alias: 'Call service from ifttt'
+  trigger:
+    platform: event
+    event_type: ifttt_webhook_received
+    event_data:
+      action: call_service
+  action:
+    service_template: '{{ trigger.event.data.service }}'
+    data_template:
+      entity_id: '{{ trigger.event.data.entity_id }}'
 
 #############################################################
 # Telegram automations
