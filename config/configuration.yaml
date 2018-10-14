@@ -16,7 +16,7 @@ homeassistant:
   packages: !include_dir_named packages
 
 http:
-  api_password: !secret ha_api_password
+#  api_password: !secret ha_api_password
 #  trusted_networks:
 #    - 127.0.0.1
   base_url: !secret ha_base_url
@@ -182,9 +182,6 @@ google:
 
 google_assistant:
   project_id: !secret google_assistant_project_id
-  client_id: !secret google_assistant_client_id
-  access_token: !secret google_assistant_access_token
-  agent_user_id: !secret google_assistant_agent_user_id
   api_key: !secret google_api_key
   expose_by_default: true
   entity_config:
