@@ -98,6 +98,33 @@ speech_parte_meteorologico_corto:
           La temperatura mínima de hoy ha sido de {{ states("sensor.exterior_termometro_min_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_min_temp"].attributes.unit_of_measurement }}.
         cache: false
 
+chores:
+  alias: 'Basura'
+  sequence:
+    - service: script.turn_on
+      data:
+        entity_id: script.speech_set_tts_volume_level
+    - service: tts.google_say
+      entity_id: media_player.homeassistant
+      data_template:
+        message: >
+          {% if now().strftime('%a') != "Sat" %}
+            {{['La suerte está echada.',
+               'Déjame pensar.',
+               'Creo que',
+               'He decidido que',
+               'Yo diría que',
+               'Si la memoria no me falla.',
+               'Si no voy mal,',
+               'Espera que lo consulto.',
+               'Según mis cálculos',
+               'Lula me ha dicho que',
+               'Si no voy mal',
+               'Espera que piense.']|random}} hoy le toca a {% if now().strftime('%j')|int % 2 != 0 %}Carlos{% else %}Jorge{% endif %} sacar {{ {"Sun": "la basura orgánica", "Mon": "los envases y el papel", "Tue": "la basura orgánica", "Wed": "los restos y vídrio", "Thu": "la basura orgánica", "Fri": "los envases y el papel", "Sat": "no hay que sacar basura"}[now().strftime('%a')] }}.
+          {% else %}
+            Hoy estáis de suerte, no hay que sacar la basura
+          {% endif %}
+
 #############################################################
 # Misc scripts
 #############################################################
