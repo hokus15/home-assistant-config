@@ -92,6 +92,8 @@
           {% else %}
               Cerrada
           {%- endif %}
+    hokuslaptop_powerused:
+      value_template: '{{states.switch.hokuslaptop.attributes.current_power_w | int}}'
 #    ph_piscina:
 #      value_template: '{{states. image_processing.sevensegment_ocr_ph_piscina.state | int / 100}}'
 #      friendly_name: 'pH'

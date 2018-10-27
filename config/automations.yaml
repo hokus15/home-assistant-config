@@ -333,6 +333,21 @@
       data_template:
         message: 'Nueva versión {{ states.updater.updater.state }} de Home Assistant disponible.'
 
+- alias: 'Prevent overcharging'
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.hokuslaptop_powerused
+      below: 2
+      for: '00:05:00'
+  condition:
+    - condition: state
+      entity_id: switch.hokuslaptop
+      state: 'on'
+  action:
+     service: switch.turn_off
+     data:
+       entity_id: switch.hokuslaptop
+       
 #############################################################
 # Nodon Octan automations
 #############################################################
