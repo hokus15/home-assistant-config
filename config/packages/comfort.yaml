@@ -860,7 +860,9 @@ script:
         entity_id: climate.termostato
         data:
           temperature: 11.5
-  
+      - service: home_assistant.update_entity
+        entity_id: climate.termostato
+
   climate_power_on:
     alias: 'Power on thermostat'
     sequence:
@@ -868,6 +870,8 @@ script:
         entity_id: climate.termostato
         data:
           away_mode: false
+      - service: home_assistant.update_entity
+        entity_id: climate.termostato
 
   comfort_mode_off:
     alias: 'Turn off comfort mode'
@@ -884,3 +888,5 @@ script:
         entity_id: climate.termostato
         data:
           away_mode: false
+      - service: home_assistant.update_entity
+        entity_id: climate.termostato
