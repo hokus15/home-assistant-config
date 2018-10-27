@@ -120,7 +120,7 @@ chores:
                'Según mis cálculos',
                'Lula me ha dicho que',
                'Si no voy mal',
-               'Espera que piense.']|random}} hoy le toca a {% if now().strftime('%j')|int % 2 != 0 %}Carlos{% else %}Jorge{% endif %} sacar {{ {"Sun": "la basura orgánica", "Mon": "los envases y el papel", "Tue": "la basura orgánica", "Wed": "los restos y vídrio", "Thu": "la basura orgánica", "Fri": "los envases y el papel", "Sat": "no hay que sacar basura"}[now().strftime('%a')] }}.
+               'Espera que piense.']|random}} hoy le toca a {% if now().strftime('%j')|int % 2 != 0 %}Carlos{% else %}Jorge{% endif %} sacar {{ {"Sun": "la basura orgánica", "Mon": "los envases y el papel", "Tue": "la basura orgánica", "Wed": "los restos y vídrio", "Thu": "la basura orgánica", "Fri": "los envases", "Sat": "no hay que sacar basura"}[now().strftime('%a')] }}.
           {% else %}
             Hoy estáis de suerte, no hay que sacar la basura
           {% endif %}
