@@ -217,6 +217,7 @@ sensor:
         friendly_name: 'Dist. entre actualizaciones'
         value_template: '{% if states.device_tracker.toyota.attributes.latitude %} {{ (distance(states("sensor.toyota_previous_latitude"), states("sensor.toyota_previous_longitude"), states.device_tracker.toyota.attributes.latitude, states.device_tracker.toyota.attributes.longitude) * 1000) | round (2) }} {% else %} -1 {% endif %}'
         icon_template: 'mdi:ruler'
+        entity_id: device_tracker.toyota, sensor.toyota_previous_latitude, sensor.toyota_previous_longitude
 
   # Google travel time to work
   - platform: google_travel_time

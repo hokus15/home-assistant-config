@@ -86,21 +86,26 @@ sensor:
         friendly_name: 'Ancho'
         value_template: 3.5
         unit_of_measurement: m
+        entity_id: sensor.date__time
       piscina_height:
         friendly_name: 'Largo'
         value_template: 7
         unit_of_measurement: m
+        entity_id: sensor.date__time
       piscina_average_depth:
         friendly_name: 'Profundidad media'
         value_template: 1.6
         unit_of_measurement: m
+        entity_id: sensor.date__time
       piscina_pump_power:
         friendly_name: 'Potencia'
         value_template: 16
         unit_of_measurement: 'm3/h'
+        entity_id: sensor.date__time
       piscina_pump_efficiency:
         friendly_name: 'Eficiencia'
         value_template: 0.8
+        entity_id: sensor.date__time
       piscina_capacity:
         friendly_name: 'Capacidad'
         value_template: >-
@@ -136,6 +141,7 @@ sensor:
           {%- endif %}
           {% else %}Calculando...{%- endif %}
         icon_template: 'mdi:arrow-down-bold'
+        entity_id: sensor.date__time, sensor.piscina_temperature_mean
       piscina_filtering_time:
         friendly_name: 'Tiempo de filtrado'
         value_template: >- 
@@ -150,6 +156,7 @@ sensor:
           {%- endif %}
           {% else %}Calculando...{%- endif %}
         unit_of_measurement: 'h'
+        entity_id: sensor.date__time, sensor.piscina_k_factor, sensor.piscina_temperature_mean
         icon_template: 'mdi:clock'
       piscina_off_time:
         friendly_name: 'Apagado'
@@ -161,6 +168,7 @@ sensor:
             {{ as_timestamp(strptime(states.sensor.date__time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
           {%- endif %}
         icon_template: 'mdi:power-plug-off'
+        entity_id: sensor.date__time
       piscina_on_time:
         friendly_name: 'Encendido'
         # The time round to the minute
@@ -169,6 +177,7 @@ sensor:
             {{(((as_timestamp(strptime(states.sensor.piscina_off_time.state, "%Y-%m-%d, %H:%M"))-(states.sensor.piscina_filtering_time.state | float * 60 * 60)) // 60) * 60)|timestamp_custom("%Y-%m-%d, %H:%M")}}
           {%- endif %}
         icon_template: 'mdi:power-plug'
+        entity_id: sensor.date__time, sensor.piscina_off_time, sensor.piscina_filtering_time
   - platform: statistics
     name: piscina_temperature
     #entity_id: input_number.piscina_temperature
