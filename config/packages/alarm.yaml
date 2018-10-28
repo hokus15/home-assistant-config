@@ -134,13 +134,24 @@ automation:
       service: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.casa
 
-  - alias: 'Turn off security group off when alarm is disarmed'
+  - alias: 'Turn on security group when alarm changes the state from disarmed'
+    trigger: 
+      - platform: state
+        entity_id: alarm_control_panel.casa
+        from: 'disarmed'
+    action:
+      # Turn on alarm related sensors
+      - service: homeassistant.turn_on
+        data:
+          entity_id: group.seguridad
+
+  - alias: 'Turn off security group when alarm is disarmed'
     trigger: 
       - platform: state
         entity_id: alarm_control_panel.casa
         to: 'disarmed'
     action:
-      # Turn on alarm related sensors
+      # Turn off alarm related sensors
       - service: homeassistant.turn_off
         data:
           entity_id: group.seguridad
