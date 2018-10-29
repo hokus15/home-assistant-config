@@ -246,7 +246,7 @@ group:
   
   Confort:
     entities:
-      - binary_sensor.confort_state
+      - input_boolean.auto_comfort
       - sensor.ground_floor_temperature
       - sensor.ground_floor_temperature_trend
       - sensor.first_floor_temperature
@@ -278,10 +278,8 @@ binary_sensor:
     sensors:
       comfort_state:
         device_class: heat
-        friendly_name: 'Auto confort'
+        friendly_name: 'Auto confort sensor'
         value_template: "{{ states('sensor.first_floor_temperature')|float < states.climate.termostato.attributes.temperature|float and is_state('group.unidad_familiar', 'home') and is_state('switch.termostato', 'on') and is_state('switch.termostato_modo_ausente','off') and is_state_attr('climate.termostato', 'operation_mode', 'idle') and is_state('binary_sensor.first_floor_temperature_down','on') }}"
-        delay_off:
-            minutes: 90
   # Trend sensors
   - platform: trend
     sensors:
@@ -704,16 +702,11 @@ switch:
           entity_id: climate.termostato
           data:
             away_mode: false
-  #    comfort_state:
-  #      value_template: {{ states('sensor.first_floor_temperature')|float < states.climate.termostato.attributes.temperature|float and is_state('group.unidad_familiar', 'home') and is_state('switch.termostato', 'on') and is_state('switch.termostato_modo_ausente','off') and is_state_attr('climate.termostato', 'operation_mode', 'idle') and is_state('binary_sensor.first_floor_temperature_down','on') }}
-  #      turn_on:
-  #        service: climate.set_temperature
-  #        data_template:
-  #          entity_id: climate.termostato
-  #          temperature: 23
-  #      turn_off:
-  #        service: script.turn_on
-  #        entity_id: script.comfort_mode_off
+
+input_boolean:
+  auto_comfort:
+    name: Auto confort
+    icon: 'mdi:radiator'
 
 automation:
   #############################################################
@@ -763,7 +756,7 @@ automation:
           domain: climate
       - service: telegram_bot.send_message
         data_template:
-          message: 'Como ya empeiza a hacer fresquito, he encendido la calefaccción. Convendría hacer un purgado de los radiadores.'
+          message: 'Como ya empieza a hacer fresquito, he encendido la calefaccción. Convendría hacer un purgado de los radiadores.'
           target: 
             - !secret hokusphone_telegram_chat_id
             - !secret geniphone_telegram_chat_id
@@ -800,13 +793,35 @@ automation:
           inline_keyboard:
                  - 'Enciende la calefacción:/switch.turn_on#switch.termostato'
 
+    # Turn on auto comfort mode
+  - alias: 'Auto comfort on'
+    trigger:
+      platform: state
+      entity_id: input_boolean.auto_comfort
+      to: 'on'
+    action:
+      - service: script.turn_on
+        entity_id: script.comfort_mode_on
+
+    # Turn off auto comfort mode
+  - alias: 'Auto comfort off'
+    trigger:
+      platform: state
+      entity_id: input_boolean.auto_comfort
+      to: 'off'
+    action:
+      - service: script.turn_off
+        entity_id: script.comfort_mode_off
+
+
   # When average temp on ground floor or first floor is under target climate temperature
   # If:
   #  - There is someone at home
   #  - Heating is connected
   #  - Heating is idle
   #  - Temperature trend in ground floor or first floor is going down
-  # Then turn on temperature by setting target temperature to 23 degrees
+  #  - After 16:00
+  # Then turn on auto comfort
   - alias: 'Heating comfort'
     trigger:
       platform: state
@@ -816,43 +831,38 @@ automation:
       - condition: time
         after: '16:00'
     action:
-    - service: telegram_bot.send_message
-      data_template:
-        message: > 
-          Calefacción encendida para mejorar el confort
-          
-          Temperatura objetivo: {{ states.climate.termostato.attributes.temperature }}
-          
-          Temperatura media planta baja: {{states.sensor.ground_floor_temperature.state}}
-          
-          Temperatura media primera planta: {{states.sensor.first_floor_temperature.state}}
-          
-          Ocupación: {{states.group.unidad_familiar.state}}
-          
-          Estado calefacción: {{states.switch.termostato.state}}
-          
-          Modo ausente: {{states.switch.termostato_modo_ausente.state}}
-          
-          Estado termostato: {{states.climate.termostato.attributes.operation_mode}}
-          
-          Tendencia temperatura planta baja: {{states.sensor.ground_floor_temperature_trend.state}}
-          
-          Tendencia temperatura primera planta: {{states.sensor.first_floor_temperature_trend.state}}
-  
-        inline_keyboard: 
-          - 'Desconectar:/script.turn_on#script.comfort_mode_off'
-  
-    - delay:
-        seconds: 30
-    - service: climate.set_temperature
-      data_template:
-        entity_id: climate.termostato
-        temperature: 23
+      - service: telegram_bot.send_message
+        data_template:
+          message: > 
+            Calefacción encendida para mejorar el confort
+            
+            Temperatura objetivo: {{ states.climate.termostato.attributes.temperature }}
+            
+            Temperatura media planta baja: {{states.sensor.ground_floor_temperature.state}}
+            
+            Temperatura media primera planta: {{states.sensor.first_floor_temperature.state}}
+            
+            Ocupación: {{states.group.unidad_familiar.state}}
+            
+            Estado calefacción: {{states.switch.termostato.state}}
+            
+            Modo ausente: {{states.switch.termostato_modo_ausente.state}}
+            
+            Estado termostato: {{states.climate.termostato.attributes.operation_mode}}
+            
+            Tendencia temperatura planta baja: {{states.sensor.ground_floor_temperature_trend.state}}
+            
+            Tendencia temperatura primera planta: {{states.sensor.first_floor_temperature_trend.state}}
+
+          inline_keyboard: 
+            - 'Desconectar:/homeassistant.turn_off#input_boolean.auto_comfort'
+
+      - service: homeassistant.turn_on
+        data:
+          entity_id: input_boolean.auto_comfort
 
 script:
-  #############################################################
-  # Climate scripts
-  #############################################################
+  # Power off climate
   climate_power_off:
     alias: 'Power off thermostat'
     sequence:
@@ -863,6 +873,7 @@ script:
       - service: home_assistant.update_entity
         entity_id: climate.termostato
 
+  # Power off climate
   climate_power_on:
     alias: 'Power on thermostat'
     sequence:
@@ -873,10 +884,30 @@ script:
       - service: home_assistant.update_entity
         entity_id: climate.termostato
 
+  # Comfort mode on
+  comfort_mode_on:
+    alias: 'Turn on comfort mode'
+    sequence:
+      # Set temperature to 23 degrees
+      - service: climate.set_temperature
+        data_template:
+          entity_id: climate.termostato
+          temperature: 23
+      # Update entity
+      - service: home_assistant.update_entity
+        entity_id: climate.termostato
+      - delay:
+           minutes: 90
+      # Turn off auto comfort (after 90 minutes)
+      - service: homeassistant.turn_off
+        data:
+          entity_id: input_boolean.auto_comfort
+
+  # Comfort mode off
   comfort_mode_off:
     alias: 'Turn off comfort mode'
     sequence:
-     # Turn on thermostat away mode 
+      # Turn on thermostat away mode 
       - service: climate.set_away_mode
         entity_id: climate.termostato
         data:
@@ -888,5 +919,6 @@ script:
         entity_id: climate.termostato
         data:
           away_mode: false
+      # Update entity
       - service: home_assistant.update_entity
         entity_id: climate.termostato
