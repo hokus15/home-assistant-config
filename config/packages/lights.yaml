@@ -1,0 +1,221 @@
+homeassistant:
+  customize:
+#    group.all_lights:
+#      friendly_name: 'Luces exteriores'
+#      hidden: false
+    sensor.escalera_switch_energy:
+      icon: 'mdi:speedometer'
+      friendly_name: 'Consumo luz escalera'
+    sensor.escalera_switch_power:
+      icon: 'mdi:power-plug'
+      friendly_name: 'Potencia luz escalera'
+    sensor.suite_switch_energy:
+      icon: 'mdi:speedometer'
+      friendly_name: 'Consumo luz suite'
+    sensor.suite_switch_power:
+      icon: 'mdi:power-plug'
+      friendly_name: 'Potencia luz suite'
+    switch.escalera_switch:
+      friendly_name: 'Luz escalera'
+      icon: mdi:ceiling-light
+    switch.suite_switch:
+      friendly_name: 'Luz suite'
+      icon: mdi:ceiling-light
+    switch.entrance_hall_lamp_switch:
+      friendly_name: 'Lámpara recibidor'
+      icon: mdi:lamp
+    input_number.outside_ligths_brightness:
+      icon: mdi:brightness-6
+    script.turn_off_lights_exterior:
+      hidden: true
+
+recorder:
+  exclude:
+    entities:
+      - sensor.suite_switch_exporting
+      - sensor.escalera_switch_alarm_level
+      - sensor.escalera_switch_alarm_type
+      - sensor.escalera_switch_exporting
+      - sensor.escalera_switch_heat
+      - sensor.escalera_switch_power_management
+      - sensor.escalera_switch_sourcenodeid
+
+group:
+  Luces exteriores:
+    entities:
+      - light.barrera_derecha
+      - light.barrera_izquierda
+      - light.puerta_coladuria
+      - input_number.outside_ligths_brightness
+
+  Luces interiores:
+    entities:
+      - switch.suite_switch
+      - switch.escalera_switch
+      - switch.entrance_hall_lamp_switch
+
+input_number:
+  outside_ligths_brightness:
+    name: Brillo
+    initial: 75
+    min: 5
+    max: 100
+    step: 5
+
+automation:
+  # When turn on outside lights, adjust brightness
+  - alias: 'Luces exteriores on turn on - Adjust Brightness'
+    trigger:
+      platform: state
+      entity_id: group.luces_exteriores
+      to: 'on'
+    action:
+      - service: homeassistant.turn_on
+        data_template:
+          entity_id: group.luces_exteriores
+          brightness: '{{ ((states.input_number.outside_ligths_brightness.state | int) * 255) // 100 }}'
+  
+  # Adjust luces exteriores brightness
+  - alias: 'Luces exteriores - Adjust Brightness'
+    trigger:
+      platform: state
+      entity_id: input_number.outside_ligths_brightness
+    condition:
+      condition: state
+      entity_id: group.luces_exteriores
+      state: 'on'
+    action:
+      - service: homeassistant.turn_on
+        data_template:
+          entity_id: group.luces_exteriores
+          brightness: '{{ ((trigger.to_state.state | int) * 255) // 100 }}'
+  
+  # Turn on outside lights at sunset (+15 minutes)
+  - alias: 'Sunset Lights'
+    trigger:
+      platform: sun
+      event: 'sunset'
+      offset: '00:15:00'
+    action:
+      - service: homeassistant.turn_on
+        data_template:
+          entity_id: group.luces_exteriores
+          brightness: '{{ ((states.input_number.outside_ligths_brightness.state | int) * 255) // 100 }}'
+      - service: logbook.log
+        data:
+          name: 'Luces exteriores'
+          message: 'encendidas por la puesta de sol'
+          entity_id: group.luces_exteriores
+          domain: light
+  
+  # Turn off outside lights at night (at 00:15)
+  - alias: 'Turn off lights at night'
+    trigger:
+      platform: time
+      at: '00:15'
+    condition:
+      condition: state
+      entity_id: group.luces_exteriores
+      state: 'on'
+    action:
+      - service: homeassistant.turn_off
+        entity_id: group.luces_exteriores
+      - service: logbook.log
+        data:
+          name: 'Luces exteriores'
+          message: 'apagadas a las 00:15'
+          entity_id: group.luces_exteriores
+          domain: light
+  
+  # When the outside lights have been turned on at late night (later than 00:15) and before sunrise, turn them off after 5 minutes
+  - alias: 'Turn off lights late night'
+    trigger:
+      platform: state
+      entity_id: group.luces_exteriores
+      to: 'on'
+    condition:
+      - condition: time
+        after: '00:15'
+      - condition: sun
+        before: sunrise
+      - condition: state
+        entity_id: group.luces_exteriores
+        state: 'on'
+    action:
+      - delay:
+          minutes: 5
+      - service: homeassistant.turn_off
+        data:
+          entity_id: group.luces_exteriores
+      - service: logbook.log
+        data:
+          name: 'Luces exteriores'
+          message: 'apagadas más tarde de las 00:15'
+          entity_id: group.luces_exteriores
+          domain: light
+  
+  
+  # Turn off outside lights after 10 seconds when the sun is not set
+  - alias: 'Turn off lights when sun not set'
+    trigger:
+      platform: state
+      entity_id: group.luces_exteriores
+      to: 'on'
+    condition:
+      condition: and
+      conditions:
+      - condition: sun
+        before: sunset
+      - condition: sun
+        after: sunrise
+    action:
+      - delay:
+          seconds: 10
+      - service: homeassistant.turn_off
+        data:
+          entity_id: group.luces_exteriores
+      - service: logbook.log
+        data:
+          name: 'Luces exteriores'
+          message: 'apagadas porque es de dia'
+          entity_id: group.luces_exteriores
+          domain: light
+  
+  # Turn on outside lights when fence is opened and the sun is set.
+  - alias: 'Turn on lights when fence open'
+    trigger:
+      platform: state
+      entity_id: sensor.switch_barrera
+      to: 'Abierta'
+    condition:
+      condition: and
+      conditions:
+      - condition: sun
+        after: sunset
+      - condition: sun
+        before: sunrise
+    action:
+      - service: homeassistant.turn_on
+        data_template:
+          entity_id: group.luces_exteriores
+          brightness: '{{ ((states.input_number.outside_ligths_brightness.state | int) * 255) // 100 }}'
+      - service: logbook.log
+        data:
+          name: 'Luces exteriores'
+          message: 'encendidas porque se ha abierto la barrera y es de noche'
+          entity_id: group.luces_exteriores
+          domain: light
+  
+  # Turn on hall lamp when the sun is set and someone at home
+  - alias: 'Turn on hall lamp when the sun is set and someone at home'
+    trigger:
+      platform: sun
+      event: sunset
+    condition:
+      condition: state
+      entity_id: group.unidad_familiar
+      state: 'home'
+    action:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.entrance_hall_lamp_switch

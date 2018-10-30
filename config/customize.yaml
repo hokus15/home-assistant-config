@@ -68,18 +68,6 @@ sensor.nut_ups_battery_runtime:
 sensor.recibidor_boton_bateria:
   device_class: 'battery'
   friendly_name: 'Nodon'
-sensor.escalera_switch_energy:
-  icon: 'mdi:speedometer'
-  friendly_name: 'Consumo luz escalera'
-sensor.escalera_switch_power:
-  icon: 'mdi:power-plug'
-  friendly_name: 'Potencia luz escalera'
-sensor.suite_switch_energy:
-  icon: 'mdi:speedometer'
-  friendly_name: 'Consumo luz suite'
-sensor.suite_switch_power:
-  icon: 'mdi:power-plug'
-  friendly_name: 'Potencia luz suite'
 sensor.caducidad_certificado_ssl:
   unit_of_measurement: días
 sensor.connected_clients:
@@ -101,26 +89,10 @@ binary_sensor.ups_status_bs:
 switch.ups_beeper:
   friendly_name: 'Pitido'
   icon: mdi:music-note
-switch.swiid_swiidinter_lampara_recibidor_switch:
-  friendly_name: 'Lámpara recibidor'
-  icon: mdi:lamp
-switch.escalera_switch:
-  friendly_name: 'Luz escalera'
-  icon: mdi:ceiling-light
-switch.suite_switch:
-  friendly_name: 'Luz suite'
-  icon: mdi:ceiling-light
 
-###################################
-# Input sliders
-###################################
-input_number.entrada_luz_brillo:
-  icon: mdi:brightness-6
 ###################################
 # Scripts
 ###################################
-script.turn_off_lights_exterior:
-  hidden: true
 script.restart_ha:
   icon: mdi:autorenew
 script.reboot_pi:
@@ -132,11 +104,6 @@ script.reboot_pi:
 #  hidden: true
 #scene.someone_home:
 #  hidden: true
-###################################
-# Groups
-###################################
-group.external_lights_group:
-  hidden: true
 ###################################
 # Other
 ###################################

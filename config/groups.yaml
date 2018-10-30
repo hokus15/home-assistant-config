@@ -163,25 +163,6 @@ Cocina:
     - input_boolean.coladuria_sensor_puerta
     - sensor.porche_sensor_puerta_temperature
 
-#Luces exteriores:
-#  entities:
-#    - light.barrera_derecha
-#    - light.barrera_izquierda
-#    - light.puerta_coladuria
-#    - input_number.entrada_luz_brillo
-
-#External Lights Group:
-#  entities:
-#    - light.barrera_derecha
-#    - light.barrera_izquierda
-#    - light.puerta_coladuria
-
-Luces interiores:
-  entities:
-    - switch.suite_switch
-    - switch.escalera_switch
-    - switch.swiid_swiidinter_lampara_recibidor_switch
-
 Internet:
   entities:
     - sensor.speedtest_ping
