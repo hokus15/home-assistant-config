@@ -361,27 +361,22 @@ switch:
 input_boolean:
   porche_sensor_puerta:
     name: Det. apert. puerta porche
-    initial: on
     icon: 'mdi:glassdoor'
   
   porche_sensor_persiana:
     name: Det. apert. persiana porche
-    initial: on
     icon: 'mdi:glassdoor'
   
   coladuria_sensor_puerta:
     name: Det. apert. puerta coladuría
-    initial: on
     icon: 'mdi:glassdoor'
   
   despacho_sensor_movimiento:
     name: Det. mov. despacho
-    initial: on
     icon: 'mdi:transit-transfer'
   
   entrada_principal_camara_det_mov:
     name: Det. mov. entrada ppal.
-    initial: on
     icon: 'mdi:transit-transfer'
 
 camera:
