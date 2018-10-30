@@ -50,31 +50,6 @@ recorder:
       
       - sensor.nissan_last_update
 
-      - device_tracker.ac63be0b8591
-      - device_tracker.48e9f1ef7911
-      - device_tracker.d013fd1259af
-      - device_tracker.d47bb0af2168
-      - device_tracker.dc415fda59c2
-      - device_tracker.f81654845f30
-      - device_tracker.e0b52dc9f7e4
-      - device_tracker.ac83f303a892
-      - device_tracker.54724f769044
-      - device_tracker.70ee502aa1ac
-      - device_tracker.748d08da83b9
-      - device_tracker.64b5c60cdc86
-      - device_tracker.flex_2
-      - device_tracker.toyota
-      - device_tracker.hp_photosmart_5520
-#      - device_tracker.jordi_combined
-#      - device_tracker.hokusphone_nmap
-#      - device_tracker.hokusphone_wifi
-#      - device_tracker.hokusphone_ibeacon
-#      - device_tracker.geni_combined
-#      - device_tracker.geniphone_nmap
-#      - device_tracker.geniphone_wifi
-#      - device_tracker.geniphone_ibeacon
-      - device_tracker.virtual_device
-
       - input_number.empty_home_activation_delay_minutes
 
 group:
