@@ -105,7 +105,7 @@ homeassistant:
       unit_of_measurement: '°C'
     sensor.home_temperature:
       friendly_name: 'Temp. media'
-    sensor.recibidor_termometro_temperatura:
+    sensor.entrance_hall_termostato_temperature:
       friendly_name: 'Temperatura'
       unit_of_measurement: '°C'
 
@@ -117,7 +117,6 @@ recorder:
       - sensor.pws_weather
       - sensor.pws_weather_1d_metric
       - sensor.pws_alerts
-      - sensor.recibidor_termometro_temperatura
       - sensor.exterior_termometro_temperatura
       - sensor.exterior_termometro_humedad
       - sensor.exterior_termometro_max_temp
@@ -302,10 +301,10 @@ binary_sensor:
         entity_id: sensor.despacho_termometro_temperatura
   
       entrance_hall_termostato_temperature_down:
-        entity_id: sensor.recibidor_termometro_temperatura
+        entity_id: sensor.entrance_hall_termostato_temperature
         invert: true
       entrance_hall_termostato_temperature_up:
-        entity_id: sensor.recibidor_termometro_temperatura
+        entity_id: sensor.entrance_hall_termostato_temperature
         
       netatmo_suite_temperature_down:
         entity_id: sensor.suite_termometro_temperatura
@@ -429,7 +428,7 @@ sensor:
     type: mean
     round_digits: 1
     entity_ids:
-      - sensor.recibidor_termometro_temperatura
+      - sensor.entrance_hall_termostato_temperature
       - sensor.netatmo_salon_temperature
       - sensor.despacho_sensor_movimiento_temperature
       - sensor.porche_sensor_puerta_temperature
@@ -450,7 +449,7 @@ sensor:
       - sensor.netatmo_suite_temperature
       - sensor.netatmo_habitacion_temperature
       - sensor.netatmo_salon_temperature
-      - sensor.recibidor_termometro_temperatura
+      - sensor.entrance_hall_termostato_temperature
       - sensor.despacho_sensor_movimiento_temperature
       - sensor.porche_sensor_puerta_temperature
 
@@ -463,6 +462,14 @@ sensor:
 
   - platform: template
     sensors:
+      entrance_hall_termostato_target_temperature:
+        entity_id: climate.termostato
+        value_template: "{{state_attr('climate.termostato', 'temperature')}}"
+
+      entrance_hall_termostato_temperature:
+        entity_id: climate.termostato
+        value_template: "{{state_attr('climate.termostato', 'current_temperature')}}"
+
       ground_floor_temperature_trend:
         friendly_name: 'Tend temp planta baja'
         value_template: >-
@@ -673,25 +680,21 @@ sensor:
           {%- endif %}
 
 switch:
-  - platform: mqtt
-    name: 'termostato'
-    state_topic: 'home/heating/status'
-    command_topic: 'home/heating/status'
-    payload_on: 'ON'
-    payload_off: 'OFF'
-    optimistic: false
-    qos: 0
-    retain: true
-  
   - platform: template
     switches:
+      termostato:
+        entity_id: sensor.entrance_hall_termostato_temperature
+        value_template: "{{states('sensor.entrance_hall_termostato_temperature')|float > 11.5}}"
+        turn_on:
+          service: script.turn_on
+          entity_id: script.climate_power_on
+        turn_off:
+          service: script.turn_on
+          entity_id: script.climate_power_off
+      
       termostato_modo_ausente:
-        value_template: >-
-          {%- if states("climate.termostato") != "unknown" -%}
-            {{ states.climate.termostato.attributes.away_mode }}
-          {%- else -%}
-            off
-          {%- endif %}
+        entity_id: climate.termostato
+        value_template: "{{is_state_attr('climate.termostato', 'away_mode', 'on')}}"
         turn_on:
           service: climate.set_away_mode
           entity_id: climate.termostato
@@ -713,27 +716,27 @@ automation:
   # Heating automations
   #############################################################
   
-  # When the switch.termostato changes to on
-  - alias: 'Heating on'
-    trigger:
-      platform: state
-      entity_id: switch.termostato
-      to: 'on'
-    action:
-      # Turn on thermostat
-      - service: script.turn_on
-        entity_id: script.climate_power_on
-  
-  # When the switch.termostato changes to off
-  - alias: 'Heating off'
-    trigger:
-      platform: state
-      entity_id: switch.termostato
-      to: 'off'
-    action:
-      # Turn off thermostat
-      - service: script.turn_on
-        entity_id: script.climate_power_off
+#  # When the switch.termostato changes to on
+#  - alias: 'Heating on'
+#    trigger:
+#      platform: state
+#      entity_id: switch.termostato
+#      to: 'on'
+#    action:
+#      # Turn on thermostat
+#      - service: script.turn_on
+#        entity_id: script.climate_power_on
+#  
+#  # When the switch.termostato changes to off
+#  - alias: 'Heating off'
+#    trigger:
+#      platform: state
+#      entity_id: switch.termostato
+#      to: 'off'
+#    action:
+#      # Turn off thermostat
+#      - service: script.turn_on
+#        entity_id: script.climate_power_off
 
     # Automatic Heating on when home mean temperature for last 24 hours is below 18.5 degrees
   - alias: 'Automatic heating on'
@@ -759,7 +762,7 @@ automation:
           message: 'Como ya empieza a hacer fresquito, he encendido la calefaccción. Convendría hacer un purgado de los radiadores.'
           target: 
             - !secret hokusphone_telegram_chat_id
-            - !secret geniphone_telegram_chat_id
+            #- !secret geniphone_telegram_chat_id
           disable_notification: false
           inline_keyboard:
                  - 'Apaga la calefacción:/switch.turn_off#switch.termostato'
@@ -870,18 +873,28 @@ script:
         entity_id: climate.termostato
         data:
           temperature: 11.5
-      - service: home_assistant.update_entity
+      - delay:
+          seconds: 15
+      - service: homeassistant.update_entity
         entity_id: climate.termostato
 
-  # Power off climate
+  # Power on climate
   climate_power_on:
     alias: 'Power on thermostat'
     sequence:
+      - service: climate.set_temperature
+        entity_id: climate.termostato
+        data:
+          temperature: 15
+      - delay:
+          seconds: 15
       - service: climate.set_away_mode
         entity_id: climate.termostato
         data:
           away_mode: false
-      - service: home_assistant.update_entity
+      - delay:
+          seconds: 15
+      - service: homeassistant.update_entity
         entity_id: climate.termostato
 
   # Comfort mode on
@@ -893,8 +906,10 @@ script:
         data_template:
           entity_id: climate.termostato
           temperature: 23
+      - delay:
+          seconds: 15
       # Update entity
-      - service: home_assistant.update_entity
+      - service: homeassistant.update_entity
         entity_id: climate.termostato
       - delay:
            minutes: 90
@@ -919,6 +934,8 @@ script:
         entity_id: climate.termostato
         data:
           away_mode: false
+      - delay:
+          seconds: 15
       # Update entity
-      - service: home_assistant.update_entity
+      - service: homeassistant.update_entity
         entity_id: climate.termostato

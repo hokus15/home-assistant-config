@@ -150,7 +150,7 @@ Recibidor:
   entities:
     - camera.recibidor
     - switch.swiid_swiidinter_lampara_recibidor_switch
-    - sensor.recibidor_termometro_temperatura
+    - sensor.entrance_hall_termostato_temperature
     - sensor.entrance_hall_termostato_temperature_trend
 
 Cocina:
