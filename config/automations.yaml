@@ -292,15 +292,15 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: sensor.coladuria_sensor_puerta
-        state: 'Abierta'
+        entity_id: states.binary_sensor.coladuria_sensor_puerta
+        state: 'on'
       - condition: state
         entity_id: switch.termostato
         state: 'on'
       - condition: template
-        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.coladuria_sensor_puerta.last_changed))//60)%10 == 0 }}'
+        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.coladuria_sensor_puerta.last_changed))//60)%10 == 0 }}'
       - condition: template
-        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.coladuria_sensor_puerta.last_changed))//60) != 0 }}'
+        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.coladuria_sensor_puerta.last_changed))//60) != 0 }}'
   action:
     - service: script.turn_on
       data:
@@ -308,7 +308,7 @@
     - service: tts.google_say
       entity_id: media_player.homeassistant
       data_template:
-        message: 'Puerta de la coladuría {{ states.sensor.coladuria_sensor_puerta.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.switch_barrera.last_changed))|int//60 }} minutos'
+        message: 'Puerta de la coladuría abierta durante más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.coladuria_sensor_puerta.last_changed))|int//60 }} minutos'
         cache: false
 
 #############################################################
