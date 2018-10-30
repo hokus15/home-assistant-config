@@ -25,9 +25,6 @@ sensor.exchange_rate_1_eth:
 #sensor.hokusphone_batt:
 #  friendly_name: 'Batería teléfono'
 #  icon: 'mdi:battery'
-sensor.switch_barrera:
-  friendly_name: 'Estado barrera'
-  icon: 'mdi:gate'
 sensor.ups_status:
   friendly_name: 'SAI'
   icon: 'mdi:power-socket-eu'
@@ -101,9 +98,6 @@ binary_sensor.ups_status_bs:
 ###################################
 # Switches
 ###################################
-switch.barrera:
-  friendly_name: 'Barrera'
-  icon: mdi:gate
 switch.ups_beeper:
   friendly_name: 'Pitido'
   icon: mdi:music-note

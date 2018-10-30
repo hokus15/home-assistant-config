@@ -182,11 +182,6 @@ Luces interiores:
     - switch.escalera_switch
     - switch.swiid_swiidinter_lampara_recibidor_switch
 
-Barrera:
-  entities:
-    - switch.barrera
-    - sensor.switch_barrera
-
 Internet:
   entities:
     - sensor.speedtest_ping

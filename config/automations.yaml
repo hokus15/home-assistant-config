@@ -245,42 +245,6 @@
       message: 'Batería del SAI agotándose, reemplazar'
 
 #############################################################
-# Fence automations
-#############################################################
-- alias: 'When fence open notify every 10 minutes'
-  trigger:
-    platform: time
-    minutes: '/1'
-    seconds: 00
-  condition:
-    condition: and
-    conditions:
-      - condition: state
-        entity_id: sensor.switch_barrera
-        state: 'Abierta'
-      - condition: template
-        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.switch_barrera.last_changed))//60)%10 == 0 }}'
-      - condition: template
-        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.switch_barrera.last_changed))//60) != 0 }}'
-  action:
-    - service: script.turn_on
-      data:
-        entity_id: script.speech_set_tts_volume_level
-    - service: tts.google_say
-      entity_id: media_player.homeassistant
-      data_template:
-        message: 'Barrera {{ states.sensor.switch_barrera.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.switch_barrera.last_changed))|int//60 }} minutos'
-        cache: false
-    - service: telegram_bot.send_message
-      data_template:
-        message: 'Barrera {{ states.sensor.switch_barrera.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.switch_barrera.last_changed))|int//60 }} minutos'
-        target: 
-          - !secret hokusphone_telegram_chat_id
-          - !secret geniphone_telegram_chat_id
-        inline_keyboard: 
-          - 'Cerrar:/script.turn_on#script.fence_close'
-
-#############################################################
 # Laundry door automations
 #############################################################
 - alias: 'When laundry door is open and heating is on, notify every 10 minutes'
@@ -292,7 +256,7 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: states.binary_sensor.coladuria_sensor_puerta
+        entity_id: binary_sensor.coladuria_sensor_puerta
         state: 'on'
       - condition: state
         entity_id: switch.termostato

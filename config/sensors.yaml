@@ -87,15 +87,6 @@
 
 - platform: template
   sensors:
-    # Know if the Wemo Maker sensor has been triggered (off: garage door opened, on: garage door closed)
-    switch_barrera:
-      friendly_name: 'Estado'
-      value_template: >-
-          {%- if is_state_attr("switch.barrera", "sensor_state", "off") %}
-              Abierta
-          {% else %}
-              Cerrada
-          {%- endif %}
     hokuslaptop_powerused:
       value_template: '{{states.switch.hokuslaptop.attributes.current_power_w | int}}'
 #    ph_piscina:
