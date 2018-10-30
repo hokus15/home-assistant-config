@@ -117,44 +117,18 @@ recorder:
       - sensor.pws_weather
       - sensor.pws_weather_1d_metric
       - sensor.pws_alerts
-      - sensor.exterior_termometro_temperatura
-      - sensor.exterior_termometro_humedad
-      - sensor.exterior_termometro_max_temp
-      - sensor.exterior_termometro_min_temp
       - sensor.netatmo_exterior_radio
       - sensor.netatmo_exterior_battery
 
-      - sensor.salon_termometro_co2
-      - sensor.salon_termometro_temperatura
-      - sensor.salon_termometro_humedad
-      - sensor.salon_termometro_max_temp
-      - sensor.salon_termometro_min_temp
-      - sensor.salon_termometro_ruido
-      - sensor.salon_termometro_presion
-
-      - sensor.suite_termometro_co2
-      - sensor.suite_termometro_temperatura
-      - sensor.suite_termometro_humedad
-      - sensor.suite_termometro_max_temp
-      - sensor.suite_termometro_min_temp
       - sensor.netatmo_suite_radio
       - sensor.netatmo_suite_battery
 
-      - sensor.habitacion_termometro_co2
-      - sensor.habitacion_termometro_temperatura
-      - sensor.habitacion_termometro_humedad
-      - sensor.habitacion_termometro_max_temp
-      - sensor.habitacion_termometro_min_temp
       - sensor.netatmo_habitacion_radio
       - sensor.netatmo_habitacion_battery
 
-      - sensor.exterior_pluviometro_lluvia
-      - sensor.exterior_pluviometro_lluvia_1
-      - sensor.exterior_pluviometro_lluvia_24
       - sensor.netatmo_pluviometro_radio
       - sensor.netatmo_pluviometro_battery
 
-      - sensor.exterior_anemometro_velocidad_viento
       - sensor.netatmo_anemometro_gust_angle
       - sensor.netatmo_anemometro_angle
       - sensor.netatmo_anemometro_radio
@@ -245,7 +219,7 @@ group:
   
   Confort:
     entities:
-      - input_boolean.auto_comfort
+      - input_boolean.comfort_mode
       - sensor.ground_floor_temperature
       - sensor.ground_floor_temperature_trend
       - sensor.first_floor_temperature
@@ -275,10 +249,24 @@ history_graph:
 binary_sensor:
   - platform: template
     sensors:
+      # comfort_state is active when:
+      # Average in first floor temperature is lower than climate target temperature
+      # And there is someone at home
+      # And heating is on
+      # And heating away mode is off
+      # And heating is idle
+      # And first floor temperature trend is going down
       comfort_state:
-        device_class: heat
-        friendly_name: 'Auto confort sensor'
-        value_template: "{{ states('sensor.first_floor_temperature')|float < states.climate.termostato.attributes.temperature|float and is_state('group.unidad_familiar', 'home') and is_state('switch.termostato', 'on') and is_state('switch.termostato_modo_ausente','off') and is_state_attr('climate.termostato', 'operation_mode', 'idle') and is_state('binary_sensor.first_floor_temperature_down','on') }}"
+        entity_id: sensor.first_floor_temperature, climate.termostato, group.unidad_familiar, switch.termostato, switch.termostato_modo_ausente, binary_sensor.first_floor_temperature_down
+        value_template: >- 
+          {{     states('sensor.first_floor_temperature')|float < states.sensor.entrance_hall_termostato_target_temperature|float
+             and is_state('group.unidad_familiar', 'home')
+             and is_state('switch.termostato', 'on')
+             and is_state('switch.termostato_modo_ausente','off')
+             and is_state_attr('climate.termostato', 'operation_mode', 'idle')
+             and is_state('binary_sensor.first_floor_temperature_down','on')
+          }}
+
   # Trend sensors
   - platform: trend
     sensors:
@@ -707,9 +695,9 @@ switch:
             away_mode: false
 
 input_boolean:
-  auto_comfort:
-    name: Auto confort
-    icon: 'mdi:radiator'
+  comfort_mode:
+    name: Modo extra calentito
+    icon: 'mdi:fire'
 
 automation:
   #############################################################
@@ -774,36 +762,28 @@ automation:
           inline_keyboard:
                  - 'Enciende la calefacción:/switch.turn_on#switch.termostato'
 
-    # Turn on auto comfort mode
-  - alias: 'Auto comfort on'
+    # Turn on comfort mode
+  - alias: 'Comfort mode on'
     trigger:
       platform: state
-      entity_id: input_boolean.auto_comfort
+      entity_id: input_boolean.comfort_mode
       to: 'on'
     action:
       - service: script.turn_on
         entity_id: script.comfort_mode_on
 
-    # Turn off auto comfort mode
-  - alias: 'Auto comfort off'
+    # Turn off comfort mode
+  - alias: 'Comfort mode off'
     trigger:
       platform: state
-      entity_id: input_boolean.auto_comfort
+      entity_id: input_boolean.comfort_mode
       to: 'off'
     action:
       - service: script.turn_off
         entity_id: script.comfort_mode_off
 
-
-  # When average temp on ground floor or first floor is under target climate temperature
-  # If:
-  #  - There is someone at home
-  #  - Heating is connected
-  #  - Heating is idle
-  #  - Temperature trend in ground floor or first floor is going down
-  #  - After 16:00
-  # Then turn on auto comfort
-  - alias: 'Heating comfort'
+    # Automatic comfort mode turn on when comfort state is true and is after 16
+  - alias: 'Automatic comfort mode turn on'
     trigger:
       platform: state
       entity_id: binary_sensor.comfort_state
@@ -815,9 +795,9 @@ automation:
       - service: telegram_bot.send_message
         data_template:
           message: > 
-            Calefacción encendida para mejorar el confort
+            Calefacción encendida para mejorar para estar más calentitos
             
-            Temperatura objetivo: {{ states.climate.termostato.attributes.temperature }}
+            Temperatura objetivo: {{ states.sensor.entrance_hall_termostato_target_temperature }}
             
             Temperatura media planta baja: {{states.sensor.ground_floor_temperature.state}}
             
@@ -836,11 +816,11 @@ automation:
             Tendencia temperatura primera planta: {{states.sensor.first_floor_temperature_trend.state}}
 
           inline_keyboard: 
-            - 'Desconectar:/homeassistant.turn_off#input_boolean.auto_comfort'
+            - 'Desconectar:/homeassistant.turn_off#input_boolean.comfort_mode'
 
       - service: homeassistant.turn_on
         data:
-          entity_id: input_boolean.auto_comfort
+          entity_id: input_boolean.comfort_mode
 
 script:
   # Power off climate
@@ -891,10 +871,10 @@ script:
         entity_id: climate.termostato
       - delay:
            minutes: 90
-      # Turn off auto comfort (after 90 minutes)
+      # Turn off comfort mode (after 90 minutes)
       - service: homeassistant.turn_off
         data:
-          entity_id: input_boolean.auto_comfort
+          entity_id: input_boolean.comfort_mode
 
   # Comfort mode off
   comfort_mode_off:
