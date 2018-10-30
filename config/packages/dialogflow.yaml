@@ -3,6 +3,7 @@ dialogflow:
 recorder:
   exclude:
     entities:
+      - sensor.recibidor_termometro_temperatura
       - sensor.on_off_switch_termostato
       - sensor.on_off_switch_termostato_modo_ausente
       - sensor.on_off_switch_piscina
