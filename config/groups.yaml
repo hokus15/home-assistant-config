@@ -11,6 +11,7 @@ default_view:
     - group.energia
     - group.calefaccion
 #    - group.seguridad
+    - group.luces_exteriores
     - group.luces_interiores
     - sensor.a_la_oficina
     - sensor.al_colegio
