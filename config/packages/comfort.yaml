@@ -715,28 +715,6 @@ automation:
   #############################################################
   # Heating automations
   #############################################################
-  
-#  # When the switch.termostato changes to on
-#  - alias: 'Heating on'
-#    trigger:
-#      platform: state
-#      entity_id: switch.termostato
-#      to: 'on'
-#    action:
-#      # Turn on thermostat
-#      - service: script.turn_on
-#        entity_id: script.climate_power_on
-#  
-#  # When the switch.termostato changes to off
-#  - alias: 'Heating off'
-#    trigger:
-#      platform: state
-#      entity_id: switch.termostato
-#      to: 'off'
-#    action:
-#      # Turn off thermostat
-#      - service: script.turn_on
-#        entity_id: script.climate_power_off
 
     # Automatic Heating on when home mean temperature for last 24 hours is below 18.5 degrees
   - alias: 'Automatic heating on'
