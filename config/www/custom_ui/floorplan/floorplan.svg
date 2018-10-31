@@ -3552,7 +3552,7 @@
        y="870.09625"
        id="sensor.netatmo_suite_temperature"
        inkscape:label="sensor.netatmo_suite_temperature"><desc
-         id="desc5804">switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2</desc><tspan
+         id="desc5804">switch.suite_switch</desc><tspan
          sodipodi:role="line"
          id="tspan6782-0-8"
          x="2365.2769"
@@ -4920,18 +4920,18 @@ QevNL05ooqCySM8g0UUUgP/Z
      style="display:inline">
     <path
        style="display:inline;stroke-width:1.953125"
-       id="switch.swiid_swiidinter_lampara_recibidor_switch"
+       id="switch.entrance_hall_lamp_switch"
        d="m 993.1875,929.46875 h 15.625 l 7.8125,23.4375 h -31.25 l 7.8125,-23.4375 m 5.85937,25.39062 h 3.90623 v 9.76563 h 9.7656 v 3.90625 H 989.28125 V 964.625 h 9.76562 z"
        inkscape:connector-curvature="0"
-       inkscape:label="switch.swiid_swiidinter_lampara_recibidor_switch" />
+       inkscape:label="switch.entrance_hall_lamp_switch" />
     <path
-       id="switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2"
+       id="switch.suite_switch"
        d="m 2344.8761,776.20562 h 10.675 v -17.56656 h 7.1165 v 17.56656 h 10.6748 l 14.2333,28.10651 h -56.9328 l 14.2332,-28.10651 m 21.3498,31.61984 a 7.1166015,7.0266274 0 0 1 -7.1166,7.02662 7.1166015,7.0266274 0 0 1 -7.1165,-7.02662 z"
        inkscape:connector-curvature="0"
        inkscape:transform-center-x="601.35277"
        inkscape:transform-center-y="-242.41864"
        style="display:inline;stroke-width:3.53573585"
-       inkscape:label="switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2" />
+       inkscape:label="switch.suite_switch" />
     <path
        style="display:inline;stroke-width:1.953125"
        id="group.luces_exteriores"
@@ -4951,13 +4951,13 @@ QevNL05ooqCySM8g0UUUgP/Z
        inkscape:connector-curvature="0"
        inkscape:label="light.barrera_izquierda" />
     <path
-       id="switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch"
+       id="switch.escalera_switch"
        d="m 946.74825,780.21754 h 9.77493 v -17.56656 h 6.51663 v 17.56656 h 9.77493 l 13.03326,28.10651 h -52.133 l 13.03325,-28.10651 m 19.54987,31.61984 a 6.5166254,7.0266274 0 0 1 -6.51663,7.02662 6.5166254,7.0266274 0 0 1 -6.51663,-7.02662 z"
        inkscape:connector-curvature="0"
        inkscape:transform-center-x="550.65478"
        inkscape:transform-center-y="-242.41864"
        style="display:inline;stroke-width:3.38341165"
-       inkscape:label="switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch" />
+       inkscape:label="switch.escalera_switch" />
     <path
        style="display:inline;stroke-width:1;stroke:#000000;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        id="camera.recibidor"

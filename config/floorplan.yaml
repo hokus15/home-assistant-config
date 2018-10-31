@@ -167,9 +167,9 @@
 
         - name: Switches
           entities:
-             - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
-             - switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
-             - switch.swiid_swiidinter_lampara_recibidor_switch
+             - switch.escalera_switch
+             - switch.suite_switch
+             - switch.entrance_hall_lamp_switch
              - switch.piscina
           states:
             - state: 'on'

@@ -34,9 +34,9 @@ recorder:
       - sensor.on_off_switch_piscina
       - sensor.on_off_group_luces_exteriores
       - sensor.on_off_group_luces_interiores
-      - sensor.on_off_switch_swiid_swiidinter_lampara_recibidor_switch
-      - sensor.on_off_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
-      - sensor.on_off_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
+      - sensor.on_off_switch_entrance_hall_lamp_switch
+      - sensor.on_off_switch_escalera_switch
+      - sensor.on_off_switch_suite_switch
       - sensor.on_off_switch_caseta_camara_det_mov
       - sensor.on_off_switch_piscina_camara_det_mov
       - sensor.on_off_switch_recibidor_camara_det_mov
@@ -52,9 +52,9 @@ recorder:
       - sensor.check_switch_piscina
       - sensor.check_group_luces_exteriores
       - sensor.check_group_luces_interiores
-      - sensor.check_switch_swiid_swiidinter_lampara_recibidor_switch
-      - sensor.check_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
-      - sensor.check_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
+      - sensor.check_switch_entrance_hall_lamp_switch
+      - sensor.check_switch_escalera_switch
+      - sensor.check_switch_suite_switch
       - sensor.check_switch_caseta_camara_det_mov
       - sensor.check_switch_piscina_camara_det_mov
       - sensor.check_switch_recibidor_camara_det_mov
@@ -297,7 +297,7 @@ intent_script:
       # Turn off stairs lights
       - service: switch.turn_on
         data:
-          entity_id: switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
+          entity_id: switch.escalera_switch
       # Turn off outside lights
       - service: light.turn_off
         data:
@@ -305,7 +305,7 @@ intent_script:
       # Turn off hall lamp
       - service: switch.turn_off
         data:
-          entity_id: switch.swiid_swiidinter_lampara_recibidor_switch
+          entity_id: switch.entrance_hall_lamp_switch
       # Close fence if open
       - service_template: >
           {%- if is_state("sensor.outside_fence_switch", "Abierta") -%}
@@ -320,7 +320,7 @@ intent_script:
       # Turn off stairs lights
       - service: switch.turn_off
         data:
-          entity_id: switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch
+          entity_id: switch.escalera_switch
 
 sensor:
 - platform: template
@@ -446,14 +446,14 @@ sensor:
     on_off_group_luces_interiores:
       value_template: '{% if is_state("group.luces_interiores", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'las luces interiores'
-    on_off_switch_swiid_swiidinter_lampara_recibidor_switch:
-      value_template: '{% if is_state("switch.swiid_swiidinter_lampara_recibidor_switch", "off") %}encendido{% else %}apagado{% endif %}'
+    on_off_switch_entrance_hall_lamp_switch:
+      value_template: '{% if is_state("switch.entrance_hall_lamp_switch", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'la lámpara del recibidor'
-    on_off_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch:
-      value_template: '{% if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch", "off") %}encendido{% else %}apagado{% endif %}'
+    on_off_switch_escalera_switch:
+      value_template: '{% if is_state("switch.escalera_switch", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'las luces de la escalera'
-    on_off_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2:
-      value_template: '{% if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2", "off") %}encendido{% else %}apagado{% endif %}'
+    on_off_switch_suite_switch:
+      value_template: '{% if is_state("switch.suite_switch", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'la luz de la suite'
     on_off_switch_caseta_camara_det_mov:
       value_template: '{% if is_state("switch.caseta_camara_det_mov", "off") %}activado{% else %}desactivado{% endif %}'
@@ -507,16 +507,16 @@ sensor:
       value_template: '{% if is_state("group.luces_interiores", "off") %}apagadas{% else %}encendidas{% endif %}'
       friendly_name: 'las luces interiores'
       unit_of_measurement: 'on-off-fp'
-    check_switch_swiid_swiidinter_lampara_recibidor_switch:
-      value_template: '{% if is_state("switch.swiid_swiidinter_lampara_recibidor_switch", "off") %}apagada{% else %}encendida{% endif %}'
+    check_switch_entrance_hall_lamp_switch:
+      value_template: '{% if is_state("switch.entrance_hall_lamp_switch", "off") %}apagada{% else %}encendida{% endif %}'
       friendly_name: 'la lámpara del recibidor'
       unit_of_measurement: 'on-off-f'
-    check_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch:
-      value_template: '{% if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch", "off") %}apagadas{% else %}encendidas{% endif %}'
+    check_switch_escalera_switch:
+      value_template: '{% if is_state("switch.escalera_switch", "off") %}apagadas{% else %}encendidas{% endif %}'
       friendly_name: 'las luces de la escalera'
       unit_of_measurement: 'on-off-fp'
-    check_switch_fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2:
-      value_template: '{% if is_state("switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2", "off") %}apagada{% else %}encendida{% endif %}'
+    check_switch_suite_switch:
+      value_template: '{% if is_state("switch.suite_switch", "off") %}apagada{% else %}encendida{% endif %}'
       friendly_name: 'la luz de la suite'
       unit_of_measurement: 'on-off-f'
     check_switch_caseta_camara_det_mov:
