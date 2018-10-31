@@ -110,7 +110,7 @@ goto_sleep:
         entity_id: switch.escalera_switch
     # Close fence if open
     - service_template: >
-        {%- if is_state("sensor.switch_barrera", "Abierta") -%}
+        {%- if is_state("sensor.outside_fence_switch", "Abierta") -%}
           homeassistant.turn_on
         {%- endif -%}
 
@@ -140,7 +140,7 @@ goto_sleep:
           {%- if is_state("binary_sensor.porche_sensor_puerta", "on") %}Puerta de la cocina abierta. {% endif %}
           {%- if is_state("binary_sensor.porche_sensor_persiana", "on") %}Persiana de la cocina abierta. {% endif %}
           {%- if is_state("binary_sensor.coladuria_sensor_puerta", "on") %}Puerta de la coladuría abierta. {% endif %}
-          {%- if is_state("sensor.switch_barrera", "Abierta") -%}Cerrando barrera.{% endif -%}
+          {%- if is_state("sensor.outside_fence_switch", "Abierta") -%}Cerrando barrera.{% endif -%}
           Alarma armada en modo noche. Buenas noches
     # Wait until tts finishes
 #    - delay: '00:00:{{ states.media_player.homeassistant.attributes.media_duration | int }}'

@@ -294,7 +294,7 @@ svg, svg * {
 }
 
 /* Doors that slide right to left */
-#sensor\.switch_barrera {
+#sensor\.outside_fence_switch {
   animation-direction: reverse;
 }
 

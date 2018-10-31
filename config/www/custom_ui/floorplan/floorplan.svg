@@ -3353,13 +3353,13 @@
        y="1257.4568" />
     <rect
        style="display:inline;opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
-       id="sensor.switch_barrera"
+       id="sensor.outside_fence_switch"
        width="271.79999"
        height="6.9999986"
        x="1289.5"
        y="1347.7001"
        ry="0"
-       inkscape:label="sensor.switch_barrera" />
+       inkscape:label="sensor.outside_fence_switch" />
     <rect
        style="opacity:0.98000004;fill:#006400;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
        id="rect10943"

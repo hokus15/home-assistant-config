@@ -187,7 +187,7 @@ google_assistant:
         - Persona autorizada
         - Modo invitado
       room: General
-    input_boolean.fence:
+    input_boolean.outside_fence:
       name: Barrera
       expose: true
       room: Exterior
