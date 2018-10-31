@@ -1,8 +1,5 @@
 homeassistant:
   customize:
-#    group.all_lights:
-#      friendly_name: 'Luces exteriores'
-#      hidden: false
     sensor.escalera_switch_energy:
       icon: 'mdi:speedometer'
       friendly_name: 'Consumo luz escalera'

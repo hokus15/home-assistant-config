@@ -117,9 +117,9 @@ goto_sleep:
       data:
         entity_id: switch.barrera
     # Turn off outside lights
-    - service: light.turn_off
+    - service: homeassistant.turn_off
       data:
-        entity_id: group.external_lights_group
+        entity_id: group.luces_exteriores
     # Turn off hall lamp
     - service: switch.turn_off
       data:
@@ -132,7 +132,7 @@ goto_sleep:
     - service: script.turn_on
       data:
         entity_id: script.speech_set_tts_volume_level
-      # Speech the found incidences and say good night.
+      # Notify found incidences and say good night.
     - service: tts.google_say
       entity_id: media_player.homeassistant
       data_template:
