@@ -126,7 +126,7 @@ Suite:
   entities:
     - switch.suite_switch
     - sensor.suite_switch_energy
-    - sensor.suite_power
+    - sensor.suite_switch_power
     - sensor.netatmo_suite_temperature
     - sensor.netatmo_suite_temperature_trend
     - sensor.netatmo_suite_min_temp
