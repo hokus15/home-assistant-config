@@ -33,6 +33,13 @@ sensor:
 input_boolean:
   outside_fence:
 
+google_assistant:
+  entity_config:
+    input_boolean.outside_fence:
+      name: Barrera
+      expose: true
+      room: Exterior
+
 automation:
 #############################################################
 # Fence automations

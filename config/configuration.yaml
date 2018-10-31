@@ -151,26 +151,7 @@ google_assistant:
   project_id: !secret google_assistant_project_id
   api_key: !secret google_api_key
   expose_by_default: false
-  entity_config:
-    group.seguridad:
-      name: Seguridad
-      expose: true
-      aliases:
-        - Sensores alarma
-        - Seguridad
-        - Sensores
-      room: General
-    script.presence_set_virtual_device_home:
-      name: Persona autorizada
-      expose: true
-      aliases:
-        - Persona autorizada
-        - Modo invitado
-      room: General
-    input_boolean.outside_fence:
-      name: Barrera
-      expose: true
-      room: Exterior
+
 zwave:
   usb_path: /dev/ttyACM0
   device_config: !include zwave_device_config.yaml

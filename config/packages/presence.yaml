@@ -283,6 +283,16 @@ counter:
     initial: 0
     step: 1
 
+google_assistant:
+  entity_config:
+    script.presence_set_virtual_device_home:
+      name: Persona autorizada
+      expose: true
+      aliases:
+        - Persona autorizada
+        - Modo invitado
+      room: General
+
 automation:
   # Empty home automation when no one of the Familia group is at home
   - alias: 'Empty home'
