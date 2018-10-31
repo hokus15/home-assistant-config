@@ -123,7 +123,7 @@ goto_sleep:
     # Turn off hall lamp
     - service: switch.turn_off
       data:
-        entity_id: switch.swiid_swiidinter_lampara_recibidor_switch
+        entity_id: switch.entrance_hall_lamp_switch
     # Alarm arm night
     - service: script.turn_on
       data:
