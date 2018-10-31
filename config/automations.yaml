@@ -119,7 +119,20 @@
      service: switch.turn_off
      data:
        entity_id: switch.hokuslaptop
-       
+
+- alias: Sleep mode event received
+  trigger:
+    platform: event
+    event_type: sleep_mode
+  action:
+    - service: logbook.log
+      data:
+        name: 'Modo nocturno'
+        message: 'es hora de irse a dormir'
+    - service: script.turn_on
+      data:
+        entity_id: script.goto_sleep
+
 #############################################################
 # Nodon Octan automations
 #############################################################
