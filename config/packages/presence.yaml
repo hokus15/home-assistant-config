@@ -679,6 +679,8 @@ automation:
       - service: notify.telegram
         data:
           message: '¿Te has dejado las llaves puestas en el contacto del coche?'
+      - service: counter.reset
+        entity_id: counter.toyota_notification
 
   - alias: Notify for new devices
     trigger:
@@ -797,3 +799,22 @@ script:
         data:
           dev_id: 'jordi_combined'
           location_name: 'home'
+
+zone:
+  - name: Oficina
+    latitude: !secret office_latitude
+    longitude: !secret office_longitude
+    radius: 200
+    icon: mdi:briefcase
+  
+  - name: Colegio
+    latitude: !secret school_latitude
+    longitude: !secret school_longitude
+    radius: 175
+    icon: mdi:school
+  
+  - name: Hospital
+    latitude: !secret office2_latitude
+    longitude: !secret office2_longitude
+    radius: 250
+    icon: mdi:hospital-building
