@@ -91,10 +91,10 @@ homeassistant:
       friendly_name: 'Temp media 1ª planta'
       icon: 'mdi:thermometer'
       unit_of_measurement: '°C'
-    switch.termostato:
+    switch.thermostat:
       friendly_name: 'Calefacción'
       icon: mdi:radiator
-    switch.termostato_modo_ausente:
+    switch.thermostat_away_mode:
       friendly_name: 'Modo ausente'
       icon: mdi:home-outline
     sensor.season:
@@ -105,7 +105,7 @@ homeassistant:
       unit_of_measurement: '°C'
     sensor.home_temperature:
       friendly_name: 'Temp. media'
-    sensor.entrance_hall_termostato_temperature:
+    sensor.entrance_hall_thermostat_temperature:
       friendly_name: 'Temperatura'
       unit_of_measurement: '°C'
 
@@ -148,7 +148,7 @@ recorder:
 
       - binary_sensor.entrance_hall_termostato_temperature_down
       - binary_sensor.entrance_hall_termostato_temperature_up
-      - sensor.entrance_hall_termostato_temperature_trend
+      - sensor.entrance_hall_thermostat_temperature_trend
 
       - binary_sensor.netatmo_suite_temperature_down
       - binary_sensor.netatmo_suite_temperature_up
@@ -213,13 +213,13 @@ group:
 
   Calefacción:
     entities:
-      - switch.termostato
-      - switch.termostato_modo_ausente
+      - switch.thermostat
+      - switch.thermostat_away_mode
       - climate.termostato
   
   Confort:
     entities:
-      - input_boolean.comfort_mode
+      - input_boolean.home_comfort_mode
       - sensor.ground_floor_temperature
       - sensor.ground_floor_temperature_trend
       - sensor.first_floor_temperature
@@ -227,12 +227,12 @@ group:
       - sensor.home_temperature_mean
       - history_graph.temperatura_media_casa
       - group.unidad_familiar
-      - switch.termostato
-      - switch.termostato_modo_ausente
+      - switch.thermostat
+      - switch.thermostat_away_mode
       - climate.termostato
 
 history_graph:
-  temperature_outside:
+  outside_temperature:
     name: Temperatura exterior
     entities:
       - sensor.netatmo_exterior_temperature
@@ -256,13 +256,13 @@ binary_sensor:
       # And heating away mode is off
       # And heating is idle
       # And first floor temperature trend is going down
-      comfort_state:
-        entity_id: sensor.first_floor_temperature, climate.termostato, group.unidad_familiar, switch.termostato, switch.termostato_modo_ausente, binary_sensor.first_floor_temperature_down
+      home_comfort_state:
+        entity_id: sensor.first_floor_temperature, climate.termostato, group.unidad_familiar, switch.thermostat, switch.thermostat_away_mode, binary_sensor.first_floor_temperature_down
         value_template: >- 
-          {{     states('sensor.first_floor_temperature')|float < states.sensor.entrance_hall_termostato_target_temperature|float
+          {{     states('sensor.first_floor_temperature')|float < states.sensor.entrance_hall_thermostat_target_temperature|float
              and is_state('group.unidad_familiar', 'home')
-             and is_state('switch.termostato', 'on')
-             and is_state('switch.termostato_modo_ausente','off')
+             and is_state('switch.thermostat', 'on')
+             and is_state('switch.thermostat_away_mode','off')
              and is_state_attr('climate.termostato', 'operation_mode', 'idle')
              and is_state('binary_sensor.first_floor_temperature_down','on')
           }}
@@ -289,10 +289,10 @@ binary_sensor:
         entity_id: sensor.despacho_termometro_temperatura
   
       entrance_hall_termostato_temperature_down:
-        entity_id: sensor.entrance_hall_termostato_temperature
+        entity_id: sensor.entrance_hall_thermostat_temperature
         invert: true
       entrance_hall_termostato_temperature_up:
-        entity_id: sensor.entrance_hall_termostato_temperature
+        entity_id: sensor.entrance_hall_thermostat_temperature
         
       netatmo_suite_temperature_down:
         entity_id: sensor.suite_termometro_temperatura
@@ -416,7 +416,7 @@ sensor:
     type: mean
     round_digits: 1
     entity_ids:
-      - sensor.entrance_hall_termostato_temperature
+      - sensor.entrance_hall_thermostat_temperature
       - sensor.netatmo_salon_temperature
       - sensor.despacho_sensor_movimiento_temperature
       - sensor.porche_sensor_puerta_temperature
@@ -437,7 +437,7 @@ sensor:
       - sensor.netatmo_suite_temperature
       - sensor.netatmo_habitacion_temperature
       - sensor.netatmo_salon_temperature
-      - sensor.entrance_hall_termostato_temperature
+      - sensor.entrance_hall_thermostat_temperature
       - sensor.despacho_sensor_movimiento_temperature
       - sensor.porche_sensor_puerta_temperature
 
@@ -450,11 +450,11 @@ sensor:
 
   - platform: template
     sensors:
-      entrance_hall_termostato_target_temperature:
+      entrance_hall_thermostat_target_temperature:
         entity_id: climate.termostato
         value_template: "{{state_attr('climate.termostato', 'temperature')}}"
 
-      entrance_hall_termostato_temperature:
+      entrance_hall_thermostat_temperature:
         entity_id: climate.termostato
         value_template: "{{state_attr('climate.termostato', 'current_temperature')}}"
 
@@ -572,7 +572,7 @@ sensor:
           mdi:window-minimize
           {%- endif %}
   
-      entrance_hall_termostato_temperature_trend:
+      entrance_hall_thermostat_temperature_trend:
         friendly_name: 'Tendencia temp'
         value_template: >-
           {%- if is_state("binary_sensor.entrance_hall_termostato_temperature_down", "on") -%}
@@ -670,9 +670,9 @@ sensor:
 switch:
   - platform: template
     switches:
-      termostato:
-        entity_id: sensor.entrance_hall_termostato_temperature
-        value_template: "{{states('sensor.entrance_hall_termostato_temperature')|float > 11.5}}"
+      thermostat:
+        entity_id: sensor.entrance_hall_thermostat_temperature
+        value_template: "{{states('sensor.entrance_hall_thermostat_temperature')|float > 11.5}}"
         turn_on:
           service: script.turn_on
           entity_id: script.climate_power_on
@@ -680,7 +680,7 @@ switch:
           service: script.turn_on
           entity_id: script.climate_power_off
       
-      termostato_modo_ausente:
+      thermostat_away_mode:
         entity_id: climate.termostato
         value_template: "{{is_state_attr('climate.termostato', 'away_mode', 'on')}}"
         turn_on:
@@ -695,7 +695,7 @@ switch:
             away_mode: false
 
 input_boolean:
-  comfort_mode:
+  home_comfort_mode:
     name: Modo extra calentito
     icon: 'mdi:fire'
 
@@ -712,11 +712,11 @@ automation:
       below: 18.5
     condition:
       condition: state
-      entity_id: 'switch.termostato'
+      entity_id: 'switch.thermostat'
       state: 'off'
     action:
       - service: switch.turn_on
-        entity_id: switch.termostato
+        entity_id: switch.thermostat
       - service: logbook.log
         data:
           name: 'Calefacción'
@@ -731,7 +731,7 @@ automation:
             #- !secret geniphone_telegram_chat_id
           disable_notification: false
           inline_keyboard:
-                 - 'Apaga la calefacción:/switch.turn_off#switch.termostato'
+                 - 'Apaga la calefacción:/switch.turn_off#switch.thermostat'
 
     # Automatic Heating off when home mean temperature for last 24 hours is above 22 degrees
   - alias: 'Automatic heating off'
@@ -741,11 +741,11 @@ automation:
       above: 22
     condition:
       condition: state
-      entity_id: 'switch.termostato'
+      entity_id: 'switch.thermostat'
       state: 'on'
     action:
       - service: switch.turn_off
-        entity_id: switch.termostato
+        entity_id: switch.thermostat
       - service: logbook.log
         data:
           name: 'Calefacción'
@@ -760,13 +760,13 @@ automation:
             - !secret geniphone_telegram_chat_id
           disable_notification: false
           inline_keyboard:
-                 - 'Enciende la calefacción:/switch.turn_on#switch.termostato'
+                 - 'Enciende la calefacción:/switch.turn_on#switch.thermostat'
 
     # Turn on comfort mode
   - alias: 'Comfort mode on'
     trigger:
       platform: state
-      entity_id: input_boolean.comfort_mode
+      entity_id: input_boolean.home_comfort_mode
       to: 'on'
     action:
       - service: script.turn_on
@@ -776,7 +776,7 @@ automation:
   - alias: 'Comfort mode off'
     trigger:
       platform: state
-      entity_id: input_boolean.comfort_mode
+      entity_id: input_boolean.home_comfort_mode
       to: 'off'
     action:
       - service: script.turn_off
@@ -786,7 +786,7 @@ automation:
   - alias: 'Automatic comfort mode turn on'
     trigger:
       platform: state
-      entity_id: binary_sensor.comfort_state
+      entity_id: binary_sensor.home_comfort_state
       to: 'on'
     condition:
       - condition: time
@@ -797,7 +797,7 @@ automation:
           message: > 
             Calefacción encendida para mejorar para estar más calentitos
             
-            Temperatura objetivo: {{ states.sensor.entrance_hall_termostato_target_temperature }}
+            Temperatura objetivo: {{ states.sensor.entrance_hall_thermostat_target_temperature }}
             
             Temperatura media planta baja: {{states.sensor.ground_floor_temperature.state}}
             
@@ -805,9 +805,9 @@ automation:
             
             Ocupación: {{states.group.unidad_familiar.state}}
             
-            Estado calefacción: {{states.switch.termostato.state}}
+            Estado calefacción: {{states.switch.thermostat.state}}
             
-            Modo ausente: {{states.switch.termostato_modo_ausente.state}}
+            Modo ausente: {{states.switch.thermostat_away_mode.state}}
             
             Estado termostato: {{states.climate.termostato.attributes.operation_mode}}
             
@@ -816,11 +816,11 @@ automation:
             Tendencia temperatura primera planta: {{states.sensor.first_floor_temperature_trend.state}}
 
           inline_keyboard: 
-            - 'Desconectar:/homeassistant.turn_off#input_boolean.comfort_mode'
+            - 'Desconectar:/homeassistant.turn_off#input_boolean.home_comfort_mode'
 
       - service: homeassistant.turn_on
         data:
-          entity_id: input_boolean.comfort_mode
+          entity_id: input_boolean.home_comfort_mode
 
     # To avoid energy waste, notify when laundry door is open and heating is on.
   - alias: 'When laundry door is open and heating is on, notify every 10 minutes'
@@ -835,7 +835,7 @@ automation:
           entity_id: binary_sensor.coladuria_sensor_puerta
           state: 'on'
         - condition: state
-          entity_id: switch.termostato
+          entity_id: switch.thermostat
           state: 'on'
         - condition: template
           value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.coladuria_sensor_puerta.last_changed))//60)%10 == 0 }}'
@@ -903,7 +903,7 @@ script:
       # Turn off comfort mode (after 90 minutes)
       - service: homeassistant.turn_off
         data:
-          entity_id: input_boolean.comfort_mode
+          entity_id: input_boolean.home_comfort_mode
 
   # Comfort mode off
   comfort_mode_off:

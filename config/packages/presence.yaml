@@ -627,7 +627,7 @@ automation:
       to: 'on'
     condition:
       condition: state
-      entity_id: switch.termostato
+      entity_id: switch.thermostat
       state: 'on'
     action:
       # Turn off thermostat
@@ -646,7 +646,7 @@ automation:
       to: 'off'
     condition:
       condition: state
-      entity_id: switch.termostato
+      entity_id: switch.thermostat
       state: 'on'
     action:
       # Turn on thermostat an set it to away mode
@@ -712,9 +712,9 @@ script:
       - service: switch.turn_off
         data:
           entity_id: switch.fibaro_fgs223_double_relay_luz_escalera_y_suite_switch_2
-      # Continue script only if switch.termostato is on and not in holiday mode
+      # Continue script only if switch.thermostat is on and not in holiday mode
       - condition: state
-        entity_id: switch.termostato
+        entity_id: switch.thermostat
         state: 'on'
       - condition: state
         entity_id: switch.holiday
@@ -730,10 +730,10 @@ script:
     sequence:
       # Disarm alarm
       - service: alarm_control_panel.alarm_disarm
-        entity_id: alarm_control_panel.casa
-      # Continue script only if switch.termostato is on and not in holiday mode
+        entity_id: alarm_control_panel.home
+      # Continue script only if switch.thermostat is on and not in holiday mode
       - condition: state
-        entity_id: switch.termostato
+        entity_id: switch.thermostat
         state: 'on'
       - condition: state
         entity_id: switch.holiday

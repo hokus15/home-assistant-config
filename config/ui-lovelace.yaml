@@ -23,7 +23,7 @@ views:
       - id: 960f53d2d6c6425998816ce94e4ed5af  # Automatically created id
         type: alarm-panel
         title: Alarma
-        entity: alarm_control_panel.casa
+        entity: alarm_control_panel.home
         states:
           - arm_away
           - arm_night

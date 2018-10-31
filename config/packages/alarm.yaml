@@ -1,6 +1,16 @@
+homeassistant:
+  customize:
+    alarm_control_panel.home:
+       friendly_name: 'Casa'
+
+group:
+  Alarma:
+    entities:
+      - alarm_control_panel.home
+
 alarm_control_panel:
   - platform: manual
-    name: Casa
+    name: home
     # Time in seconds to leave the building before triggering the alarm
     pending_time: 0
     # Time in seconds to disarm the alarm when coming back
@@ -18,11 +28,6 @@ alarm_control_panel:
     armed_night:
       # Don't wait to trigger the alarm
       delay_time: 0
-
-group:
-  Alarma:
-    entities:
-      - alarm_control_panel.casa
 
 automation:
   # Trigger alarm when armed away
@@ -74,11 +79,11 @@ automation:
         to: 'on'
     condition:
       - condition: state
-        entity_id: alarm_control_panel.casa
+        entity_id: alarm_control_panel.home
         state: armed_away
     action:
       service: alarm_control_panel.alarm_trigger
-      entity_id: alarm_control_panel.casa
+      entity_id: alarm_control_panel.home
   
   # Trigger alarm when armed home / armed night
   - alias: 'Trigger alarm armed home'
@@ -107,14 +112,14 @@ automation:
       condition: or
       conditions:
         - condition: state
-          entity_id: alarm_control_panel.casa
+          entity_id: alarm_control_panel.home
           state: armed_home
         - condition: state
-          entity_id: alarm_control_panel.casa
+          entity_id: alarm_control_panel.home
           state: armed_night
     action:
       service: alarm_control_panel.alarm_trigger
-      entity_id: alarm_control_panel.casa
+      entity_id: alarm_control_panel.home
   
   # Disarm alarm at 7:00 AM when armed night and someone is at home
   - alias: 'Disarm alarm armed night'
@@ -128,16 +133,16 @@ automation:
           entity_id: 'group.unidad_familiar'
           state: 'home'
         - condition: state
-          entity_id: alarm_control_panel.casa
+          entity_id: alarm_control_panel.home
           state: armed_night
     action:
       service: alarm_control_panel.alarm_disarm
-      entity_id: alarm_control_panel.casa
+      entity_id: alarm_control_panel.home
 
   - alias: 'Turn on security group when alarm changes the state from disarmed'
     trigger: 
       - platform: state
-        entity_id: alarm_control_panel.casa
+        entity_id: alarm_control_panel.home
         from: 'disarmed'
     action:
       # Turn on alarm related sensors
@@ -148,7 +153,7 @@ automation:
   - alias: 'Turn off security group when alarm is disarmed'
     trigger: 
       - platform: state
-        entity_id: alarm_control_panel.casa
+        entity_id: alarm_control_panel.home
         to: 'disarmed'
     action:
       # Turn off alarm related sensors
@@ -189,7 +194,7 @@ automation:
           seconds: 1
       # Only continue execution if alarm has been triggered
       - condition: state
-        entity_id: alarm_control_panel.casa
+        entity_id: alarm_control_panel.home
         state: 'triggered'
       - service: script.alarm_notify_sensor
         data_template:
@@ -244,7 +249,7 @@ automation:
           seconds: 1
       # Only continue execution if alarm has been triggered
       - condition: state
-        entity_id: alarm_control_panel.casa
+        entity_id: alarm_control_panel.home
         state: 'triggered'
       # Delay to allow the file to be totally written in the FTP before sending it
       - delay:
@@ -309,7 +314,7 @@ automation:
           seconds: 1
       # Only continue execution if alarm has been triggered
       - condition: state
-        entity_id: alarm_control_panel.casa
+        entity_id: alarm_control_panel.home
         state: 'triggered'
       # Delay to allow the file to be totally written in the FTP before sending it
       - delay:
@@ -396,7 +401,7 @@ script:
           entity_id: group.seguridad
       # Arm alarm
       - service: alarm_control_panel.alarm_arm_away
-        entity_id: alarm_control_panel.casa
+        entity_id: alarm_control_panel.home
 
   alarm_arm_night:
     alias: 'Alarm arm night'
@@ -407,7 +412,7 @@ script:
           entity_id: group.seguridad
       # Alarm arm night
       - service: alarm_control_panel.alarm_arm_night
-        entity_id: alarm_control_panel.casa
+        entity_id: alarm_control_panel.home
 
   alarm_disarm_telegram:
     alias: 'Alarm disarm from telegram'
@@ -415,7 +420,7 @@ script:
       # Alarm disarm
       - service: alarm_control_panel.alarm_disarm
         data:
-          entity_id: alarm_control_panel.casa
+          entity_id: alarm_control_panel.home
       # Send message
       - service: telegram_bot.send_message
         data_template:
@@ -433,7 +438,7 @@ script:
       # Alarm disarm
       - service: alarm_control_panel.alarm_disarm
         data:
-          entity_id: alarm_control_panel.casa
+          entity_id: alarm_control_panel.home
       # Send message
       - service: telegram_bot.send_message
         data_template:

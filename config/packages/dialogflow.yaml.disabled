@@ -30,7 +30,7 @@ recorder:
       - sensor.exterior_pluviometro_lluvia_24
       - sensor.exterior_anemometro_velocidad_viento
       - sensor.on_off_switch_termostato
-      - sensor.on_off_switch_termostato_modo_ausente
+      - sensor.on_off_switch_thermostat_away_mode
       - sensor.on_off_switch_piscina
       - sensor.on_off_group_luces_exteriores
       - sensor.on_off_group_luces_interiores
@@ -48,7 +48,7 @@ recorder:
       - sensor.on_off_group_seguridad
       - sensor.on_off_switch_barrera
       - sensor.check_switch_termostato
-      - sensor.check_switch_termostato_modo_ausente
+      - sensor.check_switch_thermostat_away_mode
       - sensor.check_switch_piscina
       - sensor.check_group_luces_exteriores
       - sensor.check_group_luces_interiores
@@ -76,16 +76,16 @@ intent_script:
     speech:
       text: >
         {%- set status ={"on": "conectada", "off": "desconectada"} -%}
-        La calefacción está {{ status[states("switch.termostato")] }}. {% if is_state("switch.termostato", "on") %}{% if states("climate.termostato") != "0"%} A una temperatura de {{ states.climate.termostato.attributes.temperature}} grados.{% endif -%} {% if is_state_attr("climate.termostato", "operation_mode", "idle") %} No está en marcha{%- else %} Está en marcha{% endif -%}{%- if is_state("switch.termostato_modo_ausente", "on") %} y tiene el modo ausente activado.  {%- else %} y tiene el modo ausente desactivado. {% endif %}{% endif %}
+        La calefacción está {{ status[states("switch.thermostat")] }}. {% if is_state("switch.thermostat", "on") %}{% if states("climate.termostato") != "0"%} A una temperatura de {{ states.climate.termostato.attributes.temperature}} grados.{% endif -%} {% if is_state_attr("climate.termostato", "operation_mode", "idle") %} No está en marcha{%- else %} Está en marcha{% endif -%}{%- if is_state("switch.thermostat_away_mode", "on") %} y tiene el modo ausente activado.  {%- else %} y tiene el modo ausente desactivado. {% endif %}{% endif %}
 
   heating.temperature.change.relative:
     speech:
       text: >
-        {% if is_state("switch.termostato", "on") %}¡Entendido!, voy a {{ change.direction }} la temperatura de la calefacción {{ change.degrees }} {{ unit | replace("?","") }}. Ahora está a {{ states.climate.termostato.attributes.temperature}} grados{% else %}¡Vaya!, No puedo {{ change.direction }} la calefacción porque está desconectada{% endif %}
+        {% if is_state("switch.thermostat", "on") %}¡Entendido!, voy a {{ change.direction }} la temperatura de la calefacción {{ change.degrees }} {{ unit | replace("?","") }}. Ahora está a {{ states.climate.termostato.attributes.temperature}} grados{% else %}¡Vaya!, No puedo {{ change.direction }} la calefacción porque está desconectada{% endif %}
     async_action: false
     action:
       - condition: state
-        entity_id: switch.termostato
+        entity_id: switch.thermostat
         state: 'on'
       - service: climate.set_temperature
         data_template:
@@ -100,11 +100,11 @@ intent_script:
   heating.temperature.change.absolute:
     speech:
       text: >
-        {% if is_state("switch.termostato", "on") %}¡Perfecto! He cambiado la temperatura de la calefacción a {{ change.degrees }} grados. {% else %}¡Vaya!, No puedo {{ change.set }} la calefacción porque está desconectada{% endif %}
+        {% if is_state("switch.thermostat", "on") %}¡Perfecto! He cambiado la temperatura de la calefacción a {{ change.degrees }} grados. {% else %}¡Vaya!, No puedo {{ change.set }} la calefacción porque está desconectada{% endif %}
     async_action: false
     action:
       - condition: state
-        entity_id: switch.termostato
+        entity_id: switch.thermostat
         state: 'on'
       - service: climate.set_temperature
         data_template:
@@ -114,20 +114,20 @@ intent_script:
   heating.temperature.change.restore:
     speech:
       text: >
-        {% if is_state("switch.termostato", "on") %}¡Perfecto! Estoy restaurando la programación normal en la calefaccción. {% else %}¡Vaya!, la calefacción está desconectada{% endif %}
+        {% if is_state("switch.thermostat", "on") %}¡Perfecto! Estoy restaurando la programación normal en la calefaccción. {% else %}¡Vaya!, la calefacción está desconectada{% endif %}
     async_action: false
     action:
       - condition: state
-        entity_id: switch.termostato
+        entity_id: switch.thermostat
         state: 'on'
       - service_template: 'switch.turn_on'
         data_template:
-          entity_id: 'switch.termostato_modo_ausente'
+          entity_id: 'switch.thermostat_away_mode'
       - delay:
           seconds: 2
       - service_template: 'switch.turn_off'
         data_template:
-          entity_id: 'switch.termostato_modo_ausente'
+          entity_id: 'switch.thermostat_away_mode'
 
   ##############################################
   # Fence intents
@@ -432,10 +432,10 @@ sensor:
 
     # api.ai on/off entities
     on_off_switch_termostato:
-      value_template: '{% if is_state("switch.termostato", "off") %}encendido{% else %}apagado{% endif %}'
+      value_template: '{% if is_state("switch.thermostat", "off") %}encendido{% else %}apagado{% endif %}'
       friendly_name: 'el termostato'
-    on_off_switch_termostato_modo_ausente:
-      value_template: '{% if is_state("switch.termostato_modo_ausente", "off") %}activado{% else %}desactivado{% endif %}'
+    on_off_switch_thermostat_away_mode:
+      value_template: '{% if is_state("switch.thermostat_away_mode", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el modo ausente en la calefacción'
     on_off_switch_piscina:
       value_template: '{% if is_state("switch.motor_piscina", "off") %}encendido{% else %}apagado{% endif %}'
@@ -488,11 +488,11 @@ sensor:
 
     # api.ai check entities
     check_switch_termostato:
-      value_template: '{% if is_state("switch.termostato", "off") %}apagado{% else %}encendido{% endif %}'
+      value_template: '{% if is_state("switch.thermostat", "off") %}apagado{% else %}encendido{% endif %}'
       friendly_name: 'el termostato'
       unit_of_measurement: 'on-off'
-    check_switch_termostato_modo_ausente:
-      value_template: '{% if is_state("switch.termostato_modo_ausente", "off") %}desactivado{% else %}activado{% endif %}'
+    check_switch_thermostat_away_mode:
+      value_template: '{% if is_state("switch.thermostat_away_mode", "off") %}desactivado{% else %}activado{% endif %}'
       friendly_name: 'el modo ausente en la calefacción'
       unit_of_measurement: 'enabled-disabled'
     check_switch_piscina:

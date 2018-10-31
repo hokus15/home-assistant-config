@@ -150,9 +150,9 @@ Habitación niños:
 Recibidor:
   entities:
     - camera.recibidor
-    - switch.swiid_swiidinter_lampara_recibidor_switch
-    - sensor.entrance_hall_termostato_temperature
-    - sensor.entrance_hall_termostato_temperature_trend
+    - switch.entrance_hall_lamp_switch
+    - sensor.entrance_hall_thermostat_temperature
+    - sensor.entrance_hall_thermostat_temperature_trend
 
 Cocina:
   entities:
