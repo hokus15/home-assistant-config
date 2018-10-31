@@ -16,19 +16,12 @@ homeassistant:
   packages: !include_dir_named packages
 
 http:
-#  api_password: !secret ha_api_password
-#  trusted_networks:
-#    - 127.0.0.1
   base_url: !secret ha_base_url
   use_x_forwarded_for: true
   trusted_proxies:
     - 127.0.0.1
   ip_ban_enabled: true
   login_attempts_threshold: 3
-#  ssl_certificate: !secret ha_ssl_certificate
-#  ssl_key: !secret ha_ssl_key
-  #server_port: 8123
-  #development: 1
 
 map:
 
@@ -140,15 +133,6 @@ notify:
     platform: telegram
     chat_id: !secret hokusphone_telegram_chat_id
 
-#  - name: HTML5
-#    platform: html5
-#    gcm_api_key: !secret gcm_api_key
-#    gcm_sender_id: !secret gcm_sender_id
-
-#  - platform: pushbullet
-#    name: pushbullet
-#    api_key: !secret pushbullet_api_key
-
 ifttt:
   key: !secret ifttt_api_key
 
@@ -158,10 +142,6 @@ netatmo:
   username: !secret netatmo_username
   password: !secret netatmo_password
   discovery: true
-
-#foursquare:
-#  access_token: !secret foursquare_access_token
-#  push_secret: !secret foursquare_push_secret
 
 google:
   client_id: !secret google_client_id
@@ -202,12 +182,6 @@ tts:
     time_memory: 300
     language: 'es'
 
-#freedns:
-#  access_token: !secret freedns_token
-
-#climate:
-#  - platform: netatmo
-
 shell_command: !include shell_command.yaml
 switch: !include switches.yaml
 sensor: !include sensors.yaml
@@ -218,5 +192,3 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 panel_iframe: !include panel_iframes.yaml
 #panel_custom: !include panel_custom.yaml
-#image_processing: !include image_processing.yaml
-#scene: !include scenes.yaml
