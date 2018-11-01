@@ -249,7 +249,7 @@ group:
       - switch.recibidor_camara_det_mov
       - switch.salon_camara_det_mov
       - input_boolean.despacho_sensor_movimiento
-      - input_boolean.cocina_sensor_puerta
+      - input_boolean.porche_sensor_puerta
       - input_boolean.coladuria_sensor_puerta
   
   Seguridad exterior:
@@ -258,7 +258,7 @@ group:
       - switch.barbacoa_camara_det_mov
       - switch.caseta_camara_det_mov
       - input_boolean.entrada_principal_camara_det_mov
-      - input_boolean.cocina_sensor_persiana
+      - input_boolean.porche_sensor_persiana
   
   Sensor despacho:
     entities:
