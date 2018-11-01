@@ -197,8 +197,8 @@ group:
       - switch.caseta_camara_det_mov
       - input_boolean.entrada_principal_camara_det_mov
       - input_boolean.despacho_sensor_movimiento
-      - input_boolean.cocina_sensor_puerta
-      - input_boolean.cocina_sensor_persiana
+      - input_boolean.porche_sensor_puerta
+      - input_boolean.porche_sensor_persiana
       - input_boolean.coladuria_sensor_puerta
 
   Cámara recibidor:
