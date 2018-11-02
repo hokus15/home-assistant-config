@@ -30,20 +30,28 @@ sensor:
                 Cerrada
             {%- endif %}
 
-input_boolean:
-  outside_fence:
+switch:
+  - platform: template
+    switches:
+      outside_fence:
+        value_template: '{{ is_state_attr("switch.barrera", "sensor_state", "off") }}'
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: switch.barrera
+        turn_off:
+          service: switch.turn_on
+          data:
+            entity_id: switch.barrera
 
 google_assistant:
   entity_config:
-    input_boolean.outside_fence:
+    switch.outside_fence:
       name: Barrera
       expose: true
       room: Exterior
 
 automation:
-#############################################################
-# Fence automations
-#############################################################
   - alias: 'When fence open notify every 10 minutes'
     trigger:
       platform: time
@@ -77,28 +85,8 @@ automation:
           inline_keyboard: 
             - 'Cerrar:/script.turn_on#script.fence_close'
 
-  - alias: 'Open fence'
-    trigger:
-      platform: state
-      entity_id: input_boolean.outside_fence
-      to: 'on'
-    action:
-      - service: script.turn_on
-        entity_id: script.fence_open_ga
-
-  - alias: 'Close fence'
-    trigger:
-      platform: state
-      entity_id: input_boolean.outside_fence
-      to: 'off'
-    action:
-      - service: script.turn_on
-        entity_id: script.fence_close
 
 script:
-  #############################################################
-  # Fence scripts
-  #############################################################
   fence_close:
     alias: 'Close fence if open'
     sequence:
