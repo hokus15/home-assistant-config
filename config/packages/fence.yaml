@@ -1,11 +1,10 @@
 homeassistant:
   customize:
-    sensor.outside_fence_switch:
-      friendly_name: 'Estado barrera'
-      icon: 'mdi:gate'
-    switch.barrera:
+    switch.outside_fence:
       friendly_name: 'Barrera'
       icon: mdi:gate
+    sensor.outside_fence:
+      friendly_name: 'Estado barrera'
 
 #recorder:
 #  exclude:
@@ -14,21 +13,20 @@ homeassistant:
 group:
   Barrera:
     entities:
-      - switch.barrera
-      - sensor.outside_fence_switch
+      - switch.outside_fence
+      - sensor.outside_fence
 
 sensor:
   - platform: template
     sensors:
-      # Know if the Wemo Maker sensor has been triggered (off: garage door opened, on: garage door closed)
-      outside_fence_switch:
-        friendly_name: 'Estado'
-        value_template: >-
-            {%- if is_state_attr("switch.barrera", "sensor_state", "off") %}
-                Abierta
-            {% else %}
-                Cerrada
-            {%- endif %}
+      # Wemo Maker sensor state (off: fence opened, on: fence closed)
+      outside_fence_sensor_state:
+        value_template: '{{state_attr("switch.barrera", "sensor_state")}}'
+
+  - platform: mqtt
+    name: 'outside_fence'
+    state_topic: 'home/fence/state'
+    icon: mdi:gate
 
 switch:
   - platform: template
@@ -52,6 +50,60 @@ google_assistant:
       room: Exterior
 
 automation:
+    # Fence state. Can be moving (En movimiento), open (Abierta) or closed (Cerrada).
+    # Fence needs around 20 seconds to fully open/close
+  - alias: 'Publish to mqtt fence status'
+    trigger:
+      platform: state
+      entity_id: switch.barrera
+      to: 'off'
+    action:
+      - service: mqtt.publish
+        data:
+          topic: home/fence/state
+          payload_template: >-
+            {%- if is_state("sensor.outside_fence_sensor_state", "off") and not is_state("sensor.outside_fence", "En movimiento") %}
+              En movimiento
+            {%- else %}
+              {%- if is_state("sensor.outside_fence_sensor_state", "off") %}
+                Abierta
+              {% else %}
+                Cerrada
+              {%- endif %}
+            {%- endif %}
+          qos: 0
+          retain: true
+      - delay:
+          seconds: 20
+      - service: mqtt.publish
+        data:
+          topic: home/fence/state
+          payload_template: >-
+            {%- if is_state("sensor.outside_fence_sensor_state", "off") %}
+              Abierta
+            {% else %}
+              Cerrada
+            {%- endif %}
+
+  - alias: 'Publish to mqtt fence closed (Cerrada) status'
+    trigger:
+      platform: state
+      entity_id: sensor.outside_fence_sensor_state
+      to: 'on'
+    action:
+      - service: mqtt.publish
+        data:
+          topic: home/fence/state
+          payload: Cerrada
+          qos: 0
+          retain: true
+
+  - alias: 'Capture event_fence_state_changed'
+    trigger:
+      - platform: event
+        event_type: event_fence_state_changed
+    action:
+  
   - alias: 'When fence open notify every 10 minutes'
     trigger:
       platform: time
@@ -61,12 +113,12 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: sensor.outside_fence_switch
+          entity_id: sensor.outside_fence
           state: 'Abierta'
         - condition: template
-          value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.outside_fence_switch.last_changed))//60)%10 == 0 }}'
+          value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))//60)%10 == 0 }}'
         - condition: template
-          value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.outside_fence_switch.last_changed))//60) != 0 }}'
+          value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))//60) != 0 }}'
     action:
       - service: script.turn_on
         data:
@@ -74,43 +126,43 @@ automation:
       - service: tts.google_say
         entity_id: media_player.homeassistant
         data_template:
-          message: 'Barrera {{ states.sensor.outside_fence_switch.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence_switch.last_changed))|int//60 }} minutos'
+          message: 'Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos'
           cache: false
       - service: telegram_bot.send_message
         data_template:
-          message: 'Barrera {{ states.sensor.outside_fence_switch.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence_switch.last_changed))|int//60 }} minutos'
+          message: 'Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos'
           target: 
             - !secret hokusphone_telegram_chat_id
             - !secret geniphone_telegram_chat_id
           inline_keyboard: 
-            - 'Cerrar:/script.turn_on#script.fence_close'
+            - 'Cerrar:/switch.turn_on#switch.outside_fence'
 
 
-script:
-  fence_close:
-    alias: 'Close fence if open'
-    sequence:
-      - service_template: >
-          {%- if is_state("sensor.outside_fence_switch", "Abierta") -%}
-            homeassistant.turn_on
-          {%- endif -%}
-  
-        data:
-          entity_id: switch.barrera
-  
-  fence_open_ga:
-    alias: 'Open fence if closed'
-    sequence:
-      - service_template: >
-          {%- if is_state("sensor.outside_fence_switch", "Cerrada") -%}
-            homeassistant.turn_on
-          {%- endif -%}
-  
-        data:
-          entity_id: switch.barrera
-      - service: telegram_bot.send_message
-        data_template:
-          message: 'Google Assistant ha abierto la barrera'
-          target: !secret hokusphone_telegram_chat_id
-          inline_keyboard: 
-            - 'Cerrar:/script.turn_on#script.fence_close'
+#script:
+#  fence_close:
+#    alias: 'Close fence if open'
+#    sequence:
+#      - service_template: >
+#          {%- if is_state("sensor.outside_fence", "Abierta") -%}
+#            homeassistant.turn_on
+#          {%- endif -%}
+#  
+#        data:
+#          entity_id: switch.barrera
+#  
+#  fence_open_ga:
+#    alias: 'Open fence if closed'
+#    sequence:
+#      - service_template: >
+#          {%- if is_state("sensor.outside_fence", "Cerrada") -%}
+#            homeassistant.turn_on
+#          {%- endif -%}
+#
+#        data:
+#          entity_id: switch.barrera
+#      - service: telegram_bot.send_message
+#        data_template:
+#          message: 'Google Assistant ha abierto la barrera'
+#          target: !secret hokusphone_telegram_chat_id
+#          inline_keyboard: 
+#            - 'Cerrar:/script.turn_on#script.fence_close'

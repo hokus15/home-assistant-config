@@ -130,7 +130,7 @@
 
         - name: Slide Doors
           entities:
-            - sensor.outside_fence_switch
+            - sensor.outside_fence
           states:
             - state: 'Cerrada'
               class: 'slidedoor_closed'

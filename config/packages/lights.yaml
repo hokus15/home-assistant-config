@@ -182,7 +182,7 @@ automation:
   - alias: 'Turn on lights when fence open'
     trigger:
       platform: state
-      entity_id: sensor.outside_fence_switch
+      entity_id: sensor.outside_fence
       to: 'Abierta'
     condition:
       condition: and

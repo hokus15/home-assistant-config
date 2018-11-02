@@ -462,7 +462,7 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: sensor.outside_fence_switch
+          entity_id: sensor.outside_fence
           state: 'Cerrada'
         - condition: state
           entity_id: device_tracker.geni_combined
@@ -473,7 +473,7 @@ automation:
         data_template:
           message: 'Barrera abierta automáticamente para Geni'
           inline_keyboard: 
-            - 'Cerrar:/script.turn_on#script.fence_close'
+            - 'Cerrar:/switch.turn_on#switch.outside_fence'
       - delay:
           seconds: 5
       - service: mqtt.publish
@@ -532,7 +532,7 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: sensor.outside_fence_switch
+          entity_id: sensor.outside_fence
           state: 'Cerrada'
         - condition: state
           entity_id: device_tracker.jordi_combined
@@ -558,7 +558,7 @@ automation:
           message: 'Barrera abierta automáticamente'
           target: !secret hokusphone_telegram_chat_id
           inline_keyboard: 
-            - 'Cerrar:/script.turn_on#script.fence_close'
+            - 'Cerrar:/switch.turn_on#switch.outside_fence'
       - service: device_tracker.see
         data:
           dev_id: 'jordi_combined'
@@ -587,12 +587,12 @@ automation:
       - service: mqtt.publish
         data:
           payload_template: >
-            {%- if is_state("group.unidad_familiar", "not_home") -%}{%- if is_state("sensor.outside_fence_switch", "Abierta") -%}Te has dejado la barrera abierta, la voy a cerrar. {%- endif -%}{%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif -%}{%- endif -%}La previsión del tiempo es de {{ states.sensor.pws_weather_1d_metric.state | replace(" C."," grados") }}
+            {%- if is_state("group.unidad_familiar", "not_home") -%}{%- if is_state("sensor.outside_fence", "Abierta") -%}Te has dejado la barrera abierta, la voy a cerrar. {%- endif -%}{%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif -%}{%- endif -%}La previsión del tiempo es de {{ states.sensor.pws_weather_1d_metric.state | replace(" C."," grados") }}
           retain: false
           topic: 'device/carphone/say'
       - service_template: >
           {%- if is_state("group.unidad_familiar", "not_home") -%}
-            {%- if is_state("sensor.outside_fence_switch", "Abierta") -%}
+            {%- if is_state("sensor.outside_fence", "Abierta") -%}
               homeassistant.turn_on
             {%- endif -%}
           {%- endif -%}
@@ -784,7 +784,7 @@ script:
             {%- if is_state("switch.entrance_hall_lamp_switch", "on") %}{% set incidence = true %}Lámpara del recibidor encendida. {% endif %}
             {%- if is_state("switch.escalera_switch", "on") %}{% set incidence = true %}Luz de la escalera encendida. {% endif %}
             {%- if is_state("switch.suite_switch", "on") %}{% set incidence = true %}Luz de la suite encendida. {% endif %}
-            {%- if is_state("sensor.outside_fence_switch", "Abierta") %}{% set incidence = true %}Barrera abierta.{% endif -%}
+            {%- if is_state("sensor.outside_fence", "Abierta") %}{% set incidence = true %}Barrera abierta.{% endif -%}
             {%- if not incidence %}Todo correcto.{% endif %}
   
   presence_authorized_person_ga:

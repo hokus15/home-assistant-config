@@ -136,7 +136,7 @@ intent_script:
     speech:
       text: >
         {%- set status ={"Abierta": "cerrarla", "Cerrada": "abrirla"} -%}
-        La barrera está {{states("sensor.outside_fence_switch")}}. ¿Quieres {{ status[states("sensor.outside_fence_switch")] }}?
+        La barrera está {{states("sensor.outside_fence")}}. ¿Quieres {{ status[states("sensor.outside_fence")] }}?
 
   ##############################################
   # Climate intents
@@ -287,7 +287,7 @@ intent_script:
   goodnight.check:
     speech:
       text: >
-        {%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif -%}{% if is_state("sensor.outside_fence_switch", "Abierta") %}Te has dejado la barrera abierta, la voy a cerrar. {% endif -%}Buenas noches.
+        {%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif -%}{% if is_state("sensor.outside_fence", "Abierta") %}Te has dejado la barrera abierta, la voy a cerrar. {% endif -%}Buenas noches.
     async_action: true
     action:
       # Only execute between 21:00 and 6:00
@@ -308,7 +308,7 @@ intent_script:
           entity_id: switch.entrance_hall_lamp_switch
       # Close fence if open
       - service_template: >
-          {%- if is_state("sensor.outside_fence_switch", "Abierta") -%}
+          {%- if is_state("sensor.outside_fence", "Abierta") -%}
             homeassistant.turn_on
           {%- endif -%}
 
@@ -483,7 +483,7 @@ sensor:
       value_template: '{% if is_state("group.seguridad", "off") %}conectado{% else %}desconectado{% endif %}'
       friendly_name: 'el sistema de seguridad'
     on_off_outside_fence_switch:
-      value_template: '{% if is_state("sensor.outside_fence_switch", "Cerrada") %}abierto{% else %}cerrado{% endif %}'
+      value_template: '{% if is_state("sensor.outside_fence", "Cerrada") %}abierto{% else %}cerrado{% endif %}'
       friendly_name: 'la barrera'
 
     # api.ai check entities
@@ -556,7 +556,7 @@ sensor:
       friendly_name: 'el sistema de seguridad'
       unit_of_measurement: 'connected-disconnected'
     check_outside_fence_switch:
-      value_template: '{% if is_state("sensor.outside_fence_switch", "Cerrada") %}cerrada{% else %}abierta{% endif %}'
+      value_template: '{% if is_state("sensor.outside_fence", "Cerrada") %}cerrada{% else %}abierta{% endif %}'
       friendly_name: 'la barrera'
       unit_of_measurement: 'open-close'
     check_sensor_cocina_sensor_persiana:
