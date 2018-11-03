@@ -117,22 +117,53 @@ recorder:
       - sensor.pws_weather
       - sensor.pws_weather_1d_metric
       - sensor.pws_alerts
+
       - sensor.netatmo_exterior_radio
+      - sensor.netatmo_exterior_radio_2
       - sensor.netatmo_exterior_battery
+      - sensor.netatmo_exterior_battery_2
+      - sensor.netatmo_exterior_humidity_2
+      - sensor.netatmo_exterior_temperature_2
 
       - sensor.netatmo_suite_radio
+      - sensor.netatmo_suite_radio_2
       - sensor.netatmo_suite_battery
+      - sensor.netatmo_suite_battery_2
+      - sensor.netatmo_suite_humidity_2
+      - sensor.netatmo_suite_temperature_2
+      - sensor.netatmo_suite_co2_2
 
       - sensor.netatmo_habitacion_radio
+      - sensor.netatmo_habitacion_radio_2
       - sensor.netatmo_habitacion_battery
+      - sensor.netatmo_habitacion_battery_2
+      - sensor.netatmo_habitacion_humidity_2
+      - sensor.netatmo_habitacion_temperature_2
+      - sensor.netatmo_habitacion_co2_2
 
       - sensor.netatmo_pluviometro_radio
+      - sensor.netatmo_pluviometro_radio_2
       - sensor.netatmo_pluviometro_battery
+      - sensor.netatmo_pluviometro_battery_2
+      - sensor.netatmo_pluviometro_rain_2
+
+      - sensor.netatmo_salon_humidity_2
+      - sensor.netatmo_salon_temperature_2
+      - sensor.netatmo_salon_co2_2
+      - sensor.netatmo_salon_noise_2
+      - sensor.netatmo_salon_pressure_2
+      - sensor.netatmo_salon_wifi_2
 
       - sensor.netatmo_anemometro_gust_angle
+      - sensor.netatmo_anemometro_gust_angle_2
       - sensor.netatmo_anemometro_angle
+      - sensor.netatmo_anemometro_angle_2
       - sensor.netatmo_anemometro_radio
+      - sensor.netatmo_anemometro_radio_2
       - sensor.netatmo_anemometro_battery
+      - sensor.netatmo_anemometro_battery_2
+      - sensor.netatmo_anemometro_gust_strength_2
+      - sensor.netatmo_anemometro_strength_2
 
       - binary_sensor.netatmo_exterior_temperature_down
       - binary_sensor.netatmo_exterior_temperature_up

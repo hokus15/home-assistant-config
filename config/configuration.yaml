@@ -66,6 +66,7 @@ recorder:
       - zwave
       - updater
       - media_player
+      - history_graph
     entities:
       - sensor.since_last_boot
       - sensor.last_boot
