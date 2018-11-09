@@ -70,6 +70,10 @@ sensor.recibidor_boton_bateria:
   friendly_name: 'Nodon'
 sensor.caducidad_certificado_ssl:
   unit_of_measurement: días
+sensor.dominio_principal:
+  unit_of_measurement: días
+sensor.dominio_nena:
+  unit_of_measurement: días
 sensor.connected_clients:
   friendly_name: 'Clientes conectados'
   unit_of_measurement: 'cliente(s)'
