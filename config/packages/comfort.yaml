@@ -882,6 +882,38 @@ automation:
           message: 'Puerta de la coladuría abierta durante más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.coladuria_sensor_puerta.last_changed))|int//60 }} minutos'
           cache: false
 
+    # To avoid energy waste, notify when porch door in the kitchen is open, heating is on and in 'heat' state.
+  - alias: 'When porch door in the kitchen is open and heating is on, notify every 10 minutes'
+    trigger:
+      platform: time
+      minutes: '/1'
+      seconds: 00
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.porche_sensor_puerta
+          state: 'on'
+        - condition: state
+          entity_id: switch.thermostat
+          state: 'on'
+        - condition: state
+          entity_id: climate.termostato
+          state: 'heat'
+        - condition: template
+          value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.porche_sensor_puerta.last_changed))//60)%10 == 0 }}'
+        - condition: template
+          value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.porche_sensor_puerta.last_changed))//60) != 0 }}'
+    action:
+      - service: script.turn_on
+        data:
+          entity_id: script.speech_set_tts_volume_level
+      - service: tts.google_say
+        entity_id: media_player.homeassistant
+        data_template:
+          message: 'Puerta del porche en la concina abierta durante más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.porche_sensor_puerta.last_changed))|int//60 }} minutos'
+          cache: false
+
 script:
   # Power off climate
   climate_power_off:
