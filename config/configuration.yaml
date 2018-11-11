@@ -152,6 +152,11 @@ google_assistant:
   project_id: !secret google_assistant_project_id
   api_key: !secret google_api_key
   expose_by_default: false
+  entity_config:
+    script.goto_sleep:
+      name: Me voy a la cama
+      expose: true
+      room: General
 
 python_script:
 

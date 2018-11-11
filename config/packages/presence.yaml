@@ -292,6 +292,14 @@ google_assistant:
         - Persona autorizada
         - Modo invitado
       room: General
+    script.presence_leave_home:
+      name: Me voy
+      expose: true
+      room: General
+    script.presence_jordi_at_home:
+      name: Ya estoy en casa
+      expose: true
+      room: General
 
 automation:
   # Empty home automation when no one of the Familia group is at home
