@@ -84,7 +84,8 @@ Varios:
     - group.estado_baterias
     - media_player.hokussqueezebox
     - media_player.salon
-    - media_player.homeassistant
+    - media_player.recibidor
+    - media_player.cocina
 
 ################################################
 # Groups

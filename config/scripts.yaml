@@ -21,13 +21,13 @@ speech_set_tts_volume_level:
       after: '23:00'
       before: '9:00'
     - service: media_player.volume_set
-      entity_id: media_player.homeassistant
+      entity_id: media_player.recibidor
       data:
         volume_level: 0.3
     - delay:
         minutes: 2
     - service: media_player.volume_set
-      entity_id: media_player.homeassistant
+      entity_id: media_player.recibidor
       data:
         volume_level: 0.75
 
@@ -38,7 +38,7 @@ speech_parte_meteorologico:
       data:
         entity_id: script.speech_set_tts_volume_level
     - service: tts.google_say
-      entity_id: media_player.homeassistant
+      entity_id: media_player.recibidor
       data_template:
         message: >
           La temperatura exterior es de {{ states("sensor.exterior_termometro_temperatura") | replace("."," con ") }} {{states.sensor["exterior_termometro_temperatura"].attributes.unit_of_measurement }} 
@@ -59,7 +59,7 @@ speech_parte_meteorologico_corto:
       data:
         entity_id: script.speech_set_tts_volume_level
     - service: tts.google_say
-      entity_id: media_player.homeassistant
+      entity_id: media_player.recibidor
       data_template:
         message: >
           La temperatura exterior es de {{ states("sensor.exterior_termometro_temperatura") | replace("."," con ") }} {{states.sensor["exterior_termometro_temperatura"].attributes.unit_of_measurement }}.
@@ -74,7 +74,7 @@ chores:
       data:
         entity_id: script.speech_set_tts_volume_level
     - service: tts.google_say
-      entity_id: media_player.homeassistant
+      entity_id: media_player.recibidor
       data_template:
         message: >
           {% if now().strftime('%a') != "Sat" %}
@@ -134,7 +134,7 @@ goto_sleep:
         entity_id: script.speech_set_tts_volume_level
       # Notify found incidences and say good night.
     - service: tts.google_say
-      entity_id: media_player.homeassistant
+      entity_id: media_player.recibidor
       data_template:
         message: >
           {%- if is_state("binary_sensor.porche_sensor_puerta", "on") %}Puerta de la cocina abierta. {% endif %}
@@ -143,7 +143,7 @@ goto_sleep:
           {%- if is_state("sensor.outside_fence", "Abierta") -%}Cerrando barrera.{% endif -%}
           Alarma armada en modo noche. Buenas noches
     # Wait until tts finishes
-#    - delay: '00:00:{{ states.media_player.homeassistant.attributes.media_duration | int }}'
+#    - delay: '00:00:{{ states.media_player.recibidor.attributes.media_duration | int }}'
     # Wait 2 minutes before turning stair lights off
     - delay:
         minutes: 2
