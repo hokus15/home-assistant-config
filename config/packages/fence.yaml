@@ -43,12 +43,24 @@ switch:
           data:
             entity_id: switch.barrera
 
-google_assistant:
-  entity_config:
-    switch.outside_fence:
-      name: Barrera
-      expose: true
-      room: Exterior
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - switch.outside_fence
+    entity_config:
+      switch.outside_fence:
+        name: Barrera
+        aliases:
+          - Barrera
+        room: Exterior
+
+#google_assistant:
+#  entity_config:
+#    switch.outside_fence:
+#      name: Barrera
+#      expose: true
+#      room: Exterior
 
 automation:
     # Fence state. Can be moving (En movimiento), open (Abierta) or closed (Cerrada).
@@ -119,7 +131,7 @@ automation:
         data:
           entity_id: script.speech_set_tts_volume_level
       - service: tts.google_say
-        entity_id: media_player.homeassistant
+        entity_id: media_player.recibidor
         data_template:
           message: 'Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos'
           cache: false

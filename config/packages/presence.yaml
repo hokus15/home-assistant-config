@@ -283,23 +283,48 @@ counter:
     initial: 0
     step: 1
 
-google_assistant:
-  entity_config:
-    script.presence_set_virtual_device_home:
-      name: Persona autorizada
-      expose: true
-      aliases:
-        - Persona autorizada
-        - Modo invitado
-      room: General
-    script.presence_leave_home:
-      name: Me voy
-      expose: true
-      room: General
-    script.presence_jordi_at_home:
-      name: Ya estoy en casa
-      expose: true
-      room: General
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - script.presence_set_virtual_device_home
+        - script.presence_leave_home
+        - script.presence_jordi_at_home
+    entity_config:
+      script.presence_set_virtual_device_home:
+        name: Persona autorizada
+        aliases:
+          - Persona autorizada
+          - Modo invitado
+        room: General
+      script.presence_leave_home:
+        name: Me voy
+        aliases:
+          - Me voy
+        room: General
+      script.presence_jordi_at_home:
+        name: Ya estoy en casa
+        aliases:
+          - Ya estoy en casa
+        room: General
+
+#google_assistant:
+#  entity_config:
+#    script.presence_set_virtual_device_home:
+#      name: Persona autorizada
+#      expose: true
+#      aliases:
+#        - Persona autorizada
+#        - Modo invitado
+#      room: General
+#    script.presence_leave_home:
+#      name: Me voy
+#      expose: true
+#      room: General
+#    script.presence_jordi_at_home:
+#      name: Ya estoy en casa
+#      expose: true
+#      room: General
 
 automation:
   # Empty home automation when no one of the Familia group is at home
@@ -782,7 +807,7 @@ script:
         data:
           entity_id: script.speech_set_tts_volume_level
       - service: tts.google_say
-        entity_id: media_player.homeassistant
+        entity_id: media_player.recibidor
         data_template:
           message: >
             {% set incidence = false %}

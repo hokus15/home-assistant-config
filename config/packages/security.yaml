@@ -560,16 +560,30 @@ sensor:
         value_template: '{% if states.zwave.despacho_sensor_movimiento %}{{ states.zwave.despacho_sensor_movimiento.attributes.battery_level }}{% else %}Desconocido{% endif %}'
         unit_of_measurement: '%'
 
-google_assistant:
-  entity_config:
-    group.seguridad:
-      name: Seguridad
-      expose: true
-      aliases:
-        - Sensores alarma
-        - Seguridad
-        - Sensores
-      room: General
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - group.seguridad
+    entity_config:
+      group.seguridad:
+        name: Seguridad
+        aliases:
+          - Sensores alarma
+          - Seguridad
+          - Sensores
+        room: General
+
+#google_assistant:
+#  entity_config:
+#    group.seguridad:
+#      name: Seguridad
+#      expose: true
+#      aliases:
+#        - Sensores alarma
+#        - Seguridad
+#        - Sensores
+#      room: General
 
 automation:
   # Convert mkv videos to mp4 as soon as they are created to be able to send them through telegram
