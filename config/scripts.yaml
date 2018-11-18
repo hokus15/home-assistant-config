@@ -41,15 +41,15 @@ speech_parte_meteorologico:
       entity_id: media_player.recibidor
       data_template:
         message: >
-          La temperatura exterior es de {{ states("sensor.exterior_termometro_temperatura") | replace("."," con ") }} {{states.sensor["exterior_termometro_temperatura"].attributes.unit_of_measurement }} 
-          y una humedad del {{ states("sensor.exterior_termometro_humedad") }} {{states.sensor["exterior_termometro_humedad"].attributes.unit_of_measurement }}.
-          La temperatura máxima de hoy ha sido de {{ states("sensor.exterior_termometro_max_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_max_temp"].attributes.unit_of_measurement }}.
-          La temperatura mínima de hoy ha sido de {{ states("sensor.exterior_termometro_min_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_min_temp"].attributes.unit_of_measurement }}.
-          La presión atmosférica es de {{ states("sensor.salon_termometro_presion") | replace("."," con ") }} {{states.sensor["salon_termometro_presion"].attributes.unit_of_measurement }}.
-          Las rachas de viento son de {{ states("sensor.exterior_anemometro_velocidad_viento") }} {{states.sensor["exterior_anemometro_velocidad_viento"].attributes.unit_of_measurement }}'
-          {%- if states("sensor.exterior_pluviometro_lluvia") == "0" %} No está lloviendo.{% else %} Está lloviendo unos {{ states("sensor.exterior_pluviometro_lluvia") | replace("."," con ") }} {{states.sensor["exterior_pluviometro_lluvia"].attributes.unit_of_measurement }}.{% endif %}
-          {%- if states("sensor.exterior_pluviometro_lluvia_1") == "0" %} No ha llovido durante la última hora.{% else %} La precipitación de la última hora ha sido de {{ states("sensor.exterior_pluviometro_lluvia_1") | replace("."," con ") }} {{states.sensor["exterior_pluviometro_lluvia_1"].attributes.unit_of_measurement }}.{% endif %}
-          {%- if states("sensor.exterior_pluviometro_lluvia_24") == "0" %} No ha llovido durante las últimas 24 horas.{% else %} La precipitación de las últimas 24 horas ha sido de {{ states("sensor.exterior_pluviometro_lluvia_24") | replace("."," con ") }} {{states.sensor["exterior_pluviometro_lluvia_24"].attributes.unit_of_measurement }}.{% endif %}
+          La temperatura exterior es de {{ states("sensor.netatmo_exterior_temperature") | replace("."," con ") }} {{states.sensor["netatmo_exterior_temperature"].attributes.unit_of_measurement }} 
+          y una humedad del {{ states("sensor.netatmo_exterior_humidity") }} {{states.sensor["netatmo_exterior_humidity"].attributes.unit_of_measurement }}.
+          La temperatura máxima de hoy ha sido de {{ states("sensor.netatmo_exterior_max_temp") | replace("."," con ") }} {{states.sensor["netatmo_exterior_max_temp"].attributes.unit_of_measurement }}.
+          La temperatura mínima de hoy ha sido de {{ states("sensor.netatmo_exterior_min_temp") | replace("."," con ") }} {{states.sensor["netatmo_exterior_min_temp"].attributes.unit_of_measurement }}.
+          La presión atmosférica es de {{ states("sensor.netatmo_salon_pressure") | replace("."," con ") }} {{states.sensor["netatmo_salon_pressure"].attributes.unit_of_measurement }}.
+          Las rachas de viento son de {{ states("sensor.netatmo_anemometro_gust_strength") }} {{states.sensor["netatmo_anemometro_gust_strength"].attributes.unit_of_measurement }}'
+          {%- if states("sensor.netatmo_pluviometro_rain") == "0" %} No está lloviendo.{% else %} Está lloviendo unos {{ states("sensor.netatmo_pluviometro_rain") | replace("."," con ") }} {{states.sensor["netatmo_pluviometro_rain"].attributes.unit_of_measurement }}.{% endif %}
+          {%- if states("sensor.netatmo_pluviometro_sum_rain_1") == "0" %} No ha llovido durante la última hora.{% else %} La precipitación de la última hora ha sido de {{ states("sensor.netatmo_pluviometro_sum_rain_1") | replace("."," con ") }} {{states.sensor["netatmo_pluviometro_sum_rain_1"].attributes.unit_of_measurement }}.{% endif %}
+          {%- if states("sensor.netatmo_pluviometro_sum_rain_24") == "0" %} No ha llovido durante las últimas 24 horas.{% else %} La precipitación de las últimas 24 horas ha sido de {{ states("sensor.netatmo_pluviometro_sum_rain_24") | replace("."," con ") }} {{states.sensor["netatmo_pluviometro_sum_rain_24"].attributes.unit_of_measurement }}.{% endif %}
         cache: false
 
 speech_parte_meteorologico_corto:
@@ -62,9 +62,9 @@ speech_parte_meteorologico_corto:
       entity_id: media_player.recibidor
       data_template:
         message: >
-          La temperatura exterior es de {{ states("sensor.exterior_termometro_temperatura") | replace("."," con ") }} {{states.sensor["exterior_termometro_temperatura"].attributes.unit_of_measurement }}.
-          La temperatura máxima de hoy ha sido de {{ states("sensor.exterior_termometro_max_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_max_temp"].attributes.unit_of_measurement }}.
-          La temperatura mínima de hoy ha sido de {{ states("sensor.exterior_termometro_min_temp") | replace("."," con ") }} {{states.sensor["exterior_termometro_min_temp"].attributes.unit_of_measurement }}.
+          La temperatura exterior es de {{ states("sensor.netatmo_exterior_temperature") | replace("."," con ") }} {{states.sensor["netatmo_exterior_temperature"].attributes.unit_of_measurement }}.
+          La temperatura máxima de hoy ha sido de {{ states("sensor.netatmo_exterior_max_temp") | replace("."," con ") }} {{states.sensor["netatmo_exterior_max_temp"].attributes.unit_of_measurement }}.
+          La temperatura mínima de hoy ha sido de {{ states("sensor.netatmo_exterior_min_temp") | replace("."," con ") }} {{states.sensor["netatmo_exterior_min_temp"].attributes.unit_of_measurement }}.
         cache: false
 
 chores:
