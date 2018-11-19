@@ -159,6 +159,8 @@ cloud:
         name: Me voy a la cama
         aliases:
           - Me voy a la cama
+          - A dormir
+          - Me voy a dormir
         room: General
 
 #google_assistant:

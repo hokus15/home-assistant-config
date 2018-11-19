@@ -50,10 +50,10 @@ cloud:
         - switch.outside_fence
     entity_config:
       switch.outside_fence:
-        name: Barrera
+        name: Puerta de entrada
         aliases:
-          - Barrera
-        room: Exterior
+          - Puerta de entrada
+        room: Jardín delantero
 
 #google_assistant:
 #  entity_config:
