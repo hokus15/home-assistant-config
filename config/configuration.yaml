@@ -154,6 +154,10 @@ cloud:
     filter:
       include_entities:
         - script.goto_sleep
+        - script.chores
+        - script.speech_parte_meteorologico_corto
+        - script.speech_parte_meteorologico
+        - script.geni_shift
     entity_config:
       script.goto_sleep:
         name: Me voy a la cama
@@ -161,6 +165,26 @@ cloud:
           - Me voy a la cama
           - A dormir
           - Me voy a dormir
+        room: General
+      script.chores:
+        name: Basura
+        aliases:
+          - Basura
+        room: General
+      script.speech_parte_meteorologico_corto:
+        name: Parte meteorológico corto
+        aliases:
+          - Parte meteorológico corto
+        room: General
+      script.speech_parte_meteorologico:
+        name: Parte meteorológico
+        aliases:
+          - Parte meteorológico
+        room: General
+      script.geni_shift:
+        name: Turno Geni
+        aliases:
+          - Turno Geni
         room: General
 
 #google_assistant:

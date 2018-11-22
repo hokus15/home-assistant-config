@@ -52,6 +52,7 @@ cloud:
       switch.outside_fence:
         name: Puerta de entrada
         aliases:
+          - Barrera
           - Puerta de entrada
         room: Jardín delantero
 
@@ -127,9 +128,6 @@ automation:
         - condition: template
           value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))//60) != 0 }}'
     action:
-      - service: script.turn_on
-        data:
-          entity_id: script.speech_set_tts_volume_level
       - service: tts.google_say
         entity_id: media_player.recibidor
         data_template:

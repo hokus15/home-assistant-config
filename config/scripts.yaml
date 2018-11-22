@@ -34,9 +34,6 @@ speech_set_tts_volume_level:
 speech_parte_meteorologico:
   alias: 'Parte meteorológico'
   sequence:
-    - service: script.turn_on
-      data:
-        entity_id: script.speech_set_tts_volume_level
     - service: tts.google_say
       entity_id: media_player.recibidor
       data_template:
@@ -55,9 +52,6 @@ speech_parte_meteorologico:
 speech_parte_meteorologico_corto:
   alias: 'Parte meteorológico corto'
   sequence:
-    - service: script.turn_on
-      data:
-        entity_id: script.speech_set_tts_volume_level
     - service: tts.google_say
       entity_id: media_player.recibidor
       data_template:
@@ -70,9 +64,6 @@ speech_parte_meteorologico_corto:
 chores:
   alias: 'Basura'
   sequence:
-    - service: script.turn_on
-      data:
-        entity_id: script.speech_set_tts_volume_level
     - service: tts.google_say
       entity_id: media_player.recibidor
       data_template:
@@ -93,6 +84,26 @@ chores:
           {% else %}
             Hoy estáis de suerte, no hay que sacar la basura
           {% endif %}
+
+geni_shift:
+  alias: 'Turno Geni'
+  sequence:
+    - service: tts.google_say
+      entity_id: media_player.recibidor
+      data_template:
+        message: >
+         {%- if is_state("sensor.next_shift_event", "Saliente") -%}
+           Jeni está hoy saliente de noche
+         {%- else -%}
+           {% set diff = as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time) - as_timestamp(now().replace(hour=0).replace(minute=0).replace(second=0).replace(microsecond=0)) %}
+           {%- if diff < 86400 -%}
+             Jeni trabaja hoy por la {{ states("sensor.next_shift_event") }}
+           {%- elif diff >= 86400 and diff < 86400*2 -%}
+             Jeni trabaja mañana por la {{ states("sensor.next_shift_event") }}
+           {%- else -%}
+             Jeni trabaja el próximo {{ states("sensor.next_shift_date") }} por la {{ states("sensor.next_shift_event") }}
+           {% endif %}
+         {% endif %}
 
 #############################################################
 # Misc scripts
@@ -128,10 +139,6 @@ goto_sleep:
     - service: script.turn_on
       data:
         entity_id: script.alarm_arm_night
-      # Set tts volume level
-    - service: script.turn_on
-      data:
-        entity_id: script.speech_set_tts_volume_level
       # Notify found incidences and say good night.
     - service: tts.google_say
       entity_id: media_player.recibidor

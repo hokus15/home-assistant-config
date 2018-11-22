@@ -803,9 +803,6 @@ script:
   presence_leave_home:
     alias: 'Leave home'
     sequence:
-      - service: script.turn_on
-        data:
-          entity_id: script.speech_set_tts_volume_level
       - service: tts.google_say
         entity_id: media_player.recibidor
         data_template:
