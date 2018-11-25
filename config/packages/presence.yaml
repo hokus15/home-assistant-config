@@ -803,6 +803,8 @@ script:
   presence_leave_home:
     alias: 'Leave home'
     sequence:
+      - delay:
+          seconds: 5
       - service: tts.google_say
         entity_id: media_player.recibidor
         data_template:

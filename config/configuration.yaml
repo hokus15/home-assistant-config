@@ -158,6 +158,7 @@ cloud:
         - script.speech_parte_meteorologico_corto
         - script.speech_parte_meteorologico
         - script.geni_shift
+        - script.google_home_good_morning
     entity_config:
       script.goto_sleep:
         name: Me voy a la cama
@@ -185,6 +186,11 @@ cloud:
         name: Turno Geni
         aliases:
           - Turno Geni
+        room: General
+      script.google_home_good_morning:
+        name: Buenos días
+        aliases:
+          - Buenos días
         room: General
 
 #google_assistant:

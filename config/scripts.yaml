@@ -14,6 +14,21 @@ system_reboot_pi:
 #############################################################
 # Speech scripts
 #############################################################
+google_home_good_morning:
+  alias: 'Buenos días'
+  sequence:
+    # Wait until tts finishes
+#    - wait_template: "{{ is_state('media_player.recibidor', 'playing') }}"
+#    - wait_template: "{{ not is_state('media_player.recibidor', 'playing') }}"
+    - service: script.turn_on
+      data:
+        entity_id: script.speech_parte_meteorologico_corto
+    - wait_template: "{{ is_state('media_player.recibidor', 'playing') }}"
+    - wait_template: "{{ not is_state('media_player.recibidor', 'playing') }}"
+    - service: script.turn_on
+      data:
+        entity_id: script.geni_shift
+
 speech_set_tts_volume_level:
   alias: 'Lower the home-assistant tts volume level between 23 and 9'
   sequence:
@@ -38,10 +53,10 @@ speech_parte_meteorologico:
       entity_id: media_player.recibidor
       data_template:
         message: >
-          La temperatura exterior es de {{ states("sensor.netatmo_exterior_temperature") | replace("."," con ") }} {{states.sensor["netatmo_exterior_temperature"].attributes.unit_of_measurement }} 
+          La temperatura exterior es de {{ states("sensor.netatmo_exterior_temperature") | replace("."," con ") }} grados 
           y una humedad del {{ states("sensor.netatmo_exterior_humidity") }} {{states.sensor["netatmo_exterior_humidity"].attributes.unit_of_measurement }}.
-          La temperatura máxima de hoy ha sido de {{ states("sensor.netatmo_exterior_max_temp") | replace("."," con ") }} {{states.sensor["netatmo_exterior_max_temp"].attributes.unit_of_measurement }}.
-          La temperatura mínima de hoy ha sido de {{ states("sensor.netatmo_exterior_min_temp") | replace("."," con ") }} {{states.sensor["netatmo_exterior_min_temp"].attributes.unit_of_measurement }}.
+          La temperatura máxima de hoy ha sido de {{ states("sensor.netatmo_exterior_max_temp") | replace("."," con ") }} grados.
+          La temperatura mínima de hoy ha sido de {{ states("sensor.netatmo_exterior_min_temp") | replace("."," con ") }} grados.
           La presión atmosférica es de {{ states("sensor.netatmo_salon_pressure") | replace("."," con ") }} {{states.sensor["netatmo_salon_pressure"].attributes.unit_of_measurement }}.
           Las rachas de viento son de {{ states("sensor.netatmo_anemometro_gust_strength") }} {{states.sensor["netatmo_anemometro_gust_strength"].attributes.unit_of_measurement }}'
           {%- if states("sensor.netatmo_pluviometro_rain") == "0" %} No está lloviendo.{% else %} Está lloviendo unos {{ states("sensor.netatmo_pluviometro_rain") | replace("."," con ") }} {{states.sensor["netatmo_pluviometro_rain"].attributes.unit_of_measurement }}.{% endif %}
@@ -56,9 +71,9 @@ speech_parte_meteorologico_corto:
       entity_id: media_player.recibidor
       data_template:
         message: >
-          La temperatura exterior es de {{ states("sensor.netatmo_exterior_temperature") | replace("."," con ") }} {{states.sensor["netatmo_exterior_temperature"].attributes.unit_of_measurement }}.
-          La temperatura máxima de hoy ha sido de {{ states("sensor.netatmo_exterior_max_temp") | replace("."," con ") }} {{states.sensor["netatmo_exterior_max_temp"].attributes.unit_of_measurement }}.
-          La temperatura mínima de hoy ha sido de {{ states("sensor.netatmo_exterior_min_temp") | replace("."," con ") }} {{states.sensor["netatmo_exterior_min_temp"].attributes.unit_of_measurement }}.
+          La temperatura exterior es de {{ states("sensor.netatmo_exterior_temperature") | replace("."," con ") }} grados.
+          La temperatura máxima de hoy ha sido de {{ states("sensor.netatmo_exterior_max_temp") | replace("."," con ") }} grados.
+          La temperatura mínima de hoy ha sido de {{ states("sensor.netatmo_exterior_min_temp") | replace("."," con ") }} grados.
         cache: false
 
 chores:
@@ -148,7 +163,7 @@ goto_sleep:
           {%- if is_state("binary_sensor.porche_sensor_persiana", "on") %}Persiana de la cocina abierta. {% endif %}
           {%- if is_state("binary_sensor.coladuria_sensor_puerta", "on") %}Puerta de la coladuría abierta. {% endif %}
           {%- if is_state("sensor.outside_fence", "Abierta") -%}Cerrando barrera.{% endif -%}
-          Alarma armada en modo noche. Buenas noches
+          Alarma armada en modo noche.
     # Wait until tts finishes
 #    - delay: '00:00:{{ states.media_player.recibidor.attributes.media_duration | int }}'
     # Wait 2 minutes before turning stair lights off
