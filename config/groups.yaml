@@ -173,6 +173,11 @@ Internet:
     - sensor.caducidad_certificado_ssl
     - sensor.dominio_principal
     - sensor.dominio_nena
+    - sensor.google_wifi_current_version
+    - sensor.google_wifi_last_restart
+    - sensor.google_wifi_new_version
+    - sensor.google_wifi_status
+    - sensor.google_wifi_uptime
 
 Crypto Currency:
   entities:

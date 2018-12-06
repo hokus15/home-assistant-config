@@ -81,6 +81,18 @@ sensor.connected_clients:
 sensor.ha_runtime_in_minutes:
   friendly_name: 'Tiempo ejecución HA'
   unit_of_measurement: 'mins'
+sensor.google_wifi_current_version:
+  friendly_name: 'Versión Google WiFi'
+sensor.google_wifi_last_restart:
+  friendly_name: 'Reinicio Google WiFi'
+sensor.google_wifi_new_version:
+  friendly_name: 'Nueva versión Google WiFi'
+sensor.google_wifi_status:
+  friendly_name: 'Estado Google WiFi'
+sensor.google_wifi_uptime:
+  friendly_name: 'Uptime Google WiFi'
+  unit_of_measurement: 'días'
+
 ###################################
 # Binary Sensors
 ###################################
