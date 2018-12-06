@@ -842,6 +842,42 @@ script:
           dev_id: 'jordi_combined'
           location_name: 'home'
 
+  presence_hokusphone_connected_home_wifi:
+    alias: 'HokusPhone connected to home Wi-Fi'
+    sequence:
+      - service: mqtt.publish
+        data:
+          payload: 'home'
+          retain: true
+          topic: 'location/hokusphone/wifi'
+
+  presence_hokusphone_not_connected_home_wifi:
+    alias: 'HokusPhone disconnected from home Wi-Fi'
+    sequence:
+      - service: mqtt.publish
+        data:
+          payload: 'not_connected'
+          retain: true
+          topic: 'location/hokusphone/wifi'
+
+  presence_geniphone_connected_home_wifi:
+    alias: 'GeniPhone connected to home Wi-Fi'
+    sequence:
+      - service: mqtt.publish
+        data:
+          payload: 'home'
+          retain: true
+          topic: 'location/geniphone/wifi'
+
+  presence_geniphone_not_connected_home_wifi:
+    alias: 'GeniPhone disconnected from home Wi-Fi'
+    sequence:
+      - service: mqtt.publish
+        data:
+          payload: 'not_connected'
+          retain: true
+          topic: 'location/geniphone/wifi'
+
 zone:
   - name: Oficina
     latitude: !secret office_latitude
