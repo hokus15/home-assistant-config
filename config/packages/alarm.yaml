@@ -55,11 +55,11 @@ automation:
         to: 'on'
       # When Netatmo camera detects human presence
       - platform: state
-        entity_id: binary_sensor.entrada_principal_outdoor_human
+        entity_id: binary_sensor.entrada_outdoor_human
         to: 'on'
       # When Netatmo camera detects unknown presence
       - platform: state
-        entity_id: binary_sensor.entrada_principal_outdoor_motion
+        entity_id: binary_sensor.entrada_outdoor_motion
         to: 'on'
       # When Kitchen blind is open
       - platform: state
@@ -90,11 +90,11 @@ automation:
     trigger:
       # When Netatmo camera detects human presence
       - platform: state
-        entity_id: binary_sensor.entrada_principal_outdoor_human
+        entity_id: binary_sensor.entrada_outdoor_human
         to: 'on'
       # When Netatmo camera detects unknown presence
       - platform: state
-        entity_id: binary_sensor.entrada_principal_outdoor_motion
+        entity_id: binary_sensor.entrada_outdoor_motion
         to: 'on'
       # When Kitchen blind is open
       - platform: state
@@ -272,7 +272,7 @@ automation:
               {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}switch.piscina_camara_det_mov
               {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}switch.barbacoa_camara_det_mov
               {%- elif "WVC54CGA" in trigger.event.data.folder -%}switch.caseta_camara_det_mov
-              {%- elif "puerta_principal" in trigger.event.data.folder -%}input_boolean.entrada_principal_camara_det_mov
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}input_boolean.entrada_camara_det_mov
               {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}switch.salon_camara_det_mov
               {%- else -%}desconocido{%-endif-%}
   
@@ -306,7 +306,7 @@ automation:
           entity_id: switch.caseta_camara_det_mov
           state: 'on'
         - condition: state
-          entity_id: input_boolean.entrada_principal_camara_det_mov
+          entity_id: input_boolean.entrada_camara_det_mov
           state: 'on'
     action:
       # Delay before evaluating alarm state. This is needed to avoid skipping notifications
@@ -337,7 +337,7 @@ automation:
               {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}switch.piscina_camara_det_mov
               {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}switch.barbacoa_camara_det_mov
               {%- elif "WVC54CGA" in trigger.event.data.folder -%}switch.caseta_camara_det_mov
-              {%- elif "puerta_principal" in trigger.event.data.folder -%}input_boolean.entrada_principal_camara_det_mov
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}input_boolean.entrada_camara_det_mov
               {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}switch.salon_camara_det_mov
               {%- else -%}desconocido{%-endif-%}
   

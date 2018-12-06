@@ -70,14 +70,14 @@ homeassistant:
     ###################################
     # Main entrance camera customization
     ###################################
-    binary_sensor.entrada_principal_outdoor_motion:
+    binary_sensor.entrada_outdoor_motion:
       friendly_name: 'Movimiento desconocido'
-    binary_sensor.entrada_principal_outdoor_human:
+    binary_sensor.entrada_outdoor_human:
       friendly_name: 'Persona detectada'
-    binary_sensor.entrada_principal_outdoor_animal:
+    binary_sensor.entrada_outdoor_animal:
       friendly_name: 'Animal detectado'
       icon: 'mdi:paw'
-    binary_sensor.entrada_principal_outdoor_vehicle:
+    binary_sensor.entrada_outdoor_vehicle:
       friendly_name: 'Vehiculo detectado'
       icon: 'mdi:car'
 
@@ -195,7 +195,7 @@ group:
       - switch.piscina_camara_det_mov
       - switch.barbacoa_camara_det_mov
       - switch.caseta_camara_det_mov
-      - input_boolean.entrada_principal_camara_det_mov
+      - input_boolean.entrada_camara_det_mov
       - input_boolean.despacho_sensor_movimiento
       - input_boolean.porche_sensor_puerta
       - input_boolean.porche_sensor_persiana
@@ -237,12 +237,12 @@ group:
   
   Cámara entrada principal:
     entities:
-      - camera.entrada_principal
-      - input_boolean.entrada_principal_camara_det_mov
-      - binary_sensor.entrada_principal_outdoor_motion
-      - binary_sensor.entrada_principal_outdoor_human
-      - binary_sensor.entrada_principal_outdoor_animal
-      - binary_sensor.entrada_principal_outdoor_vehicle
+      - camera.entrada
+      - input_boolean.entrada_camara_det_mov
+      - binary_sensor.entrada_outdoor_motion
+      - binary_sensor.entrada_outdoor_human
+      - binary_sensor.entrada_outdoor_animal
+      - binary_sensor.entrada_outdoor_vehicle
   
   Seguridad interior:
     entities:
@@ -257,7 +257,7 @@ group:
       - switch.piscina_camara_det_mov
       - switch.barbacoa_camara_det_mov
       - switch.caseta_camara_det_mov
-      - input_boolean.entrada_principal_camara_det_mov
+      - input_boolean.entrada_camara_det_mov
       - input_boolean.porche_sensor_persiana
   
   Sensor despacho:
@@ -375,7 +375,7 @@ input_boolean:
     name: Det. mov. despacho
     icon: 'mdi:transit-transfer'
   
-  entrada_principal_camara_det_mov:
+  entrada_camara_det_mov:
     name: Det. mov. entrada ppal.
     icon: 'mdi:transit-transfer'
 
@@ -658,7 +658,7 @@ automation:
               {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}camera.piscina
               {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}camera.barbacoa
               {%- elif "WVC54CGA" in trigger.event.data.folder -%}camera.caseta
-              {%- elif "puerta_principal" in trigger.event.data.folder -%}camera.entrada_principal
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}camera.entrada
               {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}camera.salon
               {%- else -%}desconocido{%-endif-%}
           domain: camera
