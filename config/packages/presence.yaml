@@ -350,7 +350,7 @@ automation:
           entity_id: script.presence_someone_home
   
   # Turn on hall lamp when someone at home and the sun is set
-  - alias: 'Turn on hall lamp when someone at home and the sun is set'
+  - alias: 'Turn on hall lamp when someone arrives at home and the sun is set'
     trigger:
       platform: state
       entity_id: group.unidad_familiar
@@ -362,6 +362,9 @@ automation:
       - service: switch.turn_on
         data:
           entity_id: switch.entrance_hall_lamp_switch
+      - service: switch.turn_on
+        data:
+          entity_id: switch.wemo_switch
   
   # When input_boolean.empty_home_activation_delay turns on,
   # Change virtual_device location to home
@@ -753,6 +756,10 @@ script:
       - service: switch.turn_off
         data:
           entity_id: switch.escalera_switch
+      # Turn off Christmas lights
+      - service: switch.turn_off
+        data:
+          entity_id: switch.wemo_switch
       # Turn off suite light
       - service: switch.turn_off
         data:
@@ -769,7 +776,7 @@ script:
         entity_id: climate.termostato
         data:
           away_mode: true
-  
+
   presence_someone_home:
     alias: 'Someone at home'
     sequence:
@@ -783,12 +790,12 @@ script:
       - condition: state
         entity_id: switch.holiday
         state: 'off'
-     # Turn off thermostat away mode 
+      # Turn off thermostat away mode 
       - service: climate.set_away_mode
         entity_id: climate.termostato
         data:
           away_mode: false
-  
+
   presence_set_virtual_device_home:
     alias: 'Set virtual device at home for 180 minutes'
     sequence:
