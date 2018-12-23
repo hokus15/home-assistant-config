@@ -905,7 +905,7 @@ automation:
       - service: tts.google_say
         entity_id: media_player.recibidor
         data_template:
-          message: 'Puerta del porche en la concina abierta durante más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.porche_sensor_puerta.last_changed))|int//60 }} minutos'
+          message: 'Puerta del porche en la cocina abierta durante más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.porche_sensor_puerta.last_changed))|int//60 }} minutos'
           cache: false
 
 script:
