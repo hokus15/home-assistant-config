@@ -73,7 +73,7 @@ Varios:
   icon: mdi:grid
   entities:
     - group.jordi
-    - group.toyota
+    - group.ioniq
 #    - group.nissan
     - group.internet
     - group.estado_ha

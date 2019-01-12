@@ -1,12 +1,12 @@
 homeassistant:
   customize:
-    sensor.toyota_batt:
+    sensor.ioniq_batt:
       friendly_name: 'Batería'
       device_class: 'battery'
-    sensor.toyota_gps_accuracy:
+    sensor.ioniq_gps_accuracy:
       friendly_name: 'Precisión GPS'
       icon: 'mdi:map-marker-radius'
-    sensor.toyota_last_update:
+    sensor.ioniq_last_update:
       friendly_name: 'Última actualización'
       icon: 'mdi:clock'
     sensor.nissan_batt:
@@ -44,10 +44,10 @@ recorder:
       - sensor.next_shift_date
       - sensor.next_shift_event
       - sensor.check_switch_holiday
-      - sensor.toyota_previous_latitude
-      - sensor.toyota_previous_longitude
-      - sensor.toyota_last_update
-      
+      - sensor.ioniq_previous_latitude
+      - sensor.ioniq_previous_longitude
+      - sensor.ioniq_last_update
+
       - sensor.nissan_last_update
 
       - input_number.empty_home_activation_delay_minutes
@@ -72,14 +72,14 @@ group:
       - sensor.next_shift_event
       - sensor.next_shift_date
   
-  Toyota:
+  Ioniq:
     entities:
-      - device_tracker.toyota
-      - sensor.toyota_batt
-      - sensor.toyota_gps_accuracy
-      - sensor.toyota_last_update
-      - camera.toyota
-      - sensor.toyota_distance_travelled_between_updates
+      - device_tracker.ioniq
+      - sensor.ioniq_batt
+      - sensor.ioniq_gps_accuracy
+      - sensor.ioniq_last_update
+      - camera.ioniq
+      - sensor.ioniq_distance_travelled_between_updates
   
   Nissan:
     entities:
@@ -124,8 +124,8 @@ device_tracker:
     
   - platform: mqtt_json
     devices:
-      # Toyota tracker
-      toyota: location/car/toyota
+      # Ioniq tracker
+      ioniq: location/car/ioniq
       # Nissan tracker
       nissan: location/car/nissan
   
@@ -159,46 +159,46 @@ sensor:
     value_template: '{{ value_json.last_update|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
   
   - platform: mqtt
-    state_topic: 'location/car/toyota'
-    name: toyota_batt
+    state_topic: 'location/car/ioniq'
+    name: ioniq_batt
     unit_of_measurement: '%'
     value_template: '{{ value_json.battery_level }}'
   
   - platform: mqtt
-    state_topic: 'location/car/toyota'
-    name: toyota_gps_accuracy
+    state_topic: 'location/car/ioniq'
+    name: ioniq_gps_accuracy
     unit_of_measurement: 'm'
     value_template: '{{ value_json.gps_accuracy }}'
   
   - platform: mqtt
-    state_topic: 'location/car/toyota'
-    name: toyota_last_update
+    state_topic: 'location/car/ioniq'
+    name: ioniq_last_update
     value_template: '{{ value_json.last_update|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
   
   - platform: mqtt
-    state_topic: 'location/car/toyota'
-    name: toyota_previous_latitude
+    state_topic: 'location/car/ioniq'
+    name: ioniq_previous_latitude
     value_template: '{{ value_json.platitude }}'
   
   - platform: mqtt
-    state_topic: 'location/car/toyota'
-    name: toyota_previous_longitude
+    state_topic: 'location/car/ioniq'
+    name: ioniq_previous_longitude
     value_template: '{{ value_json.plongitude }}'
   
   - platform: template
     sensors:
-      toyota_distance_travelled_between_updates:
+      ioniq_distance_travelled_between_updates:
         unit_of_measurement: 'm'
         friendly_name: 'Dist. entre actualizaciones'
-        value_template: '{% if states.device_tracker.toyota.attributes.latitude %} {{ (distance(states("sensor.toyota_previous_latitude"), states("sensor.toyota_previous_longitude"), states.device_tracker.toyota.attributes.latitude, states.device_tracker.toyota.attributes.longitude) * 1000) | round (2) }} {% else %} -1 {% endif %}'
+        value_template: '{% if states.device_tracker.ioniq.attributes.latitude %} {{ (distance(states("sensor.ioniq_previous_latitude"), states("sensor.ioniq_previous_longitude"), states.device_tracker.ioniq.attributes.latitude, states.device_tracker.ioniq.attributes.longitude) * 1000) | round (2) }} {% else %} -1 {% endif %}'
         icon_template: 'mdi:ruler'
-        entity_id: device_tracker.toyota, sensor.toyota_previous_latitude, sensor.toyota_previous_longitude
+        entity_id: device_tracker.ioniq, sensor.ioniq_previous_latitude, sensor.ioniq_previous_longitude
 
   # Google travel time to work
   - platform: google_travel_time
     name: 'a la oficina'
     api_key: !secret google_api_key
-    origin: device_tracker.toyota
+    origin: device_tracker.ioniq
     destination: zone.oficina
     options:
       language: es
@@ -209,7 +209,7 @@ sensor:
   - platform: google_travel_time
     name: 'al colegio'
     api_key: !secret google_api_key
-    origin: device_tracker.toyota
+    origin: device_tracker.ioniq
     destination: zone.colegio
     options:
       language: es
@@ -258,8 +258,8 @@ sensor:
 
 camera:
   - platform: generic
-    name: Toyota
-    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.toyota.attributes.latitude }},{{ states.device_tracker.toyota.attributes.longitude }}&zoom=15&size=1280x1024&maptype=roadmap&markers=icon:https%3A%2F%2Fhome.hokusnet.com%2Flocal%2Ftoyota-small-t.png%7C{{ states.device_tracker.toyota.attributes.latitude }},{{ states.device_tracker.toyota.attributes.longitude }}
+    name: Ioniq
+    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.ioniq.attributes.latitude }},{{ states.device_tracker.ioniq.attributes.longitude }}&zoom=15&size=1280x1024&maptype=roadmap&markers=icon:https%3A%2F%2Fhome.hokusnet.com%2Flocal%2Fioniq-small-t.png%7C{{ states.device_tracker.ioniq.attributes.latitude }},{{ states.device_tracker.ioniq.attributes.longitude }}
     limit_refetch_to_url_change: true
   
   - platform: generic
@@ -277,11 +277,6 @@ switch:
     optimistic: false
     qos: 0
     retain: true
-
-counter:
-  toyota_notification:
-    initial: 0
-    step: 1
 
 cloud:
   google_actions:
@@ -556,12 +551,12 @@ automation:
               {%- endif -%}
             {%- endif -%}
   
-  # If fence is closed, Toyota enter 'home' zone and Jordi is 'En Ruta'
+  # If fence is closed, Ioniq enter 'home' zone and Jordi is 'En Ruta'
   # Open fence, notify it, send a meessage to mqtt topic, and set Jordi as 'home'
   - alias: 'Jordi arriving home'
     trigger:
        - platform: zone
-         entity_id: device_tracker.toyota
+         entity_id: device_tracker.ioniq
          zone: zone.home
          event: enter
     condition:
@@ -581,7 +576,7 @@ automation:
           payload_template: >
             He abierto la barrera. {%- if is_state("device_tracker.geni_combined", "home") -%}Jeni está en casa.{%- else -%}Jeni no está en casa.{%- endif -%}
           retain: false
-          topic: 'device/carphone/say'
+          topic: 'device/hokusphone/say'
       - delay:
           seconds: 5
       - service: mqtt.publish
@@ -606,7 +601,7 @@ automation:
   - alias: 'Jordi leaving home with car'
     trigger:
        - platform: zone
-         entity_id: device_tracker.toyota
+         entity_id: device_tracker.ioniq
          zone: zone.home
          event: leave
     condition:
@@ -614,8 +609,6 @@ automation:
         entity_id: device_tracker.jordi_combined
         state: 'En ruta'
     action:
-      - service: counter.reset
-        entity_id: counter.toyota_notification
       - service: device_tracker.see
         data:
           dev_id: 'hokusphone'
@@ -703,30 +696,6 @@ automation:
       - service: notify.telegram
         data:
           message: 'Modo vacaciones desactivado'
-
-  - alias: 'Count mqtt messages received from car when at home'
-    trigger:
-      platform: mqtt
-      topic: location/car/toyota
-    condition:
-      condition: state
-      entity_id: device_tracker.toyota
-      state: home
-    action:
-      - service: counter.increment
-        entity_id: counter.toyota_notification
-
-  - alias: 'Notify if I leave the car keys in the car'
-    trigger:
-      platform: numeric_state
-      entity_id: counter.toyota_notification
-      above: 10
-    action:
-      - service: notify.telegram
-        data:
-          message: '¿Te has dejado las llaves puestas en el contacto del coche?'
-      - service: counter.reset
-        entity_id: counter.toyota_notification
 
   - alias: Notify for new devices
     trigger:
