@@ -142,6 +142,8 @@ goto_sleep:
     - service_template: >
         {%- if is_state("sensor.outside_fence", "Abierta") -%}
           homeassistant.turn_on
+        {%- else -%}
+          homeassistant.update_entity
         {%- endif -%}
 
       data:

@@ -623,6 +623,8 @@ automation:
           {%- if is_state("group.unidad_familiar", "not_home") -%}
             {%- if is_state("sensor.outside_fence", "Abierta") -%}
               homeassistant.turn_on
+            {%- else -%}
+              homeassistant.update_entity
             {%- endif -%}
           {%- endif -%}
   
