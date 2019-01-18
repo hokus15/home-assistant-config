@@ -31,7 +31,7 @@
       icon_template: mdi:currency-btc
       value_template: !secret bitcoin_balance
       unit_of_measurement: 'BTC'
-      entity_id: sensor.date__time
+      entity_id: sensor.date_time
     bitcoin_walet_value: 
       friendly_name: 'Valor cartera Bitcoin'
       icon_template: mdi:currency-eur
@@ -43,7 +43,7 @@
       icon_template: mdi:currency-eth
       value_template: !secret ethereum_balance
       unit_of_measurement: 'ETH'
-      entity_id: sensor.date__time
+      entity_id: sensor.date_time
     ethereum_walet_value: 
       friendly_name: 'Valor cartera Ethereum'
       icon_template: mdi:currency-eur

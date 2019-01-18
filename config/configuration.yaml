@@ -83,7 +83,7 @@ recorder:
       - sun.sun
       - sensor.date
       - sensor.time
-      - sensor.date__time
+      - sensor.date_time
       - sensor.sunrise
       - sensor.sunset
 
