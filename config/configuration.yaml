@@ -16,6 +16,8 @@ homeassistant:
   packages: !include_dir_named packages
 
 http:
+# Needed for Torque!
+#  api_password: !secret ha_api_password
   base_url: !secret ha_base_url
   use_x_forwarded_for: true
   trusted_proxies:
@@ -109,6 +111,8 @@ logger:
     homeassistant.components.websocket_api: warn
     homeassistant.components.switch.command_line: warn
     homeassistant.components.sensor.command_line: warn
+#    homeassistant.components.sensor: debug
+#    homeassistant.components.sensor.torque: debug
 #    homeassistant.components.camera: debug
 #    homeassistant.components.shell_command: debug
 #    homeassistant.components.dialogflow: debug
