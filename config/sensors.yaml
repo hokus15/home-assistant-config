@@ -174,3 +174,9 @@
 - platform: uptime
   name: "HA runtime in minutes"
   unit_of_measurement: minutes
+
+- platform: mqtt
+  state_topic: 'car/ioniq/state'
+  name: ioniq_battery_level
+  value_template: '{{value_json.battery}}'
+  unit_of_measurement: '%'
