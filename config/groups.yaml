@@ -19,7 +19,7 @@ default_view:
 
 Vista Seguridad:
   view: yes
-  icon: mdi:security-home
+  icon: mdi:shield-home
   entities:
     - group.alarma
     - group.familia
