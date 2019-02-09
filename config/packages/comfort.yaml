@@ -856,7 +856,7 @@ automation:
     # To avoid energy waste, notify when laundry door is open and heating is on.
   - alias: 'When laundry door is open and heating is on, notify every 10 minutes'
     trigger:
-      platform: time
+      platform: time_pattern
       minutes: '/1'
       seconds: 00
     condition:
@@ -882,7 +882,7 @@ automation:
     # To avoid energy waste, notify when porch door in the kitchen is open, heating is on and in 'heat' state.
   - alias: 'When porch door in the kitchen is open and heating is on, notify every 10 minutes'
     trigger:
-      platform: time
+      platform: time_pattern
       minutes: '/1'
       seconds: 00
     condition:

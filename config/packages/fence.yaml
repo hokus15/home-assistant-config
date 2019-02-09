@@ -114,7 +114,7 @@ automation:
 
   - alias: 'When fence open notify every 10 minutes'
     trigger:
-      platform: time
+      platform: time_pattern
       minutes: '/1'
       seconds: 00
     condition:

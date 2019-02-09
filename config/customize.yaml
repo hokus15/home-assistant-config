@@ -51,7 +51,7 @@ sensor.processor_use:
 sensor.memory_free:
   friendly_name: 'RAM libre'
   icon: mdi:chip
-sensor.disk_free_:
+sensor.disk_free:
   friendly_name: 'Espacio libre'
 sensor.last_boot:
   friendly_name: 'Último reinicio'

@@ -194,7 +194,7 @@ Estado HA:
     - script.system_reboot_pi
     - sensor.processor_use
     - sensor.memory_free
-    - sensor.disk_free_
+    - sensor.disk_free
     - sensor.last_boot
     - sensor.ha_runtime_in_minutes
     - sensor.connected_clients
