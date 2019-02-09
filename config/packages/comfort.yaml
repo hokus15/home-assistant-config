@@ -260,7 +260,6 @@ group:
       - group.unidad_familiar
       - switch.thermostat
       - switch.thermostat_away_mode
-      - climate.termostato
 
 history_graph:
   outside_temperature:
