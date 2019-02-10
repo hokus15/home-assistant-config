@@ -31,7 +31,6 @@ homeassistant:
     sensor.insight_powerused:
       friendly_name: 'Consumo instantáneo coche'
       icon: 'mdi:speedometer'
-      unit_of_measurement: 'W'
     sensor.car_yearly_energy_cost:
       icon: 'mdi:currency-eur'
 
@@ -90,7 +89,8 @@ sensor:
   - platform: template
     sensors:
       insight_powerused:
-        value_template: "{{state_attr('switch.wemoinsight','current_power_w')|float|round(2)}}"
+        value_template: "{{state_attr('switch.wemoinsight','current_power_w')|int}}"
+        unit_of_measurement: W
       price_pico:
         friendly_name: 'Precio pico'
         value_template: 0.17
@@ -118,8 +118,8 @@ sensor:
   - platform: integration 
     source: sensor.insight_powerused
     name: energy_spent_insight
-    unit: kWh
-#    unit_prefix: k
+#    unit: W
+    unit_prefix: k
 #    unit_time: h
     round: 2
 
