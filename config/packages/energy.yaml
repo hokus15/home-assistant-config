@@ -22,16 +22,18 @@ homeassistant:
       friendly_name: 'Consumo mensual (pico)'
     sensor.monthly_energy_valle:
       friendly_name: 'Consumo mensual (valle)'
-    sensor.monthly_energy_insight_pico:
-      friendly_name: 'Consumo mensual (pico)'
+    sensor.yearly_energy_insight_pico:
+      friendly_name: 'Consumo anual (pico)'
       icon: 'mdi:trending-up'
-    sensor.monthly_energy_insight_valle:
-      friendly_name: 'Consumo mensual (valle)'
+    sensor.yearly_energy_insight_valle:
+      friendly_name: 'Consumo anual (valle)'
       icon: 'mdi:trending-down'
     sensor.insight_powerused:
       friendly_name: 'Consumo instantáneo coche'
       icon: 'mdi:speedometer'
       unit_of_measurement: 'W'
+    sensor.car_yearly_energy_cost:
+      icon: 'mdi:currency-eur'
 
     ###################################
     # Binary Sensors
@@ -89,6 +91,20 @@ sensor:
     sensors:
       insight_powerused:
         value_template: "{{state_attr('switch.wemoinsight','current_power_w')|float|round(2)}}"
+      price_pico:
+        friendly_name: 'Precio pico'
+        value_template: 0.17
+        unit_of_measurement: '€'
+        entity_id: sensor.date_time
+      price_valle:
+        friendly_name: 'Precio valle'
+        value_template: 0.08
+        unit_of_measurement: '€'
+        entity_id: sensor.date_time
+      car_yearly_energy_cost:
+        friendly_name: 'Coste anual recargas'
+        value_template: "{{(states.sensor.yearly_energy_insight_valle.state | float * states.sensor.price_valle.state | float) + (states.sensor.yearly_energy_insight_pico.state | float * states.sensor.price_pico.state | float) | round(2)}}"
+        unit_of_measurement: '€'
 
   - platform: integration 
     source: sensor.efergy_2577
@@ -167,9 +183,9 @@ utility_meter:
     tariffs:
       - Pico
       - Valle
-  monthly_energy_insight:
+  yearly_energy_insight:
     source: sensor.energy_spent_insight
-    cycle: monthly
+    cycle: yearly
     tariffs:
       - Pico
       - Valle
@@ -199,7 +215,7 @@ automation:
            tariff: 'Valle'
        - service: utility_meter.select_tariff
          data:
-           entity_id: utility_meter.monthly_energy_insight
+           entity_id: utility_meter.yearly_energy_insight
            tariff: 'Valle'
 
    - alias: 'Energy Pico time'
@@ -223,7 +239,7 @@ automation:
            tariff: 'Pico'
        - service: utility_meter.select_tariff
          data:
-           entity_id: utility_meter.monthly_energy_insight
+           entity_id: utility_meter.yearly_energy_insight
            tariff: 'Pico'
 
    - alias: 'Energy Valle time'
@@ -247,13 +263,13 @@ automation:
            tariff: 'Valle'
        - service: utility_meter.select_tariff
          data:
-           entity_id: utility_meter.monthly_energy_insight
+           entity_id: utility_meter.yearly_energy_insight
            tariff: 'Valle'
            
    - alias: 'Turn on WeMo Insight in Valle time'
      trigger:
        platform: state
-       entity_id: utility_meter.monthly_energy_insight
+       entity_id: utility_meter.yearly_energy_insight
        from: 'Pico'
        to: 'Valle'
      action:
@@ -263,7 +279,7 @@ automation:
    - alias: 'Turn off WeMo Insight in Pico time'
      trigger:
        platform: state
-       entity_id: utility_meter.monthly_energy_insight
+       entity_id: utility_meter.yearly_energy_insight
        from: 'Valle'
        to: 'Pico'
      action:
