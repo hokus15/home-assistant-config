@@ -262,13 +262,13 @@ sensor:
 camera:
   - platform: generic
     name: Ioniq
-    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.ioniq.attributes.latitude }},{{ states.device_tracker.ioniq.attributes.longitude }}&zoom=15&size=1280x1024&maptype=roadmap&markers=icon:https%3A%2F%2Fhome.hokusnet.com%2Flocal%2Fioniq-small-t.png%7C{{ states.device_tracker.ioniq.attributes.latitude }},{{ states.device_tracker.ioniq.attributes.longitude }}
+    still_image_url: !secret camera_ioniq_still_image_url
     limit_refetch_to_url_change: true
   
-  - platform: generic
-    name: Nissan
-    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}&zoom=15&size=500x500&maptype=roadmap&markers=color:grey%7Clabel:N%7C{{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}
-    limit_refetch_to_url_change: true
+#  - platform: generic
+#    name: Nissan
+#    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}&zoom=15&size=500x500&maptype=roadmap&markers=color:grey%7Clabel:N%7C{{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}
+#    limit_refetch_to_url_change: true
 
 switch:
   - platform: mqtt
