@@ -105,6 +105,9 @@ sensor:
         friendly_name: 'Coste anual recargas'
         value_template: "{{(states.sensor.yearly_energy_insight_valle.state | float * states.sensor.price_valle.state | float) + (states.sensor.yearly_energy_insight_pico.state | float * states.sensor.price_pico.state | float) | round(2)}}"
         unit_of_measurement: '€'
+        entity_id:
+          - sensor.yearly_energy_insight_valle
+          - sensor.yearly_energy_insight_pico
 
   - platform: integration 
     source: sensor.efergy_2577
