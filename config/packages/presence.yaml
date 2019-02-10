@@ -81,9 +81,14 @@ group:
       - sensor.ioniq_battery_level
       - sensor.ioniq_gps_accuracy
       - sensor.ioniq_last_update
-      - camera.ioniq
+      - binary_sensor.car_charging
+      - switch.wemoinsight
+      - sensor.insight_powerused
+      - sensor.monthly_energy_insight_pico
+      - sensor.monthly_energy_insight_valle
       - sensor.ioniq_distance_travelled_between_updates
-  
+      - camera.ioniq
+
   Nissan:
     entities:
       - device_tracker.nissan

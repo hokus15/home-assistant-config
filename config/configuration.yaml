@@ -77,13 +77,6 @@ recorder:
       - sensor.since_last_boot
       - sensor.last_boot
 
-      - sensor.nut_ups_manufacturer
-      - sensor.nut_ups_model
-      - sensor.nut_ups_status_data
-      - sensor.nut_ups_beeper_status
-      - sensor.nut_ups_battery_runtime
-      - sensor.nut_ups_battery_charge
-
       - sun.sun
       - sensor.date
       - sensor.time
@@ -225,7 +218,7 @@ tts:
     language: 'es'
 
 shell_command: !include shell_command.yaml
-switch: !include switches.yaml
+#switch: !include switches.yaml
 sensor: !include sensors.yaml
 binary_sensor: !include binary_sensors.yaml
 group: !include groups.yaml

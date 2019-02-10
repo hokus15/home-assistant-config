@@ -1,0 +1,271 @@
+homeassistant:
+  customize:
+    sensor.efergy_2577:
+      friendly_name: 'Consumo instantáneo'
+      icon: 'mdi:speedometer'
+    sensor.ups_status:
+      friendly_name: 'SAI'
+      icon: 'mdi:power-socket-eu'
+    sensor.nut_ups_manufacturer:
+      friendly_name: 'Marca'
+    sensor.nut_ups_model:
+      friendly_name: 'Modelo'
+    sensor.nut_ups_battery_charge:
+      friendly_name: 'Carga'
+    sensor.nut_ups_battery_runtime:
+      friendly_name: 'Tiempo restante'
+    sensor.daily_energy_pico:
+      friendly_name: 'Consumo diario (pico)'
+    sensor.daily_energy_valle:
+      friendly_name: 'Consumo diario (valle)'
+    sensor.monthly_energy_pico:
+      friendly_name: 'Consumo mensual (pico)'
+    sensor.monthly_energy_valle:
+      friendly_name: 'Consumo mensual (valle)'
+    sensor.monthly_energy_insight_pico:
+      friendly_name: 'Consumo mensual (pico)'
+      icon: 'mdi:trending-up'
+    sensor.monthly_energy_insight_valle:
+      friendly_name: 'Consumo mensual (valle)'
+      icon: 'mdi:trending-down'
+    sensor.insight_powerused:
+      friendly_name: 'Consumo instantáneo coche'
+      icon: 'mdi:speedometer'
+      unit_of_measurement: 'W'
+
+    ###################################
+    # Binary Sensors
+    ###################################
+    binary_sensor.ups_status_bs:
+      friendly_name: 'Suministro eléctrico'
+    ###################################
+    # Switches
+    ###################################
+    switch.ups_beeper:
+      friendly_name: 'Pitido'
+      icon: mdi:music-note
+    switch.wemoinsight:
+      friendly_name: 'Carga coche'
+
+    utility_meter.daily_energy:
+      friendly_name: 'Tarifa'
+recorder:
+  exclude:
+    entities:
+      - sensor.nut_ups_manufacturer
+      - sensor.nut_ups_model
+      - sensor.nut_ups_status_data
+      - sensor.nut_ups_beeper_status
+      - sensor.nut_ups_battery_runtime
+      - sensor.nut_ups_battery_charge
+
+group:
+  Energía:
+    entities:
+      - utility_meter.daily_energy
+      - binary_sensor.ups_status_bs
+  #    - sensor.energy_usage
+      - sensor.efergy_2577
+      - sensor.daily_energy_pico
+      - sensor.daily_energy_valle
+      - sensor.monthly_energy_pico
+      - sensor.monthly_energy_valle
+      - sensor.ups_status
+  SAI:
+    entities:
+      - sensor.ups_status
+      - sensor.nut_ups_battery_charge
+      - sensor.nut_ups_battery_runtime
+      - switch.ups_beeper
+
+sensor:
+  - platform: efergy
+    app_token: !secret efergy_app_token
+    utc_offset: 2
+    monitored_variables:
+      - type: current_values
+
+  - platform: template
+    sensors:
+      insight_powerused:
+        value_template: "{{state_attr('switch.wemoinsight','current_power_w')|float|round(2)}}"
+
+  - platform: integration 
+    source: sensor.efergy_2577
+    name: energy_spent
+    unit_prefix: k
+    round: 2
+
+  - platform: integration 
+    source: sensor.insight_powerused
+    name: energy_spent_insight
+    unit: W
+    unit_prefix: k
+    unit_time: h
+    round: 2
+
+  - platform: template
+    sensors:
+      ups_status:
+        value_template: >-
+          {%- if is_state('sensor.nut_ups_status_data', 'OL') %}
+            Normal
+          {% elif is_state('sensor.nut_ups_status_data', 'OL CHRG') %}
+            Cargando
+          {% elif is_state('sensor.nut_ups_status_data', 'OB DISCHRG') %}
+            Batería
+          {% elif is_state('sensor.nut_ups_status_data', 'LB DISCHRG') %}
+            Batería baja
+          {% elif is_state('sensor.nut_ups_status_data', 'RB') %}
+            Reemplazar batería
+          {% else %}
+            Desconocido
+          {%- endif %}
+  
+  - platform: nut
+    resources:
+      - ups.status
+      - battery.charge
+      - battery.runtime
+      - ups.beeper.status
+      - ups.mfr
+      - ups.model
+
+binary_sensor:
+  - platform: template
+    sensors:
+      ups_status_bs:
+        device_class: plug
+        entity_id: sensor.nut_ups_status_data
+        value_template: "{{ is_state('sensor.nut_ups_status_data', 'OL') or is_state('sensor.nut_ups_status_data', 'OL CHRG') }}"
+        delay_off:
+          seconds: 30
+      car_charging:
+        friendly_name: "Cargando"
+        device_class: power
+        value_template: "{{ states('sensor.insight_powerused')|float > 1000.0 }}"
+switch:
+  - platform: template
+    switches:
+      ups_beeper:
+        value_template: "{{ is_state('sensor.nut_ups_beeper_status', 'enabled') }}"
+        turn_on:
+          service: shell_command.nut_ups_enable_beeper
+        turn_off:
+          service: shell_command.nut_ups_disable_beeper
+
+utility_meter:
+  daily_energy:
+    source: sensor.energy_spent
+    cycle: daily 
+    tariffs:
+      - Pico
+      - Valle
+  monthly_energy:
+    source: sensor.energy_spent
+    cycle: monthly
+    tariffs:
+      - Pico
+      - Valle
+  monthly_energy_insight:
+    source: sensor.energy_spent_insight
+    cycle: monthly
+    tariffs:
+      - Pico
+      - Valle
+
+automation:
+   - alias: 'Set correct energy tariff on start'
+     trigger:
+       platform: homeassistant
+       event: start
+     condition:
+       condition: template
+       value_template:  >-
+           {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
+           {%- if timezone == 'CEST' %}
+             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0)) <= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
+           {% else %}
+             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=22).replace(minute=0).replace(second=0)) <= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
+           {%- endif %}
+     action:
+       - service: utility_meter.select_tariff
+         data:
+           entity_id: utility_meter.daily_energy 
+           tariff: 'Valle'
+       - service: utility_meter.select_tariff
+         data:
+           entity_id: utility_meter.monthly_energy
+           tariff: 'Valle'
+       - service: utility_meter.select_tariff
+         data:
+           entity_id: utility_meter.monthly_energy_insight
+           tariff: 'Valle'
+
+   - alias: 'Energy Pico time'
+     trigger:
+       platform: template
+       value_template: >-
+           {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
+           {%- if timezone == 'CEST' %}
+             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) == as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
+           {% else %}
+             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0)) == as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
+           {%- endif %}
+     action:
+       - service: utility_meter.select_tariff
+         data:
+           entity_id: utility_meter.daily_energy 
+           tariff: 'Pico'
+       - service: utility_meter.select_tariff
+         data:
+           entity_id: utility_meter.monthly_energy
+           tariff: 'Pico'
+       - service: utility_meter.select_tariff
+         data:
+           entity_id: utility_meter.monthly_energy_insight
+           tariff: 'Pico'
+
+   - alias: 'Energy Valle time'
+     trigger:
+       platform: template
+       value_template: >-
+           {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
+           {%- if timezone == 'CEST' %}
+             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0)) == as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
+           {% else %}
+             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=22).replace(minute=0).replace(second=0)) == as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
+           {%- endif %}
+     action:
+       - service: utility_meter.select_tariff
+         data:
+           entity_id: utility_meter.daily_energy 
+           tariff: 'Valle'
+       - service: utility_meter.select_tariff
+         data:
+           entity_id: utility_meter.monthly_energy
+           tariff: 'Valle'
+       - service: utility_meter.select_tariff
+         data:
+           entity_id: utility_meter.monthly_energy_insight
+           tariff: 'Valle'
+           
+   - alias: 'Turn on WeMo Insight in Valle time'
+     trigger:
+       platform: state
+       entity_id: utility_meter.monthly_energy_insight
+       from: 'Pico'
+       to: 'Valle'
+     action:
+       - service: switch.turn_on
+         entity_id: switch.wemoinsight
+
+   - alias: 'Turn off WeMo Insight in Pico time'
+     trigger:
+       platform: state
+       entity_id: utility_meter.monthly_energy_insight
+       from: 'Valle'
+       to: 'Pico'
+     action:
+       - service: switch.turn_off
+         entity_id: switch.wemoinsight

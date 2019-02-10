@@ -1,8 +1,0 @@
-- platform: template
-  switches:
-    ups_beeper:
-      value_template: "{{ is_state('sensor.nut_ups_beeper_status', 'enabled') }}"
-      turn_on:
-        service: shell_command.nut_ups_enable_beeper
-      turn_off:
-        service: shell_command.nut_ups_disable_beeper

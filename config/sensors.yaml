@@ -51,12 +51,6 @@
       unit_of_measurement: '€'
       entity_id: sensor.exchange_rate_1_eth
 
-- platform: efergy
-  app_token: !secret efergy_app_token
-  utc_offset: 2
-  monitored_variables:
-    - type: current_values
-
 - platform: speedtest
   minute: 30
   hour:
@@ -68,24 +62,6 @@
     - ping
     - download
     - upload
-
-- platform: template
-  sensors:
-    ups_status:
-      value_template: >-
-        {%- if is_state('sensor.nut_ups_status_data', 'OL') %}
-          Normal
-        {% elif is_state('sensor.nut_ups_status_data', 'OL CHRG') %}
-          Cargando
-        {% elif is_state('sensor.nut_ups_status_data', 'OB DISCHRG') %}
-          Batería
-        {% elif is_state('sensor.nut_ups_status_data', 'LB DISCHRG') %}
-          Batería baja
-        {% elif is_state('sensor.nut_ups_status_data', 'RB') %}
-          Reemplazar batería
-        {% else %}
-          Desconocido
-        {%- endif %}
 
 #- platform: template
 #  sensors:
@@ -149,15 +125,6 @@
   state_topic: 'home/printer/black'
   name: ink_level_black
   unit_of_measurement: '%'
-
-- platform: nut
-  resources:
-    - ups.status
-    - battery.charge
-    - battery.runtime
-    - ups.beeper.status
-    - ups.mfr
-    - ups.model
 
 - platform: cert_expiry
   host: !secret cert_expiry_host

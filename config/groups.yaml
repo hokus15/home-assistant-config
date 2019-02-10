@@ -90,12 +90,6 @@ Varios:
 ################################################
 # Groups
 ################################################
-Energía:
-  entities:
-    - binary_sensor.ups_status_bs
-#    - sensor.energy_usage
-    - sensor.efergy_2577
-    - sensor.ups_status
 
 Salón:
   entities:
@@ -208,13 +202,6 @@ Impresora:
     - sensor.ink_level_cyan
     - sensor.ink_level_yellow
     - sensor.ink_level_black
-
-SAI:
-  entities:
-    - sensor.ups_status
-    - sensor.nut_ups_battery_charge
-    - sensor.nut_ups_battery_runtime
-    - switch.ups_beeper
 
 Estado baterías:
   entities:
