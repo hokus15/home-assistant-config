@@ -103,7 +103,7 @@ sensor:
         entity_id: sensor.date_time
       car_yearly_energy_cost:
         friendly_name: 'Coste anual recargas'
-        value_template: "{{(states.sensor.yearly_energy_insight_valle.state | float * states.sensor.price_valle.state | float) + (states.sensor.yearly_energy_insight_pico.state | float * states.sensor.price_pico.state | float) | round(2)}}"
+        value_template: "{{((states.sensor.yearly_energy_insight_valle.state | float * states.sensor.price_valle.state | float) + (states.sensor.yearly_energy_insight_pico.state | float * states.sensor.price_pico.state | float)) | round(2)}}"
         unit_of_measurement: '€'
         entity_id:
           - sensor.yearly_energy_insight_valle
@@ -118,9 +118,9 @@ sensor:
   - platform: integration 
     source: sensor.insight_powerused
     name: energy_spent_insight
-    unit: W
-    unit_prefix: k
-    unit_time: h
+    unit: kWh
+#    unit_prefix: k
+#    unit_time: h
     round: 2
 
   - platform: template
