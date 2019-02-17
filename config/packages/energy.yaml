@@ -28,9 +28,18 @@ homeassistant:
     sensor.yearly_energy_insight_valle:
       friendly_name: 'Consumo anual (valle)'
       icon: 'mdi:trending-down'
+      unit_of_measurement: kWh
+    sensor.monthly_energy_insight_pico:
+      friendly_name: 'Consumo mensual (pico)'
+      icon: 'mdi:trending-up'
+    sensor.monthly_energy_insight_valle:
+      friendly_name: 'Consumo mensual (valle)'
+      icon: 'mdi:trending-down'
     sensor.insight_powerused:
       friendly_name: 'Consumo instantáneo coche'
       icon: 'mdi:speedometer'
+    sensor.car_monthly_energy_cost:
+      icon: 'mdi:currency-eur'
     sensor.car_yearly_energy_cost:
       icon: 'mdi:currency-eur'
 
@@ -101,6 +110,13 @@ sensor:
         value_template: 0.08
         unit_of_measurement: '€'
         entity_id: sensor.date_time
+      car_monthly_energy_cost:
+        friendly_name: 'Coste mensual recargas'
+        value_template: "{{((states.sensor.monthly_energy_insight_valle.state | float * states.sensor.price_valle.state | float) + (states.sensor.monthly_energy_insight_pico.state | float * states.sensor.price_pico.state | float)) | round(2)}}"
+        unit_of_measurement: '€'
+        entity_id:
+          - sensor.monthly_energy_insight_valle
+          - sensor.monthly_energy_insight_pico
       car_yearly_energy_cost:
         friendly_name: 'Coste anual recargas'
         value_template: "{{((states.sensor.yearly_energy_insight_valle.state | float * states.sensor.price_valle.state | float) + (states.sensor.yearly_energy_insight_pico.state | float * states.sensor.price_pico.state | float)) | round(2)}}"
@@ -186,6 +202,12 @@ utility_meter:
     tariffs:
       - Pico
       - Valle
+  monthly_energy_insight:
+    source: sensor.energy_spent_insight
+    cycle: monthly
+    tariffs:
+      - Pico
+      - Valle
   yearly_energy_insight:
     source: sensor.energy_spent_insight
     cycle: yearly
@@ -218,6 +240,10 @@ automation:
            tariff: 'Valle'
        - service: utility_meter.select_tariff
          data:
+           entity_id: utility_meter.monthly_energy_insight
+           tariff: 'Valle'
+       - service: utility_meter.select_tariff
+         data:
            entity_id: utility_meter.yearly_energy_insight
            tariff: 'Valle'
 
@@ -242,6 +268,10 @@ automation:
            tariff: 'Pico'
        - service: utility_meter.select_tariff
          data:
+           entity_id: utility_meter.monthly_energy_insight
+           tariff: 'Valle'
+       - service: utility_meter.select_tariff
+         data:
            entity_id: utility_meter.yearly_energy_insight
            tariff: 'Pico'
 
@@ -263,6 +293,10 @@ automation:
        - service: utility_meter.select_tariff
          data:
            entity_id: utility_meter.monthly_energy
+           tariff: 'Valle'
+       - service: utility_meter.select_tariff
+         data:
+           entity_id: utility_meter.monthly_energy_insight
            tariff: 'Valle'
        - service: utility_meter.select_tariff
          data:
