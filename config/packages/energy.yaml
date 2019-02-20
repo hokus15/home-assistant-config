@@ -97,23 +97,23 @@ sensor:
 
   - platform: template
     sensors:
-#      energy_peak_start:
-#        value_template: >-
-#           {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
-#           {%- if timezone == 'CEST' %}
-#             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) }}
-#           {% else %}
-#             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0)) }}
-#           {%- endif %}
-#
-#      energy_offpeak_start:
-#        value_template: >-
-#           {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
-#           {%- if timezone == 'CEST' %}
-#             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0)) }}
-#           {% else %}
-#             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=22).replace(minute=0).replace(second=0)) }}
-#           {%- endif %}
+      energy_peak_start:
+        value_template: >-
+           {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
+           {%- if timezone == 'CEST' %}
+             {{ strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0) }}
+           {% else %}
+             {{ strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0) }}
+           {%- endif %}
+
+      energy_offpeak_start:
+        value_template: >-
+           {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
+           {%- if timezone == 'CEST' %}
+             {{ strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0) }}
+           {% else %}
+             {{ strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=22).replace(minute=0).replace(second=0) }}
+           {%- endif %}
 
       insight_powerused:
         value_template: "{{state_attr('switch.wemoinsight','current_power_w')|int}}"
