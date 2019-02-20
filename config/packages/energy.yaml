@@ -97,6 +97,24 @@ sensor:
 
   - platform: template
     sensors:
+#      energy_peak_start:
+#        value_template: >-
+#           {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
+#           {%- if timezone == 'CEST' %}
+#             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) }}
+#           {% else %}
+#             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0)) }}
+#           {%- endif %}
+#
+#      energy_offpeak_start:
+#        value_template: >-
+#           {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
+#           {%- if timezone == 'CEST' %}
+#             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0)) }}
+#           {% else %}
+#             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=22).replace(minute=0).replace(second=0)) }}
+#           {%- endif %}
+
       insight_powerused:
         value_template: "{{state_attr('switch.wemoinsight','current_power_w')|int}}"
         unit_of_measurement: W
@@ -104,27 +122,26 @@ sensor:
         friendly_name: 'Precio pico'
         value_template: 0.17
         unit_of_measurement: '€'
-        entity_id: sensor.date_time
       price_valle:
         friendly_name: 'Precio valle'
         value_template: 0.08
         unit_of_measurement: '€'
-        entity_id: sensor.date_time
       car_monthly_energy_cost:
         friendly_name: 'Coste mensual recargas'
-        value_template: "{{((states.sensor.monthly_energy_insight_valle.state | float * states.sensor.price_valle.state | float) + (states.sensor.monthly_energy_insight_pico.state | float * states.sensor.price_pico.state | float)) | round(2)}}"
+        value_template: "{{((((states.sensor.monthly_energy_insight_valle.state | float * states.sensor.price_valle.state | float) + (states.sensor.monthly_energy_insight_pico.state | float * states.sensor.price_pico.state | float)) * 1.0511) * 1.21)| round(2)}}"
         unit_of_measurement: '€'
         entity_id:
           - sensor.monthly_energy_insight_valle
           - sensor.monthly_energy_insight_pico
+          - sensor.date_time
       car_yearly_energy_cost:
         friendly_name: 'Coste anual recargas'
-        value_template: "{{((states.sensor.yearly_energy_insight_valle.state | float * states.sensor.price_valle.state | float) + (states.sensor.yearly_energy_insight_pico.state | float * states.sensor.price_pico.state | float)) | round(2)}}"
+        value_template: "{{((((states.sensor.yearly_energy_insight_valle.state | float * states.sensor.price_valle.state | float) + (states.sensor.yearly_energy_insight_pico.state | float * states.sensor.price_pico.state | float)) * 1.0511) * 1.21) | round(2)}}"
         unit_of_measurement: '€'
         entity_id:
           - sensor.yearly_energy_insight_valle
           - sensor.yearly_energy_insight_pico
-
+          - sensor.date_time
   - platform: integration 
     source: sensor.efergy_2577
     name: energy_spent
@@ -303,15 +320,15 @@ automation:
            entity_id: utility_meter.yearly_energy_insight
            tariff: 'Valle'
            
-   - alias: 'Turn on WeMo Insight in Valle time'
-     trigger:
-       platform: state
-       entity_id: utility_meter.yearly_energy_insight
-       from: 'Pico'
-       to: 'Valle'
-     action:
-       - service: switch.turn_on
-         entity_id: switch.wemoinsight
+#   - alias: 'Turn on WeMo Insight in Valle time'
+#     trigger:
+#       platform: state
+#       entity_id: utility_meter.yearly_energy_insight
+#       from: 'Pico'
+#       to: 'Valle'
+#     action:
+#       - service: switch.turn_on
+#         entity_id: switch.wemoinsight
 
    - alias: 'Turn off WeMo Insight in Pico time'
      trigger:
