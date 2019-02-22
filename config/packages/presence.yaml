@@ -6,6 +6,9 @@ homeassistant:
     sensor.ioniq_battery_level:
       friendly_name: 'Batería'
       device_class: 'battery'
+    sensor.ioniq_battery_health:
+      friendly_name: 'Salud batería'
+      device_class: 'battery'
     sensor.ioniq_gps_accuracy:
       friendly_name: 'Precisión GPS'
       icon: 'mdi:map-marker-radius'
@@ -79,6 +82,7 @@ group:
     entities:
       - device_tracker.ioniq
       - sensor.ioniq_battery_level
+      - sensor.ioniq_battery_health
       - sensor.ioniq_gps_accuracy
       - sensor.ioniq_last_update
       - sensor.ioniq_distance_travelled_between_updates

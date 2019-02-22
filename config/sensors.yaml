@@ -145,5 +145,11 @@
 - platform: mqtt
   state_topic: 'car/ioniq/state'
   name: ioniq_battery_level
-  value_template: '{{value_json.battery}}'
+  value_template: '{{value_json.soc_display}}'
+  unit_of_measurement: '%'
+
+- platform: mqtt
+  state_topic: 'car/ioniq/state'
+  name: ioniq_battery_health
+  value_template: '{{value_json.soh}}'
   unit_of_measurement: '%'
