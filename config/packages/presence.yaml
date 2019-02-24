@@ -3,9 +3,18 @@ homeassistant:
     sensor.ioniq_batt:
       friendly_name: 'Batería'
       device_class: 'battery'
-    sensor.ioniq_battery_level:
-      friendly_name: 'Batería'
+    sensor.ioniq_soc_display:
+      friendly_name: 'Batería mostrada'
       device_class: 'battery'
+    sensor.ioniq_soc_bms:
+      friendly_name: 'Batería BMS'
+      device_class: 'battery'
+    sensor.ioniq_odometer:
+      friendly_name: 'Odómetro'
+      icon: 'mdi:counter'
+    sensor.ioniq_efficiency:
+      friendly_name: 'Consumo'
+      icon: 'mdi:car-electric'
     sensor.ioniq_battery_health:
       friendly_name: 'Salud batería'
       device_class: 'battery'
@@ -81,7 +90,10 @@ group:
   Ioniq:
     entities:
       - device_tracker.ioniq
-      - sensor.ioniq_battery_level
+      - sensor.ioniq_soc_display
+      - sensor.ioniq_soc_bms
+      - sensor.ioniq_odometer
+      - sensor.ioniq_efficiency
       - sensor.ioniq_battery_health
       - sensor.ioniq_gps_accuracy
       - sensor.ioniq_last_update

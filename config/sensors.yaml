@@ -144,7 +144,7 @@
 
 - platform: mqtt
   state_topic: 'car/ioniq/state'
-  name: ioniq_battery_level
+  name: ioniq_soc_display
   value_template: '{{value_json.soc_display}}'
   unit_of_measurement: '%'
 
@@ -153,3 +153,37 @@
   name: ioniq_battery_health
   value_template: '{{value_json.soh}}'
   unit_of_measurement: '%'
+
+- platform: mqtt
+  state_topic: 'car/ioniq/state'
+  name: ioniq_soc_bms
+  value_template: '{{value_json.soc_bms}}'
+  unit_of_measurement: '%'
+
+- platform: mqtt
+  state_topic: 'car/ioniq/state'
+  name: ioniq_odometer
+  value_template: '{{value_json.distance}}'
+  unit_of_measurement: 'Km'
+
+- platform: mqtt
+  state_topic: 'car/ioniq/state'
+  name: ioniq_ced
+  value_template: '{{value_json.ced}}'
+  unit_of_measurement: 'kWh'
+
+- platform: mqtt
+  state_topic: 'car/ioniq/state'
+  name: ioniq_cec
+  value_template: '{{value_json.cec}}'
+  unit_of_measurement: 'kWh'
+
+- platform: template
+  sensors:
+    ioniq_efficiency:
+      friendly_name: 'Consumo medio'
+      value_template: '{{ ((states.sensor.ioniq_ced.state | float / states.sensor.ioniq_odometer.state | float) * 100) | round(1)}}'
+      unit_of_measurement: 'kWh/100Km'
+      entity_id:
+        - sensor.ioniq_ced
+        - sensor.ioniq_odometer
