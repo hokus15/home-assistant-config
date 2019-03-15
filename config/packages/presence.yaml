@@ -1,38 +1,5 @@
 homeassistant:
   customize:
-    sensor.ioniq_batt:
-      friendly_name: 'Batería'
-      device_class: 'battery'
-    sensor.ioniq_soc_display:
-      friendly_name: 'Batería mostrada'
-      device_class: 'battery'
-    sensor.ioniq_soc_bms:
-      friendly_name: 'Batería BMS'
-      device_class: 'battery'
-    sensor.ioniq_odometer:
-      friendly_name: 'Odómetro'
-      icon: 'mdi:counter'
-    sensor.ioniq_efficiency:
-      friendly_name: 'Consumo'
-      icon: 'mdi:car-electric'
-    sensor.ioniq_battery_health:
-      friendly_name: 'Salud batería'
-      device_class: 'battery'
-    sensor.ioniq_gps_accuracy:
-      friendly_name: 'Precisión GPS'
-      icon: 'mdi:map-marker-radius'
-    sensor.ioniq_last_update:
-      friendly_name: 'Última actualización'
-      icon: 'mdi:clock'
-    sensor.nissan_batt:
-      friendly_name: 'Batería'
-      device_class: 'battery'
-    sensor.nissan_gps_accuracy:
-      friendly_name: 'Precisión GPS'
-      icon: 'mdi:map-marker-radius'
-    sensor.nissan_last_update:
-      friendly_name: 'Última actualización'
-      icon: 'mdi:clock'
     sensor.next_holiday_mode_start:
       icon: mdi:airplane-takeoff
     sensor.next_holiday_mode_end:
@@ -59,11 +26,6 @@ recorder:
       - sensor.next_shift_date
       - sensor.next_shift_event
       - sensor.check_switch_holiday
-      - sensor.ioniq_previous_latitude
-      - sensor.ioniq_previous_longitude
-      - sensor.ioniq_last_update
-
-      - sensor.nissan_last_update
 
       - input_number.empty_home_activation_delay_minutes
 
@@ -86,36 +48,6 @@ group:
       - sensor.next_holiday_mode_end
       - sensor.next_shift_event
       - sensor.next_shift_date
-  
-  Ioniq:
-    entities:
-      - device_tracker.ioniq
-      - sensor.ioniq_soc_display
-      - sensor.ioniq_soc_bms
-      - sensor.ioniq_odometer
-      - sensor.ioniq_efficiency
-      - sensor.ioniq_battery_health
-      - sensor.ioniq_gps_accuracy
-      - sensor.ioniq_last_update
-      - sensor.ioniq_distance_travelled_between_updates
-      - binary_sensor.car_charging
-      - switch.wemoinsight
-      - sensor.insight_powerused
-      - sensor.monthly_energy_insight_pico
-      - sensor.monthly_energy_insight_valle
-      - sensor.car_monthly_energy_cost
-      - sensor.yearly_energy_insight_pico
-      - sensor.yearly_energy_insight_valle
-      - sensor.car_yearly_energy_cost
-      - camera.ioniq
-
-  Nissan:
-    entities:
-      - device_tracker.nissan
-      - sensor.nissan_batt
-      - sensor.nissan_gps_accuracy
-      - sensor.nissan_last_update
-      - camera.nissan
 
 input_boolean:
   empty_home_activation_delay:
@@ -149,14 +81,7 @@ device_tracker:
 #    host: !secret wrt1900acs_host
 #    username: !secret wrt1900acs_username 
 #    password: !secret wrt1900acs_password
-    
-  - platform: mqtt_json
-    devices:
-      # Ioniq tracker
-      ioniq: location/car/ioniq
-      # Nissan tracker
-      nissan: location/car/nissan
-  
+
   - platform: mqtt
     devices:
       # Updated when hokusphone is connected to a WiFi
@@ -165,85 +90,8 @@ device_tracker:
       hokusphone_ibeacon: location/hokusphone/ibeacon
       # Updated when geniphone is connected to a WiFi
       geniphone_wifi: location/geniphone/wifi
-      # Updated when iBeacon is detected from geniphone
-      geniphone_ibeacon: location/geniphone/ibeacon
 
 sensor:
-  - platform: mqtt
-    state_topic: 'location/car/nissan'
-    name: nissan_batt
-    unit_of_measurement: '%'
-    value_template: '{{ value_json.battery_level }}'
-  
-  - platform: mqtt
-    state_topic: 'location/car/nissan'
-    name: nissan_gps_accuracy
-    unit_of_measurement: 'm'
-    value_template: '{{ value_json.gps_accuracy }}'
-  
-  - platform: mqtt
-    state_topic: 'location/car/nissan'
-    name: nissan_last_update
-    value_template: '{{ value_json.last_update|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
-  
-  - platform: mqtt
-    state_topic: 'location/car/ioniq'
-    name: ioniq_batt
-    unit_of_measurement: '%'
-    value_template: '{{ value_json.battery_level }}'
-  
-  - platform: mqtt
-    state_topic: 'location/car/ioniq'
-    name: ioniq_gps_accuracy
-    unit_of_measurement: 'm'
-    value_template: '{{ value_json.gps_accuracy }}'
-  
-  - platform: mqtt
-    state_topic: 'location/car/ioniq'
-    name: ioniq_last_update
-    value_template: '{{ value_json.last_update|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
-  
-  - platform: mqtt
-    state_topic: 'location/car/ioniq'
-    name: ioniq_previous_latitude
-    value_template: '{{ value_json.platitude }}'
-  
-  - platform: mqtt
-    state_topic: 'location/car/ioniq'
-    name: ioniq_previous_longitude
-    value_template: '{{ value_json.plongitude }}'
-  
-  - platform: template
-    sensors:
-      ioniq_distance_travelled_between_updates:
-        unit_of_measurement: 'm'
-        friendly_name: 'Dist. entre actualizaciones'
-        value_template: '{% if states.device_tracker.ioniq.attributes.latitude %} {{ (distance(states("sensor.ioniq_previous_latitude"), states("sensor.ioniq_previous_longitude"), states.device_tracker.ioniq.attributes.latitude, states.device_tracker.ioniq.attributes.longitude) * 1000) | round (2) }} {% else %} -1 {% endif %}'
-        icon_template: 'mdi:tape-measure'
-        entity_id: device_tracker.ioniq, sensor.ioniq_previous_latitude, sensor.ioniq_previous_longitude
-
-  # Google travel time to work
-  - platform: google_travel_time
-    name: 'a la oficina'
-    api_key: !secret google_api_key
-    origin: device_tracker.ioniq
-    destination: zone.oficina
-    options:
-      language: es
-      departure_time: now
-      traffic_model: pessimistic
-  
-  # Google travel time to school
-  - platform: google_travel_time
-    name: 'al colegio'
-    api_key: !secret google_api_key
-    origin: device_tracker.ioniq
-    destination: zone.colegio
-    options:
-      language: es
-      departure_time: now
-      traffic_model: pessimistic
-
   - platform: template
     sensors:
       next_holiday_mode_start:
@@ -283,17 +131,6 @@ sensor:
             {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 6 %}
                 Sábado, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
             {%- endif %}
-
-camera:
-  - platform: generic
-    name: Ioniq
-    still_image_url: !secret camera_ioniq_still_image_url
-    limit_refetch_to_url_change: true
-  
-#  - platform: generic
-#    name: Nissan
-#    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}&zoom=15&size=500x500&maptype=roadmap&markers=color:grey%7Clabel:N%7C{{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}
-#    limit_refetch_to_url_change: true
 
 switch:
   - platform: mqtt
@@ -479,15 +316,14 @@ automation:
   # Presence automations - Geni
   #############################################################
   
-  # When some related entities (device_tracker.geniphone, device_tracker.geniphone_wifi, device_tracker.geniphone_ibeacon) changes its state:
-  # Set Geni to 'En ruta' if ibeacon is not 'home' and don't have the 'not_detected' value.
-  # Else set Geni to 'home' when at least ONE of related entities are set to 'home'
-  # Else set Geni to 'not_home' when ALL related entities are in a state different from 'home' and not 'En ruta'
+  # When some related entities (device_tracker.geniphone, device_tracker.geniphone_wifi) changes its state:
+  # Set Geni to 'home' when at least ONE of related entities are set to 'home'
+  # Else set Geni to 'not_home' when ALL related entities are in a state different from 'home'
   # Set Geni to the WiFi name otherwise
   - alias: 'Geni location'
     trigger:
       - platform: state
-        entity_id: device_tracker.geniphone, device_tracker.geniphone_wifi, device_tracker.geniphone_ibeacon
+        entity_id: device_tracker.geniphone, device_tracker.geniphone_wifi
       - platform: homeassistant
         event: start
     action:
@@ -495,17 +331,13 @@ automation:
         data_template:
           dev_id: 'geni_combined'
           location_name: >
-            {%- if not(is_state('device_tracker.geniphone_ibeacon', 'home')) and not(is_state('device_tracker.geniphone_ibeacon', 'not_detected'))-%}
-              {{ states.device_tracker.geniphone_ibeacon.state }}
+            {%- if is_state('device_tracker.geniphone', 'home') or is_state('device_tracker.geniphone_wifi', 'home') -%}
+              home
             {%- else -%}
-              {%- if is_state('device_tracker.geniphone', 'home') or is_state('device_tracker.geniphone_wifi', 'home') or is_state('device_tracker.geniphone_ibeacon', 'home') -%}
-                home
+              {%- if is_state('device_tracker.geniphone', 'not_home') and is_state('device_tracker.geniphone_wifi', 'not_connected') -%}
+                not_home
               {%- else -%}
-                {%- if is_state('device_tracker.geniphone', 'not_home') and is_state('device_tracker.geniphone_wifi', 'not_connected') and is_state('device_tracker.geniphone_ibeacon', 'not_detected') -%}
-                  not_home
-                {%- else -%}
-                  {{ states.device_tracker.geniphone_wifi.state }}
-                {%- endif -%}
+                {{ states.device_tracker.geniphone_wifi.state }}
               {%- endif -%}
             {%- endif -%}
   
