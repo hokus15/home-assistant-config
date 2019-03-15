@@ -172,9 +172,6 @@ sensor:
         entity_id:
           - sensor.ioniq_ced
           - sensor.ioniq_odometer
-
-  - platform: template
-    sensors:
       ioniq_distance_travelled_between_updates:
         unit_of_measurement: 'm'
         friendly_name: 'Dist. entre actualizaciones'
@@ -239,3 +236,29 @@ automation:
           latitude: '{{ states.device_tracker.ioniq.attributes.latitude }}'
           longitude: '{{ states.device_tracker.ioniq.attributes.longitude }}'
           target: !secret hokusphone_telegram_chat_id
+
+  # Change Ioniq state to "En ruta" when is publishing location data to mqtt
+  - alias: 'Ioniq En ruta'
+    trigger:
+      platform: mqtt
+      topic: car/ioniq/location
+    action:
+      - service: device_tracker.see
+        data:
+          dev_id: 'ioniq'
+          location_name: 'En ruta'
+
+  # Change Ioniq state to "not_home" when no data published to mqtt for more than 1 minute
+  - alias: 'Ioniq not-home'
+    trigger:
+        platform: template
+        value_template: '{{(as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))-as_timestamp(strptime(states.sensor.ioniq_last_update.state,"%d/%m/%Y %H:%M:%S")))/60 > 1}}'
+    condition:
+      condition: state
+      entity_id: device_tracker.ioniq
+      state: 'En ruta'
+    action:
+      - service: device_tracker.see
+        data:
+          dev_id: 'ioniq'
+          location_name: 'not_home'
