@@ -51,18 +51,6 @@
       unit_of_measurement: '€'
       entity_id: sensor.exchange_rate_1_eth
 
-- platform: speedtest
-  minute: 30
-  hour:
-    - 0
-    - 6
-    - 12
-    - 18
-  monitored_conditions:
-    - ping
-    - download
-    - upload
-
 #- platform: template
 #  sensors:
 #    hokuslaptop_powerused:
