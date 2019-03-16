@@ -341,7 +341,7 @@ automation:
               {%- endif -%}
             {%- endif -%}
   
-  # If fence is closed, Nissan enter 'home' zone and Geni is 'En Ruta'
+  # If fence is closed, Nissan enter 'home' zone and is 'En Ruta'
   # Open fence, notify it and set Geni as 'home'
   - alias: 'Geni arriving home'
     trigger:
@@ -356,7 +356,7 @@ automation:
           entity_id: sensor.outside_fence
           state: 'Cerrada'
         - condition: state
-          entity_id: device_tracker.geni_combined
+          entity_id: device_tracker.nissan
           state: 'En ruta'
     action:
       - service: switch.turn_on
@@ -381,15 +381,14 @@ automation:
   # Presence automations - Jordi
   #############################################################
   
-  # When some related entities (device_tracker.hokusphone, device_tracker.hokusphone_wifi, device_tracker.hokusphone_ibeacon) changes its state:
-  # Set Jordi to 'En ruta' if ibeacon is not 'home' and don't have the 'not_detected' value.
+  # When some related entities (device_tracker.hokusphone, device_tracker.hokusphone_wifi) changes its state:
   # Else set Jordi to 'home' when at least ONE of related entities are set to 'home'
-  # Else set Jordi to 'not_home' when ALL related entities are in a state different from 'home' and not 'En ruta'
+  # Else set Jordi to 'not_home' when ALL related entities are in a state different from 'home'
   # Set Jordi to the WiFi name otherwise
   - alias: 'Jordi location'
     trigger:
       - platform: state
-        entity_id: device_tracker.hokusphone, device_tracker.hokusphone_wifi, device_tracker.hokusphone_ibeacon
+        entity_id: device_tracker.hokusphone, device_tracker.hokusphone_wifi
       - platform: homeassistant
         event: start
     action:
@@ -397,21 +396,17 @@ automation:
         data_template:
           dev_id: 'jordi_combined'
           location_name: >
-            {%- if not(is_state('device_tracker.hokusphone_ibeacon', 'home')) and not(is_state('device_tracker.hokusphone_ibeacon', 'not_detected'))-%}
-              {{ states.device_tracker.hokusphone_ibeacon.state }}
+            {%- if is_state('device_tracker.hokusphone', 'home') or is_state('device_tracker.hokusphone_wifi', 'home') -%}
+              home
             {%- else -%}
-              {%- if is_state('device_tracker.hokusphone', 'home') or is_state('device_tracker.hokusphone_wifi', 'home') or is_state('device_tracker.hokusphone_ibeacon', 'home') -%}
-                home
+              {%- if is_state('device_tracker.hokusphone', 'not_home') and is_state('device_tracker.hokusphone_wifi', 'not_connected') -%}
+                not_home
               {%- else -%}
-                {%- if is_state('device_tracker.hokusphone', 'not_home') and is_state('device_tracker.hokusphone_wifi', 'not_connected') and is_state('device_tracker.hokusphone_ibeacon', 'not_detected') -%}
-                  not_home
-                {%- else -%}
-                  {{ states.device_tracker.hokusphone_wifi.state }}
-                {%- endif -%}
+                {{ states.device_tracker.hokusphone_wifi.state }}
               {%- endif -%}
             {%- endif -%}
-  
-  # If fence is closed, Ioniq enter 'home' zone and Jordi is 'En Ruta'
+
+  # If fence is closed, Ioniq enter 'home' zone and is 'En Ruta'
   # Open fence, notify it, send a meessage to mqtt topic, and set Jordi as 'home'
   - alias: 'Jordi arriving home'
     trigger:
@@ -426,7 +421,7 @@ automation:
           entity_id: sensor.outside_fence
           state: 'Cerrada'
         - condition: state
-          entity_id: device_tracker.jordi_combined
+          entity_id: device_tracker.ioniq
           state: 'En ruta'
     action:
       - service: switch.turn_on
@@ -439,11 +434,6 @@ automation:
           topic: 'device/hokusphone/say'
       - delay:
           seconds: 5
-      - service: mqtt.publish
-        data:
-          payload: not_detected
-          retain: false
-          topic: 'location/hokusphone/ibeacon'
       - service: telegram_bot.send_message
         data_template:
           message: 'Barrera abierta automáticamente'
@@ -466,7 +456,7 @@ automation:
          event: leave
     condition:
       - condition: state
-        entity_id: device_tracker.jordi_combined
+        entity_id: device_tracker.ioniq
         state: 'En ruta'
     action:
       - service: device_tracker.see
