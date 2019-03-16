@@ -191,7 +191,7 @@ sensor:
       - filter: lowpass
         time_constant: 10
       - filter: time_simple_moving_average
-        window_size: 00:05
+        window_size: 00:10
         precision: 2
 
   - platform: statistics
