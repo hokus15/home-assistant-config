@@ -213,42 +213,43 @@ camera:
 #    limit_refetch_to_url_change: true
 
 automation:
-#############################################################
-# Alarm automations
-#############################################################
   # Notify Ioniq movement if I'm not in the car
-  - alias: 'Notify ioniq movement if I am not in the car'
-    trigger:
-      platform: numeric_state
-      entity_id: sensor.ioniq_distance_travelled_between_updates
-      above: 50
-      for:
-        seconds: 30
-    condition:
-      condition: template
-      value_template: '{{ states.device_tracker.jordi_combined.state != "En ruta" }}'
-    action:
-      - service: notify.telegram
-        data_template:
-          message: 'Movimiento del ioniq de unos {{ sensor.ioniq_distance_travelled_between_updates.state }} metros detectado'
-      - service: telegram_bot.send_location
-        data_template:
-          latitude: '{{ states.device_tracker.ioniq.attributes.latitude }}'
-          longitude: '{{ states.device_tracker.ioniq.attributes.longitude }}'
-          target: !secret hokusphone_telegram_chat_id
+#  - alias: 'Notify ioniq movement if I am not in the car'
+#    trigger:
+#      platform: numeric_state
+#      entity_id: sensor.ioniq_distance_travelled_between_updates
+#      above: 50
+#      for:
+#        seconds: 30
+#    condition:
+#      condition: template
+#      value_template: '{{ states.device_tracker.ioniq.state != "En ruta" }}'
+#    action:
+#      - service: notify.telegram
+#        data_template:
+#          message: 'Movimiento del ioniq de unos {{ sensor.ioniq_distance_travelled_between_updates.state }} metros detectado'
+#      - service: telegram_bot.send_location
+#        data_template:
+#          latitude: '{{ states.device_tracker.ioniq.attributes.latitude }}'
+#          longitude: '{{ states.device_tracker.ioniq.attributes.longitude }}'
+#          target: !secret hokusphone_telegram_chat_id
 
-  # Change Ioniq state to "En ruta" when is publishing location data to mqtt
+  # See Ioniq in coordinates setting location name as "En ruta" when it's publishing location data to mqtt
   - alias: 'Ioniq En ruta'
     trigger:
       platform: mqtt
       topic: car/ioniq/location
+    condition:
+      condition: template
+      value_template: '{{ states.device_tracker.ioniq.state != "home" }}'
     action:
       - service: device_tracker.see
-        data:
+        data_template:
           dev_id: 'ioniq'
           location_name: 'En ruta'
+          gps: ['{{ states.device_tracker.ioniq.attributes.latitude }}','{{ states.device_tracker.ioniq.attributes.longitude }}']
 
-  # Change Ioniq state to "not_home" when no data published to mqtt for more than 1 minute
+  # See Ioniq in coordinates (with no location_name) when no data published to mqtt for more than 1 minute
   - alias: 'Ioniq not-home'
     trigger:
         platform: template
@@ -259,6 +260,6 @@ automation:
       state: 'En ruta'
     action:
       - service: device_tracker.see
-        data:
+        data_template:
           dev_id: 'ioniq'
-          location_name: 'not_home'
+          gps: ['{{ states.device_tracker.ioniq.attributes.latitude }}','{{ states.device_tracker.ioniq.attributes.longitude }}']
