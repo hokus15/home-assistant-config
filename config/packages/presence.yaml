@@ -135,8 +135,8 @@ sensor:
 switch:
   - platform: mqtt
     name: 'holiday'
-    state_topic: 'home/holiday/status'
-    command_topic: 'home/holiday/status'
+    state_topic: 'homeassistant/switch/holiday/status'
+    command_topic: 'homeassistant/switch/holiday/status'
     payload_on: 'ON'
     payload_off: 'OFF'
     optimistic: false
@@ -426,7 +426,7 @@ automation:
           payload_template: >
             He abierto la barrera. {%- if is_state("device_tracker.geni_combined", "home") -%}Jeni está en casa.{%- else -%}Jeni no está en casa.{%- endif -%}
           retain: false
-          topic: 'device/hokusphone/say'
+          topic: 'cmnd/phone/hokus/say'
       - delay:
           seconds: 5
       - service: telegram_bot.send_message
@@ -463,7 +463,7 @@ automation:
           payload_template: >
             {%- if is_state("group.unidad_familiar", "not_home") -%}{%- if is_state("sensor.outside_fence", "Abierta") -%}Te has dejado la barrera abierta, la voy a cerrar. {%- endif -%}{%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif -%}{%- endif -%}La previsión del tiempo es de {{ states.sensor.pws_weather_1d_metric.state | replace(" C."," grados") }}
           retain: false
-          topic: 'device/carphone/say'
+          topic: 'cmnd/phone/hokus/say'
       - service_template: >
           {%- if is_state("group.unidad_familiar", "not_home") -%}
             {%- if is_state("sensor.outside_fence", "Abierta") -%}
