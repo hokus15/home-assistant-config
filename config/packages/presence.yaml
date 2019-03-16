@@ -85,11 +85,11 @@ device_tracker:
   - platform: mqtt
     devices:
       # Updated when hokusphone is connected to a WiFi
-      hokusphone_wifi: location/hokusphone/wifi
+      hokusphone_wifi: phone/hokus/wifi
       # Updated when iBeacon is detected from hokusphone
-      hokusphone_ibeacon: location/hokusphone/ibeacon
+      hokusphone_ibeacon: phone/hokus/ibeacon
       # Updated when geniphone is connected to a WiFi
-      geniphone_wifi: location/geniphone/wifi
+      geniphone_wifi: phone/geni/wifi
 
 sensor:
   - platform: template
@@ -371,7 +371,7 @@ automation:
         data:
           payload: not_detected
           retain: false
-          topic: 'location/geniphone/ibeacon'
+          topic: 'phone/geni/ibeacon'
       - service: device_tracker.see
         data:
           dev_id: 'geni_combined'
@@ -415,14 +415,9 @@ automation:
          zone: zone.home
          event: enter
     condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: sensor.outside_fence
-          state: 'Cerrada'
-        - condition: state
-          entity_id: device_tracker.ioniq
-          state: 'En ruta'
+      condition: state
+      entity_id: sensor.outside_fence
+      state: 'Cerrada'
     action:
       - service: switch.turn_on
         entity_id: switch.barrera
@@ -677,7 +672,7 @@ script:
         data:
           payload: 'home'
           retain: true
-          topic: 'location/hokusphone/wifi'
+          topic: 'phone/hokus/wifi'
 
   presence_hokusphone_not_connected_home_wifi:
     alias: 'HokusPhone disconnected from home Wi-Fi'
@@ -686,7 +681,7 @@ script:
         data:
           payload: 'not_connected'
           retain: true
-          topic: 'location/hokusphone/wifi'
+          topic: 'phone/hokus/wifi'
 
   presence_geniphone_connected_home_wifi:
     alias: 'GeniPhone connected to home Wi-Fi'
@@ -695,7 +690,7 @@ script:
         data:
           payload: 'home'
           retain: true
-          topic: 'location/geniphone/wifi'
+          topic: 'phone/geni/wifi'
 
   presence_geniphone_not_connected_home_wifi:
     alias: 'GeniPhone disconnected from home Wi-Fi'
@@ -704,7 +699,7 @@ script:
         data:
           payload: 'not_connected'
           retain: true
-          topic: 'location/geniphone/wifi'
+          topic: 'phone/geni/wifi'
 
 zone:
   - name: Oficina
