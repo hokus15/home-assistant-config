@@ -7,6 +7,8 @@ homeassistant:
       icon: 'mdi:oil-temperature'
     sensor.piscina_temperature_mean:
       friendly_name: 'Temp. media agua'
+    sensor.piscina_filtered_realistic_water_temperature:
+      friendly_name: 'Temp. realista agua'
     switch.motor_piscina:
       friendly_name: 'Depuradora'
     switch.luz_piscina:
@@ -36,6 +38,7 @@ group:
       - input_number.temperature_correction
       - sensor.piscina_water_temperature
       - sensor.piscina_temperature_mean
+      - sensor.piscina_filtered_realistic_water_temperature
       - sensor.piscina_k_factor
       - sensor.piscina_filtering_time
       - sensor.piscina_on_time
@@ -49,6 +52,7 @@ history_graph:
     entities:
       - sensor.piscina_water_temperature
       - sensor.piscina_temperature_mean
+      - sensor.piscina_filtered_realistic_water_temperature
     hours_to_show: 336
     refresh: 600
 
@@ -176,6 +180,20 @@ sensor:
           {%- endif %}
         icon_template: 'mdi:power-plug'
         entity_id: sensor.date_time, sensor.piscina_off_time, sensor.piscina_filtering_time
+
+  - platform: filter
+    name: piscina_filtered_realistic_water_temperature
+    entity_id: sensor.piscina_water_temperature
+    filters:
+      - filter: outlier
+        window_size: 10
+        radius: 1.0
+      - filter: lowpass
+        time_constant: 10
+      - filter: time_simple_moving_average
+        window_size: 00:05
+        precision: 2
+
   - platform: statistics
     name: piscina_temperature
     #entity_id: input_number.piscina_temperature
