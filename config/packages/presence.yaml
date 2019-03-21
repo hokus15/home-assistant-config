@@ -406,7 +406,7 @@ automation:
               {%- endif -%}
             {%- endif -%}
 
-  # If fence is closed, Ioniq enter 'home' zone and is 'En Ruta'
+  # If fence is closed, Ioniq enter 'home' zone and is 'ON'
   # Open fence, notify it, send a meessage to mqtt topic, and set Jordi as 'home'
   - alias: 'Jordi arriving home'
     trigger:
@@ -415,9 +415,14 @@ automation:
          zone: zone.home
          event: enter
     condition:
-      condition: state
-      entity_id: sensor.outside_fence
-      state: 'Cerrada'
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: sensor.outside_fence
+          state: 'Cerrada'
+        - condition: state
+          entity_id: binary_sensor.ioniq
+          state: 'ON'
     action:
       - service: switch.turn_on
         entity_id: switch.barrera
@@ -451,8 +456,8 @@ automation:
          event: leave
     condition:
       - condition: state
-        entity_id: device_tracker.ioniq
-        state: 'En ruta'
+        entity_id: binary_sensor.ioniq
+        state: 'ON'
     action:
       - service: device_tracker.see
         data:
