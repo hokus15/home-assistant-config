@@ -1,29 +1,13 @@
 homeassistant:
   customize:
-    sensor.ioniq_batt:
-      friendly_name: 'Batería'
-      device_class: 'battery'
-    sensor.ioniq_soc_display:
-      friendly_name: 'Batería mostrada'
-      device_class: 'battery'
-    sensor.ioniq_soc_bms:
-      friendly_name: 'Batería BMS'
-      device_class: 'battery'
-    sensor.ioniq_odometer:
-      friendly_name: 'Odómetro'
-      icon: 'mdi:counter'
-    sensor.ioniq_efficiency:
-      friendly_name: 'Consumo'
-      icon: 'mdi:car-electric'
-    sensor.ioniq_battery_health:
-      friendly_name: 'Salud batería'
-      device_class: 'battery'
     sensor.ioniq_gps_accuracy:
       friendly_name: 'Precisión GPS'
       icon: 'mdi:map-marker-radius'
     sensor.ioniq_last_update:
       friendly_name: 'Última actualización'
       icon: 'mdi:clock'
+    binary_sensor.ioniq:
+      friendly_name: 'Estado'
     sensor.nissan_batt:
       friendly_name: 'Batería'
       device_class: 'battery'
@@ -46,11 +30,11 @@ recorder:
 group:
   Ioniq:
     entities:
-      - device_tracker.ioniq
+      - binary_sensor.ioniq
       - sensor.ioniq_soc_display
       - sensor.ioniq_soc_bms
       - sensor.ioniq_odometer
-      - sensor.ioniq_efficiency
+      - sensor.ioniq_energy_consumption
       - sensor.ioniq_battery_health
       - sensor.ioniq_gps_accuracy
       - sensor.ioniq_last_update
@@ -82,6 +66,15 @@ device_tracker:
       # Nissan tracker
       nissan: car/nissan/location
 
+binary_sensor:
+  - platform: mqtt
+    state_topic: 'car/ioniq/state'
+    name: ioniq
+    value_template: '{%if (as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")))-(state_attr("binary_sensor.ioniq", "timestamp") / 1000) > 60-%}OFF{%-else-%}ON{%-endif%}'
+    json_attributes_topic: 'car/ioniq/state'
+    device_class: 'moving'
+    off_delay: 65
+
 sensor:
   - platform: mqtt
     state_topic: 'car/nissan/location'
@@ -99,12 +92,6 @@ sensor:
     state_topic: 'car/nissan/location'
     name: nissan_last_update
     value_template: '{{ value_json.last_update|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
-  
-  - platform: mqtt
-    state_topic: 'car/ioniq/location'
-    name: ioniq_batt
-    unit_of_measurement: '%'
-    value_template: '{{ value_json.battery_level }}'
   
   - platform: mqtt
     state_topic: 'car/ioniq/location'
@@ -127,46 +114,44 @@ sensor:
     name: ioniq_previous_longitude
     value_template: '{{ value_json.plongitude }}'
 
-  - platform: mqtt
-    state_topic: 'car/ioniq/state'
-    name: ioniq_soc_display
-    value_template: '{{value_json.soc_display}}'
-    unit_of_measurement: '%'
-  
-  - platform: mqtt
-    state_topic: 'car/ioniq/state'
-    name: ioniq_battery_health
-    value_template: '{{value_json.soh}}'
-    unit_of_measurement: '%'
-  
-  - platform: mqtt
-    state_topic: 'car/ioniq/state'
-    name: ioniq_soc_bms
-    value_template: '{{value_json.soc_bms}}'
-    unit_of_measurement: '%'
-  
-  - platform: mqtt
-    state_topic: 'car/ioniq/state'
-    name: ioniq_odometer
-    value_template: '{{value_json.distance}}'
-    unit_of_measurement: 'Km'
-  
-  - platform: mqtt
-    state_topic: 'car/ioniq/state'
-    name: ioniq_ced
-    value_template: '{{value_json.ced}}'
-    unit_of_measurement: 'kWh'
-  
-  - platform: mqtt
-    state_topic: 'car/ioniq/state'
-    name: ioniq_cec
-    value_template: '{{value_json.cec}}'
-    unit_of_measurement: 'kWh'
-
   - platform: template
     sensors:
-      ioniq_efficiency:
+      # Ioniq State Of Charge display
+      ioniq_soc_display:
+        friendly_name: 'Batería mostrada'
+        device_class: 'battery'
+        value_template: '{{state_attr("binary_sensor.ioniq", "soc_display")}}'
+        unit_of_measurement: '%'
+      # Ioniq State Of Health
+      ioniq_battery_health:
+        friendly_name: 'Salud batería'
+        device_class: 'battery'
+        value_template: '{{state_attr("binary_sensor.ioniq", "soh")}}'
+        unit_of_measurement: '%'
+      # Ioniq State Of Charge display
+      ioniq_soc_bms:
+        friendly_name: 'Batería BMS'
+        device_class: 'battery'
+        value_template: '{{state_attr("binary_sensor.ioniq", "soc_bms")}}'
+        unit_of_measurement: '%'
+      # Ioniq odometer
+      ioniq_odometer:
+        friendly_name: 'Odómetro'
+        icon_template: 'mdi:counter'
+        value_template: '{{state_attr("binary_sensor.ioniq", "distance")}}'
+        unit_of_measurement: 'Km'
+      # Ioniq Cumulative Energy Discharged
+      ioniq_ced:
+        value_template: '{{state_attr("binary_sensor.ioniq", "ced")}}'
+        unit_of_measurement: 'kWh'
+      # Ioniq Cumulative Energy Charged
+      ioniq_cec:
+        value_template: '{{state_attr("binary_sensor.ioniq", "cec")}}'
+        unit_of_measurement: 'kWh'
+      # Average energy consumption without taking into account regeneration
+      ioniq_energy_consumption:
         friendly_name: 'Consumo medio'
+        icon_template: 'mdi:car-electric'
         value_template: '{{ ((states.sensor.ioniq_ced.state | float / states.sensor.ioniq_odometer.state | float) * 100) | round(1)}}'
         unit_of_measurement: 'kWh/100Km'
         entity_id:
@@ -177,7 +162,10 @@ sensor:
         friendly_name: 'Dist. entre actualizaciones'
         value_template: '{% if states.device_tracker.ioniq.attributes.latitude %} {{ (distance(states("sensor.ioniq_previous_latitude"), states("sensor.ioniq_previous_longitude"), states.device_tracker.ioniq.attributes.latitude, states.device_tracker.ioniq.attributes.longitude) * 1000) | round (2) }} {% else %} -1 {% endif %}'
         icon_template: 'mdi:tape-measure'
-        entity_id: device_tracker.ioniq, sensor.ioniq_previous_latitude, sensor.ioniq_previous_longitude
+        entity_id: 
+          - device_tracker.ioniq
+          - sensor.ioniq_previous_latitude
+          - sensor.ioniq_previous_longitude
 
   # Google travel time to work
   - platform: google_travel_time
@@ -212,7 +200,7 @@ camera:
 #    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}&zoom=15&size=500x500&maptype=roadmap&markers=color:grey%7Clabel:N%7C{{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}
 #    limit_refetch_to_url_change: true
 
-automation:
+#automation:
   # Notify Ioniq movement if I'm not in the car
 #  - alias: 'Notify ioniq movement if I am not in the car'
 #    trigger:
@@ -234,32 +222,32 @@ automation:
 #          longitude: '{{ states.device_tracker.ioniq.attributes.longitude }}'
 #          target: !secret hokusphone_telegram_chat_id
 
-  # See Ioniq in coordinates setting location name as "En ruta" when it's publishing location data to mqtt
-  - alias: 'Ioniq En ruta'
-    trigger:
-      platform: mqtt
-      topic: car/ioniq/location
-    condition:
-      condition: template
-      value_template: '{{ states.device_tracker.ioniq.state != "home" }}'
-    action:
-      - service: device_tracker.see
-        data_template:
-          dev_id: 'ioniq'
-          location_name: 'En ruta'
-          gps: ['{{ states.device_tracker.ioniq.attributes.latitude }}','{{ states.device_tracker.ioniq.attributes.longitude }}']
-
-  # See Ioniq in coordinates (with no location_name) when no data published to mqtt for more than 1 minute
-  - alias: 'Ioniq not-home'
-    trigger:
-        platform: template
-        value_template: '{{(as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))-as_timestamp(strptime(states.sensor.ioniq_last_update.state,"%d/%m/%Y %H:%M:%S")))/60 > 1}}'
-    condition:
-      condition: state
-      entity_id: device_tracker.ioniq
-      state: 'En ruta'
-    action:
-      - service: device_tracker.see
-        data_template:
-          dev_id: 'ioniq'
-          gps: ['{{ states.device_tracker.ioniq.attributes.latitude }}','{{ states.device_tracker.ioniq.attributes.longitude }}']
+#  # See Ioniq in coordinates setting location name as "En ruta" when it's publishing location data to mqtt
+#  - alias: 'Ioniq En ruta'
+#    trigger:
+#      platform: mqtt
+#      topic: car/ioniq/location
+#    condition:
+#      condition: template
+#      value_template: '{{ states.device_tracker.ioniq.state != "home" }}'
+#    action:
+#      - service: device_tracker.see
+#        data_template:
+#          dev_id: 'ioniq'
+#          location_name: 'En ruta'
+#          gps: ['{{ states.device_tracker.ioniq.attributes.latitude }}','{{ states.device_tracker.ioniq.attributes.longitude }}']
+#
+#  # See Ioniq in coordinates (with no location_name) when no data published to mqtt for more than 1 minute
+#  - alias: 'Ioniq not-home'
+#    trigger:
+#        platform: template
+#        value_template: '{{(as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))-as_timestamp(strptime(states.sensor.ioniq_last_update.state,"%d/%m/%Y %H:%M:%S")))/60 > 1}}'
+#    condition:
+#      condition: state
+#      entity_id: device_tracker.ioniq
+#      state: 'En ruta'
+#    action:
+#      - service: device_tracker.see
+#        data_template:
+#          dev_id: 'ioniq'
+#          gps: ['{{ states.device_tracker.ioniq.attributes.latitude }}','{{ states.device_tracker.ioniq.attributes.longitude }}']
