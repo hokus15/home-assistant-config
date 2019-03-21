@@ -145,6 +145,7 @@ netatmo:
   username: !secret netatmo_username
   password: !secret netatmo_password
   discovery: true
+  webhooks: true
 
 google:
   client_id: !secret google_client_id
