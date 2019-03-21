@@ -233,93 +233,153 @@ utility_meter:
       - Valle
 
 automation:
-   - alias: 'Set correct energy tariff on start'
-     trigger:
-       platform: homeassistant
-       event: start
-     condition:
-       condition: template
-       value_template:  >-
-           {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
-           {%- if timezone == 'CEST' %}
-             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0)) <= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
-           {% else %}
-             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=22).replace(minute=0).replace(second=0)) <= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
-           {%- endif %}
-     action:
-       - service: utility_meter.select_tariff
-         data:
-           entity_id: utility_meter.daily_energy 
-           tariff: 'Valle'
-       - service: utility_meter.select_tariff
-         data:
-           entity_id: utility_meter.monthly_energy
-           tariff: 'Valle'
-       - service: utility_meter.select_tariff
-         data:
-           entity_id: utility_meter.monthly_energy_insight
-           tariff: 'Valle'
-       - service: utility_meter.select_tariff
-         data:
-           entity_id: utility_meter.yearly_energy_insight
-           tariff: 'Valle'
+  #############################################################
+  # Power automations
+  #############################################################
+  
+  # Notify when a power cut longer than 1 minute detected
+  - alias: 'Notify power cut'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.ups_status_bs
+      to: 'off'
+      for:
+        minutes: 1
+    action:
+      - service: notify.telegram
+        data:
+          message: 'Corte en el suministro eléctrico detectado'
+  
+  # Restart UPS driver controller when a power cut is detected.
+  # I've added this automation because from time to time the controller stops working until it's restarted.
+  - alias: 'Restart UPS Driver Controller'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.ups_status_bs
+      to: 'off'
+    condition:
+      - condition: numeric_state
+        entity_id: sensor.ha_runtime_in_minutes
+        above: 2
+    action:
+      - service: notify.telegram
+        data:
+          message: 'Controlador SAI reiniciado'
+      - service: shell_command.restart_ups_driver_controller
+  
+  # Notify when the power is back normal
+  - alias: 'Notify power ok'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.ups_status_bs
+      to: 'on'
+    condition:
+      - condition: numeric_state
+        entity_id: sensor.ha_runtime_in_minutes
+        above: 2
+    action:
+      service: notify.telegram
+      data:
+        message: 'Suministro eléctrico reestablecido'
+  
+  # Notify when the UPS battery has to be replaced
+  - alias: 'Notify ups battery replacement'
+    trigger:
+      platform: state
+      entity_id: sensor.ups_status
+      to: 'Reemplazar batería'
+    action:
+      service: notify.telegram
+      data:
+        message: 'Batería del SAI agotándose, reemplazar'
+  
+  - alias: 'Set correct energy tariff on start'
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      condition: template
+      value_template:  >-
+          {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
+          {%- if timezone == 'CEST' %}
+            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0)) <= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
+          {% else %}
+            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=22).replace(minute=0).replace(second=0)) <= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
+          {%- endif %}
+    action:
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.daily_energy 
+          tariff: 'Valle'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.monthly_energy
+          tariff: 'Valle'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.monthly_energy_insight
+          tariff: 'Valle'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.yearly_energy_insight
+          tariff: 'Valle'
 
-   - alias: 'Energy Pico time'
-     trigger:
-       platform: template
-       value_template: >-
-           {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
-           {%- if timezone == 'CEST' %}
-             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) == as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
-           {% else %}
-             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0)) == as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
-           {%- endif %}
-     action:
-       - service: utility_meter.select_tariff
-         data:
-           entity_id: utility_meter.daily_energy 
-           tariff: 'Pico'
-       - service: utility_meter.select_tariff
-         data:
-           entity_id: utility_meter.monthly_energy
-           tariff: 'Pico'
-       - service: utility_meter.select_tariff
-         data:
-           entity_id: utility_meter.monthly_energy_insight
-           tariff: 'Valle'
-       - service: utility_meter.select_tariff
-         data:
-           entity_id: utility_meter.yearly_energy_insight
-           tariff: 'Pico'
+  - alias: 'Energy Pico time'
+    trigger:
+      platform: template
+      value_template: >-
+          {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
+          {%- if timezone == 'CEST' %}
+            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) == as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
+          {% else %}
+            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0)) == as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
+          {%- endif %}
+    action:
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.daily_energy 
+          tariff: 'Pico'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.monthly_energy
+          tariff: 'Pico'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.monthly_energy_insight
+          tariff: 'Valle'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.yearly_energy_insight
+          tariff: 'Pico'
 
-   - alias: 'Energy Valle time'
-     trigger:
-       platform: template
-       value_template: >-
-           {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
-           {%- if timezone == 'CEST' %}
-             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0)) == as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
-           {% else %}
-             {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=22).replace(minute=0).replace(second=0)) == as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
-           {%- endif %}
-     action:
-       - service: utility_meter.select_tariff
-         data:
-           entity_id: utility_meter.daily_energy 
-           tariff: 'Valle'
-       - service: utility_meter.select_tariff
-         data:
-           entity_id: utility_meter.monthly_energy
-           tariff: 'Valle'
-       - service: utility_meter.select_tariff
-         data:
-           entity_id: utility_meter.monthly_energy_insight
-           tariff: 'Valle'
-       - service: utility_meter.select_tariff
-         data:
-           entity_id: utility_meter.yearly_energy_insight
-           tariff: 'Valle'
-           
+  - alias: 'Energy Valle time'
+    trigger:
+      platform: template
+      value_template: >-
+          {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
+          {%- if timezone == 'CEST' %}
+            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0)) == as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
+          {% else %}
+            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=22).replace(minute=0).replace(second=0)) == as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
+          {%- endif %}
+    action:
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.daily_energy 
+          tariff: 'Valle'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.monthly_energy
+          tariff: 'Valle'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.monthly_energy_insight
+          tariff: 'Valle'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.yearly_energy_insight
+          tariff: 'Valle'
+          
 #   - alias: 'Turn on WeMo Insight in Valle time'
 #     trigger:
 #       platform: state
@@ -330,12 +390,12 @@ automation:
 #       - service: switch.turn_on
 #         entity_id: switch.wemoinsight
 
-   - alias: 'Turn off WeMo Insight in Pico time'
-     trigger:
-       platform: state
-       entity_id: utility_meter.yearly_energy_insight
-       from: 'Valle'
-       to: 'Pico'
-     action:
-       - service: switch.turn_off
-         entity_id: switch.wemoinsight
+  - alias: 'Turn off WeMo Insight in Pico time'
+    trigger:
+      platform: state
+      entity_id: utility_meter.yearly_energy_insight
+      from: 'Valle'
+      to: 'Pico'
+    action:
+      - service: switch.turn_off
+        entity_id: switch.wemoinsight
