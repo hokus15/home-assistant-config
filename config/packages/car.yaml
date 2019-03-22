@@ -73,7 +73,7 @@ binary_sensor:
     value_template: '{%if (as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")))-(state_attr("binary_sensor.ioniq", "timestamp") / 1000) > 60-%}OFF{%-else-%}ON{%-endif%}'
     json_attributes_topic: 'car/ioniq/state'
     device_class: 'moving'
-    off_delay: 65
+    off_delay: 120
 
 sensor:
   - platform: mqtt
