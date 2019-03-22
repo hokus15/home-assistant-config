@@ -1,5 +1,7 @@
 homeassistant:
   customize:
+    climate.netatmo_general:
+      friendly_name: 'Calefacción'
     sensor.netatmo_exterior_temperature:
       friendly_name: 'Temperatura'
     sensor.netatmo_exterior_humidity:
@@ -246,7 +248,7 @@ group:
     entities:
       - switch.thermostat
       - switch.thermostat_away_mode
-      - climate.termostato
+      - climate.netatmo_general
   
   Confort:
     entities:
@@ -287,13 +289,13 @@ binary_sensor:
       # And heating is idle
       # And first floor temperature trend is going down
       home_comfort_state:
-        entity_id: sensor.first_floor_temperature, climate.termostato, group.unidad_familiar, switch.thermostat, switch.thermostat_away_mode, binary_sensor.first_floor_temperature_down
+        entity_id: sensor.first_floor_temperature, climate.netatmo_general, group.unidad_familiar, switch.thermostat, switch.thermostat_away_mode, binary_sensor.first_floor_temperature_down
         value_template: >- 
           {{     states('sensor.first_floor_temperature')|float < states.sensor.entrance_hall_thermostat_target_temperature|float
              and is_state('group.unidad_familiar', 'home')
              and is_state('switch.thermostat', 'on')
              and is_state('switch.thermostat_away_mode','off')
-             and is_state_attr('climate.termostato', 'operation_mode', 'idle')
+             and is_state_attr('climate.netatmo_general', 'boiler_status', 'false')
              and is_state('binary_sensor.first_floor_temperature_down','on')
           }}
 
@@ -481,12 +483,12 @@ sensor:
   - platform: template
     sensors:
       entrance_hall_thermostat_target_temperature:
-        entity_id: climate.termostato
-        value_template: "{{state_attr('climate.termostato', 'temperature')}}"
+        entity_id: climate.netatmo_general
+        value_template: "{{state_attr('climate.netatmo_general', 'temperature')}}"
 
       entrance_hall_thermostat_temperature:
-        entity_id: climate.termostato
-        value_template: "{{state_attr('climate.termostato', 'current_temperature')}}"
+        entity_id: climate.netatmo_general
+        value_template: "{{state_attr('climate.netatmo_general', 'current_temperature')}}"
 
       ground_floor_temperature_trend:
         friendly_name: 'Tend temp planta baja'
@@ -711,16 +713,16 @@ switch:
           entity_id: script.climate_power_off
       
       thermostat_away_mode:
-        entity_id: climate.termostato
-        value_template: "{{is_state_attr('climate.termostato', 'away_mode', 'on')}}"
+        entity_id: climate.netatmo_general
+        value_template: "{{is_state_attr('climate.netatmo_general', 'away_mode', 'on')}}"
         turn_on:
           service: climate.set_away_mode
-          entity_id: climate.termostato
+          entity_id: climate.netatmo_general
           data:
             away_mode: true
         turn_off:
           service: climate.set_away_mode
-          entity_id: climate.termostato
+          entity_id: climate.netatmo_general
           data:
             away_mode: false
 
@@ -751,14 +753,14 @@ automation:
         data:
           name: 'Calefacción'
           message: 'encendida por baja temperatura'
-          entity_id: climate.termostato
+          entity_id: climate.netatmo_general
           domain: climate
       - service: telegram_bot.send_message
         data_template:
           message: 'Como ya empieza a hacer fresquito, he encendido la calefaccción. Convendría hacer un purgado de los radiadores.'
           target: 
             - !secret hokusphone_telegram_chat_id
-            #- !secret geniphone_telegram_chat_id
+            - !secret geniphone_telegram_chat_id
           disable_notification: false
           inline_keyboard:
                  - 'Apaga la calefacción:/switch.turn_off#switch.thermostat'
@@ -780,7 +782,7 @@ automation:
         data:
           name: 'Calefacción'
           message: 'apagada por alta temperatura'
-          entity_id: climate.termostato
+          entity_id: climate.netatmo_general
           domain: climate
       - service: telegram_bot.send_message
         data_template:
@@ -839,7 +841,7 @@ automation:
             
             Modo ausente: {{states.switch.thermostat_away_mode.state}}
             
-            Estado termostato: {{states.climate.termostato.attributes.operation_mode}}
+            Estado termostato: {{states.climate.netatmo_general.attributes.operation_mode}}
             
             Tendencia temperatura planta baja: {{states.sensor.ground_floor_temperature_trend.state}}
             
@@ -894,8 +896,8 @@ automation:
           entity_id: switch.thermostat
           state: 'on'
         - condition: state
-          entity_id: climate.termostato
-          state: 'heat'
+          entity_id: climate.netatmo_general
+          state: 'auto'
         - condition: template
           value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.porche_sensor_puerta.last_changed))//60)%10 == 0 }}'
         - condition: template
@@ -913,32 +915,32 @@ script:
     alias: 'Power off thermostat'
     sequence:
       - service: climate.set_temperature
-        entity_id: climate.termostato
+        entity_id: climate.netatmo_general
         data:
           temperature: 11.5
       - delay:
           seconds: 15
       - service: homeassistant.update_entity
-        entity_id: climate.termostato
+        entity_id: climate.netatmo_general
 
   # Power on climate
   climate_power_on:
     alias: 'Power on thermostat'
     sequence:
       - service: climate.set_temperature
-        entity_id: climate.termostato
+        entity_id: climate.netatmo_general
         data:
           temperature: 15
       - delay:
           seconds: 15
       - service: climate.set_away_mode
-        entity_id: climate.termostato
+        entity_id: climate.netatmo_general
         data:
           away_mode: false
       - delay:
           seconds: 15
       - service: homeassistant.update_entity
-        entity_id: climate.termostato
+        entity_id: climate.netatmo_general
 
   # Comfort mode on
   comfort_mode_on:
@@ -947,13 +949,13 @@ script:
       # Set temperature to 23 degrees
       - service: climate.set_temperature
         data_template:
-          entity_id: climate.termostato
+          entity_id: climate.netatmo_general
           temperature: 23
       - delay:
           seconds: 15
       # Update entity
       - service: homeassistant.update_entity
-        entity_id: climate.termostato
+        entity_id: climate.netatmo_general
       - delay:
            minutes: 90
       # Turn off comfort mode (after 90 minutes)
@@ -967,18 +969,18 @@ script:
     sequence:
       # Turn on thermostat away mode 
       - service: climate.set_away_mode
-        entity_id: climate.termostato
+        entity_id: climate.netatmo_general
         data:
           away_mode: true
       - delay:
           seconds: 5
      # Turn off thermostat away mode 
       - service: climate.set_away_mode
-        entity_id: climate.termostato
+        entity_id: climate.netatmo_general
         data:
           away_mode: false
       - delay:
           seconds: 15
       # Update entity
       - service: homeassistant.update_entity
-        entity_id: climate.termostato
+        entity_id: climate.netatmo_general
