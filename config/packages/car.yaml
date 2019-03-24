@@ -70,10 +70,9 @@ binary_sensor:
   - platform: mqtt
     state_topic: 'car/ioniq/state'
     name: ioniq
-    value_template: '{%if (as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")))-(state_attr("binary_sensor.ioniq", "timestamp") / 1000) > 60-%}OFF{%-else-%}ON{%-endif%}'
+    value_template: '{%- if (as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")))-(state_attr("binary_sensor.ioniq", "timestamp") / 1000) > 120-%}OFF{%-else-%}ON{%-endif%}'
     json_attributes_topic: 'car/ioniq/state'
     device_class: 'moving'
-    off_delay: 120
 
 sensor:
   - platform: mqtt
