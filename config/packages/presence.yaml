@@ -422,7 +422,7 @@ automation:
           state: 'Cerrada'
         - condition: state
           entity_id: binary_sensor.ioniq
-          state: 'ON'
+          state: 'on'
     action:
       - service: switch.turn_on
         entity_id: switch.barrera
