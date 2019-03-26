@@ -466,7 +466,7 @@ automation:
       - service: mqtt.publish
         data:
           payload_template: >
-            {%- if is_state("group.unidad_familiar", "not_home") -%}{%- if is_state("sensor.outside_fence", "Abierta") -%}Te has dejado la barrera abierta, la voy a cerrar. {%- endif -%}{%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif -%}{%- endif -%}La previsión del tiempo es de {{ states.sensor.pws_weather_1d_metric.state | replace(" C."," grados") }}
+            {%- if is_state("group.unidad_familiar", "not_home") -%}{%- if is_state("sensor.outside_fence", "Abierta") -%}Te has dejado la barrera abierta, la voy a cerrar. {%- endif -%}{%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif -%}{%- endif -%}La previsión del tiempo es de {{ states.sensor.dark_sky_summary_0.state | replace(" C."," grados") }}
           retain: false
           topic: 'cmnd/phone/hokus/say'
       - service_template: >

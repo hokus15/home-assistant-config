@@ -110,15 +110,17 @@ homeassistant:
     sensor.entrance_hall_thermostat_temperature:
       friendly_name: 'Temperatura'
       unit_of_measurement: '°C'
-
+    sensor.dark_sky_summary_0:
+      friendly_name: 'Previsión'
 recorder:
   exclude:
     entities:
       - sensor.season
 
-      - sensor.pws_weather
-      - sensor.pws_weather_1d_metric
-      - sensor.pws_alerts
+      - sensor.dark_sky_icon
+      - sensor.dark_sky_icon_0
+      - sensor.dark_sky_summary
+      - sensor.dark_sky_summary_0
 
       - sensor.netatmo_exterior_radio
       - sensor.netatmo_exterior_radio_2
@@ -224,7 +226,7 @@ group:
   
   Meteorología:
     entities:
-      - sensor.pws_weather_1d_metric
+      - sensor.dark_sky_summary_0
       - sensor.sunrise
       - sensor.sunset
       - sensor.season
@@ -434,13 +436,27 @@ sensor:
         friendly_name: 'Puesta de sol'
         value_template: '{{ as_timestamp(states.sun.sun.attributes.next_setting)|timestamp_custom("%H:%M:%S") }}'
 
-  - platform: wunderground
-    api_key: !secret weather_underground_api_key
-    lang: SP
+  - platform: darksky
+    api_key: !secret dark_sky_api_key
+    forecast:
+      - 0
+    language: 'es'
+    latitude: !secret ha_latitude
+    longitude: !secret ha_longitude
+    units: 'ca'
     monitored_conditions:
-      - alerts
-      - weather
-      - weather_1d_metric
+      - summary
+      - icon
+    scan_interval:
+      hours: 1
+
+#  - platform: wunderground
+#    api_key: !secret weather_underground_api_key
+#    lang: SP
+#    monitored_conditions:
+#      - alerts
+#      - weather
+#      - weather_1d_metric
   
   # Comfort sensors
   - platform: min_max
