@@ -65,29 +65,10 @@ input_number:
     step: 5
 
 device_tracker:
-#  - platform: linksys_smart
-#    host: !secret wrt1900acs_host
-#    username: !secret wrt1900acs_username 
-#    password: !secret wrt1900acs_password
-##  - platform: nmap_tracker
-##    hosts: 192.168.1.0/24 
-#
-#  - platform: ubus
-#    host: !secret huawei_hg556a_host
-#    username: !secret huawei_hg556a_username 
-#    password: !secret huawei_hg556a_password
-    
-#  - platform: ubus
-#    host: !secret wrt1900acs_host
-#    username: !secret wrt1900acs_username 
-#    password: !secret wrt1900acs_password
-
   - platform: mqtt
     devices:
       # Updated when hokusphone is connected to a WiFi
       hokusphone_wifi: phone/hokus/wifi
-      # Updated when iBeacon is detected from hokusphone
-      hokusphone_ibeacon: phone/hokus/ibeacon
       # Updated when geniphone is connected to a WiFi
       geniphone_wifi: phone/geni/wifi
 
