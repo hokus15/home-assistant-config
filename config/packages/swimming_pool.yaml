@@ -186,12 +186,12 @@ sensor:
     entity_id: sensor.piscina_water_temperature
     filters:
       - filter: outlier
-        window_size: 10
+        window_size: 100
         radius: 1.0
       - filter: lowpass
-        time_constant: 10
+        time_constant: 60
       - filter: time_simple_moving_average
-        window_size: 00:10
+        window_size: 01:00
         precision: 2
 
   - platform: statistics
