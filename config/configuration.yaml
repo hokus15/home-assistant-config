@@ -88,6 +88,11 @@ recorder:
 
       - binary_sensor.workday_sensor
 
+      - sensor.google_wifi_uptime
+      - sensor.google_wifi_new_version
+      - sensor.google_wifi_local_ip
+      - sensor.google_wifi_last_restart
+      - sensor.google_wifi_current_version
 mqtt:
   discovery: true
   discovery_prefix: homeassistant

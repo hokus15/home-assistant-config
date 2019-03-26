@@ -55,12 +55,14 @@ homeassistant:
       friendly_name: 'Pitido'
       icon: mdi:music-note
     switch.wemoinsight:
-      friendly_name: 'Carga coche'
+      friendly_name: 'Estado enchufe'
 
     utility_meter.daily_energy:
       friendly_name: 'Tarifa'
 recorder:
   exclude:
+    domains:
+      - utility_meter
     entities:
       - sensor.nut_ups_manufacturer
       - sensor.nut_ups_model
@@ -69,12 +71,14 @@ recorder:
       - sensor.nut_ups_battery_runtime
       - sensor.nut_ups_battery_charge
 
+      - sensor.energy_offpeak_start
+      - sensor.energy_peak_start
+
 group:
   Energía:
     entities:
       - utility_meter.daily_energy
       - binary_sensor.ups_status_bs
-  #    - sensor.energy_usage
       - sensor.efergy_2577
       - sensor.daily_energy_pico
       - sensor.daily_energy_valle
@@ -193,8 +197,8 @@ binary_sensor:
         delay_off:
           seconds: 30
       car_charging:
-        friendly_name: "Cargando"
-        device_class: power
+        friendly_name: "Enchufado"
+        device_class: plug
         value_template: "{{ states('sensor.insight_powerused')|float > 1000.0 }}"
 switch:
   - platform: template
