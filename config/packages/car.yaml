@@ -52,7 +52,7 @@ binary_sensor:
     json_attributes_topic: 'car/ioniq/state'
     device_class: 'moving'
     force_update: true
-    off_delay: 120
+    off_delay: 180
 
 sensor:
   - platform: mqtt
