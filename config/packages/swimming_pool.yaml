@@ -257,56 +257,67 @@ automation:
     action:
       service: switch.turn_off
       entity_id: switch.motor_piscina
-  
-  - alias: 'Notify when swimming pool pump on more than 6 hours [Spring - Autumn - Winter]'
-    trigger:
-      platform: numeric_state
-      entity_id: sensor.piscina_on_history
-      above: 6
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: 'switch.motor_piscina'
-          state: 'on'
-        - condition: or
-          conditions:
-          - condition: state
-            entity_id: sensor.season
-            state: 'spring'
-          - condition: state
-            entity_id: sensor.season
-            state: 'autumn'
-          - condition: state
-            entity_id: sensor.season
-            state: 'winter'
+
+  - alias: 'Notify when swimming pool pump on more than expected'
+    trigger: 
+      platform: template
+      value_template: '{{states.sensor.piscina_on_history.state|float > (states.sensor.piscina_filtering_time.state|float + 0.15)}}'
     action:
       service: telegram_bot.send_message
-      data:
-        message: 'Motor piscina encendido hoy durante más de 6 horas'
+      data_template:
+        message: 'Motor piscina encendido hoy durante {{states.sensor.piscina_on_history.state}} horas. Tiempo programado states.{{sensor.piscina_filtering_time.state}} horas.'
         inline_keyboard: 
           - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
-  
-  - alias: 'Notify when swimming pool pump on more than 9 hours [Summer]'
-    trigger:
-      platform: numeric_state
-      entity_id: sensor.piscina_on_history
-      above: 9
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: 'switch.motor_piscina'
-          state: 'on'
-        - condition: state
-          entity_id: sensor.season
-          state: 'summer'
-    action:
-      service: telegram_bot.send_message
-      data:
-        message: 'Motor piscina encendido hoy durante más de 9 horas'
-        inline_keyboard: 
-          - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
+
+#  - alias: 'Notify when swimming pool pump on more than 6 hours [Spring - Autumn - Winter]'
+#    trigger:
+#      platform: numeric_state
+#      entity_id: sensor.piscina_on_history
+#      above: 6
+#    condition:
+#      condition: and
+#      conditions:
+#        - condition: state
+#          entity_id: 'switch.motor_piscina'
+#          state: 'on'
+#        - condition: or
+#          conditions:
+#          - condition: state
+#            entity_id: sensor.season
+#            state: 'spring'
+#          - condition: state
+#            entity_id: sensor.season
+#            state: 'autumn'
+#          - condition: state
+#            entity_id: sensor.season
+#            state: 'winter'
+#    action:
+#      service: telegram_bot.send_message
+#      data:
+#        message: 'Motor piscina encendido hoy durante más de 6 horas'
+#        inline_keyboard: 
+#          - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
+#  
+#  - alias: 'Notify when swimming pool pump on more than 9 hours [Summer]'
+#    trigger:
+#      platform: numeric_state
+#      entity_id: sensor.piscina_on_history
+#      above: 9
+#    condition:
+#      condition: and
+#      conditions:
+#        - condition: state
+#          entity_id: 'switch.motor_piscina'
+#          state: 'on'
+#        - condition: state
+#          entity_id: sensor.season
+#          state: 'summer'
+#    action:
+#      service: telegram_bot.send_message
+#      data:
+#        message: 'Motor piscina encendido hoy durante más de 9 horas'
+#        inline_keyboard: 
+#          - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
 
 script:
   turn_on_swimmingpool_light_ga:
