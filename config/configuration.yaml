@@ -27,6 +27,8 @@ http:
 
 map:
 
+person:
+
 system_health:
 
   # Enables the frontend
