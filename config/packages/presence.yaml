@@ -321,49 +321,13 @@ automation:
                 {{ states.device_tracker.geniphone_wifi.state }}
               {%- endif -%}
             {%- endif -%}
-  
-  # If fence is closed, Nissan enter 'home' zone and is 'En Ruta'
-  # Open fence, notify it and set Geni as 'home'
-  - alias: 'Geni arriving home'
-    trigger:
-       - platform: zone
-         entity_id: device_tracker.nissan
-         zone: zone.home
-         event: enter
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: sensor.outside_fence
-          state: 'Cerrada'
-        - condition: state
-          entity_id: device_tracker.nissan
-          state: 'En ruta'
-    action:
-      - service: switch.turn_on
-        entity_id: switch.barrera
-        data_template:
-          message: 'Barrera abierta automáticamente para Geni'
-          inline_keyboard: 
-            - 'Cerrar:/switch.turn_on#switch.outside_fence'
-      - delay:
-          seconds: 5
-      - service: mqtt.publish
-        data:
-          payload: not_detected
-          retain: false
-          topic: 'phone/geni/ibeacon'
-      - service: device_tracker.see
-        data:
-          dev_id: 'geni_combined'
-          location_name: 'home'
-  
+
   #############################################################
   # Presence automations - Jordi
   #############################################################
   
   # When some related entities (device_tracker.hokusphone, device_tracker.hokusphone_wifi) changes its state:
-  # Else set Jordi to 'home' when at least ONE of related entities are set to 'home'
+  # Set Jordi to 'home' when at least ONE of related entities are set to 'home'
   # Else set Jordi to 'not_home' when ALL related entities are in a state different from 'home'
   # Set Jordi to the WiFi name otherwise
   - alias: 'Jordi location'
@@ -387,7 +351,7 @@ automation:
               {%- endif -%}
             {%- endif -%}
 
-  # If fence is closed, Ioniq enter 'home' zone and is 'ON'
+  # If fence is closed, Ioniq enter 'home' zone
   # Open fence, notify it, send a meessage to mqtt topic, and set Jordi as 'home'
   - alias: 'Jordi arriving home'
     trigger:
@@ -399,10 +363,10 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: sensor.outside_fence
-          state: 'Cerrada'
+          entity_id: sensor.outside_fence_sensor_state
+          state: 'on'
         - condition: state
-          entity_id: binary_sensor.ioniq
+          entity_id: binary_sensor.ioniq_state
           state: 'on'
     action:
       - service: switch.turn_on
@@ -437,8 +401,8 @@ automation:
          event: leave
     condition:
       - condition: state
-        entity_id: binary_sensor.ioniq
-        state: 'ON'
+        entity_id: binary_sensor.ioniq_state
+        state: 'on'
     action:
       - service: device_tracker.see
         data:
@@ -452,13 +416,13 @@ automation:
           topic: 'cmnd/phone/hokus/say'
       - service_template: >
           {%- if is_state("group.unidad_familiar", "not_home") -%}
-            {%- if is_state("sensor.outside_fence", "Abierta") -%}
+            {%- if is_state("sensor.outside_fence_sensor_state", "off") -%}
               homeassistant.turn_on
             {%- else -%}
               homeassistant.update_entity
             {%- endif -%}
           {%- endif -%}
-  
+
         data:
           entity_id: switch.barrera
 
