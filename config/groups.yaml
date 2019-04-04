@@ -57,7 +57,7 @@ Exterior:
   icon: mdi:tree
   entities:
     - group.luces_exteriores
-    - group.meteorologia
+    - group.climatologia
     - group.temperatura
     - group.lluvia
     - group.viento

@@ -112,10 +112,13 @@ homeassistant:
       unit_of_measurement: '°C'
     sensor.dark_sky_summary_0:
       friendly_name: 'Previsión'
+    binary_sensor.summer_time:
+      friendly_name: 'Horario de verano'
 recorder:
   exclude:
     entities:
       - sensor.season
+      - binary_sensor.summer_time
 
       - sensor.dark_sky_icon
       - sensor.dark_sky_icon_0
@@ -224,12 +227,13 @@ group:
       - sensor.netatmo_exterior_temperature_trend
       - sensor.netatmo_exterior_radio
   
-  Meteorología:
+  Climatología:
     entities:
       - sensor.dark_sky_summary_0
       - sensor.sunrise
       - sensor.sunset
       - sensor.season
+      - binary_sensor.summer_time
   
   Lluvia:
     entities:
@@ -300,6 +304,10 @@ binary_sensor:
              and is_state_attr('climate.netatmo_general', 'boiler_status', 'false')
              and is_state('binary_sensor.first_floor_temperature_down','on')
           }}
+      summer_time:
+        entity_id: sensor.date_time
+        device_class: light
+        value_template: '{{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z") == "CEST"}}'
 
   # Trend sensors
   - platform: trend
