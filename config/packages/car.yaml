@@ -30,10 +30,10 @@ group:
       - sensor.insight_powerused
       - sensor.monthly_energy_insight_pico
       - sensor.monthly_energy_insight_valle
-      - sensor.car_monthly_energy_cost
+      - sensor.monthly_energy_insight_super_valle
       - sensor.yearly_energy_insight_pico
       - sensor.yearly_energy_insight_valle
-      - sensor.car_yearly_energy_cost
+      - sensor.yearly_energy_insight_super_valle
       - camera.ioniq
 
 device_tracker:

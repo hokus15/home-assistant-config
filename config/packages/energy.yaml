@@ -18,15 +18,23 @@ homeassistant:
       friendly_name: 'Consumo diario (pico)'
     sensor.daily_energy_valle:
       friendly_name: 'Consumo diario (valle)'
+    sensor.daily_energy_super_valle:
+      friendly_name: 'Consumo diario (super valle)'
     sensor.monthly_energy_pico:
       friendly_name: 'Consumo mensual (pico)'
     sensor.monthly_energy_valle:
       friendly_name: 'Consumo mensual (valle)'
+    sensor.monthly_energy_super_valle:
+      friendly_name: 'Consumo mensual (super valle)'
     sensor.yearly_energy_insight_pico:
       friendly_name: 'Consumo anual (pico)'
       icon: 'mdi:trending-up'
     sensor.yearly_energy_insight_valle:
       friendly_name: 'Consumo anual (valle)'
+      icon: 'mdi:trending-down'
+      unit_of_measurement: kWh
+    sensor.yearly_energy_insight_super_valle:
+      friendly_name: 'Consumo anual (super valle)'
       icon: 'mdi:trending-down'
       unit_of_measurement: kWh
     sensor.monthly_energy_insight_pico:
@@ -35,13 +43,12 @@ homeassistant:
     sensor.monthly_energy_insight_valle:
       friendly_name: 'Consumo mensual (valle)'
       icon: 'mdi:trending-down'
+    sensor.monthly_energy_insight_super_valle:
+      friendly_name: 'Consumo mensual (super valle)'
+      icon: 'mdi:trending-down'
     sensor.insight_powerused:
-      friendly_name: 'Consumo instantáneo coche'
+      friendly_name: 'Potencia carga coche'
       icon: 'mdi:speedometer'
-    sensor.car_monthly_energy_cost:
-      icon: 'mdi:currency-eur'
-    sensor.car_yearly_energy_cost:
-      icon: 'mdi:currency-eur'
 
     ###################################
     # Binary Sensors
@@ -59,6 +66,7 @@ homeassistant:
 
     utility_meter.daily_energy:
       friendly_name: 'Tarifa'
+
 recorder:
   exclude:
     domains:
@@ -82,8 +90,10 @@ group:
       - sensor.efergy_2577
       - sensor.daily_energy_pico
       - sensor.daily_energy_valle
+      - sensor.daily_energy_super_valle
       - sensor.monthly_energy_pico
       - sensor.monthly_energy_valle
+      - sensor.monthly_energy_super_valle
       - sensor.ups_status
   SAI:
     entities:
@@ -101,51 +111,9 @@ sensor:
 
   - platform: template
     sensors:
-      energy_peak_start:
-        value_template: >-
-           {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
-           {%- if timezone == 'CEST' %}
-             {{ strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0) }}
-           {% else %}
-             {{ strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0) }}
-           {%- endif %}
-
-      energy_offpeak_start:
-        value_template: >-
-           {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
-           {%- if timezone == 'CEST' %}
-             {{ strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0) }}
-           {% else %}
-             {{ strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=22).replace(minute=0).replace(second=0) }}
-           {%- endif %}
-
       insight_powerused:
         value_template: "{{state_attr('switch.wemoinsight','current_power_w')|int}}"
         unit_of_measurement: W
-      price_pico:
-        friendly_name: 'Precio pico'
-        value_template: 0.17
-        unit_of_measurement: '€'
-      price_valle:
-        friendly_name: 'Precio valle'
-        value_template: 0.08
-        unit_of_measurement: '€'
-      car_monthly_energy_cost:
-        friendly_name: 'Coste mensual recargas'
-        value_template: "{{((((states.sensor.monthly_energy_insight_valle.state | float * states.sensor.price_valle.state | float) + (states.sensor.monthly_energy_insight_pico.state | float * states.sensor.price_pico.state | float)) * 1.0511) * 1.21)| round(2)}}"
-        unit_of_measurement: '€'
-        entity_id:
-          - sensor.monthly_energy_insight_valle
-          - sensor.monthly_energy_insight_pico
-          - sensor.date_time
-      car_yearly_energy_cost:
-        friendly_name: 'Coste anual recargas'
-        value_template: "{{((((states.sensor.yearly_energy_insight_valle.state | float * states.sensor.price_valle.state | float) + (states.sensor.yearly_energy_insight_pico.state | float * states.sensor.price_pico.state | float)) * 1.0511) * 1.21) | round(2)}}"
-        unit_of_measurement: '€'
-        entity_id:
-          - sensor.yearly_energy_insight_valle
-          - sensor.yearly_energy_insight_pico
-          - sensor.date_time
   - platform: integration 
     source: sensor.efergy_2577
     name: energy_spent
@@ -217,24 +185,28 @@ utility_meter:
     tariffs:
       - Pico
       - Valle
+      - Super valle
   monthly_energy:
     source: sensor.energy_spent
     cycle: monthly
     tariffs:
       - Pico
       - Valle
+      - Super valle
   monthly_energy_insight:
     source: sensor.energy_spent_insight
     cycle: monthly
     tariffs:
       - Pico
       - Valle
+      - Super valle
   yearly_energy_insight:
     source: sensor.energy_spent_insight
     cycle: yearly
     tariffs:
       - Pico
       - Valle
+      - Super valle
 
 automation:
   #############################################################
@@ -301,43 +273,56 @@ automation:
     trigger:
       platform: homeassistant
       event: start
-    condition:
-      condition: template
-      value_template:  >-
-          {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
-          {%- if timezone == 'CEST' %}
-            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0)) <= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
-          {% else %}
-            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=22).replace(minute=0).replace(second=0)) <= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
-          {%- endif %}
     action:
       - service: utility_meter.select_tariff
-        data:
+        data_template:
           entity_id: utility_meter.daily_energy 
-          tariff: 'Valle'
+          tariff: >-
+            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
+              Super valle
+            {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
+              Pico
+            {%- else %}
+              Valle
+            {%- endif %}
       - service: utility_meter.select_tariff
-        data:
+        data_template:
           entity_id: utility_meter.monthly_energy
-          tariff: 'Valle'
+          tariff: >-
+            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
+              Super valle
+            {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
+              Pico
+            {%- else %}
+              Valle
+            {%- endif %}
       - service: utility_meter.select_tariff
-        data:
+        data_template:
           entity_id: utility_meter.monthly_energy_insight
-          tariff: 'Valle'
+          tariff: >-
+            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
+              Super valle
+            {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
+              Pico
+            {%- else %}
+              Valle
+            {%- endif %}
       - service: utility_meter.select_tariff
-        data:
+        data_template:
           entity_id: utility_meter.yearly_energy_insight
-          tariff: 'Valle'
+          tariff: >-
+            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
+              Super valle
+            {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
+              Pico
+            {%- else %}
+              Valle
+            {%- endif %}
 
   - alias: 'Energy Pico time'
     trigger:
-      platform: template
-      value_template: >-
-          {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
-          {%- if timezone == 'CEST' %}
-            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) == as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
-          {% else %}
-            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0)) == as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
-          {%- endif %}
+      platform: time
+      at: '13:00:00'
     action:
       - service: utility_meter.select_tariff
         data:
@@ -350,7 +335,7 @@ automation:
       - service: utility_meter.select_tariff
         data:
           entity_id: utility_meter.monthly_energy_insight
-          tariff: 'Valle'
+          tariff: 'Pico'
       - service: utility_meter.select_tariff
         data:
           entity_id: utility_meter.yearly_energy_insight
@@ -358,14 +343,10 @@ automation:
 
   - alias: 'Energy Valle time'
     trigger:
-      platform: template
-      value_template: >-
-          {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
-          {%- if timezone == 'CEST' %}
-            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0)) == as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
-          {% else %}
-            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=22).replace(minute=0).replace(second=0)) == as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) }}
-          {%- endif %}
+      - platform: time
+        at: '23:00:00'
+      - platform: time
+        at: '07:00:00'
     action:
       - service: utility_meter.select_tariff
         data:
@@ -383,7 +364,29 @@ automation:
         data:
           entity_id: utility_meter.yearly_energy_insight
           tariff: 'Valle'
-          
+
+  - alias: 'Energy Super valle time'
+    trigger:
+      platform: time
+      at: '01:00:00'
+    action:
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.daily_energy 
+          tariff: 'Super valle'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.monthly_energy
+          tariff: 'Super valle'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.monthly_energy_insight
+          tariff: 'Super valle'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.yearly_energy_insight
+          tariff: 'Super valle'
+
 #   - alias: 'Turn on WeMo Insight in Valle time'
 #     trigger:
 #       platform: state
@@ -394,12 +397,11 @@ automation:
 #       - service: switch.turn_on
 #         entity_id: switch.wemoinsight
 
-  - alias: 'Turn off WeMo Insight in Pico time'
+  - alias: 'Turn off WeMo Insight when Super valle time finishes'
     trigger:
       platform: state
       entity_id: utility_meter.yearly_energy_insight
-      from: 'Valle'
-      to: 'Pico'
+      from: 'Super valle'
     action:
       - service: switch.turn_off
         entity_id: switch.wemoinsight
