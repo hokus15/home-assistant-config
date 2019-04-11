@@ -1,4 +1,4 @@
-- platform: api_streams
+- platform: websocket_api
 
 - platform: time_date
   display_options:

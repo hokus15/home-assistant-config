@@ -110,7 +110,7 @@ homeassistant:
     sensor.entrance_hall_thermostat_temperature:
       friendly_name: 'Temperatura'
       unit_of_measurement: '°C'
-    sensor.dark_sky_summary_0:
+    sensor.dark_sky_summary_0d:
       friendly_name: 'Previsión'
     binary_sensor.summer_time:
       friendly_name: 'Horario de verano'
@@ -121,9 +121,9 @@ recorder:
       - binary_sensor.summer_time
 
       - sensor.dark_sky_icon
-      - sensor.dark_sky_icon_0
+      - sensor.dark_sky_icon_0d
       - sensor.dark_sky_summary
-      - sensor.dark_sky_summary_0
+      - sensor.dark_sky_summary_0d
 
       - sensor.netatmo_exterior_radio
       - sensor.netatmo_exterior_radio_2
@@ -229,7 +229,7 @@ group:
   
   Climatología:
     entities:
-      - sensor.dark_sky_summary_0
+      - sensor.dark_sky_summary_0d
       - sensor.sunrise
       - sensor.sunset
       - sensor.season
