@@ -403,5 +403,7 @@ automation:
       entity_id: utility_meter.yearly_energy_insight
       from: 'Super valle'
     action:
+      - delay:
+          minutes: 5
       - service: switch.turn_off
         entity_id: switch.wemoinsight
