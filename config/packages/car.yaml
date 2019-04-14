@@ -19,6 +19,9 @@ group:
       - binary_sensor.car_charging
       - switch.wemoinsight
       - sensor.insight_powerused
+
+  Consumo electricidad:
+    entities:
       - sensor.monthly_energy_insight_pico
       - sensor.monthly_energy_insight_valle
       - sensor.monthly_energy_insight_super_valle
