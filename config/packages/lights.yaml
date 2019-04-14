@@ -61,7 +61,7 @@ input_number:
 
 automation:
   # When turn on outside lights, adjust brightness
-  - alias: 'Luces exteriores on turn on - Adjust Brightness'
+  - alias: '[Lights] Luces exteriores on turn on - Adjust Brightness'
     trigger:
       platform: state
       entity_id: group.luces_exteriores
@@ -73,7 +73,7 @@ automation:
           brightness: '{{ ((states.input_number.outside_ligths_brightness.state | int) * 255) // 100 }}'
   
   # Adjust luces exteriores brightness
-  - alias: 'Luces exteriores - Adjust Brightness'
+  - alias: '[Lights] Luces exteriores - Adjust Brightness'
     trigger:
       platform: state
       entity_id: input_number.outside_ligths_brightness
@@ -88,7 +88,7 @@ automation:
           brightness: '{{ ((trigger.to_state.state | int) * 255) // 100 }}'
   
   # Turn on outside lights at sunset (+15 minutes)
-  - alias: 'Sunset Lights'
+  - alias: '[Lights] Sunset Lights'
     trigger:
       platform: sun
       event: 'sunset'
@@ -106,7 +106,7 @@ automation:
           domain: light
   
   # Turn off outside lights at night (at 00:15)
-  - alias: 'Turn off lights at night'
+  - alias: '[Lights] Turn off lights at night'
     trigger:
       platform: time
       at: '00:15'
@@ -125,7 +125,7 @@ automation:
           domain: light
   
   # When the outside lights have been turned on at late night (later than 00:15) and before sunrise, turn them off after 5 minutes
-  - alias: 'Turn off lights late night'
+  - alias: '[Lights] Turn off lights late night'
     trigger:
       platform: state
       entity_id: group.luces_exteriores
@@ -153,7 +153,7 @@ automation:
   
   
   # Turn off outside lights after 10 seconds when the sun is not set
-  - alias: 'Turn off lights when sun not set'
+  - alias: '[Lights] Turn off lights when there is natural light'
     trigger:
       platform: state
       entity_id: group.luces_exteriores
@@ -179,13 +179,13 @@ automation:
           domain: light
   
   # Turn on outside lights when fence is opened and the sun is set.
-  - alias: 'Turn on lights when fence open'
+  - alias: '[Lights] Turn on lights when fence open and dark'
     trigger:
       platform: state
       entity_id: sensor.outside_fence
       to: 'Abierta'
     condition:
-      condition: and
+      condition: or
       conditions:
       - condition: sun
         after: sunset
@@ -204,7 +204,7 @@ automation:
           domain: light
   
   # Turn on hall lamp when the sun is set and someone at home
-  - alias: 'Turn on hall lamp when the sun is set and someone at home'
+  - alias: '[Lights] Turn on hall lamp when the sun is set and someone at home'
     trigger:
       platform: sun
       event: sunset
