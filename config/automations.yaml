@@ -1,7 +1,7 @@
 #############################################################
 # Other automations
 #############################################################
-- alias: 'Notify bitcoin price above threshold'
+- alias: '[None] Notify bitcoin price above threshold'
   trigger:
     platform: numeric_state
     entity_id: sensor.exchange_rate_1_btc
@@ -35,7 +35,7 @@
 #     data:
 #       entity_id: switch.hokuslaptop
 
-- alias: Sleep mode event received
+- alias: '[None] Sleep mode event received'
   trigger:
     platform: event
     event_type: sleep_mode
@@ -51,7 +51,7 @@
 #############################################################
 # Nodon Octan automations
 #############################################################
-- alias: Nodon Octan button 1 pressed
+- alias: '[None] Nodon Octan button 1 pressed'
   trigger:
     platform: event
     event_type: zwave.scene_activated
@@ -63,7 +63,7 @@
       data:
         entity_id: script.presence_leave_home
 
-- alias: Nodon Octan button 2 pressed
+- alias: '[None] Nodon Octan button 2 pressed'
   trigger:
     platform: event
     event_type: zwave.scene_activated
@@ -75,7 +75,7 @@
       data:
         entity_id: script.parte_meteorologico_corto
 
-#- alias: Nodon Octan button 2 long press
+#- alias: '[None] Nodon Octan button 2 long press'
 #  trigger:
 #    platform: event
 #    event_type: zwave.scene_activated
@@ -87,7 +87,7 @@
 #      data:
 #        entity_id: script.parte_meteorologico
 
-- alias: Nodon Octan button 2 double click
+- alias: '[None] Nodon Octan button 2 double click'
   trigger:
     platform: event
     event_type: zwave.scene_activated
@@ -99,7 +99,7 @@
       data:
         entity_id: script.parte_meteorologico
 
-- alias: Nodon Octan button 3 pressed
+- alias: '[None] Nodon Octan button 3 pressed'
   trigger:
     platform: event
     event_type: zwave.scene_activated
@@ -111,7 +111,7 @@
       data:
         entity_id: group.luces_interiores
 
-- alias: Nodon Octan button 4 pressed
+- alias: '[None] Nodon Octan button 4 pressed'
   trigger:
     platform: event
     event_type: zwave.scene_activated
@@ -123,7 +123,7 @@
       data:
         entity_id: script.goto_sleep
 
-- alias: Nodon Octan button 4 long press
+- alias: '[None] Nodon Octan button 4 long press'
   trigger:
     platform: event
     event_type: zwave.scene_activated
@@ -135,7 +135,7 @@
       data:
         entity_id: script.presence_jordi_at_home
 
-- alias: Nodon Octan button 4 double click
+- alias: '[None] Nodon Octan button 4 double click'
   trigger:
     platform: event
     event_type: zwave.scene_activated
@@ -150,7 +150,7 @@
 #############################################################
 # Ifttt automations
 #############################################################
-- alias: 'Call service from ifttt'
+- alias: '[None] Call service from ifttt'
   trigger:
     platform: event
     event_type: ifttt_webhook_received
@@ -166,7 +166,7 @@
 #############################################################
 # Telegram bot that executes a service from a callback with the format <service>#<entity_id>. i.e.: script.turn_on#script.fence_close
 # It also removes the buttons from original message.
-- alias: 'Telegram bot that executes a service'
+- alias: '[None] Telegram bot that executes a service'
   hide_entity: true
   trigger:
     - platform: event
@@ -202,7 +202,7 @@
 #############################################################
 
 ## Check in at school
-#- alias: 'Checkin at Colegio'
+#- alias: '[None] Checkin at Colegio'
 #  trigger:
 #    platform: zone
 #    entity_id: device_tracker.jordi_combined
@@ -213,7 +213,7 @@
 #    data:
 #      venueId: !secret foursquare_colegio_venue_id
 ## Check in at oficina
-#- alias: 'Checkin at Oficina'
+#- alias: '[None] Checkin at Oficina'
 #  trigger:
 #    platform: zone
 #    entity_id: device_tracker.jordi_combined
