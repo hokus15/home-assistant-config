@@ -14,17 +14,8 @@ recorder:
       - sensor.ioniq_location_last_update
 
 group:
-  Ioniq:
+  Cargador:
     entities:
-      - binary_sensor.ioniq_state
-      - sensor.ioniq_state_soc_display
-      - sensor.ioniq_state_soc_bms
-      - sensor.ioniq_state_odometer
-      - sensor.ioniq_state_energy_consumption
-      - sensor.ioniq_state_battery_health
-      - sensor.ioniq_location_gps_accuracy
-      - sensor.ioniq_location
-      - sensor.ioniq_location_distance_travelled_between_updates
       - binary_sensor.car_charging
       - switch.wemoinsight
       - sensor.insight_powerused
@@ -34,6 +25,21 @@ group:
       - sensor.yearly_energy_insight_pico
       - sensor.yearly_energy_insight_valle
       - sensor.yearly_energy_insight_super_valle
+
+  Estado:
+    entities:
+      - binary_sensor.ioniq_state
+      - sensor.ioniq_state_soc_display
+      - sensor.ioniq_state_soc_bms
+      - sensor.ioniq_state_odometer
+      - sensor.ioniq_state_energy_consumption
+      - sensor.ioniq_state_battery_health
+
+  Localización:
+    entities:
+      - sensor.ioniq_location_gps_accuracy
+      - sensor.ioniq_location
+      - sensor.ioniq_location_distance_travelled_between_updates
       - camera.ioniq
 
 device_tracker:
