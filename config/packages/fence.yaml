@@ -66,7 +66,7 @@ cloud:
 automation:
     # Fence state. Can be moving (En movimiento), open (Abierta) or closed (Cerrada).
     # Fence needs around 20 seconds to fully open/close
-  - alias: 'Publish to mqtt fence status'
+  - alias: '[Fence] Publish to mqtt fence status'
     trigger:
       platform: state
       entity_id: switch.barrera
@@ -99,7 +99,7 @@ automation:
               Cerrada
             {%- endif %}
 
-  - alias: 'Publish to mqtt fence closed (Cerrada) status'
+  - alias: '[Fence] Publish to mqtt fence closed (Cerrada) status'
     trigger:
       platform: state
       entity_id: sensor.outside_fence_sensor_state
@@ -112,7 +112,7 @@ automation:
           qos: 0
           retain: true
 
-  - alias: 'When fence open notify every 10 minutes'
+  - alias: '[Fence] When fence open notify every 10 minutes'
     trigger:
       platform: time_pattern
       minutes: '/1'

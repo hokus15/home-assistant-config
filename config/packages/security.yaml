@@ -587,7 +587,7 @@ cloud:
 
 automation:
   # Convert mkv videos to mp4 as soon as they are created to be able to send them through telegram
-  - alias: 'Convert MKV to MP4'
+  - alias: '[Security] Convert MKV to MP4'
     trigger:
       platform: event
       event_type: folder_watcher
@@ -609,7 +609,7 @@ automation:
           file: '{{ trigger.event.data.path }}'
 
   # Trigger motion detected in camera for 30 seconds
-  - alias: 'Motion detected in camera'
+  - alias: '[Security] Motion detected in camera'
     trigger:
       platform: event
       event_type: folder_watcher

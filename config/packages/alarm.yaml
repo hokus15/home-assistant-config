@@ -31,7 +31,7 @@ alarm_control_panel:
 
 automation:
   # Trigger alarm when armed away
-  - alias: 'Trigger alarm armed away'
+  - alias: '[Alarm] Trigger alarm armed away'
     trigger:
       # When motion detected at hall camera
       - platform: state
@@ -86,7 +86,7 @@ automation:
       entity_id: alarm_control_panel.home
   
   # Trigger alarm when armed home / armed night
-  - alias: 'Trigger alarm armed home'
+  - alias: '[Alarm] Trigger alarm armed home'
     trigger:
       # When Netatmo camera detects human presence
       - platform: state
@@ -122,7 +122,7 @@ automation:
       entity_id: alarm_control_panel.home
   
   # Disarm alarm at 7:00 AM when armed night and someone is at home
-  - alias: 'Disarm alarm armed night'
+  - alias: '[Alarm] Disarm alarm armed night'
     trigger:
       platform: time
       at: '07:00:00'
@@ -139,7 +139,7 @@ automation:
       service: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.home
 
-  - alias: 'Turn on security group when alarm changes the state from disarmed'
+  - alias: '[Alarm] Turn on security group when alarm changes the state from disarmed'
     trigger: 
       - platform: state
         entity_id: alarm_control_panel.home
@@ -150,7 +150,7 @@ automation:
         data:
           entity_id: group.seguridad
 
-  - alias: 'Turn off security group when alarm is disarmed'
+  - alias: '[Alarm] Turn off security group when alarm is disarmed'
     trigger: 
       - platform: state
         entity_id: alarm_control_panel.home
@@ -162,7 +162,7 @@ automation:
           entity_id: group.seguridad
 
   # Notify presence detection in any activated sensor when sensor active and alarm triggered
-  - alias: 'Notify presence detection in any activated sensor when sensor active and alarm triggered'
+  - alias: '[Alarm] Notify presence detection in any activated sensor when sensor active and alarm triggered'
     trigger: 
       - platform: state
         entity_id: binary_sensor.porche_sensor_puerta
@@ -215,7 +215,7 @@ automation:
               {{turnOffEntityId[trigger.entity_id]}}
   
   # Notify camera motion detection including attached photo
-  - alias: 'Notify camera motion detection including attached photo when alarm triggered'
+  - alias: '[Alarm] Notify camera motion detection including attached photo when alarm triggered'
     trigger:
       platform: event
       event_type: folder_watcher
@@ -277,7 +277,7 @@ automation:
               {%- else -%}desconocido{%-endif-%}
   
   # Notify camera motion detection including attached video
-  - alias: 'Notify camera motion detection including attached video when alarm triggered'
+  - alias: '[Alarm] Notify camera motion detection including attached video when alarm triggered'
     trigger:
       platform: event
       event_type: folder_watcher
@@ -342,7 +342,7 @@ automation:
               {%- else -%}desconocido{%-endif-%}
   
   # Telegram callback that disarms alarm for specified minutes
-  - alias: 'Telegram callback that disarms alarm for specified minutes'
+  - alias: '[Alarm] Telegram callback that disarms alarm for specified minutes'
     hide_entity: true
     trigger:
       - platform: event
@@ -381,7 +381,7 @@ automation:
             minutes: '{{ trigger.event.data.data[1:-5] }}'
   
   # Notify living room motion sensor tampering
-  - alias: 'Notify office motion sensor tampering'
+  - alias: '[Alarm] Notify office motion sensor tampering'
     trigger: 
       platform: state
       entity_id: binary_sensor.despacho_sensor_movimiento_sabotaje

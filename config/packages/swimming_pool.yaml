@@ -242,7 +242,7 @@ automation:
   # and the valley price of electricity
   #############################################################
   
-  - alias: 'Turn on swimming pool'
+  - alias: '[Swimming Pool] Turn on swimming pool'
     trigger: 
       platform: template
       value_template: '{{states.sensor.date_time.state == states.sensor.piscina_on_time.state}}'
@@ -250,7 +250,7 @@ automation:
       service: switch.turn_on
       entity_id: switch.motor_piscina
   
-  - alias: 'Turn off swimming pool'
+  - alias: '[Swimming Pool] Turn off swimming pool'
     trigger: 
       platform: template
       value_template: '{{states.sensor.date_time.state == states.sensor.piscina_off_time.state}}'
@@ -258,18 +258,18 @@ automation:
       service: switch.turn_off
       entity_id: switch.motor_piscina
 
-  - alias: 'Notify when swimming pool pump on more than expected'
+  - alias: '[Swimming Pool] Notify when swimming pool pump on more than expected'
     trigger: 
       platform: template
       value_template: '{{states.sensor.piscina_on_history.state|float > (states.sensor.piscina_filtering_time.state|float + 0.15)}}'
     action:
       service: telegram_bot.send_message
       data_template:
-        message: 'Motor piscina encendido hoy durante {{states.sensor.piscina_on_history.state}} horas. Tiempo programado states.{{sensor.piscina_filtering_time.state}} horas.'
+        message: 'Motor piscina encendido hoy durante {{states.sensor.piscina_on_history.state}} horas. Tiempo programado {{states.sensor.piscina_filtering_time.state}} horas.'
         inline_keyboard: 
           - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
 
-#  - alias: 'Notify when swimming pool pump on more than 6 hours [Spring - Autumn - Winter]'
+#  - alias: '[Swimming Pool] Notify when swimming pool pump on more than 6 hours [Spring - Autumn - Winter]'
 #    trigger:
 #      platform: numeric_state
 #      entity_id: sensor.piscina_on_history
@@ -298,7 +298,7 @@ automation:
 #        inline_keyboard: 
 #          - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
 #  
-#  - alias: 'Notify when swimming pool pump on more than 9 hours [Summer]'
+#  - alias: '[Swimming Pool] Notify when swimming pool pump on more than 9 hours [Summer]'
 #    trigger:
 #      platform: numeric_state
 #      entity_id: sensor.piscina_on_history

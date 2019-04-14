@@ -149,6 +149,7 @@ sensor:
   - platform: nut
     resources:
       - ups.status
+      - ups.status.display
       - battery.charge
       - battery.runtime
       - ups.beeper.status
@@ -214,7 +215,7 @@ automation:
   #############################################################
   
   # Notify when a power cut longer than 1 minute detected
-  - alias: 'Notify power cut'
+  - alias: '[Energy] Notify power cut'
     trigger:
       platform: state
       entity_id: binary_sensor.ups_status_bs
@@ -228,7 +229,7 @@ automation:
   
   # Restart UPS driver controller when a power cut is detected.
   # I've added this automation because from time to time the controller stops working until it's restarted.
-  - alias: 'Restart UPS Driver Controller'
+  - alias: '[Energy] Restart UPS Driver Controller'
     trigger:
       platform: state
       entity_id: binary_sensor.ups_status_bs
@@ -244,7 +245,7 @@ automation:
       - service: shell_command.restart_ups_driver_controller
   
   # Notify when the power is back normal
-  - alias: 'Notify power ok'
+  - alias: '[Energy] Notify power ok'
     trigger:
       platform: state
       entity_id: binary_sensor.ups_status_bs
@@ -259,7 +260,7 @@ automation:
         message: 'Suministro eléctrico reestablecido'
   
   # Notify when the UPS battery has to be replaced
-  - alias: 'Notify ups battery replacement'
+  - alias: '[Energy] Notify ups battery replacement'
     trigger:
       platform: state
       entity_id: sensor.ups_status
@@ -269,7 +270,7 @@ automation:
       data:
         message: 'Batería del SAI agotándose, reemplazar'
   
-  - alias: 'Set correct energy tariff on start'
+  - alias: '[Energy] Set correct energy tariff on start'
     trigger:
       platform: homeassistant
       event: start
@@ -319,7 +320,7 @@ automation:
               Valle
             {%- endif %}
 
-  - alias: 'Energy Pico time'
+  - alias: '[Energy] Energy Pico time'
     trigger:
       platform: time
       at: '13:00:00'
@@ -341,7 +342,7 @@ automation:
           entity_id: utility_meter.yearly_energy_insight
           tariff: 'Pico'
 
-  - alias: 'Energy Valle time'
+  - alias: '[Energy] Energy Valle time'
     trigger:
       - platform: time
         at: '23:00:00'
@@ -365,7 +366,7 @@ automation:
           entity_id: utility_meter.yearly_energy_insight
           tariff: 'Valle'
 
-  - alias: 'Energy Super valle time'
+  - alias: '[Energy] Energy Super valle time'
     trigger:
       platform: time
       at: '01:00:00'
@@ -397,7 +398,7 @@ automation:
 #       - service: switch.turn_on
 #         entity_id: switch.wemoinsight
 
-  - alias: 'Turn off WeMo Insight when Super valle time finishes'
+  - alias: '[Energy] Turn off WeMo Insight 5 mins after Super valle time finishes'
     trigger:
       platform: state
       entity_id: utility_meter.yearly_energy_insight

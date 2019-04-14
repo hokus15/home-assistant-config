@@ -169,7 +169,7 @@ cloud:
 
 automation:
   # Empty home automation when no one of the Familia group is at home
-  - alias: 'Empty home'
+  - alias: '[Presence] Empty home'
     trigger:
       platform: state
       entity_id: group.unidad_familiar
@@ -180,7 +180,7 @@ automation:
           entity_id: script.presence_empty_home
   
   # Someone home automation when someone of the Familia group is at home
-  - alias: 'Someone home'
+  - alias: '[Presence] Someone home'
     trigger:
       platform: state
       entity_id: group.unidad_familiar
@@ -191,7 +191,7 @@ automation:
           entity_id: script.presence_someone_home
   
   # Turn on hall lamp when someone at home and the sun is set
-  - alias: 'Turn on hall lamp when someone arrives at home and the sun is set'
+  - alias: '[Presence] Turn on hall lamp when someone arrives at home and the sun is set'
     trigger:
       platform: state
       entity_id: group.unidad_familiar
@@ -211,7 +211,7 @@ automation:
   # Change virtual_device location to home
   # Wait the specified amount of minutes 
   # Turn off input_boolean.empty_home_activation_delay
-  - alias: 'empty_home_activation_delay on'
+  - alias: '[Presence] empty_home_activation_delay on'
     trigger:
       platform: state
       entity_id: input_boolean.empty_home_activation_delay
@@ -236,7 +236,7 @@ automation:
   
   # When input_boolean.empty_home_activation_delay turns off,
   # Change virtual_device location to not_home
-  - alias: 'empty_home_activation_delay off'
+  - alias: '[Presence] empty_home_activation_delay off'
     trigger:
       platform: state
       entity_id: input_boolean.empty_home_activation_delay
@@ -252,7 +252,7 @@ automation:
           location_name: 'not_home'
   
   # Turn on for 4 hours authorized person at 7:00 if it's a workday and the shift in calendar is "Mañana" or "Saliente"
-  - alias: 'Authorized person'
+  - alias: '[Presence] Authorized person'
     trigger:
       platform: time
       at: '07:00:00'
@@ -279,7 +279,7 @@ automation:
         data:
           entity_id: input_boolean.empty_home_activation_delay
 
-  - alias: 'Remind Geni to disable alarm clock when she works at night'
+  - alias: '[Presence] Remind Geni to disable alarm clock when she works at night'
     trigger:
       platform: time
       at: '20:45:00'
@@ -301,7 +301,7 @@ automation:
   # Set Geni to 'home' when at least ONE of related entities are set to 'home'
   # Else set Geni to 'not_home' when ALL related entities are in a state different from 'home'
   # Set Geni to the WiFi name otherwise
-  - alias: 'Geni location'
+  - alias: '[Presence] Geni location'
     trigger:
       - platform: state
         entity_id: device_tracker.geniphone, device_tracker.geniphone_wifi
@@ -330,7 +330,7 @@ automation:
   # Set Jordi to 'home' when at least ONE of related entities are set to 'home'
   # Else set Jordi to 'not_home' when ALL related entities are in a state different from 'home'
   # Set Jordi to the WiFi name otherwise
-  - alias: 'Jordi location'
+  - alias: '[Presence] Jordi location'
     trigger:
       - platform: state
         entity_id: device_tracker.hokusphone, device_tracker.hokusphone_wifi
@@ -353,7 +353,7 @@ automation:
 
   # If fence is closed, Ioniq enter 'home' zone
   # Open fence, notify it, send a meessage to mqtt topic, and set Jordi as 'home'
-  - alias: 'Jordi arriving home'
+  - alias: '[Presence] Jordi arriving home'
     trigger:
        - platform: zone
          entity_id: device_tracker.ioniq
@@ -393,7 +393,7 @@ automation:
   # When Jordi leave home zone and in the car:
   #   - Set hokusphone 'not_home'
   #   - If nobody at home, close the fence if open, and notify if porch door or blind is open.
-  - alias: 'Jordi leaving home with car'
+  - alias: '[Presence] Jordi leaving home with car'
     trigger:
        - platform: zone
          entity_id: device_tracker.ioniq
@@ -411,7 +411,7 @@ automation:
       - service: mqtt.publish
         data:
           payload_template: >
-            {%- if is_state("group.unidad_familiar", "not_home") -%}{%- if is_state("sensor.outside_fence", "Abierta") -%}Te has dejado la barrera abierta, la voy a cerrar. {%- endif -%}{%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif -%}{%- endif -%}La previsión del tiempo es de {{ states.sensor.dark_sky_summary_0.state | replace(" C."," grados") }}
+            {%- if is_state("group.unidad_familiar", "not_home") -%}{%- if is_state("sensor.outside_fence", "Abierta") -%}Te has dejado la barrera abierta, la voy a cerrar. {%- endif -%}{%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif -%}{%- endif -%}La previsión del tiempo es de {{ states.sensor.dark_sky_summary_0d.state | replace(" C."," grados") }}
           retain: false
           topic: 'cmnd/phone/hokus/say'
       - service_template: >
@@ -431,7 +431,7 @@ automation:
   #############################################################
   
   # Enters on holiday mode based on google calendar event
-  - alias: 'Calendar holiday mode'
+  - alias: '[Presence] Calendar holiday mode'
     trigger:
       platform: state
       entity_id: calendar.holiday_mode
@@ -443,7 +443,7 @@ automation:
           entity_id: switch.holiday
   
   # Exits on holiday mode based on google calendar event
-  - alias: 'Calendar holiday mode exit'
+  - alias: '[Presence] Calendar holiday mode exit'
     trigger:
       platform: state
       entity_id: calendar.holiday_mode
@@ -455,7 +455,7 @@ automation:
           entity_id: switch.holiday
   
   # Enters holiday mode based on switch
-  - alias: 'Switch holiday mode'
+  - alias: '[Presence] Switch holiday mode'
     trigger:
       platform: state
       entity_id: switch.holiday
@@ -474,7 +474,7 @@ automation:
           message: 'Modo vacaciones activado'
   
   # Exits holiday mode based on switch
-  - alias: 'Exit holiday mode'
+  - alias: '[Presence] Exit holiday mode'
     trigger:
       platform: state
       entity_id: switch.holiday
@@ -494,7 +494,7 @@ automation:
         data:
           message: 'Modo vacaciones desactivado'
 
-  - alias: Notify for new devices
+  - alias: '[Presence] Notify for new devices'
     trigger:
       platform: event
       event_type: device_tracker_new_device

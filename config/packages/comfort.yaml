@@ -761,7 +761,7 @@ automation:
   #############################################################
 
     # Automatic Heating on when home mean temperature for last 24 hours is below 18.5 degrees
-  - alias: 'Automatic heating on'
+  - alias: '[Comfort] Automatic heating on'
     trigger:
       platform: numeric_state
       entity_id: sensor.home_temperature_mean
@@ -790,7 +790,7 @@ automation:
                  - 'Apaga la calefacción:/switch.turn_off#switch.thermostat'
 
     # Automatic Heating off when home mean temperature for last 24 hours is above 22 degrees
-  - alias: 'Automatic heating off'
+  - alias: '[Comfort] Automatic heating off'
     trigger:
       platform: numeric_state
       entity_id: sensor.home_temperature_mean
@@ -819,7 +819,7 @@ automation:
                  - 'Enciende la calefacción:/switch.turn_on#switch.thermostat'
 
     # Turn on comfort mode
-  - alias: 'Comfort mode on'
+  - alias: '[Comfort] Comfort mode on'
     trigger:
       platform: state
       entity_id: input_boolean.home_comfort_mode
@@ -829,7 +829,7 @@ automation:
         entity_id: script.comfort_mode_on
 
     # Turn off comfort mode
-  - alias: 'Comfort mode off'
+  - alias: '[Comfort] Comfort mode off'
     trigger:
       platform: state
       entity_id: input_boolean.home_comfort_mode
@@ -839,7 +839,7 @@ automation:
         entity_id: script.comfort_mode_off
 
     # Automatic comfort mode turn on when comfort state is true and is after 16
-  - alias: 'Automatic comfort mode turn on'
+  - alias: '[Comfort] Automatic comfort mode turn on'
     trigger:
       platform: state
       entity_id: binary_sensor.home_comfort_state
@@ -879,7 +879,7 @@ automation:
           entity_id: input_boolean.home_comfort_mode
 
     # To avoid energy waste, notify when laundry door is open and heating is on.
-  - alias: 'When laundry door is open and heating is on, notify every 10 minutes'
+  - alias: '[Comfort] When laundry door is open and heating is on, notify every 10 minutes'
     trigger:
       platform: time_pattern
       minutes: '/1'
@@ -905,7 +905,7 @@ automation:
           cache: false
 
     # To avoid energy waste, notify when porch door in the kitchen is open, heating is on and in 'heat' state.
-  - alias: 'When porch door in the kitchen is open and heating is on, notify every 10 minutes'
+  - alias: '[Comfort] When porch door in the kitchen is open and heating is on, notify every 10 minutes'
     trigger:
       platform: time_pattern
       minutes: '/1'
