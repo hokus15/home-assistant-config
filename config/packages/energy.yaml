@@ -47,7 +47,7 @@ homeassistant:
       friendly_name: 'Consumo mensual (super valle)'
       icon: 'mdi:trending-down'
     sensor.insight_powerused:
-      friendly_name: 'Potencia carga coche'
+      friendly_name: 'Potencia carga'
       icon: 'mdi:speedometer'
 
     ###################################
@@ -62,7 +62,7 @@ homeassistant:
       friendly_name: 'Pitido'
       icon: mdi:music-note
     switch.wemoinsight:
-      friendly_name: 'Estado enchufe'
+      friendly_name: 'Cargador'
 
     utility_meter.daily_energy:
       friendly_name: 'Tarifa'
@@ -166,7 +166,7 @@ binary_sensor:
         delay_off:
           seconds: 30
       car_charging:
-        friendly_name: "Enchufado"
+        friendly_name: "Cargando"
         device_class: plug
         value_template: "{{ states('sensor.insight_powerused')|float > 1000.0 }}"
 switch:
