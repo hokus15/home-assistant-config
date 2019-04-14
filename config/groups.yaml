@@ -68,13 +68,21 @@ Exterior:
     - camera.entrada_principal
     - group.seguridad_exterior
 
+Coche:
+  view: yes
+  icon: mdi:car-electric
+  entities:
+    - group.cargador
+    - group.estado
+    - group.localizacion
+#    - group.nissan
+
 Varios:
   view: yes
   icon: mdi:grid
   entities:
     - group.jordi
-    - group.ioniq
-#    - group.nissan
+
     - group.internet
     - group.estado_ha
     - group.crypto_currency
