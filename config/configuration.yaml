@@ -212,8 +212,6 @@ cloud:
 #      expose: true
 #      room: General
 
-python_script:
-
 speedtestdotnet:
   scan_interval:
     hours: 6
