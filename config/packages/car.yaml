@@ -2,7 +2,8 @@ homeassistant:
   customize:
     sensor.ioniq_location:
       friendly_name: 'Última actualización'
-      icon: 'mdi:clock'
+      #icon: 'mdi:clock'
+      entity_picture: '/local/ioniq-icon.png'
     binary_sensor.ioniq_state:
       friendly_name: 'Estado'
 
