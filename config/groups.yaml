@@ -70,13 +70,19 @@ Exterior:
 
 Coche:
   view: yes
-  icon: mdi:car-electric
+  icon: mdi:car
   entities:
     - group.cargador
     - group.consumo_electricidad
     - group.estado
     - group.localizacion
 #    - group.nissan
+
+Dashboard Coche:
+  view: yes
+  icon: mdi:car-electric
+  entities:
+    - group.cargador
 
 Varios:
   view: yes
