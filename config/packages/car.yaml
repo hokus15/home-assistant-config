@@ -20,6 +20,7 @@ group:
       - binary_sensor.energy_car_charging
       - switch.energy_car_charger
       - sensor.energy_car_charger_powerused
+      - sensor.energy_car_charge_state
 
   Consumo electricidad:
     entities:
