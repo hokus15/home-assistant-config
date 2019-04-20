@@ -14,3 +14,14 @@ ocr.png
 ip_bans.yaml
 
 testbild.png
+config/.HA_VERSION
+config/.google.token
+config/.storage/auth
+config/.storage/auth_module.totp
+config/.storage/auth_provider.homeassistant
+config/.storage/cloud
+config/.storage/core.config_entries
+config/.storage/core.restore_state
+config/.storage/frontend.user_data_0b2aad55afaf4c3e9c727406d277d94e
+config/.storage/onboarding
+config/.uuid
