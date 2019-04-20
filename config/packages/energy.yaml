@@ -58,6 +58,9 @@ homeassistant:
     sensor.energy_car_charger_powerused:
       friendly_name: 'Potencia carga'
       icon: 'mdi:speedometer'
+    sensor.energy_car_charge_state:
+      friendly_name: 'Estado carga'
+      icon: 'mdi:flash-circle'
 
     ###################################
     # Binary Sensors
@@ -116,12 +119,6 @@ sensor:
     monitored_variables:
       - type: current_values
 
-  - platform: template
-    sensors:
-      energy_car_charger_powerused:
-        value_template: "{{state_attr('switch.energy_car_charger','current_power_w')|int}}"
-        unit_of_measurement: W
-
   - platform: integration 
     source: sensor.efergy_2577
     name: energy_spent
@@ -131,21 +128,22 @@ sensor:
   - platform: integration 
     source: sensor.energy_car_charger_powerused
     name: energy_spent_insight
-#    unit: W
     unit_prefix: k
-#    unit_time: h
     round: 2
 
   - platform: template
     sensors:
+      energy_car_charger_powerused:
+        value_template: "{{state_attr('switch.energy_car_charger','current_power_w')|int}}"
+        unit_of_measurement: W
       energy_car_charge_state:
         value_template: >-
           {%- if is_state('switch.energy_car_charger', 'off') %}
-            off
+            Apagado
           {% elif is_state('binary_sensor.energy_car_charging', 'off') %}
-            ready
+            Listo
           {% else %}
-            charging
+            Cargando
           {%- endif %}
       energy_ups_status:
         value_template: >-

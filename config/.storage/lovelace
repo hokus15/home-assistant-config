@@ -604,6 +604,9 @@
                                 },
                                 {
                                     "entity": "sensor.energy_car_charger_powerused"
+                                },
+                                {
+                                    "entity": "sensor.energy_car_charge_state"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -686,9 +689,9 @@
                                         {
                                             "entity": "sensor.energy_car_charge_state",
                                             "state_image": {
-                                                "charging": "/local/background-square-blue.png",
-                                                "off": "/local/background-square-orange.png",
-                                                "ready": "/local/background-square-green.png"
+                                                "Apagado": "/local/background-square-orange.png",
+                                                "Cargando": "/local/background-square-blue.png",
+                                                "Listo": "/local/background-square-green.png"
                                             },
                                             "style": {
                                                 "position": "absolute",
