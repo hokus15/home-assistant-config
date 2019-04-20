@@ -183,7 +183,8 @@ automation:
     trigger:
       platform: state
       entity_id: sensor.outside_fence
-      to: 'Abierta'
+      from: 'Cerrada'
+      to: 'En movimiento'
     condition:
       condition: or
       conditions:
@@ -216,6 +217,3 @@ automation:
       - service: switch.turn_on
         data:
           entity_id: switch.entrance_hall_lamp_switch
-      - service: switch.turn_on
-        data:
-          entity_id: switch.wemo_switch
