@@ -1,0 +1,24 @@
+{
+    "data": {
+        "persons": [
+            {
+                "device_trackers": [
+                    "device_tracker.jordi_combined"
+                ],
+                "id": "e73415f74dc346aa9a12d2f94b14f7fa",
+                "name": "Jordi",
+                "user_id": "0b2aad55afaf4c3e9c727406d277d94e"
+            },
+            {
+                "device_trackers": [
+                    "device_tracker.geni_combined"
+                ],
+                "id": "651cb988d7f547fd8cbb9060258f3d10",
+                "name": "Geni",
+                "user_id": null
+            }
+        ]
+    },
+    "key": "person",
+    "version": 1
+}

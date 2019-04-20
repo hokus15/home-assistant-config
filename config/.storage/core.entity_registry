@@ -1,0 +1,1178 @@
+{
+    "data": {
+        "entities": [
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.hokussqueezebox",
+                "name": null,
+                "platform": "squeezebox",
+                "unique_id": "00:04:20:2a:42:cc"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "switch.barrera",
+                "name": null,
+                "platform": "wemo",
+                "unique_id": "221529S000015E"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "light.barrera_derecha",
+                "name": null,
+                "platform": "wemo",
+                "unique_id": "94103EF6BF4305F3"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "light.barrera_izquierda",
+                "name": null,
+                "platform": "wemo",
+                "unique_id": "94103EF6BF430276"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "light.puerta_coladuria",
+                "name": null,
+                "platform": "wemo",
+                "unique_id": "94103EF6BF42F7A8"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "zwave.aeotec_zw090_zstick_gen5_eu",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "node-1"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "zwave.nodon_crc3100_octan_remote",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "node-8"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.despacho_sensor_movimiento",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "6-72057594143571968"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
+                "disabled_by": null,
+                "entity_id": "sensor.despacho_sensor_movimiento_luminance",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "6-72057594143588402"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
+                "disabled_by": null,
+                "entity_id": "sensor.despacho_sensor_movimiento_temperature",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "6-72057594143588370"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "zwave.despacho_sensor_movimiento",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "node-6"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
+                "disabled_by": null,
+                "entity_id": "sensor.despacho_sensor_movimiento_sourcenodeid",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "6-72057594144636961"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
+                "disabled_by": null,
+                "entity_id": "sensor.despacho_sensor_movimiento_seismic_intensity",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "6-72057594143588754"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
+                "disabled_by": null,
+                "entity_id": "sensor.despacho_sensor_movimiento_general",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "6-72057594145341441"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
+                "disabled_by": null,
+                "entity_id": "sensor.despacho_sensor_movimiento_burglar",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "6-72057594144637089"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
+                "disabled_by": null,
+                "entity_id": "sensor.despacho_sensor_movimiento_alarm_type",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "6-72057594144636929"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
+                "disabled_by": null,
+                "entity_id": "sensor.despacho_sensor_movimiento_alarm_level",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "6-72057594144636945"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "zwave.porche_sensor_puerta",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "node-11"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "zwave.coladuria_sensor_puerta",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "node-15"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "zwave.porche_sensor_persiana",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "node-9"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ed0a76f21f8942cfaecf52892169ed51",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.porche_sensor_persiana",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "9-72057594193903616"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ed0a76f21f8942cfaecf52892169ed51",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_persiana_access_control",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "9-72057594194968721"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ed0a76f21f8942cfaecf52892169ed51",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_persiana_alarm_level",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "9-72057594194968593"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ed0a76f21f8942cfaecf52892169ed51",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_persiana_alarm_type",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "9-72057594194968577"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ed0a76f21f8942cfaecf52892169ed51",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_persiana_burglar",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "9-72057594194968737"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ed0a76f21f8942cfaecf52892169ed51",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_persiana_general",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "9-72057594195673089"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ed0a76f21f8942cfaecf52892169ed51",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_persiana_sourcenodeid",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "9-72057594194968609"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.porche_sensor_puerta",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "11-72057594227458048"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_puerta_access_control",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "11-72057594228523153"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_puerta_alarm_level",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "11-72057594228523025"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_puerta_alarm_type",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "11-72057594228523009"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_puerta_burglar",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "11-72057594228523169"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_puerta_general",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "11-72057594229227521"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_puerta_heat",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "11-72057594228523121"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_puerta_sourcenodeid",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "11-72057594228523041"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_puerta_system",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "11-72057594228523201"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_puerta_temperature",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "11-72057594227474450"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "734c40c44219413aacef6fd6062dfc39",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.coladuria_sensor_puerta",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "15-72057594294566912"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "734c40c44219413aacef6fd6062dfc39",
+                "disabled_by": null,
+                "entity_id": "sensor.coladuria_sensor_puerta_access_control",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "15-72057594295632017"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "734c40c44219413aacef6fd6062dfc39",
+                "disabled_by": null,
+                "entity_id": "sensor.coladuria_sensor_puerta_alarm_level",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "15-72057594295631889"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "734c40c44219413aacef6fd6062dfc39",
+                "disabled_by": null,
+                "entity_id": "sensor.coladuria_sensor_puerta_alarm_type",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "15-72057594295631873"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "734c40c44219413aacef6fd6062dfc39",
+                "disabled_by": null,
+                "entity_id": "sensor.coladuria_sensor_puerta_burglar",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "15-72057594295632033"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "734c40c44219413aacef6fd6062dfc39",
+                "disabled_by": null,
+                "entity_id": "sensor.coladuria_sensor_puerta_general",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "15-72057594296336385"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "734c40c44219413aacef6fd6062dfc39",
+                "disabled_by": null,
+                "entity_id": "sensor.coladuria_sensor_puerta_sourcenodeid",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "15-72057594295631905"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
+                "disabled_by": null,
+                "entity_id": "sensor.escalera_switch_alarm_level",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "10-72057594211745809"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
+                "disabled_by": null,
+                "entity_id": "sensor.escalera_switch_alarm_type",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "10-72057594211745793"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
+                "disabled_by": null,
+                "entity_id": "sensor.escalera_switch_heat",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "10-72057594211745905"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
+                "disabled_by": null,
+                "entity_id": "sensor.escalera_switch_power_management",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "10-72057594211745969"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
+                "disabled_by": null,
+                "entity_id": "sensor.escalera_switch_sourcenodeid",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "10-72057594211745825"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "zwave.escalera_y_suite_switch",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "node-10"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
+                "disabled_by": null,
+                "entity_id": "sensor.suite_switch_energy",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "10-144115188248641538"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
+                "disabled_by": null,
+                "entity_id": "sensor.suite_switch_exporting",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "10-72057594210714112"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
+                "disabled_by": null,
+                "entity_id": "sensor.suite_switch_power",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "10-72057594210713730"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
+                "disabled_by": null,
+                "entity_id": "switch.suite_switch",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "10-144115188248428544"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
+                "disabled_by": null,
+                "entity_id": "sensor.escalera_switch_energy",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "10-72057594210713602"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
+                "disabled_by": null,
+                "entity_id": "sensor.escalera_switch_exporting",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "10-144115188248642048"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
+                "disabled_by": null,
+                "entity_id": "sensor.escalera_switch_power",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "10-144115188248641666"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
+                "disabled_by": null,
+                "entity_id": "switch.escalera_switch",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "10-72057594210500608"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "zwave.entrance_hall_lamp_switch",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "node-3"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "0eb7fbe253b8440882d75ae177c19ecd",
+                "disabled_by": null,
+                "entity_id": "switch.entrance_hall_lamp_switch",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "3-72057594093060096"
+            },
+            {
+                "config_entry_id": "64a0feb392ee44188de5bba85b1b09a4",
+                "device_id": "8af28b3337744ed7aa0c3950f87c412e",
+                "disabled_by": null,
+                "entity_id": "media_player.recibidor",
+                "name": null,
+                "platform": "cast",
+                "unique_id": "360839a3-401e-1ba0-81a9-0736c4a39ba6"
+            },
+            {
+                "config_entry_id": "64a0feb392ee44188de5bba85b1b09a4",
+                "device_id": "cf0ef073a50742cd95184495f6e1e2ca",
+                "disabled_by": null,
+                "entity_id": "media_player.cocina",
+                "name": null,
+                "platform": "cast",
+                "unique_id": "08967150-674f-9e20-eb89-a420843a4ffe"
+            },
+            {
+                "config_entry_id": "64a0feb392ee44188de5bba85b1b09a4",
+                "device_id": "69b38bec9afe41299b8d4e82f640f3a4",
+                "disabled_by": null,
+                "entity_id": "media_player.salon",
+                "name": null,
+                "platform": "cast",
+                "unique_id": "cdbe4ece-88cc-2512-7429-e5d8747010a6"
+            },
+            {
+                "config_entry_id": "64a0feb392ee44188de5bba85b1b09a4",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.altavoces",
+                "name": null,
+                "platform": "cast",
+                "unique_id": "fb27835f-28ef-4161-bcea-55111b60c31f"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "switch.wemo_switch",
+                "name": null,
+                "platform": "wemo",
+                "unique_id": "221409K1100E9E"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "switch.wemo_link",
+                "name": null,
+                "platform": "wemo",
+                "unique_id": "231503B01008BA"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_habitacion_max_temp",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:af:92-max_temp"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_salon_co2",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "70:ee:50:02:36:f2-co2"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_salon_wifi",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "70:ee:50:02:36:f2-wifi_status"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_suite_temperature",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:12:70-temperature"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_suite_min_temp",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:12:70-min_temp"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_pluviometro_battery",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "05:00:00:01:ab:08-battery_vp"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_suite_max_temp",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:12:70-max_temp"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_suite_humidity",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:12:70-humidity"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_pluviometro_radio",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "05:00:00:01:ab:08-rf_status"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_salon_humidity",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "70:ee:50:02:36:f2-humidity"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_salon_noise",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "70:ee:50:02:36:f2-noise"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_suite_battery",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:12:70-battery_vp"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_salon_pressure",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "70:ee:50:02:36:f2-pressure"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_pluviometro_sum_rain_24",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "05:00:00:01:ab:08-sum_rain_24"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_pluviometro_sum_rain_1",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "05:00:00:01:ab:08-sum_rain_1"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_anemometro_angle",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "06:00:00:00:0c:0a-windangle"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_anemometro_gust_angle",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "06:00:00:00:0c:0a-gustangle"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_exterior_radio",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "02:00:00:02:59:18-rf_status"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_pluviometro_rain",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "05:00:00:01:ab:08-rain"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_anemometro_strength",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "06:00:00:00:0c:0a-windstrength"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_salon_temperature",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "70:ee:50:02:36:f2-temperature"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_exterior_min_temp",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "02:00:00:02:59:18-min_temp"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_exterior_max_temp",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "02:00:00:02:59:18-max_temp"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_exterior_humidity",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "02:00:00:02:59:18-humidity"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_exterior_battery",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "02:00:00:02:59:18-battery_vp"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_habitacion_min_temp",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:af:92-min_temp"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_habitacion_radio",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:af:92-rf_status"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_exterior_temperature",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "02:00:00:02:59:18-temperature"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_suite_radio",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:12:70-rf_status"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_habitacion_humidity",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:af:92-humidity"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_anemometro_radio",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "06:00:00:00:0c:0a-rf_status"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_anemometro_battery",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "06:00:00:00:0c:0a-battery_vp"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_suite_co2",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:12:70-co2"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_habitacion_co2",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:af:92-co2"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_habitacion_battery",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:af:92-battery_vp"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_anemometro_gust_strength",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "06:00:00:00:0c:0a-guststrength"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_habitacion_temperature",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:af:92-temperature"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_salon_min_temp",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "70:ee:50:02:36:f2-min_temp"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_salon_max_temp",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "70:ee:50:02:36:f2-max_temp"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_anemometro_battery_percent",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "06:00:00:00:0c:0a-battery_percent"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_habitacion_battery_percent",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:af:92-battery_percent"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_pluviometro_battery_percent",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "05:00:00:01:ab:08-battery_percent"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_exterior_battery_percent",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "02:00:00:02:59:18-battery_percent"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_suite_battery_percent",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:12:70-battery_percent"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": "d29790124f1b4d05920ec1a425bb41dc",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_kbyte_sec_sent",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:8b2fc6dd-b5a6-4f1d-a00f-56ddba5fe631_kbyte/sec_sent"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": "7f6f7efba9a24a6f9536c54ae777e81e",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_packets_received",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:8b2fc6dd-b5a6-4f1d-a00f-56ddba5fe631_packets_received"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": "6120c95768df48a5a3a48e9d994e177e",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_bytes_received",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:8b2fc6dd-b5a6-4f1d-a00f-56ddba5fe631_bytes_received"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": "2943794ba80d4f948fc45a9a63aee7fd",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_bytes_sent",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:8b2fc6dd-b5a6-4f1d-a00f-56ddba5fe631_bytes_sent"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": "8de04f149a1f4071999de78a94b754b3",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_packets_sent",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:8b2fc6dd-b5a6-4f1d-a00f-56ddba5fe631_packets_sent"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": "56bdd9bc6e8e492ab715e5b6e05f81da",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_kbyte_sec_received",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:8b2fc6dd-b5a6-4f1d-a00f-56ddba5fe631_kbyte/sec_received"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": "b0c8fe1aeb034363968d118ded7df809",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_packets_sec_received",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:8b2fc6dd-b5a6-4f1d-a00f-56ddba5fe631_packets/sec_received"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": "695af91943264795a83f3b2395b151a5",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_packets_sec_sent",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:8b2fc6dd-b5a6-4f1d-a00f-56ddba5fe631_packets/sec_sent"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "switch.energy_car_charger",
+                "name": null,
+                "platform": "wemo",
+                "unique_id": "221501K1200593"
+            },
+            {
+                "config_entry_id": "3395db9966104243a8ca8cc896463692",
+                "device_id": "f041f088e46345f6b5bff83a193c86b9",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_packets_sec_sent_2",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2_packets/sec_sent"
+            },
+            {
+                "config_entry_id": "3395db9966104243a8ca8cc896463692",
+                "device_id": "ff863c9c4ff54c5dbacefcd52d7e7037",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_packets_sec_received_2",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2_packets/sec_received"
+            },
+            {
+                "config_entry_id": "3395db9966104243a8ca8cc896463692",
+                "device_id": "afdfcbbe88c14d06bfb6f28194f47bcb",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_kbyte_sec_sent_2",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2_kbyte/sec_sent"
+            },
+            {
+                "config_entry_id": "3395db9966104243a8ca8cc896463692",
+                "device_id": "3a16c64a43fd4cba94b06425b2bddc15",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_packets_received_2",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2_packets_received"
+            },
+            {
+                "config_entry_id": "3395db9966104243a8ca8cc896463692",
+                "device_id": "df7862447b95450d8bf36f8d51f3dcc0",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_packets_sent_2",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2_packets_sent"
+            },
+            {
+                "config_entry_id": "3395db9966104243a8ca8cc896463692",
+                "device_id": "1e46a1938db04212a487ff350d18f606",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_bytes_sent_2",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2_bytes_sent"
+            },
+            {
+                "config_entry_id": "3395db9966104243a8ca8cc896463692",
+                "device_id": "dae45177293149db83fe0509274a4075",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_bytes_received_2",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2_bytes_received"
+            },
+            {
+                "config_entry_id": "3395db9966104243a8ca8cc896463692",
+                "device_id": "725d6023ac414f14adbbdcb5d782054a",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_kbyte_sec_received_2",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2_kbyte/sec_received"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.remote_ui",
+                "name": null,
+                "platform": "cloud",
+                "unique_id": "cloud-remote-ui-connectivity"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "person.jordi",
+                "name": null,
+                "platform": "person",
+                "unique_id": "e73415f74dc346aa9a12d2f94b14f7fa"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "person.geni",
+                "name": null,
+                "platform": "person",
+                "unique_id": "651cb988d7f547fd8cbb9060258f3d10"
+            }
+        ]
+    },
+    "key": "core.entity_registry",
+    "version": 1
+}
