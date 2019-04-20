@@ -3,7 +3,7 @@ homeassistant:
     sensor.efergy_2577:
       friendly_name: 'Consumo instantáneo'
       icon: 'mdi:speedometer'
-    sensor.ups_status:
+    sensor.energy_ups_status:
       friendly_name: 'SAI'
       icon: 'mdi:power-socket-eu'
     sensor.nut_ups_manufacturer:
@@ -14,57 +14,66 @@ homeassistant:
       friendly_name: 'Carga'
     sensor.nut_ups_battery_runtime:
       friendly_name: 'Tiempo restante'
-    sensor.daily_energy_pico:
+    sensor.energy_home_daily_pico:
       friendly_name: 'Consumo diario (pico)'
-    sensor.daily_energy_valle:
+    sensor.energy_home_daily_valle:
       friendly_name: 'Consumo diario (valle)'
-    sensor.daily_energy_super_valle:
+    sensor.energy_home_daily_super_valle:
       friendly_name: 'Consumo diario (super valle)'
-    sensor.monthly_energy_pico:
+    sensor.energy_home_monthly_pico:
       friendly_name: 'Consumo mensual (pico)'
-    sensor.monthly_energy_valle:
+    sensor.energy_home_monthly_valle:
       friendly_name: 'Consumo mensual (valle)'
-    sensor.monthly_energy_super_valle:
+    sensor.energy_home_monthly_super_valle:
       friendly_name: 'Consumo mensual (super valle)'
-    sensor.yearly_energy_insight_pico:
+    sensor.energy_car_charger_yearly_pico:
       friendly_name: 'Consumo anual (pico)'
       icon: 'mdi:trending-up'
-    sensor.yearly_energy_insight_valle:
+    sensor.energy_car_charger_yearly_valle:
       friendly_name: 'Consumo anual (valle)'
       icon: 'mdi:trending-down'
       unit_of_measurement: kWh
-    sensor.yearly_energy_insight_super_valle:
+    sensor.energy_car_charger_yearly_super_valle:
       friendly_name: 'Consumo anual (super valle)'
       icon: 'mdi:trending-down'
       unit_of_measurement: kWh
-    sensor.monthly_energy_insight_pico:
+    sensor.energy_car_charger_monthly_pico:
       friendly_name: 'Consumo mensual (pico)'
       icon: 'mdi:trending-up'
-    sensor.monthly_energy_insight_valle:
+    sensor.energy_car_charger_monthly_valle:
       friendly_name: 'Consumo mensual (valle)'
       icon: 'mdi:trending-down'
-    sensor.monthly_energy_insight_super_valle:
+    sensor.energy_car_charger_monthly_super_valle:
       friendly_name: 'Consumo mensual (super valle)'
       icon: 'mdi:trending-down'
-    sensor.insight_powerused:
+    sensor.energy_car_charger_daily_pico:
+      friendly_name: 'Consumo diario (pico)'
+      icon: 'mdi:trending-up'
+    sensor.energy_car_charger_daily_valle:
+      friendly_name: 'Consumo diario (valle)'
+      icon: 'mdi:trending-down'
+    sensor.energy_car_charger_daily_super_valle:
+      friendly_name: 'Consumo diario (super valle)'
+      icon: 'mdi:trending-down'
+    sensor.energy_car_charger_powerused:
       friendly_name: 'Potencia carga'
       icon: 'mdi:speedometer'
 
     ###################################
     # Binary Sensors
     ###################################
-    binary_sensor.ups_status_bs:
+    binary_sensor.energy_ups_status_bs:
       friendly_name: 'Suministro eléctrico'
     ###################################
     # Switches
     ###################################
-    switch.ups_beeper:
+    switch.energy_ups_beeper:
       friendly_name: 'Pitido'
       icon: mdi:music-note
-    switch.wemoinsight:
+    switch.energy_car_charger:
       friendly_name: 'Cargador'
 
-    utility_meter.daily_energy:
+    utility_meter.energy_home_daily:
       friendly_name: 'Tarifa'
 
 recorder:
@@ -78,29 +87,27 @@ recorder:
       - sensor.nut_ups_beeper_status
       - sensor.nut_ups_battery_runtime
       - sensor.nut_ups_battery_charge
-
-      - sensor.energy_offpeak_start
-      - sensor.energy_peak_start
+      - sensor.energy_car_charge_state
 
 group:
   Energía:
     entities:
-      - utility_meter.daily_energy
-      - binary_sensor.ups_status_bs
+      - utility_meter.energy_home_daily
+      - binary_sensor.energy_ups_status_bs
       - sensor.efergy_2577
-      - sensor.daily_energy_pico
-      - sensor.daily_energy_valle
-      - sensor.daily_energy_super_valle
-      - sensor.monthly_energy_pico
-      - sensor.monthly_energy_valle
-      - sensor.monthly_energy_super_valle
-      - sensor.ups_status
+      - sensor.energy_home_daily_pico
+      - sensor.energy_home_daily_valle
+      - sensor.energy_home_daily_super_valle
+      - sensor.energy_home_monthly_pico
+      - sensor.energy_home_monthly_valle
+      - sensor.energy_home_monthly_super_valle
+      - sensor.energy_ups_status
   SAI:
     entities:
-      - sensor.ups_status
+      - sensor.energy_ups_status
       - sensor.nut_ups_battery_charge
       - sensor.nut_ups_battery_runtime
-      - switch.ups_beeper
+      - switch.energy_ups_beeper
 
 sensor:
   - platform: efergy
@@ -111,9 +118,10 @@ sensor:
 
   - platform: template
     sensors:
-      insight_powerused:
-        value_template: "{{state_attr('switch.wemoinsight','current_power_w')|int}}"
+      energy_car_charger_powerused:
+        value_template: "{{state_attr('switch.energy_car_charger','current_power_w')|int}}"
         unit_of_measurement: W
+
   - platform: integration 
     source: sensor.efergy_2577
     name: energy_spent
@@ -121,7 +129,7 @@ sensor:
     round: 2
 
   - platform: integration 
-    source: sensor.insight_powerused
+    source: sensor.energy_car_charger_powerused
     name: energy_spent_insight
 #    unit: W
     unit_prefix: k
@@ -130,7 +138,16 @@ sensor:
 
   - platform: template
     sensors:
-      ups_status:
+      energy_car_charge_state:
+        value_template: >-
+          {%- if is_state('switch.energy_car_charger', 'off') %}
+            off
+          {% elif is_state('binary_sensor.energy_car_charging', 'off') %}
+            ready
+          {% else %}
+            charging
+          {%- endif %}
+      energy_ups_status:
         value_template: >-
           {%- if is_state('sensor.nut_ups_status_data', 'OL') %}
             Normal
@@ -159,20 +176,20 @@ sensor:
 binary_sensor:
   - platform: template
     sensors:
-      ups_status_bs:
+      energy_ups_status_bs:
         device_class: plug
         entity_id: sensor.nut_ups_status_data
         value_template: "{{ is_state('sensor.nut_ups_status_data', 'OL') or is_state('sensor.nut_ups_status_data', 'OL CHRG') }}"
         delay_off:
           seconds: 30
-      car_charging:
+      energy_car_charging:
         friendly_name: "Cargando"
         device_class: plug
-        value_template: "{{ states('sensor.insight_powerused')|float > 1000.0 }}"
+        value_template: "{{ states('sensor.energy_car_charger_powerused')|float > 1000.0 }}"
 switch:
   - platform: template
     switches:
-      ups_beeper:
+      energy_ups_beeper:
         value_template: "{{ is_state('sensor.nut_ups_beeper_status', 'enabled') }}"
         turn_on:
           service: shell_command.nut_ups_enable_beeper
@@ -180,28 +197,35 @@ switch:
           service: shell_command.nut_ups_disable_beeper
 
 utility_meter:
-  daily_energy:
+  energy_home_daily:
     source: sensor.energy_spent
     cycle: daily 
     tariffs:
       - Pico
       - Valle
       - Super valle
-  monthly_energy:
+  energy_home_monthly:
     source: sensor.energy_spent
     cycle: monthly
     tariffs:
       - Pico
       - Valle
       - Super valle
-  monthly_energy_insight:
+  energy_car_charger_daily:
+    source: sensor.energy_spent_insight
+    cycle: daily
+    tariffs:
+      - Pico
+      - Valle
+      - Super valle
+  energy_car_charger_monthly:
     source: sensor.energy_spent_insight
     cycle: monthly
     tariffs:
       - Pico
       - Valle
       - Super valle
-  yearly_energy_insight:
+  energy_car_charger_yearly:
     source: sensor.energy_spent_insight
     cycle: yearly
     tariffs:
@@ -218,7 +242,7 @@ automation:
   - alias: '[Energy] Notify power cut'
     trigger:
       platform: state
-      entity_id: binary_sensor.ups_status_bs
+      entity_id: binary_sensor.energy_ups_status_bs
       to: 'off'
       for:
         minutes: 1
@@ -232,7 +256,7 @@ automation:
   - alias: '[Energy] Restart UPS Driver Controller'
     trigger:
       platform: state
-      entity_id: binary_sensor.ups_status_bs
+      entity_id: binary_sensor.energy_ups_status_bs
       to: 'off'
     condition:
       - condition: numeric_state
@@ -248,7 +272,7 @@ automation:
   - alias: '[Energy] Notify power ok'
     trigger:
       platform: state
-      entity_id: binary_sensor.ups_status_bs
+      entity_id: binary_sensor.energy_ups_status_bs
       to: 'on'
     condition:
       - condition: numeric_state
@@ -263,7 +287,7 @@ automation:
   - alias: '[Energy] Notify ups battery replacement'
     trigger:
       platform: state
-      entity_id: sensor.ups_status
+      entity_id: sensor.energy_ups_status
       to: 'Reemplazar batería'
     action:
       service: notify.telegram
@@ -277,7 +301,7 @@ automation:
     action:
       - service: utility_meter.select_tariff
         data_template:
-          entity_id: utility_meter.daily_energy 
+          entity_id: utility_meter.energy_home_daily 
           tariff: >-
             {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
               Super valle
@@ -288,7 +312,7 @@ automation:
             {%- endif %}
       - service: utility_meter.select_tariff
         data_template:
-          entity_id: utility_meter.monthly_energy
+          entity_id: utility_meter.energy_home_monthly
           tariff: >-
             {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
               Super valle
@@ -299,7 +323,7 @@ automation:
             {%- endif %}
       - service: utility_meter.select_tariff
         data_template:
-          entity_id: utility_meter.monthly_energy_insight
+          entity_id: utility_meter.energy_car_charger_daily
           tariff: >-
             {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
               Super valle
@@ -310,7 +334,18 @@ automation:
             {%- endif %}
       - service: utility_meter.select_tariff
         data_template:
-          entity_id: utility_meter.yearly_energy_insight
+          entity_id: utility_meter.energy_car_charger_monthly
+          tariff: >-
+            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
+              Super valle
+            {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
+              Pico
+            {%- else %}
+              Valle
+            {%- endif %}
+      - service: utility_meter.select_tariff
+        data_template:
+          entity_id: utility_meter.energy_car_charger_yearly
           tariff: >-
             {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
               Super valle
@@ -327,19 +362,23 @@ automation:
     action:
       - service: utility_meter.select_tariff
         data:
-          entity_id: utility_meter.daily_energy 
+          entity_id: utility_meter.energy_home_daily 
           tariff: 'Pico'
       - service: utility_meter.select_tariff
         data:
-          entity_id: utility_meter.monthly_energy
+          entity_id: utility_meter.energy_home_monthly
           tariff: 'Pico'
       - service: utility_meter.select_tariff
         data:
-          entity_id: utility_meter.monthly_energy_insight
+          entity_id: utility_meter.energy_car_charger_daily
           tariff: 'Pico'
       - service: utility_meter.select_tariff
         data:
-          entity_id: utility_meter.yearly_energy_insight
+          entity_id: utility_meter.energy_car_charger_monthly
+          tariff: 'Pico'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.energy_car_charger_yearly
           tariff: 'Pico'
 
   - alias: '[Energy] Energy Valle time'
@@ -351,19 +390,23 @@ automation:
     action:
       - service: utility_meter.select_tariff
         data:
-          entity_id: utility_meter.daily_energy 
+          entity_id: utility_meter.energy_home_daily 
           tariff: 'Valle'
       - service: utility_meter.select_tariff
         data:
-          entity_id: utility_meter.monthly_energy
+          entity_id: utility_meter.energy_home_monthly
           tariff: 'Valle'
       - service: utility_meter.select_tariff
         data:
-          entity_id: utility_meter.monthly_energy_insight
+          entity_id: utility_meter.energy_car_charger_daily
           tariff: 'Valle'
       - service: utility_meter.select_tariff
         data:
-          entity_id: utility_meter.yearly_energy_insight
+          entity_id: utility_meter.energy_car_charger_monthly
+          tariff: 'Valle'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.energy_car_charger_yearly
           tariff: 'Valle'
 
   - alias: '[Energy] Energy Super valle time'
@@ -373,38 +416,42 @@ automation:
     action:
       - service: utility_meter.select_tariff
         data:
-          entity_id: utility_meter.daily_energy 
+          entity_id: utility_meter.energy_home_daily 
           tariff: 'Super valle'
       - service: utility_meter.select_tariff
         data:
-          entity_id: utility_meter.monthly_energy
+          entity_id: utility_meter.energy_home_monthly
           tariff: 'Super valle'
       - service: utility_meter.select_tariff
         data:
-          entity_id: utility_meter.monthly_energy_insight
+          entity_id: utility_meter.energy_car_charger_daily
           tariff: 'Super valle'
       - service: utility_meter.select_tariff
         data:
-          entity_id: utility_meter.yearly_energy_insight
+          entity_id: utility_meter.energy_car_charger_monthly
+          tariff: 'Super valle'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.energy_car_charger_yearly
           tariff: 'Super valle'
 
 #   - alias: 'Turn on WeMo Insight in Valle time'
 #     trigger:
 #       platform: state
-#       entity_id: utility_meter.yearly_energy_insight
+#       entity_id: utility_meter.energy_car_charger_yearly
 #       from: 'Pico'
 #       to: 'Valle'
 #     action:
 #       - service: switch.turn_on
-#         entity_id: switch.wemoinsight
+#         entity_id: switch.energy_car_charger
 
   - alias: '[Energy] Turn off WeMo Insight 5 mins after Super valle time finishes'
     trigger:
       platform: state
-      entity_id: utility_meter.yearly_energy_insight
+      entity_id: utility_meter.energy_car_charger_yearly
       from: 'Super valle'
     action:
       - delay:
           minutes: 5
       - service: switch.turn_off
-        entity_id: switch.wemoinsight
+        entity_id: switch.energy_car_charger

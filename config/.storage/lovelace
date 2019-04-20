@@ -41,16 +41,36 @@
                         },
                         {
                             "entities": [
-                                "utility_meter.daily_energy",
-                                "binary_sensor.ups_status_bs",
-                                "sensor.efergy_2577",
-                                "sensor.daily_energy_pico",
-                                "sensor.daily_energy_valle",
-                                "sensor.daily_energy_super_valle",
-                                "sensor.monthly_energy_pico",
-                                "sensor.monthly_energy_valle",
-                                "sensor.monthly_energy_super_valle",
-                                "sensor.ups_status"
+                                {
+                                    "entity": "utility_meter.energy_home_daily"
+                                },
+                                {
+                                    "entity": "binary_sensor.energy_ups_status_bs"
+                                },
+                                {
+                                    "entity": "sensor.efergy_2577"
+                                },
+                                {
+                                    "entity": "sensor.energy_home_daily_pico"
+                                },
+                                {
+                                    "entity": "sensor.energy_home_daily_valle"
+                                },
+                                {
+                                    "entity": "sensor.energy_home_daily_super_valle"
+                                },
+                                {
+                                    "entity": "sensor.energy_home_monthly_pico"
+                                },
+                                {
+                                    "entity": "sensor.energy_home_monthly_valle"
+                                },
+                                {
+                                    "entity": "sensor.energy_home_monthly_super_valle"
+                                },
+                                {
+                                    "entity": "sensor.energy_ups_status"
+                                }
                             ],
                             "show_header_toggle": true,
                             "title": "Energ\u00eda",
@@ -576,9 +596,15 @@
                     "cards": [
                         {
                             "entities": [
-                                "binary_sensor.car_charging",
-                                "switch.wemoinsight",
-                                "sensor.insight_powerused"
+                                {
+                                    "entity": "binary_sensor.energy_car_charging"
+                                },
+                                {
+                                    "entity": "switch.energy_car_charger"
+                                },
+                                {
+                                    "entity": "sensor.energy_car_charger_powerused"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Cargador",
@@ -586,14 +612,35 @@
                         },
                         {
                             "entities": [
-                                "sensor.monthly_energy_insight_pico",
-                                "sensor.monthly_energy_insight_valle",
-                                "sensor.monthly_energy_insight_super_valle",
-                                "sensor.yearly_energy_insight_pico",
-                                "sensor.yearly_energy_insight_valle",
-                                "sensor.yearly_energy_insight_super_valle"
+                                {
+                                    "entity": "sensor.energy_car_charger_daily_pico"
+                                },
+                                {
+                                    "entity": "sensor.energy_car_charger_daily_valle"
+                                },
+                                {
+                                    "entity": "sensor.energy_car_charger_daily_super_valle"
+                                },
+                                {
+                                    "entity": "sensor.energy_car_charger_monthly_pico"
+                                },
+                                {
+                                    "entity": "sensor.energy_car_charger_monthly_valle"
+                                },
+                                {
+                                    "entity": "sensor.energy_car_charger_monthly_super_valle"
+                                },
+                                {
+                                    "entity": "sensor.energy_car_charger_yearly_pico"
+                                },
+                                {
+                                    "entity": "sensor.energy_car_charger_yearly_valle"
+                                },
+                                {
+                                    "entity": "sensor.energy_car_charger_yearly_super_valle"
+                                }
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Consumo electricidad",
                             "type": "entities"
                         },
@@ -637,10 +684,11 @@
                                 {
                                     "elements": [
                                         {
-                                            "entity": "binary_sensor.car_charging",
+                                            "entity": "sensor.energy_car_charge_state",
                                             "state_image": {
-                                                "off": "/local/background-square-green.png",
-                                                "on": "/local/background-square-blue.png"
+                                                "charging": "/local/background-square-blue.png",
+                                                "off": "/local/background-square-orange.png",
+                                                "ready": "/local/background-square-green.png"
                                             },
                                             "style": {
                                                 "position": "absolute",
@@ -687,6 +735,25 @@
                                                 "top": "17%"
                                             },
                                             "type": "state-icon"
+                                        },
+                                        {
+                                            "conditions": [
+                                                {
+                                                    "entity": "sensor.energy_car_charge_state",
+                                                    "state": "charging"
+                                                }
+                                            ],
+                                            "elements": [
+                                                {
+                                                    "entity": "sensor.energy_car_charger_powerused",
+                                                    "style": {
+                                                        "left": "13%",
+                                                        "top": "17%"
+                                                    },
+                                                    "type": "state-label"
+                                                }
+                                            ],
+                                            "type": "conditional"
                                         }
                                     ],
                                     "image": "/local/ioniq3.png",

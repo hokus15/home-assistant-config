@@ -17,18 +17,21 @@ recorder:
 group:
   Cargador:
     entities:
-      - binary_sensor.car_charging
-      - switch.wemoinsight
-      - sensor.insight_powerused
+      - binary_sensor.energy_car_charging
+      - switch.energy_car_charger
+      - sensor.energy_car_charger_powerused
 
   Consumo electricidad:
     entities:
-      - sensor.monthly_energy_insight_pico
-      - sensor.monthly_energy_insight_valle
-      - sensor.monthly_energy_insight_super_valle
-      - sensor.yearly_energy_insight_pico
-      - sensor.yearly_energy_insight_valle
-      - sensor.yearly_energy_insight_super_valle
+      - sensor.energy_car_charger_daily_pico
+      - sensor.energy_car_charger_daily_valle
+      - sensor.energy_car_charger_daily_super_valle
+      - sensor.energy_car_charger_monthly_pico
+      - sensor.energy_car_charger_monthly_valle
+      - sensor.energy_car_charger_monthly_super_valle
+      - sensor.energy_car_charger_yearly_pico
+      - sensor.energy_car_charger_yearly_valle
+      - sensor.energy_car_charger_yearly_super_valle
 
   Estado:
     entities:
@@ -85,7 +88,7 @@ sensor:
         device_class: 'battery'
         value_template: '{{state_attr("binary_sensor.ioniq_state", "soh")}}'
         unit_of_measurement: '%'
-      # Ioniq State Of Charge display
+      # Ioniq State Of Charge BMS
       ioniq_state_soc_bms:
         friendly_name: 'Batería BMS'
         device_class: 'battery'
