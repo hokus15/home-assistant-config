@@ -35,7 +35,7 @@
                                 "sensor.next_shift_event",
                                 "sensor.next_shift_date"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Familia",
                             "type": "entities"
                         },
@@ -72,7 +72,7 @@
                                     "entity": "sensor.energy_ups_status"
                                 }
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Energ\u00eda",
                             "type": "entities"
                         },
@@ -81,7 +81,7 @@
                                 "switch.thermostat",
                                 "switch.thermostat_away_mode"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Calefacci\u00f3n",
                             "type": "entities"
                         },
@@ -135,7 +135,7 @@
                                 "sensor.next_shift_event",
                                 "sensor.next_shift_date"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Familia",
                             "type": "entities"
                         },
@@ -162,7 +162,7 @@
                                 "binary_sensor.recibidor_camara_infrarrojo",
                                 "binary_sensor.recibidor_camara_det_mov"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "C\u00e1mara recibidor",
                             "type": "entities"
                         },
@@ -176,7 +176,7 @@
                                 "binary_sensor.salon_camara_infrarrojo",
                                 "binary_sensor.salon_camara_det_mov"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "C\u00e1mara sal\u00f3n",
                             "type": "entities"
                         },
@@ -190,7 +190,7 @@
                                 "binary_sensor.despacho_sensor_movimiento_sabotaje",
                                 "input_boolean.despacho_sensor_movimiento"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Sensor despacho",
                             "type": "entities"
                         },
@@ -202,7 +202,7 @@
                                 "binary_sensor.entrada_outdoor_animal",
                                 "binary_sensor.entrada_outdoor_vehicle"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "C\u00e1mara entrada principal",
                             "type": "entities"
                         },
@@ -216,7 +216,7 @@
                                 "binary_sensor.piscina_camara_infrarrojo",
                                 "binary_sensor.piscina_camara_det_mov"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "C\u00e1mara piscina",
                             "type": "entities"
                         },
@@ -230,7 +230,7 @@
                                 "binary_sensor.barbacoa_camara_infrarrojo",
                                 "binary_sensor.barbacoa_camara_det_mov"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "C\u00e1mara barbacoa",
                             "type": "entities"
                         },
@@ -243,7 +243,7 @@
                                 "switch.caseta_camara_det_mov",
                                 "binary_sensor.caseta_camara_det_mov"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "C\u00e1mara caseta",
                             "type": "entities"
                         },
@@ -256,7 +256,7 @@
                                 "binary_sensor.porche_sensor_puerta",
                                 "input_boolean.porche_sensor_puerta"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Puerta porche cocina",
                             "type": "entities"
                         },
@@ -265,7 +265,7 @@
                                 "binary_sensor.porche_sensor_persiana",
                                 "input_boolean.porche_sensor_persiana"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Persiana porche cocina",
                             "type": "entities"
                         },
@@ -274,7 +274,7 @@
                                 "binary_sensor.coladuria_sensor_puerta",
                                 "input_boolean.coladuria_sensor_puerta"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Puerta coladuria cocina",
                             "type": "entities"
                         }
@@ -299,7 +299,7 @@
                                 "sensor.netatmo_salon_co2_trend",
                                 "sensor.netatmo_salon_wifi"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Sal\u00f3n",
                             "type": "entities"
                         },
@@ -317,7 +317,7 @@
                                 "input_boolean.coladuria_sensor_puerta",
                                 "sensor.porche_sensor_puerta_temperature"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Cocina",
                             "type": "entities"
                         },
@@ -327,7 +327,7 @@
                                 "sensor.entrance_hall_thermostat_temperature",
                                 "sensor.entrance_hall_thermostat_temperature_trend"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Recibidor",
                             "type": "entities"
                         },
@@ -341,7 +341,7 @@
                                 "sensor.despacho_sensor_movimiento_temperature",
                                 "sensor.office_sensor_temperature_trend"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Despacho",
                             "type": "entities"
                         },
@@ -351,7 +351,7 @@
                                 "sensor.escalera_switch_energy",
                                 "sensor.escalera_switch_power"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Escalera",
                             "type": "entities"
                         },
@@ -369,7 +369,7 @@
                                 "sensor.netatmo_suite_humidity",
                                 "sensor.netatmo_suite_radio"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Suite",
                             "type": "entities"
                         },
@@ -384,7 +384,7 @@
                                 "sensor.netatmo_habitacion_humidity",
                                 "sensor.netatmo_habitacion_radio"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Habitaci\u00f3n ni\u00f1os",
                             "type": "entities"
                         },
@@ -393,7 +393,7 @@
                                 "switch.thermostat",
                                 "switch.thermostat_away_mode"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Calefacci\u00f3n",
                             "type": "entities"
                         },
@@ -425,7 +425,7 @@
                                 "switch.thermostat",
                                 "switch.thermostat_away_mode"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Confort",
                             "type": "entities"
                         },
@@ -444,7 +444,7 @@
                                 "device_tracker.geni_combined",
                                 "device_tracker.virtual_device"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Unidad Familiar",
                             "type": "entities"
                         }
@@ -475,7 +475,7 @@
                                 "sensor.season",
                                 "binary_sensor.summer_time"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Climatolog\u00eda",
                             "type": "entities"
                         },
@@ -488,7 +488,7 @@
                                 "sensor.netatmo_exterior_temperature_trend",
                                 "sensor.netatmo_exterior_radio"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Temperatura",
                             "type": "entities"
                         },
@@ -508,7 +508,7 @@
                                 "sensor.netatmo_pluviometro_sum_rain_24",
                                 "sensor.netatmo_pluviometro_radio"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Lluvia",
                             "type": "entities"
                         },
@@ -520,7 +520,7 @@
                                 "sensor.netatmo_anemometro_gust_angle",
                                 "sensor.netatmo_anemometro_radio"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Viento",
                             "type": "entities"
                         },
@@ -529,7 +529,7 @@
                                 "switch.outside_fence",
                                 "sensor.outside_fence"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Barrera",
                             "type": "entities"
                         },
@@ -547,7 +547,7 @@
                                 "sensor.piscina_on_time",
                                 "sensor.piscina_off_time"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Piscina",
                             "type": "entities"
                         },
@@ -800,7 +800,7 @@
                                 "sensor.google_wifi_status",
                                 "sensor.google_wifi_uptime"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Internet",
                             "type": "entities"
                         },
@@ -815,7 +815,7 @@
                                 "sensor.ha_runtime_in_minutes",
                                 "sensor.connected_clients"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Estado HA",
                             "type": "entities"
                         },
@@ -828,7 +828,7 @@
                                 "sensor.ethereum_balance",
                                 "sensor.ethereum_walet_value"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Crypto Currency",
                             "type": "entities"
                         },
@@ -840,18 +840,26 @@
                                 "sensor.ink_level_yellow",
                                 "sensor.ink_level_black"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Impresora",
                             "type": "entities"
                         },
                         {
                             "entities": [
-                                "sensor.ups_status",
-                                "sensor.nut_ups_battery_charge",
-                                "sensor.nut_ups_battery_runtime",
-                                "switch.ups_beeper"
+                                {
+                                    "entity": "sensor.energy_ups_status"
+                                },
+                                {
+                                    "entity": "sensor.nut_ups_battery_charge"
+                                },
+                                {
+                                    "entity": "sensor.nut_ups_battery_runtime"
+                                },
+                                {
+                                    "entity": "switch.energy_ups_beeper"
+                                }
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "SAI",
                             "type": "entities"
                         },
@@ -868,7 +876,7 @@
                                 "sensor.despacho_sensor_movimiento_bateria",
                                 "sensor.recibidor_boton_bateria"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Estado bater\u00edas",
                             "type": "entities"
                         },
