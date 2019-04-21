@@ -78,7 +78,9 @@ sensor.google_wifi_status:
 sensor.google_wifi_uptime:
   friendly_name: 'Uptime Google WiFi'
   unit_of_measurement: 'días'
-
+sensor.db_size:
+  friendly_name: 'Tamaño BD'
+  icon: mdi:database
 ###################################
 # Scripts
 ###################################
