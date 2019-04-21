@@ -1067,7 +1067,7 @@
                 "config_entry_id": null,
                 "device_id": null,
                 "disabled_by": null,
-                "entity_id": "switch.energy_car_charger",
+                "entity_id": "switch.car_ioniq_charger",
                 "name": null,
                 "platform": "wemo",
                 "unique_id": "221501K1200593"
