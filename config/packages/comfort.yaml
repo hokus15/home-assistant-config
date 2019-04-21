@@ -755,6 +755,14 @@ input_boolean:
     name: Modo extra calentito
     icon: 'mdi:fire'
 
+weather:
+  - platform: darksky
+    api_key: !secret dark_sky_api_key
+    latitude: !secret ha_latitude
+    longitude: !secret ha_longitude
+    units: 'ca'
+    mode: daily
+
 automation:
   #############################################################
   # Heating automations

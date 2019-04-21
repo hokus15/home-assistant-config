@@ -457,6 +457,11 @@
                     "badges": [],
                     "cards": [
                         {
+                            "entity": "weather.dark_sky",
+                            "name": "Sa Coma, Bunyola",
+                            "type": "weather-forecast"
+                        },
+                        {
                             "entities": [
                                 "light.barrera_derecha",
                                 "light.barrera_izquierda",
