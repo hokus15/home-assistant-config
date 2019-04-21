@@ -609,6 +609,11 @@
                                 },
                                 {
                                     "entity": "sensor.car_ioniq_charger_powerused"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_on_charge_charging",
+                                    "icon": "mdi:flash-circle",
+                                    "name": "\u00daltima carga"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -994,9 +999,9 @@
                                         {
                                             "entity": "sensor.car_ioniq_state_soc_bms",
                                             "severity": {
-                                                "green": 70,
+                                                "green": 50,
                                                 "red": 0,
-                                                "yellow": 50
+                                                "yellow": 25
                                             },
                                             "type": "gauge"
                                         }
