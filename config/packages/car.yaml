@@ -11,10 +11,44 @@ homeassistant:
       friendly_name: 'Al colegio'
     sensor.car_a_la_oficina:
       friendly_name: 'A la oficina'
+    sensor.car_ioniq_charger_powerused:
+      friendly_name: 'Potencia carga'
+      icon: 'mdi:speedometer'
+    sensor.car_ioniq_charger_yearly_pico:
+      friendly_name: 'Consumo anual (pico)'
+      icon: 'mdi:trending-up'
+    sensor.car_ioniq_charger_yearly_valle:
+      friendly_name: 'Consumo anual (valle)'
+      icon: 'mdi:trending-down'
+      unit_of_measurement: kWh
+    sensor.car_ioniq_charger_yearly_super_valle:
+      friendly_name: 'Consumo anual (super valle)'
+      icon: 'mdi:trending-down'
+      unit_of_measurement: kWh
+    sensor.car_ioniq_charger_monthly_pico:
+      friendly_name: 'Consumo mensual (pico)'
+      icon: 'mdi:trending-up'
+    sensor.car_ioniq_charger_monthly_valle:
+      friendly_name: 'Consumo mensual (valle)'
+      icon: 'mdi:trending-down'
+    sensor.car_ioniq_charger_monthly_super_valle:
+      friendly_name: 'Consumo mensual (super valle)'
+      icon: 'mdi:trending-down'
+    sensor.car_ioniq_charger_daily_pico:
+      friendly_name: 'Consumo diario (pico)'
+      icon: 'mdi:trending-up'
+    sensor.car_ioniq_charger_daily_valle:
+      friendly_name: 'Consumo diario (valle)'
+      icon: 'mdi:trending-down'
+    sensor.car_ioniq_charger_daily_super_valle:
+      friendly_name: 'Consumo diario (super valle)'
+      icon: 'mdi:trending-down'
     binary_sensor.car_ioniq_state:
       friendly_name: 'Estado'
     camera.car_ioniq:
       friendly_name: 'Ioniq'
+    switch.car_ioniq_charger:
+      friendly_name: 'Cargador'
 
 recorder:
   exclude:
@@ -42,6 +76,12 @@ binary_sensor:
     off_delay: 180
 
 sensor:
+  - platform: integration 
+    source: sensor.car_ioniq_charger_powerused
+    name: car_ioniq_charger
+    unit_prefix: k
+    round: 2
+
   - platform: mqtt
     state_topic: 'car/ioniq/location'
     name: car_ioniq_location
@@ -50,6 +90,9 @@ sensor:
 
   - platform: template
     sensors:
+      car_ioniq_charger_powerused:
+        value_template: "{{state_attr('switch.car_ioniq_charger','current_power_w')|int}}"
+        unit_of_measurement: W
       # Ioniq State Of Charge display
       car_ioniq_state_soc_display:
         friendly_name: 'Batería mostrada'
@@ -121,15 +164,15 @@ sensor:
           - device_tracker.car_ioniq
       car_ioniq_charge_state:
         value_template: >-
-          {%- if states('sensor.energy_car_charger_powerused')|float > 1000.0 or is_state_attr('binary_sensor.car_ioniq_state', 'charging', 1) %}
+          {%- if states('sensor.car_ioniq_charger_powerused')|float > 1000.0 or is_state_attr('binary_sensor.car_ioniq_state', 'charging', 1) %}
              Cargando
-          {%- elif is_state('switch.energy_car_charger', 'off') %}
+          {%- elif is_state('switch.car_ioniq_charger', 'off') %}
             Apagado
           {% else %}
             Listo
           {%- endif %}
         entity_id: 
-          - switch.energy_car_charger
+          - switch.car_ioniq_charger
           - binary_sensor.energy_car_charging
           - binary_sensor.car_ioniq_state
 
@@ -155,8 +198,138 @@ sensor:
       departure_time: now
       traffic_model: pessimistic
 
+utility_meter:
+  car_ioniq_charger_daily:
+    source: sensor.car_ioniq_charger
+    cycle: daily
+    tariffs:
+      - Pico
+      - Valle
+      - Super valle
+  car_ioniq_charger_monthly:
+    source: sensor.car_ioniq_charger
+    cycle: monthly
+    tariffs:
+      - Pico
+      - Valle
+      - Super valle
+  car_ioniq_charger_yearly:
+    source: sensor.car_ioniq_charger
+    cycle: yearly
+    tariffs:
+      - Pico
+      - Valle
+      - Super valle
+
 camera:
   - platform: generic
     name: car_ioniq
     still_image_url: !secret camera_ioniq_still_image_url
     limit_refetch_to_url_change: true
+
+automation:
+  - alias: '[Car] Set correct energy tariff on start'
+    trigger:
+      platform: homeassistant
+      event: start
+    action:
+      - service: utility_meter.select_tariff
+        data_template:
+          entity_id: utility_meter.car_ioniq_charger_daily
+          tariff: >-
+            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
+              Super valle
+            {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
+              Pico
+            {%- else %}
+              Valle
+            {%- endif %}
+      - service: utility_meter.select_tariff
+        data_template:
+          entity_id: utility_meter.car_ioniq_charger_monthly
+          tariff: >-
+            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
+              Super valle
+            {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
+              Pico
+            {%- else %}
+              Valle
+            {%- endif %}
+      - service: utility_meter.select_tariff
+        data_template:
+          entity_id: utility_meter.car_ioniq_charger_yearly
+          tariff: >-
+            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
+              Super valle
+            {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
+              Pico
+            {%- else %}
+              Valle
+            {%- endif %}
+
+  - alias: '[Car] Energy Pico time'
+    trigger:
+      platform: time
+      at: '13:00:00'
+    action:
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.car_ioniq_charger_daily
+          tariff: 'Pico'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.car_ioniq_charger_monthly
+          tariff: 'Pico'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.car_ioniq_charger_yearly
+          tariff: 'Pico'
+
+  - alias: '[Car] Energy Valle time'
+    trigger:
+      - platform: time
+        at: '23:00:00'
+      - platform: time
+        at: '07:00:00'
+    action:
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.car_ioniq_charger_daily
+          tariff: 'Valle'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.car_ioniq_charger_monthly
+          tariff: 'Valle'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.car_ioniq_charger_yearly
+          tariff: 'Valle'
+
+  - alias: '[Car] Energy Super valle time'
+    trigger:
+      platform: time
+      at: '01:00:00'
+    action:
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.car_ioniq_charger_daily
+          tariff: 'Super valle'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.car_ioniq_charger_monthly
+          tariff: 'Super valle'
+      - service: utility_meter.select_tariff
+        data:
+          entity_id: utility_meter.car_ioniq_charger_yearly
+          tariff: 'Super valle'
+
+  - alias: '[Car] Turn off Ioniq car charger 5 mins after Super valle time finishes'
+    trigger:
+      platform: state
+      entity_id: utility_meter.car_ioniq_charger_daily
+      from: 'Super valle'
+    action:
+      - delay:
+          minutes: 5
+      - service: switch.turn_off
+        entity_id: switch.car_ioniq_charger
