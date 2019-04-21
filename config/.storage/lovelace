@@ -768,16 +768,64 @@
                             "type": "entities"
                         },
                         {
-                            "entities": [
-                                "sensor.hp_photosmart_5520",
-                                "sensor.ink_level_magenta",
-                                "sensor.ink_level_cyan",
-                                "sensor.ink_level_yellow",
-                                "sensor.ink_level_black"
+                            "cards": [
+                                {
+                                    "entity": "sensor.hp_photosmart_5520",
+                                    "image": "/local/HP Photosmart 5520.jpg",
+                                    "type": "picture-entity"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "sensor.ink_level_black",
+                                            "name": "Negro",
+                                            "severity": {
+                                                "green": 50,
+                                                "red": 0,
+                                                "yellow": 25
+                                            },
+                                            "type": "gauge"
+                                        },
+                                        {
+                                            "entity": "sensor.ink_level_magenta",
+                                            "name": "Magenta",
+                                            "severity": {
+                                                "green": 50,
+                                                "red": 0,
+                                                "yellow": 25
+                                            },
+                                            "type": "gauge"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "sensor.ink_level_cyan",
+                                            "name": "Cyan",
+                                            "severity": {
+                                                "green": 50,
+                                                "red": 0,
+                                                "yellow": 25
+                                            },
+                                            "type": "gauge"
+                                        },
+                                        {
+                                            "entity": "sensor.ink_level_yellow",
+                                            "name": "Amarillo",
+                                            "severity": {
+                                                "green": 50,
+                                                "red": 0,
+                                                "yellow": 25
+                                            },
+                                            "type": "gauge"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                }
                             ],
-                            "show_header_toggle": false,
-                            "title": "Impresora",
-                            "type": "entities"
+                            "type": "vertical-stack"
                         },
                         {
                             "entities": [

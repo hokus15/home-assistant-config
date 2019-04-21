@@ -27,16 +27,16 @@ sensor.sunset:
 sensor.sunrise:
   icon: mdi:weather-sunset-up
 sensor.ink_level_magenta:
-  friendly_name: 'Nivel tinta'
+  friendly_name: 'Magenta'
   entity_picture: /local/printer_ink_magenta.png
 sensor.ink_level_cyan:
-  friendly_name: 'Nivel tinta'
+  friendly_name: 'Cyan'
   entity_picture: /local/printer_ink_cyan.png
 sensor.ink_level_yellow:
-  friendly_name: 'Nivel tinta'
+  friendly_name: 'Amarillo'
   entity_picture: /local/printer_ink_yellow.png
 sensor.ink_level_black:
-  friendly_name: 'Nivel tinta'
+  friendly_name: 'Negro'
   entity_picture: /local/printer_ink_black.png
 sensor.hp_photosmart_5520:
   entity_picture: /local/printer_icon.png

@@ -93,7 +93,6 @@ Varios:
     - group.internet
     - group.estado_ha
     - group.crypto_currency
-    - group.impresora
 #    - group.nas
     - group.sai
     - group.estado_baterias
@@ -209,14 +208,6 @@ Estado HA:
     - sensor.connected_clients
 #    - sensor.current_release
 #    - sensor.latest_release
-
-Impresora:
-  entities:
-    - sensor.hp_photosmart_5520
-    - sensor.ink_level_magenta
-    - sensor.ink_level_cyan
-    - sensor.ink_level_yellow
-    - sensor.ink_level_black
 
 Estado baterías:
   entities:
