@@ -5,8 +5,8 @@
             "views": [
                 {
                     "badges": [
-                        "sensor.a_la_oficina",
-                        "sensor.al_colegio"
+                        "sensor.car_a_la_oficina",
+                        "sensor.car_al_colegio"
                     ],
                     "cards": [
                         {
@@ -597,16 +597,13 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "binary_sensor.energy_car_charging"
+                                    "entity": "sensor.car_ioniq_charge_state"
                                 },
                                 {
                                     "entity": "switch.energy_car_charger"
                                 },
                                 {
                                     "entity": "sensor.energy_car_charger_powerused"
-                                },
-                                {
-                                    "entity": "sensor.energy_car_charge_state"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -649,12 +646,24 @@
                         },
                         {
                             "entities": [
-                                "binary_sensor.ioniq_state",
-                                "sensor.ioniq_state_soc_display",
-                                "sensor.ioniq_state_soc_bms",
-                                "sensor.ioniq_state_odometer",
-                                "sensor.ioniq_state_energy_consumption",
-                                "sensor.ioniq_state_battery_health"
+                                {
+                                    "entity": "binary_sensor.car_ioniq_state"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_soc_display"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_soc_bms"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_odometer"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_energy_consumption"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_battery_health"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Estado",
@@ -662,16 +671,22 @@
                         },
                         {
                             "entities": [
-                                "sensor.ioniq_location_gps_accuracy",
-                                "sensor.ioniq_location",
-                                "sensor.ioniq_location_distance_travelled_between_updates"
+                                {
+                                    "entity": "sensor.car_ioniq_location_gps_accuracy"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_location"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_location_distance_travelled_between_updates"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Localizaci\u00f3n",
                             "type": "entities"
                         },
                         {
-                            "entity": "camera.ioniq",
+                            "entity": "camera.car_ioniq",
                             "type": "picture-entity"
                         }
                     ],
@@ -687,7 +702,7 @@
                                 {
                                     "elements": [
                                         {
-                                            "entity": "sensor.energy_car_charge_state",
+                                            "entity": "sensor.car_ioniq_charge_state",
                                             "state_image": {
                                                 "Apagado": "/local/background-square-orange.png",
                                                 "Cargando": "/local/background-square-blue.png",
@@ -700,7 +715,7 @@
                                             "type": "image"
                                         },
                                         {
-                                            "entity": "sensor.ioniq_state_soc_display",
+                                            "entity": "sensor.car_ioniq_state_soc_display",
                                             "style": {
                                                 "left": "70%",
                                                 "top": "82%"
@@ -708,7 +723,7 @@
                                             "type": "state-icon"
                                         },
                                         {
-                                            "entity": "sensor.ioniq_state_soc_display",
+                                            "entity": "sensor.car_ioniq_state_soc_display",
                                             "style": {
                                                 "left": "70%",
                                                 "top": "90%"
@@ -716,7 +731,7 @@
                                             "type": "state-label"
                                         },
                                         {
-                                            "entity": "sensor.ioniq_state_odometer",
+                                            "entity": "sensor.car_ioniq_state_odometer",
                                             "style": {
                                                 "left": "87%",
                                                 "top": "82%"
@@ -724,7 +739,7 @@
                                             "type": "state-icon"
                                         },
                                         {
-                                            "entity": "sensor.ioniq_state_odometer",
+                                            "entity": "sensor.car_ioniq_state_odometer",
                                             "style": {
                                                 "left": "87%",
                                                 "top": "90%"
@@ -732,7 +747,7 @@
                                             "type": "state-label"
                                         },
                                         {
-                                            "entity": "binary_sensor.ioniq_state",
+                                            "entity": "binary_sensor.car_ioniq_state",
                                             "style": {
                                                 "left": "93%",
                                                 "top": "17%"
@@ -770,7 +785,7 @@
                                 {
                                     "default_zoom": 14,
                                     "entities": [
-                                        "sensor.ioniq_location"
+                                        "sensor.car_ioniq_location"
                                     ],
                                     "type": "map"
                                 }

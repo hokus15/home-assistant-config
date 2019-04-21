@@ -1,67 +1,40 @@
 homeassistant:
   customize:
-    sensor.ioniq_location:
+    sensor.car_ioniq_location:
       friendly_name: 'Última actualización'
       #icon: 'mdi:clock'
       entity_picture: '/local/ioniq-icon.png'
-    binary_sensor.ioniq_state:
+    sensor.car_ioniq_charge_state:
+      friendly_name: 'Estado carga'
+      icon: 'mdi:flash-circle'
+    sensor.car_al_colegio:
+      friendly_name: 'Al colegio'
+    sensor.car_a_la_oficina:
+      friendly_name: 'A la oficina'
+    binary_sensor.car_ioniq_state:
       friendly_name: 'Estado'
+    camera.car_ioniq:
+      friendly_name: 'Ioniq'
 
 recorder:
   exclude:
     entities:
-      - sensor.ioniq_location_previous_latitude
-      - sensor.ioniq_location_previous_longitude
-      - sensor.ioniq_location_last_update
-
-group:
-  Cargador:
-    entities:
-      - binary_sensor.energy_car_charging
-      - switch.energy_car_charger
-      - sensor.energy_car_charger_powerused
-      - sensor.energy_car_charge_state
-
-  Consumo electricidad:
-    entities:
-      - sensor.energy_car_charger_daily_pico
-      - sensor.energy_car_charger_daily_valle
-      - sensor.energy_car_charger_daily_super_valle
-      - sensor.energy_car_charger_monthly_pico
-      - sensor.energy_car_charger_monthly_valle
-      - sensor.energy_car_charger_monthly_super_valle
-      - sensor.energy_car_charger_yearly_pico
-      - sensor.energy_car_charger_yearly_valle
-      - sensor.energy_car_charger_yearly_super_valle
-
-  Estado:
-    entities:
-      - binary_sensor.ioniq_state
-      - sensor.ioniq_state_soc_display
-      - sensor.ioniq_state_soc_bms
-      - sensor.ioniq_state_odometer
-      - sensor.ioniq_state_energy_consumption
-      - sensor.ioniq_state_battery_health
-
-  Localización:
-    entities:
-      - sensor.ioniq_location_gps_accuracy
-      - sensor.ioniq_location
-      - sensor.ioniq_location_distance_travelled_between_updates
-      - camera.ioniq
+      - sensor.car_ioniq_location_previous_latitude
+      - sensor.car_ioniq_location_previous_longitude
+      - sensor.car_ioniq_location_last_update
 
 device_tracker:
   - platform: mqtt_json
     devices:
       # Ioniq tracker
-      ioniq: car/ioniq/location
+      car_ioniq: car/ioniq/location
       # Nissan tracker
       #nissan: car/nissan/location
 
 binary_sensor:
   - platform: mqtt
     state_topic: 'car/ioniq/state'
-    name: ioniq_state
+    name: car_ioniq_state
     value_template: 'ON'
     json_attributes_topic: 'car/ioniq/state'
     device_class: 'moving'
@@ -71,87 +44,100 @@ binary_sensor:
 sensor:
   - platform: mqtt
     state_topic: 'car/ioniq/location'
-    name: ioniq_location
+    name: car_ioniq_location
     value_template: '{{ value_json.last_update|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
     json_attributes_topic: 'car/ioniq/location'
 
   - platform: template
     sensors:
       # Ioniq State Of Charge display
-      ioniq_state_soc_display:
+      car_ioniq_state_soc_display:
         friendly_name: 'Batería mostrada'
         device_class: 'battery'
-        value_template: '{{state_attr("binary_sensor.ioniq_state", "soc_display")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state", "soc_display")}}'
         unit_of_measurement: '%'
       # Ioniq State Of Health
-      ioniq_state_battery_health:
+      car_ioniq_state_battery_health:
         friendly_name: 'Salud batería'
         device_class: 'battery'
-        value_template: '{{state_attr("binary_sensor.ioniq_state", "soh")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state", "soh")}}'
         unit_of_measurement: '%'
       # Ioniq State Of Charge BMS
-      ioniq_state_soc_bms:
+      car_ioniq_state_soc_bms:
         friendly_name: 'Batería BMS'
         device_class: 'battery'
-        value_template: '{{state_attr("binary_sensor.ioniq_state", "soc_bms")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state", "soc_bms")}}'
         unit_of_measurement: '%'
       # Ioniq odometer
-      ioniq_state_odometer:
+      car_ioniq_state_odometer:
         friendly_name: 'Odómetro'
         icon_template: 'mdi:counter'
-        value_template: '{{state_attr("binary_sensor.ioniq_state", "distance")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state", "distance")}}'
         unit_of_measurement: 'Km'
       # Ioniq Cumulative Energy Discharged
-      ioniq_state_ced:
-        value_template: '{{state_attr("binary_sensor.ioniq_state", "ced")}}'
+      car_ioniq_state_ced:
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state", "ced")}}'
         unit_of_measurement: 'kWh'
       # Ioniq Cumulative Energy Charged
-      ioniq_state_cec:
-        value_template: '{{state_attr("binary_sensor.ioniq_state", "cec")}}'
+      car_ioniq_state_cec:
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state", "cec")}}'
         unit_of_measurement: 'kWh'
       # Ioniq Average energy consumption without taking into account regeneration
-      ioniq_state_energy_consumption:
+      car_ioniq_state_energy_consumption:
         friendly_name: 'Consumo medio'
         icon_template: 'mdi:car-electric'
-        value_template: '{{ ((states.sensor.ioniq_state_ced.state | float / states.sensor.ioniq_state_odometer.state | float) * 100) | round(1)}}'
+        value_template: '{{ ((states.sensor.car_ioniq_state_ced.state | float / states.sensor.car_ioniq_state_odometer.state | float) * 100) | round(1)}}'
         unit_of_measurement: 'kWh/100Km'
         entity_id:
-          - sensor.ioniq_state_ced
-          - sensor.ioniq_state_odometer
+          - sensor.car_ioniq_state_ced
+          - sensor.car_ioniq_state_odometer
       # Ioniq Previous latitude
-      ioniq_location_previous_latitude:
-        value_template: '{{state_attr("sensor.ioniq_location", "platitude")}}'
+      car_ioniq_location_previous_latitude:
+        value_template: '{{state_attr("sensor.car_ioniq_location", "platitude")}}'
         entity_id: 
-          - sensor.ioniq_location
+          - sensor.car_ioniq_location
       # Ioniq Previous longitude
-      ioniq_location_previous_longitude:
-        value_template: '{{state_attr("sensor.ioniq_location", "plongitude")}}'
+      car_ioniq_location_previous_longitude:
+        value_template: '{{state_attr("sensor.car_ioniq_location", "plongitude")}}'
         entity_id: 
-          - sensor.ioniq_location
+          - sensor.car_ioniq_location
       # Ioniq Distance travelled between updates
-      ioniq_location_distance_travelled_between_updates:
+      car_ioniq_location_distance_travelled_between_updates:
         unit_of_measurement: 'm'
         friendly_name: 'Dist. entre actualizaciones'
-        value_template: '{% if states.device_tracker.ioniq.attributes.latitude %} {{ (distance(states("sensor.ioniq_location_previous_latitude"), states("sensor.ioniq_location_previous_longitude"), states.device_tracker.ioniq.attributes.latitude, states.device_tracker.ioniq.attributes.longitude) * 1000) | round (2) }} {% else %} -1 {% endif %}'
+        value_template: '{% if states.device_tracker.car_ioniq.attributes.latitude %} {{ (distance(states("sensor.car_ioniq_location_previous_latitude"), states("sensor.car_ioniq_location_previous_longitude"), states.device_tracker.car_ioniq.attributes.latitude, states.device_tracker.car_ioniq.attributes.longitude) * 1000) | round (2) }} {% else %} -1 {% endif %}'
         icon_template: 'mdi:tape-measure'
         entity_id: 
-          - device_tracker.ioniq
-          - sensor.ioniq_location_previous_latitude
-          - sensor.ioniq_location_previous_longitude
+          - device_tracker.car_ioniq
+          - sensor.car_ioniq_location_previous_latitude
+          - sensor.car_ioniq_location_previous_longitude
       # Ioniq GPS accuracy
-      ioniq_location_gps_accuracy:
+      car_ioniq_location_gps_accuracy:
         unit_of_measurement: 'm'
         friendly_name: 'Precisión GPS'
-        value_template: '{{state_attr("device_tracker.ioniq", "gps_accuracy")}}'
+        value_template: '{{state_attr("device_tracker.car_ioniq", "gps_accuracy")}}'
         icon_template: 'mdi:map-marker-radius'
         entity_id: 
-          - device_tracker.ioniq
+          - device_tracker.car_ioniq
+      car_ioniq_charge_state:
+        value_template: >-
+          {%- if states('sensor.energy_car_charger_powerused')|float > 1000.0 or is_state_attr('binary_sensor.car_ioniq_state', 'charging', 1) %}
+             Cargando
+          {%- elif is_state('switch.energy_car_charger', 'off') %}
+            Apagado
+          {% else %}
+            Listo
+          {%- endif %}
+        entity_id: 
+          - switch.energy_car_charger
+          - binary_sensor.energy_car_charging
+          - binary_sensor.car_ioniq_state
 
   # Google travel time to work
   - platform: google_travel_time
-    name: 'a la oficina'
+    name: 'car_a_la_oficina'
     api_key: !secret google_api_key
-    origin: device_tracker.ioniq
+    origin: device_tracker.car_ioniq
     destination: zone.oficina
     options:
       language: es
@@ -160,9 +146,9 @@ sensor:
   
   # Google travel time to school
   - platform: google_travel_time
-    name: 'al colegio'
+    name: 'car_al_colegio'
     api_key: !secret google_api_key
-    origin: device_tracker.ioniq
+    origin: device_tracker.car_ioniq
     destination: zone.colegio
     options:
       language: es
@@ -171,63 +157,6 @@ sensor:
 
 camera:
   - platform: generic
-    name: Ioniq
+    name: car_ioniq
     still_image_url: !secret camera_ioniq_still_image_url
     limit_refetch_to_url_change: true
-  
-#  - platform: generic
-#    name: Nissan
-#    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}&zoom=15&size=500x500&maptype=roadmap&markers=color:grey%7Clabel:N%7C{{ states.device_tracker.nissan.attributes.latitude }},{{ states.device_tracker.nissan.attributes.longitude }}
-#    limit_refetch_to_url_change: true
-
-#automation:
-  # Notify Ioniq movement if I'm not in the car
-#  - alias: 'Notify ioniq movement if I am not in the car'
-#    trigger:
-#      platform: numeric_state
-#      entity_id: sensor.ioniq_location_distance_travelled_between_updates
-#      above: 50
-#      for:
-#        seconds: 30
-#    condition:
-#      condition: template
-#      value_template: '{{ states.device_tracker.ioniq.state != "En ruta" }}'
-#    action:
-#      - service: notify.telegram
-#        data_template:
-#          message: 'Movimiento del ioniq de unos {{ sensor.ioniq_location_distance_travelled_between_updates.state }} metros detectado'
-#      - service: telegram_bot.send_location
-#        data_template:
-#          latitude: '{{ states.device_tracker.ioniq.attributes.latitude }}'
-#          longitude: '{{ states.device_tracker.ioniq.attributes.longitude }}'
-#          target: !secret hokusphone_telegram_chat_id
-
-#  # See Ioniq in coordinates setting location name as "En ruta" when it's publishing location data to mqtt
-#  - alias: 'Ioniq En ruta'
-#    trigger:
-#      platform: mqtt
-#      topic: car/ioniq/location
-#    condition:
-#      condition: template
-#      value_template: '{{ states.device_tracker.ioniq.state != "home" }}'
-#    action:
-#      - service: device_tracker.see
-#        data_template:
-#          dev_id: 'ioniq'
-#          location_name: 'En ruta'
-#          gps: ['{{ states.device_tracker.ioniq.attributes.latitude }}','{{ states.device_tracker.ioniq.attributes.longitude }}']
-#
-#  # See Ioniq in coordinates (with no location_name) when no data published to mqtt for more than 1 minute
-#  - alias: 'Ioniq not-home'
-#    trigger:
-#        platform: template
-#        value_template: '{{(as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))-as_timestamp(strptime(states.sensor.ioniq_location_last_update.state,"%d/%m/%Y %H:%M:%S")))/60 > 1}}'
-#    condition:
-#      condition: state
-#      entity_id: device_tracker.ioniq
-#      state: 'En ruta'
-#    action:
-#      - service: device_tracker.see
-#        data_template:
-#          dev_id: 'ioniq'
-#          gps: ['{{ states.device_tracker.ioniq.attributes.latitude }}','{{ states.device_tracker.ioniq.attributes.longitude }}']
