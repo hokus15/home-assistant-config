@@ -134,10 +134,6 @@ goto_sleep:
     - service: switch.turn_on
       data:
         entity_id: switch.escalera_switch
-    # Turn off Christmas lights
-    - service: switch.turn_off
-      data:
-        entity_id: switch.wemo_switch
     # Close fence if open
     - service_template: >
         {%- if is_state("sensor.outside_fence", "Abierta") -%}

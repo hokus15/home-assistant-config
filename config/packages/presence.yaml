@@ -203,9 +203,6 @@ automation:
       - service: switch.turn_on
         data:
           entity_id: switch.entrance_hall_lamp_switch
-      - service: switch.turn_on
-        data:
-          entity_id: switch.wemo_switch
   
   # When input_boolean.empty_home_activation_delay turns on,
   # Change virtual_device location to home
@@ -353,7 +350,7 @@ automation:
 
   # If fence is closed, Ioniq enter 'home' zone
   # Open fence, notify it, send a meessage to mqtt topic, and set Jordi as 'home'
-  - alias: '[Presence] Jordi arriving home'
+  - alias: '[Presence] Jordi arriving home in Ioniq'
     trigger:
        - platform: zone
          entity_id: device_tracker.ioniq
@@ -366,7 +363,7 @@ automation:
           entity_id: sensor.outside_fence_sensor_state
           state: 'on'
         - condition: state
-          entity_id: binary_sensor.ioniq_state
+          entity_id: binary_sensor.car_ioniq_state
           state: 'on'
     action:
       - service: switch.turn_on
@@ -393,7 +390,7 @@ automation:
   # When Jordi leave home zone and in the car:
   #   - Set hokusphone 'not_home'
   #   - If nobody at home, close the fence if open, and notify if porch door or blind is open.
-  - alias: '[Presence] Jordi leaving home with car'
+  - alias: '[Presence] Jordi leaving home in Ioniq'
     trigger:
        - platform: zone
          entity_id: device_tracker.ioniq
@@ -401,7 +398,7 @@ automation:
          event: leave
     condition:
       - condition: state
-        entity_id: binary_sensor.ioniq_state
+        entity_id: binary_sensor.car_ioniq_state
         state: 'on'
     action:
       - service: device_tracker.see
@@ -522,10 +519,6 @@ script:
       - service: switch.turn_off
         data:
           entity_id: switch.escalera_switch
-      # Turn off Christmas lights
-      - service: switch.turn_off
-        data:
-          entity_id: switch.wemo_switch
       # Turn off suite light
       - service: switch.turn_off
         data:
