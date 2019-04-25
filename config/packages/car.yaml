@@ -11,7 +11,7 @@ homeassistant:
       friendly_name: 'Al colegio'
     sensor.car_a_la_oficina:
       friendly_name: 'A la oficina'
-    sensor.car_ioniq_charger_powerused:
+    sensor.car_ioniq_charger_current_power:
       friendly_name: 'Potencia carga'
       icon: 'mdi:speedometer'
     sensor.car_ioniq_charger_yearly_pico:
@@ -43,7 +43,10 @@ homeassistant:
     sensor.car_ioniq_charger_daily_super_valle:
       friendly_name: 'Consumo diario (super valle)'
       icon: 'mdi:trending-down'
-    sensor.car_ioniq_charger_on_charge_charging:
+    sensor.car_ioniq_charger_last_charge:
+      friendly_name: 'Última carga'
+      icon: 'mdi:calendar'
+    sensor.car_ioniq_charger_last_charge_energy_kwh:
       friendly_name: 'Última carga'
       icon: 'mdi:flash-circle'
     binary_sensor.car_ioniq_state:
@@ -79,23 +82,28 @@ binary_sensor:
     off_delay: 180
 
 sensor:
-  - platform: integration 
-    source: sensor.car_ioniq_charger_powerused
-    name: car_ioniq_charger
-    unit_prefix: k
-    round: 2
-
   - platform: mqtt
     state_topic: 'car/ioniq/location'
     name: car_ioniq_location
     value_template: '{{ value_json.last_update|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
     json_attributes_topic: 'car/ioniq/location'
 
+  - platform: mqtt
+    state_topic: 'car/ioniq/charger'
+    name: car_ioniq_charger_last_charge
+    value_template: '{{ value_json.timestamp|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
+    json_attributes_topic: 'car/ioniq/charger'
+
   - platform: template
     sensors:
-      car_ioniq_charger_powerused:
+      # Current power used by Ioniq charger
+      car_ioniq_charger_current_power:
         value_template: "{{state_attr('switch.car_ioniq_charger','current_power_w')|int}}"
         unit_of_measurement: W
+      # Charger last charge energy
+      car_ioniq_charger_last_charge_energy_kwh:
+        value_template: "{{state_attr('sensor.car_ioniq_charger_last_charge','energy_kwh')|float}}"
+        unit_of_measurement: kWh
       # Ioniq State Of Charge display
       car_ioniq_state_soc_display:
         friendly_name: 'Batería mostrada'
@@ -173,7 +181,7 @@ sensor:
           - device_tracker.car_ioniq
       car_ioniq_charge_state:
         value_template: >-
-          {%- if states('sensor.car_ioniq_charger_powerused')|float > 1000.0 or is_state_attr('binary_sensor.car_ioniq_state', 'charging', 1) %}
+          {%- if states('sensor.car_ioniq_charger_current_power')|float > 1000.0 or is_state_attr('binary_sensor.car_ioniq_state', 'charging', 1) %}
              Cargando
           {%- elif is_state('switch.car_ioniq_charger', 'off') %}
             Apagado
@@ -182,7 +190,7 @@ sensor:
           {%- endif %}
         entity_id: 
           - switch.car_ioniq_charger
-          - binary_sensor.energy_car_charging
+          - binary_sensor.car_ioniq_charger_current_power
           - binary_sensor.car_ioniq_state
 
   # Google travel time to work
@@ -208,15 +216,6 @@ sensor:
       traffic_model: pessimistic
 
 utility_meter:
-  car_ioniq_charger_on_charge:
-    source: sensor.car_ioniq_charger
-    cycle: weekly
-    tariffs:
-      - Not charging
-      - Charging
-    offset:
-      hours: 8
-
   car_ioniq_charger_daily:
     source: sensor.car_ioniq_charger
     cycle: daily
@@ -284,15 +283,6 @@ automation:
             {%- else %}
               Valle
             {%- endif %}
-      - service: utility_meter.select_tariff
-        data_template:
-          entity_id: utility_meter.car_ioniq_charger_on_charge
-          tariff: >-
-            {% if is_state('sensor.car_ioniq_charge_state', 'Cargando') %}
-              Charging
-            {% else %}
-              Not charging
-            {% endif %}
 
   - alias: '[Car] Energy Pico time'
     trigger:
@@ -361,31 +351,19 @@ automation:
       - service: switch.turn_off
         entity_id: switch.car_ioniq_charger
 
-  - alias: '[Car] Start counting utility meter when Ioniq charge starts'
-    trigger:
-      platform: state
-      entity_id: sensor.car_ioniq_charge_state
-      to: 'Cargando'
-    action:
-      - service: utility_meter.reset
-        data:
-          entity_id: utility_meter.car_ioniq_charger_on_charge
-      - service: utility_meter.select_tariff
-        data:
-          entity_id: utility_meter.car_ioniq_charger_on_charge
-          tariff: 'Charging'
-
   - alias: '[Car] Notify when Ioniq charge finishes'
     trigger:
       platform: state
       entity_id: sensor.car_ioniq_charge_state
       from: 'Cargando'
     action:
-      - service: utility_meter.select_tariff
+      - service: mqtt.publish
         data:
-          entity_id: utility_meter.car_ioniq_charger_on_charge
-          tariff: 'Not charging'
+          topic: 'car/ioniq/charger'
+          retain: true
+          qos: 0
+          payload_template: "{{{\"energy_kwh\" : state_attr('switch.car_ioniq_charger', 'today_energy_kwh'),\"timestamp\": as_timestamp(now())|round} | tojson}}"
       - service: notify.telegram
         data_template:
           message: >-
-            Carga del Ioniq finalizada. {{states.sensor.car_ioniq_charger_on_charge_charging.state}} kWh cargados.
+            Carga del Ioniq finalizada. {{state_attr('switch.car_ioniq_charger', 'today_energy_kwh')}} kWh cargados.

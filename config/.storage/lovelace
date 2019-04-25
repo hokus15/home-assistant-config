@@ -608,12 +608,15 @@
                                     "entity": "switch.car_ioniq_charger"
                                 },
                                 {
-                                    "entity": "sensor.car_ioniq_charger_powerused"
+                                    "entity": "sensor.car_ioniq_charger_current_power"
                                 },
                                 {
-                                    "entity": "sensor.car_ioniq_charger_on_charge_charging",
+                                    "entity": "sensor.car_ioniq_charger_last_charge_energy_kwh",
                                     "icon": "mdi:flash-circle",
                                     "name": "\u00daltima carga"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_last_charge"
                                 }
                             ],
                             "show_header_toggle": false,
