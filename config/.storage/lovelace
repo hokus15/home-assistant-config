@@ -609,14 +609,6 @@
                                 },
                                 {
                                     "entity": "sensor.car_ioniq_charger_current_power"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_last_charge_energy_kwh",
-                                    "icon": "mdi:flash-circle",
-                                    "name": "\u00daltima carga"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_last_charge"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -984,7 +976,7 @@
                                 {
                                     "default_zoom": 14,
                                     "entities": [
-                                        "sensor.car_ioniq_location"
+                                        "device_tracker.car_ioniq"
                                     ],
                                     "type": "map"
                                 },

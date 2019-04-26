@@ -43,18 +43,14 @@ homeassistant:
     sensor.car_ioniq_charger_daily_super_valle:
       friendly_name: 'Consumo diario (super valle)'
       icon: 'mdi:trending-down'
-    sensor.car_ioniq_charger_last_charge:
-      friendly_name: 'Última carga'
-      icon: 'mdi:calendar'
-    sensor.car_ioniq_charger_last_charge_energy_kwh:
-      friendly_name: 'Última carga'
-      icon: 'mdi:flash-circle'
     binary_sensor.car_ioniq_state:
       friendly_name: 'Estado'
     camera.car_ioniq:
       friendly_name: 'Ioniq'
     switch.car_ioniq_charger:
       friendly_name: 'Cargador'
+    device_tracker.car_ioniq:
+      entity_picture: /local/ioniq-icon.png
 
 recorder:
   exclude:
@@ -89,21 +85,26 @@ sensor:
     json_attributes_topic: 'car/ioniq/location'
 
   - platform: mqtt
-    state_topic: 'car/ioniq/charger'
-    name: car_ioniq_charger_last_charge
+    state_topic: 'car/ioniq/state/daily'
+    name: car_ioniq_state_daily
     value_template: '{{ value_json.timestamp|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
-    json_attributes_topic: 'car/ioniq/charger'
+    json_attributes_topic: 'car/ioniq/state/daily'
 
   - platform: template
     sensors:
+      # Charger today energy charged
+      car_ioniq_state_today_energy_charged:
+        value_template: >- 
+          {% if state_attr('switch.car_ioniq_charger', 'today_energy_kwh') is not none %}
+            state_attr('switch.car_ioniq_charger', 'today_energy_kwh')
+          {% else %}
+            0
+          {% endif %}
+        unit_of_measurement: kWh
       # Current power used by Ioniq charger
       car_ioniq_charger_current_power:
         value_template: "{{state_attr('switch.car_ioniq_charger','current_power_w')|int}}"
         unit_of_measurement: W
-      # Charger last charge energy
-      car_ioniq_charger_last_charge_energy_kwh:
-        value_template: "{{state_attr('sensor.car_ioniq_charger_last_charge','energy_kwh')|float}}"
-        unit_of_measurement: kWh
       # Ioniq State Of Charge display
       car_ioniq_state_soc_display:
         friendly_name: 'Batería mostrada'
@@ -142,6 +143,40 @@ sensor:
       car_ioniq_state_cec:
         value_template: '{{state_attr("binary_sensor.car_ioniq_state", "cec")}}'
         unit_of_measurement: 'kWh'
+######################### Daily state data #########################
+      # Ioniq daily State Of Charge display
+      car_ioniq_state_daily_soc_display:
+        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "soc_display")}}'
+        unit_of_measurement: '%'
+      # Ioniq daily State Of Health
+      car_ioniq_state_daily_battery_health:
+        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "soh")}}'
+        unit_of_measurement: '%'
+      # Ioniq daily State Of Charge BMS
+      car_ioniq_state_daily_soc_bms:
+        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "soc_bms")}}'
+        unit_of_measurement: '%'
+      # Ioniq daily odometer
+      car_ioniq_state_daily_odometer:
+        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "odometer")}}'
+        unit_of_measurement: 'Km'
+      # Ioniq daily distance traveled since codes cleared
+      car_ioniq_state_daily_distance_since_cc:
+        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "distance_since_cc")}}'
+        unit_of_measurement: 'Km'
+      # Ioniq daily Cumulative Energy Discharged
+      car_ioniq_state_daily_ced:
+        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "ced")}}'
+        unit_of_measurement: 'kWh'
+      # Ioniq daily Cumulative Energy Charged
+      car_ioniq_state_daily_cec:
+        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "cec")}}'
+        unit_of_measurement: 'kWh'
+      # Ioniq daily energy charged
+      car_ioniq_state_daily_energy_charged:
+        value_template: '{{states("sensor.car_ioniq_state_today_energy_charged")}}'
+        unit_of_measurement: 'kWh'
+######################### Daily state data #########################
       # Ioniq Average energy consumption without taking into account regeneration
       car_ioniq_state_energy_consumption:
         friendly_name: 'Consumo medio'
@@ -357,13 +392,19 @@ automation:
       entity_id: sensor.car_ioniq_charge_state
       from: 'Cargando'
     action:
-      - service: mqtt.publish
-        data:
-          topic: 'car/ioniq/charger'
-          retain: true
-          qos: 0
-          payload_template: "{{{\"energy_kwh\" : state_attr('switch.car_ioniq_charger', 'today_energy_kwh'),\"timestamp\": as_timestamp(now())|round} | tojson}}"
       - service: notify.telegram
         data_template:
           message: >-
             Carga del Ioniq finalizada. {{state_attr('switch.car_ioniq_charger', 'today_energy_kwh')}} kWh cargados.
+
+  - alias: '[Car] Publish Ioniq daily state'
+    trigger:
+      platform: time
+      at: '23:59:00'
+    action:
+      - service: mqtt.publish
+        data:
+          topic: 'car/ioniq/state/daily'
+          retain: true
+          qos: 0
+          payload_template: "{{{\"charged_energy_kwh\":  states('sensor.car_ioniq_state_today_energy_charged'),\"odometer\": states('sensor.car_ioniq_state_odometer'),\"ced\": states('sensor.car_ioniq_state_ced'),\"cec\": states('sensor.car_ioniq_state_cec'),\"soh\": states('sensor.car_ioniq_state_battery_health'),\"soc_display\":states('sensor.car_ioniq_state_soc_display'),\"soc_bms\":states('sensor.car_ioniq_state_soc_bms'),\"distance_since_cc\": states('sensor.car_ioniq_state_distance_since_cc'),\"timestamp\": as_timestamp(now())|round,} | tojson}}"
