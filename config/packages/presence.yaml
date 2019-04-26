@@ -353,7 +353,7 @@ automation:
   - alias: '[Presence] Jordi arriving home in Ioniq'
     trigger:
        - platform: zone
-         entity_id: device_tracker.ioniq
+         entity_id: device_tracker.car_ioniq
          zone: zone.home
          event: enter
     condition:
