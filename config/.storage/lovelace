@@ -18,7 +18,7 @@
                                 "switch.outside_fence",
                                 "sensor.outside_fence"
                             ],
-                            "show_header_toggle": true,
+                            "show_header_toggle": false,
                             "title": "Barrera",
                             "type": "entities"
                         },
@@ -90,21 +90,21 @@
                             "type": "thermostat"
                         },
                         {
-                            "entities": [
-                                "light.barrera_derecha",
-                                "light.barrera_izquierda",
-                                "light.puerta_coladuria",
-                                "input_number.outside_ligths_brightness"
-                            ],
-                            "show_header_toggle": true,
-                            "title": "Luces exteriores",
-                            "type": "entities"
+                            "entity": "light.luces_exteriores",
+                            "theme": "Backend-selected",
+                            "type": "light"
                         },
                         {
                             "entities": [
-                                "switch.suite_switch",
-                                "switch.escalera_switch",
-                                "switch.entrance_hall_lamp_switch"
+                                {
+                                    "entity": "light.suite_light"
+                                },
+                                {
+                                    "entity": "light.escalera_light"
+                                },
+                                {
+                                    "entity": "light.entrance_hall_lamp_light"
+                                }
                             ],
                             "show_header_toggle": true,
                             "title": "Luces interiores",
@@ -323,9 +323,15 @@
                         },
                         {
                             "entities": [
-                                "switch.entrance_hall_lamp_switch",
-                                "sensor.entrance_hall_thermostat_temperature",
-                                "sensor.entrance_hall_thermostat_temperature_trend"
+                                {
+                                    "entity": "light.entrance_hall_lamp_light"
+                                },
+                                {
+                                    "entity": "sensor.entrance_hall_thermostat_temperature"
+                                },
+                                {
+                                    "entity": "sensor.entrance_hall_thermostat_temperature_trend"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Recibidor",
@@ -347,9 +353,15 @@
                         },
                         {
                             "entities": [
-                                "switch.escalera_switch",
-                                "sensor.escalera_switch_energy",
-                                "sensor.escalera_switch_power"
+                                {
+                                    "entity": "light.escalera_light"
+                                },
+                                {
+                                    "entity": "sensor.escalera_switch_energy"
+                                },
+                                {
+                                    "entity": "sensor.escalera_switch_power"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Escalera",
@@ -357,17 +369,39 @@
                         },
                         {
                             "entities": [
-                                "switch.suite_switch",
-                                "sensor.suite_switch_energy",
-                                "sensor.suite_switch_power",
-                                "sensor.netatmo_suite_temperature",
-                                "sensor.netatmo_suite_temperature_trend",
-                                "sensor.netatmo_suite_min_temp",
-                                "sensor.netatmo_suite_max_temp",
-                                "sensor.netatmo_suite_co2",
-                                "sensor.netatmo_suite_co2_trend",
-                                "sensor.netatmo_suite_humidity",
-                                "sensor.netatmo_suite_radio"
+                                {
+                                    "entity": "light.suite_light"
+                                },
+                                {
+                                    "entity": "sensor.suite_switch_energy"
+                                },
+                                {
+                                    "entity": "sensor.suite_switch_power"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_suite_temperature"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_suite_temperature_trend"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_suite_min_temp"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_suite_max_temp"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_suite_co2"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_suite_co2_trend"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_suite_humidity"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_suite_radio"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Suite",
@@ -463,17 +497,6 @@
                         },
                         {
                             "entities": [
-                                "light.barrera_derecha",
-                                "light.barrera_izquierda",
-                                "light.puerta_coladuria",
-                                "input_number.outside_ligths_brightness"
-                            ],
-                            "show_header_toggle": true,
-                            "title": "Luces exteriores",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
                                 "sensor.dark_sky_summary_0d",
                                 "sensor.sunrise",
                                 "sensor.sunset",
@@ -537,6 +560,12 @@
                             "show_header_toggle": false,
                             "title": "Barrera",
                             "type": "entities"
+                        },
+                        {
+                            "entity": "light.luces_exteriores",
+                            "name": "Luces exteriores",
+                            "theme": "Backend-selected",
+                            "type": "light"
                         },
                         {
                             "entities": [

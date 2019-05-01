@@ -131,9 +131,9 @@ goto_sleep:
       after: '21:00'
       before: '6:00'
     # Turn on stairs lights
-    - service: switch.turn_on
+    - service: light.turn_on
       data:
-        entity_id: switch.escalera_switch
+        entity_id: light.escalera_light
     # Close fence if open
     - service_template: >
         {%- if is_state("sensor.outside_fence", "Abierta") -%}
@@ -145,13 +145,13 @@ goto_sleep:
       data:
         entity_id: switch.barrera
     # Turn off outside lights
-    - service: homeassistant.turn_off
+    - service: light.turn_off
       data:
-        entity_id: group.luces_exteriores
+        entity_id: light.luces_exteriores
     # Turn off hall lamp
-    - service: switch.turn_off
+    - service: light.turn_off
       data:
-        entity_id: switch.entrance_hall_lamp_switch
+        entity_id: light.entrance_hall_lamp_light
     # Alarm arm night
     - service: script.turn_on
       data:
@@ -172,6 +172,6 @@ goto_sleep:
     - delay:
         minutes: 2
     # Turn stairs lights off
-    - service: switch.turn_off
+    - service: light.turn_off
       data:
-        entity_id: switch.escalera_switch
+        entity_id: light.escalera_light
