@@ -15,8 +15,12 @@
                         },
                         {
                             "entities": [
-                                "switch.outside_fence",
-                                "sensor.outside_fence"
+                                {
+                                    "entity": "cover.outside_fence"
+                                },
+                                {
+                                    "entity": "sensor.outside_fence"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Barrera",
@@ -40,41 +44,59 @@
                             "type": "entities"
                         },
                         {
-                            "entities": [
+                            "cards": [
                                 {
-                                    "entity": "utility_meter.energy_home_daily"
+                                    "entities": [
+                                        {
+                                            "entity": "utility_meter.energy_home_daily"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.energy_ups_status_bs"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_ups_status"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "Energ\u00eda",
+                                    "type": "entities"
                                 },
                                 {
-                                    "entity": "binary_sensor.energy_ups_status_bs"
+                                    "detail": 2,
+                                    "entity": "sensor.efergy_2577",
+                                    "graph": "line",
+                                    "hours_to_show": 24,
+                                    "name": "Consumo instant\u00e1neo",
+                                    "type": "sensor",
+                                    "unit": "W"
                                 },
                                 {
-                                    "entity": "sensor.efergy_2577"
-                                },
-                                {
-                                    "entity": "sensor.energy_home_daily_pico"
-                                },
-                                {
-                                    "entity": "sensor.energy_home_daily_valle"
-                                },
-                                {
-                                    "entity": "sensor.energy_home_daily_super_valle"
-                                },
-                                {
-                                    "entity": "sensor.energy_home_monthly_pico"
-                                },
-                                {
-                                    "entity": "sensor.energy_home_monthly_valle"
-                                },
-                                {
-                                    "entity": "sensor.energy_home_monthly_super_valle"
-                                },
-                                {
-                                    "entity": "sensor.energy_ups_status"
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.energy_home_daily_pico"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_home_daily_valle"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_home_daily_super_valle"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_home_monthly_pico"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_home_monthly_valle"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_home_monthly_super_valle"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "Consumo energ\u00e9tico",
+                                    "type": "entities"
                                 }
                             ],
-                            "show_header_toggle": false,
-                            "title": "Energ\u00eda",
-                            "type": "entities"
+                            "type": "vertical-stack"
                         },
                         {
                             "entities": [
@@ -554,8 +576,12 @@
                         },
                         {
                             "entities": [
-                                "switch.outside_fence",
-                                "sensor.outside_fence"
+                                {
+                                    "entity": "cover.outside_fence"
+                                },
+                                {
+                                    "entity": "sensor.outside_fence"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Barrera",
