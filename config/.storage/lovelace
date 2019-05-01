@@ -487,7 +487,7 @@
                         },
                         {
                             "entities": [
-                                "sensor.home_temperature"
+                                "sensor.home_temperature_mean"
                             ],
                             "hours_to_show": 336,
                             "refresh_interval": 600,
@@ -503,6 +503,15 @@
                             "show_header_toggle": false,
                             "title": "Unidad Familiar",
                             "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "device_tracker.jordi_combined",
+                                "device_tracker.geni_combined",
+                                "device_tracker.virtual_device"
+                            ],
+                            "title": "Ocupaci\u00f3n",
+                            "type": "history-graph"
                         }
                     ],
                     "icon": "mdi:home-map-marker",
@@ -552,6 +561,49 @@
                             "type": "history-graph"
                         },
                         {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        "switch.motor_piscina",
+                                        "switch.luz_piscina",
+                                        "sensor.piscina_on_history",
+                                        "input_number.temperature_correction",
+                                        "sensor.piscina_water_temperature",
+                                        "sensor.piscina_temperature_mean",
+                                        "sensor.piscina_filtered_realistic_water_temperature",
+                                        "sensor.piscina_k_factor",
+                                        "sensor.piscina_filtering_time",
+                                        "sensor.piscina_on_time",
+                                        "sensor.piscina_off_time"
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "Piscina",
+                                    "type": "entities"
+                                },
+                                {
+                                    "entities": [
+                                        "sensor.piscina_water_temperature",
+                                        "sensor.piscina_temperature_mean"
+                                    ],
+                                    "hours_to_show": 336,
+                                    "refresh_interval": 600,
+                                    "title": "Temperatura piscina",
+                                    "type": "history-graph"
+                                },
+                                {
+                                    "camera_image": "camera.piscina",
+                                    "entities": [
+                                        "switch.piscina_camara_det_mov",
+                                        "binary_sensor.piscina_camara_infrarrojo",
+                                        "binary_sensor.piscina_camara_det_mov"
+                                    ],
+                                    "title": "Piscina",
+                                    "type": "picture-glance"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
                             "entities": [
                                 "sensor.netatmo_pluviometro_rain",
                                 "sensor.netatmo_pluviometro_sum_rain_1",
@@ -595,39 +647,6 @@
                         },
                         {
                             "entities": [
-                                "switch.motor_piscina",
-                                "switch.luz_piscina",
-                                "sensor.piscina_on_history",
-                                "input_number.temperature_correction",
-                                "sensor.piscina_water_temperature",
-                                "sensor.piscina_temperature_mean",
-                                "sensor.piscina_filtered_realistic_water_temperature",
-                                "sensor.piscina_k_factor",
-                                "sensor.piscina_filtering_time",
-                                "sensor.piscina_on_time",
-                                "sensor.piscina_off_time"
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Piscina",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                "sensor.piscina_water_temperature",
-                                "sensor.piscina_temperature_mean",
-                                "sensor.piscina_filtered_realistic_water_temperature"
-                            ],
-                            "hours_to_show": 336,
-                            "refresh_interval": 600,
-                            "title": "Temperatura piscina",
-                            "type": "history-graph"
-                        },
-                        {
-                            "entity": "camera.piscina",
-                            "type": "picture-entity"
-                        },
-                        {
-                            "entities": [
                                 "switch.piscina_camara_det_mov",
                                 "switch.barbacoa_camara_det_mov",
                                 "switch.caseta_camara_det_mov",
@@ -639,12 +658,23 @@
                             "type": "entities"
                         },
                         {
-                            "entity": "camera.barbacoa",
-                            "type": "picture-entity"
+                            "camera_image": "camera.caseta",
+                            "entities": [
+                                "switch.caseta_camara_det_mov",
+                                "binary_sensor.caseta_camara_det_mov"
+                            ],
+                            "title": "Caseta",
+                            "type": "picture-glance"
                         },
                         {
-                            "entity": "camera.caseta",
-                            "type": "picture-entity"
+                            "camera_image": "camera.barbacoa",
+                            "entities": [
+                                "switch.barbacoa_camara_det_mov",
+                                "binary_sensor.barbacoa_camara_infrarrojo",
+                                "binary_sensor.barbacoa_camara_det_mov"
+                            ],
+                            "title": "Barbacoa",
+                            "type": "picture-glance"
                         }
                     ],
                     "icon": "mdi:tree",
