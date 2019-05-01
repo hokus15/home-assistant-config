@@ -381,7 +381,7 @@ automation:
           message: 'Barrera abierta automáticamente'
           target: !secret hokusphone_telegram_chat_id
           inline_keyboard: 
-            - 'Cerrar:/switch.turn_on#switch.outside_fence'
+            - 'Cerrar:/switch.turn_on#switch.barrera'
       - service: device_tracker.see
         data:
           dev_id: 'jordi_combined'

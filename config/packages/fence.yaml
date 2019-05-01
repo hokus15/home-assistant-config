@@ -1,8 +1,7 @@
 homeassistant:
   customize:
-    switch.outside_fence:
-      friendly_name: 'Barrera'
-      icon: mdi:gate
+    cover.outside_fence:
+      device_class: 'door'
     sensor.outside_fence:
       friendly_name: 'Estado barrera'
 
@@ -10,12 +9,6 @@ recorder:
   exclude:
     entities:
       - sensor.outside_fence_sensor_state
-
-group:
-  Barrera:
-    entities:
-      - switch.outside_fence
-      - sensor.outside_fence
 
 sensor:
   - platform: template
@@ -27,45 +20,47 @@ sensor:
   - platform: mqtt
     name: 'outside_fence'
     state_topic: 'home/fence/state'
-    icon: mdi:gate
+    icon: mdi:garage
 
-switch:
+cover:
   - platform: template
-    switches:
+    covers:
       outside_fence:
-        value_template: '{{ is_state_attr("switch.barrera", "sensor_state", "off") }}'
-        turn_on:
+        friendly_name: "Barrera"
+        value_template: "{{ is_state_attr('switch.barrera', 'sensor_state', 'off') }}"
+        open_cover:
           service: switch.turn_on
           data:
             entity_id: switch.barrera
-        turn_off:
+        close_cover:
           service: switch.turn_on
           data:
             entity_id: switch.barrera
+        icon_template: >-
+          {%- if is_state("sensor.outside_fence", "Abierta") %}
+            mdi:garage-open
+          {%- elif is_state("sensor.outside_fence", "En movimiento") %}
+            mdi:garage-alert
+          {% else %}
+            mdi:garage
+          {% endif %}
 
 cloud:
   google_actions:
     filter:
       include_entities:
-        - switch.outside_fence
+        - cover.outside_fence
     entity_config:
-      switch.outside_fence:
+      cover.outside_fence:
         name: Puerta de entrada
         aliases:
           - Barrera
           - Puerta de entrada
         room: Jardín delantero
 
-#google_assistant:
-#  entity_config:
-#    switch.outside_fence:
-#      name: Barrera
-#      expose: true
-#      room: Exterior
-
 automation:
     # Fence state. Can be moving (En movimiento), open (Abierta) or closed (Cerrada).
-    # Fence needs around 20 seconds to fully open/close
+    # Fence needs around 18 seconds to fully open/close
   - alias: '[Fence] Publish to mqtt fence status'
     trigger:
       platform: state
@@ -76,19 +71,15 @@ automation:
         data:
           topic: home/fence/state
           payload_template: >-
-            {%- if is_state("sensor.outside_fence_sensor_state", "off") and not is_state("sensor.outside_fence", "En movimiento") %}
+            {%- if is_state("sensor.outside_fence_sensor_state", "off") %}
               En movimiento
             {%- else %}
-              {%- if is_state("sensor.outside_fence_sensor_state", "off") %}
-                Abierta
-              {% else %}
-                Cerrada
-              {%- endif %}
+              Cerrada
             {%- endif %}
           qos: 0
           retain: true
       - delay:
-          seconds: 20
+          seconds: 18
       - service: mqtt.publish
         data:
           topic: home/fence/state
@@ -98,6 +89,21 @@ automation:
             {% else %}
               Cerrada
             {%- endif %}
+          qos: 0
+          retain: true
+
+  - alias: '[Fence] Publish to mqtt fence moving (En movimiento) status'
+    trigger:
+      platform: state
+      entity_id: switch.barrera
+      to: 'on'
+    action:
+      - service: mqtt.publish
+        data:
+          topic: home/fence/state
+          payload: "En movimiento"
+          qos: 0
+          retain: true
 
   - alias: '[Fence] Publish to mqtt fence closed (Cerrada) status'
     trigger:
@@ -140,4 +146,4 @@ automation:
             - !secret hokusphone_telegram_chat_id
             - !secret geniphone_telegram_chat_id
           inline_keyboard: 
-            - 'Cerrar:/switch.turn_on#switch.outside_fence'
+            - 'Cerrar:/switch.turn_on#switch.barrera'
