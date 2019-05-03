@@ -1,0 +1,46 @@
+Dark Blue:
+  ### Main Interface Colors ###
+  primary-color: "#00a0e2"
+  light-primary-color: "#00a0e2"
+  primary-background-color: "#3a3b41"
+  secondary-background-color: "#3a3b41"
+  divider-color: "#595B6B"
+  google-red-500: "#f00"
+  ### Text ###
+  primary-text-color: "#FBFBFB"
+  secondary-text-color: var(--primary-color)
+  text-primary-color: "#FBFBFB"
+  disabled-text-color: "#7A7D90"
+  ### Sidebar Menu ###
+  sidebar-icon-color: "#A2A4B2"
+  sidebar-text-color: "#FBFBFB"
+  sidebar-background-color: "#333436"
+  sidebar-selected-background-color: var(--primary-background-color)
+  sidebar-selected-icon-color: var(--primary-color)
+  sidebar-selected-text-color: var(--sidebar-selected-icon-color)
+  ### States and Badges ###
+  state-icon-color: var(--primary-color)
+  state-icon-active-color: var(--paper-green-400)
+  state-icon-unavailable-color: var(--disabled-text-color)
+  ### Sliders ###
+  paper-slider-knob-color: var(--primary-color)
+  paper-slider-knob-start-color: var(--paper-slider-knob-color)
+  paper-slider-pin-color: var(--paper-slider-knob-color)
+  paper-slider-active-color: var(--paper-slider-knob-color)
+  paper-slider-secondary-color: var(--light-primary-color)
+  paper-green-400: "#FBCD41"
+  ### Labels ###
+  label-badge-background-color: "#9A9CAB"
+  label-badge-text-color: "#FBFBFB"
+  label-badge-red: "#555766"
+  ### Cards ###
+  paper-card-background-color: "#52535a"
+  paper-card-header-color: var(--primary-text-color)
+  paper-listbox-background-color: "#333436"
+  ### Toggles ###
+  paper-toggle-button-checked-button-color: var(--primary-color)
+  paper-toggle-button-unchecked-button-color: "#A2A4B2"
+  paper-toggle-button-unchecked-bar-color: "#787B8F"
+  ### Table row ###
+  table-row-background-color: var(--primary-background-color)
+  table-row-alternative-background-color: var(--secondary-background-color)
