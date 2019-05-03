@@ -571,7 +571,7 @@ script:
     sequence:
       - delay:
           seconds: 5
-      - service: tts.google_say
+      - service: tts.google_translate_say
         entity_id: media_player.recibidor
         data_template:
           message: >

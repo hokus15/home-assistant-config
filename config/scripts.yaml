@@ -49,7 +49,7 @@ speech_set_tts_volume_level:
 speech_parte_meteorologico:
   alias: 'Parte meteorológico'
   sequence:
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id: media_player.recibidor
       data_template:
         message: >
@@ -67,7 +67,7 @@ speech_parte_meteorologico:
 speech_parte_meteorologico_corto:
   alias: 'Parte meteorológico corto'
   sequence:
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id: media_player.recibidor
       data_template:
         message: >
@@ -79,7 +79,7 @@ speech_parte_meteorologico_corto:
 chores:
   alias: 'Basura'
   sequence:
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id: media_player.recibidor
       data_template:
         message: >
@@ -103,7 +103,7 @@ chores:
 geni_shift:
   alias: 'Turno Geni'
   sequence:
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id: media_player.recibidor
       data_template:
         message: >
@@ -157,7 +157,7 @@ goto_sleep:
       data:
         entity_id: script.alarm_arm_night
       # Notify found incidences and say good night.
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id: media_player.recibidor
       data_template:
         message: >

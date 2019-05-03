@@ -226,10 +226,10 @@ zwave:
   device_config: !include zwave_device_config.yaml
 
 tts:
-  - platform: google
-    cache: true
-    cache_dir: /tmp/tts
-    time_memory: 300
+  - platform: google_translate
+#    cache: true
+#    cache_dir: /tmp/tts
+#    time_memory: 300
     language: 'es'
 
 shell_command: !include shell_command.yaml
