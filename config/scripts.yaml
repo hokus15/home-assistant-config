@@ -168,9 +168,17 @@ goto_sleep:
           Alarma armada en modo noche.
     # Wait until tts finishes
 #    - delay: '00:00:{{ states.media_player.recibidor.attributes.media_duration | int }}'
-    # Wait 2 minutes before turning stair lights off
+    # Wait 5 minutes before turning stair lights off
     - delay:
-        minutes: 2
+        minutes: 5
+    # Turn stairs lights off
+    - service: light.turn_off
+      data:
+        entity_id: light.escalera_light
+
+jordi_on_bed:
+  alias: 'Jordi On bed'
+  sequence:
     # Turn stairs lights off
     - service: light.turn_off
       data:
