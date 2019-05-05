@@ -179,32 +179,24 @@
                             "type": "entities"
                         },
                         {
+                            "camera_image": "camera.recibidor",
                             "entities": [
                                 "switch.recibidor_camara_det_mov",
                                 "binary_sensor.recibidor_camara_infrarrojo",
                                 "binary_sensor.recibidor_camara_det_mov"
                             ],
-                            "show_header_toggle": false,
-                            "title": "C\u00e1mara recibidor",
-                            "type": "entities"
+                            "title": "Recibidor",
+                            "type": "picture-glance"
                         },
                         {
-                            "entity": "camera.recibidor",
-                            "type": "picture-entity"
-                        },
-                        {
+                            "camera_image": "camera.salon",
                             "entities": [
                                 "switch.salon_camara_det_mov",
                                 "binary_sensor.salon_camara_infrarrojo",
                                 "binary_sensor.salon_camara_det_mov"
                             ],
-                            "show_header_toggle": false,
-                            "title": "C\u00e1mara sal\u00f3n",
-                            "type": "entities"
-                        },
-                        {
-                            "entity": "camera.salon",
-                            "type": "picture-entity"
+                            "title": "Sal\u00f3n",
+                            "type": "picture-glance"
                         },
                         {
                             "entities": [
@@ -217,6 +209,7 @@
                             "type": "entities"
                         },
                         {
+                            "camera_image": "camera.entrada",
                             "entities": [
                                 "input_boolean.entrada_camara_det_mov",
                                 "binary_sensor.entrada_outdoor_motion",
@@ -224,54 +217,37 @@
                                 "binary_sensor.entrada_outdoor_animal",
                                 "binary_sensor.entrada_outdoor_vehicle"
                             ],
-                            "show_header_toggle": false,
-                            "title": "C\u00e1mara entrada principal",
-                            "type": "entities"
+                            "title": "Entrada",
+                            "type": "picture-glance"
                         },
                         {
-                            "entity": "camera.entrada",
-                            "type": "picture-entity"
-                        },
-                        {
+                            "camera_image": "camera.piscina",
                             "entities": [
                                 "switch.piscina_camara_det_mov",
                                 "binary_sensor.piscina_camara_infrarrojo",
                                 "binary_sensor.piscina_camara_det_mov"
                             ],
-                            "show_header_toggle": false,
-                            "title": "C\u00e1mara piscina",
-                            "type": "entities"
+                            "title": "Piscina",
+                            "type": "picture-glance"
                         },
                         {
-                            "entity": "camera.piscina",
-                            "type": "picture-entity"
-                        },
-                        {
+                            "camera_image": "camera.barbacoa",
                             "entities": [
                                 "switch.barbacoa_camara_det_mov",
                                 "binary_sensor.barbacoa_camara_infrarrojo",
                                 "binary_sensor.barbacoa_camara_det_mov"
                             ],
-                            "show_header_toggle": false,
-                            "title": "C\u00e1mara barbacoa",
-                            "type": "entities"
+                            "title": "Barbacoa",
+                            "type": "picture-glance"
                         },
                         {
-                            "entity": "camera.barbacoa",
-                            "type": "picture-entity"
-                        },
-                        {
+                            "camera_image": "camera.caseta",
                             "entities": [
                                 "switch.caseta_camara_det_mov",
                                 "binary_sensor.caseta_camara_det_mov"
                             ],
-                            "show_header_toggle": false,
-                            "title": "C\u00e1mara caseta",
-                            "type": "entities"
-                        },
-                        {
-                            "entity": "camera.caseta",
-                            "type": "picture-entity"
+                            "title": "Caseta",
+                            "type": "picture-glance"
                         },
                         {
                             "entities": [
@@ -674,6 +650,18 @@
                                 "binary_sensor.barbacoa_camara_det_mov"
                             ],
                             "title": "Barbacoa",
+                            "type": "picture-glance"
+                        },
+                        {
+                            "camera_image": "camera.entrada",
+                            "entities": [
+                                "input_boolean.entrada_camara_det_mov",
+                                "binary_sensor.entrada_outdoor_motion",
+                                "binary_sensor.entrada_outdoor_human",
+                                "binary_sensor.entrada_outdoor_animal",
+                                "binary_sensor.entrada_outdoor_vehicle"
+                            ],
+                            "title": "Entrada",
                             "type": "picture-glance"
                         }
                     ],
