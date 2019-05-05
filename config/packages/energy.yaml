@@ -158,8 +158,8 @@ automation:
   - alias: '[Energy] Notify power cut'
     trigger:
       platform: state
-      entity_id: binary_sensor.energy_ups_status_bs
-      to: 'off'
+      entity_id: sensor.energy_ups_status
+      to: 'Batería'
       for:
         minutes: 1
     action:
@@ -169,27 +169,30 @@ automation:
   
   # Restart UPS driver controller when a power cut is detected.
   # I've added this automation because from time to time the controller stops working until it's restarted.
-  - alias: '[Energy] Restart UPS Driver Controller'
-    trigger:
-      platform: state
-      entity_id: binary_sensor.energy_ups_status_bs
-      to: 'off'
-    condition:
-      - condition: numeric_state
-        entity_id: sensor.ha_runtime_in_minutes
-        above: 2
-    action:
-      - service: notify.telegram
-        data:
-          message: 'Controlador SAI reiniciado'
-      - service: shell_command.restart_ups_driver_controller
+#  - alias: '[Energy] Restart UPS Driver Controller'
+#    trigger:
+#      platform: state
+#      entity_id: binary_sensor.energy_ups_status_bs
+#      to: 'off'
+#    condition:
+#      - condition: numeric_state
+#        entity_id: sensor.ha_runtime_in_minutes
+#        above: 2
+#    action:
+#      - service: notify.telegram
+#        data:
+#          message: 'Controlador SAI reiniciado'
+#      - service: shell_command.restart_ups_driver_controller
   
   # Notify when the power is back normal
   - alias: '[Energy] Notify power ok'
     trigger:
-      platform: state
-      entity_id: binary_sensor.energy_ups_status_bs
-      to: 'on'
+      - platform: state
+        entity_id: sensor.energy_ups_status
+        to: 'Cargando'
+      - platform: state
+        entity_id: sensor.energy_ups_status
+        to: 'Normal'
     condition:
       - condition: numeric_state
         entity_id: sensor.ha_runtime_in_minutes
