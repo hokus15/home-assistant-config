@@ -10,37 +10,77 @@
                     ],
                     "cards": [
                         {
+                            "cards": [
+                                {
+                                    "entity": "device_tracker.jordi_combined",
+                                    "image": "https://www.gravatar.com/avatar/f5d192b4f4ffab4d9625f9b9e11d16b7?s=300",
+                                    "show_name": false,
+                                    "type": "picture-entity"
+                                },
+                                {
+                                    "entity": "device_tracker.geni_combined",
+                                    "image": "/local/hass-geni2.jpg",
+                                    "show_name": false,
+                                    "type": "picture-entity"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
                             "entity": "alarm_control_panel.home",
                             "type": "alarm-panel"
                         },
                         {
-                            "entities": [
+                            "cards": [
                                 {
-                                    "entity": "cover.outside_fence"
+                                    "entities": [
+                                        {
+                                            "entity": "cover.outside_fence",
+                                            "name": "Control"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "Barrera",
+                                    "type": "entities"
                                 },
                                 {
-                                    "entity": "sensor.outside_fence"
+                                    "camera_image": "camera.entrada",
+                                    "entity": "sensor.outside_fence",
+                                    "name": "Estado",
+                                    "type": "picture-entity"
                                 }
                             ],
-                            "show_header_toggle": false,
-                            "title": "Barrera",
-                            "type": "entities"
+                            "type": "vertical-stack"
                         },
                         {
                             "entities": [
-                                "device_tracker.jordi_combined",
-                                "device_tracker.geni_combined",
-                                "device_tracker.virtual_device",
-                                "input_boolean.empty_home_activation_delay",
-                                "input_number.empty_home_activation_delay_minutes",
-                                "switch.holiday",
-                                "sensor.next_holiday_mode_start",
-                                "sensor.next_holiday_mode_end",
-                                "sensor.next_shift_event",
-                                "sensor.next_shift_date"
+                                {
+                                    "entity": "device_tracker.virtual_device"
+                                },
+                                {
+                                    "entity": "input_boolean.empty_home_activation_delay"
+                                },
+                                {
+                                    "entity": "input_number.empty_home_activation_delay_minutes"
+                                },
+                                {
+                                    "entity": "switch.holiday"
+                                },
+                                {
+                                    "entity": "sensor.next_holiday_mode_start"
+                                },
+                                {
+                                    "entity": "sensor.next_holiday_mode_end"
+                                },
+                                {
+                                    "entity": "sensor.next_shift_event"
+                                },
+                                {
+                                    "entity": "sensor.next_shift_date"
+                                }
                             ],
                             "show_header_toggle": false,
-                            "title": "Familia",
+                            "title": "Presencia",
                             "type": "entities"
                         },
                         {
@@ -99,19 +139,6 @@
                             "type": "vertical-stack"
                         },
                         {
-                            "entities": [
-                                "switch.thermostat",
-                                "switch.thermostat_away_mode"
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Calefacci\u00f3n",
-                            "type": "entities"
-                        },
-                        {
-                            "entity": "climate.netatmo_general",
-                            "type": "thermostat"
-                        },
-                        {
                             "entity": "light.luces_exteriores",
                             "theme": "Backend-selected",
                             "type": "light"
@@ -131,11 +158,24 @@
                             "show_header_toggle": true,
                             "title": "Luces interiores",
                             "type": "entities"
+                        },
+                        {
+                            "card": {
+                                "entity": "climate.netatmo_general",
+                                "type": "thermostat"
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "switch.thermostat",
+                                    "state": "on"
+                                }
+                            ],
+                            "type": "conditional"
                         }
                     ],
                     "icon": "mdi:home",
-                    "path": "default_view",
-                    "title": "default_view"
+                    "path": "principal",
+                    "title": "Principal"
                 },
                 {
                     "badges": [],
@@ -179,24 +219,32 @@
                             "type": "entities"
                         },
                         {
-                            "camera_image": "camera.recibidor",
                             "entities": [
                                 "switch.recibidor_camara_det_mov",
                                 "binary_sensor.recibidor_camara_infrarrojo",
                                 "binary_sensor.recibidor_camara_det_mov"
                             ],
-                            "title": "Recibidor",
-                            "type": "picture-glance"
+                            "show_header_toggle": false,
+                            "title": "C\u00e1mara recibidor",
+                            "type": "entities"
                         },
                         {
-                            "camera_image": "camera.salon",
+                            "entity": "camera.recibidor",
+                            "type": "picture-entity"
+                        },
+                        {
                             "entities": [
                                 "switch.salon_camara_det_mov",
                                 "binary_sensor.salon_camara_infrarrojo",
                                 "binary_sensor.salon_camara_det_mov"
                             ],
-                            "title": "Sal\u00f3n",
-                            "type": "picture-glance"
+                            "show_header_toggle": false,
+                            "title": "C\u00e1mara sal\u00f3n",
+                            "type": "entities"
+                        },
+                        {
+                            "entity": "camera.salon",
+                            "type": "picture-entity"
                         },
                         {
                             "entities": [
@@ -209,7 +257,6 @@
                             "type": "entities"
                         },
                         {
-                            "camera_image": "camera.entrada",
                             "entities": [
                                 "input_boolean.entrada_camara_det_mov",
                                 "binary_sensor.entrada_outdoor_motion",
@@ -217,8 +264,13 @@
                                 "binary_sensor.entrada_outdoor_animal",
                                 "binary_sensor.entrada_outdoor_vehicle"
                             ],
-                            "title": "Entrada",
-                            "type": "picture-glance"
+                            "show_header_toggle": false,
+                            "title": "C\u00e1mara entrada principal",
+                            "type": "entities"
+                        },
+                        {
+                            "entity": "camera.entrada",
+                            "type": "picture-entity"
                         },
                         {
                             "camera_image": "camera.piscina",
@@ -650,18 +702,6 @@
                                 "binary_sensor.barbacoa_camara_det_mov"
                             ],
                             "title": "Barbacoa",
-                            "type": "picture-glance"
-                        },
-                        {
-                            "camera_image": "camera.entrada",
-                            "entities": [
-                                "input_boolean.entrada_camara_det_mov",
-                                "binary_sensor.entrada_outdoor_motion",
-                                "binary_sensor.entrada_outdoor_human",
-                                "binary_sensor.entrada_outdoor_animal",
-                                "binary_sensor.entrada_outdoor_vehicle"
-                            ],
-                            "title": "Entrada",
                             "type": "picture-glance"
                         }
                     ],
