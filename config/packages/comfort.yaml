@@ -8,8 +8,10 @@ homeassistant:
       friendly_name: 'Humedad'
     sensor.netatmo_exterior_min_temp:
       friendly_name: 'Mínima de hoy'
+      icon: 'mdi:thermometer-minus'
     sensor.netatmo_exterior_max_temp:
       friendly_name: 'Máxima de hoy'
+      icon: 'mdi:thermometer-plus'
     sensor.netatmo_exterior_battery:
       friendly_name: 'Netatmo exterior'
       device_class: 'battery'
@@ -30,8 +32,10 @@ homeassistant:
       friendly_name: 'Temperatura'
     sensor.netatmo_salon_min_temp:
       friendly_name: 'Mínima de hoy'
+      icon: 'mdi:thermometer-minus'
     sensor.netatmo_salon_max_temp:
       friendly_name: 'Máxima de hoy'
+      icon: 'mdi:thermometer-plus'
     sensor.netatmo_salon_humidity:
       friendly_name: 'Humedad'
     sensor.netatmo_salon_noise:
@@ -59,8 +63,10 @@ homeassistant:
       friendly_name: 'Temperatura'
     sensor.netatmo_suite_min_temp:
       friendly_name: 'Mínima de hoy'
+      icon: 'mdi:thermometer-minus'
     sensor.netatmo_suite_max_temp:
       friendly_name: 'Máxima de hoy'
+      icon: 'mdi:thermometer-plus'
     sensor.netatmo_suite_co2:
       friendly_name: 'Nivel CO2'
     sensor.netatmo_suite_humidity:
@@ -74,8 +80,10 @@ homeassistant:
       friendly_name: 'Temperatura'
     sensor.netatmo_habitacion_min_temp:
       friendly_name: 'Mínima de hoy'
+      icon: 'mdi:thermometer-minus'
     sensor.netatmo_habitacion_max_temp:
       friendly_name: 'Máxima de hoy'
+      icon: 'mdi:thermometer-plus'
     sensor.netatmo_habitacion_co2:
       friendly_name: 'Nivel CO2'
     sensor.netatmo_habitacion_humidity:
@@ -126,51 +134,21 @@ recorder:
       - sensor.dark_sky_summary_0d
 
       - sensor.netatmo_exterior_radio
-      - sensor.netatmo_exterior_radio_2
       - sensor.netatmo_exterior_battery
-      - sensor.netatmo_exterior_battery_2
-      - sensor.netatmo_exterior_humidity_2
-      - sensor.netatmo_exterior_temperature_2
 
       - sensor.netatmo_suite_radio
-      - sensor.netatmo_suite_radio_2
       - sensor.netatmo_suite_battery
-      - sensor.netatmo_suite_battery_2
-      - sensor.netatmo_suite_humidity_2
-      - sensor.netatmo_suite_temperature_2
-      - sensor.netatmo_suite_co2_2
 
       - sensor.netatmo_habitacion_radio
-      - sensor.netatmo_habitacion_radio_2
       - sensor.netatmo_habitacion_battery
-      - sensor.netatmo_habitacion_battery_2
-      - sensor.netatmo_habitacion_humidity_2
-      - sensor.netatmo_habitacion_temperature_2
-      - sensor.netatmo_habitacion_co2_2
 
       - sensor.netatmo_pluviometro_radio
-      - sensor.netatmo_pluviometro_radio_2
       - sensor.netatmo_pluviometro_battery
-      - sensor.netatmo_pluviometro_battery_2
-      - sensor.netatmo_pluviometro_rain_2
-
-      - sensor.netatmo_salon_humidity_2
-      - sensor.netatmo_salon_temperature_2
-      - sensor.netatmo_salon_co2_2
-      - sensor.netatmo_salon_noise_2
-      - sensor.netatmo_salon_pressure_2
-      - sensor.netatmo_salon_wifi_2
 
       - sensor.netatmo_anemometro_gust_angle
-      - sensor.netatmo_anemometro_gust_angle_2
       - sensor.netatmo_anemometro_angle
-      - sensor.netatmo_anemometro_angle_2
       - sensor.netatmo_anemometro_radio
-      - sensor.netatmo_anemometro_radio_2
       - sensor.netatmo_anemometro_battery
-      - sensor.netatmo_anemometro_battery_2
-      - sensor.netatmo_anemometro_gust_strength_2
-      - sensor.netatmo_anemometro_strength_2
 
       - binary_sensor.netatmo_exterior_temperature_down
       - binary_sensor.netatmo_exterior_temperature_up
@@ -184,8 +162,8 @@ recorder:
       - binary_sensor.office_sensor_temperature_up
       - sensor.office_sensor_temperature_trend
 
-      - binary_sensor.entrance_hall_termostato_temperature_down
-      - binary_sensor.entrance_hall_termostato_temperature_up
+      - binary_sensor.entrance_hall_thermostat_temperature_down
+      - binary_sensor.entrance_hall_thermostat_temperature_up
       - sensor.entrance_hall_thermostat_temperature_trend
 
       - binary_sensor.netatmo_suite_temperature_down
@@ -297,7 +275,7 @@ binary_sensor:
       home_comfort_state:
         entity_id: sensor.first_floor_temperature, climate.netatmo_general, group.unidad_familiar, switch.thermostat, switch.thermostat_away_mode, binary_sensor.first_floor_temperature_down
         value_template: >- 
-          {{     states('sensor.first_floor_temperature')|float < states.sensor.entrance_hall_thermostat_target_temperature|float
+          {{ states('sensor.first_floor_temperature')|float < states.sensor.entrance_hall_thermostat_target_temperature|float
              and is_state('group.unidad_familiar', 'home')
              and is_state('switch.thermostat', 'on')
              and is_state('switch.thermostat_away_mode','off')
@@ -330,10 +308,10 @@ binary_sensor:
       office_sensor_temperature_up:
         entity_id: sensor.despacho_termometro_temperatura
   
-      entrance_hall_termostato_temperature_down:
+      entrance_hall_thermostat_temperature_down:
         entity_id: sensor.entrance_hall_thermostat_temperature
         invert: true
-      entrance_hall_termostato_temperature_up:
+      entrance_hall_thermostat_temperature_up:
         entity_id: sensor.entrance_hall_thermostat_temperature
         
       netatmo_suite_temperature_down:
@@ -631,17 +609,17 @@ sensor:
       entrance_hall_thermostat_temperature_trend:
         friendly_name: 'Tendencia temp'
         value_template: >-
-          {%- if is_state("binary_sensor.entrance_hall_termostato_temperature_down", "on") -%}
+          {%- if is_state("binary_sensor.entrance_hall_thermostat_temperature_down", "on") -%}
           En descenso
-          {%- elif is_state("binary_sensor.entrance_hall_termostato_temperature_up", "on") -%}
+          {%- elif is_state("binary_sensor.entrance_hall_thermostat_temperature_up", "on") -%}
           En aumento
           {%- else -%}
           Sin cambio
           {%- endif %}
         icon_template: >-
-          {%- if is_state("binary_sensor.entrance_hall_termostato_temperature_down", "on") -%}
+          {%- if is_state("binary_sensor.entrance_hall_thermostat_temperature_down", "on") -%}
           mdi:arrow-down-thick
-          {%- elif is_state("binary_sensor.entrance_hall_termostato_temperature_up", "on") -%}
+          {%- elif is_state("binary_sensor.entrance_hall_thermostat_temperature_up", "on") -%}
           mdi:arrow-up-thick
           {%- else -%}
           mdi:window-minimize
