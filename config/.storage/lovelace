@@ -53,37 +53,6 @@
                             "type": "vertical-stack"
                         },
                         {
-                            "entities": [
-                                {
-                                    "entity": "device_tracker.virtual_device"
-                                },
-                                {
-                                    "entity": "input_boolean.empty_home_activation_delay"
-                                },
-                                {
-                                    "entity": "input_number.empty_home_activation_delay_minutes"
-                                },
-                                {
-                                    "entity": "switch.holiday"
-                                },
-                                {
-                                    "entity": "sensor.next_holiday_mode_start"
-                                },
-                                {
-                                    "entity": "sensor.next_holiday_mode_end"
-                                },
-                                {
-                                    "entity": "sensor.next_shift_event"
-                                },
-                                {
-                                    "entity": "sensor.next_shift_date"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Presencia",
-                            "type": "entities"
-                        },
-                        {
                             "cards": [
                                 {
                                     "entities": [
@@ -139,6 +108,37 @@
                             "type": "vertical-stack"
                         },
                         {
+                            "entities": [
+                                {
+                                    "entity": "device_tracker.virtual_device"
+                                },
+                                {
+                                    "entity": "input_boolean.empty_home_activation_delay"
+                                },
+                                {
+                                    "entity": "input_number.empty_home_activation_delay_minutes"
+                                },
+                                {
+                                    "entity": "switch.holiday"
+                                },
+                                {
+                                    "entity": "sensor.next_holiday_mode_start"
+                                },
+                                {
+                                    "entity": "sensor.next_holiday_mode_end"
+                                },
+                                {
+                                    "entity": "sensor.next_shift_event"
+                                },
+                                {
+                                    "entity": "sensor.next_shift_date"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Presencia",
+                            "type": "entities"
+                        },
+                        {
                             "entity": "light.luces_exteriores",
                             "theme": "Backend-selected",
                             "type": "light"
@@ -185,21 +185,63 @@
                             "type": "alarm-panel"
                         },
                         {
-                            "entities": [
-                                "device_tracker.jordi_combined",
-                                "device_tracker.geni_combined",
-                                "device_tracker.virtual_device",
-                                "input_boolean.empty_home_activation_delay",
-                                "input_number.empty_home_activation_delay_minutes",
-                                "switch.holiday",
-                                "sensor.next_holiday_mode_start",
-                                "sensor.next_holiday_mode_end",
-                                "sensor.next_shift_event",
-                                "sensor.next_shift_date"
+                            "cards": [
+                                {
+                                    "entity": "device_tracker.jordi_combined",
+                                    "image": "https://www.gravatar.com/avatar/f5d192b4f4ffab4d9625f9b9e11d16b7?s=300",
+                                    "show_name": false,
+                                    "type": "picture-entity"
+                                },
+                                {
+                                    "entity": "device_tracker.geni_combined",
+                                    "image": "/local/hass-geni2.jpg",
+                                    "show_name": false,
+                                    "type": "picture-entity"
+                                }
                             ],
-                            "show_header_toggle": false,
-                            "title": "Familia",
-                            "type": "entities"
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "camera_image": "camera.recibidor",
+                            "entities": [
+                                "switch.recibidor_camara_det_mov",
+                                "binary_sensor.recibidor_camara_infrarrojo",
+                                "binary_sensor.recibidor_camara_det_mov"
+                            ],
+                            "title": "Recibidor",
+                            "type": "picture-glance"
+                        },
+                        {
+                            "camera_image": "camera.salon",
+                            "entities": [
+                                "switch.salon_camara_det_mov",
+                                "binary_sensor.salon_camara_infrarrojo",
+                                "binary_sensor.salon_camara_det_mov"
+                            ],
+                            "title": "Sal\u00f3n",
+                            "type": "picture-glance"
+                        },
+                        {
+                            "camera_image": "camera.entrada",
+                            "entities": [
+                                "input_boolean.entrada_camara_det_mov",
+                                "binary_sensor.entrada_outdoor_motion",
+                                "binary_sensor.entrada_outdoor_human",
+                                "binary_sensor.entrada_outdoor_animal",
+                                "binary_sensor.entrada_outdoor_vehicle"
+                            ],
+                            "title": "Entrada",
+                            "type": "picture-glance"
+                        },
+                        {
+                            "camera_image": "camera.piscina",
+                            "entities": [
+                                "switch.piscina_camara_det_mov",
+                                "binary_sensor.piscina_camara_infrarrojo",
+                                "binary_sensor.piscina_camara_det_mov"
+                            ],
+                            "title": "Piscina",
+                            "type": "picture-glance"
                         },
                         {
                             "entities": [
@@ -217,70 +259,6 @@
                             "show_header_toggle": true,
                             "title": "Seguridad",
                             "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                "switch.recibidor_camara_det_mov",
-                                "binary_sensor.recibidor_camara_infrarrojo",
-                                "binary_sensor.recibidor_camara_det_mov"
-                            ],
-                            "show_header_toggle": false,
-                            "title": "C\u00e1mara recibidor",
-                            "type": "entities"
-                        },
-                        {
-                            "entity": "camera.recibidor",
-                            "type": "picture-entity"
-                        },
-                        {
-                            "entities": [
-                                "switch.salon_camara_det_mov",
-                                "binary_sensor.salon_camara_infrarrojo",
-                                "binary_sensor.salon_camara_det_mov"
-                            ],
-                            "show_header_toggle": false,
-                            "title": "C\u00e1mara sal\u00f3n",
-                            "type": "entities"
-                        },
-                        {
-                            "entity": "camera.salon",
-                            "type": "picture-entity"
-                        },
-                        {
-                            "entities": [
-                                "binary_sensor.despacho_sensor_movimiento",
-                                "binary_sensor.despacho_sensor_movimiento_sabotaje",
-                                "input_boolean.despacho_sensor_movimiento"
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Sensor despacho",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                "input_boolean.entrada_camara_det_mov",
-                                "binary_sensor.entrada_outdoor_motion",
-                                "binary_sensor.entrada_outdoor_human",
-                                "binary_sensor.entrada_outdoor_animal",
-                                "binary_sensor.entrada_outdoor_vehicle"
-                            ],
-                            "show_header_toggle": false,
-                            "title": "C\u00e1mara entrada principal",
-                            "type": "entities"
-                        },
-                        {
-                            "entity": "camera.entrada",
-                            "type": "picture-entity"
-                        },
-                        {
-                            "camera_image": "camera.piscina",
-                            "entities": [
-                                "switch.piscina_camara_det_mov",
-                                "binary_sensor.piscina_camara_infrarrojo",
-                                "binary_sensor.piscina_camara_det_mov"
-                            ],
-                            "title": "Piscina",
-                            "type": "picture-glance"
                         },
                         {
                             "camera_image": "camera.barbacoa",
@@ -302,31 +280,26 @@
                             "type": "picture-glance"
                         },
                         {
+                            "columns": 2,
                             "entities": [
-                                "binary_sensor.porche_sensor_puerta",
-                                "input_boolean.porche_sensor_puerta"
+                                {
+                                    "entity": "binary_sensor.coladuria_sensor_puerta"
+                                },
+                                {
+                                    "entity": "binary_sensor.porche_sensor_puerta"
+                                },
+                                {
+                                    "entity": "binary_sensor.porche_sensor_persiana"
+                                },
+                                {
+                                    "entity": "binary_sensor.despacho_sensor_movimiento"
+                                }
                             ],
-                            "show_header_toggle": false,
-                            "title": "Puerta porche cocina",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                "binary_sensor.porche_sensor_persiana",
-                                "input_boolean.porche_sensor_persiana"
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Persiana porche cocina",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                "binary_sensor.coladuria_sensor_puerta",
-                                "input_boolean.coladuria_sensor_puerta"
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Puerta coladuria cocina",
-                            "type": "entities"
+                            "show_icon": true,
+                            "show_name": true,
+                            "show_state": true,
+                            "title": "Sensores",
+                            "type": "glance"
                         }
                     ],
                     "icon": "mdi:shield-home",
@@ -367,7 +340,7 @@
                                 "input_boolean.coladuria_sensor_puerta",
                                 "sensor.porche_sensor_puerta_temperature"
                             ],
-                            "show_header_toggle": false,
+                            "show_header_toggle": true,
                             "title": "Cocina",
                             "type": "entities"
                         },
@@ -388,8 +361,15 @@
                             "type": "entities"
                         },
                         {
-                            "entity": "camera.recibidor",
-                            "type": "picture-entity"
+                            "camera_image": "camera.recibidor",
+                            "entities": [
+                                "switch.recibidor_camara_det_mov",
+                                "binary_sensor.recibidor_camara_infrarrojo",
+                                "binary_sensor.recibidor_camara_det_mov",
+                                "light.entrance_hall_lamp_light"
+                            ],
+                            "title": "Recibidor",
+                            "type": "picture-glance"
                         },
                         {
                             "entities": [
@@ -702,6 +682,18 @@
                                 "binary_sensor.barbacoa_camara_det_mov"
                             ],
                             "title": "Barbacoa",
+                            "type": "picture-glance"
+                        },
+                        {
+                            "camera_image": "camera.entrada",
+                            "entities": [
+                                "input_boolean.entrada_camara_det_mov",
+                                "binary_sensor.entrada_outdoor_motion",
+                                "binary_sensor.entrada_outdoor_human",
+                                "binary_sensor.entrada_outdoor_animal",
+                                "binary_sensor.entrada_outdoor_vehicle"
+                            ],
+                            "title": "Entrada",
                             "type": "picture-glance"
                         }
                     ],
