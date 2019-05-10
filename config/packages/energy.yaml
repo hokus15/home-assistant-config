@@ -53,26 +53,6 @@ recorder:
       - sensor.nut_ups_battery_runtime
       - sensor.nut_ups_battery_charge
 
-#group:
-#  Energía:
-#    entities:
-#      - utility_meter.energy_home_daily
-#      - binary_sensor.energy_ups_status_bs
-#      - sensor.efergy_2577
-#      - sensor.energy_home_daily_pico
-#      - sensor.energy_home_daily_valle
-#      - sensor.energy_home_daily_super_valle
-#      - sensor.energy_home_monthly_pico
-#      - sensor.energy_home_monthly_valle
-#      - sensor.energy_home_monthly_super_valle
-#      - sensor.energy_ups_status
-#  SAI:
-#    entities:
-#      - sensor.energy_ups_status
-#      - sensor.nut_ups_battery_charge
-#      - sensor.nut_ups_battery_runtime
-#      - switch.energy_ups_beeper
-
 sensor:
   - platform: efergy
     app_token: !secret efergy_app_token

@@ -35,19 +35,6 @@ group:
       - device_tracker.jordi_combined
       - device_tracker.geni_combined
       - device_tracker.virtual_device
-  
-  Familia:
-    entities:
-      - device_tracker.jordi_combined
-      - device_tracker.geni_combined
-      - device_tracker.virtual_device
-      - input_boolean.empty_home_activation_delay
-      - input_number.empty_home_activation_delay_minutes
-      - switch.holiday
-      - sensor.next_holiday_mode_start
-      - sensor.next_holiday_mode_end
-      - sensor.next_shift_event
-      - sensor.next_shift_date
 
 input_boolean:
   empty_home_activation_delay:

@@ -37,20 +37,6 @@ recorder:
       - sensor.escalera_switch_power_management
       - sensor.escalera_switch_sourcenodeid
 
-#group:
-#  Luces exteriores:
-#    entities:
-#      - light.barrera_derecha
-#      - light.barrera_izquierda
-#      - light.puerta_coladuria
-#      - input_number.outside_ligths_brightness
-
-#  Luces interiores:
-#    entities:
-#      - switch.suite_switch
-#      - switch.escalera_switch
-#      - switch.entrance_hall_lamp_switch
-
 light:
   - platform: group
     name: Luces exteriores

@@ -233,12 +233,8 @@ tts:
     language: 'es'
 
 shell_command: !include shell_command.yaml
-#switch: !include switches.yaml
 sensor: !include sensors.yaml
 binary_sensor: !include binary_sensors.yaml
-group: !include groups.yaml
 automation: !include automations.yaml
-#automation: !include_dir_merge_list automation
 script: !include scripts.yaml
 panel_iframe: !include panel_iframes.yaml
-#panel_custom: !include panel_custom.yaml
