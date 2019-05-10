@@ -49,6 +49,7 @@ homeassistant:
       friendly_name: 'Ioniq'
     switch.car_ioniq_charger:
       friendly_name: 'Cargador'
+      icon: 'mdi:ev-station'
     device_tracker.car_ioniq:
       entity_picture: /local/ioniq-icon.png
 
