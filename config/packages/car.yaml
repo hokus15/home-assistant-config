@@ -253,21 +253,21 @@ sensor:
 
 utility_meter:
   car_ioniq_charger_daily:
-    source: sensor.car_ioniq_charger
+    source: sensor.car_ioniq_charger_current_power
     cycle: daily
     tariffs:
       - Pico
       - Valle
       - Super valle
   car_ioniq_charger_monthly:
-    source: sensor.car_ioniq_charger
+    source: sensor.car_ioniq_charger_current_power
     cycle: monthly
     tariffs:
       - Pico
       - Valle
       - Super valle
   car_ioniq_charger_yearly:
-    source: sensor.car_ioniq_charger
+    source: sensor.car_ioniq_charger_current_power
     cycle: yearly
     tariffs:
       - Pico
