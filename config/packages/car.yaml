@@ -79,6 +79,12 @@ binary_sensor:
     off_delay: 180
 
 sensor:
+  - platform: integration 
+    source: sensor.car_ioniq_charger_current_power
+    name: car_ioniq_charger_spent
+    unit_prefix: k
+    round: 2
+
   - platform: mqtt
     state_topic: 'car/ioniq/location'
     name: car_ioniq_location
@@ -253,21 +259,21 @@ sensor:
 
 utility_meter:
   car_ioniq_charger_daily:
-    source: sensor.car_ioniq_charger_current_power
+    source: sensor.car_ioniq_charger_spent
     cycle: daily
     tariffs:
       - Pico
       - Valle
       - Super valle
   car_ioniq_charger_monthly:
-    source: sensor.car_ioniq_charger_current_power
+    source: sensor.car_ioniq_charger_spent
     cycle: monthly
     tariffs:
       - Pico
       - Valle
       - Super valle
   car_ioniq_charger_yearly:
-    source: sensor.car_ioniq_charger_current_power
+    source: sensor.car_ioniq_charger_spent
     cycle: yearly
     tariffs:
       - Pico
