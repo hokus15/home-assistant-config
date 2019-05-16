@@ -1170,6 +1170,33 @@
                 "name": null,
                 "platform": "person",
                 "unique_id": "651cb988d7f547fd8cbb9060258f3d10"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
+                "disabled_by": null,
+                "entity_id": "sensor.fibaro_system_fgms001_zw5_motion_sensor_acceleration_x_axis",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "6-72057594143589186"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
+                "disabled_by": null,
+                "entity_id": "sensor.fibaro_system_fgms001_zw5_motion_sensor_acceleration_y_axis",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "6-72057594143589202"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
+                "disabled_by": null,
+                "entity_id": "sensor.fibaro_system_fgms001_zw5_motion_sensor_acceleration_z_axis",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "6-72057594143589218"
             }
         ]
     },

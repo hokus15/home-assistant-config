@@ -15,9 +15,10 @@
                         3
                     ]
                 ],
-                "manufacturer": "Swiid",
+                "manufacturer": "Swiid (CBCC Domotique SAS)",
                 "model": "SwiidInter",
-                "name": "swiid_swiidinter_lampara_recibidor_switch",
+                "name": "Swiid (CBCC Domotique SAS) SwiidInter",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -35,8 +36,9 @@
                     ]
                 ],
                 "manufacturer": "FIBARO System",
-                "model": "FGMS001 Motion Sensor",
-                "name": "FIBARO FGMS001 Motion Sensor Despacho",
+                "model": "FGMS001-ZW5 Motion Sensor",
+                "name": "FIBARO System FGMS001-ZW5 Motion Sensor",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -55,7 +57,8 @@
                 ],
                 "manufacturer": "FIBARO System",
                 "model": "FGK10x Door Opening Sensor",
-                "name": "FIBARO FGK10x Door Opening Sensor Persiana Porche",
+                "name": "FIBARO System FGK10x Door Opening Sensor",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -74,7 +77,8 @@
                 ],
                 "manufacturer": "FIBARO System",
                 "model": "FGS223 Double Relay",
-                "name": "FIBARO FGS223 Double Relay Luz Escalera y Suite",
+                "name": "FIBARO System FGS223 Double Relay",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -93,7 +97,8 @@
                 ],
                 "manufacturer": "FIBARO System",
                 "model": "FGK10x Door Opening Sensor",
-                "name": "Fibaro FGK10x Door Opening Sensor Puerta Porche",
+                "name": "FIBARO System FGK10x Door Opening Sensor",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -113,6 +118,7 @@
                 "manufacturer": "FIBARO System",
                 "model": "FGK10x Door Opening Sensor",
                 "name": "Fibaro FGK10x Door Opening Sensor Puerta Coladuria",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -132,6 +138,7 @@
                 "manufacturer": "Google Inc.",
                 "model": "Google Home Mini",
                 "name": "Recibidor",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -151,6 +158,7 @@
                 "manufacturer": "Google Inc.",
                 "model": "Chromecast Audio",
                 "name": "Cocina",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -170,6 +178,7 @@
                 "manufacturer": "Google Inc.",
                 "model": "Chromecast",
                 "name": "Sal\u00f3n",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -192,6 +201,7 @@
                 "manufacturer": "Google",
                 "model": null,
                 "name": "OnHub",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -209,6 +219,7 @@
                 "manufacturer": null,
                 "model": null,
                 "name": "OnHub kbyte/sec sent",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -226,6 +237,7 @@
                 "manufacturer": null,
                 "model": null,
                 "name": "OnHub packets received",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -243,6 +255,7 @@
                 "manufacturer": null,
                 "model": null,
                 "name": "OnHub bytes received",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -260,6 +273,7 @@
                 "manufacturer": null,
                 "model": null,
                 "name": "OnHub bytes sent",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -277,6 +291,7 @@
                 "manufacturer": null,
                 "model": null,
                 "name": "OnHub packets sent",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -294,6 +309,7 @@
                 "manufacturer": null,
                 "model": null,
                 "name": "OnHub kbyte/sec received",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -311,6 +327,7 @@
                 "manufacturer": null,
                 "model": null,
                 "name": "OnHub packets/sec received",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -328,6 +345,7 @@
                 "manufacturer": null,
                 "model": null,
                 "name": "OnHub packets/sec sent",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -352,6 +370,7 @@
                 "manufacturer": "Google",
                 "model": null,
                 "name": "OnHub",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -371,6 +390,7 @@
                 "manufacturer": null,
                 "model": null,
                 "name": "OnHub packets/sec sent",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -390,6 +410,7 @@
                 "manufacturer": null,
                 "model": null,
                 "name": "OnHub packets/sec received",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -409,6 +430,7 @@
                 "manufacturer": null,
                 "model": null,
                 "name": "OnHub kbyte/sec sent",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -428,6 +450,7 @@
                 "manufacturer": null,
                 "model": null,
                 "name": "OnHub packets received",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -447,6 +470,7 @@
                 "manufacturer": null,
                 "model": null,
                 "name": "OnHub packets sent",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -466,6 +490,7 @@
                 "manufacturer": null,
                 "model": null,
                 "name": "OnHub bytes sent",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -485,6 +510,7 @@
                 "manufacturer": null,
                 "model": null,
                 "name": "OnHub bytes received",
+                "name_by_user": null,
                 "sw_version": null
             },
             {
@@ -504,6 +530,7 @@
                 "manufacturer": null,
                 "model": null,
                 "name": "OnHub kbyte/sec received",
+                "name_by_user": null,
                 "sw_version": null
             }
         ]
