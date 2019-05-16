@@ -1,7 +1,5 @@
 homeassistant:
   customize:
-    cover.outside_fence:
-      device_class: 'door'
     sensor.outside_fence:
       friendly_name: 'Estado barrera'
 
