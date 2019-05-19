@@ -28,7 +28,7 @@
   sensors:
     bitcoin_balance:
       friendly_name: 'Saldo Bitcoin'
-      icon_template: mdi:currency-btc
+      icon_template: mdi:bitcoin
       value_template: !secret bitcoin_balance
       unit_of_measurement: 'BTC'
       entity_id: sensor.date_time
@@ -40,7 +40,7 @@
       entity_id: sensor.exchange_rate_1_btc
     ethereum_balance:
       friendly_name: 'Saldo Ethereum'
-      icon_template: mdi:currency-eth
+      icon_template: mdi:ethereum
       value_template: !secret ethereum_balance
       unit_of_measurement: 'ETH'
       entity_id: sensor.date_time
