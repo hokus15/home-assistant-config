@@ -12,19 +12,35 @@
                         {
                             "cards": [
                                 {
-                                    "entity": "device_tracker.jordi_combined",
-                                    "image": "https://www.gravatar.com/avatar/f5d192b4f4ffab4d9625f9b9e11d16b7?s=300",
-                                    "show_name": false,
-                                    "type": "picture-entity"
+                                    "cards": [
+                                        {
+                                            "entity": "device_tracker.jordi_combined",
+                                            "image": "https://www.gravatar.com/avatar/f5d192b4f4ffab4d9625f9b9e11d16b7?s=300",
+                                            "show_name": false,
+                                            "type": "picture-entity"
+                                        },
+                                        {
+                                            "entity": "device_tracker.geni_combined",
+                                            "image": "/local/hass-geni2.jpg",
+                                            "show_name": false,
+                                            "type": "picture-entity"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
                                 },
                                 {
-                                    "entity": "device_tracker.geni_combined",
-                                    "image": "/local/hass-geni2.jpg",
-                                    "show_name": false,
-                                    "type": "picture-entity"
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.next_shift_event"
+                                        },
+                                        {
+                                            "entity": "sensor.next_shift_date"
+                                        }
+                                    ],
+                                    "type": "entities"
                                 }
                             ],
-                            "type": "horizontal-stack"
+                            "type": "vertical-stack"
                         },
                         {
                             "entity": "alarm_control_panel.home",
@@ -244,23 +260,6 @@
                             "type": "picture-glance"
                         },
                         {
-                            "entities": [
-                                "switch.recibidor_camara_det_mov",
-                                "switch.salon_camara_det_mov",
-                                "switch.piscina_camara_det_mov",
-                                "switch.barbacoa_camara_det_mov",
-                                "switch.caseta_camara_det_mov",
-                                "input_boolean.entrada_camara_det_mov",
-                                "input_boolean.despacho_sensor_movimiento",
-                                "input_boolean.porche_sensor_puerta",
-                                "input_boolean.porche_sensor_persiana",
-                                "input_boolean.coladuria_sensor_puerta"
-                            ],
-                            "show_header_toggle": true,
-                            "title": "Seguridad",
-                            "type": "entities"
-                        },
-                        {
                             "camera_image": "camera.barbacoa",
                             "entities": [
                                 "switch.barbacoa_camara_det_mov",
@@ -278,6 +277,23 @@
                             ],
                             "title": "Caseta",
                             "type": "picture-glance"
+                        },
+                        {
+                            "entities": [
+                                "switch.recibidor_camara_det_mov",
+                                "switch.salon_camara_det_mov",
+                                "switch.piscina_camara_det_mov",
+                                "switch.barbacoa_camara_det_mov",
+                                "switch.caseta_camara_det_mov",
+                                "input_boolean.entrada_camara_det_mov",
+                                "input_boolean.despacho_sensor_movimiento",
+                                "input_boolean.porche_sensor_puerta",
+                                "input_boolean.porche_sensor_persiana",
+                                "input_boolean.coladuria_sensor_puerta"
+                            ],
+                            "show_header_toggle": true,
+                            "title": "Seguridad",
+                            "type": "entities"
                         },
                         {
                             "columns": 2,
@@ -1116,6 +1132,39 @@
                     "panel": false,
                     "path": "ioniq",
                     "title": "Ioniq"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "elements": [
+                                {
+                                    "entity": "light.escalera_light",
+                                    "style": {
+                                        "left": "38%",
+                                        "top": "50%"
+                                    },
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "state-icon"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_exterior_temperature",
+                                    "style": {
+                                        "left": "55%",
+                                        "top": "80%"
+                                    },
+                                    "type": "state-badge"
+                                }
+                            ],
+                            "image": "/local/floorplan_nodevices.svg",
+                            "type": "picture-elements"
+                        }
+                    ],
+                    "icon": "mdi:floor-plan",
+                    "panel": true,
+                    "title": "Floorplan"
                 }
             ]
         }
