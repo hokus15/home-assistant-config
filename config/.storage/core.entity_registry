@@ -96,7 +96,7 @@
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "zwave.despacho_sensor_movimiento",
-                "name": null,
+                "name": "Sensor movimiento despacho",
                 "platform": "zwave",
                 "unique_id": "node-6"
             },
@@ -159,7 +159,7 @@
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "zwave.porche_sensor_puerta",
-                "name": null,
+                "name": "Sensor puerta porche",
                 "platform": "zwave",
                 "unique_id": "node-11"
             },
@@ -168,7 +168,7 @@
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "zwave.coladuria_sensor_puerta",
-                "name": null,
+                "name": "Sensor puerta coladur\u00eda",
                 "platform": "zwave",
                 "unique_id": "node-15"
             },
@@ -177,7 +177,7 @@
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "zwave.porche_sensor_persiana",
-                "name": null,
+                "name": "Sensor persiana porche",
                 "platform": "zwave",
                 "unique_id": "node-9"
             },
@@ -447,7 +447,7 @@
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "zwave.escalera_y_suite_switch",
-                "name": null,
+                "name": "Interruptor Escalera y Suite",
                 "platform": "zwave",
                 "unique_id": "node-10"
             },
@@ -528,7 +528,7 @@
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "zwave.entrance_hall_lamp_switch",
-                "name": null,
+                "name": "Interruptor l\u00e1mpara recibidor",
                 "platform": "zwave",
                 "unique_id": "node-3"
             },
@@ -1238,15 +1238,6 @@
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
                 "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
                 "disabled_by": null,
-                "entity_id": "sensor.fibaro_system_fgs223_double_relay_energy",
-                "name": null,
-                "platform": "zwave",
-                "unique_id": "16-72057594311376898"
-            },
-            {
-                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
-                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
-                "disabled_by": null,
                 "entity_id": "sensor.fibaro_system_fgs223_double_relay_alarm_type",
                 "name": null,
                 "platform": "zwave",
@@ -1271,15 +1262,6 @@
                 "unique_id": "16-72057594312409105"
             },
             {
-                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
-                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
-                "disabled_by": null,
-                "entity_id": "sensor.fibaro_system_fgs223_double_relay_energy_2",
-                "name": null,
-                "platform": "zwave",
-                "unique_id": "16-144115188349304834"
-            },
-            {
                 "config_entry_id": null,
                 "device_id": null,
                 "disabled_by": null,
@@ -1293,7 +1275,7 @@
                 "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
                 "disabled_by": null,
                 "entity_id": "switch.salon_switch",
-                "name": "salon_switch",
+                "name": "Luz sal\u00f3n",
                 "platform": "zwave",
                 "unique_id": "16-72057594311163904"
             },
@@ -1302,7 +1284,7 @@
                 "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
                 "disabled_by": null,
                 "entity_id": "switch.comedor_switch",
-                "name": "comedor_switch",
+                "name": "Luz comedor",
                 "platform": "zwave",
                 "unique_id": "16-144115188349091840"
             },
@@ -1311,7 +1293,7 @@
                 "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
                 "disabled_by": null,
                 "entity_id": "sensor.salon_switch_power",
-                "name": null,
+                "name": "Potencia luz sal\u00f3n",
                 "platform": "zwave",
                 "unique_id": "16-72057594311377026"
             },
@@ -1320,9 +1302,27 @@
                 "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
                 "disabled_by": null,
                 "entity_id": "sensor.comedor_switch_power",
-                "name": null,
+                "name": "Potencia luz comedor",
                 "platform": "zwave",
                 "unique_id": "16-144115188349304962"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
+                "disabled_by": null,
+                "entity_id": "sensor.salon_switch_energy",
+                "name": "Cosumo luz sal\u00f3n",
+                "platform": "zwave",
+                "unique_id": "16-72057594311376898"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
+                "disabled_by": null,
+                "entity_id": "sensor.comedor_switch_energy",
+                "name": "Consumo luz comedor",
+                "platform": "zwave",
+                "unique_id": "16-144115188349304834"
             }
         ]
     },
