@@ -327,16 +327,42 @@
                     "cards": [
                         {
                             "entities": [
-                                "sensor.netatmo_salon_temperature",
-                                "sensor.netatmo_salon_temperature_trend",
-                                "sensor.netatmo_salon_min_temp",
-                                "sensor.netatmo_salon_max_temp",
-                                "sensor.netatmo_salon_humidity",
-                                "sensor.netatmo_salon_noise",
-                                "sensor.netatmo_salon_pressure",
-                                "sensor.netatmo_salon_co2",
-                                "sensor.netatmo_salon_co2_trend",
-                                "sensor.netatmo_salon_wifi"
+                                {
+                                    "entity": "sensor.netatmo_salon_temperature"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_salon_temperature_trend"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_salon_min_temp"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_salon_max_temp"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_salon_humidity"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_salon_noise"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_salon_pressure"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_salon_co2"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_salon_co2_trend"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_salon_wifi"
+                                },
+                                {
+                                    "entity": "switch.salon_switch"
+                                },
+                                {
+                                    "entity": "sensor.salon_switch_power"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Sal\u00f3n",
@@ -469,15 +495,6 @@
                             "type": "entities"
                         },
                         {
-                            "entities": [
-                                "switch.thermostat",
-                                "switch.thermostat_away_mode"
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Calefacci\u00f3n",
-                            "type": "entities"
-                        },
-                        {
                             "entity": "climate.netatmo_general",
                             "type": "thermostat"
                         },
@@ -495,15 +512,30 @@
                         },
                         {
                             "entities": [
-                                "input_boolean.home_comfort_mode",
-                                "sensor.ground_floor_temperature",
-                                "sensor.ground_floor_temperature_trend",
-                                "sensor.first_floor_temperature",
-                                "sensor.first_floor_temperature_trend",
-                                "sensor.home_temperature_mean",
-                                "group.unidad_familiar",
-                                "switch.thermostat",
-                                "switch.thermostat_away_mode"
+                                {
+                                    "entity": "input_boolean.home_comfort_mode"
+                                },
+                                {
+                                    "entity": "sensor.ground_floor_temperature"
+                                },
+                                {
+                                    "entity": "sensor.ground_floor_temperature_trend"
+                                },
+                                {
+                                    "entity": "sensor.first_floor_temperature"
+                                },
+                                {
+                                    "entity": "sensor.first_floor_temperature_trend"
+                                },
+                                {
+                                    "entity": "sensor.home_temperature_mean"
+                                },
+                                {
+                                    "entity": "group.unidad_familiar"
+                                },
+                                {
+                                    "entity": "switch.thermostat_away_mode"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Confort",
