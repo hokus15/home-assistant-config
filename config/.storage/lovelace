@@ -362,6 +362,18 @@
                                 },
                                 {
                                     "entity": "sensor.salon_switch_power"
+                                },
+                                {
+                                    "entity": "sensor.salon_switch_energy"
+                                },
+                                {
+                                    "entity": "switch.comedor_switch"
+                                },
+                                {
+                                    "entity": "sensor.comedor_switch_power"
+                                },
+                                {
+                                    "entity": "sensor.comedor_switch_energy"
                                 }
                             ],
                             "show_header_toggle": false,
