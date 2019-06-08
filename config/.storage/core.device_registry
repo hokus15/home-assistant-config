@@ -532,6 +532,26 @@
                 "name": "OnHub kbyte/sec received",
                 "name_by_user": null,
                 "sw_version": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "8bf6382d7b42412f9ed287fb013ff34e"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
+                "identifiers": [
+                    [
+                        "zwave",
+                        16
+                    ]
+                ],
+                "manufacturer": "FIBARO System",
+                "model": "FGS223 Double Relay",
+                "name": "FIBARO System FGS223 Double Relay",
+                "name_by_user": null,
+                "sw_version": null
             }
         ]
     },

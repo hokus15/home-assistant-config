@@ -1197,6 +1197,132 @@
                 "name": null,
                 "platform": "zwave",
                 "unique_id": "6-72057594143589218"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
+                "disabled_by": null,
+                "entity_id": "sensor.fibaro_system_fgs223_double_relay_exporting",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "16-72057594311377408"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
+                "disabled_by": null,
+                "entity_id": "sensor.fibaro_system_fgs223_double_relay_exporting_2",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "16-144115188349305344"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
+                "disabled_by": null,
+                "entity_id": "sensor.fibaro_system_fgs223_double_relay_sourcenodeid",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "16-72057594312409121"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
+                "disabled_by": null,
+                "entity_id": "sensor.fibaro_system_fgs223_double_relay_heat",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "16-72057594312409201"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
+                "disabled_by": null,
+                "entity_id": "sensor.fibaro_system_fgs223_double_relay_energy",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "16-72057594311376898"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
+                "disabled_by": null,
+                "entity_id": "sensor.fibaro_system_fgs223_double_relay_alarm_type",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "16-72057594312409089"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
+                "disabled_by": null,
+                "entity_id": "sensor.fibaro_system_fgs223_double_relay_power_management",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "16-72057594312409265"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
+                "disabled_by": null,
+                "entity_id": "sensor.fibaro_system_fgs223_double_relay_alarm_level",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "16-72057594312409105"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
+                "disabled_by": null,
+                "entity_id": "sensor.fibaro_system_fgs223_double_relay_energy_2",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "16-144115188349304834"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "zwave.salon_y_comedor_switch",
+                "name": "Interruptor Sal\u00f3n y Comedor",
+                "platform": "zwave",
+                "unique_id": "node-16"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
+                "disabled_by": null,
+                "entity_id": "switch.salon_switch",
+                "name": "salon_switch",
+                "platform": "zwave",
+                "unique_id": "16-72057594311163904"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
+                "disabled_by": null,
+                "entity_id": "switch.comedor_switch",
+                "name": "comedor_switch",
+                "platform": "zwave",
+                "unique_id": "16-144115188349091840"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
+                "disabled_by": null,
+                "entity_id": "sensor.salon_switch_power",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "16-72057594311377026"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
+                "disabled_by": null,
+                "entity_id": "sensor.comedor_switch_power",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "16-144115188349304962"
             }
         ]
     },
