@@ -245,6 +245,10 @@ automation:
     trigger: 
       platform: template
       value_template: '{{states.sensor.piscina_on_history.state|float > (states.sensor.piscina_filtering_time.state|float + 0.15)}}'
+    condition:
+      condition: state
+      entity_id: switch.motor_piscina
+      state: 'on'
     action:
       service: telegram_bot.send_message
       data_template:
