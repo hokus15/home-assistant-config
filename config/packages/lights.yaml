@@ -57,6 +57,10 @@ light:
     name: entrance_hall_lamp_light
     entity_id: switch.entrance_hall_lamp_switch
 
+  - platform: switch
+    name: piscina_light
+    entity_id: switch.luz_piscina
+
   - platform: group
     name: Luces interiores
     entities:

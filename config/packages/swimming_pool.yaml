@@ -307,18 +307,18 @@ script:
     alias: 'Turn on swimming pool lights if off'
     sequence:
       - condition: state
-        entity_id: switch.luz_piscina
+        entity_id: light.piscina_light
         state: 'off'
-      - service: switch.turn_on
+      - service: light.turn_on
         data:
-          entity_id: switch.luz_piscina
+          entity_id: light.piscina_light
 
   turn_off_swimmingpool_light_ga:
     alias: 'Turn off swimming pool lights if on'
     sequence:
       - condition: state
-        entity_id: switch.luz_piscina
+        entity_id: light.piscina_light
         state: 'on'
-      - service: switch.turn_off
+      - service: light.turn_off
         data:
-          entity_id: switch.luz_piscina
+          entity_id: light.piscina_light

@@ -152,6 +152,10 @@ goto_sleep:
     - service: light.turn_off
       data:
         entity_id: light.entrance_hall_lamp_light
+    # Turn off swimming pool light
+    - service: light.turn_off
+      data:
+        entity_id: light.piscina_light
     # Alarm arm night
     - service: script.turn_on
       data:
