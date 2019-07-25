@@ -155,6 +155,47 @@ automation:
       - service: homeassistant.turn_off
         data:
           entity_id: group.seguridad
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'good'
+                pretext: ':rotating_light: *Alarma* :rotating_light:'
+                text: 'Alarma desarmada'
+                fallback: 'Alarma'
+
+  - alias: '[Alarm] Notify when alarm is armed away'
+    trigger: 
+      - platform: state
+        entity_id: alarm_control_panel.home
+        to: 'armed_away'
+    action:
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'good'
+                pretext: ':rotating_light: *Alarma* :rotating_light:'
+                text: 'Alarma armada'
+                fallback: 'Alarma'
+
+  - alias: '[Alarm] Notify when alarm is armed night'
+    trigger: 
+      - platform: state
+        entity_id: alarm_control_panel.home
+        to: 'armed_night'
+    action:
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'good'
+                pretext: ':rotating_light: *Alarma* :rotating_light:'
+                text: 'Alarma armada en modo noche :sleeping:'
+                fallback: 'Alarma'
 
   # Notify presence detection in any activated sensor when sensor active and alarm triggered
   - alias: '[Alarm] Notify presence detection in any activated sensor when sensor active and alarm triggered'
@@ -475,6 +516,24 @@ script:
             - 'Desarmar 2 horas:/120_mins, Desarmar 3 horas:/180_mins'
             - 'Desarmar alarma:/script.turn_on#script.alarm_disarm_telegram'
 
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'danger'
+                pretext: ':rotating_light: *Alarma* :rotating_light:'
+                text: 'Movimiento detectado en {{data.camera_name}}'
+                fallback: 'Alarma'
+
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            file:
+              path: '{{data.file}}'
+
+
   alarm_notify_sensor:
     alias: 'Notifies alarm'
     sequence:
@@ -492,3 +551,12 @@ script:
             - 'Desarmar 2 horas:/120_mins, Desarmar 3 horas:/180_mins'
             - 'Desarmar alarma:/script.turn_on#script.alarm_disarm_telegram'
   
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'danger'
+                pretext: ':rotating_light: *Alarma* :rotating_light:'
+                text: '{{data.message}}'
+                fallback: 'Alarma'

@@ -230,16 +230,36 @@ automation:
       platform: template
       value_template: '{{states.sensor.date_time.state == states.sensor.piscina_on_time.state}}'
     action:
-      service: switch.turn_on
-      entity_id: switch.motor_piscina
+      - service: switch.turn_on
+        entity_id: switch.motor_piscina
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'warning'
+                pretext: ':swimmer: *Piscina* :swimmer:'
+                text: 'Motor piscina encendido'
+                fallback: 'Piscina'
+
   
   - alias: '[Swimming Pool] Turn off swimming pool'
     trigger: 
       platform: template
       value_template: '{{states.sensor.date_time.state == states.sensor.piscina_off_time.state}}'
     action:
-      service: switch.turn_off
-      entity_id: switch.motor_piscina
+      - service: switch.turn_off
+        entity_id: switch.motor_piscina
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'good'
+                pretext: ':swimmer: *Piscina* :swimmer:'
+                text: 'Motor piscina apagado'
+                fallback: 'Piscina'
+
 
   - alias: '[Swimming Pool] Notify when swimming pool pump on more than expected'
     trigger: 
@@ -250,11 +270,21 @@ automation:
       entity_id: switch.motor_piscina
       state: 'on'
     action:
-      service: telegram_bot.send_message
-      data_template:
-        message: 'Motor piscina encendido hoy durante {{states.sensor.piscina_on_history.state}} horas. Tiempo programado {{states.sensor.piscina_filtering_time.state}} horas.'
-        inline_keyboard: 
-          - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
+      - service: telegram_bot.send_message
+        data_template:
+          message: 'Motor piscina encendido hoy durante {{states.sensor.piscina_on_history.state}} horas. Tiempo programado {{states.sensor.piscina_filtering_time.state}} horas.'
+          inline_keyboard: 
+            - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'warning'
+                pretext: ':swimmer: *Piscina* :swimmer:'
+                text: 'Motor piscina encendido hoy durante {{states.sensor.piscina_on_history.state}} horas. Tiempo programado {{states.sensor.piscina_filtering_time.state}} horas.'
+                fallback: 'Piscina'
+
 
 #  - alias: '[Swimming Pool] Notify when swimming pool pump on more than 6 hours [Spring - Autumn - Winter]'
 #    trigger:

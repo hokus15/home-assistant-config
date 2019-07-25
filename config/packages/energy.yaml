@@ -146,6 +146,16 @@ automation:
       - service: notify.telegram
         data:
           message: 'Corte en el suministro eléctrico detectado'
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'warning'
+                pretext: ':zap: *Suministro eléctrico* :zap:'
+                text: 'Corte en el suministro eléctrico detectado'
+                fallback: 'Suministro eléctrico'
+
   
   # Restart UPS driver controller when a power cut is detected.
   # I've added this automation because from time to time the controller stops working until it's restarted.
@@ -178,10 +188,19 @@ automation:
         entity_id: sensor.ha_runtime_in_minutes
         above: 2
     action:
-      service: notify.telegram
-      data:
-        message: 'Suministro eléctrico reestablecido'
-  
+      - service: notify.telegram
+        data:
+          message: 'Suministro eléctrico reestablecido'
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'good'
+                pretext: ':zap: *Suministro eléctrico* :zap:'
+                text: 'Suministro eléctrico restablecido'
+                fallback: 'Suministro eléctrico'
+
   # Notify when the UPS battery has to be replaced
   - alias: '[Energy] Notify ups battery replacement'
     trigger:
@@ -189,10 +208,19 @@ automation:
       entity_id: sensor.energy_ups_status
       to: 'Reemplazar batería'
     action:
-      service: notify.telegram
-      data:
-        message: 'Batería del SAI agotándose, reemplazar'
-  
+      - service: notify.telegram
+        data:
+          message: 'Batería del SAI agotándose, reemplazar'
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'warning'
+                pretext: ':zap: *Suministro eléctrico* :zap:'
+                text: 'Batería del SAI agotándose, reemplazar'
+                fallback: 'Suministro eléctrico'
+
   - alias: '[Energy] Set correct energy tariff on start'
     trigger:
       platform: homeassistant
