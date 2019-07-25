@@ -134,7 +134,7 @@
                         "360839a3401e1ba081a90736c4a39ba6"
                     ]
                 ],
-                "manufacturer": "Google Inc.",
+                "manufacturer": "Unknown manufacturer",
                 "model": "Google Home Mini",
                 "name": "Recibidor",
                 "name_by_user": null,
@@ -154,7 +154,7 @@
                         "08967150674f9e20eb89a420843a4ffe"
                     ]
                 ],
-                "manufacturer": "Google Inc.",
+                "manufacturer": "Unknown manufacturer",
                 "model": "Chromecast Audio",
                 "name": "Cocina",
                 "name_by_user": null,
