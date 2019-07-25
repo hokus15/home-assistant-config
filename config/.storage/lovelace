@@ -198,6 +198,10 @@
                     "cards": [
                         {
                             "entity": "alarm_control_panel.home",
+                            "states": [
+                                "arm_away",
+                                "arm_night"
+                            ],
                             "type": "alarm-panel"
                         },
                         {
