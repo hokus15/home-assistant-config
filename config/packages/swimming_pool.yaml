@@ -13,6 +13,8 @@ homeassistant:
       friendly_name: 'Depuradora'
     switch.luz_piscina:
       friendly_name: 'Luz'
+    light.piscina_light:
+      friendly_name: 'Luz piscina'
 recorder:
   exclude:
     entities:
@@ -38,6 +40,11 @@ history_graph:
       - sensor.piscina_filtered_realistic_water_temperature
     hours_to_show: 336
     refresh: 600
+
+light:
+  - platform: switch
+    name: piscina_light
+    entity_id: switch.luz_piscina
 
 switch:
   - platform: mqtt
@@ -218,6 +225,15 @@ input_number:
 #  #  mode: box
 #    unit_of_measurement: 'ºC'
 #    icon: 'mdi:thermometer'
+
+cloud:
+  google_actions:
+    entity_config:
+      light.piscina_light:
+        name: Luz piscina
+        aliases:
+          - Luces piscina
+        room: Jardín
 
 automation:
   #############################################################
