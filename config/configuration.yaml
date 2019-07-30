@@ -148,7 +148,7 @@ notify:
     platform: slack
     api_key: !secret slack_token
     default_channel: '#general'
-    icon: ':house_with_garden:'
+#    icon: ':house_with_garden:'
 
 ifttt:
   key: !secret ifttt_api_key
