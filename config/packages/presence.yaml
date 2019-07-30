@@ -191,78 +191,6 @@ automation:
         data:
           entity_id: switch.entrance_hall_lamp_switch
   
-  # When input_boolean.empty_home_activation_delay turns on,
-  # Change virtual_device location to home
-  # Wait the specified amount of minutes 
-  # Turn off input_boolean.empty_home_activation_delay
-  - alias: '[Presence] empty_home_activation_delay on'
-    trigger:
-      platform: state
-      entity_id: input_boolean.empty_home_activation_delay
-      to: 'on'
-    action:
-      - service: device_tracker.see
-        data:
-          dev_id: 'virtual_device'
-          location_name: 'home'
-      - delay: 00:00:10
-      - service: homeassistant.turn_on
-        data:
-          entity_id: group.seguridad
-      - service: notify.telegram
-        data_template:
-          message: >
-            Activada persona autorizada durante {{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }} hora(s) y {{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }} minutos
-      - delay: '{{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }}:{{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }}'
-      - service: homeassistant.turn_off
-        data:
-          entity_id: input_boolean.empty_home_activation_delay
-  
-  # When input_boolean.empty_home_activation_delay turns off,
-  # Change virtual_device location to not_home
-  - alias: '[Presence] empty_home_activation_delay off'
-    trigger:
-      platform: state
-      entity_id: input_boolean.empty_home_activation_delay
-      to: 'off'
-    action:
-      - service: homeassistant.turn_off
-        data:
-          entity_id: group.seguridad
-      - delay: 00:00:10
-      - service: device_tracker.see
-        data:
-          dev_id: 'virtual_device'
-          location_name: 'not_home'
-  
-  # Turn on for 4 hours authorized person at 7:00 if it's a workday and the shift in calendar is "Mañana" or "Saliente"
-  - alias: '[Presence] Authorized person'
-    trigger:
-      platform: time
-      at: '07:00:00'
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: 'binary_sensor.workday_sensor'
-          state: 'on'
-        - condition: or
-          conditions:
-          - condition: state
-            entity_id: 'calendar.turnos_geni_manyana'
-            state: 'on'
-          - condition: state
-            entity_id: 'calendar.turnos_geni_saliente'
-            state: 'on'
-    action:
-      - service: input_number.set_value
-        data:
-          entity_id: input_number.empty_home_activation_delay_minutes
-          value: 240.0
-      - service: homeassistant.turn_on
-        data:
-          entity_id: input_boolean.empty_home_activation_delay
-
   - alias: '[Presence] Remind Geni to disable alarm clock when she works at night'
     trigger:
       platform: time
@@ -305,6 +233,38 @@ automation:
                 {{ states.device_tracker.geniphone_wifi.state }}
               {%- endif -%}
             {%- endif -%}
+
+  - alias: '[Presence] Geni at home'
+    trigger:
+      - platform: state
+        entity_id: device_tracker.geni_combined
+        to: 'home'
+    action:
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'good'
+                pretext: ':woman: *Presencia* :woman:'
+                text: 'Geni está en casa'
+                fallback: 'Presencia'
+
+  - alias: '[Presence] Geni not home'
+    trigger:
+      - platform: state
+        entity_id: device_tracker.geni_combined
+        from: 'home'
+    action:
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'good'
+                pretext: ':woman: *Presencia* :woman:'
+                text: 'Geni está fuera de casa'
+                fallback: 'Presencia'
 
   #############################################################
   # Presence automations - Jordi
@@ -411,6 +371,113 @@ automation:
           entity_id: switch.barrera
 
   #############################################################
+  # Presence automations - Authorized person
+  #############################################################
+  # When input_boolean.empty_home_activation_delay turns on,
+  # Change virtual_device location to home
+  # Wait the specified amount of minutes 
+  # Turn off input_boolean.empty_home_activation_delay
+  - alias: '[Presence] empty_home_activation_delay on'
+    trigger:
+      platform: state
+      entity_id: input_boolean.empty_home_activation_delay
+      to: 'on'
+    action:
+      - service: device_tracker.see
+        data:
+          dev_id: 'virtual_device'
+          location_name: 'home'
+      - delay: 00:00:10
+      - service: homeassistant.turn_on
+        data:
+          entity_id: group.seguridad
+      - service: notify.telegram
+        data_template:
+          message: >
+            Activada persona autorizada durante {{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }} hora(s) y {{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }} minutos
+      - delay: '{{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }}:{{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }}'
+      - service: homeassistant.turn_off
+        data:
+          entity_id: input_boolean.empty_home_activation_delay
+  
+  # When input_boolean.empty_home_activation_delay turns off,
+  # Change virtual_device location to not_home
+  - alias: '[Presence] empty_home_activation_delay off'
+    trigger:
+      platform: state
+      entity_id: input_boolean.empty_home_activation_delay
+      to: 'off'
+    action:
+      - service: homeassistant.turn_off
+        data:
+          entity_id: group.seguridad
+      - delay: 00:00:10
+      - service: device_tracker.see
+        data:
+          dev_id: 'virtual_device'
+          location_name: 'not_home'
+  
+  # Turn on for 4 hours authorized person at 7:00 if it's a workday and the shift in calendar is "Mañana" or "Saliente"
+  - alias: '[Presence] Authorized person'
+    trigger:
+      platform: time
+      at: '07:00:00'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: 'binary_sensor.workday_sensor'
+          state: 'on'
+        - condition: or
+          conditions:
+          - condition: state
+            entity_id: 'calendar.turnos_geni_manyana'
+            state: 'on'
+          - condition: state
+            entity_id: 'calendar.turnos_geni_saliente'
+            state: 'on'
+    action:
+      - service: input_number.set_value
+        data:
+          entity_id: input_number.empty_home_activation_delay_minutes
+          value: 240.0
+      - service: homeassistant.turn_on
+        data:
+          entity_id: input_boolean.empty_home_activation_delay
+
+  - alias: '[Presence] Authorized person at home'
+    trigger:
+      - platform: state
+        entity_id: device_tracker.virtual_device
+        to: 'home'
+    action:
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'good'
+                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+                text: 'Persona autorizada en casa'
+                fallback: 'Presencia'
+
+  - alias: '[Presence] Authorized person not home'
+    trigger:
+      - platform: state
+        entity_id: device_tracker.virtual_device
+        from: 'home'
+    action:
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'good'
+                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+                text: 'Persona autorizada fuera de casa'
+                fallback: 'Presencia'
+
+  #############################################################
   # Holiday automations
   #############################################################
   
@@ -425,6 +492,15 @@ automation:
       - service: switch.turn_on
         data:
           entity_id: switch.holiday
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'good'
+                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+                text: 'Modo vacaciones activado'
+                fallback: 'Presencia'
   
   # Exits on holiday mode based on google calendar event
   - alias: '[Presence] Calendar holiday mode exit'
@@ -437,6 +513,15 @@ automation:
       - service: switch.turn_off
         data:
           entity_id: switch.holiday
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'good'
+                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+                text: 'Modo vacaciones desactivado'
+                fallback: 'Presencia'
   
   # Enters holiday mode based on switch
   - alias: '[Presence] Switch holiday mode'
@@ -455,6 +540,15 @@ automation:
       - service: notify.telegram
         data:
           message: 'Modo vacaciones activado'
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'good'
+                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+                text: 'Modo vacaciones activado'
+                fallback: 'Presencia'
   
   # Exits holiday mode based on switch
   - alias: '[Presence] Exit holiday mode'
@@ -475,6 +569,15 @@ automation:
       - service: notify.telegram
         data:
           message: 'Modo vacaciones desactivado'
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'good'
+                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+                text: 'Modo vacaciones desactivado'
+                fallback: 'Presencia'
 
   - alias: '[Presence] Notify for new devices'
     trigger:
@@ -488,6 +591,19 @@ automation:
             {{trigger.event.data.host_name}}
             ({{trigger.event.data.entity_id}})
           title: Nuevo dispositivo
+      - service: notify.slack
+        data_template:
+          message: ''
+          data_template:
+            attachments:
+              - color: 'warning'
+                pretext: ':iphone: *Nuevo dispositivo* :iphone:'
+                text: >
+                  Nuevo dispositivo detectado:
+                 {{trigger.event.data.host_name}}
+                 ({{trigger.event.data.entity_id}})
+                fallback: 'Nuevo dispositivo'
+
 script:
   presence_empty_home:
     alias: 'Empty home'
@@ -617,16 +733,6 @@ script:
           payload: 'home'
           retain: true
           topic: 'phone/geni/wifi'
-      - service: notify.slack
-        data_template:
-          message: ''
-          data:
-            attachments:
-              - color: 'good'
-                pretext: ':woman: *Presencia* :woman:'
-                text: 'Geni está en casa'
-                fallback: 'Presencia'
-
 
   presence_geniphone_not_connected_home_wifi:
     alias: 'GeniPhone disconnected from home Wi-Fi'
@@ -636,15 +742,6 @@ script:
           payload: 'not_connected'
           retain: true
           topic: 'phone/geni/wifi'
-      - service: notify.slack
-        data_template:
-          message: ''
-          data:
-            attachments:
-              - color: 'good'
-                pretext: ':woman: *Presencia* :woman:'
-                text: 'Geni ha salido de casa'
-                fallback: 'Presencia'
 
 zone:
   - name: Oficina
