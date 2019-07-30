@@ -169,6 +169,7 @@ automation:
     trigger: 
       - platform: state
         entity_id: alarm_control_panel.home
+        from: 'disarmed'
         to: 'armed_away'
     action:
       - service: notify.slack
@@ -178,13 +179,14 @@ automation:
             attachments:
               - color: 'good'
                 pretext: ':rotating_light: *Alarma* :rotating_light:'
-                text: 'Alarma armada'
+                text: 'Alarma armada en modo fuera de casa'
                 fallback: 'Alarma'
 
   - alias: '[Alarm] Notify when alarm is armed night'
     trigger: 
       - platform: state
         entity_id: alarm_control_panel.home
+        from: 'disarmed'
         to: 'armed_night'
     action:
       - service: notify.slack
