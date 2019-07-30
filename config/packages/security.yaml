@@ -481,9 +481,6 @@ sensor:
 
 cloud:
   google_actions:
-    filter:
-      include_entities:
-        - group.seguridad
     entity_config:
       group.seguridad:
         name: Seguridad

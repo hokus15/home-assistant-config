@@ -45,9 +45,6 @@ cover:
 
 cloud:
   google_actions:
-    filter:
-      include_entities:
-        - cover.outside_fence
     entity_config:
       cover.outside_fence:
         name: Puerta de entrada

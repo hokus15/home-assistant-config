@@ -167,14 +167,6 @@ google:
 
 cloud:
   google_actions:
-    filter:
-      include_entities:
-        - script.goto_sleep
-        - script.chores
-        - script.speech_parte_meteorologico_corto
-        - script.speech_parte_meteorologico
-        - script.geni_shift
-        - script.google_home_good_morning
     entity_config:
       script.goto_sleep:
         name: Me voy a la cama
