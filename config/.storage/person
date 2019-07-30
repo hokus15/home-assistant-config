@@ -3,7 +3,8 @@
         "persons": [
             {
                 "device_trackers": [
-                    "device_tracker.jordi_combined"
+                    "device_tracker.hokusphone",
+                    "device_tracker.hokusphone_wifi"
                 ],
                 "id": "e73415f74dc346aa9a12d2f94b14f7fa",
                 "name": "Jordi",
@@ -11,7 +12,8 @@
             },
             {
                 "device_trackers": [
-                    "device_tracker.geni_combined"
+                    "device_tracker.geniphone_wifi",
+                    "device_tracker.geniphone"
                 ],
                 "id": "651cb988d7f547fd8cbb9060258f3d10",
                 "name": "Geni",

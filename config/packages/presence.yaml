@@ -17,6 +17,10 @@ homeassistant:
       source_type: router
     device_tracker.hokusphone_wifi:
       source_type: router
+    person.jordi:
+      entity_picture: 'https://s.gravatar.com/avatar/f5d192b4f4ffab4d9625f9b9e11d16b7?s=192'
+    person.geni:
+      entity_picture: '/local/hass-geni2.jpg'
 recorder:
   exclude:
     entities:
@@ -35,8 +39,8 @@ recorder:
 group:
   Unidad Familiar:
     entities:
-      - device_tracker.jordi_combined
-      - device_tracker.geni_combined
+      - person.jordi
+      - person.geni
       - device_tracker.virtual_device
 
 input_boolean:
@@ -128,11 +132,11 @@ cloud:
         aliases:
           - Me voy
         room: General
-      script.presence_jordi_at_home:
-        name: Ya estoy en casa
-        aliases:
-          - Ya estoy en casa
-        room: General
+#      script.presence_jordi_at_home:
+#        name: Ya estoy en casa
+#        aliases:
+#          - Ya estoy en casa
+#        room: General
 
 #google_assistant:
 #  entity_config:
@@ -211,31 +215,31 @@ automation:
   # Set Geni to 'home' when at least ONE of related entities are set to 'home'
   # Else set Geni to 'not_home' when ALL related entities are in a state different from 'home'
   # Set Geni to the WiFi name otherwise
-  - alias: '[Presence] Geni location'
-    trigger:
-      - platform: state
-        entity_id: device_tracker.geniphone, device_tracker.geniphone_wifi
-      - platform: homeassistant
-        event: start
-    action:
-      - service: device_tracker.see
-        data_template:
-          dev_id: 'geni_combined'
-          location_name: >
-            {%- if is_state('device_tracker.geniphone', 'home') or is_state('device_tracker.geniphone_wifi', 'home') -%}
-              home
-            {%- else -%}
-              {%- if is_state('device_tracker.geniphone', 'not_home') and is_state('device_tracker.geniphone_wifi', 'not_connected') -%}
-                not_home
-              {%- else -%}
-                {{ states.device_tracker.geniphone_wifi.state }}
-              {%- endif -%}
-            {%- endif -%}
+#  - alias: '[Presence] Geni location'
+#    trigger:
+#      - platform: state
+#        entity_id: device_tracker.geniphone, device_tracker.geniphone_wifi
+#      - platform: homeassistant
+#        event: start
+#    action:
+#      - service: device_tracker.see
+#        data_template:
+#          dev_id: 'geni_combined'
+#          location_name: >
+#            {%- if is_state('device_tracker.geniphone', 'home') or is_state('device_tracker.geniphone_wifi', 'home') -%}
+#              home
+#            {%- else -%}
+#              {%- if is_state('device_tracker.geniphone', 'not_home') and is_state('device_tracker.geniphone_wifi', 'not_connected') -%}
+#                not_home
+#              {%- else -%}
+#                {{ states.device_tracker.geniphone_wifi.state }}
+#              {%- endif -%}
+#            {%- endif -%}
 
   - alias: '[Presence] Geni at home'
     trigger:
       - platform: state
-        entity_id: device_tracker.geni_combined
+        entity_id: person.geni
         to: 'home'
     action:
       - service: notify.slack
@@ -251,7 +255,7 @@ automation:
   - alias: '[Presence] Geni not home'
     trigger:
       - platform: state
-        entity_id: device_tracker.geni_combined
+        entity_id: person.geni
         from: 'home'
     action:
       - service: notify.slack
@@ -272,26 +276,26 @@ automation:
   # Set Jordi to 'home' when at least ONE of related entities are set to 'home'
   # Else set Jordi to 'not_home' when ALL related entities are in a state different from 'home'
   # Set Jordi to the WiFi name otherwise
-  - alias: '[Presence] Jordi location'
-    trigger:
-      - platform: state
-        entity_id: device_tracker.hokusphone, device_tracker.hokusphone_wifi
-      - platform: homeassistant
-        event: start
-    action:
-      - service: device_tracker.see
-        data_template:
-          dev_id: 'jordi_combined'
-          location_name: >
-            {%- if is_state('device_tracker.hokusphone', 'home') or is_state('device_tracker.hokusphone_wifi', 'home') -%}
-              home
-            {%- else -%}
-              {%- if is_state('device_tracker.hokusphone', 'not_home') and is_state('device_tracker.hokusphone_wifi', 'not_connected') -%}
-                not_home
-              {%- else -%}
-                {{ states.device_tracker.hokusphone_wifi.state }}
-              {%- endif -%}
-            {%- endif -%}
+#  - alias: '[Presence] Jordi location'
+#    trigger:
+#      - platform: state
+#        entity_id: device_tracker.hokusphone, device_tracker.hokusphone_wifi
+#      - platform: homeassistant
+#        event: start
+#    action:
+#      - service: device_tracker.see
+#        data_template:
+#          dev_id: 'jordi_combined'
+#          location_name: >
+#            {%- if is_state('device_tracker.hokusphone', 'home') or is_state('device_tracker.hokusphone_wifi', 'home') -%}
+#              home
+#            {%- else -%}
+#              {%- if is_state('device_tracker.hokusphone', 'not_home') and is_state('device_tracker.hokusphone_wifi', 'not_connected') -%}
+#                not_home
+#              {%- else -%}
+#                {{ states.device_tracker.hokusphone_wifi.state }}
+#              {%- endif -%}
+#            {%- endif -%}
 
   # If fence is closed, Ioniq enter 'home' zone
   # Open fence, notify it, send a meessage to mqtt topic, and set Jordi as 'home'
@@ -316,7 +320,7 @@ automation:
       - service: mqtt.publish
         data:
           payload_template: >
-            He abierto la barrera. {%- if is_state("device_tracker.geni_combined", "home") -%}Jeni está en casa.{%- else -%}Jeni no está en casa.{%- endif -%}
+            He abierto la barrera. {%- if is_state("person.geni", "home") -%}Jeni está en casa.{%- else -%}Jeni no está en casa.{%- endif -%}
           retain: false
           topic: 'cmnd/phone/hokus/say'
       - delay:
@@ -327,10 +331,10 @@ automation:
           target: !secret hokusphone_telegram_chat_id
           inline_keyboard: 
             - 'Cerrar:/switch.turn_on#switch.barrera'
-      - service: device_tracker.see
-        data:
-          dev_id: 'jordi_combined'
-          location_name: 'home'
+ #     - service: device_tracker.see
+ #       data:
+ #         dev_id: 'jordi_combined'
+ #         location_name: 'home'
   
   # When Jordi leave home zone and in the car:
   #   - Set hokusphone 'not_home'
@@ -595,19 +599,15 @@ automation:
           data:
             attachments:
               - color: 'warning'
-                pretext: ':iphone: *Nuevo dispositivo* :iphone:'
-                text: 'Nuevo dispositivo detectado: {{trigger.event.data.host_name}} - {{trigger.event.data.entity_id}}'
+                text: ':iphone: *Nuevo dispositivo* :iphone:'
+                fields:
+                  - title: 'Nombre'
+                    value: '{{trigger.event.data.host_name}}'
+                    short: true
+                  - title: 'Entidad'
+                    value: '{{trigger.event.data.entity_id}}'
+                    short: true
                 fallback: 'Nuevo dispositivo'
-#              - color: 'warning'
-#                text: ':iphone: *Nuevo dispositivo* :iphone:'
-#                fields:
-#                  - title: Nombre
-#                    value: {{trigger.event.data.host_name}}
-#                    short: true
-#                  - title: Entidad
-#                    value: {{trigger.event.data.entity_id}}
-#                    short: true
-#                fallback: 'Nuevo dispositivo'
 
 script:
   presence_empty_home:
@@ -704,13 +704,13 @@ script:
           message: 'Google Assistant a autorizado presencia en casa durante {{data.minutes}} minutos'
           target: !secret hokusphone_telegram_chat_id
   
-  presence_jordi_at_home:
-    alias: 'Jordi at home'
-    sequence:
-      - service: device_tracker.see
-        data:
-          dev_id: 'jordi_combined'
-          location_name: 'home'
+#  presence_jordi_at_home:
+#    alias: 'Jordi at home'
+#    sequence:
+#      - service: device_tracker.see
+#        data:
+#          dev_id: 'jordi_combined'
+#          location_name: 'home'
 
   presence_hokusphone_connected_home_wifi:
     alias: 'HokusPhone connected to home Wi-Fi'
@@ -726,7 +726,7 @@ script:
     sequence:
       - service: mqtt.publish
         data:
-          payload: 'not_connected'
+          payload: 'not_home'
           retain: true
           topic: 'phone/hokus/wifi'
 
@@ -744,7 +744,7 @@ script:
     sequence:
       - service: mqtt.publish
         data:
-          payload: 'not_connected'
+          payload: 'not_home'
           retain: true
           topic: 'phone/geni/wifi'
 

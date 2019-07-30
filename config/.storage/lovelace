@@ -14,13 +14,13 @@
                                 {
                                     "cards": [
                                         {
-                                            "entity": "device_tracker.jordi_combined",
-                                            "image": "https://www.gravatar.com/avatar/f5d192b4f4ffab4d9625f9b9e11d16b7?s=300",
+                                            "entity": "person.jordi",
+                                            "image": "https://www.gravatar.com/avatar/f5d192b4f4ffab4d9625f9b9e11d16b7?s=192",
                                             "show_name": false,
                                             "type": "picture-entity"
                                         },
                                         {
-                                            "entity": "device_tracker.geni_combined",
+                                            "entity": "person.geni",
                                             "image": "/local/hass-geni2.jpg",
                                             "show_name": false,
                                             "type": "picture-entity"
@@ -207,13 +207,13 @@
                         {
                             "cards": [
                                 {
-                                    "entity": "device_tracker.jordi_combined",
-                                    "image": "https://www.gravatar.com/avatar/f5d192b4f4ffab4d9625f9b9e11d16b7?s=300",
+                                    "entity": "person.jordi",
+                                    "image": "https://www.gravatar.com/avatar/f5d192b4f4ffab4d9625f9b9e11d16b7?s=192",
                                     "show_name": false,
                                     "type": "picture-entity"
                                 },
                                 {
-                                    "entity": "device_tracker.geni_combined",
+                                    "entity": "person.geni",
                                     "image": "/local/hass-geni2.jpg",
                                     "show_name": false,
                                     "type": "picture-entity"
@@ -568,9 +568,15 @@
                         },
                         {
                             "entities": [
-                                "device_tracker.jordi_combined",
-                                "device_tracker.geni_combined",
-                                "device_tracker.virtual_device"
+                                {
+                                    "entity": "person.jordi"
+                                },
+                                {
+                                    "entity": "person.geni"
+                                },
+                                {
+                                    "entity": "device_tracker.virtual_device"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Unidad Familiar",
