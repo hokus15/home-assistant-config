@@ -13,7 +13,10 @@ homeassistant:
       icon: mdi:airplane
     input_number.empty_home_activation_delay_minutes:
       icon: mdi:clock-end
-
+    device_tracker.geniphone_wifi:
+      source_type: router
+    device_tracker.hokusphone_wifi:
+      source_type: router
 recorder:
   exclude:
     entities:
@@ -113,11 +116,6 @@ switch:
 
 cloud:
   google_actions:
-    filter:
-      include_entities:
-        - script.presence_set_virtual_device_home
-        - script.presence_leave_home
-        - script.presence_jordi_at_home
     entity_config:
       script.presence_set_virtual_device_home:
         name: Persona autorizada
@@ -594,15 +592,22 @@ automation:
       - service: notify.slack
         data_template:
           message: ''
-          data_template:
+          data:
             attachments:
               - color: 'warning'
                 pretext: ':iphone: *Nuevo dispositivo* :iphone:'
-                text: >
-                  Nuevo dispositivo detectado:
-                 {{trigger.event.data.host_name}}
-                 ({{trigger.event.data.entity_id}})
+                text: 'Nuevo dispositivo detectado: {{trigger.event.data.host_name}} - {{trigger.event.data.entity_id}}'
                 fallback: 'Nuevo dispositivo'
+#              - color: 'warning'
+#                text: ':iphone: *Nuevo dispositivo* :iphone:'
+#                fields:
+#                  - title: Nombre
+#                    value: {{trigger.event.data.host_name}}
+#                    short: true
+#                  - title: Entidad
+#                    value: {{trigger.event.data.entity_id}}
+#                    short: true
+#                fallback: 'Nuevo dispositivo'
 
 script:
   presence_empty_home:
