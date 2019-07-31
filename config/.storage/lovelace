@@ -512,6 +512,7 @@
                         },
                         {
                             "entity": "climate.netatmo_general",
+                            "theme": "Backend-selected",
                             "type": "thermostat"
                         },
                         {
