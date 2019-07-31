@@ -563,11 +563,11 @@ automation:
       condition: template
       value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
     action:
-      # Turn on thermostat an set it to away mode
-      - service: climate.set_away_mode
-        entity_id: climate.termostato
-        data:
-          away_mode: true
+      # Set thermostat away mode 
+      - service: climate.set_preset_mode
+        entity_id: climate.netatmo_general
+        data_template:
+          preset_mode: 'away'
       - service: notify.telegram
         data:
           message: 'Modo vacaciones desactivado'
@@ -635,11 +635,11 @@ script:
       - condition: state
         entity_id: switch.holiday
         state: 'off'
-     # Turn on thermostat away mode 
-      - service: climate.set_away_mode
-        entity_id: climate.termostato
-        data:
-          away_mode: true
+      # Set thermostat away mode 
+      - service: climate.set_preset_mode
+        entity_id: climate.netatmo_general
+        data_template:
+          preset_mode: 'away'
 
   presence_someone_home:
     alias: 'Someone at home'
@@ -653,11 +653,11 @@ script:
       - condition: state
         entity_id: switch.holiday
         state: 'off'
-      # Turn off thermostat away mode 
-      - service: climate.set_away_mode
-        entity_id: climate.termostato
-        data:
-          away_mode: false
+      # Set thermostat Schedule mode 
+      - service: climate.set_preset_mode
+        entity_id: climate.netatmo_general
+        data_template:
+          preset_mode: 'Schedule'
 
   presence_set_virtual_device_home:
     alias: 'Set virtual device at home for 180 minutes'

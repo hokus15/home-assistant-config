@@ -223,7 +223,7 @@ binary_sensor:
              and is_state('group.unidad_familiar', 'home')
              and not is_state('climate.netatmo_general', 'off')
              and is_state('switch.thermostat_away_mode','off')
-             and is_state_attr('climate.netatmo_general', 'boiler_status', 'false')
+             and is_state_attr('climate.netatmo_general', 'hvac_action', 'off')
              and is_state('binary_sensor.first_floor_temperature_down','on')
           }}
       summer_time:
@@ -305,53 +305,53 @@ binary_sensor:
         max_samples: 5
 
 sensor:
-  - platform: netatmo
-    modules:
-      Salón:
-        - temperature
-        - min_temp
-        - max_temp
-        - humidity
-        - noise
-        - pressure
-        - co2
-        - wifi_status
-      Suite:
-        - temperature
-        - min_temp
-        - max_temp
-        - humidity
-        - co2
-        - battery_vp
-        - rf_status
-      Habitación:
-        - temperature
-        - min_temp
-        - max_temp
-        - humidity
-        - co2
-        - battery_vp
-        - rf_status
-      Exterior:
-        - temperature
-        - min_temp
-        - max_temp
-        - humidity
-        - battery_vp
-        - rf_status
-      Pluviómetro:
-        - rain
-        - sum_rain_1
-        - sum_rain_24
-        - battery_vp
-        - rf_status
-      Anemómetro:
-        - windangle
-        - windstrength
-        - gustangle
-        - guststrength
-        - battery_vp
-        - rf_status
+#  - platform: netatmo
+#    modules:
+#      Salón:
+#        - temperature
+#        - min_temp
+#        - max_temp
+#        - humidity
+#        - noise
+#        - pressure
+#        - co2
+#        - wifi_status
+#      Suite:
+#        - temperature
+#        - min_temp
+#        - max_temp
+#        - humidity
+#        - co2
+#        - battery_vp
+#        - rf_status
+#      Habitación:
+#        - temperature
+#        - min_temp
+#        - max_temp
+#        - humidity
+#        - co2
+#        - battery_vp
+#        - rf_status
+#      Exterior:
+#        - temperature
+#        - min_temp
+#        - max_temp
+#        - humidity
+#        - battery_vp
+#        - rf_status
+#      Pluviómetro:
+#        - rain
+#        - sum_rain_1
+#        - sum_rain_24
+#        - battery_vp
+#        - rf_status
+#      Anemómetro:
+#        - windangle
+#        - windstrength
+#        - gustangle
+#        - guststrength
+#        - battery_vp
+#        - rf_status
 
   # Sensor to define the season of the year
   - platform: season
@@ -660,17 +660,17 @@ switch:
       
       thermostat_away_mode:
         entity_id: climate.netatmo_general
-        value_template: "{{is_state_attr('climate.netatmo_general', 'away_mode', 'on')}}"
+        value_template: "{{is_state_attr('climate.netatmo_general', 'preset_mode', 'away')}}"
         turn_on:
-          service: climate.set_away_mode
+          service: climate.set_preset_mode
           entity_id: climate.netatmo_general
           data:
-            away_mode: true
+            preset_mode: 'away'
         turn_off:
-          service: climate.set_away_mode
+          service: climate.set_preset_mode
           entity_id: climate.netatmo_general
           data:
-            away_mode: false
+            preset_mode: 'Schedule'
 
 input_boolean:
   home_comfort_mode:
@@ -798,7 +798,7 @@ automation:
             
             Modo ausente: {{states.switch.thermostat_away_mode.state}}
             
-            Estado termostato: {{states.climate.netatmo_general.attributes.operation_mode}}
+            Estado termostato: {{states.climate.netatmo_general.attributes.hvac_mode}}
             
             Tendencia temperatura planta baja: {{states.sensor.ground_floor_temperature_trend.state}}
             
@@ -886,11 +886,11 @@ script:
   comfort_mode_on:
     alias: 'Turn on comfort mode'
     sequence:
-      # Set temperature to 23 degrees
-      - service: climate.set_temperature
+      # Set thermostat boost mode 
+      - service: climate.set_preset_mode
+        entity_id: climate.netatmo_general
         data_template:
-          entity_id: climate.netatmo_general
-          temperature: 23
+          preset_mode: 'boost'
       - delay:
           seconds: 15
       # Update entity
@@ -907,18 +907,11 @@ script:
   comfort_mode_off:
     alias: 'Turn off comfort mode'
     sequence:
-      # Turn on thermostat away mode 
-      - service: climate.set_away_mode
+      # Set thermostat Schedule mode 
+      - service: climate.set_preset_mode
         entity_id: climate.netatmo_general
-        data:
-          away_mode: true
-      - delay:
-          seconds: 5
-     # Turn off thermostat away mode 
-      - service: climate.set_away_mode
-        entity_id: climate.netatmo_general
-        data:
-          away_mode: false
+        data_template:
+          preset_mode: 'Schedule'
       - delay:
           seconds: 15
       # Update entity
