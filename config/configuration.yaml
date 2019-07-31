@@ -48,6 +48,12 @@ sun:
 discovery:
 
 wemo:
+  discovery: true
+  static:
+    - 10.155.106.21 # Laptop - Wemo switch
+    - 10.155.106.31 # Fence - Wemo Maker
+    - 10.155.106.70 # Lights - Wemo Link
+    - 10.155.106.71 # Car charger - Wemo Insight
 
 # Checks for available updates
 updater:
@@ -129,6 +135,8 @@ logger:
 #    homeassistant.core: debug
 #    homeassistant.components.sensor.speedtest: debug
 #    homeassistant.core: debug
+#    homeassistant.components.wemo: debug
+#    pywemo: debug
 
 telegram_bot:
   platform: polling
