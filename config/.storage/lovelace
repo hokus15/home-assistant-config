@@ -585,8 +585,8 @@
                         },
                         {
                             "entities": [
-                                "device_tracker.jordi_combined",
-                                "device_tracker.geni_combined",
+                                "person.jordi",
+                                "person.geni",
                                 "device_tracker.virtual_device"
                             ],
                             "title": "Ocupaci\u00f3n",
