@@ -415,3 +415,22 @@ automation:
           retain: true
           qos: 0
           payload_template: "{{{\"charged_energy_kwh\":  states('sensor.car_ioniq_state_today_energy_charged'),\"odometer\": states('sensor.car_ioniq_state_odometer'),\"ced\": states('sensor.car_ioniq_state_ced'),\"cec\": states('sensor.car_ioniq_state_cec'),\"soh\": states('sensor.car_ioniq_state_battery_health'),\"soc_display\":states('sensor.car_ioniq_state_soc_display'),\"soc_bms\":states('sensor.car_ioniq_state_soc_bms'),\"distance_since_cc\": states('sensor.car_ioniq_state_distance_since_cc'),\"timestamp\": as_timestamp(now())|round,} | tojson}}"
+          
+  - alias: '[Car] Notify when Ioniq battery health is below 100%'
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.car_ioniq_state_battery_health
+      below: 100
+    action:
+      - service: notify.telegram
+        data_template:
+          message: 'La salud de la batería del Ioniq es del: {{states.sensor.car_ioniq_state_battery_health.state}}{{states.sensor.car_ioniq_state_battery_health.attributes.unit_of_measurement}}'
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'warning'
+                pretext: ':oncoming_automobile: *Coche* :oncoming_automobile:'
+                text: 'La salud de la batería del Ioniq es del: {{states.sensor.car_ioniq_state_battery_health.state}}{{states.sensor.car_ioniq_state_battery_health.attributes.unit_of_measurement}}'
+                fallback: 'Coche'
