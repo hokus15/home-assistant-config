@@ -7,6 +7,9 @@ homeassistant:
     sensor.car_ioniq_charge_state:
       friendly_name: 'Estado carga'
       icon: 'mdi:flash-circle'
+    sensor.car_ioniq_state_today_energy_charged:
+      friendly_name: 'Energía cargada hoy'
+      icon: 'mdi:battery-charging-70'
     sensor.car_al_colegio:
       friendly_name: 'Al colegio'
     sensor.car_a_la_oficina:
@@ -103,7 +106,7 @@ sensor:
       car_ioniq_state_today_energy_charged:
         value_template: >- 
           {% if state_attr('switch.car_ioniq_charger', 'today_energy_kwh') is not none %}
-            state_attr('switch.car_ioniq_charger', 'today_energy_kwh')
+            {{state_attr('switch.car_ioniq_charger', 'today_energy_kwh')}}
           {% else %}
             0
           {% endif %}
@@ -180,9 +183,9 @@ sensor:
         value_template: '{{state_attr("sensor.car_ioniq_state_daily", "cec")}}'
         unit_of_measurement: 'kWh'
       # Ioniq daily energy charged
-      car_ioniq_state_daily_energy_charged:
-        value_template: '{{states("sensor.car_ioniq_state_today_energy_charged")}}'
-        unit_of_measurement: 'kWh'
+#      car_ioniq_state_daily_energy_charged:
+#        value_template: '{{states("sensor.car_ioniq_state_today_energy_charged")}}'
+#        unit_of_measurement: 'kWh'
 ######################### Daily state data #########################
       # Ioniq Average energy consumption without taking into account regeneration
       car_ioniq_state_energy_consumption:
@@ -414,7 +417,7 @@ automation:
           topic: 'car/ioniq/state/daily'
           retain: true
           qos: 0
-          payload_template: "{{{\"charged_energy_kwh\":  states('sensor.car_ioniq_state_today_energy_charged'),\"odometer\": states('sensor.car_ioniq_state_odometer'),\"ced\": states('sensor.car_ioniq_state_ced'),\"cec\": states('sensor.car_ioniq_state_cec'),\"soh\": states('sensor.car_ioniq_state_battery_health'),\"soc_display\":states('sensor.car_ioniq_state_soc_display'),\"soc_bms\":states('sensor.car_ioniq_state_soc_bms'),\"distance_since_cc\": states('sensor.car_ioniq_state_distance_since_cc'),\"timestamp\": as_timestamp(now())|round,} | tojson}}"
+          payload_template: "{{{\"charged_energy_kwh\": states('sensor.car_ioniq_state_today_energy_charged'),\"odometer\": states('sensor.car_ioniq_state_odometer'),\"ced\": states('sensor.car_ioniq_state_ced'),\"cec\": states('sensor.car_ioniq_state_cec'),\"soh\": states('sensor.car_ioniq_state_battery_health'),\"soc_display\":states('sensor.car_ioniq_state_soc_display'),\"soc_bms\":states('sensor.car_ioniq_state_soc_bms'),\"distance_since_cc\": states('sensor.car_ioniq_state_distance_since_cc'),\"timestamp\": as_timestamp(now())|round,} | tojson}}"
           
   - alias: '[Car] Notify when Ioniq battery health is below 100%'
     trigger:
