@@ -785,6 +785,9 @@
                                 },
                                 {
                                     "entity": "sensor.car_ioniq_charger_current_power"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_today_energy_charged"
                                 }
                             ],
                             "show_header_toggle": false,
