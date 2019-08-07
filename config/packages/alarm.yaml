@@ -161,7 +161,7 @@ automation:
           data:
             attachments:
               - color: 'good'
-                pretext: ':rotating_light: *Alarma* :rotating_light:'
+                pretext: ':bell: *Alarma* :bell:'
                 text: 'Alarma desarmada'
                 fallback: 'Alarma'
 
@@ -178,7 +178,7 @@ automation:
           data:
             attachments:
               - color: 'good'
-                pretext: ':rotating_light: *Alarma* :rotating_light:'
+                pretext: ':bell: *Alarma* :bell:'
                 text: 'Alarma armada en modo fuera de casa'
                 fallback: 'Alarma'
 
@@ -195,7 +195,7 @@ automation:
           data:
             attachments:
               - color: 'good'
-                pretext: ':rotating_light: *Alarma* :rotating_light:'
+                pretext: ':bell: *Alarma* :bell:'
                 text: 'Alarma armada en modo noche :sleeping:'
                 fallback: 'Alarma'
 
@@ -524,7 +524,7 @@ script:
           data:
             attachments:
               - color: 'danger'
-                pretext: ':rotating_light: *Alarma* :rotating_light:'
+                pretext: ':bell: *Alarma* :bell:'
                 text: 'Movimiento detectado en {{data.camera_name}}'
                 fallback: 'Alarma'
 
@@ -559,6 +559,6 @@ script:
           data:
             attachments:
               - color: 'danger'
-                pretext: ':rotating_light: *Alarma* :rotating_light:'
+                pretext: ':bell: *Alarma* :bell:'
                 text: '{{data.message}}'
                 fallback: 'Alarma'
