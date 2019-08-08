@@ -183,9 +183,9 @@ sensor:
         value_template: '{{state_attr("sensor.car_ioniq_state_daily", "cec")}}'
         unit_of_measurement: 'kWh'
       # Ioniq daily energy charged
-#      car_ioniq_state_daily_energy_charged:
-#        value_template: '{{states("sensor.car_ioniq_state_today_energy_charged")}}'
-#        unit_of_measurement: 'kWh'
+      car_ioniq_state_daily_energy_charged:
+        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "charged_energy_kwh")}}'
+        unit_of_measurement: 'kWh'
 ######################### Daily state data #########################
       # Ioniq Average energy consumption without taking into account regeneration
       car_ioniq_state_energy_consumption:
