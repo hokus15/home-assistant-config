@@ -470,6 +470,24 @@ script:
           inline_keyboard:
                  - 'Armar alarma:/script.turn_on#script.alarm_arm_away'
 
+  alarm_disarm_slack:
+    alias: 'Alarm disarm from slack'
+    sequence:
+      # Alarm disarm
+      - service: alarm_control_panel.alarm_disarm
+        data:
+          entity_id: alarm_control_panel.home
+      # Send message
+      - service: notify.slack
+        data_template:
+          message: ''
+          data:
+            attachments:
+              - color: 'danger'
+                pretext: ':bell: *Alarma* :bell:'
+                text: 'Alarma desarmada desde slack'
+                fallback: 'Alarma'
+
   alarm_disarm_telegram_temporary:
     alias: 'Temporary alarm disarm from telegram'
     sequence:
@@ -527,6 +545,19 @@ script:
                 pretext: ':bell: *Alarma* :bell:'
                 text: 'Movimiento detectado en {{data.camera_name}}'
                 fallback: 'Alarma'
+              - color: '#3AA3E3'
+                title: 'Quieres'
+                callback_id: 'alarma_{{data.camera_name}}'
+                attachment_type: 'default'
+                actions: 
+                  - name: 'desactivar_{{data.camera_name}}'
+                    text: 'Desactivar det. mov. {{data.camera_name}}'
+                    type: 'button'
+                    value: 'homeassistant.turn_off#{{data.turn_off_entity_id}}'
+                  - name: 'desarmar_alarma'
+                    text: 'Desarmar alarma'
+                    type: 'button'
+                    value: 'script.turn_on#script.alarm_disarm_slack'
 
       - service: notify.slack
         data_template:
