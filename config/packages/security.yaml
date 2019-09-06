@@ -141,7 +141,7 @@ homeassistant:
       friendly_name: 'Sensor puerta coladuria'
 
 folder_watcher:
-  - folder: /home/camera
+  - folder: /share/camera
     patterns:
       - '*.jpg'
       - '*.mp4'

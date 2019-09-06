@@ -12,7 +12,7 @@ homeassistant:
   unit_system: metric
   customize: !include customize.yaml
   whitelist_external_dirs:
-    - /home/camera
+    - /share/camera
   packages: !include_dir_named packages
 
 http:
@@ -70,7 +70,7 @@ config:
 recorder:
   purge_interval: 1
   purge_keep_days: 30
-  db_url: !secret recorder_db_url
+  #db_url: !secret recorder_db_url
   exclude:
     domains:
       - automation
@@ -228,7 +228,7 @@ speedtestdotnet:
     - upload
 
 zwave:
-  usb_path: /dev/ttyACM0
+  usb_path: /dev/ttyAMA0
   device_config: !include zwave_device_config.yaml
 
 tts:

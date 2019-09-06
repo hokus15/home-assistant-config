@@ -174,7 +174,7 @@
                         "cdbe4ece88cc25127429e5d8747010a6"
                     ]
                 ],
-                "manufacturer": "Google Inc.",
+                "manufacturer": "Unknown manufacturer",
                 "model": "Chromecast",
                 "name": "Sal\u00f3n",
                 "name_by_user": null,
@@ -349,191 +349,6 @@
                 "via_device_id": "6713a8cc186d4ec0af497f78f4f22e26"
             },
             {
-                "area_id": null,
-                "config_entries": [
-                    "3395db9966104243a8ca8cc896463692"
-                ],
-                "connections": [
-                    [
-                        "upnp",
-                        "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2"
-                    ]
-                ],
-                "id": "c49dd13af43e4a3ea58977fd61fe6d86",
-                "identifiers": [
-                    [
-                        "upnp",
-                        "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2"
-                    ]
-                ],
-                "manufacturer": "Google",
-                "model": null,
-                "name": "OnHub",
-                "name_by_user": null,
-                "sw_version": null,
-                "via_device_id": null
-            },
-            {
-                "area_id": null,
-                "config_entries": [
-                    "3395db9966104243a8ca8cc896463692"
-                ],
-                "connections": [],
-                "id": "f041f088e46345f6b5bff83a193c86b9",
-                "identifiers": [
-                    [
-                        "upnp",
-                        "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2_packets/sec_sent"
-                    ]
-                ],
-                "manufacturer": null,
-                "model": null,
-                "name": "OnHub packets/sec sent",
-                "name_by_user": null,
-                "sw_version": null,
-                "via_device_id": "c49dd13af43e4a3ea58977fd61fe6d86"
-            },
-            {
-                "area_id": null,
-                "config_entries": [
-                    "3395db9966104243a8ca8cc896463692"
-                ],
-                "connections": [],
-                "id": "ff863c9c4ff54c5dbacefcd52d7e7037",
-                "identifiers": [
-                    [
-                        "upnp",
-                        "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2_packets/sec_received"
-                    ]
-                ],
-                "manufacturer": null,
-                "model": null,
-                "name": "OnHub packets/sec received",
-                "name_by_user": null,
-                "sw_version": null,
-                "via_device_id": "c49dd13af43e4a3ea58977fd61fe6d86"
-            },
-            {
-                "area_id": null,
-                "config_entries": [
-                    "3395db9966104243a8ca8cc896463692"
-                ],
-                "connections": [],
-                "id": "afdfcbbe88c14d06bfb6f28194f47bcb",
-                "identifiers": [
-                    [
-                        "upnp",
-                        "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2_kbyte/sec_sent"
-                    ]
-                ],
-                "manufacturer": null,
-                "model": null,
-                "name": "OnHub kbyte/sec sent",
-                "name_by_user": null,
-                "sw_version": null,
-                "via_device_id": "c49dd13af43e4a3ea58977fd61fe6d86"
-            },
-            {
-                "area_id": null,
-                "config_entries": [
-                    "3395db9966104243a8ca8cc896463692"
-                ],
-                "connections": [],
-                "id": "3a16c64a43fd4cba94b06425b2bddc15",
-                "identifiers": [
-                    [
-                        "upnp",
-                        "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2_packets_received"
-                    ]
-                ],
-                "manufacturer": null,
-                "model": null,
-                "name": "OnHub packets received",
-                "name_by_user": null,
-                "sw_version": null,
-                "via_device_id": "c49dd13af43e4a3ea58977fd61fe6d86"
-            },
-            {
-                "area_id": null,
-                "config_entries": [
-                    "3395db9966104243a8ca8cc896463692"
-                ],
-                "connections": [],
-                "id": "df7862447b95450d8bf36f8d51f3dcc0",
-                "identifiers": [
-                    [
-                        "upnp",
-                        "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2_packets_sent"
-                    ]
-                ],
-                "manufacturer": null,
-                "model": null,
-                "name": "OnHub packets sent",
-                "name_by_user": null,
-                "sw_version": null,
-                "via_device_id": "c49dd13af43e4a3ea58977fd61fe6d86"
-            },
-            {
-                "area_id": null,
-                "config_entries": [
-                    "3395db9966104243a8ca8cc896463692"
-                ],
-                "connections": [],
-                "id": "1e46a1938db04212a487ff350d18f606",
-                "identifiers": [
-                    [
-                        "upnp",
-                        "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2_bytes_sent"
-                    ]
-                ],
-                "manufacturer": null,
-                "model": null,
-                "name": "OnHub bytes sent",
-                "name_by_user": null,
-                "sw_version": null,
-                "via_device_id": "c49dd13af43e4a3ea58977fd61fe6d86"
-            },
-            {
-                "area_id": null,
-                "config_entries": [
-                    "3395db9966104243a8ca8cc896463692"
-                ],
-                "connections": [],
-                "id": "dae45177293149db83fe0509274a4075",
-                "identifiers": [
-                    [
-                        "upnp",
-                        "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2_bytes_received"
-                    ]
-                ],
-                "manufacturer": null,
-                "model": null,
-                "name": "OnHub bytes received",
-                "name_by_user": null,
-                "sw_version": null,
-                "via_device_id": "c49dd13af43e4a3ea58977fd61fe6d86"
-            },
-            {
-                "area_id": null,
-                "config_entries": [
-                    "3395db9966104243a8ca8cc896463692"
-                ],
-                "connections": [],
-                "id": "725d6023ac414f14adbbdcb5d782054a",
-                "identifiers": [
-                    [
-                        "upnp",
-                        "uuid:f6aa61cf-6fcc-4400-9ba2-5038f24fc5d2_kbyte/sec_received"
-                    ]
-                ],
-                "manufacturer": null,
-                "model": null,
-                "name": "OnHub kbyte/sec received",
-                "name_by_user": null,
-                "sw_version": null,
-                "via_device_id": "c49dd13af43e4a3ea58977fd61fe6d86"
-            },
-            {
                 "area_id": "0ae724982668485c98dde9a3057b95c4",
                 "config_entries": [
                     "8bf6382d7b42412f9ed287fb013ff34e"
@@ -614,6 +429,191 @@
                 "name_by_user": null,
                 "sw_version": null,
                 "via_device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4"
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "d3e1d76bf94b4dc188b649fd85066d03"
+                ],
+                "connections": [
+                    [
+                        "upnp",
+                        "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152"
+                    ]
+                ],
+                "id": "ddefbd98e0534d8da80d31fc0fcb4aef",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "d3e1d76bf94b4dc188b649fd85066d03"
+                ],
+                "connections": [],
+                "id": "e18e6186d17b49228d49f2847a28d013",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_packets_sent"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub packets sent",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "d3e1d76bf94b4dc188b649fd85066d03"
+                ],
+                "connections": [],
+                "id": "c52be06daffd4b688ea66bc90ff3cc47",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_kbyte/sec_received"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub kbyte/sec received",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "d3e1d76bf94b4dc188b649fd85066d03"
+                ],
+                "connections": [],
+                "id": "78b1f23694e74a6f9dc2a8d5b0cf7cdb",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_packets_received"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub packets received",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "d3e1d76bf94b4dc188b649fd85066d03"
+                ],
+                "connections": [],
+                "id": "3bb9b61dcba84ce4b913a4345cab534a",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_bytes_received"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub bytes received",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "d3e1d76bf94b4dc188b649fd85066d03"
+                ],
+                "connections": [],
+                "id": "cadb6086ede84ccf9fc7ec639192f742",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_kbyte/sec_sent"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub kbyte/sec sent",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "d3e1d76bf94b4dc188b649fd85066d03"
+                ],
+                "connections": [],
+                "id": "bb3f25d5b6634d96aa49096a1961091d",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_bytes_sent"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub bytes sent",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "d3e1d76bf94b4dc188b649fd85066d03"
+                ],
+                "connections": [],
+                "id": "bc56f41be54a4bf9894ec1f9e05d08c9",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_packets/sec_sent"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub packets/sec sent",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "d3e1d76bf94b4dc188b649fd85066d03"
+                ],
+                "connections": [],
+                "id": "105293ed33fc4912a312cc06b654757a",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_packets/sec_received"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub packets/sec received",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
             }
         ]
     },

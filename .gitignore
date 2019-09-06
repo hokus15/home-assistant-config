@@ -26,3 +26,7 @@ config/.storage/frontend.user_data_0b2aad55afaf4c3e9c727406d277d94e
 config/.storage/onboarding
 config/.uuid
 config/tts
+config/.storage/frontend.user_data_a05d463a90d84273a11927004adca080
+config/.storage/core.config
+config/.storage/hassio
+config/home-assistant_v2.db
