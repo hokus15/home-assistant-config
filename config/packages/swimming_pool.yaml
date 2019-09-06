@@ -36,8 +36,8 @@ history_graph:
     name: Temperatura piscina
     entities:
       - sensor.piscina_water_temperature
-      - sensor.piscina_temperature_mean
-      - sensor.piscina_filtered_realistic_water_temperature
+      - sensor.piscina_temperature
+#      - sensor.piscina_filtered_realistic_water_temperature
     hours_to_show: 336
     refresh: 600
 
@@ -171,18 +171,18 @@ sensor:
         icon_template: 'mdi:power-plug'
         entity_id: sensor.date_time, sensor.piscina_off_time, sensor.piscina_filtering_time
 
-  - platform: filter
-    name: piscina_filtered_realistic_water_temperature
-    entity_id: sensor.piscina_water_temperature
-    filters:
-      - filter: outlier
-        window_size: 100
-        radius: 1.0
-      - filter: lowpass
-        time_constant: 60
-      - filter: time_simple_moving_average
-        window_size: 01:00
-        precision: 2
+#  - platform: filter
+#    name: piscina_filtered_realistic_water_temperature
+#    entity_id: sensor.piscina_water_temperature
+#    filters:
+#      - filter: outlier
+#        window_size: 100
+#        radius: 1.0
+#      - filter: lowpass
+#        time_constant: 60
+#      - filter: time_simple_moving_average
+#        window_size: 01:00
+#        precision: 2
 
   - platform: statistics
     name: piscina_temperature
