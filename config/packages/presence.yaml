@@ -110,8 +110,8 @@ sensor:
 switch:
   - platform: mqtt
     name: 'holiday'
-    state_topic: 'homeassistant/switch/holiday/status'
-    command_topic: 'homeassistant/switch/holiday/status'
+    state_topic: 'home/switch/holiday/status'
+    command_topic: 'home/switch/holiday/status'
     payload_on: 'ON'
     payload_off: 'OFF'
     optimistic: false
@@ -322,7 +322,7 @@ automation:
           payload_template: >
             He abierto la barrera. {%- if is_state("person.geni", "home") -%}Jeni está en casa.{%- else -%}Jeni no está en casa.{%- endif -%}
           retain: false
-          topic: 'cmnd/phone/hokus/say'
+          topic: 'phone/hokus/cmnd/say'
       - delay:
           seconds: 5
       - service: telegram_bot.send_message

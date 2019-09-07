@@ -382,7 +382,7 @@ binary_sensor:
   
   # Alarm status for foscam cam in hall
   - platform: mqtt
-    state_topic: 'homeassistant/camera/recibidor/alarm'
+    state_topic: 'home/camera/recibidor/alarm'
     name: recibidor_camara_det_mov
     device_class: motion
     # 0: No alarm
@@ -396,7 +396,7 @@ binary_sensor:
   
   # Alarm status for foscam cam in swimming pool
   - platform: mqtt
-    state_topic: 'homeassistant/camera/piscina/alarm'
+    state_topic: 'home/camera/piscina/alarm'
     name: piscina_camara_det_mov
     device_class: motion
     # 0: No alarm
@@ -410,7 +410,7 @@ binary_sensor:
   
   # Alarm status for foscam cam in bbq
   - platform: mqtt
-    state_topic: 'homeassistant/camera/barbacoa/alarm'
+    state_topic: 'home/camera/barbacoa/alarm'
     name: barbacoa_camara_det_mov
     device_class: motion
     # 0: No alarm
@@ -424,7 +424,7 @@ binary_sensor:
 
   # Alarm status for foscam cam in living room
   - platform: mqtt
-    state_topic: 'homeassistant/camera/salon/alarm'
+    state_topic: 'home/camera/salon/alarm'
     name: salon_camara_det_mov
     device_class: motion
     # 0: No alarm
@@ -438,7 +438,7 @@ binary_sensor:
 
   # Alarm status for Linksys cam in caseta
   - platform: mqtt
-    state_topic: 'homeassistant/camera/caseta/alarm'
+    state_topic: 'home/camera/caseta/alarm'
     name: caseta_camara_det_mov
     device_class: motion
     # 0: No alarm
@@ -449,7 +449,21 @@ binary_sensor:
             {% else %}
                 OFF
             {%- endif %}
-  
+
+  # Alarm status for Netatmo presence
+  - platform: mqtt
+    state_topic: 'home/camera/entrada/alarm'
+    name: entrada_camara_det_mov
+    device_class: motion
+    # 0: No alarm
+    # 1: Alarm triggered
+    value_template: >-
+            {%- if value != "0" %}
+                ON
+            {% else %}
+                OFF
+            {%- endif %}
+
   - platform: template
     sensors:
       despacho_sensor_movimiento_sabotaje:
