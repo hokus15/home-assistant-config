@@ -66,6 +66,24 @@
       data:
         entity_id: script.goto_sleep
 
+- alias: '[None] Daily Backup at 3 AM'
+  trigger:
+    platform: time
+    at: '3:00:00'
+  action:
+  - service: hassio.snapshot_full
+    data_template:
+      name: Auto {{ now().strftime('%Y-%m-%d') }}
+  - service: notify.slack
+    data_template:
+      message: ''
+      data:
+        attachments:
+          - color: 'danger'
+            pretext: ':floppy_disk: *Copia seguridad* :floppy_disk:'
+            text: 'Copia de seguridad [Auto {{ now().strftime("%Y-%m-%d") }}] creada'
+            fallback: 'Copia seguridad'
+
 #############################################################
 # Nodon Octan automations
 #############################################################
