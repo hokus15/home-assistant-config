@@ -661,7 +661,7 @@
                                 {
                                     "entities": [
                                         "sensor.piscina_water_temperature",
-                                        "sensor.piscina_temperature_mean"
+                                        "sensor.piscina_temperature"
                                     ],
                                     "hours_to_show": 336,
                                     "refresh_interval": 600,
