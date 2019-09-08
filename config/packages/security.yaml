@@ -382,7 +382,7 @@ binary_sensor:
   
   # Alarm status for foscam cam in hall
   - platform: mqtt
-    state_topic: 'home/camera/recibidor/alarm'
+    state_topic: 'home/sensor/camera/recibidor/alarm'
     name: recibidor_camara_det_mov
     device_class: motion
     # 0: No alarm
@@ -396,7 +396,7 @@ binary_sensor:
   
   # Alarm status for foscam cam in swimming pool
   - platform: mqtt
-    state_topic: 'home/camera/piscina/alarm'
+    state_topic: 'home/sensor/camera/piscina/alarm'
     name: piscina_camara_det_mov
     device_class: motion
     # 0: No alarm
@@ -410,7 +410,7 @@ binary_sensor:
   
   # Alarm status for foscam cam in bbq
   - platform: mqtt
-    state_topic: 'home/camera/barbacoa/alarm'
+    state_topic: 'home/sensor/camera/barbacoa/alarm'
     name: barbacoa_camara_det_mov
     device_class: motion
     # 0: No alarm
@@ -424,7 +424,7 @@ binary_sensor:
 
   # Alarm status for foscam cam in living room
   - platform: mqtt
-    state_topic: 'home/camera/salon/alarm'
+    state_topic: 'home/sensor/camera/salon/alarm'
     name: salon_camara_det_mov
     device_class: motion
     # 0: No alarm
@@ -438,7 +438,7 @@ binary_sensor:
 
   # Alarm status for Linksys cam in caseta
   - platform: mqtt
-    state_topic: 'home/camera/caseta/alarm'
+    state_topic: 'home/sensor/camera/caseta/alarm'
     name: caseta_camara_det_mov
     device_class: motion
     # 0: No alarm
@@ -452,7 +452,7 @@ binary_sensor:
 
   # Alarm status for Netatmo presence
   - platform: mqtt
-    state_topic: 'home/camera/entrada/alarm'
+    state_topic: 'home/sensor/camera/entrada/alarm'
     name: entrada_camara_det_mov
     device_class: motion
     # 0: No alarm
@@ -551,12 +551,12 @@ automation:
           payload_template: 1
           retain: true
           topic: >- 
-              {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/camera/recibidor/alarm
-              {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/camera/piscina/alarm
-              {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/camera/barbacoa/alarm
-              {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/camera/caseta/alarm
-              {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/alarm
-              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/salon/alarm
+              {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/sensor/camera/recibidor/alarm
+              {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/sensor/camera/piscina/alarm
+              {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/sensor/camera/barbacoa/alarm
+              {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/sensor/camera/caseta/alarm
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}home/sensor/camera/entrada/alarm
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/sensor/camera/salon/alarm
               {%- else -%}desconocido{%-endif-%}
       - delay:
           seconds: 30
@@ -565,12 +565,12 @@ automation:
           payload: 0
           retain: true
           topic:  >- 
-              {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/camera/recibidor/alarm
-              {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/camera/piscina/alarm
-              {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/camera/barbacoa/alarm
-              {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/camera/caseta/alarm
-              {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/alarm
-              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/salon/alarm
+              {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/sensor/camera/recibidor/alarm
+              {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/sensor/camera/piscina/alarm
+              {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/sensor/camera/barbacoa/alarm
+              {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/sensor/camera/caseta/alarm
+              {%- elif "puerta_principal" in trigger.event.data.folder -%}home/sensor/camera/entrada/alarm
+              {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/sensor/camera/salon/alarm
               {%- else -%}desconocido{%-endif-%}
       - service: logbook.log
         data_template:

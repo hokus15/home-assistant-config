@@ -67,16 +67,16 @@ device_tracker:
   - platform: mqtt_json
     devices:
       # Ioniq tracker
-      car_ioniq: car/ioniq/location
+      car_ioniq: car/sensor/ioniq/location
       # Nissan tracker
       #nissan: car/nissan/location
 
 binary_sensor:
   - platform: mqtt
-    state_topic: 'car/ioniq/state'
+    state_topic: 'car/sensor/ioniq/state'
     name: car_ioniq_state
     value_template: 'ON'
-    json_attributes_topic: 'car/ioniq/state'
+    json_attributes_topic: 'car/sensor/ioniq/state'
     device_class: 'moving'
     force_update: true
     off_delay: 180
@@ -89,16 +89,16 @@ sensor:
     round: 2
 
   - platform: mqtt
-    state_topic: 'car/ioniq/location'
+    state_topic: 'car/sensor/ioniq/location'
     name: car_ioniq_location
     value_template: '{{ value_json.last_update|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
-    json_attributes_topic: 'car/ioniq/location'
+    json_attributes_topic: 'car/sensor/ioniq/location'
 
   - platform: mqtt
-    state_topic: 'car/ioniq/state/daily'
+    state_topic: 'car/sensor/ioniq/state/daily'
     name: car_ioniq_state_daily
     value_template: '{{ value_json.timestamp|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
-    json_attributes_topic: 'car/ioniq/state/daily'
+    json_attributes_topic: 'car/sensor/ioniq/state/daily'
 
   - platform: template
     sensors:
@@ -414,7 +414,7 @@ automation:
     action:
       - service: mqtt.publish
         data:
-          topic: 'car/ioniq/state/daily'
+          topic: 'car/sensor/ioniq/state/daily'
           retain: true
           qos: 0
           payload_template: "{{{\"charged_energy_kwh\": states('sensor.car_ioniq_state_today_energy_charged'),\"odometer\": states('sensor.car_ioniq_state_odometer'),\"ced\": states('sensor.car_ioniq_state_ced'),\"cec\": states('sensor.car_ioniq_state_cec'),\"soh\": states('sensor.car_ioniq_state_battery_health'),\"soc_display\":states('sensor.car_ioniq_state_soc_display'),\"soc_bms\":states('sensor.car_ioniq_state_soc_bms'),\"distance_since_cc\": states('sensor.car_ioniq_state_distance_since_cc'),\"timestamp\": as_timestamp(now())|round,} | tojson}}"

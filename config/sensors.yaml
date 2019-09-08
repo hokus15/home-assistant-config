@@ -92,25 +92,25 @@
 
 # Magenta ink level
 - platform: mqtt
-  state_topic: 'home/printer/magenta'
+  state_topic: 'home/sensor/printer/magenta'
   name: ink_level_magenta
   unit_of_measurement: '%'
 
 # Cyan ink level
 - platform: mqtt
-  state_topic: 'home/printer/cyan'
+  state_topic: 'home/sensor/printer/cyan'
   name: ink_level_cyan
   unit_of_measurement: '%'
 
 # Yellow ink level
 - platform: mqtt
-  state_topic: 'home/printer/yellow'
+  state_topic: 'home/sensor/printer/yellow'
   name: ink_level_yellow
   unit_of_measurement: '%'
 
 # black ink level
 - platform: mqtt
-  state_topic: 'home/printer/black'
+  state_topic: 'home/sensor/printer/black'
   name: ink_level_black
   unit_of_measurement: '%'
 
@@ -130,10 +130,10 @@
   name: "HA runtime in minutes"
   unit_of_measurement: minutes
 
-#- platform: sql
-#  db_url: !secret recorder_db_url
-#  queries:
-#    - name: DB size
-#      query: 'SELECT table_schema "database", Round((Sum(data_length + index_length) / 1024) / 1024, 0) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;'
-#      column: 'value'
-#      unit_of_measurement: MB
+- platform: sql
+  db_url: !secret recorder_db_url
+  queries:
+    - name: DB size
+      query: 'SELECT table_schema "database", Round((Sum(data_length + index_length) / 1024) / 1024, 0) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;'
+      column: 'value'
+      unit_of_measurement: MB

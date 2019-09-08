@@ -17,7 +17,7 @@ sensor:
 
   - platform: mqtt
     name: 'outside_fence'
-    state_topic: 'home/fence/state'
+    state_topic: 'home/sensor/fence/state'
     icon: mdi:garage
 
 cover:
@@ -64,7 +64,7 @@ automation:
     action:
       - service: mqtt.publish
         data:
-          topic: home/fence/state
+          topic: home/sensor/fence/state
           payload_template: >-
             {%- if is_state("sensor.outside_fence_sensor_state", "off") %}
               En movimiento
@@ -77,7 +77,7 @@ automation:
           seconds: 18
       - service: mqtt.publish
         data:
-          topic: home/fence/state
+          topic: home/sensor/fence/state
           payload_template: >-
             {%- if is_state("sensor.outside_fence_sensor_state", "off") %}
               Abierta
@@ -95,7 +95,7 @@ automation:
     action:
       - service: mqtt.publish
         data:
-          topic: home/fence/state
+          topic: home/sensor/fence/state
           payload: "En movimiento"
           qos: 0
           retain: true
@@ -108,7 +108,7 @@ automation:
     action:
       - service: mqtt.publish
         data:
-          topic: home/fence/state
+          topic: home/sensor/fence/state
           payload: Cerrada
           qos: 0
           retain: true
