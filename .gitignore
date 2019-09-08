@@ -30,3 +30,4 @@ config/.storage/frontend.user_data_a05d463a90d84273a11927004adca080
 config/.storage/core.config
 config/.storage/hassio
 config/home-assistant_v2.db
+config/.cloud
