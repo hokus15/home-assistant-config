@@ -165,7 +165,7 @@ goto_sleep:
       entity_id: media_player.recibidor
       data_template:
         message: >
-          {%- if states("sensor.car_ioniq_state_soc_display")|float < 45 %}Batería del coche al {{states("sensor.car_ioniq_state_soc_display")}} por ciento.{% endif %}
+          {%- if states("sensor.car_ioniq_state_soc_display")|float < 45 %}Batería del coche al {{states("sensor.car_ioniq_state_soc_display")}} por ciento. {% endif %}
           {%- if is_state("binary_sensor.porche_sensor_puerta", "on") %}Puerta de la cocina abierta. {% endif %}
           {%- if is_state("binary_sensor.porche_sensor_persiana", "on") %}Persiana de la cocina abierta. {% endif %}
           {%- if is_state("binary_sensor.coladuria_sensor_puerta", "on") %}Puerta de la coladuría abierta. {% endif %}
