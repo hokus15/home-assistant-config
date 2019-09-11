@@ -9,7 +9,7 @@ system_restart_ha:
 system_reboot_pi:
   alias: 'Reiniciar Pi'
   sequence:
-      - service: shell_command.reboot_pi
+      - service: hassio.host_reboot
 
 #############################################################
 # Speech scripts

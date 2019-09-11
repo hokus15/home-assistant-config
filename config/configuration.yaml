@@ -238,7 +238,6 @@ tts:
 #    time_memory: 300
     language: 'es'
 
-shell_command: !include shell_command.yaml
 sensor: !include sensors.yaml
 binary_sensor: !include binary_sensors.yaml
 automation: !include automations.yaml
