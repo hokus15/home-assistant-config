@@ -103,15 +103,6 @@ binary_sensor:
         value_template: "{{ is_state('sensor.nut_ups_status_data', 'OL') or is_state('sensor.nut_ups_status_data', 'OL CHRG') }}"
         delay_off:
           seconds: 30
-switch:
-  - platform: template
-    switches:
-      energy_ups_beeper:
-        value_template: "{{ is_state('sensor.nut_ups_beeper_status', 'enabled') }}"
-        turn_on:
-          service: shell_command.nut_ups_enable_beeper
-        turn_off:
-          service: shell_command.nut_ups_disable_beeper
 
 utility_meter:
   energy_home_daily:
@@ -156,24 +147,6 @@ automation:
                 text: 'Corte en el suministro eléctrico detectado'
                 fallback: 'Suministro eléctrico'
 
-  
-  # Restart UPS driver controller when a power cut is detected.
-  # I've added this automation because from time to time the controller stops working until it's restarted.
-#  - alias: '[Energy] Restart UPS Driver Controller'
-#    trigger:
-#      platform: state
-#      entity_id: binary_sensor.energy_ups_status_bs
-#      to: 'off'
-#    condition:
-#      - condition: numeric_state
-#        entity_id: sensor.ha_runtime_in_minutes
-#        above: 2
-#    action:
-#      - service: notify.telegram
-#        data:
-#          message: 'Controlador SAI reiniciado'
-#      - service: shell_command.restart_ups_driver_controller
-  
   # Notify when the power is back normal
   - alias: '[Energy] Notify power ok'
     trigger:

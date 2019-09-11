@@ -1,12 +1,2 @@
 # Reboot pi
 reboot_pi: sudo reboot
-
-# Enable NUT UPS beeper. Command: upscmd -u <user> -p <password> <ups_name> beeper.enable
-nut_ups_enable_beeper: !secret nut_ups_enable_beeper_cmd
-
-# Disable NUT UPS beeper. Command: upscmd -u <user> -p <password> <ups_name> beeper.disable
-nut_ups_disable_beeper: !secret nut_ups_disable_beeper_cmd
-
-restart_ups_driver_controller: sudo upsdrvctl start
-
-start_nut_server: sudo systemctl start nut-server.service

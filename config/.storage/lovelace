@@ -545,7 +545,7 @@
                                     "entity": "sensor.first_floor_temperature_trend"
                                 },
                                 {
-                                    "entity": "sensor.home_temperature_mean"
+                                    "entity": "sensor.home_temperature"
                                 },
                                 {
                                     "entity": "group.unidad_familiar"
@@ -560,7 +560,7 @@
                         },
                         {
                             "entities": [
-                                "sensor.home_temperature_mean"
+                                "sensor.home_temperature"
                             ],
                             "hours_to_show": 336,
                             "refresh_interval": 600,
@@ -1015,9 +1015,6 @@
                                 },
                                 {
                                     "entity": "sensor.nut_ups_battery_runtime"
-                                },
-                                {
-                                    "entity": "switch.energy_ups_beeper"
                                 }
                             ],
                             "show_header_toggle": false,
