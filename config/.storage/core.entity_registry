@@ -542,7 +542,7 @@
                 "unique_id": "3-72057594093060096"
             },
             {
-                "config_entry_id": "64a0feb392ee44188de5bba85b1b09a4",
+                "config_entry_id": "ba140323fab64440bee4f8cd44f71ee3",
                 "device_id": "8af28b3337744ed7aa0c3950f87c412e",
                 "disabled_by": null,
                 "entity_id": "media_player.recibidor",
@@ -551,7 +551,7 @@
                 "unique_id": "360839a3-401e-1ba0-81a9-0736c4a39ba6"
             },
             {
-                "config_entry_id": "64a0feb392ee44188de5bba85b1b09a4",
+                "config_entry_id": "ba140323fab64440bee4f8cd44f71ee3",
                 "device_id": "cf0ef073a50742cd95184495f6e1e2ca",
                 "disabled_by": null,
                 "entity_id": "media_player.cocina",
@@ -560,7 +560,7 @@
                 "unique_id": "08967150-674f-9e20-eb89-a420843a4ffe"
             },
             {
-                "config_entry_id": "64a0feb392ee44188de5bba85b1b09a4",
+                "config_entry_id": "ba140323fab64440bee4f8cd44f71ee3",
                 "device_id": "69b38bec9afe41299b8d4e82f640f3a4",
                 "disabled_by": null,
                 "entity_id": "media_player.salon",
@@ -569,7 +569,7 @@
                 "unique_id": "cdbe4ece-88cc-2512-7429-e5d8747010a6"
             },
             {
-                "config_entry_id": "64a0feb392ee44188de5bba85b1b09a4",
+                "config_entry_id": "ba140323fab64440bee4f8cd44f71ee3",
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "media_player.altavoces",

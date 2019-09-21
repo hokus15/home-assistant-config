@@ -124,7 +124,8 @@
             {
                 "area_id": "699810fc14a143369c88442e67919100",
                 "config_entries": [
-                    "64a0feb392ee44188de5bba85b1b09a4"
+                    "64a0feb392ee44188de5bba85b1b09a4",
+                    "ba140323fab64440bee4f8cd44f71ee3"
                 ],
                 "connections": [],
                 "id": "8af28b3337744ed7aa0c3950f87c412e",
@@ -144,7 +145,8 @@
             {
                 "area_id": "027a1a6e03724296af74beaf4173bcd1",
                 "config_entries": [
-                    "64a0feb392ee44188de5bba85b1b09a4"
+                    "64a0feb392ee44188de5bba85b1b09a4",
+                    "ba140323fab64440bee4f8cd44f71ee3"
                 ],
                 "connections": [],
                 "id": "cf0ef073a50742cd95184495f6e1e2ca",
@@ -164,7 +166,8 @@
             {
                 "area_id": "0ae724982668485c98dde9a3057b95c4",
                 "config_entries": [
-                    "64a0feb392ee44188de5bba85b1b09a4"
+                    "64a0feb392ee44188de5bba85b1b09a4",
+                    "ba140323fab64440bee4f8cd44f71ee3"
                 ],
                 "connections": [],
                 "id": "69b38bec9afe41299b8d4e82f640f3a4",
