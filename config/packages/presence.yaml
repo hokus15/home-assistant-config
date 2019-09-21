@@ -158,40 +158,40 @@ cloud:
 
 automation:
   # Empty home automation when no one of the Familia group is at home
-  - alias: '[Presence] Empty home'
-    trigger:
-      platform: state
-      entity_id: group.unidad_familiar
-      to: 'not_home'
-    action:
-      - service: script.turn_on
-        data:
-          entity_id: script.presence_empty_home
+#  - alias: '[Presence] Empty home'
+#    trigger:
+#      platform: state
+#      entity_id: group.unidad_familiar
+#      to: 'not_home'
+#    action:
+#      - service: script.turn_on
+#        data:
+#          entity_id: script.presence_empty_home
   
   # Someone home automation when someone of the Familia group is at home
-  - alias: '[Presence] Someone home'
-    trigger:
-      platform: state
-      entity_id: group.unidad_familiar
-      to: 'home'
-    action:
-      - service: script.turn_on
-        data:
-          entity_id: script.presence_someone_home
+#  - alias: '[Presence] Someone home'
+#    trigger:
+#      platform: state
+#      entity_id: group.unidad_familiar
+#      to: 'home'
+#    action:
+#      - service: script.turn_on
+#        data:
+#          entity_id: script.presence_someone_home
   
   # Turn on hall lamp when someone at home and the sun is set
-  - alias: '[Presence] Turn on hall lamp when someone arrives at home and the sun is set'
-    trigger:
-      platform: state
-      entity_id: group.unidad_familiar
-      to: 'home'
-    condition:
-      condition: sun
-      after: sunset
-    action:
-      - service: switch.turn_on
-        data:
-          entity_id: switch.entrance_hall_lamp_switch
+#  - alias: '[Presence] Turn on hall lamp when someone arrives at home and the sun is set'
+#    trigger:
+#      platform: state
+#      entity_id: group.unidad_familiar
+#      to: 'home'
+#    condition:
+#      condition: sun
+#      after: sunset
+#    action:
+#      - service: switch.turn_on
+#        data:
+#          entity_id: switch.entrance_hall_lamp_switch
   
   - alias: '[Presence] Remind Geni to disable alarm clock when she works at night'
     trigger:
@@ -379,95 +379,95 @@ automation:
   # Change virtual_device location to home
   # Wait the specified amount of minutes 
   # Turn off input_boolean.empty_home_activation_delay
-  - alias: '[Presence] empty_home_activation_delay on'
-    trigger:
-      platform: state
-      entity_id: input_boolean.empty_home_activation_delay
-      to: 'on'
-    action:
-      - service: device_tracker.see
-        data:
-          dev_id: 'virtual_device'
-          location_name: 'home'
-      - delay: 00:00:10
-      - service: homeassistant.turn_on
-        data:
-          entity_id: group.seguridad
-      - service: notify.telegram
-        data_template:
-          message: >
-            Activada persona autorizada durante {{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }} hora(s) y {{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }} minutos
-      - delay: '{{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }}:{{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }}'
-      - service: homeassistant.turn_off
-        data:
-          entity_id: input_boolean.empty_home_activation_delay
+#  - alias: '[Presence] empty_home_activation_delay on'
+#    trigger:
+#      platform: state
+#      entity_id: input_boolean.empty_home_activation_delay
+#      to: 'on'
+#    action:
+#      - service: device_tracker.see
+#        data:
+#          dev_id: 'virtual_device'
+#          location_name: 'home'
+#      - delay: 00:00:10
+#      - service: homeassistant.turn_on
+#        data:
+#          entity_id: group.seguridad
+#      - service: notify.telegram
+#        data_template:
+#          message: >
+#            Activada persona autorizada durante {{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }} hora(s) y {{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }} minutos
+#      - delay: '{{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }}:{{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }}'
+#      - service: homeassistant.turn_off
+#        data:
+#          entity_id: input_boolean.empty_home_activation_delay
   
   # When input_boolean.empty_home_activation_delay turns off,
   # Change virtual_device location to not_home
-  - alias: '[Presence] empty_home_activation_delay off'
-    trigger:
-      platform: state
-      entity_id: input_boolean.empty_home_activation_delay
-      to: 'off'
-    action:
-      - service: homeassistant.turn_off
-        data:
-          entity_id: group.seguridad
-      - delay: 00:00:10
-      - service: device_tracker.see
-        data:
-          dev_id: 'virtual_device'
-          location_name: 'not_home'
+#  - alias: '[Presence] empty_home_activation_delay off'
+#    trigger:
+#      platform: state
+#      entity_id: input_boolean.empty_home_activation_delay
+#      to: 'off'
+#    action:
+#      - service: homeassistant.turn_off
+#        data:
+#          entity_id: group.seguridad
+#      - delay: 00:00:10
+#      - service: device_tracker.see
+#        data:
+#          dev_id: 'virtual_device'
+#          location_name: 'not_home'
   
   # Turn on for 4 hours authorized person at 8:15 if it's a workday
-  - alias: '[Presence] Authorized person'
-    trigger:
-      platform: time
-      at: '08:15:00'
-    condition:
-      condition: state
-      entity_id: 'binary_sensor.workday_sensor'
-      state: 'on'
-    action:
-      - service: input_number.set_value
-        data:
-          entity_id: input_number.empty_home_activation_delay_minutes
-          value: 240.0
-      - service: homeassistant.turn_on
-        data:
-          entity_id: input_boolean.empty_home_activation_delay
+#  - alias: '[Presence] Authorized person'
+#    trigger:
+#      platform: time
+#      at: '08:15:00'
+#    condition:
+#      condition: state
+#      entity_id: 'binary_sensor.workday_sensor'
+#      state: 'on'
+#    action:
+#      - service: input_number.set_value
+#        data:
+#          entity_id: input_number.empty_home_activation_delay_minutes
+#          value: 240.0
+#      - service: homeassistant.turn_on
+#        data:
+#          entity_id: input_boolean.empty_home_activation_delay
 
-  - alias: '[Presence] Authorized person at home'
-    trigger:
-      - platform: state
-        entity_id: device_tracker.virtual_device
-        to: 'home'
-    action:
-      - service: notify.slack
-        data_template:
-          message: ''
-          data:
-            attachments:
-              - color: 'good'
-                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
-                text: 'Persona autorizada en casa'
-                fallback: 'Presencia'
-
-  - alias: '[Presence] Authorized person not home'
-    trigger:
-      - platform: state
-        entity_id: device_tracker.virtual_device
-        from: 'home'
-    action:
-      - service: notify.slack
-        data_template:
-          message: ''
-          data:
-            attachments:
-              - color: 'good'
-                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
-                text: 'Persona autorizada fuera de casa'
-                fallback: 'Presencia'
+#  - alias: '[Presence] Authorized person at home'
+#    trigger:
+#      - platform: state
+#        entity_id: device_tracker.virtual_device
+#        to: 'home'
+#    action:
+#      - service: notify.slack
+#        data_template:
+#          message: ''
+#          data:
+#            attachments:
+#              - color: 'good'
+#                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+#                text: 'Persona autorizada en casa'
+#                fallback: 'Presencia'
+#
+#  - alias: '[Presence] Authorized person not home'
+#    trigger:
+#      - platform: state
+#        entity_id: device_tracker.virtual_device
+#        from: 'home'
+#    action:
+#      - service: notify.slack
+#        data_template:
+#          message: ''
+#          data:
+#            attachments:
+#              - color: 'good'
+#                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+#                text: 'Persona autorizada fuera de casa'
+#                fallback: 'Presencia'
 
   #############################################################
   # Holiday automations

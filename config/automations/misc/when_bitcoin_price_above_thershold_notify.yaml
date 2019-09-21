@@ -1,0 +1,18 @@
+alias: '[Misc] Notify bitcoin price above threshold'
+trigger:
+  platform: numeric_state
+  entity_id: sensor.exchange_rate_1_btc
+  above: 10000
+action:
+  - service: notify.telegram
+    data_template:
+      message: 'Bitcoin ha llegado a un valor de {{states.sensor.exchange_rate_1_btc.state}} {{states.sensor.exchange_rate_1_btc.attributes.unit_of_measurement}}'
+  - service: notify.slack
+    data_template:
+      message: ''
+      data:
+        attachments:
+          - color: 'good'
+            pretext: ':euro: *Inversiones* :euro:'
+            text: 'Bitcoin ha llegado a un valor de {{states.sensor.exchange_rate_1_btc.state}} {{states.sensor.exchange_rate_1_btc.attributes.unit_of_measurement}}'
+            fallback: 'Inversiones'

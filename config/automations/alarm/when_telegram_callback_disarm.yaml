@@ -1,0 +1,38 @@
+# Telegram callback that disarms alarm for specified minutes
+alias: '[Alarm] Telegram callback that disarms alarm for specified minutes'
+hide_entity: true
+trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      data: '/30_mins'
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      data: '/60_mins'
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      data: '/120_mins'
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      data: '/180_mins'
+action:
+  # Answer callback
+  - service: telegram_bot.answer_callback_query
+    data_template:
+      callback_query_id: '{{ trigger.event.data.id }}'
+      message: 'Alarma desarmada durante {{ trigger.event.data.data[1:-5] }} mins.'
+      show_alert: true
+  # Remove inline keyboard from original message.
+  - service: telegram_bot.edit_replymarkup
+    data_template:
+           message_id: '{{ trigger.event.data.message.message_id }}'
+           chat_id: '{{ trigger.event.data.chat_id }}'
+           inline_keyboard: []
+  # Disarm alarm temporarily
+  - service: script.alarm_disarm_telegram_temporary
+    data_template:
+      data:
+        minutes: '{{ trigger.event.data.data[1:-5] }}'

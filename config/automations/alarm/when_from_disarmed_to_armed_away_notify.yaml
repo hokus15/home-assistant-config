@@ -1,0 +1,16 @@
+alias: '[Alarm] Notify when alarm is armed away'
+trigger: 
+  - platform: state
+    entity_id: alarm_control_panel.home
+    from: 'disarmed'
+    to: 'armed_away'
+action:
+  - service: notify.slack
+    data_template:
+      message: ''
+      data:
+        attachments:
+          - color: 'good'
+            pretext: ':bell: *Alarma* :bell:'
+            text: 'Alarma armada en modo fuera de casa'
+            fallback: 'Alarma'

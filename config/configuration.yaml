@@ -228,7 +228,7 @@ speedtestdotnet:
     - upload
 
 zwave:
-  usb_path: /dev/ttyAMA0
+  usb_path: /dev/ttyACM0
   device_config: !include zwave_device_config.yaml
 
 tts:
@@ -240,6 +240,7 @@ tts:
 
 sensor: !include sensors.yaml
 binary_sensor: !include binary_sensors.yaml
-automation: !include automations.yaml
+#automation: !include automations.yaml
+automation: !include_dir_list automations
 script: !include scripts.yaml
 panel_iframe: !include panel_iframes.yaml
