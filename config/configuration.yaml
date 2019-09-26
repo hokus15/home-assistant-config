@@ -241,7 +241,11 @@ zwave:
       polling_intensity: 0
     "*_sourcenodeid":
       ignored: true
-    "sensor.*_exporting":
+    "sensor.*_exporting*":
+      ignored: true
+    "sensor.*_heat":
+      ignored: true
+    "sensor.*_power_management":
       ignored: true
     "sensor.*_general":
       ignored: true
