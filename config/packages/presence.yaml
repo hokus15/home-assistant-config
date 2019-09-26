@@ -193,19 +193,19 @@ automation:
 #        data:
 #          entity_id: switch.entrance_hall_lamp_switch
   
-  - alias: '[Presence] Remind Geni to disable alarm clock when she works at night'
-    trigger:
-      platform: time
-      at: '20:45:00'
-    condition:
-      condition: state
-      entity_id: 'calendar.turnos_geni_noche'
-      state: 'on'
-    action:
-      - service: notify.telegram
-        data:
-          target: !secret geniphone_telegram_chat_id
-          message: '¿Has desconectado ya el despertador? Si no lo has hecho, es hora de hacerlo.'
+#  - alias: '[Presence] Remind Geni to disable alarm clock when she works at night'
+#    trigger:
+#      platform: time
+#      at: '20:45:00'
+#    condition:
+#      condition: state
+#      entity_id: 'calendar.turnos_geni_noche'
+#      state: 'on'
+#    action:
+#      - service: notify.telegram
+#        data:
+#          target: !secret geniphone_telegram_chat_id
+#          message: '¿Has desconectado ya el despertador? Si no lo has hecho, es hora de hacerlo.'
 
   #############################################################
   # Presence automations - Geni
@@ -236,37 +236,37 @@ automation:
 #              {%- endif -%}
 #            {%- endif -%}
 
-  - alias: '[Presence] Geni at home'
-    trigger:
-      - platform: state
-        entity_id: person.geni
-        to: 'home'
-    action:
-      - service: notify.slack
-        data_template:
-          message: ''
-          data:
-            attachments:
-              - color: 'good'
-                pretext: ':woman: *Presencia* :woman:'
-                text: 'Geni está en casa'
-                fallback: 'Presencia'
+#  - alias: '[Presence] Geni at home'
+#    trigger:
+#      - platform: state
+#        entity_id: person.geni
+#        to: 'home'
+#    action:
+#      - service: notify.slack
+#        data_template:
+#          message: ''
+#          data:
+#            attachments:
+#              - color: 'good'
+#                pretext: ':woman: *Presencia* :woman:'
+#                text: 'Geni está en casa'
+#                fallback: 'Presencia'
 
-  - alias: '[Presence] Geni not home'
-    trigger:
-      - platform: state
-        entity_id: person.geni
-        from: 'home'
-    action:
-      - service: notify.slack
-        data_template:
-          message: ''
-          data:
-            attachments:
-              - color: 'good'
-                pretext: ':woman: *Presencia* :woman:'
-                text: 'Geni está fuera de casa'
-                fallback: 'Presencia'
+#  - alias: '[Presence] Geni not home'
+#    trigger:
+#      - platform: state
+#        entity_id: person.geni
+#        from: 'home'
+#    action:
+#      - service: notify.slack
+#        data_template:
+#          message: ''
+#          data:
+#            attachments:
+#              - color: 'good'
+#                pretext: ':woman: *Presencia* :woman:'
+#                text: 'Geni está fuera de casa'
+#                fallback: 'Presencia'
 
   #############################################################
   # Presence automations - Jordi
@@ -337,12 +337,11 @@ automation:
  #         location_name: 'home'
   
   # When Jordi leave home zone and in the car:
-  #   - Set hokusphone 'not_home'
   #   - If nobody at home, close the fence if open, and notify if porch door or blind is open.
   - alias: '[Presence] Jordi leaving home in Ioniq'
     trigger:
        - platform: zone
-         entity_id: device_tracker.ioniq
+         entity_id: device_tracker.car_ioniq
          zone: zone.home
          event: leave
     condition:
@@ -350,10 +349,6 @@ automation:
         entity_id: binary_sensor.car_ioniq_state
         state: 'on'
     action:
-      - service: device_tracker.see
-        data:
-          dev_id: 'hokusphone'
-          location_name: 'not_home'
       - service: mqtt.publish
         data:
           payload_template: >
