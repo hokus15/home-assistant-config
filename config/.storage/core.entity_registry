@@ -1332,6 +1332,78 @@
                 "name": null,
                 "platform": "upnp",
                 "unique_id": "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_packets/sec_received"
+            },
+            {
+                "config_entry_id": "8f487225fc9142b99bf7f9891c5f90c7",
+                "device_id": "9526df25c007446c8c2cff5eea097944",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_bytes_received_3",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_bytes_received"
+            },
+            {
+                "config_entry_id": "8f487225fc9142b99bf7f9891c5f90c7",
+                "device_id": "8e587cc9f0064b3588e87fdf0ffd6ab3",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_packets_received_3",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_packets_received"
+            },
+            {
+                "config_entry_id": "8f487225fc9142b99bf7f9891c5f90c7",
+                "device_id": "180fa576ef5a4021837070fd378cb140",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_packets_sec_sent_3",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_packets/sec_sent"
+            },
+            {
+                "config_entry_id": "8f487225fc9142b99bf7f9891c5f90c7",
+                "device_id": "3b5605a1462145fb936a6c82322c0929",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_kbyte_sec_received_3",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_kbyte/sec_received"
+            },
+            {
+                "config_entry_id": "8f487225fc9142b99bf7f9891c5f90c7",
+                "device_id": "74ecd06cc8f04ea8a0dbf1d231ef619d",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_kbyte_sec_sent_3",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_kbyte/sec_sent"
+            },
+            {
+                "config_entry_id": "8f487225fc9142b99bf7f9891c5f90c7",
+                "device_id": "b01a3f1661034b26b428309ebbd9eaaf",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_packets_sent_3",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_packets_sent"
+            },
+            {
+                "config_entry_id": "8f487225fc9142b99bf7f9891c5f90c7",
+                "device_id": "b31f003e57d44f03b97f644ff5039f7f",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_packets_sec_received_3",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_packets/sec_received"
+            },
+            {
+                "config_entry_id": "8f487225fc9142b99bf7f9891c5f90c7",
+                "device_id": "d01962feefdc4daf9026cf1a814caa50",
+                "disabled_by": null,
+                "entity_id": "sensor.onhub_bytes_sent_3",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_bytes_sent"
             }
         ]
     },

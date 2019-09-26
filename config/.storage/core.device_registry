@@ -17,7 +17,7 @@
                 "manufacturer": "Swiid (CBCC Domotique SAS)",
                 "model": "SwiidInter",
                 "name": "Swiid (CBCC Domotique SAS) SwiidInter",
-                "name_by_user": null,
+                "name_by_user": "Interruptor L\u00e1mpara Recibidor",
                 "sw_version": null,
                 "via_device_id": "cbf7e1b9eede4d75803770ba5cf15dd8"
             },
@@ -37,7 +37,7 @@
                 "manufacturer": "FIBARO System",
                 "model": "FGMS001-ZW5 Motion Sensor",
                 "name": "FIBARO System FGMS001-ZW5 Motion Sensor",
-                "name_by_user": null,
+                "name_by_user": "Sensor Movimiento Despacho",
                 "sw_version": null,
                 "via_device_id": "cbf7e1b9eede4d75803770ba5cf15dd8"
             },
@@ -57,7 +57,7 @@
                 "manufacturer": "FIBARO System",
                 "model": "FGK10x Door Opening Sensor",
                 "name": "FIBARO System FGK10x Door Opening Sensor",
-                "name_by_user": null,
+                "name_by_user": "Sensor Persiana Porche",
                 "sw_version": null,
                 "via_device_id": "cbf7e1b9eede4d75803770ba5cf15dd8"
             },
@@ -77,7 +77,7 @@
                 "manufacturer": "FIBARO System",
                 "model": "FGS223 Double Relay",
                 "name": "FIBARO System FGS223 Double Relay",
-                "name_by_user": null,
+                "name_by_user": "Interruptor Escalera",
                 "sw_version": null,
                 "via_device_id": "cbf7e1b9eede4d75803770ba5cf15dd8"
             },
@@ -97,7 +97,7 @@
                 "manufacturer": "FIBARO System",
                 "model": "FGK10x Door Opening Sensor",
                 "name": "FIBARO System FGK10x Door Opening Sensor",
-                "name_by_user": null,
+                "name_by_user": "Sensor Puerta Porche",
                 "sw_version": null,
                 "via_device_id": "cbf7e1b9eede4d75803770ba5cf15dd8"
             },
@@ -117,7 +117,7 @@
                 "manufacturer": "FIBARO System",
                 "model": "FGK10x Door Opening Sensor",
                 "name": "FIBARO System FGK10x Door Opening Sensor",
-                "name_by_user": null,
+                "name_by_user": "Sensor Puerta Coladur\u00eda",
                 "sw_version": null,
                 "via_device_id": "cbf7e1b9eede4d75803770ba5cf15dd8"
             },
@@ -367,7 +367,7 @@
                 "manufacturer": "FIBARO System",
                 "model": "FGS223 Double Relay",
                 "name": "FIBARO System FGS223 Double Relay",
-                "name_by_user": null,
+                "name_by_user": "Interruptor Sal\u00f3n",
                 "sw_version": null,
                 "via_device_id": "cbf7e1b9eede4d75803770ba5cf15dd8"
             },
@@ -392,7 +392,7 @@
                 "via_device_id": null
             },
             {
-                "area_id": null,
+                "area_id": "a3df0520a7304f55b76d00a9a726ab66",
                 "config_entries": [
                     "8bf6382d7b42412f9ed287fb013ff34e"
                 ],
@@ -408,12 +408,12 @@
                 "manufacturer": "FIBARO System",
                 "model": "FGS223 Double Relay",
                 "name": "FIBARO System FGS223 Double Relay (2)",
-                "name_by_user": null,
+                "name_by_user": "Interruptor Suite",
                 "sw_version": null,
                 "via_device_id": "118a2732a2c34b9ab9fbdd4944b11393"
             },
             {
-                "area_id": null,
+                "area_id": "0ae724982668485c98dde9a3057b95c4",
                 "config_entries": [
                     "8bf6382d7b42412f9ed287fb013ff34e"
                 ],
@@ -429,7 +429,7 @@
                 "manufacturer": "FIBARO System",
                 "model": "FGS223 Double Relay",
                 "name": "FIBARO System FGS223 Double Relay (2)",
-                "name_by_user": null,
+                "name_by_user": "Interruptor Comedor",
                 "sw_version": null,
                 "via_device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4"
             },
@@ -614,6 +614,191 @@
                 "manufacturer": "Google",
                 "model": null,
                 "name": "OnHub packets/sec received",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "0a4390d181734ac4a342830395be58da",
+                "config_entries": [
+                    "8f487225fc9142b99bf7f9891c5f90c7"
+                ],
+                "connections": [
+                    [
+                        "upnp",
+                        "uuid:b132bcf5-df10-4b53-8488-d18c555b303d"
+                    ]
+                ],
+                "id": "d604fc505f2d49609fda79e98459f380",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:b132bcf5-df10-4b53-8488-d18c555b303d"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "0a4390d181734ac4a342830395be58da",
+                "config_entries": [
+                    "8f487225fc9142b99bf7f9891c5f90c7"
+                ],
+                "connections": [],
+                "id": "9526df25c007446c8c2cff5eea097944",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_bytes_received"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub bytes received",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "0a4390d181734ac4a342830395be58da",
+                "config_entries": [
+                    "8f487225fc9142b99bf7f9891c5f90c7"
+                ],
+                "connections": [],
+                "id": "8e587cc9f0064b3588e87fdf0ffd6ab3",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_packets_received"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub packets received",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "0a4390d181734ac4a342830395be58da",
+                "config_entries": [
+                    "8f487225fc9142b99bf7f9891c5f90c7"
+                ],
+                "connections": [],
+                "id": "180fa576ef5a4021837070fd378cb140",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_packets/sec_sent"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub packets/sec sent",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "0a4390d181734ac4a342830395be58da",
+                "config_entries": [
+                    "8f487225fc9142b99bf7f9891c5f90c7"
+                ],
+                "connections": [],
+                "id": "3b5605a1462145fb936a6c82322c0929",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_kbyte/sec_received"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub kbyte/sec received",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "0a4390d181734ac4a342830395be58da",
+                "config_entries": [
+                    "8f487225fc9142b99bf7f9891c5f90c7"
+                ],
+                "connections": [],
+                "id": "74ecd06cc8f04ea8a0dbf1d231ef619d",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_kbyte/sec_sent"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub kbyte/sec sent",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "0a4390d181734ac4a342830395be58da",
+                "config_entries": [
+                    "8f487225fc9142b99bf7f9891c5f90c7"
+                ],
+                "connections": [],
+                "id": "b01a3f1661034b26b428309ebbd9eaaf",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_packets_sent"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub packets sent",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "0a4390d181734ac4a342830395be58da",
+                "config_entries": [
+                    "8f487225fc9142b99bf7f9891c5f90c7"
+                ],
+                "connections": [],
+                "id": "b31f003e57d44f03b97f644ff5039f7f",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_packets/sec_received"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub packets/sec received",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "0a4390d181734ac4a342830395be58da",
+                "config_entries": [
+                    "8f487225fc9142b99bf7f9891c5f90c7"
+                ],
+                "connections": [],
+                "id": "d01962feefdc4daf9026cf1a814caa50",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_bytes_sent"
+                    ]
+                ],
+                "manufacturer": "Google",
+                "model": null,
+                "name": "OnHub bytes sent",
                 "name_by_user": null,
                 "sw_version": null,
                 "via_device_id": null
