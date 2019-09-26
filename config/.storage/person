@@ -3,17 +3,15 @@
         "persons": [
             {
                 "device_trackers": [
-                    "device_tracker.hokusphone",
                     "device_tracker.hokusphone_wifi"
                 ],
                 "id": "e73415f74dc346aa9a12d2f94b14f7fa",
                 "name": "Jordi",
-                "user_id": "0b2aad55afaf4c3e9c727406d277d94e"
+                "user_id": "a05d463a90d84273a11927004adca080"
             },
             {
                 "device_trackers": [
-                    "device_tracker.geniphone_wifi",
-                    "device_tracker.geniphone"
+                    "device_tracker.geniphone_wifi"
                 ],
                 "id": "651cb988d7f547fd8cbb9060258f3d10",
                 "name": "Geni",
