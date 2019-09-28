@@ -1053,6 +1053,10 @@
                         {
                             "entity": "media_player.cocina",
                             "type": "media-control"
+                        },
+                        {
+                            "entity": "media_player.suite",
+                            "type": "media-control"
                         }
                     ],
                     "icon": "mdi:grid",
@@ -1219,6 +1223,38 @@
                     "icon": "mdi:floor-plan",
                     "panel": true,
                     "title": "Floorplan"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "cover.outside_fence",
+                                            "name": "Control"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "Barrera",
+                                    "type": "entities"
+                                },
+                                {
+                                    "camera_image": "camera.entrada",
+                                    "camera_view": "live",
+                                    "entity": "sensor.outside_fence",
+                                    "name": "Estado",
+                                    "type": "picture-entity"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        }
+                    ],
+                    "icon": "mdi:garage",
+                    "panel": true,
+                    "path": "barrera",
+                    "title": "Barrera"
                 }
             ]
         }
