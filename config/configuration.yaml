@@ -27,6 +27,8 @@ http:
 
 map:
 
+stream:
+
 person:
 
 system_health:
