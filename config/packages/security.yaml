@@ -323,7 +323,7 @@ camera:
     username: !secret cam_barbacoa_username
     password: !secret cam_barbacoa_password
   
-  # Backyard stand camera
+   # Living room camera
   - platform: foscam
     ip: !secret cam_salon_host
     name: salon
@@ -331,6 +331,7 @@ camera:
     username: !secret cam_salon_username
     password: !secret cam_salon_password
 
+  # Backyard stand camera
   # For Linksys WVC54GCA http://<cam-host>:<cam_port>/img/snapshot.cgi
   - platform: generic
     still_image_url: !secret cam_caseta_still_image_url
