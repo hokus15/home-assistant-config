@@ -1404,6 +1404,15 @@
                 "name": null,
                 "platform": "upnp",
                 "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_bytes_sent"
+            },
+            {
+                "config_entry_id": "ba140323fab64440bee4f8cd44f71ee3",
+                "device_id": "b32b9652c2824dd8b5fe5c3dabab51c2",
+                "disabled_by": null,
+                "entity_id": "media_player.suite",
+                "name": null,
+                "platform": "cast",
+                "unique_id": "0fb3973a-de5b-b006-74eb-82d7ffbf0440"
             }
         ]
     },

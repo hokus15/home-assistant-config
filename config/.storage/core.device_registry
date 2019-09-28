@@ -802,6 +802,26 @@
                 "name_by_user": null,
                 "sw_version": null,
                 "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "ba140323fab64440bee4f8cd44f71ee3"
+                ],
+                "connections": [],
+                "id": "b32b9652c2824dd8b5fe5c3dabab51c2",
+                "identifiers": [
+                    [
+                        "cast",
+                        "0fb3973ade5bb00674eb82d7ffbf0440"
+                    ]
+                ],
+                "manufacturer": "Unknown manufacturer",
+                "model": "Google Nest Hub",
+                "name": "Suite",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
             }
         ]
     },
