@@ -1,0 +1,54 @@
+- alias: "[Presence - Authorized Person] Turn on for 4 hours authorized person at 8:15 if it's a workday"
+  trigger:
+    platform: time
+    at: '08:15:00'
+  condition:
+    condition: state
+    entity_id: 'binary_sensor.workday_sensor'
+    state: 'on'
+  action:
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.empty_home_activation_delay_minutes
+        value: 240.0
+    - service: homeassistant.turn_on
+      data:
+        entity_id: input_boolean.empty_home_activation_delay
+
+- alias: '[Presence - Authorized Person] When input_boolean.empty_home_activation_delay turns off, change virtual_device location to not_home'
+  trigger:
+    platform: state
+    entity_id: input_boolean.empty_home_activation_delay
+    to: 'off'
+  action:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: group.seguridad
+    - delay: 00:00:10
+    - service: device_tracker.see
+      data:
+        dev_id: 'virtual_device'
+        location_name: 'not_home'
+        
+- alias: '[Presence - Authorized Person] When input_boolean.empty_home_activation_delay turns on'
+  trigger:
+    platform: state
+    entity_id: input_boolean.empty_home_activation_delay
+    to: 'on'
+  action:
+    - service: device_tracker.see
+      data:
+        dev_id: 'virtual_device'
+        location_name: 'home'
+    - delay: 00:00:10
+    - service: homeassistant.turn_on
+      data:
+        entity_id: group.seguridad
+    - service: notify.telegram
+      data_template:
+        message: >
+          Activada persona autorizada durante {{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }} hora(s) y {{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }} minutos
+    - delay: '{{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }}:{{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }}'
+    - service: homeassistant.turn_off
+      data:
+        entity_id: input_boolean.empty_home_activation_delay

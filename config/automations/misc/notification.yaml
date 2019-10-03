@@ -1,0 +1,32 @@
+- alias: '[Misc - Notification] Notify bitcoin price above threshold'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.exchange_rate_1_btc
+    above: 10000
+  action:
+    - service: notify.telegram
+      data_template:
+        message: 'Bitcoin ha llegado a un valor de {{states.sensor.exchange_rate_1_btc.state}} {{states.sensor.exchange_rate_1_btc.attributes.unit_of_measurement}}'
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'good'
+              pretext: ':euro: *Inversiones* :euro:'
+              text: 'Bitcoin ha llegado a un valor de {{states.sensor.exchange_rate_1_btc.state}} {{states.sensor.exchange_rate_1_btc.attributes.unit_of_measurement}}'
+              fallback: 'Inversiones'
+              
+- alias: '[Misc - Notification] Remind Geni to disable alarm clock when she works at night'
+  trigger:
+    platform: time
+    at: '20:45:00'
+  condition:
+    condition: state
+    entity_id: 'calendar.turnos_geni_noche'
+    state: 'on'
+  action:
+    - service: notify.telegram
+      data:
+        target: !secret geniphone_telegram_chat_id
+        message: '¿Has desconectado ya el despertador? Si no lo has hecho, es hora de hacerlo.'

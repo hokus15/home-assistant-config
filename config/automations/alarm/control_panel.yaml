@@ -1,0 +1,38 @@
+- alias: '[Alarm - Control Panel] At 7:00 AM, disarm alarm armed night when someone at home'
+  trigger:
+    platform: time
+    at: '07:00:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: 'group.unidad_familiar'
+        state: 'home'
+      - condition: state
+        entity_id: alarm_control_panel.home
+        state: armed_night
+  action:
+    service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.home
+
+- alias: '[Alarm - Control Panel] Turn on security group when alarm changes the state from disarmed'
+  trigger: 
+    - platform: state
+      entity_id: alarm_control_panel.home
+      from: 'disarmed'
+  action:
+    # Turn on alarm related sensors
+    - service: homeassistant.turn_on
+      data:
+        entity_id: group.seguridad
+
+- alias: '[Alarm - Control Panel] Turn off security group when alarm is disarmed'
+  trigger: 
+    - platform: state
+      entity_id: alarm_control_panel.home
+      to: 'disarmed'
+  action:
+    # Turn off alarm related sensors
+    - service: homeassistant.turn_off
+      data:
+        entity_id: group.seguridad

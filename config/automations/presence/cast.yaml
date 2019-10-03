@@ -1,0 +1,29 @@
+- alias: '[Presence - Cast] When Barrera closed, stop cast entrada LIVE video to Suite'
+  trigger:
+    platform: state
+    entity_id: cover.outside_fence
+    to: 'closed'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.home
+    state: 'armed_night'
+  action:
+    - service: media_player.turn_off
+      entity_id: 'media_player.suite'
+      
+- alias: '[Presence - Cast] When Barrera open, cast entrada LIVE video to Suite'
+  trigger:
+    platform: state
+    entity_id: cover.outside_fence
+    to: 'open'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.home
+    state: 'armed_night'
+  action:
+    - delay:
+        seconds: 15
+    - service: camera.play_stream
+      data:
+        entity_id: 'camera.entrada'
+        media_player: 'media_player.suite'

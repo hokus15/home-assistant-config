@@ -120,148 +120,145 @@ utility_meter:
       - Valle
       - Super valle
 
-automation:
-  #############################################################
-  # Power automations
-  #############################################################
-  
-  # Notify when a power cut longer than 1 minute detected
-  - alias: '[Energy] Notify power cut'
-    trigger:
-      platform: state
-      entity_id: sensor.energy_ups_status
-      to: 'Batería'
-      for:
-        minutes: 1
-    action:
-      - service: notify.telegram
-        data:
-          message: 'Corte en el suministro eléctrico detectado'
-      - service: notify.slack
-        data_template:
-          message: ''
-          data:
-            attachments:
-              - color: 'warning'
-                pretext: ':zap: *Suministro eléctrico* :zap:'
-                text: 'Corte en el suministro eléctrico detectado'
-                fallback: 'Suministro eléctrico'
-
-  # Notify when the power is back normal
-  - alias: '[Energy] Notify power ok'
-    trigger:
-      - platform: state
-        entity_id: sensor.energy_ups_status
-        to: 'Cargando'
-      - platform: state
-        entity_id: sensor.energy_ups_status
-        to: 'Normal'
-    condition:
-      - condition: numeric_state
-        entity_id: sensor.ha_runtime_in_minutes
-        above: 2
-    action:
-      - service: notify.telegram
-        data:
-          message: 'Suministro eléctrico reestablecido'
-      - service: notify.slack
-        data_template:
-          message: ''
-          data:
-            attachments:
-              - color: 'good'
-                pretext: ':zap: *Suministro eléctrico* :zap:'
-                text: 'Suministro eléctrico restablecido'
-                fallback: 'Suministro eléctrico'
-
-  # Notify when the UPS battery has to be replaced
-  - alias: '[Energy] Notify ups battery replacement'
-    trigger:
-      platform: state
-      entity_id: sensor.energy_ups_status
-      to: 'Reemplazar batería'
-    action:
-      - service: notify.telegram
-        data:
-          message: 'Batería del SAI agotándose, reemplazar'
-      - service: notify.slack
-        data_template:
-          message: ''
-          data:
-            attachments:
-              - color: 'warning'
-                pretext: ':zap: *Suministro eléctrico* :zap:'
-                text: 'Batería del SAI agotándose, reemplazar'
-                fallback: 'Suministro eléctrico'
-
-  - alias: '[Energy] Set correct energy tariff on start'
-    trigger:
-      platform: homeassistant
-      event: start
-    action:
-      - service: utility_meter.select_tariff
-        data_template:
-          entity_id: utility_meter.energy_home_daily 
-          tariff: >-
-            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
-              Super valle
-            {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
-              Pico
-            {%- else %}
-              Valle
-            {%- endif %}
-      - service: utility_meter.select_tariff
-        data_template:
-          entity_id: utility_meter.energy_home_monthly
-          tariff: >-
-            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
-              Super valle
-            {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
-              Pico
-            {%- else %}
-              Valle
-            {%- endif %}
-
-  - alias: '[Energy] Energy Pico time'
-    trigger:
-      platform: time
-      at: '13:00:00'
-    action:
-      - service: utility_meter.select_tariff
-        data:
-          entity_id: utility_meter.energy_home_daily 
-          tariff: 'Pico'
-      - service: utility_meter.select_tariff
-        data:
-          entity_id: utility_meter.energy_home_monthly
-          tariff: 'Pico'
-
-  - alias: '[Energy] Energy Valle time'
-    trigger:
-      - platform: time
-        at: '23:00:00'
-      - platform: time
-        at: '07:00:00'
-    action:
-      - service: utility_meter.select_tariff
-        data:
-          entity_id: utility_meter.energy_home_daily 
-          tariff: 'Valle'
-      - service: utility_meter.select_tariff
-        data:
-          entity_id: utility_meter.energy_home_monthly
-          tariff: 'Valle'
-
-  - alias: '[Energy] Energy Super valle time'
-    trigger:
-      platform: time
-      at: '01:00:00'
-    action:
-      - service: utility_meter.select_tariff
-        data:
-          entity_id: utility_meter.energy_home_daily 
-          tariff: 'Super valle'
-      - service: utility_meter.select_tariff
-        data:
-          entity_id: utility_meter.energy_home_monthly
-          tariff: 'Super valle'
+#automation:
+#  #############################################################
+#  # Power automations
+#  #############################################################
+#  
+#  - alias: '[Energy - Notification] Notify when a power cut longer than 1 minute detected'
+#    trigger:
+#      platform: state
+#      entity_id: sensor.energy_ups_status
+#      to: 'Batería'
+#      for:
+#        minutes: 1
+#    action:
+#      - service: notify.telegram
+#        data:
+#          message: 'Corte en el suministro eléctrico detectado'
+#      - service: notify.slack
+#        data_template:
+#          message: ''
+#          data:
+#            attachments:
+#              - color: 'warning'
+#                pretext: ':zap: *Suministro eléctrico* :zap:'
+#                text: 'Corte en el suministro eléctrico detectado'
+#                fallback: 'Suministro eléctrico'
+#
+#  - alias: '[Energy - Notification] Notify when the power is back normal'
+#    trigger:
+#      - platform: state
+#        entity_id: sensor.energy_ups_status
+#        to: 'Cargando'
+#      - platform: state
+#        entity_id: sensor.energy_ups_status
+#        to: 'Normal'
+#    condition:
+#      - condition: numeric_state
+#        entity_id: sensor.ha_runtime_in_minutes
+#        above: 2
+#    action:
+#      - service: notify.telegram
+#        data:
+#          message: 'Suministro eléctrico reestablecido'
+#      - service: notify.slack
+#        data_template:
+#          message: ''
+#          data:
+#            attachments:
+#              - color: 'good'
+#                pretext: ':zap: *Suministro eléctrico* :zap:'
+#                text: 'Suministro eléctrico restablecido'
+#                fallback: 'Suministro eléctrico'
+#
+#  - alias: '[Energy - Notification] Notify when the UPS battery has to be replaced'
+#    trigger:
+#      platform: state
+#      entity_id: sensor.energy_ups_status
+#      to: 'Reemplazar batería'
+#    action:
+#      - service: notify.telegram
+#        data:
+#          message: 'Batería del SAI agotándose, reemplazar'
+#      - service: notify.slack
+#        data_template:
+#          message: ''
+#          data:
+#            attachments:
+#              - color: 'warning'
+#                pretext: ':zap: *Suministro eléctrico* :zap:'
+#                text: 'Batería del SAI agotándose, reemplazar'
+#                fallback: 'Suministro eléctrico'
+#
+#  - alias: '[Energy - Tariff] Set correct energy tariff on start'
+#    trigger:
+#      platform: homeassistant
+#      event: start
+#    action:
+#      - service: utility_meter.select_tariff
+#        data_template:
+#          entity_id: utility_meter.energy_home_daily 
+#          tariff: >-
+#            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
+#              Super valle
+#            {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
+#              Pico
+#            {%- else %}
+#              Valle
+#            {%- endif %}
+#      - service: utility_meter.select_tariff
+#        data_template:
+#          entity_id: utility_meter.energy_home_monthly
+#          tariff: >-
+#            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
+#              Super valle
+#            {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
+#              Pico
+#            {%- else %}
+#              Valle
+#            {%- endif %}
+#
+#  - alias: '[Energy - Tariff] Energy "Pico" tariff'
+#    trigger:
+#      platform: time
+#      at: '13:00:00'
+#    action:
+#      - service: utility_meter.select_tariff
+#        data:
+#          entity_id: utility_meter.energy_home_daily 
+#          tariff: 'Pico'
+#      - service: utility_meter.select_tariff
+#        data:
+#          entity_id: utility_meter.energy_home_monthly
+#          tariff: 'Pico'
+#
+#  - alias: '[Energy - Tariff] Energy "Valle" tariff'
+#    trigger:
+#      - platform: time
+#        at: '23:00:00'
+#      - platform: time
+#        at: '07:00:00'
+#    action:
+#      - service: utility_meter.select_tariff
+#        data:
+#          entity_id: utility_meter.energy_home_daily 
+#          tariff: 'Valle'
+#      - service: utility_meter.select_tariff
+#        data:
+#          entity_id: utility_meter.energy_home_monthly
+#          tariff: 'Valle'
+#
+#  - alias: '[Energy - Tariff] Energy "Super valle" tariff'
+#    trigger:
+#      platform: time
+#      at: '01:00:00'
+#    action:
+#      - service: utility_meter.select_tariff
+#        data:
+#          entity_id: utility_meter.energy_home_daily 
+#          tariff: 'Super valle'
+#      - service: utility_meter.select_tariff
+#        data:
+#          entity_id: utility_meter.energy_home_monthly
+#          tariff: 'Super valle'

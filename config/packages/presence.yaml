@@ -297,302 +297,294 @@ automation:
 #              {%- endif -%}
 #            {%- endif -%}
 
-  # If fence is closed, Ioniq enter 'home' zone
-  # Open fence, notify it, send a meessage to mqtt topic, and set Jordi as 'home'
-  - alias: '[Presence] Jordi arriving home in Ioniq'
-    trigger:
-       - platform: zone
-         entity_id: device_tracker.car_ioniq
-         zone: zone.home
-         event: enter
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: sensor.outside_fence_sensor_state
-          state: 'on'
-        - condition: state
-          entity_id: binary_sensor.car_ioniq_state
-          state: 'on'
-    action:
-      - service: switch.turn_on
-        entity_id: switch.barrera
-      - service: mqtt.publish
-        data:
-          payload_template: >
-            He abierto la barrera. {%- if is_state("person.geni", "home") -%}Jeni está en casa.{%- else -%}Jeni no está en casa.{%- endif -%}
-          retain: false
-          topic: 'phone/sensor/hokus/cmnd/say'
-      - delay:
-          seconds: 5
-      - service: telegram_bot.send_message
-        data_template:
-          message: 'Barrera abierta automáticamente'
-          target: !secret hokusphone_telegram_chat_id
-          inline_keyboard: 
-            - 'Cerrar:/switch.turn_on#switch.barrera'
- #     - service: device_tracker.see
- #       data:
- #         dev_id: 'jordi_combined'
- #         location_name: 'home'
-  
-  # When Jordi leave home zone and in the car:
-  #   - If nobody at home, close the fence if open, and notify if porch door or blind is open.
-  - alias: '[Presence] Jordi leaving home in Ioniq'
-    trigger:
-       - platform: zone
-         entity_id: device_tracker.car_ioniq
-         zone: zone.home
-         event: leave
-    condition:
-      - condition: state
-        entity_id: binary_sensor.car_ioniq_state
-        state: 'on'
-    action:
-      - service: mqtt.publish
-        data:
-          payload_template: >
-            {%- if is_state("group.unidad_familiar", "not_home") -%}{%- if is_state("sensor.outside_fence", "Abierta") -%}Te has dejado la barrera abierta, la voy a cerrar. {%- endif -%}{%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif -%}{%- endif -%}La previsión del tiempo es de {{ states.sensor.dark_sky_summary_0d.state | replace(" C."," grados") }}
-          retain: false
-          topic: 'cmnd/sensor/phone/hokus/say'
-      - service_template: >
-          {%- if is_state("group.unidad_familiar", "not_home") -%}
-            {%- if is_state("sensor.outside_fence_sensor_state", "off") -%}
-              homeassistant.turn_on
-            {%- else -%}
-              homeassistant.update_entity
-            {%- endif -%}
-          {%- endif -%}
-
-        data:
-          entity_id: switch.barrera
-
-  #############################################################
-  # Presence automations - Authorized person
-  #############################################################
-  # When input_boolean.empty_home_activation_delay turns on,
-  # Change virtual_device location to home
-  # Wait the specified amount of minutes 
-  # Turn off input_boolean.empty_home_activation_delay
-#  - alias: '[Presence] empty_home_activation_delay on'
+#  - alias: '[Presence - Jordi] Jordi arriving home in Ioniq'
+#    trigger:
+#       - platform: zone
+#         entity_id: device_tracker.car_ioniq
+#         zone: zone.home
+#         event: enter
+#    condition:
+#      condition: and
+#      conditions:
+#        - condition: state
+#          entity_id: sensor.outside_fence_sensor_state
+#          state: 'on'
+#        - condition: state
+#          entity_id: binary_sensor.car_ioniq_state
+#          state: 'on'
+#    action:
+#      - service: switch.turn_on
+#        entity_id: switch.barrera
+#      - service: mqtt.publish
+#        data:
+#          payload_template: >
+#            He abierto la barrera. {%- if is_state("person.geni", "home") -%}Jeni está en casa.{%- else -%}Jeni no está en casa.{%- endif -%}
+#          retain: false
+#          topic: 'phone/sensor/hokus/cmnd/say'
+#      - delay:
+#          seconds: 5
+#      - service: telegram_bot.send_message
+#        data_template:
+#          message: 'Barrera abierta automáticamente'
+#          target: !secret hokusphone_telegram_chat_id
+#          inline_keyboard: 
+#            - 'Cerrar:/switch.turn_on#switch.barrera'
+# #     - service: device_tracker.see
+# #       data:
+# #         dev_id: 'jordi_combined'
+# #         location_name: 'home'
+#  
+#  - alias: '[Presence - Jordi] Jordi leaving home in Ioniq'
+#    trigger:
+#       - platform: zone
+#         entity_id: device_tracker.car_ioniq
+#         zone: zone.home
+#         event: leave
+#    condition:
+#      - condition: state
+#        entity_id: binary_sensor.car_ioniq_state
+#        state: 'on'
+#    action:
+#      - service: mqtt.publish
+#        data:
+#          payload_template: >
+#            {%- if is_state("group.unidad_familiar", "not_home") -%}{%- if is_state("sensor.outside_fence", "Abierta") -%}Te has dejado la barrera abierta, la voy a cerrar. {%- endif -%}{%- if is_state("sensor.cocina_sensor_puerta", "Abierta") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("sensor.cocina_sensor_persiana", "Abierta") %}Persiana de la cocina abierta. {% endif -%}{%- endif -%}La previsión del tiempo es de {{ states.sensor.dark_sky_summary_0d.state | replace(" C."," grados") }}
+#          retain: false
+#          topic: 'cmnd/sensor/phone/hokus/say'
+#      - service_template: >
+#          {%- if is_state("group.unidad_familiar", "not_home") -%}
+#            {%- if is_state("sensor.outside_fence_sensor_state", "off") -%}
+#              homeassistant.turn_on
+#            {%- else -%}
+#              homeassistant.update_entity
+#            {%- endif -%}
+#          {%- endif -%}
+#
+#        data:
+#          entity_id: switch.barrera
+#
+#  #############################################################
+#  # Presence automations - Authorized person
+#  #############################################################
+#  # When input_boolean.empty_home_activation_delay turns on,
+#  # Change virtual_device location to home
+#  # Wait the specified amount of minutes 
+#  # Turn off input_boolean.empty_home_activation_delay
+##  - alias: '[Presence] empty_home_activation_delay on'
+##    trigger:
+##      platform: state
+##      entity_id: input_boolean.empty_home_activation_delay
+##      to: 'on'
+##    action:
+##      - service: device_tracker.see
+##        data:
+##          dev_id: 'virtual_device'
+##          location_name: 'home'
+##      - delay: 00:00:10
+##      - service: homeassistant.turn_on
+##        data:
+##          entity_id: group.seguridad
+##      - service: notify.telegram
+##        data_template:
+##          message: >
+##            Activada persona autorizada durante {{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }} hora(s) y {{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }} minutos
+##      - delay: '{{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }}:{{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }}'
+##      - service: homeassistant.turn_off
+##        data:
+##          entity_id: input_boolean.empty_home_activation_delay
+#  
+#  # When input_boolean.empty_home_activation_delay turns off,
+#  # Change virtual_device location to not_home
+##  - alias: '[Presence] empty_home_activation_delay off'
+##    trigger:
+##      platform: state
+##      entity_id: input_boolean.empty_home_activation_delay
+##      to: 'off'
+##    action:
+##      - service: homeassistant.turn_off
+##        data:
+##          entity_id: group.seguridad
+##      - delay: 00:00:10
+##      - service: device_tracker.see
+##        data:
+##          dev_id: 'virtual_device'
+##          location_name: 'not_home'
+#  
+#  # Turn on for 4 hours authorized person at 8:15 if it's a workday
+##  - alias: '[Presence] Authorized person'
+##    trigger:
+##      platform: time
+##      at: '08:15:00'
+##    condition:
+##      condition: state
+##      entity_id: 'binary_sensor.workday_sensor'
+##      state: 'on'
+##    action:
+##      - service: input_number.set_value
+##        data:
+##          entity_id: input_number.empty_home_activation_delay_minutes
+##          value: 240.0
+##      - service: homeassistant.turn_on
+##        data:
+##          entity_id: input_boolean.empty_home_activation_delay
+#
+##  - alias: '[Presence] Authorized person at home'
+##    trigger:
+##      - platform: state
+##        entity_id: device_tracker.virtual_device
+##        to: 'home'
+##    action:
+##      - service: notify.slack
+##        data_template:
+##          message: ''
+##          data:
+##            attachments:
+##              - color: 'good'
+##                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+##                text: 'Persona autorizada en casa'
+##                fallback: 'Presencia'
+##
+##  - alias: '[Presence] Authorized person not home'
+##    trigger:
+##      - platform: state
+##        entity_id: device_tracker.virtual_device
+##        from: 'home'
+##    action:
+##      - service: notify.slack
+##        data_template:
+##          message: ''
+##          data:
+##            attachments:
+##              - color: 'good'
+##                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+##                text: 'Persona autorizada fuera de casa'
+##                fallback: 'Presencia'
+#
+#  #############################################################
+#  # Holiday automations
+#  #############################################################
+#  
+#  - alias: '[Presence - Holiday] Enters on holiday mode based on google calendar event'
 #    trigger:
 #      platform: state
-#      entity_id: input_boolean.empty_home_activation_delay
+#      entity_id: calendar.holiday_mode
+#      from: 'off'
 #      to: 'on'
 #    action:
-#      - service: device_tracker.see
+#      - service: switch.turn_on
 #        data:
-#          dev_id: 'virtual_device'
-#          location_name: 'home'
-#      - delay: 00:00:10
-#      - service: homeassistant.turn_on
+#          entity_id: switch.holiday
+#      - service: notify.slack
+#        data_template:
+#          message: ''
+#          data:
+#            attachments:
+#              - color: 'good'
+#                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+#                text: 'Modo vacaciones activado'
+#                fallback: 'Presencia'
+#  
+#  - alias: '[Presence - Holiday] Exits on holiday mode based on google calendar event'
+#    trigger:
+#      platform: state
+#      entity_id: calendar.holiday_mode
+#      from: 'on'
+#      to: 'off'
+#    action:
+#      - service: switch.turn_off
 #        data:
-#          entity_id: group.seguridad
+#          entity_id: switch.holiday
+#      - service: notify.slack
+#        data_template:
+#          message: ''
+#          data:
+#            attachments:
+#              - color: 'good'
+#                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+#                text: 'Modo vacaciones desactivado'
+#                fallback: 'Presencia'
+#  
+#  - alias: '[Presence - Holiday] Enters holiday mode based on switch state'
+#    trigger:
+#      platform: state
+#      entity_id: switch.holiday
+#      from: 'off'
+#      to: 'on'
+#    condition:
+#      condition: template
+#      value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
+#    action:
+#      # Turn off thermostat
+#      - service: script.turn_on
+#        entity_id: script.climate_power_off
+#      - service: notify.telegram
+#        data:
+#          message: 'Modo vacaciones activado'
+#      - service: notify.slack
+#        data_template:
+#          message: ''
+#          data:
+#            attachments:
+#              - color: 'good'
+#                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+#                text: 'Modo vacaciones activado'
+#                fallback: 'Presencia'
+#
+#  - alias: '[Presence - Holiday] Exits holiday mode based on switch state'
+#    trigger:
+#      platform: state
+#      entity_id: switch.holiday
+#      from: 'on'
+#      to: 'off'
+#    condition:
+#      condition: template
+#      value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
+#    action:
+#      # Set thermostat away mode 
+#      - service: climate.set_preset_mode
+#        entity_id: climate.netatmo_general
+#        data_template:
+#          preset_mode: 'away'
+#      - service: notify.telegram
+#        data:
+#          message: 'Modo vacaciones desactivado'
+#      - service: notify.slack
+#        data_template:
+#          message: ''
+#          data:
+#            attachments:
+#              - color: 'good'
+#                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+#                text: 'Modo vacaciones desactivado'
+#                fallback: 'Presencia'
+#
+#  - alias: '[Presence - Notification] Notify for new devices'
+#    trigger:
+#      platform: event
+#      event_type: device_tracker_new_device
+#    action:
 #      - service: notify.telegram
 #        data_template:
 #          message: >
-#            Activada persona autorizada durante {{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }} hora(s) y {{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }} minutos
-#      - delay: '{{ (states.input_number.empty_home_activation_delay_minutes.state | int) // 60 }}:{{ (states.input_number.empty_home_activation_delay_minutes.state | int) % 60 }}'
-#      - service: homeassistant.turn_off
-#        data:
-#          entity_id: input_boolean.empty_home_activation_delay
-  
-  # When input_boolean.empty_home_activation_delay turns off,
-  # Change virtual_device location to not_home
-#  - alias: '[Presence] empty_home_activation_delay off'
-#    trigger:
-#      platform: state
-#      entity_id: input_boolean.empty_home_activation_delay
-#      to: 'off'
-#    action:
-#      - service: homeassistant.turn_off
-#        data:
-#          entity_id: group.seguridad
-#      - delay: 00:00:10
-#      - service: device_tracker.see
-#        data:
-#          dev_id: 'virtual_device'
-#          location_name: 'not_home'
-  
-  # Turn on for 4 hours authorized person at 8:15 if it's a workday
-#  - alias: '[Presence] Authorized person'
-#    trigger:
-#      platform: time
-#      at: '08:15:00'
-#    condition:
-#      condition: state
-#      entity_id: 'binary_sensor.workday_sensor'
-#      state: 'on'
-#    action:
-#      - service: input_number.set_value
-#        data:
-#          entity_id: input_number.empty_home_activation_delay_minutes
-#          value: 240.0
-#      - service: homeassistant.turn_on
-#        data:
-#          entity_id: input_boolean.empty_home_activation_delay
-
-#  - alias: '[Presence] Authorized person at home'
-#    trigger:
-#      - platform: state
-#        entity_id: device_tracker.virtual_device
-#        to: 'home'
-#    action:
+#            Nuevo dispositivo detectado:
+#            {{trigger.event.data.host_name}}
+#            ({{trigger.event.data.entity_id}})
+#          title: Nuevo dispositivo
 #      - service: notify.slack
 #        data_template:
 #          message: ''
 #          data:
 #            attachments:
-#              - color: 'good'
-#                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
-#                text: 'Persona autorizada en casa'
-#                fallback: 'Presencia'
-#
-#  - alias: '[Presence] Authorized person not home'
-#    trigger:
-#      - platform: state
-#        entity_id: device_tracker.virtual_device
-#        from: 'home'
-#    action:
-#      - service: notify.slack
-#        data_template:
-#          message: ''
-#          data:
-#            attachments:
-#              - color: 'good'
-#                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
-#                text: 'Persona autorizada fuera de casa'
-#                fallback: 'Presencia'
-
-  #############################################################
-  # Holiday automations
-  #############################################################
-  
-  # Enters on holiday mode based on google calendar event
-  - alias: '[Presence] Calendar holiday mode'
-    trigger:
-      platform: state
-      entity_id: calendar.holiday_mode
-      from: 'off'
-      to: 'on'
-    action:
-      - service: switch.turn_on
-        data:
-          entity_id: switch.holiday
-      - service: notify.slack
-        data_template:
-          message: ''
-          data:
-            attachments:
-              - color: 'good'
-                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
-                text: 'Modo vacaciones activado'
-                fallback: 'Presencia'
-  
-  # Exits on holiday mode based on google calendar event
-  - alias: '[Presence] Calendar holiday mode exit'
-    trigger:
-      platform: state
-      entity_id: calendar.holiday_mode
-      from: 'on'
-      to: 'off'
-    action:
-      - service: switch.turn_off
-        data:
-          entity_id: switch.holiday
-      - service: notify.slack
-        data_template:
-          message: ''
-          data:
-            attachments:
-              - color: 'good'
-                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
-                text: 'Modo vacaciones desactivado'
-                fallback: 'Presencia'
-  
-  # Enters holiday mode based on switch
-  - alias: '[Presence] Switch holiday mode'
-    trigger:
-      platform: state
-      entity_id: switch.holiday
-      from: 'off'
-      to: 'on'
-    condition:
-      condition: template
-      value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
-    action:
-      # Turn off thermostat
-      - service: script.turn_on
-        entity_id: script.climate_power_off
-      - service: notify.telegram
-        data:
-          message: 'Modo vacaciones activado'
-      - service: notify.slack
-        data_template:
-          message: ''
-          data:
-            attachments:
-              - color: 'good'
-                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
-                text: 'Modo vacaciones activado'
-                fallback: 'Presencia'
-  
-  # Exits holiday mode based on switch
-  - alias: '[Presence] Exit holiday mode'
-    trigger:
-      platform: state
-      entity_id: switch.holiday
-      from: 'on'
-      to: 'off'
-    condition:
-      condition: template
-      value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
-    action:
-      # Set thermostat away mode 
-      - service: climate.set_preset_mode
-        entity_id: climate.netatmo_general
-        data_template:
-          preset_mode: 'away'
-      - service: notify.telegram
-        data:
-          message: 'Modo vacaciones desactivado'
-      - service: notify.slack
-        data_template:
-          message: ''
-          data:
-            attachments:
-              - color: 'good'
-                pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
-                text: 'Modo vacaciones desactivado'
-                fallback: 'Presencia'
-
-  - alias: '[Presence] Notify for new devices'
-    trigger:
-      platform: event
-      event_type: device_tracker_new_device
-    action:
-      - service: notify.telegram
-        data_template:
-          message: >
-            Nuevo dispositivo detectado:
-            {{trigger.event.data.host_name}}
-            ({{trigger.event.data.entity_id}})
-          title: Nuevo dispositivo
-      - service: notify.slack
-        data_template:
-          message: ''
-          data:
-            attachments:
-              - color: 'warning'
-                text: ':iphone: *Nuevo dispositivo* :iphone:'
-                fields:
-                  - title: 'Nombre'
-                    value: '{{trigger.event.data.host_name}}'
-                    short: true
-                  - title: 'Entidad'
-                    value: '{{trigger.event.data.entity_id}}'
-                    short: true
-                fallback: 'Nuevo dispositivo'
+#              - color: 'warning'
+#                text: ':iphone: *Nuevo dispositivo* :iphone:'
+#                fields:
+#                  - title: 'Nombre'
+#                    value: '{{trigger.event.data.host_name}}'
+#                    short: true
+#                  - title: 'Entidad'
+#                    value: '{{trigger.event.data.entity_id}}'
+#                    short: true
+#                fallback: 'Nuevo dispositivo'
 
 script:
   presence_empty_home:

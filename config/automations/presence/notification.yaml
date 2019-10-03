@@ -1,0 +1,91 @@
+- alias: '[Presence - Notification] Geni not home'
+  trigger:
+    - platform: state
+      entity_id: person.geni
+      from: 'home'
+  action:
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'good'
+              pretext: ':woman: *Presencia* :woman:'
+              text: 'Geni está fuera de casa'
+              fallback: 'Presencia'
+
+- alias: '[Presence - Notification] Authorized person at home'
+  trigger:
+    - platform: state
+      entity_id: device_tracker.virtual_device
+      to: 'home'
+  action:
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'good'
+              pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+              text: 'Persona autorizada en casa'
+              fallback: 'Presencia'
+
+- alias: '[Presence - Notification] Authorized person not home'
+  trigger:
+    - platform: state
+      entity_id: device_tracker.virtual_device
+      from: 'home'
+  action:
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'good'
+              pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+              text: 'Persona autorizada fuera de casa'
+              fallback: 'Presencia'
+
+- alias: '[Presence - Notification] Geni at home'
+  trigger:
+    - platform: state
+      entity_id: person.geni
+      to: 'home'
+  action:
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'good'
+              pretext: ':woman: *Presencia* :woman:'
+              text: 'Geni está en casa'
+              fallback: 'Presencia'
+
+- alias: '[Presence - Notification] Notify for new devices'
+  trigger:
+    platform: event
+    event_type: device_tracker_new_device
+  action:
+    - service: notify.telegram
+      data_template:
+        message: >
+          Nuevo dispositivo detectado:
+          {{trigger.event.data.host_name}}
+          ({{trigger.event.data.entity_id}})
+        title: Nuevo dispositivo
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'warning'
+              text: ':iphone: *Nuevo dispositivo* :iphone:'
+              fields:
+                - title: 'Nombre'
+                  value: '{{trigger.event.data.host_name}}'
+                  short: true
+                - title: 'Entidad'
+                  value: '{{trigger.event.data.entity_id}}'
+                  short: true
+              fallback: 'Nuevo dispositivo'

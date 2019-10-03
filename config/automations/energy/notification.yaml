@@ -1,0 +1,65 @@
+- alias: '[Energy - Notification] Notify when a power cut longer than 1 minute detected'
+  trigger:
+    platform: state
+    entity_id: sensor.energy_ups_status
+    to: 'Batería'
+    for:
+      minutes: 1
+  action:
+    - service: notify.telegram
+      data:
+        message: 'Corte en el suministro eléctrico detectado'
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'warning'
+              pretext: ':zap: *Suministro eléctrico* :zap:'
+              text: 'Corte en el suministro eléctrico detectado'
+              fallback: 'Suministro eléctrico'
+
+- alias: '[Energy - Notification] Notify when the power is back normal'
+  trigger:
+    - platform: state
+      entity_id: sensor.energy_ups_status
+      to: 'Cargando'
+    - platform: state
+      entity_id: sensor.energy_ups_status
+      to: 'Normal'
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.ha_runtime_in_minutes
+      above: 2
+  action:
+    - service: notify.telegram
+      data:
+        message: 'Suministro eléctrico reestablecido'
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'good'
+              pretext: ':zap: *Suministro eléctrico* :zap:'
+              text: 'Suministro eléctrico restablecido'
+              fallback: 'Suministro eléctrico'
+
+- alias: '[Energy - Notification] Notify when the UPS battery has to be replaced'
+  trigger:
+    platform: state
+    entity_id: sensor.energy_ups_status
+    to: 'Reemplazar batería'
+  action:
+    - service: notify.telegram
+      data:
+        message: 'Batería del SAI agotándose, reemplazar'
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'warning'
+              pretext: ':zap: *Suministro eléctrico* :zap:'
+              text: 'Batería del SAI agotándose, reemplazar'
+              fallback: 'Suministro eléctrico'

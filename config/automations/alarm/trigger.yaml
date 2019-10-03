@@ -1,0 +1,88 @@
+- alias: '[Alarm - Trigger] Trigger alarm armed away'
+  trigger:
+    # When motion detected at hall camera
+    - platform: state
+      entity_id: binary_sensor.recibidor_camara_det_mov
+      to: 'on'
+    # When motion detected at living room camera
+    - platform: state
+      entity_id: binary_sensor.salon_camara_det_mov
+      to: 'on'
+    # When motion detected in swimming pool
+    - platform: state
+      entity_id: binary_sensor.piscina_camara_det_mov
+      to: 'on'
+    # When motion detected in bbq
+    - platform: state
+      entity_id: binary_sensor.barbacoa_camara_det_mov
+      to: 'on'
+    # When motion detected in backyard stand
+    - platform: state
+      entity_id: binary_sensor.caseta_camara_det_mov
+      to: 'on'
+    # When Netatmo camera detects human presence
+    - platform: state
+      entity_id: binary_sensor.entrada_outdoor_human
+      to: 'on'
+    # When Netatmo camera detects unknown presence
+    - platform: state
+      entity_id: binary_sensor.entrada_outdoor_motion
+      to: 'on'
+    # When Kitchen blind is open
+    - platform: state
+      entity_id: binary_sensor.porche_sensor_persiana
+      to: 'on'
+    # When Outside kitched door is open
+    - platform: state
+      entity_id: binary_sensor.porche_sensor_puerta
+      to: 'on'
+    # When Laundry door is open
+    - platform: state
+      entity_id: binary_sensor.coladuria_sensor_puerta
+      to: 'on'
+    # When Living room motion is detected
+    - platform: state
+      entity_id: binary_sensor.despacho_sensor_movimiento
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: armed_away
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.home
+  
+- alias: '[Alarm - Trigger] Trigger alarm when armed home / armed night'
+  trigger:
+    # When Netatmo camera detects human presence
+    - platform: state
+      entity_id: binary_sensor.entrada_outdoor_human
+      to: 'on'
+    # When Netatmo camera detects unknown presence
+    - platform: state
+      entity_id: binary_sensor.entrada_outdoor_motion
+      to: 'on'
+    # When Kitchen blind is open
+    - platform: state
+      entity_id: binary_sensor.porche_sensor_persiana
+      to: 'on'
+    # When Outside kitched door is open
+    - platform: state
+      entity_id: binary_sensor.porche_sensor_puerta
+      to: 'on'
+    # When Laundry door is open
+    - platform: state
+      entity_id: binary_sensor.coladuria_sensor_puerta
+      to: 'on'
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: alarm_control_panel.home
+        state: armed_home
+      - condition: state
+        entity_id: alarm_control_panel.home
+        state: armed_night
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.home

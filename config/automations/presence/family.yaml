@@ -1,0 +1,32 @@
+- alias: '[Presence - Family] Someone home'
+  trigger:
+    platform: state
+    entity_id: group.unidad_familiar
+    to: 'home'
+  action:
+    - service: script.turn_on
+      data:
+        entity_id: script.presence_someone_home
+        
+- alias: '[Presence - Family] Turn on hall lamp when someone arrives at home and the sun is set'
+  trigger:
+    platform: state
+    entity_id: group.unidad_familiar
+    to: 'home'
+  condition:
+    condition: sun
+    after: sunset
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.entrance_hall_lamp_switch
+      
+- alias: '[Presence - Family] Empty home'
+  trigger:
+    platform: state
+    entity_id: group.unidad_familiar
+    to: 'not_home'
+  action:
+    - service: script.turn_on
+      data:
+        entity_id: script.presence_empty_home

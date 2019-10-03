@@ -1,0 +1,10 @@
+- alias: '[Car - Charge] Turn off Ioniq car charger 5 mins after Super valle time finishes'
+  trigger:
+    platform: state
+    entity_id: utility_meter.car_ioniq_charger_daily
+    from: 'Super valle'
+  action:
+    - delay:
+        minutes: 5
+    - service: switch.turn_off
+      entity_id: switch.car_ioniq_charger

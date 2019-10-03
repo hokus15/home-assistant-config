@@ -53,101 +53,99 @@ cloud:
           - Puerta de entrada
         room: Jardín delantero
 
-automation:
-    # Fence state. Can be moving (En movimiento), open (Abierta) or closed (Cerrada).
-    # Fence needs around 18 seconds to fully open/close
-  - alias: '[Fence] Publish to mqtt fence status'
-    trigger:
-      platform: state
-      entity_id: switch.barrera
-      to: 'off'
-    action:
-      - service: mqtt.publish
-        data:
-          topic: home/sensor/fence/state
-          payload_template: >-
-            {%- if is_state("sensor.outside_fence_sensor_state", "off") %}
-              En movimiento
-            {%- else %}
-              Cerrada
-            {%- endif %}
-          qos: 0
-          retain: true
-      - delay:
-          seconds: 18
-      - service: mqtt.publish
-        data:
-          topic: home/sensor/fence/state
-          payload_template: >-
-            {%- if is_state("sensor.outside_fence_sensor_state", "off") %}
-              Abierta
-            {% else %}
-              Cerrada
-            {%- endif %}
-          qos: 0
-          retain: true
-
-  - alias: '[Fence] Publish to mqtt fence moving (En movimiento) status'
-    trigger:
-      platform: state
-      entity_id: switch.barrera
-      to: 'on'
-    action:
-      - service: mqtt.publish
-        data:
-          topic: home/sensor/fence/state
-          payload: "En movimiento"
-          qos: 0
-          retain: true
-
-  - alias: '[Fence] Publish to mqtt fence closed (Cerrada) status'
-    trigger:
-      platform: state
-      entity_id: sensor.outside_fence_sensor_state
-      to: 'on'
-    action:
-      - service: mqtt.publish
-        data:
-          topic: home/sensor/fence/state
-          payload: Cerrada
-          qos: 0
-          retain: true
-
-  - alias: '[Fence] When fence open notify every 10 minutes'
-    trigger:
-      platform: time_pattern
-      minutes: '/1'
-      seconds: 00
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: sensor.outside_fence
-          state: 'Abierta'
-        - condition: template
-          value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))//60)%10 == 0 }}'
-        - condition: template
-          value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))//60) != 0 }}'
-    action:
-      - service: tts.google_translate_say
-        entity_id: media_player.recibidor
-        data_template:
-          message: 'Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos'
-          cache: false
-      - service: telegram_bot.send_message
-        data_template:
-          message: 'Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos'
-          target: 
-            - !secret hokusphone_telegram_chat_id
-            - !secret geniphone_telegram_chat_id
-          inline_keyboard: 
-            - 'Cerrar:/switch.turn_on#switch.barrera'
-      - service: notify.slack
-        data_template:
-          message: ''
-          data:
-            attachments:
-              - color: 'warning'
-                pretext: ':door: *Barrera abierta* :door:'
-                text: 'Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos.'
-                fallback: 'Barrera abierta'
+#automation:
+#  - alias: '[Fence - State] Publish to mqtt fence status'
+#    trigger:
+#      platform: state
+#      entity_id: switch.barrera
+#      to: 'off'
+#    action:
+#      - service: mqtt.publish
+#        data:
+#          topic: home/sensor/fence/state
+#          payload_template: >-
+#            {%- if is_state("sensor.outside_fence_sensor_state", "off") %}
+#              En movimiento
+#            {%- else %}
+#              Cerrada
+#            {%- endif %}
+#          qos: 0
+#          retain: true
+#      - delay:
+#          seconds: 18
+#      - service: mqtt.publish
+#        data:
+#          topic: home/sensor/fence/state
+#          payload_template: >-
+#            {%- if is_state("sensor.outside_fence_sensor_state", "off") %}
+#              Abierta
+#            {% else %}
+#              Cerrada
+#            {%- endif %}
+#          qos: 0
+#          retain: true
+#
+#  - alias: '[Fence - State] Publish to mqtt fence moving (En movimiento) status'
+#    trigger:
+#      platform: state
+#      entity_id: switch.barrera
+#      to: 'on'
+#    action:
+#      - service: mqtt.publish
+#        data:
+#          topic: home/sensor/fence/state
+#          payload: "En movimiento"
+#          qos: 0
+#          retain: true
+#
+#  - alias: '[Fence - State] Publish to mqtt fence closed (Cerrada) status'
+#    trigger:
+#      platform: state
+#      entity_id: sensor.outside_fence_sensor_state
+#      to: 'on'
+#    action:
+#      - service: mqtt.publish
+#        data:
+#          topic: home/sensor/fence/state
+#          payload: Cerrada
+#          qos: 0
+#          retain: true
+#
+#  - alias: '[Fence - Notification] When fence open notify every 10 minutes'
+#    trigger:
+#      platform: time_pattern
+#      minutes: '/1'
+#      seconds: 00
+#    condition:
+#      condition: and
+#      conditions:
+#        - condition: state
+#          entity_id: sensor.outside_fence
+#          state: 'Abierta'
+#        - condition: template
+#          value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))//60)%10 == 0 }}'
+#        - condition: template
+#          value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))//60) != 0 }}'
+#    action:
+#      - service: tts.google_translate_say
+#        entity_id: media_player.recibidor
+#        data_template:
+#          message: 'Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos'
+#          cache: false
+#      - service: telegram_bot.send_message
+#        data_template:
+#          message: 'Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos'
+#          target: 
+#            - !secret hokusphone_telegram_chat_id
+#            - !secret geniphone_telegram_chat_id
+#          inline_keyboard: 
+#            - 'Cerrar:/switch.turn_on#switch.barrera'
+#      - service: notify.slack
+#        data_template:
+#          message: ''
+#          data:
+#            attachments:
+#              - color: 'warning'
+#                pretext: ':door: *Barrera abierta* :door:'
+#                text: 'Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos.'
+#                fallback: 'Barrera abierta'

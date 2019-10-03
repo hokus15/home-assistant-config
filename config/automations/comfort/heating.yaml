@@ -1,0 +1,58 @@
+- alias: '[Comfort - Heating] Turn on heating when home mean temperature for last 24 hours is below 18.5 degrees'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.home_temperature_mean
+    below: 18.5
+  condition:
+    condition: state
+    entity_id: 'climate.netatmo_general'
+    state: 'off'
+  action:
+    - service: climate.turn_on
+      entity_id: climate.netatmo_general
+    - service: homeassistant.update_entity
+      entity_id: climate.netatmo_general
+    - service: logbook.log
+      data:
+        name: 'Calefacción'
+        message: 'encendida por baja temperatura'
+        entity_id: climate.netatmo_general
+        domain: climate
+    - service: telegram_bot.send_message
+      data_template:
+        message: 'Como ya empieza a hacer fresquito, he encendido la calefaccción. Convendría hacer un purgado de los radiadores.'
+        target: 
+          - !secret hokusphone_telegram_chat_id
+          - !secret geniphone_telegram_chat_id
+        disable_notification: false
+        inline_keyboard:
+               - 'Apaga la calefacción:/climate.turn_off#climate.netatmo_general'
+
+- alias: '[Comfort - Heating] Turn on heating when home mean temperature for last 24 hours is above 20 degrees'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.home_temperature_mean
+    above: 20
+  condition:
+    condition: template
+    value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
+  action:
+    - service: climate.turn_off
+      entity_id: climate.netatmo_general
+    - service: homeassistant.update_entity
+      entity_id: climate.netatmo_general
+    - service: logbook.log
+      data:
+        name: 'Calefacción'
+        message: 'apagada por alta temperatura'
+        entity_id: climate.netatmo_general
+        domain: climate
+    - service: telegram_bot.send_message
+      data_template:
+        message: 'Empieza el calor!!!! He apagado la calefaccción.'
+        target: 
+          - !secret hokusphone_telegram_chat_id
+          - !secret geniphone_telegram_chat_id
+        disable_notification: false
+        inline_keyboard:
+               - 'Enciende la calefacción:/climate.turn_on#climate.netatmo_general'

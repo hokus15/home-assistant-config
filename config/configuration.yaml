@@ -75,7 +75,7 @@ recorder:
   db_url: !secret recorder_db_url
   exclude:
     domains:
-      - automation
+#      - automation
       - script
       - zone
       - group
@@ -261,6 +261,7 @@ tts:
 sensor: !include sensors.yaml
 binary_sensor: !include binary_sensors.yaml
 #automation: !include automations.yaml
-automation: !include_dir_list automations
+#automation: !include_dir_list automations
+automation: !include_dir_merge_list automations
 script: !include scripts.yaml
 panel_iframe: !include panel_iframes.yaml

@@ -1,0 +1,12 @@
+- alias: '[Lights - Hall lamp] Turn on hall lamp when the sun is set and someone at home'
+  trigger:
+    platform: sun
+    event: sunset
+  condition:
+    condition: state
+    entity_id: group.unidad_familiar
+    state: 'home'
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.entrance_hall_lamp_switch

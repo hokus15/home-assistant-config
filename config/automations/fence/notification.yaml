@@ -1,0 +1,38 @@
+- alias: '[Fence - Notification] When fence open notify every 10 minutes'
+  trigger:
+    platform: time_pattern
+    minutes: '/1'
+    seconds: 00
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: sensor.outside_fence
+        state: 'Abierta'
+      - condition: template
+        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))//60)%10 == 0 }}'
+      - condition: template
+        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))//60) != 0 }}'
+  action:
+    - service: tts.google_translate_say
+      entity_id: media_player.recibidor
+      data_template:
+        message: 'Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos'
+        cache: false
+    - service: telegram_bot.send_message
+      data_template:
+        message: 'Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos'
+        target: 
+          - !secret hokusphone_telegram_chat_id
+          - !secret geniphone_telegram_chat_id
+        inline_keyboard: 
+          - 'Cerrar:/switch.turn_on#switch.barrera'
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'warning'
+              pretext: ':door: *Barrera abierta* :door:'
+              text: 'Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos.'
+              fallback: 'Barrera abierta'
