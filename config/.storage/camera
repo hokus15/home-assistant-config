@@ -1,0 +1,18 @@
+{
+    "data": {
+        "camera.entrada": {
+            "preload_stream": true
+        },
+        "camera.piscina": {
+            "preload_stream": true
+        },
+        "camera.recibidor": {
+            "preload_stream": true
+        },
+        "camera.salon": {
+            "preload_stream": true
+        }
+    },
+    "key": "camera",
+    "version": 1
+}
