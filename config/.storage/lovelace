@@ -1,6 +1,12 @@
 {
     "data": {
         "config": {
+            "resources": [
+                {
+                    "type": "js",
+                    "url": "/community_plugin/lovelace-home-feed-card/lovelace-home-feed-card.js"
+                }
+            ],
             "title": "Casa",
             "views": [
                 {
@@ -1255,6 +1261,90 @@
                     "panel": true,
                     "path": "barrera",
                     "title": "Barrera"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "calendars": [
+                                "calendar.turnos_geni_everything",
+                                "calendar.recogida_basura"
+                            ],
+                            "entities": [
+                                {
+                                    "content_template": "{{display_name}} {{state}}",
+                                    "entity": "alarm_control_panel.home",
+                                    "include_history": true,
+                                    "max_history": 5,
+                                    "name": "Alarma",
+                                    "remove_repeats": true,
+                                    "state_map": {
+                                        "armed_away": "armada",
+                                        "armed_night": "armada en modo noche",
+                                        "disarmed": "desarmada"
+                                    }
+                                },
+                                {
+                                    "content_template": "{{display_name}} est\u00e1 {{state}}",
+                                    "entity": "person.geni",
+                                    "include_history": true,
+                                    "max_history": 2,
+                                    "name": "Geni",
+                                    "remove_repeats": true,
+                                    "state_map": {
+                                        "home": "en casa",
+                                        "not_home": "fuera de casa"
+                                    }
+                                },
+                                {
+                                    "content_template": "{{display_name}} est\u00e1 {{state}}",
+                                    "entity": "person.jordi",
+                                    "include_history": true,
+                                    "max_history": 2,
+                                    "name": "Jordi",
+                                    "remove_repeats": true,
+                                    "state_map": {
+                                        "home": "en casa",
+                                        "not_home": "fuera de casa"
+                                    }
+                                },
+                                {
+                                    "content_template": "{{display_name}}: {{state}}",
+                                    "entity": "person.persona_autorizada",
+                                    "include_history": true,
+                                    "max_history": 2,
+                                    "name": "Persona autorizada",
+                                    "remove_repeats": true,
+                                    "state_map": {
+                                        "home": "permitida",
+                                        "not_home": "no permitida"
+                                    }
+                                },
+                                {
+                                    "content_template": "Se ha {{state}} la {{display_name}}",
+                                    "entity": "cover.outside_fence",
+                                    "include_history": true,
+                                    "max_history": 2,
+                                    "name": "Barrera",
+                                    "remove_repeats": true,
+                                    "state_map": {
+                                        "closed": "cerrado",
+                                        "open": "abierto"
+                                    }
+                                }
+                            ],
+                            "max_height": "100em",
+                            "more_info_on_tap": true,
+                            "scrollbars_enabled": false,
+                            "show_empty": false,
+                            "title": "\u00daltimos estados",
+                            "type": "custom:home-feed-card"
+                        }
+                    ],
+                    "icon": "mdi:rss",
+                    "panel": false,
+                    "path": "feed",
+                    "title": "Estados"
                 }
             ]
         }
