@@ -16,6 +16,14 @@
                 "id": "651cb988d7f547fd8cbb9060258f3d10",
                 "name": "Geni",
                 "user_id": null
+            },
+            {
+                "device_trackers": [
+                    "device_tracker.virtual_device"
+                ],
+                "id": "2bccbd4bffc448529f67f343901f5854",
+                "name": "Persona autorizada",
+                "user_id": null
             }
         ]
     },
