@@ -163,6 +163,9 @@ notify:
 ifttt:
   key: !secret ifttt_api_key
 
+hacs:
+  token: !secret hacs_token
+
 netatmo:
   api_key: !secret netatmo_api_key
   secret_key: !secret netatmo_secret_key

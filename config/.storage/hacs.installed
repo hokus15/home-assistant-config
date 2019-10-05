@@ -1,0 +1,10 @@
+{
+    "data": {
+        "gadgetchnnel/lovelace-home-feed-card": {
+            "version_type": "version",
+            "version_installed": "0.2.11",
+            "version_available": "0.2.11"
+        }
+    },
+    "schema": "5"
+}

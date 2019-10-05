@@ -1422,6 +1422,15 @@
                 "name": null,
                 "platform": "person",
                 "unique_id": "2bccbd4bffc448529f67f343901f5854"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.hacs",
+                "name": null,
+                "platform": "hacs",
+                "unique_id": "0717a0cd-745c-48fd-9b16-c8534c9704f9-bc944b0f-fd42-4a58-a072-ade38d1444cd"
             }
         ]
     },
