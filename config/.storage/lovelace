@@ -1268,7 +1268,7 @@
                         {
                             "calendars": [
                                 "calendar.turnos_geni_everything",
-                                "calendar.recogida_basura"
+                                "calendar.caducidad"
                             ],
                             "entities": [
                                 {
