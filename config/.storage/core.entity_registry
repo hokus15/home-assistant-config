@@ -1413,6 +1413,15 @@
                 "name": null,
                 "platform": "cast",
                 "unique_id": "0fb3973a-de5b-b006-74eb-82d7ffbf0440"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "person.persona_autorizada",
+                "name": null,
+                "platform": "person",
+                "unique_id": "2bccbd4bffc448529f67f343901f5854"
             }
         ]
     },
