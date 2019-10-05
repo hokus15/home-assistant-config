@@ -17,10 +17,15 @@ homeassistant:
       source_type: router
     device_tracker.hokusphone_wifi:
       source_type: router
+    device_tracker.guest:
+      source_type: router
     person.jordi:
       entity_picture: 'https://s.gravatar.com/avatar/f5d192b4f4ffab4d9625f9b9e11d16b7?s=192'
     person.geni:
-      entity_picture: '/local/hass-geni2.jpg'
+      entity_picture: '/local/person.geni.jpg'
+    person.guest:
+      entity_picture: '/local/person.guest.png'
+
 recorder:
   exclude:
     entities:
@@ -28,31 +33,27 @@ recorder:
       - sensor.next_shift_date
       - sensor.next_holiday_mode_start
       - sensor.next_holiday_mode_end
-      - sensor.next_holiday_mode_end
-      - sensor.next_holiday_mode_start
-      - sensor.next_shift_date
-      - sensor.next_shift_event
       - sensor.check_switch_holiday
 
-      - input_number.empty_home_activation_delay_minutes
+      - input_number.guest_mode_minutes
 
 group:
   Unidad Familiar:
     entities:
       - person.jordi
       - person.geni
-      - device_tracker.virtual_device
+      - person.guest
 
 input_boolean:
-  empty_home_activation_delay:
-    name: Retardo
+  guest_mode:
+    name: Modo invitado
   #  initial: off
     icon: 'mdi:clock'
 
 input_number:
-  # Delay to change the state of the virtual_device (in minutes)
-  empty_home_activation_delay_minutes:
-    name: Minutos
+  # Number of minutes to keep the guest mode on
+  guest_mode_minutes:
+    name: Minutos invitado
     initial: 180
     min: 0
     max: 240
@@ -121,7 +122,7 @@ switch:
 cloud:
   google_actions:
     entity_config:
-      script.presence_set_virtual_device_home:
+      script.presence_guest_mode_on:
         name: Persona autorizada
         aliases:
           - Persona autorizada
@@ -156,7 +157,7 @@ cloud:
 #      expose: true
 #      room: General
 
-automation:
+#automation:
   # Empty home automation when no one of the Familia group is at home
 #  - alias: '[Presence] Empty home'
 #    trigger:
@@ -636,16 +637,16 @@ script:
         data_template:
           preset_mode: 'Schedule'
 
-  presence_set_virtual_device_home:
-    alias: 'Set virtual device at home for 180 minutes'
+  presence_guest_mode_on:
+    alias: 'Activate guest mode for 180 minutes'
     sequence:
       - service: input_number.set_value
         data:
-          entity_id: input_number.empty_home_activation_delay_minutes
+          entity_id: input_number.guest_mode_minutes
           value: 180.0
       - service: homeassistant.turn_on
         data:
-          entity_id: input_boolean.empty_home_activation_delay
+          entity_id: input_boolean.guest_mode_minutes
   
   presence_leave_home:
     alias: 'Leave home'
@@ -666,16 +667,16 @@ script:
             {%- if is_state("sensor.outside_fence", "Abierta") %}{% set incidence = true %}Barrera abierta.{% endif -%}
             {%- if not incidence %}Todo correcto.{% endif %}
   
-  presence_authorized_person_ga:
-    alias: 'Authorizes a person the specified number of minutes'
+  presence_guest_mode_ga:
+    alias: 'Activates the guest mode the specified number of minutes'
     sequence:
       - service: input_number.set_value
         data_template:
-          entity_id: input_number.empty_home_activation_delay_minutes
+          entity_id: input_number.guest_mode_minutes
           value: '{{data.minutes}}'
       - service: homeassistant.turn_on
         data:
-          entity_id: input_boolean.empty_home_activation_delay
+          entity_id: input_boolean.guest_mode
       - service: telegram_bot.send_message
         data_template:
           message: 'Google Assistant a autorizado presencia en casa durante {{data.minutes}} minutos'

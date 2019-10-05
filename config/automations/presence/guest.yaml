@@ -1,0 +1,54 @@
+- alias: "[Presence - Guest] Turn on for 4 hours guest person at 8:15 if it's a workday"
+  trigger:
+    platform: time
+    at: '08:15:00'
+  condition:
+    condition: state
+    entity_id: 'binary_sensor.workday_sensor'
+    state: 'on'
+  action:
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.guest_mode_minutes
+        value: 240.0
+    - service: homeassistant.turn_on
+      data:
+        entity_id: input_boolean.guest_mode
+
+- alias: '[Presence - Guest] When guest mode is turned off, set guest as not home'
+  trigger:
+    platform: state
+    entity_id: input_boolean.guest_mode
+    to: 'off'
+  action:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: group.seguridad
+    - delay: 00:00:10
+    - service: device_tracker.see
+      data:
+        dev_id: 'guest'
+        location_name: 'not_home'
+        
+- alias: '[Presence - Guest] When input_boolean.guest_mode turns on'
+  trigger:
+    platform: state
+    entity_id: input_boolean.guest_mode
+    to: 'on'
+  action:
+    - service: device_tracker.see
+      data:
+        dev_id: 'guest'
+        location_name: 'home'
+    - delay: 00:00:10
+    - service: homeassistant.turn_on
+      data:
+        entity_id: group.seguridad
+    - service: notify.telegram
+      data_template:
+        message: >
+          Activado modo invitado durante {{ (states.input_number.guest_mode_minutes.state | int) // 60 }} hora(s) y {{ (states.input_number.guest_mode_minutes.state | int) % 60 }} minutos
+    - delay: '{{ (states.input_number.guest_mode_minutes.state | int) // 60 }}:{{ (states.input_number.guest_mode_minutes.state | int) % 60 }}'
+    - service: homeassistant.turn_off
+      data:
+        entity_id: input_boolean.guest_mode

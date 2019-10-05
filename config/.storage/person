@@ -19,10 +19,10 @@
             },
             {
                 "device_trackers": [
-                    "device_tracker.virtual_device"
+                    "device_tracker.guest"
                 ],
-                "id": "2bccbd4bffc448529f67f343901f5854",
-                "name": "Persona autorizada",
+                "id": "35468c6c1d85495eb93b8eac8be3e701",
+                "name": "Invitado",
                 "user_id": null
             }
         ]

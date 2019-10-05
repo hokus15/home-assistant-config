@@ -132,13 +132,13 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "device_tracker.virtual_device"
+                                    "entity": "person.guest"
                                 },
                                 {
-                                    "entity": "input_boolean.empty_home_activation_delay"
+                                    "entity": "input_boolean.guest_mode"
                                 },
                                 {
-                                    "entity": "input_number.empty_home_activation_delay_minutes"
+                                    "entity": "input_number.guest_mode_minutes"
                                 },
                                 {
                                     "entity": "switch.holiday"
@@ -955,7 +955,7 @@
                             "cards": [
                                 {
                                     "entity": "sensor.hp_photosmart_5520",
-                                    "image": "/local/HP Photosmart 5520.jpg",
+                                    "image": "/local/device_tracker.hp_photosmart_5520.jpg",
                                     "type": "picture-entity"
                                 },
                                 {
@@ -1149,7 +1149,7 @@
                                             "type": "conditional"
                                         }
                                     ],
-                                    "image": "/local/ioniq3.png",
+                                    "image": "/local/device_tracker.car_ioniq_big.png",
                                     "title": "Hyundai Ioniq",
                                     "type": "picture-elements"
                                 },
@@ -1217,7 +1217,7 @@
                                     "entity": "sensor.netatmo_exterior_temperature",
                                     "style": {
                                         "left": "55%",
-                                        "top": "80%"
+                                        "top": "75%"
                                     },
                                     "type": "state-badge"
                                 }
@@ -1310,14 +1310,14 @@
                                 },
                                 {
                                     "content_template": "{{display_name}}: {{state}}",
-                                    "entity": "person.persona_autorizada",
+                                    "entity": "person.guest",
                                     "include_history": true,
                                     "max_history": 2,
-                                    "name": "Persona autorizada",
+                                    "name": "Modo invitado",
                                     "remove_repeats": true,
                                     "state_map": {
-                                        "home": "permitida",
-                                        "not_home": "no permitida"
+                                        "home": "activo",
+                                        "not_home": "no activo"
                                     }
                                 },
                                 {
