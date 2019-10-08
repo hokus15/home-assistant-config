@@ -75,7 +75,7 @@ recorder:
   db_url: !secret recorder_db_url
   exclude:
     domains:
-#      - automation
+      - automation
       - script
       - zone
       - group
@@ -122,6 +122,7 @@ logger:
     homeassistant.components.websocket_api: warn
     homeassistant.components.switch.command_line: warn
     homeassistant.components.sensor.command_line: warn
+    homeassistant.components.netatmo.sensor: error
 #    homeassistant.components.sensor: debug
 #    homeassistant.components.sensor.torque: debug
 #    homeassistant.components.camera: debug
