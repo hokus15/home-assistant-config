@@ -32,3 +32,4 @@ config/.storage/hassio
 config/home-assistant_v2.db
 config/.cloud
 *.gz
+config/.storage/hacs.repositories
