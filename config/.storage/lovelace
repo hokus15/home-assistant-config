@@ -1035,16 +1035,33 @@
                         },
                         {
                             "entities": [
-                                "sensor.netatmo_exterior_battery",
-                                "sensor.netatmo_pluviometro_battery",
-                                "sensor.netatmo_anemometro_battery",
-                                "sensor.netatmo_suite_battery",
-                                "sensor.netatmo_habitacion_battery",
-                                "sensor.porche_sensor_puerta_bateria",
-                                "sensor.porche_sensor_persiana_bateria",
-                                "sensor.coladuria_sensor_puerta_bateria",
-                                "sensor.despacho_sensor_movimiento_bateria",
-                                "sensor.recibidor_boton_bateria"
+                                {
+                                    "entity": "sensor.netatmo_exterior_battery"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_pluviometro_battery"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_anemometro_battery"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_suite_battery"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_habitacion_battery"
+                                },
+                                {
+                                    "entity": "sensor.porche_sensor_puerta_bateria"
+                                },
+                                {
+                                    "entity": "sensor.porche_sensor_persiana_bateria"
+                                },
+                                {
+                                    "entity": "sensor.coladuria_sensor_puerta_bateria"
+                                },
+                                {
+                                    "entity": "sensor.despacho_sensor_movimiento_bateria"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Estado bater\u00edas",
