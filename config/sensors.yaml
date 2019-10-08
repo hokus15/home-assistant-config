@@ -136,4 +136,4 @@
     - name: DB size
       query: 'SELECT table_schema "database", Round((Sum(data_length + index_length) / 1024) / 1024, 0) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;'
       column: 'value'
-      unit_of_measurement: MB
+      unit_of_measurement: MiB
