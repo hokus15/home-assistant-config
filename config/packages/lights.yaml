@@ -32,22 +32,15 @@ homeassistant:
     script.turn_off_lights_exterior:
       hidden: true
 
+history:
+  include:
+    entities:
+      - sensor.outside_fence
+
 recorder:
   include:
     domains:
       - light
-#  exclude:
-#    entities:
-#      - sensor.suite_switch_exporting
-#      - sensor.escalera_switch_alarm_level
-#      - sensor.escalera_switch_alarm_type
-#      - sensor.escalera_switch_exporting
-#      - sensor.escalera_switch_heat
-#      - sensor.escalera_switch_power_management
-#      - sensor.escalera_switch_sourcenodeid
-#      - switch.entrance_hall_lamp_switch
-#      - switch.escalera_switch
-#      - switch.suite_switch
 
 light:
   - platform: group

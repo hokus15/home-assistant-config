@@ -15,6 +15,15 @@ homeassistant:
       friendly_name: 'Luz'
     light.piscina_light:
       friendly_name: 'Luz piscina'
+
+history:
+  include:
+    entities:
+      - switch.motor_piscina
+      - sensor.piscina_water_temperature
+      - sensor.piscina_temperature
+      - sensor.piscina_filtering_time
+
 recorder:
   include:
     entities:
@@ -23,31 +32,12 @@ recorder:
       - sensor.piscina_temperature
       - sensor.piscina_filtering_time
 
-#  exclude:
-#    entities:
-#      - sensor.piscina_pump_efficiency
-#      - sensor.piscina_off_time
-#      - sensor.piscina_on_time
-#      - sensor.piscina_width
-#      - sensor.piscina_height
-#      - sensor.piscina_average_depth
-#      - sensor.piscina_pump_power
-#      - sensor.piscina_capacity
-#      - sensor.piscina_recirculation
-#      - binary_sensor.motor_piscina_btn
-#      - sensor.piscina_k_factor
-#      - switch.luz_piscina_2
-#      - switch.luz_piscina_3
-#      - switch.motor_piscina_2
-#      - input_number.temperature_correction
-
 history_graph:
   temperature_swimmingpool:
     name: Temperatura piscina
     entities:
       - sensor.piscina_water_temperature
       - sensor.piscina_temperature
-#      - sensor.piscina_filtered_realistic_water_temperature
     hours_to_show: 336
     refresh: 600
 

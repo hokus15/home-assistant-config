@@ -56,7 +56,7 @@ homeassistant:
     device_tracker.car_ioniq:
       entity_picture: /local/ioniq-icon.png
 
-recorder:
+history:
   include:
     entities:
       - binary_sensor.car_ioniq_state
@@ -67,25 +67,16 @@ recorder:
       - sensor.car_ioniq_state_soc_display
       - sensor.car_ioniq_state_soc_bms
 
-#  exclude:
-#    entities:
-#      - sensor.car_ioniq_location_previous_latitude
-#      - sensor.car_ioniq_location_previous_longitude
-#      - sensor.car_ioniq_location
-#      - sensor.car_ioniq_location_gps_accuracy
-#      - sensor.car_ioniq_state_daily
-#      - sensor.car_ioniq_state_daily_battery_health
-#      - sensor.car_ioniq_state_daily_cec
-#      - sensor.car_ioniq_state_daily_ced
-#      - sensor.car_ioniq_state_daily_distance_since_cc
-#      - sensor.car_ioniq_state_daily_energy_charged
-#      - sensor.car_ioniq_state_daily_odometer
-#      - sensor.car_ioniq_state_daily_soc_bms
-#      - sensor.car_ioniq_state_daily_soc_display
-#      
-#      - sensor.car_ioniq_state_cec
-#      - sensor.car_ioniq_state_ced
-#      - sensor.car_ioniq_state_energy_consumption
+recorder:
+  include:
+    entities:
+      - binary_sensor.car_ioniq_state
+      - sensor.car_ioniq_charge_state
+      - sensor.car_ioniq_charger_current_power
+      - sensor.car_ioniq_location_distance_travelled_between_updates
+      - sensor.car_ioniq_state_odometer
+      - sensor.car_ioniq_state_soc_display
+      - sensor.car_ioniq_state_soc_bms
 
 device_tracker:
   - platform: mqtt_json

@@ -63,9 +63,6 @@ updater:
 
 # Enables support for tracking state changes over time.
 history:
-  exclude:
-    domains:
-      - camera
 
 config:
 
@@ -73,44 +70,7 @@ recorder:
   purge_interval: 1
   purge_keep_days: 30
   db_url: !secret recorder_db_url
-#  exclude:
-#    domains:
-#      - automation
-#      - calendar
-#      - group
-#      - history_graph
-#      - media_player
-#      - script
-#      - updater
-#      - zone
-#      - zwave
-#    entities:
-#      - sensor.since_last_boot
-#      - sensor.last_boot
-#
-#      - sun.sun
-#      - sensor.date
-#      - sensor.time
-#      - sensor.date_time
-#      - sensor.sunrise
-#      - sensor.sunset
-#
-#      - sensor.ha_runtime_in_minutes
-#      
-#      - sensor.connected_clients
-#
-#      - binary_sensor.workday_sensor
-#
-#      - sensor.google_wifi_uptime
-#      - sensor.google_wifi_new_version
-#      - sensor.google_wifi_local_ip
-#      - sensor.google_wifi_last_restart
-#      - sensor.google_wifi_current_version
-#      
-#      - binary_sensor.remote_ui
-#      - binary_sensor.updater
-#      
-#      - sensor.hacs
+
 mqtt:
   discovery: true
   discovery_prefix: homeassistant
