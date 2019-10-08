@@ -129,6 +129,7 @@ recorder:
       - sensor.dark_sky_icon_0d
       - sensor.dark_sky_summary
       - sensor.dark_sky_summary_0d
+      - weather.dark_sky
 
       - sensor.netatmo_exterior_radio
       - sensor.netatmo_exterior_battery

@@ -36,6 +36,9 @@ recorder:
       - sensor.escalera_switch_heat
       - sensor.escalera_switch_power_management
       - sensor.escalera_switch_sourcenodeid
+      - switch.entrance_hall_lamp_switch
+      - switch.escalera_switch
+      - switch.suite_switch
 
 light:
   - platform: group
@@ -60,6 +63,6 @@ light:
   - platform: group
     name: Luces interiores
     entities:
-      - light.suite
-      - light.escalera
-      - light.lampara_recibidor
+      - light.suite_light
+      - light.escalera_light
+      - light.entrance_hall_lamp_light

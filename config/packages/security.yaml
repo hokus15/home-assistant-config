@@ -187,6 +187,10 @@ recorder:
       - sensor.despacho_sensor_movimiento_sourcenodeid
 #      - binary_sensor.despacho_sensor_movimiento
 
+      - sensor.fibaro_system_fgms001_zw5_motion_sensor_acceleration_x_axis
+      - sensor.fibaro_system_fgms001_zw5_motion_sensor_acceleration_y_axis
+      - sensor.fibaro_system_fgms001_zw5_motion_sensor_acceleration_z_axis
+
 group:
   Seguridad:
     entities:

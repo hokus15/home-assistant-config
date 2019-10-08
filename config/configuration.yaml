@@ -76,14 +76,14 @@ recorder:
   exclude:
     domains:
       - automation
-      - script
-      - zone
-      - group
       - calendar
-      - zwave
-      - updater
-      - media_player
+      - group
       - history_graph
+      - media_player
+      - script
+      - updater
+      - zone
+      - zwave
     entities:
       - sensor.since_last_boot
       - sensor.last_boot
@@ -96,6 +96,8 @@ recorder:
       - sensor.sunset
 
       - sensor.ha_runtime_in_minutes
+      
+      - sensor.connected_clients
 
       - binary_sensor.workday_sensor
 
@@ -104,6 +106,11 @@ recorder:
       - sensor.google_wifi_local_ip
       - sensor.google_wifi_last_restart
       - sensor.google_wifi_current_version
+      
+      - binary_sensor.remote_ui
+      - binary_sensor.updater
+      
+      - sensor.hacs
 mqtt:
   discovery: true
   discovery_prefix: homeassistant

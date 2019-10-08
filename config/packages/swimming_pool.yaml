@@ -28,7 +28,9 @@ recorder:
       - sensor.piscina_capacity
       - sensor.piscina_recirculation
       - binary_sensor.motor_piscina_btn
+      - sensor.piscina_k_factor
       - switch.luz_piscina_2
+      - switch.luz_piscina_3
       - switch.motor_piscina_2
 
 history_graph:
