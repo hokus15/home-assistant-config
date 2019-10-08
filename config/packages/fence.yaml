@@ -4,10 +4,13 @@ homeassistant:
       friendly_name: 'Estado barrera'
 
 recorder:
-  exclude:
+  include:
     entities:
-      - sensor.outside_fence_sensor_state
-      - switch.barrera
+      - sensor.outside_fence
+#  exclude:
+#    entities:
+#      - sensor.outside_fence_sensor_state
+#      - switch.barrera
 
 sensor:
   - platform: template

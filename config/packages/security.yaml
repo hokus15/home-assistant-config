@@ -148,48 +148,76 @@ folder_watcher:
       - '*.mkv'
 
 recorder:
-  exclude:
+  include:
     entities:
-      - sensor.porche_sensor_puerta_access_control
-      - sensor.porche_sensor_puerta_alarm_level
-      - sensor.porche_sensor_puerta_alarm_type
-      - sensor.porche_sensor_puerta_burglar
-      - sensor.porche_sensor_puerta_general
-      - sensor.porche_sensor_puerta_sourcenodeid
-      - sensor.porche_sensor_puerta_system
-      - sensor.porche_sensor_puerta_heat
-      - sensor.porche_sensor_puerta
-      - binary_sensor.porche_sensor_puerta
-
-      - sensor.porche_sensor_persiana_access_control
-      - sensor.porche_sensor_persiana_alarm_level
-      - sensor.porche_sensor_persiana_alarm_type
-      - sensor.porche_sensor_persiana_burglar
-      - sensor.porche_sensor_persiana_general
-      - sensor.porche_sensor_persiana_sourcenodeid
-      - sensor.porche_sensor_persiana
-      - binary_sensor.porche_sensor_persiana
-
-      - sensor.coladuria_sensor_puerta_access_control
-      - sensor.coladuria_sensor_puerta_alarm_level
-      - sensor.coladuria_sensor_puerta_alarm_type
-      - sensor.coladuria_sensor_puerta_burglar
-      - sensor.coladuria_sensor_puerta_general
-      - sensor.coladuria_sensor_puerta_sourcenodeid
-      - sensor.coladuria_sensor_puerta
       - binary_sensor.coladuria_sensor_puerta
+      - binary_sensor.porche_sensor_puerta
+      - binary_sensor.porche_sensor_persiana
+      - binary_sensor.despacho_sensor_movimiento
+      - binary_sensor.salon_camara_det_mov
+      - binary_sensor.recibidor_camara_det_mov
+      - binary_sensor.entrada_outdoor_motion
+      - binary_sensor.entrada_outdoor_human
+      - binary_sensor.entrada_outdoor_animal
+      - binary_sensor.entrada_outdoor_vehicle
+      - binary_sensor.piscina_camara_det_mov
+      - binary_sensor.barbacoa_camara_det_mov
+      - binary_sensor.caseta_camara_det_mov
 
-      - sensor.despacho_sensor_movimiento_alarm_level
-      - sensor.despacho_sensor_movimiento_alarm_type
-      - sensor.despacho_sensor_movimiento_burglar
-      - sensor.despacho_sensor_movimiento_general
-      - sensor.despacho_sensor_movimiento_seismic_intensity
-      - sensor.despacho_sensor_movimiento_sourcenodeid
-#      - binary_sensor.despacho_sensor_movimiento
+      - switch.recibidor_camara_det_mov
+      - switch.salon_camara_det_mov
+      - switch.piscina_camara_det_mov
+      - switch.barbacoa_camara_det_mov
+      - switch.caseta_camara_det_mov
 
-      - sensor.fibaro_system_fgms001_zw5_motion_sensor_acceleration_x_axis
-      - sensor.fibaro_system_fgms001_zw5_motion_sensor_acceleration_y_axis
-      - sensor.fibaro_system_fgms001_zw5_motion_sensor_acceleration_z_axis
+      - input_boolean.entrada_camara_det_mov
+      - input_boolean.despacho_sensor_movimiento
+      - input_boolean.porche_sensor_puerta
+      - input_boolean.porche_sensor_persiana
+      - input_boolean.coladuria_sensor_puerta
+
+#  exclude:
+#    entities:
+#      - sensor.porche_sensor_puerta_access_control
+#      - sensor.porche_sensor_puerta_alarm_level
+#      - sensor.porche_sensor_puerta_alarm_type
+#      - sensor.porche_sensor_puerta_burglar
+#      - sensor.porche_sensor_puerta_general
+#      - sensor.porche_sensor_puerta_sourcenodeid
+#      - sensor.porche_sensor_puerta_system
+#      - sensor.porche_sensor_puerta_heat
+#      - sensor.porche_sensor_puerta
+#      - binary_sensor.porche_sensor_puerta
+#
+#      - sensor.porche_sensor_persiana_access_control
+#      - sensor.porche_sensor_persiana_alarm_level
+#      - sensor.porche_sensor_persiana_alarm_type
+#      - sensor.porche_sensor_persiana_burglar
+#      - sensor.porche_sensor_persiana_general
+#      - sensor.porche_sensor_persiana_sourcenodeid
+#      - sensor.porche_sensor_persiana
+#      - binary_sensor.porche_sensor_persiana
+#
+#      - sensor.coladuria_sensor_puerta_access_control
+#      - sensor.coladuria_sensor_puerta_alarm_level
+#      - sensor.coladuria_sensor_puerta_alarm_type
+#      - sensor.coladuria_sensor_puerta_burglar
+#      - sensor.coladuria_sensor_puerta_general
+#      - sensor.coladuria_sensor_puerta_sourcenodeid
+#      - sensor.coladuria_sensor_puerta
+#      - binary_sensor.coladuria_sensor_puerta
+#
+#      - sensor.despacho_sensor_movimiento_alarm_level
+#      - sensor.despacho_sensor_movimiento_alarm_type
+#      - sensor.despacho_sensor_movimiento_burglar
+#      - sensor.despacho_sensor_movimiento_general
+#      - sensor.despacho_sensor_movimiento_seismic_intensity
+#      - sensor.despacho_sensor_movimiento_sourcenodeid
+##      - binary_sensor.despacho_sensor_movimiento
+#
+#      - sensor.fibaro_system_fgms001_zw5_motion_sensor_acceleration_x_axis
+#      - sensor.fibaro_system_fgms001_zw5_motion_sensor_acceleration_y_axis
+#      - sensor.fibaro_system_fgms001_zw5_motion_sensor_acceleration_z_axis
 
 group:
   Seguridad:

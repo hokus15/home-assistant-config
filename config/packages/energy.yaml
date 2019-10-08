@@ -42,16 +42,24 @@ homeassistant:
       friendly_name: 'Tarifa'
 
 recorder:
-  exclude:
-    domains:
-      - utility_meter
+  include:
     entities:
-      - sensor.nut_ups_manufacturer
-      - sensor.nut_ups_model
-      - sensor.nut_ups_status_data
-      - sensor.nut_ups_beeper_status
-      - sensor.nut_ups_battery_runtime
-      - sensor.nut_ups_battery_charge
+      - sensor.efergy_2577
+      - sensor.energy_ups_status
+      - binary_sensor.energy_ups_status_bs
+
+#  exclude:
+#    domains:
+#      - utility_meter
+#    entities:
+#      - sensor.nut_ups_manufacturer
+#      - sensor.nut_ups_model
+#      - sensor.nut_ups_status_data
+#      - sensor.nut_ups_beeper_status
+#      - sensor.nut_ups_battery_runtime
+#      - sensor.nut_ups_battery_charge
+#      
+#      - sensor.per_device_usage
 
 sensor:
   - platform: efergy

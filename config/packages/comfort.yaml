@@ -120,77 +120,102 @@ homeassistant:
     binary_sensor.summer_time:
       friendly_name: 'Horario de verano'
 recorder:
-  exclude:
+  include:
     entities:
-      - sensor.season
-      - binary_sensor.summer_time
+      - input_boolean.home_comfort_mode
+      - sensor.netatmo_exterior_temperature
+      - sensor.netatmo_exterior_humidity
+      - sensor.netatmo_pluviometro_rain
+      - sensor.netatmo_anemometro_strength
+      - sensor.netatmo_salon_temperature
+      - sensor.netatmo_salon_humidity
+      - sensor.netatmo_salon_noise
+      - sensor.netatmo_salon_pressure
+      - sensor.netatmo_salon_co2
+      - sensor.home_temperature
+      - sensor.ground_floor_temperature
+      - sensor.first_floor_temperature
+      - sensor.netatmo_suite_temperature
+      - sensor.netatmo_suite_co2
+      - sensor.netatmo_suite_humidity
+      - sensor.netatmo_habitacion_temperature
+      - sensor.netatmo_habitacion_co2
+      - sensor.netatmo_habitacion_humidity
+      - sensor.entrance_hall_thermostat_temperature
+      - sensor.despacho_sensor_movimiento_luminance
+      - sensor.despacho_sensor_movimiento_temperature
 
-      - sensor.dark_sky_icon
-      - sensor.dark_sky_icon_0d
-      - sensor.dark_sky_summary
-      - sensor.dark_sky_summary_0d
-      - weather.dark_sky
-
-      - sensor.netatmo_exterior_radio
-      - sensor.netatmo_exterior_battery
-
-      - sensor.netatmo_suite_radio
-      - sensor.netatmo_suite_battery
-
-      - sensor.netatmo_habitacion_radio
-      - sensor.netatmo_habitacion_battery
-
-      - sensor.netatmo_pluviometro_radio
-      - sensor.netatmo_pluviometro_battery
-
-      - sensor.netatmo_anemometro_gust_angle
-      - sensor.netatmo_anemometro_angle
-      - sensor.netatmo_anemometro_radio
-      - sensor.netatmo_anemometro_battery
-
-      - binary_sensor.netatmo_exterior_temperature_down
-      - binary_sensor.netatmo_exterior_temperature_up
-      - sensor.netatmo_exterior_temperature_trend
-
-      - binary_sensor.netatmo_salon_temperature_down
-      - binary_sensor.netatmo_salon_temperature_up
-      - sensor.netatmo_salon_temperature_trend
-
-      - binary_sensor.office_sensor_temperature_down
-      - binary_sensor.office_sensor_temperature_up
-      - sensor.office_sensor_temperature_trend
-
-      - binary_sensor.entrance_hall_thermostat_temperature_down
-      - binary_sensor.entrance_hall_thermostat_temperature_up
-      - sensor.entrance_hall_thermostat_temperature_trend
-
-      - binary_sensor.netatmo_suite_temperature_down
-      - binary_sensor.netatmo_suite_temperature_up
-      - sensor.netatmo_suite_temperature_trend
-
-      - binary_sensor.netatmo_habitacion_temperature_down
-      - binary_sensor.netatmo_habitacion_temperature_up
-      - sensor.netatmo_habitacion_temperature_trend
-
-      - binary_sensor.first_floor_temperature_up
-      - binary_sensor.first_floor_temperature_down
-      - sensor.first_floor_temperature_trend
-
-      - binary_sensor.netatmo_salon_co2_down
-      - binary_sensor.netatmo_salon_co2_up
-      - sensor.netatmo_salon_co2_trend
-      
-      - binary_sensor.netatmo_suite_co2_down
-      - binary_sensor.netatmo_suite_co2_up
-      - sensor.netatmo_suite_co2_trend
-
-      - binary_sensor.netatmo_habitacion_co2_down
-      - binary_sensor.netatmo_habitacion_co2_up
-      - sensor.netatmo_habitacion_co2_trend
-
-      - binary_sensor.ground_floor_temperature_up
-      - binary_sensor.ground_floor_temperature_down
-      - sensor.ground_floor_temperature_trend
+#  exclude:
+#    entities:
+#      - sensor.season
+#      - binary_sensor.summer_time
+#
+#      - sensor.dark_sky_icon
+#      - sensor.dark_sky_icon_0d
+#      - sensor.dark_sky_summary
+#      - sensor.dark_sky_summary_0d
+#      - weather.dark_sky
+#
+#      - sensor.netatmo_exterior_radio
+#      - sensor.netatmo_exterior_battery
+#
+#      - sensor.netatmo_suite_radio
+#      - sensor.netatmo_suite_battery
+#
+#      - sensor.netatmo_habitacion_radio
+#      - sensor.netatmo_habitacion_battery
+#
+#      - sensor.netatmo_pluviometro_radio
+#      - sensor.netatmo_pluviometro_battery
+#
+#      - sensor.netatmo_anemometro_gust_angle
+#      - sensor.netatmo_anemometro_angle
+#      - sensor.netatmo_anemometro_radio
+#      - sensor.netatmo_anemometro_battery
+#
+#      - binary_sensor.netatmo_exterior_temperature_down
+#      - binary_sensor.netatmo_exterior_temperature_up
+#      - sensor.netatmo_exterior_temperature_trend
+#
+#      - binary_sensor.netatmo_salon_temperature_down
+#      - binary_sensor.netatmo_salon_temperature_up
+#      - sensor.netatmo_salon_temperature_trend
+#
+#      - binary_sensor.office_sensor_temperature_down
+#      - binary_sensor.office_sensor_temperature_up
+#      - sensor.office_sensor_temperature_trend
+#
+#      - binary_sensor.entrance_hall_thermostat_temperature_down
+#      - binary_sensor.entrance_hall_thermostat_temperature_up
+#      - sensor.entrance_hall_thermostat_temperature_trend
+#
+#      - binary_sensor.netatmo_suite_temperature_down
+#      - binary_sensor.netatmo_suite_temperature_up
+#      - sensor.netatmo_suite_temperature_trend
+#
+#      - binary_sensor.netatmo_habitacion_temperature_down
+#      - binary_sensor.netatmo_habitacion_temperature_up
+#      - sensor.netatmo_habitacion_temperature_trend
+#
+#      - binary_sensor.first_floor_temperature_up
+#      - binary_sensor.first_floor_temperature_down
+#      - sensor.first_floor_temperature_trend
+#
+#      - binary_sensor.netatmo_salon_co2_down
+#      - binary_sensor.netatmo_salon_co2_up
+#      - sensor.netatmo_salon_co2_trend
+#      
+#      - binary_sensor.netatmo_suite_co2_down
+#      - binary_sensor.netatmo_suite_co2_up
+#      - sensor.netatmo_suite_co2_trend
+#
+#      - binary_sensor.netatmo_habitacion_co2_down
+#      - binary_sensor.netatmo_habitacion_co2_up
+#      - sensor.netatmo_habitacion_co2_trend
+#
+#      - binary_sensor.ground_floor_temperature_up
+#      - binary_sensor.ground_floor_temperature_down
+#      - sensor.ground_floor_temperature_trend
 
 history_graph:
   outside_temperature:

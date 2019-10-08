@@ -27,15 +27,21 @@ homeassistant:
       entity_picture: '/local/person.guest.png'
 
 recorder:
-  exclude:
+  include:
+    domains:
+      - person
     entities:
-      - sensor.next_shift_event
-      - sensor.next_shift_date
-      - sensor.next_holiday_mode_start
-      - sensor.next_holiday_mode_end
-      - sensor.check_switch_holiday
+      - group.unidad_familiar
 
-      - input_number.guest_mode_minutes
+#  exclude:
+#    entities:
+#      - sensor.next_shift_event
+#      - sensor.next_shift_date
+#      - sensor.next_holiday_mode_start
+#      - sensor.next_holiday_mode_end
+#      - sensor.check_switch_holiday
+#
+#      - input_number.guest_mode_minutes
 
 group:
   Unidad Familiar:

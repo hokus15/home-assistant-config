@@ -3,6 +3,11 @@ homeassistant:
     alarm_control_panel.home:
        friendly_name: 'Alarma'
 
+recorder:
+  include:
+    entities:
+      - alarm_control_panel.home
+
 alarm_control_panel:
   - platform: manual
     name: home
