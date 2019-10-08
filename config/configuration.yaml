@@ -40,9 +40,6 @@ frontend:
 # Allows you to issue voice commands from the frontend
 #conversation:
 
-# View all events in a logbook
-logbook:
-
 # Track the sun
 sun:
 
@@ -61,15 +58,18 @@ wemo:
 updater:
   include_used_components: true
 
-# Enables support for tracking state changes over time.
-history:
-
 config:
 
 recorder:
   purge_interval: 1
   purge_keep_days: 30
   db_url: !secret recorder_db_url
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
 
 mqtt:
   discovery: true
