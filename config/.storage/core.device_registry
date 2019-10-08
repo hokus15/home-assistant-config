@@ -804,7 +804,7 @@
                 "via_device_id": null
             },
             {
-                "area_id": null,
+                "area_id": "a3df0520a7304f55b76d00a9a726ab66",
                 "config_entries": [
                     "ba140323fab64440bee4f8cd44f71ee3"
                 ],
