@@ -1,5 +1,8 @@
 {
     "data": {
+        "camera.barbacoa": {
+            "preload_stream": true
+        },
         "camera.entrada": {
             "preload_stream": true
         },
