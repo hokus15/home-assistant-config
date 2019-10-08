@@ -26,13 +26,6 @@ homeassistant:
     person.guest:
       entity_picture: '/local/person.guest.png'
 
-history:
-  include:
-    domains:
-      - person
-    entities:
-      - group.unidad_familiar
-
 recorder:
   include:
     domains:

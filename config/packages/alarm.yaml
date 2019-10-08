@@ -3,11 +3,6 @@ homeassistant:
     alarm_control_panel.home:
        friendly_name: 'Alarma'
 
-history:
-  include:
-    entities:
-      - alarm_control_panel.home
-
 recorder:
   include:
     entities:

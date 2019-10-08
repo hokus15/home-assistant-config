@@ -41,19 +41,17 @@ homeassistant:
     utility_meter.energy_home_daily:
       friendly_name: 'Tarifa'
 
-history:
-  include:
-    entities:
-      - sensor.efergy_2577
-      - sensor.energy_ups_status
-      - binary_sensor.energy_ups_status_bs
-
 recorder:
   include:
     entities:
       - sensor.efergy_2577
       - sensor.energy_ups_status
       - binary_sensor.energy_ups_status_bs
+
+logbook:
+  exclude:
+    entities:
+      - sensor.efergy_2577
 
 sensor:
   - platform: efergy

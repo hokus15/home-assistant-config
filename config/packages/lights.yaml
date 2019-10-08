@@ -32,11 +32,6 @@ homeassistant:
     script.turn_off_lights_exterior:
       hidden: true
 
-history:
-  include:
-    entities:
-      - sensor.outside_fence
-
 recorder:
   include:
     domains:

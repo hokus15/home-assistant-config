@@ -3,11 +3,6 @@ homeassistant:
     sensor.outside_fence:
       friendly_name: 'Estado barrera'
 
-history:
-  include:
-    entities:
-      - sensor.outside_fence
-
 recorder:
   include:
     entities:

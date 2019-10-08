@@ -56,7 +56,7 @@ homeassistant:
     device_tracker.car_ioniq:
       entity_picture: /local/ioniq-icon.png
 
-history:
+recorder:
   include:
     entities:
       - binary_sensor.car_ioniq_state
@@ -67,11 +67,9 @@ history:
       - sensor.car_ioniq_state_soc_display
       - sensor.car_ioniq_state_soc_bms
 
-recorder:
-  include:
+logbook:
+  exclude:
     entities:
-      - binary_sensor.car_ioniq_state
-      - sensor.car_ioniq_charge_state
       - sensor.car_ioniq_charger_current_power
       - sensor.car_ioniq_location_distance_travelled_between_updates
       - sensor.car_ioniq_state_odometer

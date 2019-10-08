@@ -120,33 +120,6 @@ homeassistant:
     binary_sensor.summer_time:
       friendly_name: 'Horario de verano'
 
-history:
-  include:
-    entities:
-      - input_boolean.home_comfort_mode
-      - sensor.netatmo_exterior_temperature
-      - sensor.netatmo_exterior_humidity
-      - sensor.netatmo_pluviometro_rain
-      - sensor.netatmo_anemometro_strength
-      - sensor.netatmo_salon_temperature
-      - sensor.netatmo_salon_humidity
-      - sensor.netatmo_salon_noise
-      - sensor.netatmo_salon_pressure
-      - sensor.netatmo_salon_co2
-      - sensor.home_temperature
-      - sensor.ground_floor_temperature
-      - sensor.first_floor_temperature
-      - sensor.netatmo_suite_temperature
-      - sensor.netatmo_suite_co2
-      - sensor.netatmo_suite_humidity
-      - sensor.netatmo_habitacion_temperature
-      - sensor.netatmo_habitacion_co2
-      - sensor.netatmo_habitacion_humidity
-      - sensor.entrance_hall_thermostat_temperature
-      - sensor.despacho_sensor_movimiento_luminance
-      - sensor.despacho_sensor_movimiento_temperature
-      - sensor.entrance_hall_thermostat_target_temperature
-
 recorder:
   include:
     entities:
@@ -173,6 +146,31 @@ recorder:
       - sensor.despacho_sensor_movimiento_luminance
       - sensor.despacho_sensor_movimiento_temperature
       - sensor.entrance_hall_thermostat_target_temperature
+
+logbook:
+  exclude:
+    entities:
+      - sensor.netatmo_exterior_temperature
+      - sensor.netatmo_exterior_humidity
+      - sensor.netatmo_pluviometro_rain
+      - sensor.netatmo_anemometro_strength
+      - sensor.netatmo_salon_temperature
+      - sensor.netatmo_salon_humidity
+      - sensor.netatmo_salon_noise
+      - sensor.netatmo_salon_pressure
+      - sensor.netatmo_salon_co2
+      - sensor.home_temperature
+      - sensor.ground_floor_temperature
+      - sensor.first_floor_temperature
+      - sensor.netatmo_suite_temperature
+      - sensor.netatmo_suite_co2
+      - sensor.netatmo_suite_humidity
+      - sensor.netatmo_habitacion_temperature
+      - sensor.netatmo_habitacion_co2
+      - sensor.netatmo_habitacion_humidity
+      - sensor.entrance_hall_thermostat_temperature
+      - sensor.despacho_sensor_movimiento_luminance
+      - sensor.despacho_sensor_movimiento_temperature
 
 history_graph:
   outside_temperature:

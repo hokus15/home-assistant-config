@@ -16,7 +16,7 @@ homeassistant:
     light.piscina_light:
       friendly_name: 'Luz piscina'
 
-history:
+recorder:
   include:
     entities:
       - switch.motor_piscina
@@ -24,10 +24,9 @@ history:
       - sensor.piscina_temperature
       - sensor.piscina_filtering_time
 
-recorder:
-  include:
+logbook:
+  exclude:
     entities:
-      - switch.motor_piscina
       - sensor.piscina_water_temperature
       - sensor.piscina_temperature
       - sensor.piscina_filtering_time
