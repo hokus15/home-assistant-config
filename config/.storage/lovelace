@@ -582,7 +582,7 @@
                                     "entity": "person.geni"
                                 },
                                 {
-                                    "entity": "device_tracker.virtual_device"
+                                    "entity": "person.guest"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -593,7 +593,7 @@
                             "entities": [
                                 "person.jordi",
                                 "person.geni",
-                                "device_tracker.virtual_device"
+                                "person.guest"
                             ],
                             "title": "Ocupaci\u00f3n",
                             "type": "history-graph"
