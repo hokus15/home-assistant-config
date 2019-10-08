@@ -144,6 +144,7 @@ recorder:
       - sensor.entrance_hall_thermostat_temperature
       - sensor.despacho_sensor_movimiento_luminance
       - sensor.despacho_sensor_movimiento_temperature
+      - sensor.entrance_hall_thermostat_target_temperature
 
 #  exclude:
 #    entities:
