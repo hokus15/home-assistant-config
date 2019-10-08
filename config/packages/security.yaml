@@ -551,4 +551,4 @@ cloud:
 #          domain: camera
 
 shell_command:
-  mp4_convert: sudo ffmpeg -i {{file}} -c copy {{file[1:file.find(".mkv")]}}.mp4
+  mp4_convert: ffmpeg -i {{file}} -c copy {{file[1:file.find(".mkv")]}}.mp4
