@@ -18,6 +18,12 @@ homeassistant:
     light.suite_light:
       friendly_name: 'Suite'
       icon: mdi:ceiling-light
+    light.salon_light:
+      friendly_name: 'Salón'
+      icon: mdi:ceiling-light
+    light.comedor_light:
+      friendly_name: 'Comedor'
+      icon: mdi:ceiling-light
     light.entrance_hall_lamp_light:
       friendly_name: 'Lámpara recibidor'
       icon: mdi:lamp
@@ -52,6 +58,14 @@ light:
       - light.puerta_coladuria
 
   - platform: switch
+    name: salon_light
+    entity_id: switch.salon_switch
+
+  - platform: switch
+    name: comedor_light
+    entity_id: switch.comedor_switch
+
+  - platform: switch
     name: suite_light
     entity_id: switch.suite_switch
 
@@ -69,3 +83,5 @@ light:
       - light.suite_light
       - light.escalera_light
       - light.entrance_hall_lamp_light
+      - light.comedor_light
+      - light.salon_light

@@ -368,7 +368,7 @@
                                     "entity": "sensor.netatmo_salon_wifi"
                                 },
                                 {
-                                    "entity": "switch.salon_switch"
+                                    "entity": "light.salon_light"
                                 },
                                 {
                                     "entity": "sensor.salon_switch_power"
@@ -377,7 +377,7 @@
                                     "entity": "sensor.salon_switch_energy"
                                 },
                                 {
-                                    "entity": "switch.comedor_switch"
+                                    "entity": "light.comedor_light"
                                 },
                                 {
                                     "entity": "sensor.comedor_switch_power"
