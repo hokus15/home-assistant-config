@@ -60,12 +60,12 @@
 #      friendly_name: 'pH'
 #      icon_template: mdi:beaker
 
-- platform: template
-  sensors:
-    # Nodon Octan button battery level
-    recibidor_boton_bateria:
-      value_template: '{% if states.zwave.nodon_crc3100_octan_remote %}{{ states.zwave.nodon_crc3100_octan_remote.attributes.battery_level }}{% else %}Desconocido{% endif %}'
-      unit_of_measurement: '%'
+#- platform: template
+#  sensors:
+#    # Nodon Octan button battery level
+#    recibidor_boton_bateria:
+#      value_template: '{% if states.zwave.nodon_crc3100_octan_remote %}{{ states.zwave.nodon_crc3100_octan_remote.attributes.battery_level }}{% else %}Desconocido{% endif %}'
+#      unit_of_measurement: '%'
 
 - platform: systemmonitor
   resources:
