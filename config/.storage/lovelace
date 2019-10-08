@@ -1274,6 +1274,7 @@
                                 {
                                     "content_template": "{{display_name}} {{state}}",
                                     "entity": "alarm_control_panel.home",
+                                    "format": "datetime",
                                     "include_history": true,
                                     "max_history": 5,
                                     "name": "Alarma",
@@ -1287,6 +1288,7 @@
                                 {
                                     "content_template": "{{display_name}} est\u00e1 {{state}}",
                                     "entity": "person.geni",
+                                    "format": "datetime",
                                     "include_history": true,
                                     "max_history": 2,
                                     "name": "Geni",
@@ -1299,6 +1301,7 @@
                                 {
                                     "content_template": "{{display_name}} est\u00e1 {{state}}",
                                     "entity": "person.jordi",
+                                    "format": "datetime",
                                     "include_history": true,
                                     "max_history": 2,
                                     "name": "Jordi",
@@ -1311,6 +1314,7 @@
                                 {
                                     "content_template": "{{display_name}}: {{state}}",
                                     "entity": "person.guest",
+                                    "format": "datetime",
                                     "include_history": true,
                                     "max_history": 2,
                                     "name": "Modo invitado",
@@ -1323,6 +1327,7 @@
                                 {
                                     "content_template": "Se ha {{state}} la {{display_name}}",
                                     "entity": "cover.outside_fence",
+                                    "format": "datetime",
                                     "include_history": true,
                                     "max_history": 2,
                                     "name": "Barrera",
@@ -1335,7 +1340,7 @@
                             ],
                             "max_height": "100em",
                             "more_info_on_tap": true,
-                            "scrollbars_enabled": false,
+                            "scrollbars_enabled": true,
                             "show_empty": false,
                             "title": "\u00daltimos estados",
                             "type": "custom:home-feed-card"
