@@ -383,87 +383,45 @@ binary_sensor:
   
   # Alarm status for foscam cam in hall
   - platform: mqtt
-    state_topic: 'home/sensor/camera/recibidor/alarm'
+    state_topic: 'home/sensor/camera/recibidor/motion'
     name: recibidor_camara_det_mov
     device_class: motion
-    # 0: No alarm
-    # 1: Alarm triggered
-    value_template: >-
-            {%- if value != "0" %}
-                ON
-            {% else %}
-                OFF
-            {%- endif %}
-  
+    json_attributes_topic: 'home/sensor/camera/recibidor/motion/attributes'
+
   # Alarm status for foscam cam in swimming pool
   - platform: mqtt
-    state_topic: 'home/sensor/camera/piscina/alarm'
+    state_topic: 'home/sensor/camera/piscina/motion'
     name: piscina_camara_det_mov
     device_class: motion
-    # 0: No alarm
-    # 1: Alarm triggered
-    value_template: >-
-            {%- if value != "0" %}
-                ON
-            {% else %}
-                OFF
-            {%- endif %}
-  
+    json_attributes_topic: 'home/sensor/camera/piscina/motion/attributes'
+
   # Alarm status for foscam cam in bbq
   - platform: mqtt
-    state_topic: 'home/sensor/camera/barbacoa/alarm'
+    state_topic: 'home/sensor/camera/barbacoa/motion'
     name: barbacoa_camara_det_mov
     device_class: motion
-    # 0: No alarm
-    # 1: Alarm triggered
-    value_template: >-
-            {%- if value != "0" %}
-                ON
-            {% else %}
-                OFF
-            {%- endif %}
+    json_attributes_topic: 'home/sensor/camera/barbacoa/motion/attributes'
 
   # Alarm status for foscam cam in living room
   - platform: mqtt
-    state_topic: 'home/sensor/camera/salon/alarm'
+    state_topic: 'home/sensor/camera/salon/motion'
     name: salon_camara_det_mov
     device_class: motion
-    # 0: No alarm
-    # 1: Alarm triggered
-    value_template: >-
-            {%- if value != "0" %}
-                ON
-            {% else %}
-                OFF
-            {%- endif %}
+    json_attributes_topic: 'home/sensor/camera/salon/motion/attributes'
 
   # Alarm status for Linksys cam in caseta
   - platform: mqtt
-    state_topic: 'home/sensor/camera/caseta/alarm'
+    state_topic: 'home/sensor/camera/caseta/motion'
     name: caseta_camara_det_mov
     device_class: motion
-    # 0: No alarm
-    # 1: Alarm triggered
-    value_template: >-
-            {%- if value != "0" %}
-                ON
-            {% else %}
-                OFF
-            {%- endif %}
+    json_attributes_topic: 'home/sensor/camera/caseta/motion/attributes'
 
   # Alarm status for Netatmo presence
   - platform: mqtt
-    state_topic: 'home/sensor/camera/entrada/alarm'
+    state_topic: 'home/sensor/camera/entrada/motion'
     name: entrada_camara_det_mov
     device_class: motion
-    # 0: No alarm
-    # 1: Alarm triggered
-    value_template: >-
-            {%- if value != "0" %}
-                ON
-            {% else %}
-                OFF
-            {%- endif %}
+    json_attributes_topic: 'home/sensor/camera/entrada/motion/attributes'
 
   - platform: template
     sensors:

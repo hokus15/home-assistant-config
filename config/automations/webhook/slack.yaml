@@ -1,8 +1,24 @@
-#- alias: '[Webhook - Slack] Slack webhook'
-#  trigger:
-#    - platform: webhook
-#      webhook_id: slack-webhook
-#  action:
+- alias: '[Webhook - Slack] Slack webhook'
+  trigger:
+    - platform: webhook
+      webhook_id: slack-webhook
+  action:
+    - service: persistent_notification.create
+      data_template:
+        title: 'Slack Test'
+        #message: '{{ trigger.data }}'
+        #message: '{{trigger.data|regex_replace(find="<MultiDict", replace="")}}'
+        message: >-
+          @ trigger.data:<br><br>{{ trigger.data }}<br><br>
+          @ trigger.query.payload: '{{ trigger.query.payload }}'<br><br>
+          @ trigger.query['payload']: '{{ trigger.query['payload'] }}'<br><br>
+          @ trigger.query.get('payload'): '{{ trigger.query.get('payload') }}'<br><br>
+          @ trigger.query: '{{ trigger.query }}'<br><br>
+          @ trigger.query.keys(): '{{ trigger.query.keys() }}'<br><br>
+          @ trigger.query.items(): '{{ trigger.query.items() }}'<br><br>
+          @ trigger.query.values(): '{{ trigger.query.values() }}'<br><br>
+
+#           {% payload = payload.replace("<MultiDict(", "") %}        
 # cómo obtener los datos enviados desde slack: {{ trigger.query | string }}
 # intentar usar: {{ trigger.query | tojson | safe}}
 # {% set m_test_json = states.sensor.front_door_last_state.state.split(',') %}
@@ -13,9 +29,22 @@
     # Execute service with the format <service>#<entity_id>.
     # If the service or the entity id don't exist, the execution will silently fail
 #    - service_template: >
-#        {%- if trigger.query.payload.actions[0].value.find("#") != -1 -%}
-#          {{trigger.query.payload.actions[0].value[1:trigger.query.payload.actions[0].value.find("#")]}}
+#        {% set payload = trigger.query.payload | tojson | safe %}
+#        {%- if payload.actions[0].value.find("#") != -1 -%}
+#          {{payload.actions[0].value[1:payload.actions[0].value.find("#")]}}
 #        {%- endif -%}
 #
 #      data_template:
 #        entity_id: '{{trigger.query.payload.actions[0].value[trigger.query.payload.actions[0].value.find("#")+1:]}}'
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
