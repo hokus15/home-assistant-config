@@ -1431,6 +1431,24 @@
                 "name": null,
                 "platform": "person",
                 "unique_id": "35468c6c1d85495eb93b8eac8be3e701"
+            },
+            {
+                "config_entry_id": "ba140323fab64440bee4f8cd44f71ee3",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.todos_los_altavoces",
+                "name": null,
+                "platform": "cast",
+                "unique_id": "acbc4cd5-5889-4af7-a599-3840e3cc4dfc"
+            },
+            {
+                "config_entry_id": "ba140323fab64440bee4f8cd44f71ee3",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.altavoces_abajo",
+                "name": null,
+                "platform": "cast",
+                "unique_id": "b1ef5f35-50e0-417b-a75b-545e5e85291c"
             }
         ]
     },
