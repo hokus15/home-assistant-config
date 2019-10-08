@@ -146,6 +146,7 @@ recorder:
       - sensor.despacho_sensor_movimiento_luminance
       - sensor.despacho_sensor_movimiento_temperature
       - sensor.entrance_hall_thermostat_target_temperature
+      - sensor.porche_sensor_puerta_temperature
 
 logbook:
   exclude:
@@ -171,6 +172,7 @@ logbook:
       - sensor.entrance_hall_thermostat_temperature
       - sensor.despacho_sensor_movimiento_luminance
       - sensor.despacho_sensor_movimiento_temperature
+      - sensor.porche_sensor_puerta_temperature
 
 history_graph:
   outside_temperature:

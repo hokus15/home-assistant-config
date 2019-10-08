@@ -61,6 +61,7 @@ recorder:
     entities:
       - binary_sensor.car_ioniq_state
       - sensor.car_ioniq_charge_state
+      - switch.car_ioniq_charger
       - sensor.car_ioniq_charger_current_power
       - sensor.car_ioniq_location_distance_travelled_between_updates
       - sensor.car_ioniq_state_odometer
