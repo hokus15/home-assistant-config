@@ -175,6 +175,12 @@
                                 },
                                 {
                                     "entity": "light.entrance_hall_lamp_light"
+                                },
+                                {
+                                    "entity": "light.salon_light"
+                                },
+                                {
+                                    "entity": "light.comedor_light"
                                 }
                             ],
                             "show_header_toggle": true,
