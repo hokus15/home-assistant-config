@@ -1,0 +1,65 @@
+goto_sleep:
+  alias: '[Comfort - Misc] Go to sleep'
+  sequence:
+    # Only execute script between 21:00 and 6:00
+    - condition: time
+      after: '21:00'
+      before: '6:00'
+    # Turn on stairs lights
+    - service: light.turn_on
+      data:
+        entity_id: light.escalera_light
+    # Close fence if open
+    - service_template: >
+        {%- if is_state("sensor.outside_fence", "Abierta") -%}
+          homeassistant.turn_on
+        {%- else -%}
+          homeassistant.update_entity
+        {%- endif -%}
+
+      data:
+        entity_id: switch.barrera
+    # Turn off outside lights
+    - service: light.turn_off
+      data:
+        entity_id: light.luces_exteriores
+    # Turn off hall lamp
+    - service: light.turn_off
+      data:
+        entity_id: light.entrance_hall_lamp_light
+    # Turn off swimming pool light
+    - service: light.turn_off
+      data:
+        entity_id: light.piscina_light
+    # Alarm arm night
+    - service: script.turn_on
+      data:
+        entity_id: script.alarm_arm_night
+      # Notify found incidences and say good night.
+    - service: tts.google_translate_say
+      entity_id: media_player.recibidor
+      data_template:
+        message: >
+          {%- if states("sensor.car_ioniq_state_soc_display")|float < 45 %}Batería del coche al {{states("sensor.car_ioniq_state_soc_display")}} por ciento. {% endif %}
+          {%- if is_state("binary_sensor.porche_sensor_puerta", "on") %}Puerta de la cocina abierta. {% endif %}
+          {%- if is_state("binary_sensor.porche_sensor_persiana", "on") %}Persiana de la cocina abierta. {% endif %}
+          {%- if is_state("binary_sensor.coladuria_sensor_puerta", "on") %}Puerta de la coladuría abierta. {% endif %}
+          {%- if is_state("sensor.outside_fence", "Abierta") -%}Cerrando barrera.{% endif -%}
+          Alarma armada en modo noche.
+    # Wait until tts finishes
+#    - delay: '00:00:{{ states.media_player.recibidor.attributes.media_duration | int }}'
+    # Wait 5 minutes before turning stair lights off
+    - delay:
+        minutes: 5
+    # Turn stairs lights off
+    - service: light.turn_off
+      data:
+        entity_id: light.escalera_light
+
+jordi_on_bed:
+  alias: '[Comfort - Misc] Jordi On bed'
+  sequence:
+    # Turn stairs lights off
+    - service: light.turn_off
+      data:
+        entity_id: light.escalera_light

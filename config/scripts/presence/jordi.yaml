@@ -1,0 +1,17 @@
+presence_hokusphone_connected_home_wifi:
+  alias: '[Presence - Jordi] HokusPhone connected to home Wi-Fi'
+  sequence:
+    - service: mqtt.publish
+      data:
+        payload: 'home'
+        retain: true
+        topic: 'phone/sensor/hokus/wifi'
+
+presence_hokusphone_not_connected_home_wifi:
+  alias: '[Presence - Jordi] HokusPhone disconnected from home Wi-Fi'
+  sequence:
+    - service: mqtt.publish
+      data:
+        payload: 'not_home'
+        retain: true
+        topic: 'phone/sensor/hokus/wifi'

@@ -1,0 +1,48 @@
+presence_empty_home:
+  alias: '[Presence - Home] Empty home'
+  sequence:
+    # Alarm arm away
+    - service: script.turn_on
+      data:
+        entity_id: script.alarm_arm_away
+    # Turn off hall lamp
+    - service: switch.turn_off
+      data:
+        entity_id: switch.entrance_hall_lamp_switch
+    # Turn off stair lights
+    - service: switch.turn_off
+      data:
+        entity_id: switch.escalera_switch
+    # Turn off suite light
+    - service: switch.turn_off
+      data:
+        entity_id: switch.suite_switch
+    # Continue script only if heating is on and not in holiday mode
+    - condition: template
+      value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
+    - condition: state
+      entity_id: switch.holiday
+      state: 'off'
+    # Set thermostat away mode 
+    - service: climate.set_preset_mode
+      entity_id: climate.netatmo_general
+      data_template:
+        preset_mode: 'away'
+
+presence_someone_home:
+  alias: '[Presence - Home] Someone at home'
+  sequence:
+    # Disarm alarm
+    - service: alarm_control_panel.alarm_disarm
+      entity_id: alarm_control_panel.home
+    # Continue script only if heating is on and not in holiday mode
+    - condition: template
+      value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
+    - condition: state
+      entity_id: switch.holiday
+      state: 'off'
+    # Set thermostat Schedule mode 
+    - service: climate.set_preset_mode
+      entity_id: climate.netatmo_general
+      data_template:
+        preset_mode: 'Schedule'

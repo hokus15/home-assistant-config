@@ -1,0 +1,25 @@
+slack_test:
+  alias: '[Alarm - Test] Slack test'
+  sequence:
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'danger'
+              pretext: ':bell: *Alarma* :bell:'
+              text: 'Movimiento detectado en Prueba'
+              fallback: 'Alarma'
+            - color: '#3AA3E3'
+              title: 'Quieres'
+              callback_id: 'alarma_test'
+              attachment_type: 'default'
+              actions: 
+                - name: 'desactivar_test'
+                  text: 'Desactivar det. mov. test'
+                  type: 'button'
+                  value: 'homeassistant.turn_off#sensor.prueba'
+                - name: 'desarmar_alarma'
+                  text: 'Desarmar alarma'
+                  type: 'button'
+                  value: 'script.turn_on#script.alarm_disarm_slack'

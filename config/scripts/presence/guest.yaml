@@ -1,0 +1,25 @@
+presence_guest_mode_on:
+  alias: '[Presence - Guest] Activate guest mode for 180 minutes'
+  sequence:
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.guest_mode_minutes
+        value: 180.0
+    - service: homeassistant.turn_on
+      data:
+        entity_id: input_boolean.guest_mode_minutes
+
+presence_guest_mode_ga:
+  alias: '[Presence - Guest] Activate guest mode the specified number of minutes'
+  sequence:
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.guest_mode_minutes
+        value: '{{data.minutes}}'
+    - service: homeassistant.turn_on
+      data:
+        entity_id: input_boolean.guest_mode
+    - service: telegram_bot.send_message
+      data_template:
+        message: 'Google Assistant a autorizado presencia en casa durante {{data.minutes}} minutos'
+        target: !secret hokusphone_telegram_chat_id

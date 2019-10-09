@@ -233,24 +233,3 @@ cloud:
         aliases:
           - Luces piscina
         room: Jardín
-
-script:
-  turn_on_swimmingpool_light_ga:
-    alias: 'Turn on swimming pool lights if off'
-    sequence:
-      - condition: state
-        entity_id: light.piscina_light
-        state: 'off'
-      - service: light.turn_on
-        data:
-          entity_id: light.piscina_light
-
-  turn_off_swimmingpool_light_ga:
-    alias: 'Turn off swimming pool lights if on'
-    sequence:
-      - condition: state
-        entity_id: light.piscina_light
-        state: 'on'
-      - service: light.turn_off
-        data:
-          entity_id: light.piscina_light

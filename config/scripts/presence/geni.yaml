@@ -1,0 +1,17 @@
+presence_geniphone_connected_home_wifi:
+  alias: '[Presence - Geni] GeniPhone connected to home Wi-Fi'
+  sequence:
+    - service: mqtt.publish
+      data:
+        payload: 'home'
+        retain: true
+        topic: 'phone/sensor/geni/wifi'
+
+presence_geniphone_not_connected_home_wifi:
+  alias: '[Presence - Geni] GeniPhone disconnected from home Wi-Fi'
+  sequence:
+    - service: mqtt.publish
+      data:
+        payload: 'not_home'
+        retain: true
+        topic: 'phone/sensor/geni/wifi'
