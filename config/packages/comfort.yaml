@@ -1,125 +1,3 @@
-homeassistant:
-  customize:
-    climate.netatmo_general:
-      friendly_name: 'Calefacción'
-    sensor.netatmo_exterior_temperature:
-      friendly_name: 'Temperatura'
-    sensor.netatmo_exterior_humidity:
-      friendly_name: 'Humedad'
-    sensor.netatmo_exterior_min_temp:
-      friendly_name: 'Mínima de hoy'
-      icon: 'mdi:thermometer-minus'
-    sensor.netatmo_exterior_max_temp:
-      friendly_name: 'Máxima de hoy'
-      icon: 'mdi:thermometer-plus'
-    sensor.netatmo_exterior_battery:
-      friendly_name: 'Netatmo exterior'
-      device_class: 'battery'
-    sensor.netatmo_exterior_radio:
-      friendly_name: 'Señal exterior'
-    sensor.netatmo_pluviometro_rain:
-      friendly_name: 'Previsión lluvia'
-    sensor.netatmo_pluviometro_sum_rain_1:
-      friendly_name: 'Lluvia última hora'
-    sensor.netatmo_pluviometro_sum_rain_24:
-      friendly_name: 'Lluvia 24 horas'
-    sensor.netatmo_pluviometro_battery:
-      friendly_name: 'Netatmo pluviómetro'
-      device_class: 'battery'
-    sensor.netatmo_pluviometro_radio:
-      friendly_name: 'Señal pluviómetro'
-    sensor.netatmo_salon_temperature:
-      friendly_name: 'Temperatura'
-    sensor.netatmo_salon_min_temp:
-      friendly_name: 'Mínima de hoy'
-      icon: 'mdi:thermometer-minus'
-    sensor.netatmo_salon_max_temp:
-      friendly_name: 'Máxima de hoy'
-      icon: 'mdi:thermometer-plus'
-    sensor.netatmo_salon_humidity:
-      friendly_name: 'Humedad'
-    sensor.netatmo_salon_noise:
-      friendly_name: 'Nivel de ruido'
-    sensor.netatmo_salon_pressure:
-      friendly_name: 'Presión atmosférica'
-    sensor.netatmo_salon_co2:
-      friendly_name: 'Nivel CO2'
-    sensor.netatmo_salon_wifi:
-      friendly_name: 'Señal Wifi Netatmo'
-    sensor.netatmo_anemometro_angle:
-      friendly_name: 'Dirección viento'
-    sensor.netatmo_anemometro_battery:
-      friendly_name: 'Netatmo anemómetro'
-      device_class: 'battery'
-    sensor.netatmo_anemometro_gust_angle:
-      friendly_name: 'Dirección rachas'
-    sensor.netatmo_anemometro_gust_strength:
-      friendly_name: 'Velocidad rachas'
-    sensor.netatmo_anemometro_radio:
-      friendly_name: 'Señal anemómetro'
-    sensor.netatmo_anemometro_strength:
-      friendly_name: 'Velocidad viento'
-    sensor.netatmo_suite_temperature:
-      friendly_name: 'Temperatura'
-    sensor.netatmo_suite_min_temp:
-      friendly_name: 'Mínima de hoy'
-      icon: 'mdi:thermometer-minus'
-    sensor.netatmo_suite_max_temp:
-      friendly_name: 'Máxima de hoy'
-      icon: 'mdi:thermometer-plus'
-    sensor.netatmo_suite_co2:
-      friendly_name: 'Nivel CO2'
-    sensor.netatmo_suite_humidity:
-      friendly_name: 'Humedad'
-    sensor.netatmo_suite_battery:
-      friendly_name: 'Netatmo suite'
-      device_class: 'battery'
-    sensor.netatmo_suite_radio:
-      friendly_name: 'Señal suite'
-    sensor.netatmo_habitacion_temperature:
-      friendly_name: 'Temperatura'
-    sensor.netatmo_habitacion_min_temp:
-      friendly_name: 'Mínima de hoy'
-      icon: 'mdi:thermometer-minus'
-    sensor.netatmo_habitacion_max_temp:
-      friendly_name: 'Máxima de hoy'
-      icon: 'mdi:thermometer-plus'
-    sensor.netatmo_habitacion_co2:
-      friendly_name: 'Nivel CO2'
-    sensor.netatmo_habitacion_humidity:
-      friendly_name: 'Humedad'
-    sensor.netatmo_habitacion_battery:
-      friendly_name: 'Netatmo hab. niños'
-      device_class: 'battery'
-    sensor.netatmo_habitacion_radio:
-      friendly_name: 'Señal hab.niños'
-    sensor.ground_floor_temperature:
-      friendly_name: 'Temp media planta baja'
-      icon: 'mdi:thermometer'
-      unit_of_measurement: '°C'
-    sensor.first_floor_temperature:
-      friendly_name: 'Temp media 1ª planta'
-      icon: 'mdi:thermometer'
-      unit_of_measurement: '°C'
-    switch.thermostat_away_mode:
-      friendly_name: 'Modo ausente'
-      icon: mdi:home-outline
-    sensor.season:
-      friendly_name: 'Estación'
-    sensor.home_temperature_mean:
-      friendly_name: 'Temp. media 24h'
-      icon: 'mdi:thermometer'
-      unit_of_measurement: '°C'
-    sensor.home_temperature:
-      friendly_name: 'Temp. media'
-    sensor.entrance_hall_thermostat_temperature:
-      friendly_name: 'Temperatura'
-      unit_of_measurement: '°C'
-    sensor.dark_sky_summary_0d:
-      friendly_name: 'Previsión'
-    binary_sensor.summer_time:
-      friendly_name: 'Horario de verano'
-
 recorder:
   include:
     entities:
@@ -288,66 +166,8 @@ binary_sensor:
         max_samples: 5
 
 sensor:
-#  - platform: netatmo
-#    modules:
-#      Salón:
-#        - temperature
-#        - min_temp
-#        - max_temp
-#        - humidity
-#        - noise
-#        - pressure
-#        - co2
-#        - wifi_status
-#      Suite:
-#        - temperature
-#        - min_temp
-#        - max_temp
-#        - humidity
-#        - co2
-#        - battery_vp
-#        - rf_status
-#      Habitación:
-#        - temperature
-#        - min_temp
-#        - max_temp
-#        - humidity
-#        - co2
-#        - battery_vp
-#        - rf_status
-#      Exterior:
-#        - temperature
-#        - min_temp
-#        - max_temp
-#        - humidity
-#        - battery_vp
-#        - rf_status
-#      Pluviómetro:
-#        - rain
-#        - sum_rain_1
-#        - sum_rain_24
-#        - battery_vp
-#        - rf_status
-#      Anemómetro:
-#        - windangle
-#        - windstrength
-#        - gustangle
-#        - guststrength
-#        - battery_vp
-#        - rf_status
-
   # Sensor to define the season of the year
   - platform: season
-  
-  # Sensor to get sunset and sunrise hours with a custom format.
-  - platform: template
-    sensors:
-      sunrise:
-        friendly_name: 'Amanecer'
-        value_template: '{{ as_timestamp(states.sun.sun.attributes.next_rising)|timestamp_custom("%H:%M:%S") }}'
-      sunset:
-        friendly_name: 'Puesta de sol'
-        value_template: '{{ as_timestamp(states.sun.sun.attributes.next_setting)|timestamp_custom("%H:%M:%S") }}'
 
   - platform: darksky
     api_key: !secret dark_sky_api_key
@@ -362,7 +182,7 @@ sensor:
       - icon
     scan_interval:
       hours: 1
-
+  
   # Comfort sensors
   - platform: min_max
     name: ground_floor_temperature
@@ -403,14 +223,21 @@ sensor:
 
   - platform: template
     sensors:
+      # Sensors to get sunset and sunrise hours with a custom format.
+      sunrise:
+        friendly_name: 'Amanecer'
+        value_template: '{{ as_timestamp(states.sun.sun.attributes.next_rising)|timestamp_custom("%H:%M:%S") }}'
+      sunset:
+        friendly_name: 'Puesta de sol'
+        value_template: '{{ as_timestamp(states.sun.sun.attributes.next_setting)|timestamp_custom("%H:%M:%S") }}'
+      # Thermostat sensors
       entrance_hall_thermostat_target_temperature:
         entity_id: climate.netatmo_general
         value_template: "{{state_attr('climate.netatmo_general', 'temperature')}}"
-
       entrance_hall_thermostat_temperature:
         entity_id: climate.netatmo_general
         value_template: "{{state_attr('climate.netatmo_general', 'current_temperature')}}"
-
+      # Trend sensors
       ground_floor_temperature_trend:
         friendly_name: 'Tend temp planta baja'
         value_template: >-
@@ -623,16 +450,6 @@ sensor:
 switch:
   - platform: template
     switches:
-#      thermostat:
-#        entity_id: sensor.entrance_hall_thermostat_temperature
-#        value_template: "{{states('sensor.entrance_hall_thermostat_temperature')|float > 11.5}}"
-#        turn_on:
-#          service: script.turn_on
-#          entity_id: script.climate_power_on
-#        turn_off:
-#          service: script.turn_on
-#          entity_id: script.climate_power_off
-      
       thermostat_away_mode:
         entity_id: climate.netatmo_general
         value_template: "{{is_state_attr('climate.netatmo_general', 'preset_mode', 'away')}}"

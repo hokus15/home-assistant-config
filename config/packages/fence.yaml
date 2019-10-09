@@ -1,8 +1,3 @@
-homeassistant:
-  customize:
-    sensor.outside_fence:
-      friendly_name: 'Estado barrera'
-
 recorder:
   include:
     entities:

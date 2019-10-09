@@ -1,37 +1,3 @@
-homeassistant:
-  customize:
-    sensor.escalera_switch_energy:
-      icon: 'mdi:speedometer'
-      friendly_name: 'Consumo luz escalera'
-    sensor.escalera_switch_power:
-      icon: 'mdi:power-plug'
-      friendly_name: 'Potencia luz escalera'
-    sensor.suite_switch_energy:
-      icon: 'mdi:speedometer'
-      friendly_name: 'Consumo luz suite'
-    sensor.suite_switch_power:
-      icon: 'mdi:power-plug'
-      friendly_name: 'Potencia luz suite'
-    light.escalera_light:
-      friendly_name: 'Escalera'
-      icon: mdi:ceiling-light
-    light.suite_light:
-      friendly_name: 'Suite'
-      icon: mdi:ceiling-light
-    light.salon_light:
-      friendly_name: 'Salón'
-      icon: mdi:ceiling-light
-    light.comedor_light:
-      friendly_name: 'Comedor'
-      icon: mdi:ceiling-light
-    light.entrance_hall_lamp_light:
-      friendly_name: 'Lámpara recibidor'
-      icon: mdi:lamp
-#    input_number.outside_ligths_brightness:
-#      icon: mdi:brightness-6
-    script.turn_off_lights_exterior:
-      hidden: true
-
 recorder:
   include:
     domains:

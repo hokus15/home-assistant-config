@@ -1,21 +1,3 @@
-homeassistant:
-  customize:
-    sensor.piscina_on_history:
-      friendly_name: 'Uso bomba hoy'
-    sensor.piscina_water_temperature:
-      friendly_name: 'Temperatura agua'
-      icon: 'mdi:oil-temperature'
-    sensor.piscina_temperature:
-      friendly_name: 'Temp. media agua'
-    sensor.piscina_filtered_realistic_water_temperature:
-      friendly_name: 'Temp. realista agua'
-    switch.motor_piscina:
-      friendly_name: 'Depuradora'
-    switch.luz_piscina:
-      friendly_name: 'Luz'
-    light.piscina_light:
-      friendly_name: 'Luz piscina'
-
 recorder:
   include:
     entities:

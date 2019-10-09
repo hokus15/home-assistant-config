@@ -1,31 +1,3 @@
-homeassistant:
-  customize:
-    sensor.next_holiday_mode_start:
-      icon: mdi:airplane-takeoff
-    sensor.next_holiday_mode_end:
-      icon: mdi:airplane-landing
-    sensor.next_shift_event:
-      icon: mdi:message
-    sensor.next_shift_date:
-      icon: mdi:calendar
-    switch.holiday:
-      friendly_name: 'Vacaciones'
-      icon: mdi:airplane
-    input_number.empty_home_activation_delay_minutes:
-      icon: mdi:clock-end
-    device_tracker.geniphone_wifi:
-      source_type: router
-    device_tracker.hokusphone_wifi:
-      source_type: router
-    device_tracker.guest:
-      source_type: router
-    person.jordi:
-      entity_picture: 'https://s.gravatar.com/avatar/f5d192b4f4ffab4d9625f9b9e11d16b7?s=192'
-    person.geni:
-      entity_picture: '/local/person.geni.jpg'
-    person.guest:
-      entity_picture: '/local/person.guest.png'
-
 recorder:
   include:
     domains:

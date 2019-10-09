@@ -1,8 +1,3 @@
-homeassistant:
-  customize:
-    alarm_control_panel.home:
-       friendly_name: 'Alarma'
-
 recorder:
   include:
     entities:
