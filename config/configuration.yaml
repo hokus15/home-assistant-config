@@ -64,12 +64,26 @@ recorder:
   purge_interval: 1
   purge_keep_days: 30
   db_url: !secret recorder_db_url
-
+  include:
+    entities:
+      - sensor.processor_use
+      - sensor.memory_free
+      - sensor.disk_free
+      - sensor.db_size
+      - sensor.disk_use_share_camera
+  
 # Enables support for tracking state changes over time.
 history:
 
 # View all events in a logbook
 logbook:
+  exclude:
+    entities:
+      - sensor.processor_use
+      - sensor.memory_free
+      - sensor.disk_free
+      - sensor.db_size
+      - sensor.disk_use_share_camera
 
 mqtt:
   discovery: true
