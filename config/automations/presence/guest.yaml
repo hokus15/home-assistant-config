@@ -3,9 +3,17 @@
     platform: time
     at: '08:15:00'
   condition:
-    condition: state
-    entity_id: 'binary_sensor.workday_sensor'
-    state: 'on'
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: 'binary_sensor.workday_sensor'
+        state: 'on'
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - thu
+          - fri
   action:
     - service: input_number.set_value
       data:
