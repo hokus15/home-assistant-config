@@ -1,4 +1,5 @@
-- alias: '[Lights - Outside] When turn on outside lights, adjust brightness to 75%'
+# When turn on outside lights, adjust brightness to 75%
+- alias: '[Lights - Outside] Adjust brightness'
   trigger:
     platform: state
     entity_id: light.luces_exteriores
@@ -10,7 +11,7 @@
         brightness: '{{ (75 * 255) // 100 }}'
 
 # Turn on outside lights at sunset (+15 minutes)
-- alias: '[Lights - Outside] Turn on outside lights at sunset (+15 minutes)'
+- alias: '[Lights - Outside] Turn on outside lights'
   trigger:
     platform: sun
     event: 'sunset'
@@ -26,8 +27,8 @@
         message: 'encendidas por la puesta de sol'
         entity_id: light.luces_exteriores
         domain: light
-
-- alias: '[Lights - Outside] Turn off outside lights at night (at 00:15)'
+# Turn off outside lights at night (at 00:15)
+- alias: '[Lights - Outside] Turn off outside lights'
   trigger:
     platform: time
     at: '00:15'
@@ -45,7 +46,8 @@
         entity_id: light.luces_exteriores
         domain: light
 
-- alias: '[Lights - Outside] When the outside lights have been turned on at late night (later than 00:15) and before sunrise, turn them off after 5 minutes'
+# When the outside lights have been turned on at late night (later than 00:15) and before sunrise, turn them off after 5 minutes
+- alias: '[Lights - Outside] Turn off outside lights at night'
   trigger:
     platform: state
     entity_id: light.luces_exteriores
@@ -67,8 +69,8 @@
         message: 'apagadas más tarde de las 00:15'
         entity_id: light.luces_exteriores
         domain: light
-
-- alias: '[Lights - Outside] Turn off outside lights after 10 seconds when the sun is not set'
+# Turn off outside lights after 10 seconds when the sun is not set
+- alias: '[Lights - Outside] Turn off outside lights during day'
   trigger:
     platform: state
     entity_id: light.luces_exteriores
@@ -92,8 +94,8 @@
         message: 'apagadas porque es de dia'
         entity_id: light.luces_exteriores
         domain: light
-
-- alias: '[Lights - Outside] Turn on outside lights when fence is opened and the sun is set'
+# Turn on outside lights when fence is opened and the sun is set
+- alias: '[Lights - Outside] Turn on outside lights when fence is opened'
   trigger:
     platform: state
     entity_id: sensor.outside_fence

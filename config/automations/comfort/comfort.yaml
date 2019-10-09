@@ -11,7 +11,7 @@
       data:
         entity_id: script.goto_sleep
 
-- alias: '[Comfort] Comfort mode on'
+- alias: '[Comfort] Switch comfort mode on'
   trigger:
     platform: state
     entity_id: input_boolean.home_comfort_mode
@@ -20,7 +20,7 @@
     - service: script.turn_on
       entity_id: script.comfort_mode_on
 
-- alias: '[Comfort] Comfort mode off'
+- alias: '[Comfort] Switch comfort mode off'
   trigger:
     platform: state
     entity_id: input_boolean.home_comfort_mode
@@ -28,8 +28,8 @@
   action:
     - service: script.turn_off
       entity_id: script.comfort_mode_off
-
-- alias: '[Comfort] Turn on comfort mode when comfort state is true and is after 16:00'
+# Turn on comfort mode when comfort state is true and is after 16:00
+- alias: '[Comfort] Sensor comfort mode on'
   trigger:
     platform: state
     entity_id: binary_sensor.home_comfort_state

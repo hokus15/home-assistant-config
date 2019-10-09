@@ -1,4 +1,5 @@
-- alias: '[Comfort - Heating] Turn on heating when home mean temperature for last 24 hours is below 18.5 degrees'
+# Turn on heating when home mean temperature for last 24 hours is below 18.5 degrees
+- alias: '[Comfort - Heating] Turn on heating'
   trigger:
     platform: numeric_state
     entity_id: sensor.home_temperature_mean
@@ -27,8 +28,8 @@
         disable_notification: false
         inline_keyboard:
                - 'Apaga la calefacción:/climate.turn_off#climate.netatmo_general'
-
-- alias: '[Comfort - Heating] Turn on heating when home mean temperature for last 24 hours is above 20 degrees'
+# Turn on heating when home mean temperature for last 24 hours is above 20 degrees
+- alias: '[Comfort - Heating] Turn on heating'
   trigger:
     platform: numeric_state
     entity_id: sensor.home_temperature_mean

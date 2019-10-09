@@ -1,4 +1,5 @@
-- alias: '[Notification - Telegram callback] Telegram bot that executes a service from a callback with the format <service>#<entity_id>. i.e.: script.turn_on#script.fence_close'
+# Telegram bot that executes a service from a callback with the format <service>#<entity_id>. i.e.: script.turn_on#script.fence_close
+- alias: '[Misc - Telegram callback] Callback Telegram bot'
   hide_entity: true
   trigger:
     - platform: event

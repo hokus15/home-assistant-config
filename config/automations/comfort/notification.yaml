@@ -1,4 +1,5 @@
-- alias: '[Comfort - Notification] When laundry door is open and heating is on, notify every 10 minutes'
+# When laundry door is open and heating is on, notify every 10 minutes
+- alias: '[Comfort - Notification] Laundry door open'
   trigger:
     platform: time_pattern
     minutes: '/1'
@@ -22,7 +23,8 @@
         message: 'Puerta de la coladuría abierta durante más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.coladuria_sensor_puerta.last_changed))|int//60 }} minutos'
         cache: false
 
-- alias: '[Comfort - Notification] When porch door in the kitchen is open and heating is on, notify every 10 minutes'
+# When porch door in the kitchen is open and heating is on, notify every 10 minutes
+- alias: '[Comfort - Notification] Kitchen porch door open'
   trigger:
     platform: time_pattern
     minutes: '/1'

@@ -1,4 +1,5 @@
-- alias: '[Alarm - Notification] Notify camera motion detection including attached video or image when alarm triggered'
+# Notify camera motion detection including attached video or image when alarm triggered
+- alias: '[Alarm - Notification] Notify camera motion detection'
   trigger:
     - platform: mqtt
       topic: home/sensor/camera/recibidor/motion/attributes
@@ -53,8 +54,8 @@
           file: '{{ trigger.payload_json.file_path }}'
           camera_name: '{{trigger.payload_json.camera_name}}'
           turn_off_entity_id: '{{trigger.payload_json.detection_entity_id}}'
-            
-- alias: '[Alarm - Notification] Notify presence detection in any activated sensor when sensor active and alarm triggered'
+# Notify presence detection in any activated sensor when sensor active and alarm triggered
+- alias: '[Alarm - Notification] Notify presence detection'
   trigger: 
     - platform: state
       entity_id: binary_sensor.porche_sensor_puerta
@@ -106,7 +107,7 @@
              -%}
             {{turnOffEntityId[trigger.entity_id]}}
 
-- alias: '[Alarm - Notification] Notify office motion sensor tampering'
+- alias: '[Alarm - Notification] Notify office sensor tampering'
   trigger: 
     platform: state
     entity_id: binary_sensor.despacho_sensor_movimiento_sabotaje
