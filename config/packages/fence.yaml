@@ -42,13 +42,3 @@ cover:
           {% else %}
             mdi:garage
           {% endif %}
-
-cloud:
-  google_actions:
-    entity_config:
-      cover.outside_fence:
-        name: Puerta de entrada
-        aliases:
-          - Barrera
-          - Puerta de entrada
-        room: Jardín delantero

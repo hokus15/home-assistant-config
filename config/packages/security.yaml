@@ -441,17 +441,6 @@ sensor:
         value_template: '{% if states.zwave.despacho_sensor_movimiento %}{{ states.zwave.despacho_sensor_movimiento.attributes.battery_level }}{% else %}Desconocido{% endif %}'
         unit_of_measurement: '%'
 
-cloud:
-  google_actions:
-    entity_config:
-      group.seguridad:
-        name: Seguridad
-        aliases:
-          - Sensores alarma
-          - Seguridad
-          - Sensores
-        room: General
-
 shell_command:
   #mp4_convert: ffmpeg -i {{file}} -c copy {{file[1:file.find(".mkv")]}}.mp4
   mkv_cleanup: 'find /share/camera/ -type f -name "*.mkv" -mtime +{{age}} -delete'

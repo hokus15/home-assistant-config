@@ -161,50 +161,6 @@ google:
   client_secret: !secret google_secret
 
 cloud:
-  google_actions:
-    entity_config:
-      script.goto_sleep:
-        name: Me voy a la cama
-        aliases:
-          - Me voy a la cama
-          - A dormir
-          - Me voy a dormir
-        room: General
-      script.chores:
-        name: Basura
-        aliases:
-          - Basura
-        room: General
-      script.speech_parte_meteorologico_corto:
-        name: Parte meteorológico corto
-        aliases:
-          - Parte meteorológico corto
-        room: General
-      script.speech_parte_meteorologico:
-        name: Parte meteorológico
-        aliases:
-          - Parte meteorológico
-        room: General
-      script.geni_shift:
-        name: Turno Geni
-        aliases:
-          - Turno Geni
-        room: General
-      script.google_home_good_morning:
-        name: Buenos días
-        aliases:
-          - Buenos días
-        room: General
-
-#google_assistant:
-#  project_id: !secret google_assistant_project_id
-#  api_key: !secret google_api_key
-#  expose_by_default: false
-#  entity_config:
-#    script.goto_sleep:
-#      name: Me voy a la cama
-#      expose: true
-#      room: General
 
 speedtestdotnet:
   scan_interval:
@@ -246,6 +202,5 @@ tts:
 sensor: !include sensors.yaml
 binary_sensor: !include binary_sensors.yaml
 automation: !include_dir_merge_list automations
-#script: !include scripts.yaml
 script: !include_dir_merge_named scripts
 panel_iframe: !include panel_iframes.yaml

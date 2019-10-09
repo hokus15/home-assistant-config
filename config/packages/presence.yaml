@@ -115,21 +115,6 @@ switch:
     qos: 0
     retain: true
 
-cloud:
-  google_actions:
-    entity_config:
-      script.presence_guest_mode_on:
-        name: Persona autorizada
-        aliases:
-          - Persona autorizada
-          - Modo invitado
-        room: General
-      script.presence_leave_home:
-        name: Me voy
-        aliases:
-          - Me voy
-        room: General
-
 zone:
   - name: Oficina
     latitude: !secret office_latitude
