@@ -453,4 +453,8 @@ cloud:
         room: General
 
 shell_command:
-  mp4_convert: ffmpeg -i {{file}} -c copy {{file[1:file.find(".mkv")]}}.mp4
+  #mp4_convert: ffmpeg -i {{file}} -c copy {{file[1:file.find(".mkv")]}}.mp4
+  mkv_cleanup: 'find /share/camera/ -type f -name "*.mkv" -mtime +{{age}} -delete'
+  mp4_cleanup: 'find /share/camera/ -type f -name "*.mp4" -mtime +{{age}} -delete'
+  jpg_cleanup: 'find /share/camera/ -type f -name "*.jpg" -mtime +{{age}} -delete'
+  empty_directories_cleanup: 'find /share/camera -depth -exec rmdir {} \; 2> /dev/null'
