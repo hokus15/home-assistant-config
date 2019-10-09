@@ -71,6 +71,8 @@
   resources:
     - type: disk_free
       arg: /
+    - type: disk_use
+      arg: /share/camera
     - type: memory_free
     - type: processor_use
     - type: last_boot

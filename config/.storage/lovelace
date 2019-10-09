@@ -928,6 +928,9 @@
                                     "entity": "sensor.disk_free"
                                 },
                                 {
+                                    "entity": "sensor.disk_use_share_camera"
+                                },
+                                {
                                     "entity": "sensor.last_boot"
                                 },
                                 {
