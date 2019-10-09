@@ -609,7 +609,7 @@
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_salon_co2",
-                "name": null,
+                "name": "CO2 Sal\u00f3n",
                 "platform": "netatmo",
                 "unique_id": "70:ee:50:02:36:f2-co2"
             },
@@ -681,7 +681,7 @@
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_salon_humidity",
-                "name": null,
+                "name": "Humedad Sal\u00f3n",
                 "platform": "netatmo",
                 "unique_id": "70:ee:50:02:36:f2-humidity"
             },
@@ -690,7 +690,7 @@
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_salon_noise",
-                "name": null,
+                "name": "Nivel ruido Sal\u00f3n",
                 "platform": "netatmo",
                 "unique_id": "70:ee:50:02:36:f2-noise"
             },
@@ -708,7 +708,7 @@
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_salon_pressure",
-                "name": null,
+                "name": "Presi\u00f3n Sal\u00f3n",
                 "platform": "netatmo",
                 "unique_id": "70:ee:50:02:36:f2-pressure"
             },
@@ -780,7 +780,7 @@
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_salon_temperature",
-                "name": null,
+                "name": "Temperatura sal\u00f3n",
                 "platform": "netatmo",
                 "unique_id": "70:ee:50:02:36:f2-temperature"
             },
@@ -933,7 +933,7 @@
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_salon_min_temp",
-                "name": null,
+                "name": "Min. Temp. Sal\u00f3n",
                 "platform": "netatmo",
                 "unique_id": "70:ee:50:02:36:f2-min_temp"
             },
@@ -942,7 +942,7 @@
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_salon_max_temp",
-                "name": null,
+                "name": "Max. Temp. Sal\u00f3n",
                 "platform": "netatmo",
                 "unique_id": "70:ee:50:02:36:f2-max_temp"
             },
