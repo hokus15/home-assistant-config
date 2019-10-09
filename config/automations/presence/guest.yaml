@@ -60,3 +60,25 @@
     - service: homeassistant.turn_off
       data:
         entity_id: input_boolean.guest_mode
+
+- alias: '[Presence - Guest] Set correct guest presence on startup'
+  trigger:
+    platform: homeassistant
+    event: start
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: 'input_boolean.guest_mode'
+        state: 'on'
+      - condition: state
+        entity_id: 'person.guest'
+        state: 'not_home'
+  action:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: input_boolean.guest_mode
+    - delay: 00:00:10
+    - service: homeassistant.turn_on
+      data:
+        entity_id: input_boolean.guest_mode
