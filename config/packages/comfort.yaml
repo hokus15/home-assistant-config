@@ -215,7 +215,7 @@ sensor:
       - sensor.porche_sensor_puerta_temperature
 
   - platform: statistics
-    name: home_temperature
+    name: home_temperature_stats
     entity_id: sensor.home_temperature
     sampling_size: 1440
     max_age:
@@ -277,7 +277,7 @@ sensor:
           {%- endif %}
   
       netatmo_exterior_temperature_trend:
-        friendly_name: 'Tendencia temp'
+        friendly_name: 'Tendencia temp. exterior'
         value_template: >-
           {%- if is_state("binary_sensor.netatmo_exterior_temperature_down", "on") -%}
           En descenso
@@ -296,7 +296,7 @@ sensor:
           {%- endif %}
   
       office_sensor_temperature_trend:
-        friendly_name: 'Tendencia temp'
+        friendly_name: 'Tendencia temp. despacho'
         value_template: >-
           {%- if is_state("binary_sensor.office_sensor_temperature_down", "on") -%}
           En descenso
@@ -315,7 +315,7 @@ sensor:
           {%- endif %}
   
       netatmo_salon_temperature_trend:
-        friendly_name: 'Tendencia temp'
+        friendly_name: 'Tendencia temp. salón'
         value_template: >-
           {%- if is_state("binary_sensor.netatmo_salon_temperature_down", "on") -%}
           En descenso
@@ -334,7 +334,7 @@ sensor:
           {%- endif %}
   
       netatmo_salon_co2_trend:
-        friendly_name: 'Tendencia co2'
+        friendly_name: 'Tendencia CO2 salón'
         value_template: >-
           {%- if is_state("binary_sensor.netatmo_salon_co2_down", "on") -%}
           En descenso
@@ -353,7 +353,7 @@ sensor:
           {%- endif %}
   
       entrance_hall_thermostat_temperature_trend:
-        friendly_name: 'Tendencia temp'
+        friendly_name: 'Tendencia temp. recibidor'
         value_template: >-
           {%- if is_state("binary_sensor.entrance_hall_thermostat_temperature_down", "on") -%}
           En descenso
@@ -372,7 +372,7 @@ sensor:
           {%- endif %}
   
       netatmo_suite_temperature_trend:
-        friendly_name: 'Tendencia temp'
+        friendly_name: 'Tendencia temp. suite'
         value_template: >-
           {%- if is_state("binary_sensor.netatmo_suite_temperature_down", "on") -%}
           En descenso
@@ -391,7 +391,7 @@ sensor:
           {%- endif %}
   
       netatmo_suite_co2_trend:
-        friendly_name: 'Tendencia CO2'
+        friendly_name: 'Tendencia CO2 suite'
         value_template: >-
           {%- if is_state("binary_sensor.netatmo_suite_co2_down", "on") -%}
           En descenso
@@ -410,7 +410,7 @@ sensor:
           {%- endif %}
   
       netatmo_habitacion_temperature_trend:
-        friendly_name: 'Tendencia temp'
+        friendly_name: 'Tendencia temp. hab. niños'
         value_template: >-
           {%- if is_state("binary_sensor.netatmo_habitacion_temperature_down", "on") -%}
           En descenso
@@ -429,7 +429,7 @@ sensor:
           {%- endif %}
   
       netatmo_habitacion_co2_trend:
-        friendly_name: 'Tendencia CO2'
+        friendly_name: 'Tendencia CO2 hab. niños'
         value_template: >-
           {%- if is_state("binary_sensor.netatmo_habitacion_co2_down", "on") -%}
           En descenso

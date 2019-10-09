@@ -68,7 +68,7 @@
                                 {
                                     "camera_image": "camera.entrada",
                                     "entity": "sensor.outside_fence",
-                                    "name": "Estado",
+                                    "name": "Estado barrera",
                                     "type": "picture-entity"
                                 }
                             ],

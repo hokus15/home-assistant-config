@@ -2,10 +2,10 @@ sensor.speedtest_ping:
   friendly_name: Ping
   icon: mdi:lan-connect
 sensor.speedtest_download:
-  friendly_name: Descarga
+  friendly_name: Velocidad descarga
   icon: mdi:cloud-download
 sensor.speedtest_upload:
-  friendly_name: Subida
+  friendly_name: Velicidad subida
   icon: mdi:cloud-upload
 sensor.exchange_rate_1_btc:
   friendly_name: Bitcoin
@@ -46,10 +46,13 @@ sensor.recibidor_boton_bateria:
   device_class: battery
   friendly_name: Nodon
 sensor.caducidad_certificado_ssl:
+  friendly_name: Caducidad certificado SSL
   unit_of_measurement: días
 sensor.dominio_principal:
+  friendly_name: Cad. dominio principal
   unit_of_measurement: días
 sensor.dominio_nena:
+  friendly_name: Cad. dominio nena
   unit_of_measurement: días
 sensor.connected_clients:
   friendly_name: Clientes conectados
@@ -84,8 +87,7 @@ media_player.salon:
   friendly_name: Chromecast Salón
 sensor.ground_floor_temperature:
   device_class: temperature
-  friendly_name: Temp media planta baja
-  icon: mdi:thermometer
+  friendly_name: Temp. media planta baja
 sensor.next_holiday_mode_start:
   icon: mdi:airplane-takeoff
 sensor.next_holiday_mode_end:
@@ -93,9 +95,10 @@ sensor.next_holiday_mode_end:
 sensor.next_shift_event:
   icon: mdi:message
 sensor.next_shift_date:
+  friendly_name: Fecha próx. turno
   icon: mdi:calendar
 switch.holiday:
-  friendly_name: 'Vacaciones'
+  friendly_name: Modo Vacaciones
   icon: mdi:airplane
 input_number.empty_home_activation_delay_minutes:
   icon: mdi:clock-end
@@ -106,398 +109,357 @@ device_tracker.hokusphone_wifi:
 device_tracker.guest:
   source_type: router
 person.jordi:
-  entity_picture: 'https://s.gravatar.com/avatar/f5d192b4f4ffab4d9625f9b9e11d16b7?s=192'
+  entity_picture: https://s.gravatar.com/avatar/f5d192b4f4ffab4d9625f9b9e11d16b7?s=192
 person.geni:
-  entity_picture: '/local/person.geni.jpg'
+  entity_picture: /local/person.geni.jpg
 person.guest:
-  entity_picture: '/local/person.guest.png'
+  entity_picture: /local/person.guest.png
 sensor.escalera_switch_energy:
-  icon: 'mdi:speedometer'
-  friendly_name: 'Consumo luz escalera'
+  icon: mdi:speedometer
+  friendly_name: Consumo luz escalera
 sensor.escalera_switch_power:
-  icon: 'mdi:power-plug'
-  friendly_name: 'Potencia luz escalera'
+  icon: mdi:power-plug
+  friendly_name: Potencia luz escalera
 sensor.suite_switch_energy:
-  icon: 'mdi:speedometer'
-  friendly_name: 'Consumo luz suite'
+  icon: mdi:speedometer
+  friendly_name: Consumo luz suite
 sensor.suite_switch_power:
-  icon: 'mdi:power-plug'
-  friendly_name: 'Potencia luz suite'
+  icon: mdi:power-plug
+  friendly_name: Potencia luz suite
 light.escalera_light:
-  friendly_name: 'Escalera'
+  friendly_name: Luz Escalera
   icon: mdi:ceiling-light
 light.suite_light:
-  friendly_name: 'Suite'
+  friendly_name: Luz Suite
   icon: mdi:ceiling-light
 light.salon_light:
-  friendly_name: 'Salón'
+  friendly_name: Luz Salón
   icon: mdi:ceiling-light
 light.comedor_light:
-  friendly_name: 'Comedor'
+  friendly_name: Luz comedor
   icon: mdi:ceiling-light
 light.entrance_hall_lamp_light:
-  friendly_name: 'Lámpara recibidor'
+  friendly_name: Lámpara recibidor
   icon: mdi:lamp
 script.turn_off_lights_exterior:
   hidden: true
 sensor.outside_fence:
-  friendly_name: 'Estado barrera'
+  friendly_name: Estado barrera
 sensor.efergy_2577:
-  friendly_name: 'Consumo instantáneo'
-  icon: 'mdi:speedometer'
+  friendly_name: Consumo instantáneo Casa
+  icon: mdi:speedometer
 sensor.energy_ups_status:
-  friendly_name: 'SAI'
-  icon: 'mdi:power-socket-eu'
+  friendly_name: Estado SAI
+  icon: mdi:power-socket-eu
 sensor.nut_ups_manufacturer:
-  friendly_name: 'Marca'
+  friendly_name: Marca SAI
 sensor.nut_ups_model:
-  friendly_name: 'Modelo'
+  friendly_name: Modelo SAI
 sensor.nut_ups_battery_charge:
-  friendly_name: 'Carga'
+  device_class: battery
+  friendly_name: Carga SAI
 sensor.nut_ups_battery_runtime:
-  friendly_name: 'Tiempo restante'
+  friendly_name: Tiempo restante SAI
 sensor.energy_home_daily_pico:
-  friendly_name: 'Consumo diario (pico)'
+  friendly_name: Consumo diario pico Casa
 sensor.energy_home_daily_valle:
-  friendly_name: 'Consumo diario (valle)'
+  friendly_name: Consumo diario valle Casa
 sensor.energy_home_daily_super_valle:
-  friendly_name: 'Consumo diario (super valle)'
+  friendly_name: Consumo diario super valle Casa
 sensor.energy_home_monthly_pico:
-  friendly_name: 'Consumo mensual (pico)'
+  friendly_name: Consumo mensual pico Casa
 sensor.energy_home_monthly_valle:
-  friendly_name: 'Consumo mensual (valle)'
+  friendly_name: Consumo mensual valle Casa
 sensor.energy_home_monthly_super_valle:
-  friendly_name: 'Consumo mensual (super valle)'
+  friendly_name: Consumo mensual super valle Casa
 binary_sensor.energy_ups_status_bs:
-  friendly_name: 'Suministro eléctrico'
+  friendly_name: Suministro eléctrico casa
 switch.energy_ups_beeper:
-  friendly_name: 'Pitido'
+  friendly_name: Pitido
   icon: mdi:music-note
 utility_meter.energy_home_daily:
-  friendly_name: 'Tarifa'
+  friendly_name: Tarifa
 sensor.car_ioniq_location:
-  friendly_name: 'Última actualización'
-  #icon: 'mdi:clock'
-  entity_picture: '/local/ioniq-icon.png'
+  friendly_name: Última actualización
+  entity_picture: /local/ioniq-icon.png
 sensor.car_ioniq_charge_state:
-  friendly_name: 'Estado carga'
-  icon: 'mdi:flash-circle'
+  friendly_name: Estado cargador Ioniq
+  icon: mdi:flash-circle
 sensor.car_ioniq_state_today_energy_charged:
-  friendly_name: 'Energía cargada hoy'
-  icon: 'mdi:battery-charging-70'
+  friendly_name: Energía cargada hoy Ioniq
+  icon: mdi:battery-charging-70
 sensor.car_al_colegio:
-  friendly_name: 'Al colegio'
+  friendly_name: Al colegio
 sensor.car_a_la_oficina:
-  friendly_name: 'A la oficina'
+  friendly_name: A la oficina
 sensor.car_ioniq_charger_current_power:
-  friendly_name: 'Potencia carga'
-  icon: 'mdi:speedometer'
+  friendly_name: Potencia carga Ioniq
+  icon: mdi:speedometer
 sensor.car_ioniq_charger_yearly_pico:
-  friendly_name: 'Consumo anual (pico)'
-  icon: 'mdi:trending-up'
+  friendly_name: Consumo anual pico Ioniq
+  icon: mdi:trending-up
 sensor.car_ioniq_charger_yearly_valle:
-  friendly_name: 'Consumo anual (valle)'
-  icon: 'mdi:trending-down'
+  friendly_name: Consumo anual valle Ioniq
+  icon: mdi:trending-down
   unit_of_measurement: kWh
 sensor.car_ioniq_charger_yearly_super_valle:
-  friendly_name: 'Consumo anual (super valle)'
-  icon: 'mdi:trending-down'
+  friendly_name: Consumo anual super valle Ioniq
+  icon: mdi:trending-down
   unit_of_measurement: kWh
 sensor.car_ioniq_charger_monthly_pico:
-  friendly_name: 'Consumo mensual (pico)'
-  icon: 'mdi:trending-up'
+  friendly_name: Consumo mensual pico Ioniq
+  icon: mdi:trending-up
 sensor.car_ioniq_charger_monthly_valle:
-  friendly_name: 'Consumo mensual (valle)'
-  icon: 'mdi:trending-down'
+  friendly_name: Consumo mensual valle Ioniq
+  icon: mdi:trending-down
 sensor.car_ioniq_charger_monthly_super_valle:
-  friendly_name: 'Consumo mensual (super valle)'
-  icon: 'mdi:trending-down'
+  friendly_name: Consumo mensual super valle Ioniq
+  icon: mdi:trending-down
 sensor.car_ioniq_charger_daily_pico:
-  friendly_name: 'Consumo diario (pico)'
-  icon: 'mdi:trending-up'
+  friendly_name: Consumo diario pico Ioniq
+  icon: mdi:trending-up
 sensor.car_ioniq_charger_daily_valle:
-  friendly_name: 'Consumo diario (valle)'
-  icon: 'mdi:trending-down'
+  friendly_name: Consumo diario valle Ioniq
+  icon: mdi:trending-down
 sensor.car_ioniq_charger_daily_super_valle:
-  friendly_name: 'Consumo diario (super valle)'
-  icon: 'mdi:trending-down'
+  friendly_name: Consumo diario super valle Ioniq
+  icon: mdi:trending-down
 binary_sensor.car_ioniq_state:
-  friendly_name: 'Estado'
+  friendly_name: Estado Ioniq
 camera.car_ioniq:
-  friendly_name: 'Ioniq'
+  friendly_name: Ioniq
 switch.car_ioniq_charger:
-  friendly_name: 'Cargador'
-  icon: 'mdi:ev-station'
+  friendly_name: Cargador Ioniq
+  icon: mdi:ev-station
 device_tracker.car_ioniq:
   entity_picture: /local/ioniq-icon.png
 alarm_control_panel.home:
-   friendly_name: 'Alarma'
+  friendly_name: Alarma
 sensor.piscina_on_history:
-  friendly_name: 'Uso bomba hoy'
+  friendly_name: Uso bomba hoy
 sensor.piscina_water_temperature:
-  friendly_name: 'Temperatura agua'
-  icon: 'mdi:oil-temperature'
+  device_class: temperature
+  friendly_name: Temperatura agua piscina
+  icon: mdi:oil-temperature
 sensor.piscina_temperature:
-  friendly_name: 'Temp. media agua'
-sensor.piscina_filtered_realistic_water_temperature:
-  friendly_name: 'Temp. realista agua'
+  device_class: temperature
+  friendly_name: Temp. media agua piscina
 switch.motor_piscina:
-  friendly_name: 'Depuradora'
-switch.luz_piscina:
-  friendly_name: 'Luz'
+  friendly_name: Depuradora
 light.piscina_light:
-  friendly_name: 'Luz piscina'
-###################################
-# Hall camera customization
-###################################
+  friendly_name: Luz piscina
 camera.recibidor:
-  friendly_name: 'Recibidor'
+  friendly_name: Recibidor
 binary_sensor.recibidor_camara_infrarrojo:
-  friendly_name: 'Infrarrojos recibidor'
-  icon: 'mdi:led-on'
+  friendly_name: Infrarrojos recibidor
+  icon: mdi:led-on
 binary_sensor.recibidor_camara_det_mov:
-  friendly_name: 'Movimiento recibidor'
+  friendly_name: Movimiento recibidor
 switch.recibidor_camara_det_mov:
-  friendly_name: 'Det. mov. recibidor'
-  icon: 'mdi:transit-transfer'
-
-###################################
-# Living room camera customization
-###################################
+  friendly_name: Det. mov. recibidor
+  icon: mdi:transit-transfer
 camera.salon:
-  friendly_name: 'Salón'
+  friendly_name: Salón
 binary_sensor.salon_camara_infrarrojo:
-  friendly_name: 'Infrarrojos salón'
-  icon: 'mdi:led-on'
+  friendly_name: Infrarrojos salón
+  icon: mdi:led-on
 binary_sensor.salon_camara_det_mov:
-  friendly_name: 'Movimiento salón'
+  friendly_name: Movimiento salón
 switch.salon_camara_det_mov:
-  friendly_name: 'Det. mov. salón'
-  icon: 'mdi:transit-transfer'
-
-###################################
-# Swimming pool camera customization
-###################################
+  friendly_name: Det. mov. salón
+  icon: mdi:transit-transfer
 camera.piscina:
-  friendly_name: 'Piscina'
+  friendly_name: Piscina
 binary_sensor.piscina_camara_infrarrojo:
-  friendly_name: 'Infrarrojos piscina'
-  icon: 'mdi:led-on'
+  friendly_name: Infrarrojos piscina
+  icon: mdi:led-on
 binary_sensor.piscina_camara_det_mov:
-  friendly_name: 'Movimiento piscina'
+  friendly_name: Movimiento piscina
 switch.piscina_camara_det_mov:
-  friendly_name: 'Det. mov. piscina'
-  icon: 'mdi:transit-transfer'
-
-###################################
-# BBQ camera customization
-###################################
+  friendly_name: Det. mov. piscina
+  icon: mdi:transit-transfer
 camera.barbacoa:
-  friendly_name: 'Barbacoa'
+  friendly_name: Barbacoa
 binary_sensor.barbacoa_camara_infrarrojo:
-  friendly_name: 'Infrarrojos barbacoa'
-  icon: 'mdi:led-on'
+  friendly_name: Infrarrojos barbacoa
+  icon: mdi:led-on
 binary_sensor.barbacoa_camara_det_mov:
-  friendly_name: 'Movimiento barbacoa'
+  friendly_name: Movimiento barbacoa
 switch.barbacoa_camara_det_mov:
-  friendly_name: 'Det. mov. barbacoa'
-  icon: 'mdi:transit-transfer'
-
-###################################
-# Shed camera customization
-###################################
+  friendly_name: Det. mov. barbacoa
+  icon: mdi:transit-transfer
 camera.caseta:
-  friendly_name: 'Caseta'
+  friendly_name: Caseta
 binary_sensor.caseta_camara_det_mov:
-  friendly_name: 'Movimiento caseta'
+  friendly_name: Movimiento caseta
 switch.caseta_camara_det_mov:
-  friendly_name: 'Det. mov. caseta'
-  icon: 'mdi:transit-transfer'
-
-###################################
-# Main entrance camera customization
-###################################
+  friendly_name: Det. mov. caseta
+  icon: mdi:transit-transfer
 binary_sensor.entrada_outdoor_motion:
-  friendly_name: 'Movimiento desconocido'
+  friendly_name: Movimiento desconocido entrada
 binary_sensor.entrada_outdoor_human:
-  friendly_name: 'Persona detectada'
+  friendly_name: Persona detectada entrada
 binary_sensor.entrada_outdoor_animal:
-  friendly_name: 'Animal detectado'
-  icon: 'mdi:paw'
+  friendly_name: Animal detectado entrada
+  icon: mdi:paw
 binary_sensor.entrada_outdoor_vehicle:
-  friendly_name: 'Vehiculo detectado'
-  icon: 'mdi:car'
-
-###################################
-# Office motion sensor customization
-###################################
+  friendly_name: Vehiculo detectado entrada
+  icon: mdi:car
 binary_sensor.despacho_sensor_movimiento:
-  friendly_name: 'Movimiento despacho'
-  device_class: 'motion'
+  friendly_name: Movimiento despacho
+  device_class: motion
 binary_sensor.despacho_sensor_movimiento_sabotaje:
-  friendly_name: 'Manipulación sensor'
+  friendly_name: Manipulación sensor despacho
 sensor.despacho_sensor_movimiento_luminance:
-  icon: 'mdi:weather-sunny'
-  friendly_name: 'Luminosidad'
+  icon: mdi:weather-sunny
 sensor.despacho_sensor_movimiento_bateria:
-  device_class: 'battery'
-  friendly_name: 'Detector movimiento despacho'
-sensor.despacho_sensor_movimiento_temperature:
-  friendly_name: 'Temperatura'
-
-###################################
-# Porch door sensor customization
-###################################
+  device_class: battery
+  friendly_name: Detector movimiento despacho
 binary_sensor.porche_sensor_puerta:
-  device_class: 'door'
-  friendly_name: 'Puerta porche'
+  device_class: door
+  friendly_name: Estado puerta porche
 sensor.porche_sensor_puerta:
-#  icon: 'mdi:glassdoor'
-  friendly_name: 'Estado puerta porche'
+  friendly_name: Estado puerta porche
 sensor.porche_sensor_puerta_bateria:
-  device_class: 'battery'
-  friendly_name: 'Sensor puerta cocina'
+  device_class: battery
+  friendly_name: Batería sensor puerta cocina
 sensor.porche_sensor_puerta_temperature:
-  friendly_name: 'Temperatura'
-  icon: mdi:thermometer
-
-###################################
-# Porch blind door sensor customization
-###################################
+  device_class: temperature
+  friendly_name: Temperatura cocina
 binary_sensor.porche_sensor_persiana:
-  device_class: 'door'
-  friendly_name: 'Persiana porche'
+  device_class: door
+  friendly_name: Estado persiana porche
 sensor.porche_sensor_persiana:
-#  icon: 'mdi:glassdoor'
-  friendly_name: 'Estado persiana porche'
+  friendly_name: Estado persiana porche
 sensor.porche_sensor_persiana_bateria:
-  device_class: 'battery'
-  friendly_name: 'Sensor persiana cocina'
-
-###################################
-# Laundry door sensor customization
-###################################
+  device_class: battery
+  friendly_name: Batería sensor persiana cocina
 binary_sensor.coladuria_sensor_puerta:
-  device_class: 'door'
-  friendly_name: 'Puerta coladuría'
+  device_class: door
+  friendly_name: Puerta coladuría
 sensor.coladuria_sensor_puerta:
-#  icon: 'mdi:glassdoor'
-  friendly_name: 'Estado puerta coladuria'
+  friendly_name: Estado puerta coladuria
 sensor.coladuria_sensor_puerta_bateria:
-  device_class: 'battery'
-  friendly_name: 'Sensor puerta coladuria'
+  device_class: battery
+  friendly_name: Batería sensor puerta coladuria
 climate.netatmo_general:
-  friendly_name: 'Calefacción'
-sensor.netatmo_exterior_temperature:
-  friendly_name: 'Temperatura'
-sensor.netatmo_exterior_humidity:
-  friendly_name: 'Humedad'
-sensor.netatmo_exterior_min_temp:
-  friendly_name: 'Mínima de hoy'
-  icon: 'mdi:thermometer-minus'
-sensor.netatmo_exterior_max_temp:
-  friendly_name: 'Máxima de hoy'
-  icon: 'mdi:thermometer-plus'
-sensor.netatmo_exterior_battery:
-  friendly_name: 'Netatmo exterior'
-  device_class: 'battery'
-sensor.netatmo_exterior_radio:
-  friendly_name: 'Señal exterior'
-sensor.netatmo_pluviometro_rain:
-  friendly_name: 'Previsión lluvia'
-sensor.netatmo_pluviometro_sum_rain_1:
-  friendly_name: 'Lluvia última hora'
-sensor.netatmo_pluviometro_sum_rain_24:
-  friendly_name: 'Lluvia 24 horas'
-sensor.netatmo_pluviometro_battery:
-  friendly_name: 'Netatmo pluviómetro'
-  device_class: 'battery'
-sensor.netatmo_pluviometro_radio:
-  friendly_name: 'Señal pluviómetro'
-sensor.netatmo_salon_temperature:
-  friendly_name: 'Temperatura'
-sensor.netatmo_salon_min_temp:
-  friendly_name: 'Mínima de hoy'
-  icon: 'mdi:thermometer-minus'
-sensor.netatmo_salon_max_temp:
-  friendly_name: 'Máxima de hoy'
-  icon: 'mdi:thermometer-plus'
-sensor.netatmo_salon_humidity:
-  friendly_name: 'Humedad'
-sensor.netatmo_salon_noise:
-  friendly_name: 'Nivel de ruido'
-sensor.netatmo_salon_pressure:
-  friendly_name: 'Presión atmosférica'
-sensor.netatmo_salon_co2:
-  friendly_name: 'Nivel CO2'
-sensor.netatmo_salon_wifi:
-  friendly_name: 'Señal Wifi Netatmo'
-sensor.netatmo_anemometro_angle:
-  friendly_name: 'Dirección viento'
-sensor.netatmo_anemometro_battery:
-  friendly_name: 'Netatmo anemómetro'
-  device_class: 'battery'
-sensor.netatmo_anemometro_gust_angle:
-  friendly_name: 'Dirección rachas'
-sensor.netatmo_anemometro_gust_strength:
-  friendly_name: 'Velocidad rachas'
-sensor.netatmo_anemometro_radio:
-  friendly_name: 'Señal anemómetro'
-sensor.netatmo_anemometro_strength:
-  friendly_name: 'Velocidad viento'
-sensor.netatmo_suite_temperature:
-  friendly_name: 'Temperatura'
-sensor.netatmo_suite_min_temp:
-  friendly_name: 'Mínima de hoy'
-  icon: 'mdi:thermometer-minus'
-sensor.netatmo_suite_max_temp:
-  friendly_name: 'Máxima de hoy'
-  icon: 'mdi:thermometer-plus'
-sensor.netatmo_suite_co2:
-  friendly_name: 'Nivel CO2'
-sensor.netatmo_suite_humidity:
-  friendly_name: 'Humedad'
-sensor.netatmo_suite_battery:
-  friendly_name: 'Netatmo suite'
-  device_class: 'battery'
-sensor.netatmo_suite_radio:
-  friendly_name: 'Señal suite'
-sensor.netatmo_habitacion_temperature:
-  friendly_name: 'Temperatura'
-sensor.netatmo_habitacion_min_temp:
-  friendly_name: 'Mínima de hoy'
-  icon: 'mdi:thermometer-minus'
-sensor.netatmo_habitacion_max_temp:
-  friendly_name: 'Máxima de hoy'
-  icon: 'mdi:thermometer-plus'
-sensor.netatmo_habitacion_co2:
-  friendly_name: 'Nivel CO2'
-sensor.netatmo_habitacion_humidity:
-  friendly_name: 'Humedad'
-sensor.netatmo_habitacion_battery:
-  friendly_name: 'Netatmo hab. niños'
-  device_class: 'battery'
-sensor.netatmo_habitacion_radio:
-  friendly_name: 'Señal hab.niños'
+  friendly_name: Calefacción
 sensor.first_floor_temperature:
-  friendly_name: 'Temp media 1ª planta'
-  icon: 'mdi:thermometer'
-  unit_of_measurement: '°C'
+  device_class: temperature
+  friendly_name: Temp. media 1ª planta
 switch.thermostat_away_mode:
-  friendly_name: 'Modo ausente'
+  friendly_name: Termostato modo ausente
   icon: mdi:home-outline
 sensor.season:
-  friendly_name: 'Estación'
-sensor.home_temperature_mean:
-  friendly_name: 'Temp. media 24h'
-  icon: 'mdi:thermometer'
-  unit_of_measurement: '°C'
+  friendly_name: Estación
+sensor.home_temperature_stats:
+  device_class: temperature
+  friendly_name: Temp. media 24h
 sensor.home_temperature:
-  friendly_name: 'Temp. media'
+  device_class: temperature
+  friendly_name: Temp. media casa
 sensor.entrance_hall_thermostat_temperature:
-  friendly_name: 'Temperatura'
-  unit_of_measurement: '°C'
+  device_class: temperature
+  friendly_name: Temperatura recibidor
 sensor.dark_sky_summary_0d:
-  friendly_name: 'Previsión'
+  friendly_name: Previsión
 binary_sensor.summer_time:
-  friendly_name: 'Horario de verano'
+  friendly_name: Horario de verano
+sensor.piscina_width:
+  friendly_name: Ancho piscina
+sensor.netatmo_exterior_max_temp:
+  device_class: temperature
+  icon: mdi:thermometer-plus
+sensor.netatmo_habitacion_max_temp:
+  device_class: temperature
+  icon: mdi:thermometer-plus
+sensor.netatmo_salon_max_temp:
+  device_class: temperature
+  icon: mdi:thermometer-plus
+sensor.netatmo_suite_max_temp:
+  device_class: temperature
+  icon: mdi:thermometer-plus
+sensor.netatmo_exterior_min_temp:
+  device_class: temperature
+  icon: mdi:thermometer-minus
+sensor.netatmo_habitacion_min_temp:
+  device_class: temperature
+  icon: mdi:thermometer-minus
+sensor.netatmo_salon_min_temp:
+  device_class: temperature
+  icon: mdi:thermometer-minus
+sensor.netatmo_suite_min_temp:
+  device_class: temperature
+  icon: mdi:thermometer-minus
+sensor.despacho_sensor_movimiento_temperature:
+  device_class: temperature
+script.system_restart_ha:
+  friendly_name: Reiniciar Home-Assistant
+script.system_reboot_pi:
+  friendly_name: Reiniciar Raspberry Pi
+sensor.piscina_on_time:
+  friendly_name: Encendido bomba piscina
+sensor.piscina_off_time:
+  friendly_name: Apagado bomba piscina
+sensor.piscina_filtering_time:
+  friendly_name: Tiempo de filtrado piscina
+input_number.temperature_correction:
+  friendly_name: Corrección temp. piscina
+sensor.entrance_hall_thermostat_target_temperature:
+  device_class: temperature
+  friendly_name: Temperatura objetivo termostato
+sensor.salon_switch_energy:
+  friendly_name: Consumo luz salón
+  icon: mdi:speedometer
+sensor.piscina_average_depth:
+  friendly_name: Profundidad media piscina
+light.puerta_coladuria:
+  friendly_name: Estado puerta Coladuria
+sensor.piscina_height:
+  friendly_name: Largo piscina
+switch.barrera:
+  friendly_name: Interruptor Barrera
+sensor.car_ioniq_state_soc_display:
+  friendly_name: Batería mostrada Ioniq
+sensor.piscina_capacity:
+  friendly_name: Capacidad piscina
+sensor.car_ioniq_state_energy_consumption:
+  friendly_name: Consumo medio Ioniq
+sensor.car_ioniq_state_distance_since_cc:
+  friendly_name: Distancia cc Ioniq
+sensor.piscina_pump_efficiency:
+  friendly_name: Eficiencia bomba piscina
+switch.luz_piscina:
+  friendly_name: Luz Piscina Interruptor
+switch.comedor_switch:
+  friendly_name: Luz comedor Interruptor
+switch.salon_switch:
+  friendly_name: Luz salón Interruptor
+sensor.car_ioniq_state_odometer:
+  friendly_name: Odómetro Ioniq
+sensor.piscina_pump_power:
+  friendly_name: Potencia motor piscina
+sensor.piscina_recirculation:
+  friendly_name: Recirculación piscina
+sensor.car_ioniq_state_battery_health:
+  friendly_name: Salud batería Ioniq
+sensor.netatmo_habitacion_temperature: {}
+sensor.netatmo_exterior_temperature: {}
+sensor.netatmo_salon_temperature: {}
+sensor.netatmo_suite_temperature: {}
+sensor.first_floor_temperature_trend:
+  friendly_name: Tendencia temp. 1ª planta
+sensor.ground_floor_temperature_trend:
+  friendly_name: Tendencia temp. planta baja
+sensor.netatmo_habitacion_radio:
+  device_class: signal_strength
+sensor.netatmo_salon_wifi:
+  device_class: signal_strength
+sensor.netatmo_suite_radio:
+  device_class: signal_strength
+sensor.comedor_switch_power:
+  icon: mdi:power-plug
+sensor.salon_switch_power:
+  icon: mdi:power-plug
+sensor.comedor_switch_energy:
+  icon: mdi:speedometer
