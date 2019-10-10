@@ -156,6 +156,12 @@ netatmo:
   discovery: true
   webhooks: true
 
+#withings:
+#  client_id: !secret withings_client_id
+#  client_secret: !secret withings_client_secret
+#  profiles:
+#    - JM
+
 google:
   client_id: !secret google_client_id
   client_secret: !secret google_secret

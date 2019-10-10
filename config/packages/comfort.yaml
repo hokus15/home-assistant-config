@@ -468,6 +468,9 @@ input_boolean:
   home_comfort_mode:
     name: Modo extra calentito
     icon: 'mdi:fire'
+  sleep_mode:
+    name: Modo dormir
+    icon: 'mdi:sleep'
 
 weather:
   - platform: darksky

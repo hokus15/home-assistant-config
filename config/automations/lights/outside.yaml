@@ -1,32 +1,14 @@
-# When turn on outside lights, adjust brightness to 75%
-- alias: '[Lights - Outside] Adjust brightness'
-  trigger:
-    platform: state
-    entity_id: light.luces_exteriores
-    to: 'on'
-  action:
-    - service: light.turn_on
-      data_template:
-        entity_id: light.luces_exteriores
-        brightness: '{{ (75 * 255) // 100 }}'
-
-# Turn on outside lights at sunset (+15 minutes)
+# Turn on outside lights at sunset
 - alias: '[Lights - Outside] Turn on outside lights'
   trigger:
     platform: sun
     event: 'sunset'
-    offset: '00:15:00'
   action:
-    - service: light.turn_on
+    - service: script.turn_on_outside_lights_75pct
       data_template:
-        entity_id: light.luces_exteriores
-        brightness: '{{ (75 * 255) // 100 }}'
-    - service: logbook.log
-      data:
-        name: 'Luces exteriores'
-        message: 'encendidas por la puesta de sol'
-        entity_id: light.luces_exteriores
-        domain: light
+        data:
+          logbook_message: 'encendidas por la puesta de sol'
+
 # Turn off outside lights at night (at 00:15)
 - alias: '[Lights - Outside] Turn off outside lights'
   trigger:
@@ -37,14 +19,10 @@
     entity_id: light.luces_exteriores
     state: 'on'
   action:
-    - service: light.turn_off
-      entity_id: light.luces_exteriores
-    - service: logbook.log
-      data:
-        name: 'Luces exteriores'
-        message: 'apagadas a las 00:15'
-        entity_id: light.luces_exteriores
-        domain: light
+    - service: script.turn_off_outside_lights
+      data_template:
+        data:
+          logbook_message: 'apagadas a las 00:15'
 
 # When the outside lights have been turned on at late night (later than 00:15) and before sunrise, turn them off after 5 minutes
 - alias: '[Lights - Outside] Turn off outside lights at night'
@@ -60,15 +38,11 @@
   action:
     - delay:
         minutes: 5
-    - service: light.turn_off
-      data:
-        entity_id: light.luces_exteriores
-    - service: logbook.log
-      data:
-        name: 'Luces exteriores'
-        message: 'apagadas más tarde de las 00:15'
-        entity_id: light.luces_exteriores
-        domain: light
+    - service: script.turn_off_outside_lights
+      data_template:
+        data:
+          logbook_message: 'apagadas más tarde de las 00:15'
+     
 # Turn off outside lights after 10 seconds when the sun is not set
 - alias: '[Lights - Outside] Turn off outside lights during day'
   trigger:
@@ -85,15 +59,11 @@
   action:
     - delay:
         seconds: 10
-    - service: light.turn_off
-      data:
-        entity_id: light.luces_exteriores
-    - service: logbook.log
-      data:
-        name: 'Luces exteriores'
-        message: 'apagadas porque es de dia'
-        entity_id: light.luces_exteriores
-        domain: light
+    - service: script.turn_off_outside_lights
+      data_template:
+        data:
+          logbook_message: 'apagadas porque es de dia'
+
 # Turn on outside lights when fence is opened and the sun is set
 - alias: '[Lights - Outside] Turn on outside lights when fence is opened'
   trigger:
@@ -109,13 +79,7 @@
     - condition: sun
       before: sunrise
   action:
-    - service: light.turn_on
+    - service: script.turn_on_outside_lights_75pct
       data_template:
-        entity_id: light.luces_exteriores
-        brightness: '{{ (75 * 255) // 100 }}'
-    - service: logbook.log
-      data:
-        name: 'Luces exteriores'
-        message: 'encendidas porque se ha abierto la barrera y es de noche'
-        entity_id: light.luces_exteriores
-        domain: light
+        data:
+          logbook_message: 'encendidas porque se ha abierto la barrera y es de noche'

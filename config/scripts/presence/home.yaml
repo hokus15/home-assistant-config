@@ -5,18 +5,10 @@ presence_empty_home:
     - service: script.turn_on
       data:
         entity_id: script.alarm_arm_away
-    # Turn off hall lamp
-    - service: switch.turn_off
-      data:
-        entity_id: switch.entrance_hall_lamp_switch
-    # Turn off stair lights
-    - service: switch.turn_off
-      data:
-        entity_id: switch.escalera_switch
-    # Turn off suite light
-    - service: switch.turn_off
-      data:
-        entity_id: switch.suite_switch
+    - service: script.turn_off_inside_lights
+      data_template:
+        data:
+          logbook_message: 'apagadas porque no hay nadie en casa'
     # Continue script only if heating is on and not in holiday mode
     - condition: template
       value_template: "{{not is_state('climate.netatmo_general', 'off')}}"

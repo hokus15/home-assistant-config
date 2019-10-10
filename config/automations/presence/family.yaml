@@ -17,9 +17,10 @@
     condition: sun
     after: sunset
   action:
-    - service: switch.turn_on
-      data:
-        entity_id: switch.entrance_hall_lamp_switch
+    - service: script.turn_on_hall_lamp
+      data_template:
+        data:
+          logbook_message: 'encendida porque ha llegado alguien en casa'
       
 - alias: '[Presence - Family] Empty home'
   trigger:

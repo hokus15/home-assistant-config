@@ -564,6 +564,9 @@
                                 },
                                 {
                                     "entity": "switch.thermostat_away_mode"
+                                },
+                                {
+                                    "entity": "input_boolean.sleep_mode"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -1255,38 +1258,6 @@
                     "icon": "mdi:floor-plan",
                     "panel": true,
                     "title": "Floorplan"
-                },
-                {
-                    "badges": [],
-                    "cards": [
-                        {
-                            "cards": [
-                                {
-                                    "entities": [
-                                        {
-                                            "entity": "cover.outside_fence",
-                                            "name": "Control"
-                                        }
-                                    ],
-                                    "show_header_toggle": false,
-                                    "title": "Barrera",
-                                    "type": "entities"
-                                },
-                                {
-                                    "camera_image": "camera.entrada",
-                                    "camera_view": "live",
-                                    "entity": "sensor.outside_fence",
-                                    "name": "Estado",
-                                    "type": "picture-entity"
-                                }
-                            ],
-                            "type": "vertical-stack"
-                        }
-                    ],
-                    "icon": "mdi:garage",
-                    "panel": true,
-                    "path": "barrera",
-                    "title": "Barrera"
                 }
             ]
         }

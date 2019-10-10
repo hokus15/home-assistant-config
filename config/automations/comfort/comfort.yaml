@@ -20,6 +20,14 @@
     - service: script.turn_on
       entity_id: script.comfort_mode_on
 
+- alias: '[Comfort] Switch sleep mode off'
+  trigger:
+    platform: time
+    at: '6:00:00'
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.sleep_mode
+
 - alias: '[Comfort] Switch comfort mode off'
   trigger:
     platform: state

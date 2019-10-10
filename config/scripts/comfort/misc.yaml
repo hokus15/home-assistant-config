@@ -5,10 +5,16 @@ goto_sleep:
     - condition: time
       after: '21:00'
       before: '6:00'
-    # Turn on stairs lights
-    - service: light.turn_on
-      data:
-        entity_id: light.escalera_light
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.sleep_mode
+    - service: script.go_to_sleep_inside_lights
+      data_template:
+        data:
+          logbook_message: 'configuradas para ir a dormir'
+    - service: script.go_to_sleep_outside_lights
+      data_template:
+        data:
+          logbook_message: 'configuradas para ir a dormir'
     # Close fence if open
     - service_template: >
         {%- if is_state("sensor.outside_fence", "Abierta") -%}
@@ -19,18 +25,6 @@ goto_sleep:
 
       data:
         entity_id: switch.barrera
-    # Turn off outside lights
-    - service: light.turn_off
-      data:
-        entity_id: light.luces_exteriores
-    # Turn off hall lamp
-    - service: light.turn_off
-      data:
-        entity_id: light.entrance_hall_lamp_light
-    # Turn off swimming pool light
-    - service: light.turn_off
-      data:
-        entity_id: light.piscina_light
     # Alarm arm night
     - service: script.turn_on
       data:
@@ -46,20 +40,14 @@ goto_sleep:
           {%- if is_state("binary_sensor.coladuria_sensor_puerta", "on") %}Puerta de la coladuría abierta. {% endif %}
           {%- if is_state("sensor.outside_fence", "Abierta") -%}Cerrando barrera.{% endif -%}
           Alarma armada en modo noche.
-    # Wait until tts finishes
-#    - delay: '00:00:{{ states.media_player.recibidor.attributes.media_duration | int }}'
-    # Wait 5 minutes before turning stair lights off
-    - delay:
-        minutes: 5
-    # Turn stairs lights off
-    - service: light.turn_off
-      data:
-        entity_id: light.escalera_light
 
 jordi_on_bed:
   alias: '[Comfort - Misc] Jordi On bed'
   sequence:
-    # Turn stairs lights off
-    - service: light.turn_off
-      data:
-        entity_id: light.escalera_light
+    - condition: state
+      entity_id: input_boolean.sleep_mode
+      state: 'on'
+    - service: script.turn_off_inside_lights
+      data_template:
+        data:
+          logbook_message: 'apagadas porque Jordi ya está en la cama'
