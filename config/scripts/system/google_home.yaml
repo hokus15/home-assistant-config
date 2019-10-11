@@ -1,5 +1,5 @@
 google_home_good_morning:
-  alias: '[System - Speech] Google Home Mini - Buenos días'
+  alias: '[Google Home] Buenos días'
   sequence:
     # Wait until tts finishes
 #    - wait_template: "{{ is_state('media_player.recibidor', 'playing') }}"
@@ -13,25 +13,8 @@ google_home_good_morning:
       data:
         entity_id: script.geni_shift
 
-speech_set_tts_volume_level:
-  alias: '[System - Speech] Google Home Mini - Lower the home-assistant tts volume level between 22 and 8:30'
-  sequence:
-    - condition: time
-      after: '22:00'
-      before: '8:30'
-    - service: media_player.volume_set
-      entity_id: media_player.recibidor
-      data:
-        volume_level: 0.25
-    - delay:
-        minutes: 2
-    - service: media_player.volume_set
-      entity_id: media_player.recibidor
-      data:
-        volume_level: 0.65
-
 speech_parte_meteorologico:
-  alias: '[System - Speech] Google Home Mini - Parte meteorológico'
+  alias: '[Google Home] Parte meteorológico'
   sequence:
     - service: tts.google_translate_say
       entity_id: media_player.recibidor
@@ -49,7 +32,7 @@ speech_parte_meteorologico:
         cache: false
 
 speech_parte_meteorologico_corto:
-  alias: '[System - Speech] Google Home Mini - Parte meteorológico corto'
+  alias: '[Google Home] Parte meteorológico corto'
   sequence:
     - service: tts.google_translate_say
       entity_id: media_player.recibidor
@@ -61,7 +44,7 @@ speech_parte_meteorologico_corto:
         cache: false
 
 chores:
-  alias: '[System - Speech] Google Home Mini - Quien saca la basura'
+  alias: '[Google Home] Quien saca la basura'
   sequence:
     - service: tts.google_translate_say
       entity_id: media_player.recibidor
@@ -85,7 +68,7 @@ chores:
           {% endif %}
 
 geni_shift:
-  alias: '[System - Speech] Google Home Mini - Turno Geni'
+  alias: '[Google Home] Turno Geni'
   sequence:
     - service: tts.google_translate_say
       entity_id: media_player.recibidor
@@ -103,3 +86,65 @@ geni_shift:
              Jeni trabaja el próximo {{ states("sensor.next_shift_date") }} por la {{ states("sensor.next_shift_event") }}
            {% endif %}
          {% endif %}
+
+goto_sleep:
+  alias: '[Google Home] Me voy dormir'
+  sequence:
+    # Only execute script between 21:00 and 6:00
+#    - condition: time
+#      after: '21:00'
+#      before: '6:00'
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.sleep_mode
+    - service: script.go_to_sleep_inside_lights
+      data_template:
+        data:
+          logbook_message: 'configuradas para ir a dormir'
+    - service: script.go_to_sleep_outside_lights
+      data_template:
+        data:
+          logbook_message: 'configuradas para ir a dormir'
+    # Close fence if open
+    - service_template: >
+        {%- if is_state("sensor.outside_fence", "Abierta") -%}
+          homeassistant.turn_on
+        {%- else -%}
+          homeassistant.update_entity
+        {%- endif -%}
+
+      data:
+        entity_id: switch.barrera
+    # Alarm arm night
+    - service: script.turn_on
+      data:
+        entity_id: script.alarm_arm_night
+      # Notify found incidences and say good night.
+    - service: tts.google_translate_say
+      entity_id: media_player.recibidor
+      data_template:
+        message: >
+          {%- if states("sensor.car_ioniq_state_soc_display")|float < 45 %}Batería del coche al {{states("sensor.car_ioniq_state_soc_display")}} por ciento. {% endif %}
+          {%- if is_state("binary_sensor.porche_sensor_puerta", "on") %}Puerta de la cocina abierta. {% endif %}
+          {%- if is_state("binary_sensor.porche_sensor_persiana", "on") %}Persiana de la cocina abierta. {% endif %}
+          {%- if is_state("binary_sensor.coladuria_sensor_puerta", "on") %}Puerta de la coladuría abierta. {% endif %}
+          {%- if is_state("sensor.outside_fence", "Abierta") -%}Cerrando barrera.{% endif -%}
+          Alarma armada en modo noche.
+
+presence_leave_home:
+  alias: '[Google Home] Me voy de casa'
+  sequence:
+    - delay:
+        seconds: 5
+    - service: tts.google_translate_say
+      entity_id: media_player.recibidor
+      data_template:
+        message: >
+          {% set incidence = false %}
+          {%- if is_state("binary_sensor.porche_sensor_puerta", "on") %}{% set incidence = true %}Puerta de la cocina abierta. {% endif %}
+          {%- if is_state("binary_sensor.porche_sensor_persiana", "on") %}{% set incidence = true %}Persiana de la cocina abierta. {% endif %}
+          {%- if is_state("binary_sensor.coladuria_sensor_puerta", "on") %}{% set incidence = true %}Puerta de la coladuria abierta. {% endif %}
+          {%- if is_state("switch.entrance_hall_lamp_switch", "on") %}{% set incidence = true %}Lámpara del recibidor encendida. {% endif %}
+          {%- if is_state("switch.escalera_switch", "on") %}{% set incidence = true %}Luz de la escalera encendida. {% endif %}
+          {%- if is_state("switch.suite_switch", "on") %}{% set incidence = true %}Luz de la suite encendida. {% endif %}
+          {%- if is_state("sensor.outside_fence", "Abierta") %}{% set incidence = true %}Barrera abierta.{% endif -%}
+          {%- if not incidence %}Todo correcto.{% endif %}
