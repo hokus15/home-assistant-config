@@ -414,7 +414,7 @@ sensor.salon_switch_energy:
 sensor.piscina_average_depth:
   friendly_name: Profundidad media piscina
 light.puerta_coladuria:
-  friendly_name: Estado puerta Coladuria
+  friendly_name: Puerta Coladuria
 sensor.piscina_height:
   friendly_name: Largo piscina
 switch.barrera:
