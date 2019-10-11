@@ -1,5 +1,5 @@
 # Turn on outside lights at sunset
-- alias: '[Lights - Outside] Turn on outside lights'
+- alias: '[Lights - Outside] Daily turn on outside lights at sunset'
   trigger:
     platform: sun
     event: 'sunset'
@@ -9,8 +9,8 @@
         data:
           logbook_message: 'encendidas por la puesta de sol'
 
-# Turn off outside lights at night (at 00:15)
-- alias: '[Lights - Outside] Turn off outside lights'
+# Turn off outside lights at night at 00:15
+- alias: '[Lights - Outside] Daily turn off outside lights'
   trigger:
     platform: time
     at: '00:15'
@@ -24,17 +24,27 @@
         data:
           logbook_message: 'apagadas a las 00:15'
 
-# When the outside lights have been turned on at late night (later than 00:15) and before sunrise, turn them off after 5 minutes
+# Turn off outside lights after 5 minutes if it's later than 00:15 and it's dark
 - alias: '[Lights - Outside] Turn off outside lights at night'
   trigger:
     platform: state
     entity_id: light.luces_exteriores
     to: 'on'
   condition:
-    - condition: time
-      after: '00:15'
-    - condition: sun
-      before: sunrise
+    condition: and
+    conditions:
+        # We have 2 dark times during the day, one after midnight (1st darkness) and one before midnight (2nd darkness).
+        # I only want to trigger this autmoation on the "1st darkness".
+        # Next template is to calculate if it's "1st darkness" or not
+      - condition: template
+        value_template: '{{ ((as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=59).replace(second=59)) + 1) - as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))) > 43200 }}'
+        # After 00:15
+      - condition: time
+        after: '00:15'
+        # It's dark
+      - condition: state 
+        entity_id: sun.sun
+        state: 'below_horizon'
   action:
     - delay:
         minutes: 5
@@ -43,19 +53,16 @@
         data:
           logbook_message: 'apagadas más tarde de las 00:15'
      
-# Turn off outside lights after 10 seconds when the sun is not set
+# Turn off outside lights after 10 seconds when there is day light
 - alias: '[Lights - Outside] Turn off outside lights during day'
   trigger:
     platform: state
     entity_id: light.luces_exteriores
     to: 'on'
   condition:
-    condition: and
-    conditions:
-    - condition: sun
-      before: sunset
-    - condition: sun
-      after: sunrise
+    condition: state 
+    entity_id: sun.sun
+    state: 'above_horizon'
   action:
     - delay:
         seconds: 10
@@ -72,12 +79,14 @@
     from: 'Cerrada'
     to: 'En movimiento'
   condition:
-    condition: or
+    condition: and
     conditions:
-    - condition: sun
-      after: sunset
-    - condition: sun
-      before: sunrise
+      - condition: state
+        entity_id: 'light.luces_exteriores'
+        state: 'off'
+      - condition: state 
+        entity_id: sun.sun
+        state: 'below_horizon'
   action:
     - service: script.turn_on_outside_lights_75pct
       data_template:
