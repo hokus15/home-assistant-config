@@ -27,6 +27,11 @@ recorder:
       - input_boolean.porche_sensor_persiana
       - input_boolean.coladuria_sensor_puerta
 
+logbook:
+  exclude:
+    entities:
+      - binary_sensor.despacho_sensor_movimiento
+
 folder_watcher:
   - folder: /share/camera
     patterns:
