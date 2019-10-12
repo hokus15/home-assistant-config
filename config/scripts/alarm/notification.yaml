@@ -1,6 +1,14 @@
 alarm_notify_camera:
   alias: '[Alarm - Notification] Notifies camera motion detection with photo/video attached'
   sequence:
+    # Send the video to slack
+    - service: notify.slack
+      data_template:
+        message: 'Movimiento detectado en {{data.camera_name}}'
+        data:
+          file:
+            path: '{{data.file}}'
+
     # Notify to slack
     - service: notify.slack
       data_template:
@@ -24,14 +32,6 @@ alarm_notify_camera:
                   text: 'Desarmar alarma'
                   type: 'button'
                   value: 'script.turn_on#script.alarm_disarm_slack'
-
-    # Send the video to slack
-    - service: notify.slack
-      data_template:
-        message: ''
-        data:
-          file:
-            path: '{{data.file}}'
 
     # Continue to notify in telegram only if jpg or mp4 video
     - condition: template
