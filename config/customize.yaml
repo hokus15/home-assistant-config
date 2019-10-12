@@ -361,6 +361,7 @@ sensor.home_temperature:
 sensor.entrance_hall_thermostat_temperature:
   device_class: temperature
   friendly_name: Temperatura recibidor
+  unit_of_measurement: °C
 sensor.dark_sky_summary_0d:
   friendly_name: Previsión
 binary_sensor.summer_time:
