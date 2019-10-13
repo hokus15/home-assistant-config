@@ -5,9 +5,13 @@
     entity_id: sensor.home_temperature_stats
     below: 18.5
   condition:
-    condition: state
-    entity_id: 'climate.netatmo_general'
-    state: 'off'
+    condition: and
+    conditions:
+      - condition: template
+        value_template: "{{states.climate.netatmo_general != None}}"
+      - condition: state
+        entity_id: 'climate.netatmo_general'
+        state: 'off'
   action:
     - service: climate.turn_on
       entity_id: climate.netatmo_general
@@ -35,8 +39,12 @@
     entity_id: sensor.home_temperature_stats
     above: 20
   condition:
-    condition: template
-    value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
+    condition: and
+    conditions:
+      - condition: template
+        value_template: "{{states.climate.netatmo_general != None}}"
+      - condition: template
+        value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
   action:
     - service: climate.turn_off
       entity_id: climate.netatmo_general

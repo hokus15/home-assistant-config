@@ -11,6 +11,8 @@ presence_empty_home:
           logbook_message: 'apagadas porque no hay nadie en casa'
     # Continue script only if heating is on and not in holiday mode
     - condition: template
+      value_template: "{{states.climate.netatmo_general != None}}"
+    - condition: template
       value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
     - condition: state
       entity_id: switch.holiday
@@ -28,6 +30,8 @@ presence_someone_home:
     - service: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.home
     # Continue script only if heating is on and not in holiday mode
+    - condition: template
+      value_template: "{{states.climate.netatmo_general != None}}"
     - condition: template
       value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
     - condition: state

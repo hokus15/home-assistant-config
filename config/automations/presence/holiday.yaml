@@ -45,8 +45,12 @@
     from: 'off'
     to: 'on'
   condition:
-    condition: template
-    value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
+    condition: and
+    conditions:
+      - condition: template
+        value_template: "{{states.climate.netatmo_general != None}}"
+      - condition: template
+        value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
   action:
     # Turn off thermostat
     - service: script.turn_on

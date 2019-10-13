@@ -82,6 +82,7 @@ binary_sensor:
         value_template: >- 
           {{ states('sensor.first_floor_temperature')|float < states.sensor.entrance_hall_thermostat_target_temperature|float
              and is_state('group.unidad_familiar', 'home')
+             and states.climate.netatmo_general != None
              and not is_state('climate.netatmo_general', 'off')
              and is_state('switch.thermostat_away_mode','off')
              and is_state_attr('climate.netatmo_general', 'hvac_action', 'off')
