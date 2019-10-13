@@ -312,36 +312,24 @@ binary_sensor.despacho_sensor_movimiento_sabotaje:
   friendly_name: Manipulación sensor despacho
 sensor.despacho_sensor_movimiento_luminance:
   icon: mdi:weather-sunny
-sensor.despacho_sensor_movimiento_bateria:
-  device_class: battery
-  friendly_name: Detector movimiento despacho
 binary_sensor.porche_sensor_puerta:
   device_class: door
-  friendly_name: Estado puerta porche
+  friendly_name: Puerta porche
 sensor.porche_sensor_puerta:
   friendly_name: Estado puerta porche
-sensor.porche_sensor_puerta_bateria:
-  device_class: battery
-  friendly_name: Batería sensor puerta cocina
 sensor.porche_sensor_puerta_temperature:
   device_class: temperature
   friendly_name: Temperatura cocina
 binary_sensor.porche_sensor_persiana:
   device_class: door
-  friendly_name: Estado persiana porche
+  friendly_name: Persiana porche
 sensor.porche_sensor_persiana:
   friendly_name: Estado persiana porche
-sensor.porche_sensor_persiana_bateria:
-  device_class: battery
-  friendly_name: Batería sensor persiana cocina
 binary_sensor.coladuria_sensor_puerta:
   device_class: door
   friendly_name: Puerta coladuría
 sensor.coladuria_sensor_puerta:
   friendly_name: Estado puerta coladuria
-sensor.coladuria_sensor_puerta_bateria:
-  device_class: battery
-  friendly_name: Batería sensor puerta coladuria
 climate.netatmo_general:
   friendly_name: Calefacción
 sensor.first_floor_temperature:
