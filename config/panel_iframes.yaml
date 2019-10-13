@@ -1,8 +1,0 @@
-shift_calendar:
-  title: 'Turnos Geni'
-  icon: mdi:calendar
-  url: !secret iframe_shift_calendar_url
-ide:
-  title: 'IDE'
-  icon: mdi:code-braces
-  url: !secret ide_url

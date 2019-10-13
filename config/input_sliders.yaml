@@ -1,7 +1,0 @@
-# Luces exteriores percentage brightness 
-entrada_luz_brillo:
-  name: Brillo
-  initial: 75
-  min: 5
-  max: 100
-  step: 5
