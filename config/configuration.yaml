@@ -190,6 +190,13 @@ zwave:
       ignored: true
     "sensor.*_general":
       ignored: true
+    "sensor.*_acceleration_x_axis":
+      ignored: true
+    "sensor.*_acceleration_y_axis":
+      ignored: true
+    "sensor.*_acceleration_z_axis":
+      ignored: true
+
 tts:
   - platform: google_translate
 #    cache: true
