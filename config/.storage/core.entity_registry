@@ -165,15 +165,6 @@
             },
             {
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
-                "device_id": "734c40c44219413aacef6fd6062dfc39",
-                "disabled_by": null,
-                "entity_id": "zwave.coladuria_sensor_puerta",
-                "name": "Sensor puerta coladur\u00eda",
-                "platform": "zwave",
-                "unique_id": "node-15"
-            },
-            {
-                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
                 "device_id": "ed0a76f21f8942cfaecf52892169ed51",
                 "disabled_by": null,
                 "entity_id": "zwave.porche_sensor_persiana",
@@ -333,69 +324,6 @@
                 "name": null,
                 "platform": "zwave",
                 "unique_id": "11-72057594227474450"
-            },
-            {
-                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
-                "device_id": "734c40c44219413aacef6fd6062dfc39",
-                "disabled_by": null,
-                "entity_id": "binary_sensor.coladuria_sensor_puerta",
-                "name": null,
-                "platform": "zwave",
-                "unique_id": "15-72057594294566912"
-            },
-            {
-                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
-                "device_id": "734c40c44219413aacef6fd6062dfc39",
-                "disabled_by": null,
-                "entity_id": "sensor.coladuria_sensor_puerta_access_control",
-                "name": null,
-                "platform": "zwave",
-                "unique_id": "15-72057594295632017"
-            },
-            {
-                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
-                "device_id": "734c40c44219413aacef6fd6062dfc39",
-                "disabled_by": null,
-                "entity_id": "sensor.coladuria_sensor_puerta_alarm_level",
-                "name": null,
-                "platform": "zwave",
-                "unique_id": "15-72057594295631889"
-            },
-            {
-                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
-                "device_id": "734c40c44219413aacef6fd6062dfc39",
-                "disabled_by": null,
-                "entity_id": "sensor.coladuria_sensor_puerta_alarm_type",
-                "name": null,
-                "platform": "zwave",
-                "unique_id": "15-72057594295631873"
-            },
-            {
-                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
-                "device_id": "734c40c44219413aacef6fd6062dfc39",
-                "disabled_by": null,
-                "entity_id": "sensor.coladuria_sensor_puerta_burglar",
-                "name": null,
-                "platform": "zwave",
-                "unique_id": "15-72057594295632033"
-            },
-            {
-                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
-                "device_id": "734c40c44219413aacef6fd6062dfc39",
-                "disabled_by": null,
-                "entity_id": "sensor.coladuria_sensor_puerta_general",
-                "name": null,
-                "platform": "zwave",
-                "unique_id": "15-72057594296336385"
-            },
-            {
-                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
-                "device_id": "734c40c44219413aacef6fd6062dfc39",
-                "disabled_by": null,
-                "entity_id": "sensor.coladuria_sensor_puerta_sourcenodeid",
-                "name": null,
-                "platform": "zwave",
-                "unique_id": "15-72057594295631905"
             },
             {
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
@@ -1442,33 +1370,6 @@
                 "unique_id": "b1ef5f35-50e0-417b-a75b-545e5e85291c"
             },
             {
-                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
-                "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
-                "disabled_by": null,
-                "entity_id": "sensor.fibaro_system_fgms001_zw5_motion_sensor_battery_level",
-                "name": null,
-                "platform": "zwave",
-                "unique_id": "6-72057594144882689"
-            },
-            {
-                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
-                "device_id": "ed0a76f21f8942cfaecf52892169ed51",
-                "disabled_by": null,
-                "entity_id": "sensor.fibaro_system_fgk10x_door_opening_sensor_battery_level",
-                "name": null,
-                "platform": "zwave",
-                "unique_id": "9-72057594195214337"
-            },
-            {
-                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
-                "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
-                "disabled_by": null,
-                "entity_id": "sensor.fibaro_system_fgk10x_door_opening_sensor_battery_level_2",
-                "name": null,
-                "platform": "zwave",
-                "unique_id": "11-72057594228768769"
-            },
-            {
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
                 "device_id": null,
                 "disabled_by": null,
@@ -1737,6 +1638,69 @@
                 "name": null,
                 "platform": "withings",
                 "unique_id": "withings_jm_23850_body_temperature_c"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "30940407ca7a496491e65584ec3293ca",
+                "disabled_by": null,
+                "entity_id": "zwave.coladuria_sensor_puerta",
+                "name": "Sensor puerta coladur\u00eda",
+                "platform": "zwave",
+                "unique_id": "node-17"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "30940407ca7a496491e65584ec3293ca",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.coladuria_sensor_puerta",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "17-72057594328121344"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "30940407ca7a496491e65584ec3293ca",
+                "disabled_by": null,
+                "entity_id": "sensor.coladuria_sensor_puerta_access_control",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "17-72057594329186449"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ed0a76f21f8942cfaecf52892169ed51",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_persiana_bateria",
+                "name": "Bater\u00eda sensor persiana cocina",
+                "platform": "zwave",
+                "unique_id": "9-72057594195214337"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
+                "disabled_by": null,
+                "entity_id": "sensor.porche_sensor_puerta_bateria",
+                "name": "Bater\u00eda sensor puerta cocina",
+                "platform": "zwave",
+                "unique_id": "11-72057594228768769"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "30940407ca7a496491e65584ec3293ca",
+                "disabled_by": null,
+                "entity_id": "sensor.coladuria_sensor_puerta_bateria",
+                "name": "Bater\u00eda sensor puerta coladuria",
+                "platform": "zwave",
+                "unique_id": "17-72057594329432065"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
+                "disabled_by": null,
+                "entity_id": "sensor.despacho_sensor_movimiento_bateria",
+                "name": "Bater\u00eda detector movimiento despacho",
+                "platform": "zwave",
+                "unique_id": "6-72057594144882689"
             }
         ]
     },

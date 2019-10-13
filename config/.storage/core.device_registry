@@ -102,26 +102,6 @@
                 "via_device_id": "cbf7e1b9eede4d75803770ba5cf15dd8"
             },
             {
-                "area_id": "027a1a6e03724296af74beaf4173bcd1",
-                "config_entries": [
-                    "8bf6382d7b42412f9ed287fb013ff34e"
-                ],
-                "connections": [],
-                "id": "734c40c44219413aacef6fd6062dfc39",
-                "identifiers": [
-                    [
-                        "zwave",
-                        15
-                    ]
-                ],
-                "manufacturer": "FIBARO System",
-                "model": "FGK10x Door Opening Sensor",
-                "name": "FIBARO System FGK10x Door Opening Sensor",
-                "name_by_user": "Sensor Puerta Coladur\u00eda",
-                "sw_version": null,
-                "via_device_id": "cbf7e1b9eede4d75803770ba5cf15dd8"
-            },
-            {
                 "area_id": "699810fc14a143369c88442e67919100",
                 "config_entries": [
                     "64a0feb392ee44188de5bba85b1b09a4",
@@ -822,6 +802,26 @@
                 "name_by_user": null,
                 "sw_version": null,
                 "via_device_id": null
+            },
+            {
+                "area_id": "027a1a6e03724296af74beaf4173bcd1",
+                "config_entries": [
+                    "8bf6382d7b42412f9ed287fb013ff34e"
+                ],
+                "connections": [],
+                "id": "30940407ca7a496491e65584ec3293ca",
+                "identifiers": [
+                    [
+                        "zwave",
+                        17
+                    ]
+                ],
+                "manufacturer": "FIBARO System",
+                "model": "FGK10x Door Opening Sensor",
+                "name": "FIBARO System FGK10x Door Opening Sensor",
+                "name_by_user": "Sensor Puerta Coladur\u00eda",
+                "sw_version": null,
+                "via_device_id": "cbf7e1b9eede4d75803770ba5cf15dd8"
             }
         ]
     },
