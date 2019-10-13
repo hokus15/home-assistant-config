@@ -33,18 +33,22 @@ person:
 
 system_health:
 
+# Track the sun
+sun:
+
+# Discover some devices automatically
+discovery:
+
+config:
+
+cloud:
+
   # Enables the frontend
 frontend:
   themes: !include_dir_merge_named themes
 
 # Allows you to issue voice commands from the frontend
 #conversation:
-
-# Track the sun
-sun:
-
-# Discover some devices automatically
-discovery:
 
 wemo:
   discovery: true
@@ -57,8 +61,6 @@ wemo:
 # Checks for available updates
 updater:
   include_used_components: true
-
-config:
 
 recorder:
   purge_interval: 1
@@ -85,14 +87,6 @@ logbook:
       - sensor.db_size
       - sensor.disk_use_share_camera
 
-#mqtt:
-#  discovery: true
-#  discovery_prefix: homeassistant
-#  broker: !secret mqtt_broker
-#  port: !secret mqtt_port
-#  username: !secret mqtt_username
-#  password: !secret mqtt_password
-
 logger:
   default: warn
   logs:
@@ -107,7 +101,7 @@ logger:
 #    homeassistant.components.sensor: debug
 #    homeassistant.components.sensor.torque: debug
 #    homeassistant.components.camera: debug
-    homeassistant.components.shell_command: debug
+#    homeassistant.components.shell_command: debug
 #    homeassistant.components.dialogflow: debug
 #    homeassistant.components.telegram_bot: debug
 #    homeassistant.helpers.intent: debug
@@ -156,17 +150,15 @@ netatmo:
   discovery: true
   webhooks: true
 
-#withings:
-#  client_id: !secret withings_client_id
-#  client_secret: !secret withings_client_secret
-#  profiles:
-#    - JM
+withings:
+  client_id: !secret withings_client_id
+  client_secret: !secret withings_client_secret
+  profiles:
+    - JM
 
 google:
   client_id: !secret google_client_id
   client_secret: !secret google_secret
-
-cloud:
 
 speedtestdotnet:
   scan_interval:

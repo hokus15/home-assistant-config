@@ -1440,6 +1440,303 @@
                 "name": null,
                 "platform": "cast",
                 "unique_id": "b1ef5f35-50e0-417b-a75b-545e5e85291c"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
+                "disabled_by": null,
+                "entity_id": "sensor.fibaro_system_fgms001_zw5_motion_sensor_battery_level",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "6-72057594144882689"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "ed0a76f21f8942cfaecf52892169ed51",
+                "disabled_by": null,
+                "entity_id": "sensor.fibaro_system_fgk10x_door_opening_sensor_battery_level",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "9-72057594195214337"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
+                "disabled_by": null,
+                "entity_id": "sensor.fibaro_system_fgk10x_door_opening_sensor_battery_level_2",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "11-72057594228768769"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_sleep_towakeup_duration_seconds_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_sleep_towakeup_duration_seconds"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_sleep_tosleep_duration_seconds_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_sleep_tosleep_duration_seconds"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_sleep_light_duration_seconds_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_sleep_light_duration_seconds"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_sleep_wakeup_count_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_sleep_wakeup_count"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_weight_kg_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_weight_kg"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_sleep_deep_duration_seconds_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_sleep_deep_duration_seconds"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_sleep_rem_duration_seconds_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_sleep_rem_duration_seconds"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_sleep_respiratory_max_bpm_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_sleep_respiratory_max_bpm"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_pulse_wave_velocity_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_pulse_wave_velocity"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_sleep_wakeup_duration_seconds_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_sleep_wakeup_duration_seconds"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_sleep_heart_rate_min_bpm_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_sleep_heart_rate_min_bpm"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_skin_temperature_c_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_skin_temperature_c"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_sleep_respiratory_min_bpm_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_sleep_respiratory_min_bpm"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_sleep_heart_rate_max_bpm_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_sleep_heart_rate_max_bpm"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_diastolic_blood_pressure_mmhg_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_diastolic_blood_pressure_mmhg"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_sleep_respiratory_average_bpm_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_sleep_respiratory_average_bpm"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_sleep_state_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_sleep_state"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_spo2_pct_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_spo2_pct"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_fat_ratio_pct_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_fat_ratio_pct"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_sleep_heart_rate_average_bpm_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_sleep_heart_rate_average_bpm"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_systolic_blood_pressure_mmhg_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_systolic_blood_pressure_mmhg"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_heart_pulse_bpm_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_heart_pulse_bpm"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_fat_mass_kg_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_fat_mass_kg"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_fat_free_mass_kg_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_fat_free_mass_kg"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_muscle_mass_kg_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_muscle_mass_kg"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_bone_mass_kg_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_bone_mass_kg"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_height_m_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_height_m"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_temperature_c_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_temperature_c"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_hydration_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_hydration"
+            },
+            {
+                "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.withings_body_temperature_c_jm",
+                "name": null,
+                "platform": "withings",
+                "unique_id": "withings_jm_23850_body_temperature_c"
             }
         ]
     },
