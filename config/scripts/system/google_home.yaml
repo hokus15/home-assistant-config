@@ -91,9 +91,9 @@ goto_sleep:
   alias: '[Google Home] Me voy dormir'
   sequence:
     # Only execute script between 21:00 and 6:00
-#    - condition: time
-#      after: '21:00'
-#      before: '6:00'
+    - condition: time
+      after: '21:00'
+      before: '6:00'
     - service: input_boolean.turn_on
       entity_id: input_boolean.sleep_mode
     - service: script.go_to_sleep_inside_lights
