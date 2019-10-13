@@ -85,13 +85,13 @@ logbook:
       - sensor.db_size
       - sensor.disk_use_share_camera
 
-mqtt:
-  discovery: true
-  discovery_prefix: homeassistant
-  broker: !secret mqtt_broker
-  port: !secret mqtt_port
-  username: !secret mqtt_username
-  password: !secret mqtt_password
+#mqtt:
+#  discovery: true
+#  discovery_prefix: homeassistant
+#  broker: !secret mqtt_broker
+#  port: !secret mqtt_port
+#  username: !secret mqtt_username
+#  password: !secret mqtt_password
 
 logger:
   default: warn
@@ -107,7 +107,7 @@ logger:
 #    homeassistant.components.sensor: debug
 #    homeassistant.components.sensor.torque: debug
 #    homeassistant.components.camera: debug
-#    homeassistant.components.shell_command: debug
+    homeassistant.components.shell_command: debug
 #    homeassistant.components.dialogflow: debug
 #    homeassistant.components.telegram_bot: debug
 #    homeassistant.helpers.intent: debug
