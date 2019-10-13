@@ -274,32 +274,3 @@ binary_sensor:
     name: entrada_camara_det_mov
     device_class: motion
     json_attributes_topic: 'home/sensor/camera/entrada/motion/attributes'
-
-  - platform: template
-    sensors:
-      despacho_sensor_movimiento_sabotaje:
-        value_template: "{{ is_state('sensor.despacho_sensor_movimiento_burglar', '3') }}"
-        device_class: vibration
-
-sensor:
-  - platform: template
-    sensors:
-      # Fibaro FGK10x door sensor battery level - porch door
-      porche_sensor_puerta_bateria:
-        value_template: '{% if states.zwave.porche_sensor_puerta %}{{ states.zwave.porche_sensor_puerta.attributes.battery_level }}{% else %}Desconocido{% endif %}'
-        unit_of_measurement: '%'
-
-      # Fibaro FGK10x door sensor battery level - porch blind
-      porche_sensor_persiana_bateria:
-        value_template: '{% if states.zwave.porche_sensor_persiana %}{{ states.zwave.porche_sensor_persiana.attributes.battery_level }}{% else %}Desconocido{% endif %}'
-        unit_of_measurement: '%'
-
-      # Fibaro FGK10x door sensor battery level - kitchen door
-      coladuria_sensor_puerta_bateria:
-        value_template: '{% if states.zwave.coladuria_sensor_puerta %}{{ states.zwave.coladuria_sensor_puerta.attributes.battery_level }}{% else %}Desconocido{% endif %}'
-        unit_of_measurement: '%'
-
-      # Fibaro FGMS-001 Motion sensor
-      despacho_sensor_movimiento_bateria:
-        value_template: '{% if states.zwave.despacho_sensor_movimiento %}{{ states.zwave.despacho_sensor_movimiento.attributes.battery_level }}{% else %}Desconocido{% endif %}'
-        unit_of_measurement: '%'

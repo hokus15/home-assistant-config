@@ -107,16 +107,6 @@
              -%}
             {{turnOffEntityId[trigger.entity_id]}}
 
-- alias: '[Alarm - Notification] Notify office sensor tampering'
-  trigger: 
-    platform: state
-    entity_id: binary_sensor.despacho_sensor_movimiento_sabotaje
-    to: 'on'
-  action:
-    service: notify.telegram
-    data:
-      message: 'El sensor de movimento del despacho se ha manipulado'
-
 - alias: '[Alarm - Notification] Notify when alarm is armed away'
   trigger: 
     - platform: state
