@@ -53,13 +53,3 @@
       data_template:
         age: 2
     - service: shell_command.empty_directories_cleanup
-
-- alias: '[System] Old backups cleanup'
-  trigger:
-    platform: time
-    at: '00:15:00'
-  action:
-    - service: shell_command.backup_cleanup
-      data_template:
-        # Age of files in days
-        age: 7
