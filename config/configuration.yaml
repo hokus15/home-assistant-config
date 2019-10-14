@@ -98,6 +98,7 @@ logger:
     homeassistant.components.switch.command_line: warn
     homeassistant.components.sensor.command_line: warn
     homeassistant.components.netatmo.sensor: error
+    homeassistant.components.withings: error
 #    homeassistant.components.sensor: debug
 #    homeassistant.components.sensor.torque: debug
 #    homeassistant.components.camera: debug
