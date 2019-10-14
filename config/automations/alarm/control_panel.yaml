@@ -13,8 +13,15 @@
         entity_id: alarm_control_panel.home
         state: armed_night
   action:
-    service: alarm_control_panel.alarm_disarm
-    entity_id: alarm_control_panel.home
+    - service: logbook.log
+      data_template:
+        name: 'Alarma'
+        message: 'Alarma desarmada automáticamente porque son las 7:00 de la mañana'
+        entity_id: alarm_control_panel.home
+        domain: alarm_control_panel
+    - service: alarm_control_panel.alarm_disarm
+      entity_id: alarm_control_panel.home
+
 # Turn on security group when alarm changes the state from disarmed
 - alias: '[Alarm - Control Panel] Turn on security group'
   trigger: 
@@ -26,6 +33,7 @@
     - service: homeassistant.turn_on
       data:
         entity_id: group.seguridad
+
 # Turn off security group when alarm is disarmed
 - alias: '[Alarm - Control Panel] Turn off security group'
   trigger: 
