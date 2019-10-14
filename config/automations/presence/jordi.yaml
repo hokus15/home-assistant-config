@@ -8,17 +8,17 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: sensor.outside_fence_sensor_state
-        state: 'on'
+        entity_id: cover.outside_fence
+        state: 'closed'
       - condition: state
         entity_id: binary_sensor.car_ioniq_state
         state: 'on'
   action:
-    - service: switch.turn_on
-      entity_id: switch.barrera
+    - service: cover.open_cover
+      entity_id: cover.outside_fence
     - service: mqtt.publish
       data:
-        payload_template: >
+        payload_template: >-
           He abierto la barrera. {%- if is_state("person.geni", "home") -%}Jeni está en casa.{%- else -%}Jeni no está en casa.{%- endif -%}
         retain: false
         topic: 'phone/sensor/hokus/cmnd/say'
@@ -50,7 +50,7 @@
         topic: 'phone/sensor/hokus/cmnd/say'
     - service_template: >-
         {%- if is_state("group.unidad_familiar", "not_home") -%}
-          {%- if is_state("sensor.outside_fence_sensor_state", "off") -%}
+          {%- if is_state("cover.outside_fence", "open") -%}
             homeassistant.turn_on
           {%- else -%}
             homeassistant.update_entity
@@ -60,4 +60,4 @@
         {%- endif -%}
 
       data:
-        entity_id: switch.barrera
+        entity_id: cover.outside_fence
