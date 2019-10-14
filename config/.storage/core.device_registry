@@ -822,6 +822,26 @@
                 "name_by_user": "Sensor Puerta Coladur\u00eda",
                 "sw_version": null,
                 "via_device_id": "cbf7e1b9eede4d75803770ba5cf15dd8"
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "8bf6382d7b42412f9ed287fb013ff34e"
+                ],
+                "connections": [],
+                "id": "4826820ea24644e7bd91d2c3832a3a94",
+                "identifiers": [
+                    [
+                        "zwave",
+                        8
+                    ]
+                ],
+                "manufacturer": "NodOn (ID-RF)",
+                "model": "CRC-3-1-00 Octan Remote",
+                "name": "NodOn (ID-RF) CRC-3-1-00 Octan Remote",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": "cbf7e1b9eede4d75803770ba5cf15dd8"
             }
         ]
     },

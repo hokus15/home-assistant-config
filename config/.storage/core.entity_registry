@@ -56,15 +56,6 @@
                 "unique_id": "node-1"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
-                "disabled_by": null,
-                "entity_id": "zwave.nodon_crc3100_octan_remote",
-                "name": null,
-                "platform": "zwave",
-                "unique_id": "node-8"
-            },
-            {
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
                 "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
                 "disabled_by": null,
@@ -1701,6 +1692,24 @@
                 "name": "Bater\u00eda detector movimiento despacho",
                 "platform": "zwave",
                 "unique_id": "6-72057594144882689"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "4826820ea24644e7bd91d2c3832a3a94",
+                "disabled_by": null,
+                "entity_id": "sensor.recibidor_boton_bateria",
+                "name": null,
+                "platform": "zwave",
+                "unique_id": "8-72057594178437121"
+            },
+            {
+                "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_id": "4826820ea24644e7bd91d2c3832a3a94",
+                "disabled_by": null,
+                "entity_id": "zwave.recibidor_boton",
+                "name": "NodOn Bot\u00f3n",
+                "platform": "zwave",
+                "unique_id": "node-8"
             }
         ]
     },
