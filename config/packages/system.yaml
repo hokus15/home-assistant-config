@@ -157,5 +157,5 @@ shell_command:
   mkv_cleanup: 'find /share/camera/ -type f -name "*.mkv" -mtime +{{age}} -delete'
   mp4_cleanup: 'find /share/camera/ -type f -name "*.mp4" -mtime +{{age}} -delete'
   jpg_cleanup: 'find /share/camera/ -type f -name "*.jpg" -mtime +{{age}} -delete'
-  backup_cleanup: 'find /backup/ -type f -name "*.tar" -mtime +{{age}} -delete'
   empty_directories_cleanup: 'find /share/camera -depth -exec rmdir {} \; 2> /dev/null'
+  
