@@ -1697,19 +1697,19 @@
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
                 "device_id": "4826820ea24644e7bd91d2c3832a3a94",
                 "disabled_by": null,
-                "entity_id": "sensor.recibidor_boton_bateria",
-                "name": null,
+                "entity_id": "zwave.recibidor_remote",
+                "name": "NodOn Remote",
                 "platform": "zwave",
-                "unique_id": "8-72057594178437121"
+                "unique_id": "node-8"
             },
             {
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
                 "device_id": "4826820ea24644e7bd91d2c3832a3a94",
                 "disabled_by": null,
-                "entity_id": "zwave.recibidor_boton",
-                "name": "NodOn Bot\u00f3n",
+                "entity_id": "sensor.recibidor_remote_bateria",
+                "name": "Bater\u00eda NodOn",
                 "platform": "zwave",
-                "unique_id": "node-8"
+                "unique_id": "8-72057594178437121"
             }
         ]
     },
