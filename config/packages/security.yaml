@@ -26,6 +26,8 @@ recorder:
       - input_boolean.porche_sensor_puerta
       - input_boolean.porche_sensor_persiana
       - input_boolean.coladuria_sensor_puerta
+      
+      - group.seguridad
 
 logbook:
   exclude:
