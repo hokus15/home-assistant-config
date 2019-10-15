@@ -29,10 +29,6 @@
     entity_id: input_boolean.guest_mode
     to: 'off'
   action:
-    - service: homeassistant.turn_off
-      data:
-        entity_id: group.seguridad
-    - delay: 00:00:10
     - service: device_tracker.see
       data:
         dev_id: 'guest'
@@ -48,10 +44,6 @@
       data:
         dev_id: 'guest'
         location_name: 'home'
-    - delay: 00:00:10
-    - service: homeassistant.turn_on
-      data:
-        entity_id: group.seguridad
     - service: notify.telegram
       data_template:
         message: >
