@@ -27,7 +27,7 @@
                                         },
                                         {
                                             "entity": "person.geni",
-                                            "image": "/local/hass-geni2.jpg",
+                                            "image": "/local/person.geni.jpg",
                                             "show_name": false,
                                             "type": "picture-entity"
                                         }
@@ -226,7 +226,7 @@
                                 },
                                 {
                                     "entity": "person.geni",
-                                    "image": "/local/hass-geni2.jpg",
+                                    "image": "/local/person.geni.jpg",
                                     "show_name": false,
                                     "type": "picture-entity"
                                 }
