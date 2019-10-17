@@ -30,12 +30,26 @@ device_tracker:
 binary_sensor:
   - platform: mqtt
     state_topic: 'car/sensor/ioniq/state'
-    name: car_ioniq_state
+    name: car_ioniq_state_sensor
     value_template: 'ON'
     json_attributes_topic: 'car/sensor/ioniq/state'
-    device_class: 'moving'
     force_update: true
-    off_delay: 180
+    off_delay: 90
+
+  - platform: mqtt
+    state_topic: 'car/sensor/ioniq/location'
+    name: car_ioniq_location_sensor
+    value_template: 'ON'
+    json_attributes_topic: 'car/sensor/ioniq/location'
+    force_update: true
+    off_delay: 45
+
+  - platform: template
+    sensors:
+      car_ioniq_state:
+        friendly_name: "Estado Ioniq"
+        device_class: 'moving'
+        value_template: "{{is_state('binary_sensor.car_ioniq_location_sensor', 'on') or is_state('binary_sensor.car_ioniq_state_sensor', 'on')}}"
 
 sensor:
   - platform: integration 
@@ -44,11 +58,11 @@ sensor:
     unit_prefix: k
     round: 2
 
-  - platform: mqtt
-    state_topic: 'car/sensor/ioniq/location'
-    name: car_ioniq_location
-    value_template: '{{ value_json.last_update|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
-    json_attributes_topic: 'car/sensor/ioniq/location'
+#  - platform: mqtt
+#    state_topic: 'car/sensor/ioniq/location'
+#    name: car_ioniq_location
+#    value_template: '{{ value_json.last_update|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
+#    json_attributes_topic: 'car/sensor/ioniq/location'
 
   - platform: mqtt
     state_topic: 'car/sensor/ioniq/state/daily'
@@ -75,39 +89,39 @@ sensor:
       car_ioniq_state_soc_display:
         friendly_name: 'Batería mostrada'
         device_class: 'battery'
-        value_template: '{{state_attr("binary_sensor.car_ioniq_state", "soc_display")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "soc_display")}}'
         unit_of_measurement: '%'
       # Ioniq State Of Health
       car_ioniq_state_battery_health:
         friendly_name: 'Salud batería'
         device_class: 'battery'
-        value_template: '{{state_attr("binary_sensor.car_ioniq_state", "soh")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "soh")}}'
         unit_of_measurement: '%'
       # Ioniq State Of Charge BMS
       car_ioniq_state_soc_bms:
         friendly_name: 'Batería BMS'
         device_class: 'battery'
-        value_template: '{{state_attr("binary_sensor.car_ioniq_state", "soc_bms")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "soc_bms")}}'
         unit_of_measurement: '%'
       # Ioniq odometer
       car_ioniq_state_odometer:
         friendly_name: 'Odómetro'
         icon_template: 'mdi:counter'
-        value_template: '{{state_attr("binary_sensor.car_ioniq_state", "odometer")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "odometer")}}'
         unit_of_measurement: 'Km'
       # Ioniq distance traveled since codes cleared
       car_ioniq_state_distance_since_cc:
         friendly_name: 'Distancia cc'
         icon_template: 'mdi:counter'
-        value_template: '{{state_attr("binary_sensor.car_ioniq_state", "distance_since_cc")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "distance_since_cc")}}'
         unit_of_measurement: 'Km'
       # Ioniq Cumulative Energy Discharged
       car_ioniq_state_ced:
-        value_template: '{{state_attr("binary_sensor.car_ioniq_state", "ced")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "ced")}}'
         unit_of_measurement: 'kWh'
       # Ioniq Cumulative Energy Charged
       car_ioniq_state_cec:
-        value_template: '{{state_attr("binary_sensor.car_ioniq_state", "cec")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "cec")}}'
         unit_of_measurement: 'kWh'
 ######################### Daily state data #########################
       # Ioniq daily State Of Charge display
@@ -154,14 +168,14 @@ sensor:
           - sensor.car_ioniq_state_odometer
       # Ioniq Previous latitude
       car_ioniq_location_previous_latitude:
-        value_template: '{{state_attr("sensor.car_ioniq_location", "platitude")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_location_sensor", "platitude")}}'
         entity_id: 
-          - sensor.car_ioniq_location
+          - binary_sensor.car_ioniq_location_sensor
       # Ioniq Previous longitude
       car_ioniq_location_previous_longitude:
-        value_template: '{{state_attr("sensor.car_ioniq_location", "plongitude")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_location_sensor", "plongitude")}}'
         entity_id: 
-          - sensor.car_ioniq_location
+          - binary_sensor.car_ioniq_location_sensor
       # Ioniq Distance travelled between updates
       car_ioniq_location_distance_travelled_between_updates:
         unit_of_measurement: 'm'
@@ -172,6 +186,11 @@ sensor:
           - device_tracker.car_ioniq
           - sensor.car_ioniq_location_previous_latitude
           - sensor.car_ioniq_location_previous_longitude
+      # Ioniq Previous longitude
+      car_ioniq_location_last_update:
+        value_template: '{{state_attr("binary_sensor.car_ioniq_location_sensor", "last_update")|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
+        entity_id: 
+          - binary_sensor.car_ioniq_location_sensor
       # Ioniq GPS accuracy
       car_ioniq_location_gps_accuracy:
         unit_of_measurement: 'm'
@@ -182,7 +201,7 @@ sensor:
           - device_tracker.car_ioniq
       car_ioniq_charge_state:
         value_template: >-
-          {%- if states('sensor.car_ioniq_charger_current_power')|float > 1000.0 or is_state_attr('binary_sensor.car_ioniq_state', 'charging', 1) %}
+          {%- if states('sensor.car_ioniq_charger_current_power')|float > 1000.0 or is_state_attr('binary_sensor.car_ioniq_state_sensor', 'charging', 1) %}
              Cargando
           {%- elif is_state('switch.car_ioniq_charger', 'off') %}
             Apagado
@@ -192,7 +211,7 @@ sensor:
         entity_id: 
           - switch.car_ioniq_charger
           - binary_sensor.car_ioniq_charger_current_power
-          - binary_sensor.car_ioniq_state
+          - binary_sensor.car_ioniq_state_sensor
 
   # Google travel time to work
   - platform: google_travel_time
