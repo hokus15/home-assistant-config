@@ -40,6 +40,7 @@ sensor.disk_free:
   friendly_name: Espacio libre
 sensor.last_boot:
   friendly_name: Último reinicio
+  icon: mdi:update
 sensor.since_last_boot:
   friendly_name: Uptime
 sensor.recibidor_boton_bateria:
@@ -181,7 +182,7 @@ utility_meter.energy_home_daily:
   friendly_name: Tarifa
 sensor.car_ioniq_location_last_update:
   friendly_name: Última actualización
-  entity_picture: /local/ioniq-icon.png
+  icon: mdi:update
 sensor.car_ioniq_charge_state:
   friendly_name: Estado cargador Ioniq
   icon: mdi:flash-circle
@@ -452,3 +453,5 @@ sensor.salon_switch_power:
   icon: mdi:power-plug
 sensor.comedor_switch_energy:
   icon: mdi:speedometer
+sensor.car_ioniq_state_last_update:
+  icon: mdi:update

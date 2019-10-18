@@ -861,6 +861,9 @@
                                 },
                                 {
                                     "entity": "sensor.car_ioniq_state_battery_health"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_last_update"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -1067,6 +1070,9 @@
                                 },
                                 {
                                     "entity": "sensor.despacho_sensor_movimiento_bateria"
+                                },
+                                {
+                                    "entity": "sensor.recibidor_remote_bateria"
                                 }
                             ],
                             "show_header_toggle": false,

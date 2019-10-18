@@ -85,6 +85,10 @@ sensor:
       car_ioniq_charger_current_power:
         value_template: "{{state_attr('switch.car_ioniq_charger','current_power_w')|int}}"
         unit_of_measurement: W
+      # Ioniq State last update
+      car_ioniq_state_last_update:
+        friendly_name: 'Última actualización'
+        value_template: '{{((state_attr("binary_sensor.car_ioniq_state_sensor", "timestamp")|int)/1000)|round(0)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
       # Ioniq State Of Charge display
       car_ioniq_state_soc_display:
         friendly_name: 'Batería mostrada'
