@@ -134,12 +134,14 @@ sensor:
       piscina_off_time:
         friendly_name: 'Apagado'
         value_template: >- 
-          {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
-          {%- if timezone == 'CEST' %}
-            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
-          {% else %}
-            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
-          {%- endif %}
+          {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
+
+#          {%- set timezone = as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z")-%}
+#          {%- if timezone == 'CEST' %}
+#            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
+#          {% else %}
+#            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
+#          {%- endif %}
         icon_template: 'mdi:power-plug-off'
         entity_id: sensor.date_time
       piscina_on_time:
