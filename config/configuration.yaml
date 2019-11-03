@@ -58,6 +58,13 @@ wemo:
     - 10.155.106.70 # Lights - Wemo Link
     - 10.155.106.71 # Car charger - Wemo Insight
 
+cast:
+  media_player:
+    - host: 10.155.106.32 # Hall Google Home Mini
+    - host: 10.155.106.41 # Living room chromecast
+    - host: 10.155.106.50 # Suite Google Nest Hub
+    - host: 10.155.106.72 # Kichen chromecast audio
+
 # Checks for available updates
 updater:
   include_used_components: true
@@ -99,6 +106,7 @@ logger:
     homeassistant.components.sensor.command_line: warn
     homeassistant.components.netatmo.sensor: error
     homeassistant.components.withings: error
+    homeassistant.components.media_player.cast: debug
 #    homeassistant.components.sensor: debug
 #    homeassistant.components.sensor.torque: debug
 #    homeassistant.components.camera: debug
