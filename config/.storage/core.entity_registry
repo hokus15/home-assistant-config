@@ -461,42 +461,6 @@
                 "unique_id": "3-72057594093060096"
             },
             {
-                "config_entry_id": "ba140323fab64440bee4f8cd44f71ee3",
-                "device_id": "8af28b3337744ed7aa0c3950f87c412e",
-                "disabled_by": null,
-                "entity_id": "media_player.recibidor",
-                "name": null,
-                "platform": "cast",
-                "unique_id": "360839a3-401e-1ba0-81a9-0736c4a39ba6"
-            },
-            {
-                "config_entry_id": "ba140323fab64440bee4f8cd44f71ee3",
-                "device_id": "cf0ef073a50742cd95184495f6e1e2ca",
-                "disabled_by": null,
-                "entity_id": "media_player.cocina",
-                "name": null,
-                "platform": "cast",
-                "unique_id": "08967150-674f-9e20-eb89-a420843a4ffe"
-            },
-            {
-                "config_entry_id": "ba140323fab64440bee4f8cd44f71ee3",
-                "device_id": "69b38bec9afe41299b8d4e82f640f3a4",
-                "disabled_by": null,
-                "entity_id": "media_player.salon",
-                "name": null,
-                "platform": "cast",
-                "unique_id": "cdbe4ece-88cc-2512-7429-e5d8747010a6"
-            },
-            {
-                "config_entry_id": "ba140323fab64440bee4f8cd44f71ee3",
-                "device_id": null,
-                "disabled_by": null,
-                "entity_id": "media_player.altavoces",
-                "name": null,
-                "platform": "cast",
-                "unique_id": "fb27835f-28ef-4161-bcea-55111b60c31f"
-            },
-            {
                 "config_entry_id": null,
                 "device_id": null,
                 "disabled_by": null,
@@ -912,78 +876,6 @@
             },
             {
                 "config_entry_id": null,
-                "device_id": "d29790124f1b4d05920ec1a425bb41dc",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_kbyte_sec_sent",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:8b2fc6dd-b5a6-4f1d-a00f-56ddba5fe631_kbyte/sec_sent"
-            },
-            {
-                "config_entry_id": null,
-                "device_id": "7f6f7efba9a24a6f9536c54ae777e81e",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_packets_received",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:8b2fc6dd-b5a6-4f1d-a00f-56ddba5fe631_packets_received"
-            },
-            {
-                "config_entry_id": null,
-                "device_id": "6120c95768df48a5a3a48e9d994e177e",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_bytes_received",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:8b2fc6dd-b5a6-4f1d-a00f-56ddba5fe631_bytes_received"
-            },
-            {
-                "config_entry_id": null,
-                "device_id": "2943794ba80d4f948fc45a9a63aee7fd",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_bytes_sent",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:8b2fc6dd-b5a6-4f1d-a00f-56ddba5fe631_bytes_sent"
-            },
-            {
-                "config_entry_id": null,
-                "device_id": "8de04f149a1f4071999de78a94b754b3",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_packets_sent",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:8b2fc6dd-b5a6-4f1d-a00f-56ddba5fe631_packets_sent"
-            },
-            {
-                "config_entry_id": null,
-                "device_id": "56bdd9bc6e8e492ab715e5b6e05f81da",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_kbyte_sec_received",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:8b2fc6dd-b5a6-4f1d-a00f-56ddba5fe631_kbyte/sec_received"
-            },
-            {
-                "config_entry_id": null,
-                "device_id": "b0c8fe1aeb034363968d118ded7df809",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_packets_sec_received",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:8b2fc6dd-b5a6-4f1d-a00f-56ddba5fe631_packets/sec_received"
-            },
-            {
-                "config_entry_id": null,
-                "device_id": "695af91943264795a83f3b2395b151a5",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_packets_sec_sent",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:8b2fc6dd-b5a6-4f1d-a00f-56ddba5fe631_packets/sec_sent"
-            },
-            {
-                "config_entry_id": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "switch.car_ioniq_charger",
@@ -1181,159 +1073,6 @@
                 "unique_id": "updater"
             },
             {
-                "config_entry_id": "d3e1d76bf94b4dc188b649fd85066d03",
-                "device_id": "e18e6186d17b49228d49f2847a28d013",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_packets_sent_2",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_packets_sent"
-            },
-            {
-                "config_entry_id": "d3e1d76bf94b4dc188b649fd85066d03",
-                "device_id": "c52be06daffd4b688ea66bc90ff3cc47",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_kbyte_sec_received_2",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_kbyte/sec_received"
-            },
-            {
-                "config_entry_id": "d3e1d76bf94b4dc188b649fd85066d03",
-                "device_id": "78b1f23694e74a6f9dc2a8d5b0cf7cdb",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_packets_received_2",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_packets_received"
-            },
-            {
-                "config_entry_id": "d3e1d76bf94b4dc188b649fd85066d03",
-                "device_id": "3bb9b61dcba84ce4b913a4345cab534a",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_bytes_received_2",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_bytes_received"
-            },
-            {
-                "config_entry_id": "d3e1d76bf94b4dc188b649fd85066d03",
-                "device_id": "cadb6086ede84ccf9fc7ec639192f742",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_kbyte_sec_sent_2",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_kbyte/sec_sent"
-            },
-            {
-                "config_entry_id": "d3e1d76bf94b4dc188b649fd85066d03",
-                "device_id": "bb3f25d5b6634d96aa49096a1961091d",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_bytes_sent_2",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_bytes_sent"
-            },
-            {
-                "config_entry_id": "d3e1d76bf94b4dc188b649fd85066d03",
-                "device_id": "bc56f41be54a4bf9894ec1f9e05d08c9",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_packets_sec_sent_2",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_packets/sec_sent"
-            },
-            {
-                "config_entry_id": "d3e1d76bf94b4dc188b649fd85066d03",
-                "device_id": "105293ed33fc4912a312cc06b654757a",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_packets_sec_received_2",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:c0c2f673-b90b-42b4-af9d-a9ae68b03152_packets/sec_received"
-            },
-            {
-                "config_entry_id": "8f487225fc9142b99bf7f9891c5f90c7",
-                "device_id": "9526df25c007446c8c2cff5eea097944",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_bytes_received_3",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_bytes_received"
-            },
-            {
-                "config_entry_id": "8f487225fc9142b99bf7f9891c5f90c7",
-                "device_id": "8e587cc9f0064b3588e87fdf0ffd6ab3",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_packets_received_3",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_packets_received"
-            },
-            {
-                "config_entry_id": "8f487225fc9142b99bf7f9891c5f90c7",
-                "device_id": "180fa576ef5a4021837070fd378cb140",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_packets_sec_sent_3",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_packets/sec_sent"
-            },
-            {
-                "config_entry_id": "8f487225fc9142b99bf7f9891c5f90c7",
-                "device_id": "3b5605a1462145fb936a6c82322c0929",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_kbyte_sec_received_3",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_kbyte/sec_received"
-            },
-            {
-                "config_entry_id": "8f487225fc9142b99bf7f9891c5f90c7",
-                "device_id": "74ecd06cc8f04ea8a0dbf1d231ef619d",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_kbyte_sec_sent_3",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_kbyte/sec_sent"
-            },
-            {
-                "config_entry_id": "8f487225fc9142b99bf7f9891c5f90c7",
-                "device_id": "b01a3f1661034b26b428309ebbd9eaaf",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_packets_sent_3",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_packets_sent"
-            },
-            {
-                "config_entry_id": "8f487225fc9142b99bf7f9891c5f90c7",
-                "device_id": "b31f003e57d44f03b97f644ff5039f7f",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_packets_sec_received_3",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_packets/sec_received"
-            },
-            {
-                "config_entry_id": "8f487225fc9142b99bf7f9891c5f90c7",
-                "device_id": "d01962feefdc4daf9026cf1a814caa50",
-                "disabled_by": null,
-                "entity_id": "sensor.onhub_bytes_sent_3",
-                "name": null,
-                "platform": "upnp",
-                "unique_id": "uuid:b132bcf5-df10-4b53-8488-d18c555b303d_bytes_sent"
-            },
-            {
-                "config_entry_id": "ba140323fab64440bee4f8cd44f71ee3",
-                "device_id": "b32b9652c2824dd8b5fe5c3dabab51c2",
-                "disabled_by": null,
-                "entity_id": "media_player.suite",
-                "name": null,
-                "platform": "cast",
-                "unique_id": "0fb3973a-de5b-b006-74eb-82d7ffbf0440"
-            },
-            {
                 "config_entry_id": null,
                 "device_id": null,
                 "disabled_by": null,
@@ -1341,24 +1080,6 @@
                 "name": null,
                 "platform": "person",
                 "unique_id": "35468c6c1d85495eb93b8eac8be3e701"
-            },
-            {
-                "config_entry_id": "ba140323fab64440bee4f8cd44f71ee3",
-                "device_id": null,
-                "disabled_by": null,
-                "entity_id": "media_player.todos_los_altavoces",
-                "name": null,
-                "platform": "cast",
-                "unique_id": "acbc4cd5-5889-4af7-a599-3840e3cc4dfc"
-            },
-            {
-                "config_entry_id": "ba140323fab64440bee4f8cd44f71ee3",
-                "device_id": null,
-                "disabled_by": null,
-                "entity_id": "media_player.altavoces_abajo",
-                "name": null,
-                "platform": "cast",
-                "unique_id": "b1ef5f35-50e0-417b-a75b-545e5e85291c"
             },
             {
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
@@ -1710,6 +1431,105 @@
                 "name": "Bater\u00eda NodOn",
                 "platform": "zwave",
                 "unique_id": "8-72057594178437121"
+            },
+            {
+                "config_entry_id": "e4a3d28037ba4be6b973676162d8a27d",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.caducidad_certificado_ssl",
+                "name": null,
+                "platform": "cert_expiry",
+                "unique_id": "home.hokusnet.com:443"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_anemometro_reachability",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "06:00:00:00:0c:0a-reachable"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_exterior_reachability",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "02:00:00:02:59:18-reachable"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_habitacion_reachability",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:af:92-reachable"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_pluviometro_reachability",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "05:00:00:01:ab:08-reachable"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_suite_reachability",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "03:00:00:05:12:70-reachable"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.netatmo_salon_reachability",
+                "name": null,
+                "platform": "netatmo",
+                "unique_id": "70:ee:50:02:36:f2-reachable"
+            },
+            {
+                "config_entry_id": "2eab063a1adb43a4bc38d127a857a96a",
+                "device_id": "70e2f24b370244e2986a12b98af6d0bc",
+                "disabled_by": null,
+                "entity_id": "media_player.recibidor",
+                "name": null,
+                "platform": "cast",
+                "unique_id": "360839a3-401e-1ba0-81a9-0736c4a39ba6"
+            },
+            {
+                "config_entry_id": "2eab063a1adb43a4bc38d127a857a96a",
+                "device_id": "30ca9c0498214eaab6db14f26e646982",
+                "disabled_by": null,
+                "entity_id": "media_player.salon",
+                "name": null,
+                "platform": "cast",
+                "unique_id": "cdbe4ece-88cc-2512-7429-e5d8747010a6"
+            },
+            {
+                "config_entry_id": "2eab063a1adb43a4bc38d127a857a96a",
+                "device_id": "4effc961476a4d5895da658fb3493616",
+                "disabled_by": null,
+                "entity_id": "media_player.cocina",
+                "name": null,
+                "platform": "cast",
+                "unique_id": "08967150-674f-9e20-eb89-a420843a4ffe"
+            },
+            {
+                "config_entry_id": "2eab063a1adb43a4bc38d127a857a96a",
+                "device_id": "5fb118d456314f13866bbaf624f22e17",
+                "disabled_by": null,
+                "entity_id": "media_player.suite",
+                "name": null,
+                "platform": "cast",
+                "unique_id": "0fb3973a-de5b-b006-74eb-82d7ffbf0440"
             }
         ]
     },
