@@ -41,6 +41,9 @@
                                         },
                                         {
                                             "entity": "sensor.next_shift_date"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_state_last_update"
                                         }
                                     ],
                                     "type": "entities"
