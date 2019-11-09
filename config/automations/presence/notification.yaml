@@ -1,50 +1,22 @@
-- alias: '[Presence - Notification] Geni not home'
+- alias: '[Presence - Notification] Jordi at home'
   trigger:
     - platform: state
-      entity_id: person.geni
-      from: 'home'
-  action:
-    - service: notify.slack
-      data_template:
-        message: ''
-        data:
-          attachments:
-            - color: 'good'
-              pretext: ':woman: *Presencia* :woman:'
-              text: 'Geni está fuera de casa'
-              fallback: 'Presencia'
-
-- alias: '[Presence - Notification] Authorized person at home'
-  trigger:
-    - platform: state
-      entity_id: device_tracker.virtual_device
+      entity_id: person.jordi
       to: 'home'
   action:
-    - service: notify.slack
+    - service: script.presence_notify_state_change_slack
       data_template:
-        message: ''
-        data:
-          attachments:
-            - color: 'good'
-              pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
-              text: 'Persona autorizada en casa'
-              fallback: 'Presencia'
+        message: 'Jordi está en casa'
 
-- alias: '[Presence - Notification] Authorized person not home'
+- alias: '[Presence - Notification] Jordi not at home'
   trigger:
     - platform: state
-      entity_id: device_tracker.virtual_device
+      entity_id: person.jordi
       from: 'home'
   action:
-    - service: notify.slack
+    - service: script.presence_notify_state_change_slack
       data_template:
-        message: ''
-        data:
-          attachments:
-            - color: 'good'
-              pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
-              text: 'Persona autorizada fuera de casa'
-              fallback: 'Presencia'
+        message: 'Jordi no está en casa'
 
 - alias: '[Presence - Notification] Geni at home'
   trigger:
@@ -52,15 +24,59 @@
       entity_id: person.geni
       to: 'home'
   action:
-    - service: notify.slack
+    - service: script.presence_notify_state_change_slack
       data_template:
-        message: ''
-        data:
-          attachments:
-            - color: 'good'
-              pretext: ':woman: *Presencia* :woman:'
-              text: 'Geni está en casa'
-              fallback: 'Presencia'
+        message: 'Geni está en casa'
+
+- alias: '[Presence - Notification] Geni not at home'
+  trigger:
+    - platform: state
+      entity_id: person.geni
+      from: 'home'
+  action:
+    - service: script.presence_notify_state_change_slack
+      data_template:
+        message: 'Geni no está en casa'
+
+- alias: '[Presence - Notification] Guest at home'
+  trigger:
+    - platform: state
+      entity_id: person.guest
+      to: 'home'
+  action:
+    - service: script.presence_notify_state_change_slack
+      data_template:
+        message: 'Invitado en casa'
+
+- alias: '[Presence - Notification] Guest not at home'
+  trigger:
+    - platform: state
+      entity_id: person.guest
+      from: 'home'
+  action:
+    - service: script.presence_notify_state_change_slack
+      data_template:
+        message: 'Invitado fuera de casa'
+
+- alias: '[Presence - Notification] Someone at home'
+  trigger:
+    - platform: state
+      entity_id: group.unidad_familiar
+      to: 'home'
+  action:
+    - service: script.presence_notify_state_change_slack
+      data_template:
+        message: 'Alguien en casa'
+
+- alias: '[Presence - Notification] No one at home'
+  trigger:
+    - platform: state
+      entity_id: group.unidad_familiar
+      from: 'home'
+  action:
+    - service: script.presence_notify_state_change_slack
+      data_template:
+        message: 'No hay nadie en casa'
 
 - alias: '[Presence - Notification] Notify for new devices'
   trigger:
