@@ -84,3 +84,16 @@ alarm_notify_sensor:
               pretext: ':bell: *Alarma* :bell:'
               text: '{{data.message}}'
               fallback: 'Alarma'
+
+alarm_notify_state_change_slack:
+  alias: '[Alarm - Notification] Notify alarm state changes to slack'
+  sequence:
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'good'
+              pretext: ':bell: *Alarma* :bell:'
+              text: '{{message}}'
+              fallback: 'Alarma'
