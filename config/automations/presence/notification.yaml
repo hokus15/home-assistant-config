@@ -64,6 +64,8 @@
       entity_id: group.unidad_familiar
       to: 'home'
   action:
+    - delay:
+        seconds: 2
     - service: script.presence_notify_state_change_slack
       data_template:
         message: 'Alguien en casa'
@@ -74,6 +76,8 @@
       entity_id: group.unidad_familiar
       from: 'home'
   action:
+    - delay:
+        seconds: 2
     - service: script.presence_notify_state_change_slack
       data_template:
         message: 'No hay nadie en casa'
