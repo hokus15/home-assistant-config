@@ -233,7 +233,7 @@ switch.car_ioniq_charger:
   friendly_name: Cargador Ioniq
   icon: mdi:ev-station
 device_tracker.car_ioniq:
-  entity_picture: /local/ioniq-icon.png
+  entity_picture: /local/device_tracker.car_ioniq_icon.png
 alarm_control_panel.home:
   friendly_name: Alarma
 sensor.piscina_on_history:
