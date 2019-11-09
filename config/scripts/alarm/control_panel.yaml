@@ -75,6 +75,10 @@ alarm_disarm_telegram_temporary:
                - 'Armar alarma:/script.turn_on#script.alarm_arm_away'
     # Wait specified time before arming the alarm again
     - delay: "{{ data.minutes | multiply(60) | timestamp_custom('%H:%M:%S',False) }}"
+    # Only rearm if nobody at home
+    - condition: state
+      entity_id: group.unidad_familiar
+      state: 'not_home'
     # Alarm arm away
     - service: script.turn_on
       data:
