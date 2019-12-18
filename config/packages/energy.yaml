@@ -42,6 +42,7 @@ sensor:
           {%- endif %}
   
   - platform: nut
+    host: 40817795-nut
     resources:
       - ups.status
       - ups.status.display
