@@ -1,27 +1,27 @@
-- alias: "[Presence - Guest] Turn on for 4 hours guest person at 8:15 if it's a workday"
-  trigger:
-    platform: time
-    at: '08:15:00'
-  condition:
-    condition: and
-    conditions:
-      - condition: state
-        entity_id: 'binary_sensor.workday_sensor'
-        state: 'on'
-      - condition: time
-        weekday:
-          - mon
-          - tue
-          - thu
-          - fri
-  action:
-    - service: input_number.set_value
-      data:
-        entity_id: input_number.guest_mode_minutes
-        value: 240.0
-    - service: homeassistant.turn_on
-      data:
-        entity_id: input_boolean.guest_mode
+#- alias: "[Presence - Guest] Turn on for 4 hours guest person at 8:15 if it's a workday"
+#  trigger:
+#    platform: time
+#    at: '08:15:00'
+#  condition:
+#    condition: and
+#    conditions:
+#      - condition: state
+#        entity_id: 'binary_sensor.workday_sensor'
+#        state: 'on'
+#      - condition: time
+#        weekday:
+#          - mon
+#          - tue
+#          - thu
+#          - fri
+#  action:
+#    - service: input_number.set_value
+#      data:
+#        entity_id: input_number.guest_mode_minutes
+#        value: 240.0
+#    - service: homeassistant.turn_on
+#      data:
+#        entity_id: input_boolean.guest_mode
 
 - alias: '[Presence - Guest] When guest mode is turned off, set guest as not home'
   trigger:
