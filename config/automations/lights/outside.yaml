@@ -3,6 +3,7 @@
   trigger:
     platform: sun
     event: 'sunset'
+    offset: '00:10:00'
   action:
     - service: script.turn_on_outside_lights_75pct
       data_template:
