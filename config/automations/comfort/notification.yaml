@@ -15,6 +15,8 @@
       - condition: template
         value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
       - condition: template
+        value_template: "{{is_state_attr('climate.netatmo_general', 'hvac_action', 'heating')}}"
+      - condition: template
         value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.coladuria_sensor_puerta.last_changed))//60)%10 == 0 }}'
       - condition: template
         value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.coladuria_sensor_puerta.last_changed))//60) != 0 }}'
@@ -41,6 +43,8 @@
         value_template: "{{states.climate.netatmo_general != None}}"
       - condition: template
         value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
+      - condition: template
+        value_template: "{{is_state_attr('climate.netatmo_general', 'hvac_action', 'heating')}}"
       - condition: template
         value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.porche_sensor_puerta.last_changed))//60)%10 == 0 }}'
       - condition: template
