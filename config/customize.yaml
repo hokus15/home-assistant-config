@@ -181,7 +181,7 @@ switch.energy_ups_beeper:
 utility_meter.energy_home_daily:
   friendly_name: Tarifa
 sensor.car_ioniq_location_last_update:
-  friendly_name: Última actualización
+  friendly_name: Última actualización posición
   icon: mdi:update
 sensor.car_ioniq_charge_state:
   friendly_name: Estado cargador Ioniq
@@ -454,4 +454,5 @@ sensor.salon_switch_power:
 sensor.comedor_switch_energy:
   icon: mdi:speedometer
 sensor.car_ioniq_state_last_update:
+  friendly_name: Última actualización estado
   icon: mdi:update
