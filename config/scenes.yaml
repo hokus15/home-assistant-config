@@ -1,0 +1,6 @@
+- id: '1574611747034'
+  name: Luces noche
+  entities:
+    light.luces_exteriores:
+      brightness: 191
+      state: 'on'
