@@ -2,1534 +2,2327 @@
     "data": {
         "entities": [
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "media_player.hokussqueezebox",
                 "name": null,
                 "platform": "squeezebox",
-                "unique_id": "00:04:20:2a:42:cc"
+                "supported_features": 58303,
+                "unique_id": "00:04:20:2a:42:cc",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "switch.barrera",
                 "name": null,
                 "platform": "wemo",
-                "unique_id": "221529S000015E"
+                "supported_features": 0,
+                "unique_id": "221529S000015E",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {
+                    "max_mireds": 500,
+                    "min_mireds": 153
+                },
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "light.barrera_derecha",
                 "name": null,
                 "platform": "wemo",
-                "unique_id": "94103EF6BF4305F3"
+                "supported_features": 51,
+                "unique_id": "94103EF6BF4305F3",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {
+                    "max_mireds": 500,
+                    "min_mireds": 153
+                },
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "light.barrera_izquierda",
                 "name": null,
                 "platform": "wemo",
-                "unique_id": "94103EF6BF430276"
+                "supported_features": 51,
+                "unique_id": "94103EF6BF430276",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {
+                    "max_mireds": 500,
+                    "min_mireds": 153
+                },
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "light.puerta_coladuria",
                 "name": null,
                 "platform": "wemo",
-                "unique_id": "94103EF6BF42F7A8"
+                "supported_features": 51,
+                "unique_id": "94103EF6BF42F7A8",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "cbf7e1b9eede4d75803770ba5cf15dd8",
                 "disabled_by": null,
                 "entity_id": "zwave.aeotec_zw090_zstick_gen5_eu",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "node-1"
+                "supported_features": 0,
+                "unique_id": "node-1",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
                 "disabled_by": null,
                 "entity_id": "binary_sensor.despacho_sensor_movimiento",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "6-72057594143571968"
+                "supported_features": 0,
+                "unique_id": "6-72057594143571968",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
                 "disabled_by": null,
                 "entity_id": "sensor.despacho_sensor_movimiento_luminance",
                 "name": "Luminosidad despacho",
                 "platform": "zwave",
-                "unique_id": "6-72057594143588402"
+                "supported_features": 0,
+                "unique_id": "6-72057594143588402",
+                "unit_of_measurement": "lux"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
                 "disabled_by": null,
                 "entity_id": "sensor.despacho_sensor_movimiento_temperature",
                 "name": "Temperatura despacho",
                 "platform": "zwave",
-                "unique_id": "6-72057594143588370"
+                "supported_features": 0,
+                "unique_id": "6-72057594143588370",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
                 "disabled_by": null,
                 "entity_id": "zwave.despacho_sensor_movimiento",
                 "name": "Sensor movimiento despacho",
                 "platform": "zwave",
-                "unique_id": "node-6"
+                "supported_features": 0,
+                "unique_id": "node-6",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
                 "disabled_by": null,
                 "entity_id": "sensor.despacho_sensor_movimiento_sourcenodeid",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "6-72057594144636961"
+                "supported_features": 0,
+                "unique_id": "6-72057594144636961",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
                 "disabled_by": null,
                 "entity_id": "sensor.despacho_sensor_movimiento_seismic_intensity",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "6-72057594143588754"
+                "supported_features": 0,
+                "unique_id": "6-72057594143588754",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
                 "disabled_by": null,
                 "entity_id": "sensor.despacho_sensor_movimiento_general",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "6-72057594145341441"
+                "supported_features": 0,
+                "unique_id": "6-72057594145341441",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
                 "disabled_by": null,
                 "entity_id": "sensor.despacho_sensor_movimiento_burglar",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "6-72057594144637089"
+                "supported_features": 0,
+                "unique_id": "6-72057594144637089",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
                 "disabled_by": null,
                 "entity_id": "sensor.despacho_sensor_movimiento_alarm_type",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "6-72057594144636929"
+                "supported_features": 0,
+                "unique_id": "6-72057594144636929",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
                 "disabled_by": null,
                 "entity_id": "sensor.despacho_sensor_movimiento_alarm_level",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "6-72057594144636945"
+                "supported_features": 0,
+                "unique_id": "6-72057594144636945",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
                 "disabled_by": null,
                 "entity_id": "zwave.porche_sensor_puerta",
                 "name": "Sensor puerta porche",
                 "platform": "zwave",
-                "unique_id": "node-11"
+                "supported_features": 0,
+                "unique_id": "node-11",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ed0a76f21f8942cfaecf52892169ed51",
                 "disabled_by": null,
                 "entity_id": "zwave.porche_sensor_persiana",
                 "name": "Sensor persiana porche",
                 "platform": "zwave",
-                "unique_id": "node-9"
+                "supported_features": 0,
+                "unique_id": "node-9",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ed0a76f21f8942cfaecf52892169ed51",
                 "disabled_by": null,
                 "entity_id": "binary_sensor.porche_sensor_persiana",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "9-72057594193903616"
+                "supported_features": 0,
+                "unique_id": "9-72057594193903616",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ed0a76f21f8942cfaecf52892169ed51",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_persiana_access_control",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "9-72057594194968721"
+                "supported_features": 0,
+                "unique_id": "9-72057594194968721",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ed0a76f21f8942cfaecf52892169ed51",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_persiana_alarm_level",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "9-72057594194968593"
+                "supported_features": 0,
+                "unique_id": "9-72057594194968593",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ed0a76f21f8942cfaecf52892169ed51",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_persiana_alarm_type",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "9-72057594194968577"
+                "supported_features": 0,
+                "unique_id": "9-72057594194968577",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ed0a76f21f8942cfaecf52892169ed51",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_persiana_burglar",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "9-72057594194968737"
+                "supported_features": 0,
+                "unique_id": "9-72057594194968737",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ed0a76f21f8942cfaecf52892169ed51",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_persiana_general",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "9-72057594195673089"
+                "supported_features": 0,
+                "unique_id": "9-72057594195673089",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ed0a76f21f8942cfaecf52892169ed51",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_persiana_sourcenodeid",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "9-72057594194968609"
+                "supported_features": 0,
+                "unique_id": "9-72057594194968609",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
                 "disabled_by": null,
                 "entity_id": "binary_sensor.porche_sensor_puerta",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "11-72057594227458048"
+                "supported_features": 0,
+                "unique_id": "11-72057594227458048",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_puerta_access_control",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "11-72057594228523153"
+                "supported_features": 0,
+                "unique_id": "11-72057594228523153",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_puerta_alarm_level",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "11-72057594228523025"
+                "supported_features": 0,
+                "unique_id": "11-72057594228523025",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_puerta_alarm_type",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "11-72057594228523009"
+                "supported_features": 0,
+                "unique_id": "11-72057594228523009",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_puerta_burglar",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "11-72057594228523169"
+                "supported_features": 0,
+                "unique_id": "11-72057594228523169",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_puerta_general",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "11-72057594229227521"
+                "supported_features": 0,
+                "unique_id": "11-72057594229227521",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_puerta_heat",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "11-72057594228523121"
+                "supported_features": 0,
+                "unique_id": "11-72057594228523121",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_puerta_sourcenodeid",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "11-72057594228523041"
+                "supported_features": 0,
+                "unique_id": "11-72057594228523041",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_puerta_system",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "11-72057594228523201"
+                "supported_features": 0,
+                "unique_id": "11-72057594228523201",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_puerta_temperature",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "11-72057594227474450"
+                "supported_features": 0,
+                "unique_id": "11-72057594227474450",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
                 "disabled_by": null,
                 "entity_id": "sensor.escalera_switch_alarm_level",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "10-72057594211745809"
+                "supported_features": 0,
+                "unique_id": "10-72057594211745809",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
                 "disabled_by": null,
                 "entity_id": "sensor.escalera_switch_alarm_type",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "10-72057594211745793"
+                "supported_features": 0,
+                "unique_id": "10-72057594211745793",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
                 "disabled_by": null,
                 "entity_id": "sensor.escalera_switch_heat",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "10-72057594211745905"
+                "supported_features": 0,
+                "unique_id": "10-72057594211745905",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
                 "disabled_by": null,
                 "entity_id": "sensor.escalera_switch_power_management",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "10-72057594211745969"
+                "supported_features": 0,
+                "unique_id": "10-72057594211745969",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
                 "disabled_by": null,
                 "entity_id": "sensor.escalera_switch_sourcenodeid",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "10-72057594211745825"
+                "supported_features": 0,
+                "unique_id": "10-72057594211745825",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
                 "disabled_by": null,
                 "entity_id": "zwave.escalera_y_suite_switch",
                 "name": "Interruptor Escalera y Suite",
                 "platform": "zwave",
-                "unique_id": "node-10"
+                "supported_features": 0,
+                "unique_id": "node-10",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "dc43ff3b064749d1997868c8347ba502",
                 "disabled_by": null,
                 "entity_id": "sensor.suite_switch_energy",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "10-144115188248641538"
+                "supported_features": 0,
+                "unique_id": "10-144115188248641538",
+                "unit_of_measurement": "kWh"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
                 "disabled_by": null,
                 "entity_id": "sensor.suite_switch_exporting",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "10-72057594210714112"
+                "supported_features": 0,
+                "unique_id": "10-72057594210714112",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
                 "disabled_by": null,
                 "entity_id": "sensor.suite_switch_power",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "10-72057594210713730"
+                "supported_features": 0,
+                "unique_id": "10-72057594210713730",
+                "unit_of_measurement": "W"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "dc43ff3b064749d1997868c8347ba502",
                 "disabled_by": null,
                 "entity_id": "switch.suite_switch",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "10-144115188248428544"
+                "supported_features": 0,
+                "unique_id": "10-144115188248428544",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
                 "disabled_by": null,
                 "entity_id": "sensor.escalera_switch_energy",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "10-72057594210713602"
+                "supported_features": 0,
+                "unique_id": "10-72057594210713602",
+                "unit_of_measurement": "kWh"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "dc43ff3b064749d1997868c8347ba502",
                 "disabled_by": null,
                 "entity_id": "sensor.escalera_switch_exporting",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "10-144115188248642048"
+                "supported_features": 0,
+                "unique_id": "10-144115188248642048",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "dc43ff3b064749d1997868c8347ba502",
                 "disabled_by": null,
                 "entity_id": "sensor.escalera_switch_power",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "10-144115188248641666"
+                "supported_features": 0,
+                "unique_id": "10-144115188248641666",
+                "unit_of_measurement": "W"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "118a2732a2c34b9ab9fbdd4944b11393",
                 "disabled_by": null,
                 "entity_id": "switch.escalera_switch",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "10-72057594210500608"
+                "supported_features": 0,
+                "unique_id": "10-72057594210500608",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "0eb7fbe253b8440882d75ae177c19ecd",
                 "disabled_by": null,
                 "entity_id": "zwave.entrance_hall_lamp_switch",
                 "name": "Interruptor l\u00e1mpara recibidor",
                 "platform": "zwave",
-                "unique_id": "node-3"
+                "supported_features": 0,
+                "unique_id": "node-3",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "0eb7fbe253b8440882d75ae177c19ecd",
                 "disabled_by": null,
                 "entity_id": "switch.entrance_hall_lamp_switch",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "3-72057594093060096"
+                "supported_features": 0,
+                "unique_id": "3-72057594093060096",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "switch.wemo_switch",
                 "name": null,
                 "platform": "wemo",
-                "unique_id": "221409K1100E9E"
+                "supported_features": 0,
+                "unique_id": "221409K1100E9E",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "switch.wemo_link",
                 "name": null,
                 "platform": "wemo",
-                "unique_id": "231503B01008BA"
+                "supported_features": 0,
+                "unique_id": "231503B01008BA",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_habitacion_max_temp",
                 "name": "Max. Temp. Hab. Ni\u00f1os",
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:af:92-max_temp"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:af:92-max_temp",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_salon_co2",
                 "name": "CO2 Sal\u00f3n",
                 "platform": "netatmo",
-                "unique_id": "70:ee:50:02:36:f2-co2"
+                "supported_features": 0,
+                "unique_id": "70:ee:50:02:36:f2-co2",
+                "unit_of_measurement": "ppm"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_salon_wifi",
                 "name": "Se\u00f1al Netatmo Sal\u00f3n",
                 "platform": "netatmo",
-                "unique_id": "70:ee:50:02:36:f2-wifi_status"
+                "supported_features": 0,
+                "unique_id": "70:ee:50:02:36:f2-wifi_status",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": "temperature",
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_suite_temperature",
                 "name": "Temperatura suite",
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:12:70-temperature"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:12:70-temperature",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_suite_min_temp",
                 "name": "Min. Temp. Suite",
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:12:70-min_temp"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:12:70-min_temp",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_pluviometro_battery",
                 "name": "Bater\u00eda Netatmo Pluvi\u00f3metro",
                 "platform": "netatmo",
-                "unique_id": "05:00:00:01:ab:08-battery_vp"
+                "supported_features": 0,
+                "unique_id": "05:00:00:01:ab:08-battery_vp",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_suite_max_temp",
                 "name": "Max. Temp. Suite",
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:12:70-max_temp"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:12:70-max_temp",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": "humidity",
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_suite_humidity",
                 "name": "Humedad suite",
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:12:70-humidity"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:12:70-humidity",
+                "unit_of_measurement": "%"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_pluviometro_radio",
                 "name": null,
                 "platform": "netatmo",
-                "unique_id": "05:00:00:01:ab:08-rf_status"
+                "supported_features": 0,
+                "unique_id": "05:00:00:01:ab:08-rf_status",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": "humidity",
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_salon_humidity",
                 "name": "Humedad Sal\u00f3n",
                 "platform": "netatmo",
-                "unique_id": "70:ee:50:02:36:f2-humidity"
+                "supported_features": 0,
+                "unique_id": "70:ee:50:02:36:f2-humidity",
+                "unit_of_measurement": "%"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_salon_noise",
                 "name": "Nivel ruido Sal\u00f3n",
                 "platform": "netatmo",
-                "unique_id": "70:ee:50:02:36:f2-noise"
+                "supported_features": 0,
+                "unique_id": "70:ee:50:02:36:f2-noise",
+                "unit_of_measurement": "dB"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_suite_battery",
                 "name": "Bater\u00eda Netatmo Suite",
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:12:70-battery_vp"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:12:70-battery_vp",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_salon_pressure",
                 "name": "Presi\u00f3n Sal\u00f3n",
                 "platform": "netatmo",
-                "unique_id": "70:ee:50:02:36:f2-pressure"
+                "supported_features": 0,
+                "unique_id": "70:ee:50:02:36:f2-pressure",
+                "unit_of_measurement": "mbar"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_pluviometro_sum_rain_24",
                 "name": "Lluvia \u00faltimas 24 horas",
                 "platform": "netatmo",
-                "unique_id": "05:00:00:01:ab:08-sum_rain_24"
+                "supported_features": 0,
+                "unique_id": "05:00:00:01:ab:08-sum_rain_24",
+                "unit_of_measurement": "mm"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_pluviometro_sum_rain_1",
                 "name": "Lluvia \u00faltima hora",
                 "platform": "netatmo",
-                "unique_id": "05:00:00:01:ab:08-sum_rain_1"
+                "supported_features": 0,
+                "unique_id": "05:00:00:01:ab:08-sum_rain_1",
+                "unit_of_measurement": "mm"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_anemometro_angle",
                 "name": "Direcci\u00f3n del viento",
                 "platform": "netatmo",
-                "unique_id": "06:00:00:00:0c:0a-windangle"
+                "supported_features": 0,
+                "unique_id": "06:00:00:00:0c:0a-windangle",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_anemometro_gust_angle",
                 "name": "Direcci\u00f3n rachas",
                 "platform": "netatmo",
-                "unique_id": "06:00:00:00:0c:0a-gustangle"
+                "supported_features": 0,
+                "unique_id": "06:00:00:00:0c:0a-gustangle",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_exterior_radio",
                 "name": null,
                 "platform": "netatmo",
-                "unique_id": "02:00:00:02:59:18-rf_status"
+                "supported_features": 0,
+                "unique_id": "02:00:00:02:59:18-rf_status",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_pluviometro_rain",
                 "name": "Lluvia",
                 "platform": "netatmo",
-                "unique_id": "05:00:00:01:ab:08-rain"
+                "supported_features": 0,
+                "unique_id": "05:00:00:01:ab:08-rain",
+                "unit_of_measurement": "mm"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_anemometro_strength",
                 "name": "Velocidad viento",
                 "platform": "netatmo",
-                "unique_id": "06:00:00:00:0c:0a-windstrength"
+                "supported_features": 0,
+                "unique_id": "06:00:00:00:0c:0a-windstrength",
+                "unit_of_measurement": "km/h"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": "temperature",
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_salon_temperature",
                 "name": "Temperatura sal\u00f3n",
                 "platform": "netatmo",
-                "unique_id": "70:ee:50:02:36:f2-temperature"
+                "supported_features": 0,
+                "unique_id": "70:ee:50:02:36:f2-temperature",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_exterior_min_temp",
                 "name": "Min. Temp. Exterior",
                 "platform": "netatmo",
-                "unique_id": "02:00:00:02:59:18-min_temp"
+                "supported_features": 0,
+                "unique_id": "02:00:00:02:59:18-min_temp",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_exterior_max_temp",
                 "name": "Max. Temp. Exterior",
                 "platform": "netatmo",
-                "unique_id": "02:00:00:02:59:18-max_temp"
+                "supported_features": 0,
+                "unique_id": "02:00:00:02:59:18-max_temp",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": "humidity",
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_exterior_humidity",
                 "name": "Humedad Exterior",
                 "platform": "netatmo",
-                "unique_id": "02:00:00:02:59:18-humidity"
+                "supported_features": 0,
+                "unique_id": "02:00:00:02:59:18-humidity",
+                "unit_of_measurement": "%"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_exterior_battery",
                 "name": "Bater\u00eda Netatmo Exteiror",
                 "platform": "netatmo",
-                "unique_id": "02:00:00:02:59:18-battery_vp"
+                "supported_features": 0,
+                "unique_id": "02:00:00:02:59:18-battery_vp",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_habitacion_min_temp",
                 "name": "Min. Temp. Hab. Ni\u00f1os",
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:af:92-min_temp"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:af:92-min_temp",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_habitacion_radio",
                 "name": "Se\u00f1al Netatmo Hab. Ni\u00f1os",
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:af:92-rf_status"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:af:92-rf_status",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": "temperature",
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_exterior_temperature",
                 "name": "Temperatura exterior",
                 "platform": "netatmo",
-                "unique_id": "02:00:00:02:59:18-temperature"
+                "supported_features": 0,
+                "unique_id": "02:00:00:02:59:18-temperature",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_suite_radio",
                 "name": "Se\u00f1al Netatmo Suite",
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:12:70-rf_status"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:12:70-rf_status",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": "humidity",
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_habitacion_humidity",
                 "name": "Humedad Hab. Ni\u00f1os",
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:af:92-humidity"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:af:92-humidity",
+                "unit_of_measurement": "%"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_anemometro_radio",
                 "name": null,
                 "platform": "netatmo",
-                "unique_id": "06:00:00:00:0c:0a-rf_status"
+                "supported_features": 0,
+                "unique_id": "06:00:00:00:0c:0a-rf_status",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_anemometro_battery",
                 "name": "Bater\u00eda Netatmo Anem\u00f3metro",
                 "platform": "netatmo",
-                "unique_id": "06:00:00:00:0c:0a-battery_vp"
+                "supported_features": 0,
+                "unique_id": "06:00:00:00:0c:0a-battery_vp",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_suite_co2",
                 "name": "CO2 Suite",
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:12:70-co2"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:12:70-co2",
+                "unit_of_measurement": "ppm"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_habitacion_co2",
                 "name": "CO2 Hab. Ni\u00f1os",
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:af:92-co2"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:af:92-co2",
+                "unit_of_measurement": "ppm"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_habitacion_battery",
                 "name": "Bater\u00eda Netatmo Hab. Ni\u00f1os",
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:af:92-battery_vp"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:af:92-battery_vp",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_anemometro_gust_strength",
                 "name": "Velocidad rachas",
                 "platform": "netatmo",
-                "unique_id": "06:00:00:00:0c:0a-guststrength"
+                "supported_features": 0,
+                "unique_id": "06:00:00:00:0c:0a-guststrength",
+                "unit_of_measurement": "km/h"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": "temperature",
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_habitacion_temperature",
                 "name": "Temperatura Hab. Ni\u00f1os",
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:af:92-temperature"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:af:92-temperature",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_salon_min_temp",
                 "name": "Min. Temp. Sal\u00f3n",
                 "platform": "netatmo",
-                "unique_id": "70:ee:50:02:36:f2-min_temp"
+                "supported_features": 0,
+                "unique_id": "70:ee:50:02:36:f2-min_temp",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_salon_max_temp",
                 "name": "Max. Temp. Sal\u00f3n",
                 "platform": "netatmo",
-                "unique_id": "70:ee:50:02:36:f2-max_temp"
+                "supported_features": 0,
+                "unique_id": "70:ee:50:02:36:f2-max_temp",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": "battery",
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_anemometro_battery_percent",
                 "name": null,
                 "platform": "netatmo",
-                "unique_id": "06:00:00:00:0c:0a-battery_percent"
+                "supported_features": 0,
+                "unique_id": "06:00:00:00:0c:0a-battery_percent",
+                "unit_of_measurement": "%"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": "battery",
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_habitacion_battery_percent",
                 "name": null,
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:af:92-battery_percent"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:af:92-battery_percent",
+                "unit_of_measurement": "%"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": "battery",
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_pluviometro_battery_percent",
                 "name": null,
                 "platform": "netatmo",
-                "unique_id": "05:00:00:01:ab:08-battery_percent"
+                "supported_features": 0,
+                "unique_id": "05:00:00:01:ab:08-battery_percent",
+                "unit_of_measurement": "%"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": "battery",
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_exterior_battery_percent",
                 "name": null,
                 "platform": "netatmo",
-                "unique_id": "02:00:00:02:59:18-battery_percent"
+                "supported_features": 0,
+                "unique_id": "02:00:00:02:59:18-battery_percent",
+                "unit_of_measurement": "%"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": "battery",
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_suite_battery_percent",
                 "name": null,
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:12:70-battery_percent"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:12:70-battery_percent",
+                "unit_of_measurement": "%"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "switch.car_ioniq_charger",
                 "name": null,
                 "platform": "wemo",
-                "unique_id": "221501K1200593"
+                "supported_features": 0,
+                "unique_id": "221501K1200593",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": "connectivity",
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "binary_sensor.remote_ui",
                 "name": null,
                 "platform": "cloud",
-                "unique_id": "cloud-remote-ui-connectivity"
+                "supported_features": 0,
+                "unique_id": "cloud-remote-ui-connectivity",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "person.jordi",
                 "name": null,
                 "platform": "person",
-                "unique_id": "e73415f74dc346aa9a12d2f94b14f7fa"
+                "supported_features": 0,
+                "unique_id": "e73415f74dc346aa9a12d2f94b14f7fa",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "person.geni",
                 "name": null,
                 "platform": "person",
-                "unique_id": "651cb988d7f547fd8cbb9060258f3d10"
+                "supported_features": 0,
+                "unique_id": "651cb988d7f547fd8cbb9060258f3d10",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
                 "disabled_by": null,
                 "entity_id": "sensor.fibaro_system_fgms001_zw5_motion_sensor_acceleration_x_axis",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "6-72057594143589186"
+                "supported_features": 0,
+                "unique_id": "6-72057594143589186",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
                 "disabled_by": null,
                 "entity_id": "sensor.fibaro_system_fgms001_zw5_motion_sensor_acceleration_y_axis",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "6-72057594143589202"
+                "supported_features": 0,
+                "unique_id": "6-72057594143589202",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
                 "disabled_by": null,
                 "entity_id": "sensor.fibaro_system_fgms001_zw5_motion_sensor_acceleration_z_axis",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "6-72057594143589218"
+                "supported_features": 0,
+                "unique_id": "6-72057594143589218",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
                 "disabled_by": null,
                 "entity_id": "sensor.fibaro_system_fgs223_double_relay_exporting",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "16-72057594311377408"
+                "supported_features": 0,
+                "unique_id": "16-72057594311377408",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "54f74b4b21a9418a89c12a228f120a67",
                 "disabled_by": null,
                 "entity_id": "sensor.fibaro_system_fgs223_double_relay_exporting_2",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "16-144115188349305344"
+                "supported_features": 0,
+                "unique_id": "16-144115188349305344",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
                 "disabled_by": null,
                 "entity_id": "sensor.fibaro_system_fgs223_double_relay_sourcenodeid",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "16-72057594312409121"
+                "supported_features": 0,
+                "unique_id": "16-72057594312409121",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
                 "disabled_by": null,
                 "entity_id": "sensor.fibaro_system_fgs223_double_relay_heat",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "16-72057594312409201"
+                "supported_features": 0,
+                "unique_id": "16-72057594312409201",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
                 "disabled_by": null,
                 "entity_id": "sensor.fibaro_system_fgs223_double_relay_alarm_type",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "16-72057594312409089"
+                "supported_features": 0,
+                "unique_id": "16-72057594312409089",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
                 "disabled_by": null,
                 "entity_id": "sensor.fibaro_system_fgs223_double_relay_power_management",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "16-72057594312409265"
+                "supported_features": 0,
+                "unique_id": "16-72057594312409265",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
                 "disabled_by": null,
                 "entity_id": "sensor.fibaro_system_fgs223_double_relay_alarm_level",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "16-72057594312409105"
+                "supported_features": 0,
+                "unique_id": "16-72057594312409105",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
                 "disabled_by": null,
                 "entity_id": "zwave.salon_y_comedor_switch",
                 "name": "Interruptor Sal\u00f3n y Comedor",
                 "platform": "zwave",
-                "unique_id": "node-16"
+                "supported_features": 0,
+                "unique_id": "node-16",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
                 "disabled_by": null,
                 "entity_id": "switch.salon_switch",
                 "name": "Luz sal\u00f3n",
                 "platform": "zwave",
-                "unique_id": "16-72057594311163904"
+                "supported_features": 0,
+                "unique_id": "16-72057594311163904",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "54f74b4b21a9418a89c12a228f120a67",
                 "disabled_by": null,
                 "entity_id": "switch.comedor_switch",
                 "name": "Luz comedor",
                 "platform": "zwave",
-                "unique_id": "16-144115188349091840"
+                "supported_features": 0,
+                "unique_id": "16-144115188349091840",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
                 "disabled_by": null,
                 "entity_id": "sensor.salon_switch_power",
                 "name": "Potencia luz sal\u00f3n",
                 "platform": "zwave",
-                "unique_id": "16-72057594311377026"
+                "supported_features": 0,
+                "unique_id": "16-72057594311377026",
+                "unit_of_measurement": "W"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "54f74b4b21a9418a89c12a228f120a67",
                 "disabled_by": null,
                 "entity_id": "sensor.comedor_switch_power",
                 "name": "Potencia luz comedor",
                 "platform": "zwave",
-                "unique_id": "16-144115188349304962"
+                "supported_features": 0,
+                "unique_id": "16-144115188349304962",
+                "unit_of_measurement": "W"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "ab6f5a185dfc4cd2ab7429e08437c8e4",
                 "disabled_by": null,
                 "entity_id": "sensor.salon_switch_energy",
                 "name": "Cosumo luz sal\u00f3n",
                 "platform": "zwave",
-                "unique_id": "16-72057594311376898"
+                "supported_features": 0,
+                "unique_id": "16-72057594311376898",
+                "unit_of_measurement": "kWh"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "54f74b4b21a9418a89c12a228f120a67",
                 "disabled_by": null,
                 "entity_id": "sensor.comedor_switch_energy",
                 "name": "Consumo luz comedor",
                 "platform": "zwave",
-                "unique_id": "16-144115188349304834"
+                "supported_features": 0,
+                "unique_id": "16-144115188349304834",
+                "unit_of_measurement": "kWh"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "binary_sensor.updater",
                 "name": null,
                 "platform": "updater",
-                "unique_id": "updater"
+                "supported_features": 0,
+                "unique_id": "updater",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "person.guest",
                 "name": null,
                 "platform": "person",
-                "unique_id": "35468c6c1d85495eb93b8eac8be3e701"
+                "supported_features": 0,
+                "unique_id": "35468c6c1d85495eb93b8eac8be3e701",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_sleep_towakeup_duration_seconds_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_sleep_towakeup_duration_seconds"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_sleep_towakeup_duration_seconds",
+                "unit_of_measurement": "seconds"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_sleep_tosleep_duration_seconds_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_sleep_tosleep_duration_seconds"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_sleep_tosleep_duration_seconds",
+                "unit_of_measurement": "seconds"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_sleep_light_duration_seconds_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_sleep_light_duration_seconds"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_sleep_light_duration_seconds",
+                "unit_of_measurement": "seconds"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_sleep_wakeup_count_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_sleep_wakeup_count"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_sleep_wakeup_count",
+                "unit_of_measurement": "times"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_weight_kg_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_weight_kg"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_weight_kg",
+                "unit_of_measurement": "kg"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_sleep_deep_duration_seconds_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_sleep_deep_duration_seconds"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_sleep_deep_duration_seconds",
+                "unit_of_measurement": "seconds"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_sleep_rem_duration_seconds_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_sleep_rem_duration_seconds"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_sleep_rem_duration_seconds",
+                "unit_of_measurement": "seconds"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_sleep_respiratory_max_bpm_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_sleep_respiratory_max_bpm"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_sleep_respiratory_max_bpm",
+                "unit_of_measurement": "br/m"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_pulse_wave_velocity_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_pulse_wave_velocity"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_pulse_wave_velocity",
+                "unit_of_measurement": "m/s"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_sleep_wakeup_duration_seconds_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_sleep_wakeup_duration_seconds"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_sleep_wakeup_duration_seconds",
+                "unit_of_measurement": "seconds"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_sleep_heart_rate_min_bpm_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_sleep_heart_rate_min_bpm"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_sleep_heart_rate_min_bpm",
+                "unit_of_measurement": "bpm"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_skin_temperature_c_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_skin_temperature_c"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_skin_temperature_c",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_sleep_respiratory_min_bpm_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_sleep_respiratory_min_bpm"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_sleep_respiratory_min_bpm",
+                "unit_of_measurement": "br/m"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_sleep_heart_rate_max_bpm_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_sleep_heart_rate_max_bpm"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_sleep_heart_rate_max_bpm",
+                "unit_of_measurement": "bpm"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_diastolic_blood_pressure_mmhg_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_diastolic_blood_pressure_mmhg"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_diastolic_blood_pressure_mmhg",
+                "unit_of_measurement": "mmhg"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_sleep_respiratory_average_bpm_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_sleep_respiratory_average_bpm"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_sleep_respiratory_average_bpm",
+                "unit_of_measurement": "br/m"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_sleep_state_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_sleep_state"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_sleep_state",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_spo2_pct_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_spo2_pct"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_spo2_pct",
+                "unit_of_measurement": "%"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_fat_ratio_pct_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_fat_ratio_pct"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_fat_ratio_pct",
+                "unit_of_measurement": "%"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_sleep_heart_rate_average_bpm_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_sleep_heart_rate_average_bpm"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_sleep_heart_rate_average_bpm",
+                "unit_of_measurement": "bpm"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_systolic_blood_pressure_mmhg_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_systolic_blood_pressure_mmhg"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_systolic_blood_pressure_mmhg",
+                "unit_of_measurement": "mmhg"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_heart_pulse_bpm_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_heart_pulse_bpm"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_heart_pulse_bpm",
+                "unit_of_measurement": "bpm"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_fat_mass_kg_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_fat_mass_kg"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_fat_mass_kg",
+                "unit_of_measurement": "kg"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_fat_free_mass_kg_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_fat_free_mass_kg"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_fat_free_mass_kg",
+                "unit_of_measurement": "kg"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_muscle_mass_kg_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_muscle_mass_kg"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_muscle_mass_kg",
+                "unit_of_measurement": "kg"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_bone_mass_kg_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_bone_mass_kg"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_bone_mass_kg",
+                "unit_of_measurement": "kg"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_height_m_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_height_m"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_height_m",
+                "unit_of_measurement": "m"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_temperature_c_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_temperature_c"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_temperature_c",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_hydration_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_hydration"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_hydration",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "27a34b0bc3794f568b310fa63fb7ae5f",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.withings_body_temperature_c_jm",
                 "name": null,
                 "platform": "withings",
-                "unique_id": "withings_jm_23850_body_temperature_c"
+                "supported_features": 0,
+                "unique_id": "withings_jm_23850_body_temperature_c",
+                "unit_of_measurement": "\u00b0C"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "30940407ca7a496491e65584ec3293ca",
                 "disabled_by": null,
                 "entity_id": "zwave.coladuria_sensor_puerta",
                 "name": "Sensor puerta coladur\u00eda",
                 "platform": "zwave",
-                "unique_id": "node-17"
+                "supported_features": 0,
+                "unique_id": "node-17",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "30940407ca7a496491e65584ec3293ca",
                 "disabled_by": null,
                 "entity_id": "binary_sensor.coladuria_sensor_puerta",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "17-72057594328121344"
+                "supported_features": 0,
+                "unique_id": "17-72057594328121344",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "30940407ca7a496491e65584ec3293ca",
                 "disabled_by": null,
                 "entity_id": "sensor.coladuria_sensor_puerta_access_control",
                 "name": null,
                 "platform": "zwave",
-                "unique_id": "17-72057594329186449"
+                "supported_features": 0,
+                "unique_id": "17-72057594329186449",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": "battery",
                 "device_id": "ed0a76f21f8942cfaecf52892169ed51",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_persiana_bateria",
                 "name": "Bater\u00eda sensor persiana cocina",
                 "platform": "zwave",
-                "unique_id": "9-72057594195214337"
+                "supported_features": 0,
+                "unique_id": "9-72057594195214337",
+                "unit_of_measurement": "%"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": "battery",
                 "device_id": "7ba9f74e25dd4ad4a1dd0a479660a305",
                 "disabled_by": null,
                 "entity_id": "sensor.porche_sensor_puerta_bateria",
                 "name": "Bater\u00eda sensor puerta cocina",
                 "platform": "zwave",
-                "unique_id": "11-72057594228768769"
+                "supported_features": 0,
+                "unique_id": "11-72057594228768769",
+                "unit_of_measurement": "%"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": "battery",
                 "device_id": "30940407ca7a496491e65584ec3293ca",
                 "disabled_by": null,
                 "entity_id": "sensor.coladuria_sensor_puerta_bateria",
                 "name": "Bater\u00eda sensor puerta coladuria",
                 "platform": "zwave",
-                "unique_id": "17-72057594329432065"
+                "supported_features": 0,
+                "unique_id": "17-72057594329432065",
+                "unit_of_measurement": "%"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": "battery",
                 "device_id": "9dd6a8cf06e04c7db52dfc88eabf11df",
                 "disabled_by": null,
                 "entity_id": "sensor.despacho_sensor_movimiento_bateria",
                 "name": "Bater\u00eda detector movimiento despacho",
                 "platform": "zwave",
-                "unique_id": "6-72057594144882689"
+                "supported_features": 0,
+                "unique_id": "6-72057594144882689",
+                "unit_of_measurement": "%"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": null,
                 "device_id": "4826820ea24644e7bd91d2c3832a3a94",
                 "disabled_by": null,
                 "entity_id": "zwave.recibidor_remote",
                 "name": "NodOn Remote",
                 "platform": "zwave",
-                "unique_id": "node-8"
+                "supported_features": 0,
+                "unique_id": "node-8",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "8bf6382d7b42412f9ed287fb013ff34e",
+                "device_class": "battery",
                 "device_id": "4826820ea24644e7bd91d2c3832a3a94",
                 "disabled_by": null,
                 "entity_id": "sensor.recibidor_remote_bateria",
                 "name": "Bater\u00eda NodOn",
                 "platform": "zwave",
-                "unique_id": "8-72057594178437121"
+                "supported_features": 0,
+                "unique_id": "8-72057594178437121",
+                "unit_of_measurement": "%"
             },
             {
+                "capabilities": {},
                 "config_entry_id": "e4a3d28037ba4be6b973676162d8a27d",
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.caducidad_certificado_ssl",
                 "name": null,
                 "platform": "cert_expiry",
-                "unique_id": "home.hokusnet.com:443"
+                "supported_features": 0,
+                "unique_id": "home.hokusnet.com:443",
+                "unit_of_measurement": "days"
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_anemometro_reachability",
                 "name": null,
                 "platform": "netatmo",
-                "unique_id": "06:00:00:00:0c:0a-reachable"
+                "supported_features": 0,
+                "unique_id": "06:00:00:00:0c:0a-reachable",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_exterior_reachability",
                 "name": null,
                 "platform": "netatmo",
-                "unique_id": "02:00:00:02:59:18-reachable"
+                "supported_features": 0,
+                "unique_id": "02:00:00:02:59:18-reachable",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_habitacion_reachability",
                 "name": null,
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:af:92-reachable"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:af:92-reachable",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_pluviometro_reachability",
                 "name": null,
                 "platform": "netatmo",
-                "unique_id": "05:00:00:01:ab:08-reachable"
+                "supported_features": 0,
+                "unique_id": "05:00:00:01:ab:08-reachable",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_suite_reachability",
                 "name": null,
                 "platform": "netatmo",
-                "unique_id": "03:00:00:05:12:70-reachable"
+                "supported_features": 0,
+                "unique_id": "03:00:00:05:12:70-reachable",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": null,
+                "device_class": null,
                 "device_id": null,
                 "disabled_by": null,
                 "entity_id": "sensor.netatmo_salon_reachability",
                 "name": null,
                 "platform": "netatmo",
-                "unique_id": "70:ee:50:02:36:f2-reachable"
+                "supported_features": 0,
+                "unique_id": "70:ee:50:02:36:f2-reachable",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "2eab063a1adb43a4bc38d127a857a96a",
+                "device_class": null,
                 "device_id": "70e2f24b370244e2986a12b98af6d0bc",
                 "disabled_by": null,
                 "entity_id": "media_player.recibidor",
                 "name": null,
                 "platform": "cast",
-                "unique_id": "360839a3-401e-1ba0-81a9-0736c4a39ba6"
+                "supported_features": 21389,
+                "unique_id": "360839a3-401e-1ba0-81a9-0736c4a39ba6",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "2eab063a1adb43a4bc38d127a857a96a",
+                "device_class": null,
                 "device_id": "30ca9c0498214eaab6db14f26e646982",
                 "disabled_by": null,
                 "entity_id": "media_player.salon",
                 "name": null,
                 "platform": "cast",
-                "unique_id": "cdbe4ece-88cc-2512-7429-e5d8747010a6"
+                "supported_features": 21389,
+                "unique_id": "cdbe4ece-88cc-2512-7429-e5d8747010a6",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "2eab063a1adb43a4bc38d127a857a96a",
+                "device_class": null,
                 "device_id": "4effc961476a4d5895da658fb3493616",
                 "disabled_by": null,
                 "entity_id": "media_player.cocina",
                 "name": null,
                 "platform": "cast",
-                "unique_id": "08967150-674f-9e20-eb89-a420843a4ffe"
+                "supported_features": 21389,
+                "unique_id": "08967150-674f-9e20-eb89-a420843a4ffe",
+                "unit_of_measurement": null
             },
             {
+                "capabilities": {},
                 "config_entry_id": "2eab063a1adb43a4bc38d127a857a96a",
+                "device_class": null,
                 "device_id": "5fb118d456314f13866bbaf624f22e17",
                 "disabled_by": null,
                 "entity_id": "media_player.suite",
                 "name": null,
                 "platform": "cast",
-                "unique_id": "0fb3973a-de5b-b006-74eb-82d7ffbf0440"
+                "supported_features": 21389,
+                "unique_id": "0fb3973a-de5b-b006-74eb-82d7ffbf0440",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": null,
+                "config_entry_id": null,
+                "device_class": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "input_boolean.home_comfort_mode",
+                "name": null,
+                "platform": "input_boolean",
+                "supported_features": 0,
+                "unique_id": "home_comfort_mode",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": null,
+                "config_entry_id": null,
+                "device_class": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "input_boolean.sleep_mode",
+                "name": null,
+                "platform": "input_boolean",
+                "supported_features": 0,
+                "unique_id": "sleep_mode",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": null,
+                "config_entry_id": null,
+                "device_class": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "input_boolean.guest_mode",
+                "name": null,
+                "platform": "input_boolean",
+                "supported_features": 0,
+                "unique_id": "guest_mode",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": null,
+                "config_entry_id": null,
+                "device_class": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "input_boolean.porche_sensor_puerta",
+                "name": null,
+                "platform": "input_boolean",
+                "supported_features": 0,
+                "unique_id": "porche_sensor_puerta",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": null,
+                "config_entry_id": null,
+                "device_class": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "input_boolean.porche_sensor_persiana",
+                "name": null,
+                "platform": "input_boolean",
+                "supported_features": 0,
+                "unique_id": "porche_sensor_persiana",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": null,
+                "config_entry_id": null,
+                "device_class": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "input_boolean.coladuria_sensor_puerta",
+                "name": null,
+                "platform": "input_boolean",
+                "supported_features": 0,
+                "unique_id": "coladuria_sensor_puerta",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": null,
+                "config_entry_id": null,
+                "device_class": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "input_boolean.despacho_sensor_movimiento",
+                "name": null,
+                "platform": "input_boolean",
+                "supported_features": 0,
+                "unique_id": "despacho_sensor_movimiento",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": null,
+                "config_entry_id": null,
+                "device_class": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "input_boolean.entrada_camara_det_mov",
+                "name": null,
+                "platform": "input_boolean",
+                "supported_features": 0,
+                "unique_id": "entrada_camara_det_mov",
+                "unit_of_measurement": null
             }
         ]
     },
