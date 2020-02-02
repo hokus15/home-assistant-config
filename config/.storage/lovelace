@@ -41,9 +41,6 @@
                                         },
                                         {
                                             "entity": "sensor.next_shift_date"
-                                        },
-                                        {
-                                            "entity": "sensor.car_ioniq_state_last_update"
                                         }
                                     ],
                                     "type": "entities"
@@ -133,6 +130,11 @@
                             "type": "vertical-stack"
                         },
                         {
+                            "entity": "light.luces_exteriores",
+                            "theme": "Backend-selected",
+                            "type": "light"
+                        },
+                        {
                             "entities": [
                                 {
                                     "entity": "person.guest"
@@ -164,9 +166,26 @@
                             "type": "entities"
                         },
                         {
-                            "entity": "light.luces_exteriores",
-                            "theme": "Backend-selected",
-                            "type": "light"
+                            "entities": [
+                                {
+                                    "entity": "binary_sensor.car_ioniq_state"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_soc_display"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_odometer"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_last_update"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_location_last_update"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Estado Ioniq",
+                            "type": "entities"
                         },
                         {
                             "entities": [
@@ -400,8 +419,21 @@
                             "type": "entities"
                         },
                         {
-                            "entity": "camera.salon",
-                            "type": "picture-entity"
+                            "aspect_ratio": "0%",
+                            "camera_image": "camera.salon",
+                            "entities": [
+                                "switch.salon_camara_det_mov",
+                                "binary_sensor.salon_camara_infrarrojo",
+                                "binary_sensor.salon_camara_det_mov",
+                                {
+                                    "entity": "light.salon_light"
+                                },
+                                {
+                                    "entity": "light.comedor_light"
+                                }
+                            ],
+                            "title": "Sal\u00f3n",
+                            "type": "picture-glance"
                         },
                         {
                             "entities": [
