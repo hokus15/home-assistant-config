@@ -29,7 +29,7 @@
         domain: climate
     - service: telegram_bot.send_message
       data_template:
-        message: 'Como ya empieza a hacer fresquito, he encendido la calefaccción. Convendría hacer un purgado de los radiadores.'
+        message: 'Como ya empieza a hacer fresquito, he encendido la calefacción. Convendría hacer un purgado de los radiadores.'
         target: 
           - !secret hokusphone_telegram_chat_id
           - !secret geniphone_telegram_chat_id
@@ -62,7 +62,7 @@
         domain: climate
     - service: telegram_bot.send_message
       data_template:
-        message: 'Empieza el calor!!!! He apagado la calefaccción.'
+        message: 'Empieza el calor!!!! He apagado la calefacción.'
         target: 
           - !secret hokusphone_telegram_chat_id
           - !secret geniphone_telegram_chat_id
