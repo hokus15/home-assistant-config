@@ -52,21 +52,6 @@ logbook:
       - sensor.despacho_sensor_movimiento_temperature
       - sensor.porche_sensor_puerta_temperature
 
-history_graph:
-  outside_temperature:
-    name: Temperatura exterior
-    entities:
-      - sensor.netatmo_exterior_temperature
-    hours_to_show: 24
-    refresh: 60
-
-  home_temperature:
-    name: Temperatura media casa
-    entities:
-      - sensor.home_temperature
-    hours_to_show: 336
-    refresh: 600
-
 binary_sensor:
   - platform: template
     sensors:

@@ -13,15 +13,6 @@ logbook:
       - sensor.piscina_temperature
       - sensor.piscina_filtering_time
 
-history_graph:
-  temperature_swimmingpool:
-    name: Temperatura piscina
-    entities:
-      - sensor.piscina_water_temperature
-      - sensor.piscina_temperature
-    hours_to_show: 336
-    refresh: 600
-
 light:
   - platform: switch
     name: piscina_light
