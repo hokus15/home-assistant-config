@@ -1,9 +1,10 @@
 {
     "data": {
-        "persons": [
+        "items": [
             {
                 "device_trackers": [
-                    "device_tracker.hokusphone_wifi"
+                    "device_tracker.hokusphone_wifi",
+                    "device_tracker.hokusphone"
                 ],
                 "id": "e73415f74dc346aa9a12d2f94b14f7fa",
                 "name": "Jordi",
@@ -28,5 +29,5 @@
         ]
     },
     "key": "person",
-    "version": 1
+    "version": 2
 }

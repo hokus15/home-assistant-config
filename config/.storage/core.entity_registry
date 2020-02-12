@@ -2221,7 +2221,7 @@
                 "unit_of_measurement": null
             },
             {
-                "capabilities": null,
+                "capabilities": {},
                 "config_entry_id": null,
                 "device_class": null,
                 "device_id": null,
@@ -2234,7 +2234,7 @@
                 "unit_of_measurement": null
             },
             {
-                "capabilities": null,
+                "capabilities": {},
                 "config_entry_id": null,
                 "device_class": null,
                 "device_id": null,
@@ -2247,7 +2247,7 @@
                 "unit_of_measurement": null
             },
             {
-                "capabilities": null,
+                "capabilities": {},
                 "config_entry_id": null,
                 "device_class": null,
                 "device_id": null,
@@ -2260,7 +2260,7 @@
                 "unit_of_measurement": null
             },
             {
-                "capabilities": null,
+                "capabilities": {},
                 "config_entry_id": null,
                 "device_class": null,
                 "device_id": null,
@@ -2273,7 +2273,7 @@
                 "unit_of_measurement": null
             },
             {
-                "capabilities": null,
+                "capabilities": {},
                 "config_entry_id": null,
                 "device_class": null,
                 "device_id": null,
@@ -2286,7 +2286,7 @@
                 "unit_of_measurement": null
             },
             {
-                "capabilities": null,
+                "capabilities": {},
                 "config_entry_id": null,
                 "device_class": null,
                 "device_id": null,
@@ -2299,7 +2299,7 @@
                 "unit_of_measurement": null
             },
             {
-                "capabilities": null,
+                "capabilities": {},
                 "config_entry_id": null,
                 "device_class": null,
                 "device_id": null,
@@ -2312,7 +2312,7 @@
                 "unit_of_measurement": null
             },
             {
-                "capabilities": null,
+                "capabilities": {},
                 "config_entry_id": null,
                 "device_class": null,
                 "device_id": null,
@@ -2322,6 +2322,45 @@
                 "platform": "input_boolean",
                 "supported_features": 0,
                 "unique_id": "entrada_camara_det_mov",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": {},
+                "config_entry_id": "fbf2b95974e84835865ebd2e2945a036",
+                "device_class": "battery",
+                "device_id": "453bc0a8ea404e14a8288aa5e0c87c64",
+                "disabled_by": null,
+                "entity_id": "sensor.battery_level",
+                "name": null,
+                "platform": "mobile_app",
+                "supported_features": 0,
+                "unique_id": "c5762122d9b7a08f89b3519dc869ea425384b6980a9c50609a4b3ca2f071bf5f_battery_level",
+                "unit_of_measurement": "%"
+            },
+            {
+                "capabilities": {},
+                "config_entry_id": "fbf2b95974e84835865ebd2e2945a036",
+                "device_class": null,
+                "device_id": "453bc0a8ea404e14a8288aa5e0c87c64",
+                "disabled_by": null,
+                "entity_id": "sensor.wifi_connection",
+                "name": null,
+                "platform": "mobile_app",
+                "supported_features": 0,
+                "unique_id": "c5762122d9b7a08f89b3519dc869ea425384b6980a9c50609a4b3ca2f071bf5f_wifi_connection",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": {},
+                "config_entry_id": "fbf2b95974e84835865ebd2e2945a036",
+                "device_class": null,
+                "device_id": "453bc0a8ea404e14a8288aa5e0c87c64",
+                "disabled_by": null,
+                "entity_id": "device_tracker.hokusphone",
+                "name": null,
+                "platform": "mobile_app",
+                "supported_features": 0,
+                "unique_id": "d34e823e4fe8b9b7",
                 "unit_of_measurement": null
             }
         ]

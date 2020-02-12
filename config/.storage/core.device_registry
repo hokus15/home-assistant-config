@@ -302,6 +302,26 @@
                 "name_by_user": null,
                 "sw_version": null,
                 "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "fbf2b95974e84835865ebd2e2945a036"
+                ],
+                "connections": [],
+                "id": "453bc0a8ea404e14a8288aa5e0c87c64",
+                "identifiers": [
+                    [
+                        "mobile_app",
+                        "d34e823e4fe8b9b7"
+                    ]
+                ],
+                "manufacturer": "Xiaomi",
+                "model": "MI 8",
+                "name": "HokusPhone",
+                "name_by_user": null,
+                "sw_version": "28",
+                "via_device_id": null
             }
         ]
     },

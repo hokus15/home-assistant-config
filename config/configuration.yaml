@@ -25,23 +25,12 @@ http:
   ip_ban_enabled: true
   login_attempts_threshold: 3
 
-map:
+default_config:
 
 stream:
 
-person:
-
-system_health:
-
-# Track the sun
-sun:
-
 # Discover some devices automatically
 discovery:
-
-config:
-
-cloud:
 
   # Enables the frontend
 frontend:
@@ -65,9 +54,6 @@ cast:
     - host: 10.155.106.50 # Suite Google Nest Hub
     - host: 10.155.106.72 # Kichen chromecast audio
 
-# Checks for available updates
-updater:
-  include_used_components: true
 
 recorder:
   purge_interval: 1
@@ -81,8 +67,6 @@ recorder:
       - sensor.db_size
       - sensor.disk_use_share_camera
   
-# Enables support for tracking state changes over time.
-history:
 
 # View all events in a logbook
 logbook:
