@@ -33,3 +33,5 @@ config/home-assistant_v2.db
 config/.cloud
 *.gz
 config/.storage/hacs.repositories
+config/.storage/http
+config/.storage/mobile_app

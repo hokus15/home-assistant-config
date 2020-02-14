@@ -1,5 +1,4 @@
 - alias: '[Alarm - Telegram callback] Telegram callback that disarms alarm for specified minutes'
-  hide_entity: true
   trigger:
     - platform: event
       event_type: telegram_callback

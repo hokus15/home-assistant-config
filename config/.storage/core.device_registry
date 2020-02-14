@@ -322,6 +322,286 @@
                 "name_by_user": null,
                 "sw_version": "28",
                 "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "e692487a46a64ab8a5aef6e32864eb0a"
+                ],
+                "connections": [],
+                "id": "4c80a9786a684ce5a17d04d90cdbd5d3",
+                "identifiers": [
+                    [
+                        "wemo",
+                        "221409K1100E9E"
+                    ]
+                ],
+                "manufacturer": "Belkin",
+                "model": "Socket",
+                "name": "WeMo switch",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "e692487a46a64ab8a5aef6e32864eb0a"
+                ],
+                "connections": [],
+                "id": "ff60b20207fd4eb1a632c4bd9a52eb64",
+                "identifiers": [
+                    [
+                        "wemo",
+                        "221529S000015E"
+                    ]
+                ],
+                "manufacturer": "Belkin",
+                "model": "Maker",
+                "name": "Barrera",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "e692487a46a64ab8a5aef6e32864eb0a"
+                ],
+                "connections": [],
+                "id": "9f18b2a4d6aa4c9e82ae276d597ead36",
+                "identifiers": [
+                    [
+                        "wemo",
+                        "221501K1200593"
+                    ]
+                ],
+                "manufacturer": "Belkin",
+                "model": "Insight",
+                "name": "Cargador Ioniq",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "e692487a46a64ab8a5aef6e32864eb0a"
+                ],
+                "connections": [],
+                "id": "5f6d8260912f4fb09a76e48078f652f8",
+                "identifiers": [
+                    [
+                        "wemo",
+                        "94103EF6BF430276"
+                    ]
+                ],
+                "manufacturer": "Belkin",
+                "model": "Light",
+                "name": "Barrera izquierda",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "e692487a46a64ab8a5aef6e32864eb0a"
+                ],
+                "connections": [],
+                "id": "2789b284fb49405a9c75e982305dc405",
+                "identifiers": [
+                    [
+                        "wemo",
+                        "94103EF6BF42F7A8"
+                    ]
+                ],
+                "manufacturer": "Belkin",
+                "model": "Light",
+                "name": "Puerta Coladuria",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "e692487a46a64ab8a5aef6e32864eb0a"
+                ],
+                "connections": [],
+                "id": "dd1ede970b864389bedcc8f4c89f983d",
+                "identifiers": [
+                    [
+                        "wemo",
+                        "94103EF6BF4305F3"
+                    ]
+                ],
+                "manufacturer": "Belkin",
+                "model": "Light",
+                "name": "Barrera derecha",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "249b9cd98b024e34b760e1d1e641a571",
+                "config_entries": [
+                    "bf6477fbc35c4f489508a0352e4c0465"
+                ],
+                "connections": [],
+                "id": "6f250f928bc149fdab50595f67dadf93",
+                "identifiers": [
+                    [
+                        "netatmo",
+                        "70:ee:50:2a:a1:ac"
+                    ]
+                ],
+                "manufacturer": "Netatmo",
+                "model": "NOC",
+                "name": "Entrada",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "249b9cd98b024e34b760e1d1e641a571",
+                "config_entries": [
+                    "bf6477fbc35c4f489508a0352e4c0465"
+                ],
+                "connections": [],
+                "id": "44eed0371d5441f28ceeed6be3c68e8c",
+                "identifiers": [
+                    [
+                        "netatmo",
+                        "06:00:00:00:0c:0a"
+                    ]
+                ],
+                "manufacturer": "Netatmo",
+                "model": "NAModule2",
+                "name": "Casa Bunyola Anem\u00f3metro",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "a3df0520a7304f55b76d00a9a726ab66",
+                "config_entries": [
+                    "bf6477fbc35c4f489508a0352e4c0465"
+                ],
+                "connections": [],
+                "id": "37f7453c04a141e0a10ca214c15cffa6",
+                "identifiers": [
+                    [
+                        "netatmo",
+                        "03:00:00:05:12:70"
+                    ]
+                ],
+                "manufacturer": "Netatmo",
+                "model": "NAModule4",
+                "name": "Casa Bunyola Suite",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "40ea6aed60bb445a8c56f6b08558553f",
+                "config_entries": [
+                    "bf6477fbc35c4f489508a0352e4c0465"
+                ],
+                "connections": [],
+                "id": "2c8aa360417346209b9abeab64b6e5fc",
+                "identifiers": [
+                    [
+                        "netatmo",
+                        "03:00:00:05:af:92"
+                    ]
+                ],
+                "manufacturer": "Netatmo",
+                "model": "NAModule4",
+                "name": "Casa Bunyola Habitaci\u00f3n",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "0ae724982668485c98dde9a3057b95c4",
+                "config_entries": [
+                    "bf6477fbc35c4f489508a0352e4c0465"
+                ],
+                "connections": [],
+                "id": "ad161648efa04513a5671fbf403c0827",
+                "identifiers": [
+                    [
+                        "netatmo",
+                        "70:ee:50:02:36:f2"
+                    ]
+                ],
+                "manufacturer": "Netatmo",
+                "model": "NAMain",
+                "name": "Casa Bunyola Sal\u00f3n",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "249b9cd98b024e34b760e1d1e641a571",
+                "config_entries": [
+                    "bf6477fbc35c4f489508a0352e4c0465"
+                ],
+                "connections": [],
+                "id": "2e2f8eaf45dc4b8e9795f84dccb2a71b",
+                "identifiers": [
+                    [
+                        "netatmo",
+                        "02:00:00:02:59:18"
+                    ]
+                ],
+                "manufacturer": "Netatmo",
+                "model": "NAModule1",
+                "name": "Casa Bunyola Exterior",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "699810fc14a143369c88442e67919100",
+                "config_entries": [
+                    "bf6477fbc35c4f489508a0352e4c0465"
+                ],
+                "connections": [],
+                "id": "e168d341123e40dbace504a4cfe0df6a",
+                "identifiers": [
+                    [
+                        "netatmo",
+                        "2090858709"
+                    ]
+                ],
+                "manufacturer": "Netatmo",
+                "model": "NATherm1",
+                "name": "General",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": "249b9cd98b024e34b760e1d1e641a571",
+                "config_entries": [
+                    "bf6477fbc35c4f489508a0352e4c0465"
+                ],
+                "connections": [],
+                "id": "f6b04235294a400d92911a8ca19825a6",
+                "identifiers": [
+                    [
+                        "netatmo",
+                        "05:00:00:01:ab:08"
+                    ]
+                ],
+                "manufacturer": "Netatmo",
+                "model": "NAModule3",
+                "name": "Casa Bunyola Pluvi\u00f3metro",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
             }
         ]
     },
