@@ -2403,58 +2403,6 @@
                 "unit_of_measurement": "\u00baC"
             },
             {
-                "capabilities": null,
-                "config_entry_id": "bf6477fbc35c4f489508a0352e4c0465",
-                "device_class": null,
-                "device_id": "6f250f928bc149fdab50595f67dadf93",
-                "disabled_by": null,
-                "entity_id": "binary_sensor.netatmo_entrada_outdoor_animal",
-                "name": null,
-                "platform": "netatmo",
-                "supported_features": 0,
-                "unique_id": "70:ee:50:2a:a1:ac-NOC-Outdoor animal",
-                "unit_of_measurement": null
-            },
-            {
-                "capabilities": null,
-                "config_entry_id": "bf6477fbc35c4f489508a0352e4c0465",
-                "device_class": null,
-                "device_id": "6f250f928bc149fdab50595f67dadf93",
-                "disabled_by": null,
-                "entity_id": "binary_sensor.netatmo_entrada_outdoor_human",
-                "name": null,
-                "platform": "netatmo",
-                "supported_features": 0,
-                "unique_id": "70:ee:50:2a:a1:ac-NOC-Outdoor human",
-                "unit_of_measurement": null
-            },
-            {
-                "capabilities": null,
-                "config_entry_id": "bf6477fbc35c4f489508a0352e4c0465",
-                "device_class": null,
-                "device_id": "6f250f928bc149fdab50595f67dadf93",
-                "disabled_by": null,
-                "entity_id": "binary_sensor.netatmo_entrada_outdoor_motion",
-                "name": null,
-                "platform": "netatmo",
-                "supported_features": 0,
-                "unique_id": "70:ee:50:2a:a1:ac-NOC-Outdoor motion",
-                "unit_of_measurement": null
-            },
-            {
-                "capabilities": null,
-                "config_entry_id": "bf6477fbc35c4f489508a0352e4c0465",
-                "device_class": null,
-                "device_id": "6f250f928bc149fdab50595f67dadf93",
-                "disabled_by": null,
-                "entity_id": "binary_sensor.netatmo_entrada_outdoor_vehicle",
-                "name": null,
-                "platform": "netatmo",
-                "supported_features": 0,
-                "unique_id": "70:ee:50:2a:a1:ac-NOC-Outdoor vehicle",
-                "unit_of_measurement": null
-            },
-            {
                 "capabilities": {
                     "hvac_modes": [
                         "auto",
@@ -2483,7 +2431,7 @@
                 "unit_of_measurement": null
             },
             {
-                "capabilities": null,
+                "capabilities": {},
                 "config_entry_id": "bf6477fbc35c4f489508a0352e4c0465",
                 "device_class": null,
                 "device_id": "6f250f928bc149fdab50595f67dadf93",
@@ -2493,6 +2441,58 @@
                 "platform": "netatmo",
                 "supported_features": 2,
                 "unique_id": "70:ee:50:2a:a1:ac-NOC",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": {},
+                "config_entry_id": "bf6477fbc35c4f489508a0352e4c0465",
+                "device_class": null,
+                "device_id": "6f250f928bc149fdab50595f67dadf93",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.entrada_outdoor_animal",
+                "name": null,
+                "platform": "netatmo",
+                "supported_features": 0,
+                "unique_id": "70:ee:50:2a:a1:ac-NOC-Outdoor animal",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": {},
+                "config_entry_id": "bf6477fbc35c4f489508a0352e4c0465",
+                "device_class": null,
+                "device_id": "6f250f928bc149fdab50595f67dadf93",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.entrada_outdoor_human",
+                "name": null,
+                "platform": "netatmo",
+                "supported_features": 0,
+                "unique_id": "70:ee:50:2a:a1:ac-NOC-Outdoor human",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": {},
+                "config_entry_id": "bf6477fbc35c4f489508a0352e4c0465",
+                "device_class": null,
+                "device_id": "6f250f928bc149fdab50595f67dadf93",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.entrada_outdoor_motion",
+                "name": null,
+                "platform": "netatmo",
+                "supported_features": 0,
+                "unique_id": "70:ee:50:2a:a1:ac-NOC-Outdoor motion",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": {},
+                "config_entry_id": "bf6477fbc35c4f489508a0352e4c0465",
+                "device_class": null,
+                "device_id": "6f250f928bc149fdab50595f67dadf93",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.entrada_outdoor_vehicle",
+                "name": null,
+                "platform": "netatmo",
+                "supported_features": 0,
+                "unique_id": "70:ee:50:2a:a1:ac-NOC-Outdoor vehicle",
                 "unit_of_measurement": null
             }
         ]
