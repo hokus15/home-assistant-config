@@ -456,3 +456,11 @@ sensor.comedor_switch_energy:
 sensor.car_ioniq_state_last_update:
   friendly_name: Última actualización estado
   icon: mdi:update
+sensor.cargador_aragon:
+  icon: mdi:ev-station
+sensor.cargador_conquistador:
+  icon: mdi:ev-station
+sensor.cargador_palmanyola:
+  icon: mdi:ev-station
+sensor.cargador_sant_miquel:
+  icon: mdi:ev-station

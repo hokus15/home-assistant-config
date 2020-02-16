@@ -924,6 +924,26 @@
                         {
                             "entity": "camera.car_ioniq",
                             "type": "picture-entity"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.cargador_aragon"
+                                },
+                                {
+                                    "entity": "sensor.cargador_conquistador"
+                                },
+                                {
+                                    "entity": "sensor.cargador_palmanyola"
+                                },
+                                {
+                                    "entity": "sensor.cargador_sant_miquel"
+                                }
+                            ],
+                            "hours_to_show": 72,
+                            "refresh_interval": 0,
+                            "title": "Cargadores favoritos",
+                            "type": "history-graph"
                         }
                     ],
                     "icon": "mdi:car-multiple",
