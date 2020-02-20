@@ -110,16 +110,10 @@
                                             "entity": "sensor.energy_home_daily_valle"
                                         },
                                         {
-                                            "entity": "sensor.energy_home_daily_super_valle"
-                                        },
-                                        {
                                             "entity": "sensor.energy_home_monthly_pico"
                                         },
                                         {
                                             "entity": "sensor.energy_home_monthly_valle"
-                                        },
-                                        {
-                                            "entity": "sensor.energy_home_monthly_super_valle"
                                         }
                                     ],
                                     "show_header_toggle": false,
@@ -852,25 +846,16 @@
                                     "entity": "sensor.car_ioniq_charger_daily_valle"
                                 },
                                 {
-                                    "entity": "sensor.car_ioniq_charger_daily_super_valle"
-                                },
-                                {
                                     "entity": "sensor.car_ioniq_charger_monthly_pico"
                                 },
                                 {
                                     "entity": "sensor.car_ioniq_charger_monthly_valle"
                                 },
                                 {
-                                    "entity": "sensor.car_ioniq_charger_monthly_super_valle"
-                                },
-                                {
                                     "entity": "sensor.car_ioniq_charger_yearly_pico"
                                 },
                                 {
                                     "entity": "sensor.car_ioniq_charger_yearly_valle"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_yearly_super_valle"
                                 }
                             ],
                             "show_header_toggle": false,

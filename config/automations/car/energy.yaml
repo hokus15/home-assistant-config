@@ -1,94 +1,17 @@
-- alias: '[Car - Energy] Set correct energy tariff on start'
+- alias: '[Car - Energy] Set correct energy tariff'
   trigger:
-    platform: homeassistant
-    event: start
+    platform: mqtt
+    topic: 'home/sensor/energy/tariff'
   action:
     - service: utility_meter.select_tariff
       data_template:
         entity_id: utility_meter.car_ioniq_charger_daily
-        tariff: >-
-          {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
-            Super valle
-          {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
-            Pico
-          {%- else %}
-            Valle
-          {%- endif %}
+        tariff: '{{trigger.payload}}'
     - service: utility_meter.select_tariff
       data_template:
         entity_id: utility_meter.car_ioniq_charger_monthly
-        tariff: >-
-          {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
-            Super valle
-          {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
-            Pico
-          {%- else %}
-            Valle
-          {%- endif %}
+        tariff: '{{trigger.payload}}'
     - service: utility_meter.select_tariff
       data_template:
         entity_id: utility_meter.car_ioniq_charger_yearly
-        tariff: >-
-          {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
-            Super valle
-          {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
-            Pico
-          {%- else %}
-            Valle
-          {%- endif %}
-
-- alias: '[Car - Energy] Energy Pico time'
-  trigger:
-    platform: time
-    at: '13:00:00'
-  action:
-    - service: utility_meter.select_tariff
-      data:
-        entity_id: utility_meter.car_ioniq_charger_daily
-        tariff: 'Pico'
-    - service: utility_meter.select_tariff
-      data:
-        entity_id: utility_meter.car_ioniq_charger_monthly
-        tariff: 'Pico'
-    - service: utility_meter.select_tariff
-      data:
-        entity_id: utility_meter.car_ioniq_charger_yearly
-        tariff: 'Pico'
-
-- alias: '[Car - Energy] Energy Valle time'
-  trigger:
-    - platform: time
-      at: '23:00:00'
-    - platform: time
-      at: '07:00:00'
-  action:
-    - service: utility_meter.select_tariff
-      data:
-        entity_id: utility_meter.car_ioniq_charger_daily
-        tariff: 'Valle'
-    - service: utility_meter.select_tariff
-      data:
-        entity_id: utility_meter.car_ioniq_charger_monthly
-        tariff: 'Valle'
-    - service: utility_meter.select_tariff
-      data:
-        entity_id: utility_meter.car_ioniq_charger_yearly
-        tariff: 'Valle'
-
-- alias: '[Car - Energy] Energy Super valle time'
-  trigger:
-    platform: time
-    at: '01:00:00'
-  action:
-    - service: utility_meter.select_tariff
-      data:
-        entity_id: utility_meter.car_ioniq_charger_daily
-        tariff: 'Super valle'
-    - service: utility_meter.select_tariff
-      data:
-        entity_id: utility_meter.car_ioniq_charger_monthly
-        tariff: 'Super valle'
-    - service: utility_meter.select_tariff
-      data:
-        entity_id: utility_meter.car_ioniq_charger_yearly
-        tariff: 'Super valle'
+        tariff: '{{trigger.payload}}'

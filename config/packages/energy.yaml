@@ -40,7 +40,7 @@ sensor:
           {% else %}
             Desconocido
           {%- endif %}
-  
+
   - platform: nut
     host: 40817795-nut
     resources:
@@ -51,6 +51,10 @@ sensor:
       - ups.beeper.status
       - ups.mfr
       - ups.model
+
+  - platform: mqtt
+    state_topic: 'home/sensor/energy/tariff'
+    name: energy_tariff
 
 binary_sensor:
   - platform: template
@@ -69,11 +73,11 @@ utility_meter:
     tariffs:
       - Pico
       - Valle
-      - Super valle
+#      - Super valle
   energy_home_monthly:
     source: sensor.energy_spent
     cycle: monthly
     tariffs:
       - Pico
       - Valle
-      - Super valle
+#      - Super valle

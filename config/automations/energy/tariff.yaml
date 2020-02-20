@@ -3,69 +3,122 @@
     platform: homeassistant
     event: start
   action:
-    - service: utility_meter.select_tariff
-      data_template:
-        entity_id: utility_meter.energy_home_daily 
-        tariff: >-
-          {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
-            Super valle
-          {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
-            Pico
+    - service: mqtt.publish
+      data:
+        topic: 'home/sensor/energy/tariff'
+        retain: true
+        qos: 0
+        payload_template: >-
+          {%- if is_state('binary_sensor.summer_time', 'on') %}
+            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
+              Pico
+            {%- else %}
+              Valle
+            {%- endif %}
           {%- else %}
-            Valle
-          {%- endif %}
-    - service: utility_meter.select_tariff
-      data_template:
-        entity_id: utility_meter.energy_home_monthly
-        tariff: >-
-          {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
-            Super valle
-          {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
-            Pico
-          {%- else %}
-            Valle
+            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=22).replace(minute=0).replace(second=0))%}
+              Pico
+            {%- else %}
+              Valle
+            {%- endif %}
           {%- endif %}
 
-- alias: '[Energy - Tariff] Energy "Pico" tariff'
+########################
+# Template for 3 tariffs
+#          {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
+#            Super valle
+#          {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
+#            Pico
+#          {%- else %}
+#            Valle
+#          {%- endif %}
+########################
+
+##############################
+# Pico tariff
+# Starting at 13 in summer
+# Starting at 12 in winter
+##############################
+- alias: '[Energy - Tariff] Energy "Pico" tariff summer'
   trigger:
     platform: time
     at: '13:00:00'
+  condition:
+    - condition: state
+      entity_id: 'binary_sensor.summer_time'
+      state: 'on'
   action:
-    - service: utility_meter.select_tariff
+    - service: mqtt.publish
       data:
-        entity_id: utility_meter.energy_home_daily 
-        tariff: 'Pico'
-    - service: utility_meter.select_tariff
-      data:
-        entity_id: utility_meter.energy_home_monthly
-        tariff: 'Pico'
+        topic: 'home/sensor/energy/tariff'
+        retain: true
+        qos: 0
+        payload_template: 'Pico'
 
-- alias: '[Energy - Tariff] Energy "Valle" tariff'
+- alias: '[Energy - Tariff] Energy "Pico" tariff winter'
+  trigger:
+    platform: time
+    at: '12:00:00'
+  condition:
+    - condition: state
+      entity_id: 'binary_sensor.summer_time'
+      state: 'off'
+  action:
+    - service: mqtt.publish
+      data:
+        topic: 'home/sensor/energy/tariff'
+        retain: true
+        qos: 0
+        payload_template: 'Pico'
+
+##############################
+# Valle tariff
+# Starting at 23 in summer
+# Starting at 22 in winter
+##############################
+- alias: '[Energy - Tariff] Energy "Valle" tariff summer'
   trigger:
     - platform: time
       at: '23:00:00'
-    - platform: time
-      at: '07:00:00'
+  condition:
+    - condition: state
+      entity_id: 'binary_sensor.summer_time'
+      state: 'on'
   action:
-    - service: utility_meter.select_tariff
+    - service: mqtt.publish
       data:
-        entity_id: utility_meter.energy_home_daily 
-        tariff: 'Valle'
-    - service: utility_meter.select_tariff
-      data:
-        entity_id: utility_meter.energy_home_monthly
-        tariff: 'Valle'
+        topic: 'home/sensor/energy/tariff'
+        retain: true
+        qos: 0
+        payload_template: 'Valle'
 
-- alias: '[Energy - Tariff] Energy "Super valle" tariff'
+- alias: '[Energy - Tariff] Energy "Valle" tariff winter'
   trigger:
-    platform: time
-    at: '01:00:00'
+    - platform: time
+      at: '22:00:00'
+  condition:
+    - condition: state
+      entity_id: 'binary_sensor.summer_time'
+      state: 'off'
+  action:
+    - service: mqtt.publish
+      data:
+        topic: 'home/sensor/energy/tariff'
+        retain: true
+        qos: 0
+        payload_template: 'Valle'
+
+
+- alias: '[Energy - Tariff] Set correct energy tariff'
+  trigger:
+    platform: mqtt
+    topic: 'home/sensor/energy/tariff'
   action:
     - service: utility_meter.select_tariff
-      data:
+      data_template:
         entity_id: utility_meter.energy_home_daily 
-        tariff: 'Super valle'
+        tariff: '{{trigger.payload}}'
     - service: utility_meter.select_tariff
-      data:
+      data_template:
         entity_id: utility_meter.energy_home_monthly
-        tariff: 'Super valle'
+        tariff: '{{trigger.payload}}'

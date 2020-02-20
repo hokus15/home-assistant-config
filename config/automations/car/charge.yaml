@@ -2,7 +2,7 @@
   trigger:
     platform: state
     entity_id: utility_meter.car_ioniq_charger_daily
-    from: 'Super valle'
+    from: 'Valle'
   action:
     - delay:
         minutes: 5
