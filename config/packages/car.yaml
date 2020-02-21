@@ -74,9 +74,21 @@ sensor:
     value_template: '{{ value_json.timestamp|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
     json_attributes_topic: 'car/sensor/ioniq/state/daily'
 
-  - platform: dweet
-    name: 'Cargador Conquistador'
-    device: ximelib_41
+  - platform: rest
+    resource: https://ws.consorcidetransports.com/produccio/ximelib-mobile/rest/devicegroups/41
+    name: Cargador Conquistador
+    scan_interval: 120
+    json_attributes:
+      - id
+      - lat
+      - lng
+      - name
+      - description
+      - address
+      - timetable
+    headers:
+      Content-Type: application/json
+      Accept-Encoding: gzip
     value_template: >-
           {%- if value_json.status == 'OCCUPIED_PARTIAL' %}
             Parcialmente ocupado
@@ -92,9 +104,21 @@ sensor:
             Desconocido
           {%- endif %}
 
-  - platform: dweet
-    name: 'Cargador Aragón'
-    device: ximelib_38
+  - platform: rest
+    resource: https://ws.consorcidetransports.com/produccio/ximelib-mobile/rest/devicegroups/38
+    name: Cargador Aragón
+    scan_interval: 120
+    json_attributes:
+      - id
+      - lat
+      - lng
+      - name
+      - description
+      - address
+      - timetable
+    headers:
+      Content-Type: application/json
+      Accept-Encoding: gzip
     value_template: >-
           {%- if value_json.status == 'OCCUPIED_PARTIAL' %}
             Parcialmente ocupado
@@ -110,9 +134,21 @@ sensor:
             Desconocido
           {%- endif %}
 
-  - platform: dweet
-    name: 'Cargador Sant Miquel'
-    device: ximelib_32
+  - platform: rest
+    resource: https://ws.consorcidetransports.com/produccio/ximelib-mobile/rest/devicegroups/32
+    name: Cargador Sant Miquel
+    scan_interval: 120
+    json_attributes:
+      - id
+      - lat
+      - lng
+      - name
+      - description
+      - address
+      - timetable
+    headers:
+      Content-Type: application/json
+      Accept-Encoding: gzip
     value_template: >-
           {%- if value_json.status == 'OCCUPIED_PARTIAL' %}
             Parcialmente ocupado
@@ -128,9 +164,21 @@ sensor:
             Desconocido
           {%- endif %}
 
-  - platform: dweet
-    name: 'Cargador Palmanyola'
-    device: ximelib_672
+  - platform: rest
+    resource: https://ws.consorcidetransports.com/produccio/ximelib-mobile/rest/devicegroups/672
+    name: Cargador Palmanyola
+    scan_interval: 120
+    json_attributes:
+      - id
+      - lat
+      - lng
+      - name
+      - description
+      - address
+      - timetable
+    headers:
+      Content-Type: application/json
+      Accept-Encoding: gzip
     value_template: >-
           {%- if value_json.status == 'OCCUPIED_PARTIAL' %}
             Parcialmente ocupado

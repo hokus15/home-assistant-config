@@ -911,24 +911,63 @@
                             "type": "picture-entity"
                         },
                         {
-                            "entities": [
+                            "cards": [
                                 {
-                                    "entity": "sensor.cargador_aragon"
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.cargador_aragon",
+                                            "icon": "mdi:ev-station",
+                                            "name": "Cargador Arag\u00f3n",
+                                            "secondary_info": "last-changed"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_conquistador",
+                                            "icon": "mdi:ev-station",
+                                            "name": "Cargador Conquistador",
+                                            "secondary_info": "last-changed"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_palmanyola",
+                                            "icon": "mdi:ev-station",
+                                            "name": "Cargador Palmanyola",
+                                            "secondary_info": "last-changed"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_sant_miquel",
+                                            "icon": "mdi:ev-station",
+                                            "name": "Cargador Sant Miquel",
+                                            "secondary_info": "last-changed"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "Cargadores favoritos",
+                                    "type": "entities"
                                 },
                                 {
-                                    "entity": "sensor.cargador_conquistador"
-                                },
-                                {
-                                    "entity": "sensor.cargador_palmanyola"
-                                },
-                                {
-                                    "entity": "sensor.cargador_sant_miquel"
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.cargador_aragon",
+                                            "name": "Arag\u00f3n"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_conquistador",
+                                            "name": "Conquistador"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_palmanyola",
+                                            "name": "Palmanyola"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_sant_miquel",
+                                            "name": "Sant Miquel"
+                                        }
+                                    ],
+                                    "hours_to_show": 72,
+                                    "refresh_interval": 60,
+                                    "type": "history-graph"
                                 }
                             ],
-                            "hours_to_show": 72,
-                            "refresh_interval": 0,
-                            "title": "Cargadores favoritos",
-                            "type": "history-graph"
+                            "type": "vertical-stack"
                         }
                     ],
                     "icon": "mdi:car-multiple",
