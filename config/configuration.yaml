@@ -154,11 +154,6 @@ speedtestdotnet:
     - download
     - upload
 
-dweet:
-  name: casa
-  whitelist:
-    - sensor.netatmo_exterior_temperature
-
 zwave:
   usb_path: /dev/ttyACM0
   device_config_glob:
