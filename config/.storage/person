@@ -3,8 +3,7 @@
         "items": [
             {
                 "device_trackers": [
-                    "device_tracker.hokusphone_wifi",
-                    "device_tracker.hokusphone"
+                    "device_tracker.hokusphone_wifi"
                 ],
                 "id": "e73415f74dc346aa9a12d2f94b14f7fa",
                 "name": "Jordi",
