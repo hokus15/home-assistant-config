@@ -7,6 +7,7 @@ To get detailed description on how everything is configured please visit the [Wi
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/hokus15/home-assistant-config?style=plastic)
 ![Home-Assistant version](https://img.shields.io/badge/dynamic/json?color=blue&style=plastic&label=Home-Assistant&prefix=v&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fhokus15%2Fhome-assistant-config%2Fmaster%2Fconfig%2FHA_VERSION.json)
+![Travis build](https://api.travis-ci.com/hokus15/home-assistant-config.svg?branch=master)
 
 ## Screenshot Home
 ![Home](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config1.png)
