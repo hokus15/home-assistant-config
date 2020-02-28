@@ -3,7 +3,7 @@ python:
   - "3.7"
 before_install:
   - mv config/travis_secrets.yaml config/secrets.yaml
-  - mkdir /share/camera
+  - mkdir -p /share/camera
   - sudo apt-get install -y libudev-dev
   - HA_VERSION=$(<config/.HA_VERSION)
 install:
