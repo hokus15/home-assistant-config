@@ -238,18 +238,18 @@ sensor:
         value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "odometer")}}'
         unit_of_measurement: 'Km'
       # Ioniq distance traveled since codes cleared
-      car_ioniq_state_distance_since_cc:
-        friendly_name: 'Distancia cc'
-        icon_template: 'mdi:counter'
-        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "distance_since_cc")}}'
-        unit_of_measurement: 'Km'
+#      car_ioniq_state_distance_since_cc:
+#        friendly_name: 'Distancia cc'
+#        icon_template: 'mdi:counter'
+#        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "distance_since_cc")}}'
+#        unit_of_measurement: 'Km'
       # Ioniq Cumulative Energy Discharged
       car_ioniq_state_ced:
-        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "ced")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "cumulativeEnergyDischarged")}}'
         unit_of_measurement: 'kWh'
       # Ioniq Cumulative Energy Charged
       car_ioniq_state_cec:
-        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "cec")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "cumulativeEnergyCharged")}}'
         unit_of_measurement: 'kWh'
 ######################### Daily state data #########################
       # Ioniq daily State Of Charge display
