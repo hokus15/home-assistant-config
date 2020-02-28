@@ -14,7 +14,6 @@ ocr.png
 ip_bans.yaml
 
 testbild.png
-config/.HA_VERSION
 config/.google.token
 config/.storage/auth
 config/.storage/auth_module.totp
