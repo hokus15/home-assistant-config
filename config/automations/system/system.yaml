@@ -53,3 +53,10 @@
       data_template:
         age: 2
     - service: shell_command.empty_directories_cleanup
+
+- alias: '[System] Export version to json file'
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    - service: shell_command.version_tojson

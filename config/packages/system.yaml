@@ -4,6 +4,8 @@ binary_sensor:
    province: IBA
 
 sensor:
+  - platform: version
+
   - platform: websocket_api
   
   - platform: time_date
@@ -158,4 +160,5 @@ shell_command:
   mp4_cleanup: 'find /share/camera/ -type f -name "*.mp4" -mtime +{{age}} -delete'
   jpg_cleanup: 'find /share/camera/ -type f -name "*.jpg" -mtime +{{age}} -delete'
   empty_directories_cleanup: 'find /share/camera -depth -exec rmdir {} \; 2> /dev/null'
+  version_tojson: 'echo -n "{\"version\": \"" > HA_VERSION.json && cat .HA_VERSION >> HA_VERSION.json && echo -n "\"}" >> HA_VERSION.json'
   
