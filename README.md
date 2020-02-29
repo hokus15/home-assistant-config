@@ -11,16 +11,22 @@ To get detailed description on how everything is configured please visit the [Wi
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/hokus15/home-assistant-config?logo=github)
 
 ## Screenshot Home
-![Home](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config1.png)
+![Home](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/lovelace_1_home.png)
 
 ## Screenshot Security
-![Security](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config2.png)
+![Security](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/lovelace_2_security.png)
 
 ## Screenshot Inside
-![Inside](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config3.png)
+![Inside](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/lovelace_3_inside.png)
 
 ## Screenshot Outside
-![Outside](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config4.png)
+![Outside](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/lovelace_4_outside.png)
+
+## Screenshot Cars
+![Outside](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/lovelace_5_cars.png)
 
 ## Screenshot Misc
-![Misc](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/hass-config5.png)
+![Misc](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/lovelace_6_misc.png)
+
+## Screenshot Ioniq
+![Outside](https://raw.githubusercontent.com/hokus15/home-assistant-config/master/lovelace_7_ioniq.png)
