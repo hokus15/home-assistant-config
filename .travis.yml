@@ -5,7 +5,7 @@ before_install:
   - mv config/travis_secrets.yaml config/secrets.yaml
   - sudo mkdir -p /share/camera
   - sed -i '/stream:/d' ./config/configuration.yaml
-  - sudo apt-get install -y libudev-dev python-dev pkg-config libavformat-dev libavcodec-dev libavdevice-dev libavutil-dev libswscale-dev libavresample-dev libavfilter-dev
+  - sudo apt-get install -y libudev-dev
   - HA_VERSION=$(<config/.HA_VERSION)
 install:
   - pip3 install homeassistant==${HA_VERSION}
