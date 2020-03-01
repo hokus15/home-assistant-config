@@ -12,12 +12,6 @@ group:
       - person.geni
       - person.guest
 
-#input_boolean:
-#  guest_mode:
-#    name: Modo invitado
-#  #  initial: off
-#    icon: 'mdi:clock'
-
 input_number:
   # Number of minutes to keep the guest mode on
   guest_mode_minutes:
@@ -79,8 +73,8 @@ sensor:
 switch:
   - platform: mqtt
     name: 'holiday'
-    state_topic: 'home/switch/holiday/status'
-    command_topic: 'home/switch/holiday/status'
+    state_topic: 'home/switch/holiday'
+    command_topic: 'home/switch/holiday'
     payload_on: 'ON'
     payload_off: 'OFF'
     optimistic: false
