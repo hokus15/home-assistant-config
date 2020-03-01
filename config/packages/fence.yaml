@@ -12,7 +12,7 @@ sensor:
 
   - platform: mqtt
     name: 'outside_fence'
-    state_topic: 'home/sensor/fence/state'
+    state_topic: 'home/sensor/fence'
     icon: mdi:garage
 
 cover:

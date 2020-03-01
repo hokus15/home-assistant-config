@@ -6,7 +6,7 @@
   action:
     - service: mqtt.publish
       data:
-        topic: home/sensor/fence/state
+        topic: home/sensor/fence
         payload_template: >-
           {%- if is_state("sensor.outside_fence_sensor_state", "off") %}
             En movimiento
@@ -19,7 +19,7 @@
         seconds: 18
     - service: mqtt.publish
       data:
-        topic: home/sensor/fence/state
+        topic: home/sensor/fence
         payload_template: >-
           {%- if is_state("sensor.outside_fence_sensor_state", "off") %}
             Abierta
@@ -37,7 +37,7 @@
   action:
     - service: mqtt.publish
       data:
-        topic: home/sensor/fence/state
+        topic: home/sensor/fence
         payload: "En movimiento"
         qos: 0
         retain: true
@@ -50,7 +50,7 @@
   action:
     - service: mqtt.publish
       data:
-        topic: home/sensor/fence/state
+        topic: home/sensor/fence
         payload: Cerrada
         qos: 0
         retain: true
