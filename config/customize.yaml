@@ -108,13 +108,14 @@ device_tracker.geniphone_wifi:
 device_tracker.hokusphone_wifi:
   source_type: router
 device_tracker.guest:
+  icon: mdi:account-question
   source_type: router
 person.jordi:
   entity_picture: https://s.gravatar.com/avatar/f5d192b4f4ffab4d9625f9b9e11d16b7?s=192
 person.geni:
   entity_picture: /local/person.geni.jpg
 person.guest:
-  entity_picture: /local/person.guest.png
+  icon: mdi:account-question
 sensor.escalera_switch_energy:
   icon: mdi:speedometer
   friendly_name: Consumo luz escalera
