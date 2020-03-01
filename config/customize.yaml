@@ -464,3 +464,6 @@ sensor.cargador_palmanyola:
   icon: mdi:ev-station
 sensor.cargador_sant_miquel:
   icon: mdi:ev-station
+switch.guest_mode:
+  friendly_name: Modo invitado
+  icon: mdi:account-clock

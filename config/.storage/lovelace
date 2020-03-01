@@ -134,7 +134,7 @@
                                     "entity": "person.guest"
                                 },
                                 {
-                                    "entity": "input_boolean.guest_mode"
+                                    "entity": "switch.guest_mode"
                                 },
                                 {
                                     "entity": "input_number.guest_mode_minutes"

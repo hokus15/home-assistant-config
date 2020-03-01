@@ -1,32 +1,25 @@
-#- alias: "[Presence - Guest] Turn on for 4 hours guest person at 8:15 if it's a workday"
-#  trigger:
-#    platform: time
-#    at: '08:15:00'
-#  condition:
-#    condition: and
-#    conditions:
-#      - condition: state
-#        entity_id: 'binary_sensor.workday_sensor'
-#        state: 'on'
-#      - condition: time
-#        weekday:
-#          - mon
-#          - tue
-#          - thu
-#          - fri
-#  action:
-#    - service: input_number.set_value
-#      data:
-#        entity_id: input_number.guest_mode_minutes
-#        value: 240.0
-#    - service: homeassistant.turn_on
-#      data:
-#        entity_id: input_boolean.guest_mode
+- alias: "[Presence - Guest] Turn on for 4 hours guest person at 8:15 if it's Tuesday or Firday"
+  trigger:
+    platform: time
+    at: '08:15:00'
+  condition:
+    condition: time
+    weekday:
+      - tue
+      - fri
+  action:
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.guest_mode_minutes
+        value: 240.0
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.guest_mode
 
 - alias: '[Presence - Guest] When guest mode is turned off, set guest as not home'
   trigger:
     platform: state
-    entity_id: input_boolean.guest_mode
+    entity_id: switch.guest_mode
     to: 'off'
   action:
     - service: device_tracker.see
@@ -34,10 +27,10 @@
         dev_id: 'guest'
         location_name: 'not_home'
         
-- alias: '[Presence - Guest] When input_boolean.guest_mode turns on'
+- alias: '[Presence - Guest] When guest mode is turned on'
   trigger:
     platform: state
-    entity_id: input_boolean.guest_mode
+    entity_id: switch.guest_mode
     to: 'on'
   action:
     - service: device_tracker.see
@@ -51,26 +44,26 @@
     - delay: '{{ (states.input_number.guest_mode_minutes.state | int) // 60 }}:{{ (states.input_number.guest_mode_minutes.state | int) % 60 }}'
     - service: homeassistant.turn_off
       data:
-        entity_id: input_boolean.guest_mode
+        entity_id: switch.guest_mode
 
-- alias: '[Presence - Guest] Set correct guest presence on startup'
-  trigger:
-    platform: homeassistant
-    event: start
-  condition:
-    condition: and
-    conditions:
-      - condition: state
-        entity_id: 'input_boolean.guest_mode'
-        state: 'on'
-      - condition: state
-        entity_id: 'person.guest'
-        state: 'not_home'
-  action:
-    - service: homeassistant.turn_off
-      data:
-        entity_id: input_boolean.guest_mode
-    - delay: 00:00:10
-    - service: homeassistant.turn_on
-      data:
-        entity_id: input_boolean.guest_mode
+#- alias: '[Presence - Guest] Set correct guest presence on startup'
+#  trigger:
+#    platform: homeassistant
+#    event: start
+#  condition:
+#    condition: and
+#    conditions:
+#      - condition: state
+#        entity_id: 'input_boolean.guest_mode'
+#        state: 'on'
+#      - condition: state
+#        entity_id: 'person.guest'
+#        state: 'not_home'
+#  action:
+#    - service: homeassistant.turn_off
+#      data:
+#        entity_id: input_boolean.guest_mode
+#    - delay: 00:00:10
+#    - service: homeassistant.turn_on
+#      data:
+#        entity_id: input_boolean.guest_mode
