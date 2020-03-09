@@ -13,6 +13,7 @@ recorder:
       - sensor.cargador_conquistador
       - sensor.cargador_palmanyola
       - sensor.cargador_sant_miquel
+      - sensor.cargador_paseo_mallorca
 
 logbook:
   exclude:
@@ -95,7 +96,7 @@ sensor:
           {% elif value_json.status == 'OCCUPIED' %}
             Ocupado
           {% elif value_json.status == 'UNAVAILABLE' %}
-            Estado no disponible
+            No disponible
           {% elif value_json.status == 'AVAILABLE' %}
             Libre
           {% elif value_json.status == 'OFFLINE' %}
@@ -125,7 +126,7 @@ sensor:
           {% elif value_json.status == 'OCCUPIED' %}
             Ocupado
           {% elif value_json.status == 'UNAVAILABLE' %}
-            Estado no disponible
+            No disponible
           {% elif value_json.status == 'AVAILABLE' %}
             Libre
           {% elif value_json.status == 'OFFLINE' %}
@@ -155,7 +156,7 @@ sensor:
           {% elif value_json.status == 'OCCUPIED' %}
             Ocupado
           {% elif value_json.status == 'UNAVAILABLE' %}
-            Estado no disponible
+            No disponible
           {% elif value_json.status == 'AVAILABLE' %}
             Libre
           {% elif value_json.status == 'OFFLINE' %}
@@ -185,7 +186,37 @@ sensor:
           {% elif value_json.status == 'OCCUPIED' %}
             Ocupado
           {% elif value_json.status == 'UNAVAILABLE' %}
-            Estado no disponible
+            No disponible
+          {% elif value_json.status == 'AVAILABLE' %}
+            Libre
+          {% elif value_json.status == 'OFFLINE' %}
+            No gestionado
+          {% else %}
+            Desconocido
+          {%- endif %}
+
+  - platform: rest
+    resource: https://ws.consorcidetransports.com/produccio/ximelib-mobile/rest/devicegroups/29
+    name: Cargador Paseo Mallorca
+    scan_interval: 120
+    json_attributes:
+      - id
+      - lat
+      - lng
+      - name
+      - description
+      - address
+      - timetable
+    headers:
+      Content-Type: application/json
+      Accept-Encoding: gzip
+    value_template: >-
+          {%- if value_json.status == 'OCCUPIED_PARTIAL' %}
+            Parcialmente ocupado
+          {% elif value_json.status == 'OCCUPIED' %}
+            Ocupado
+          {% elif value_json.status == 'UNAVAILABLE' %}
+            No disponible
           {% elif value_json.status == 'AVAILABLE' %}
             Libre
           {% elif value_json.status == 'OFFLINE' %}
@@ -391,25 +422,3 @@ camera:
     name: car_ioniq
     still_image_url: !secret camera_ioniq_still_image_url
     limit_refetch_to_url_change: true
-
-zone:
-  - name: Cargador Conquistador
-    latitude: 39.56874
-    longitude: 2.646939
-    radius: 500
-    icon: mdi:ev-station
-  - name: Cargador Sant Miquel
-    latitude: 39.576805
-    longitude: 2.65234
-    radius: 500
-    icon: mdi:ev-station
-  - name: Cargador Aragón
-    latitude: 39.57309
-    longitude: 2.657374
-    radius: 500
-    icon: mdi:ev-station
-  - name: Cargador Palmanyola
-    latitude: 39.6623
-    longitude: 2.6723
-    radius: 500
-    icon: mdi:ev-station
