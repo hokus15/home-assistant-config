@@ -1,0 +1,67 @@
+- alias: '[Car - Zone] Ioniq enters to Cargador Conquistador'
+  trigger:
+     - platform: zone
+       entity_id: device_tracker.car_ioniq
+       zone: zone.cargador_conquistador
+       event: enter
+  action:
+    - service: mqtt.publish
+      data:
+        payload_template: >
+          El cargador de Conquistador está {{ states.sensor.cargador_conquistador.state }}
+        retain: false
+        topic: 'phone/sensor/hokus/cmnd/say'
+    - service: notify.telegram
+      data_template:
+        message: 'El cargador de Conquistador está {{ states.sensor.cargador_conquistador.state }}'
+
+- alias: '[Car - Zone] Ioniq enters to Cargador Paseo Mallorca'
+  trigger:
+     - platform: zone
+       entity_id: device_tracker.car_ioniq
+       zone: zone.cargador_paseo_mallorca
+       event: enter
+  action:
+    - service: mqtt.publish
+      data:
+        payload_template: >
+          El cargador de Paseo Mallorca está {{ states.sensor.cargador_paseo_mallorca.state }}
+        retain: false
+        topic: 'phone/sensor/hokus/cmnd/say'
+    - service: notify.telegram
+      data_template:
+        message: 'El cargador de Paseo Mallorca está {{ states.sensor.cargador_paseo_mallorca.state }}'
+
+- alias: '[Car - Zone] Ioniq enters to Cargador Sant Miquel'
+  trigger:
+     - platform: zone
+       entity_id: device_tracker.car_ioniq
+       zone: zone.cargador_sant_miquel
+       event: enter
+  action:
+    - service: mqtt.publish
+      data:
+        payload_template: >
+          El cargador de Sant Miquel está {{ states.sensor.cargador_sant_miquel.state }}
+        retain: false
+        topic: 'phone/sensor/hokus/cmnd/say'
+    - service: notify.telegram
+      data_template:
+        message: 'El cargador de Sant Miquel está {{ states.sensor.cargador_sant_miquel.state }}'
+
+- alias: '[Car - Zone] Ioniq enters to Cargador Aragón'
+  trigger:
+     - platform: zone
+       entity_id: device_tracker.car_ioniq
+       zone: zone.cargador_aragon
+       event: enter
+  action:
+    - service: mqtt.publish
+      data:
+        payload_template: >
+          El cargador de Aragón está {{ states.sensor.cargador_aragon.state }}
+        retain: false
+        topic: 'phone/sensor/hokus/cmnd/say'
+    - service: notify.telegram
+      data_template:
+        message: 'El cargador de Aragón está {{ states.sensor.cargador_aragon.state }}'
