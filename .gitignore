@@ -34,3 +34,10 @@ config/.cloud
 config/.storage/hacs.repositories
 config/.storage/http
 config/.storage/mobile_app
+config/.storage/person
+config/.storage/google_assistant
+config/.storage/frontend.user_data_124f38ab808c4978978091c7d95901d1
+config/.storage/core.entity_registry
+config/.storage/core.device_registry
+config/.storage/core.area_registry
+mqtt_topics.txt
