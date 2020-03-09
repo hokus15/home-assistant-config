@@ -1,12 +1,6 @@
 {
     "data": {
         "config": {
-            "resources": [
-                {
-                    "type": "js",
-                    "url": "/community_plugin/lovelace-home-feed-card/lovelace-home-feed-card.js"
-                }
-            ],
             "title": "Casa",
             "views": [
                 {
@@ -66,7 +60,7 @@
                                     "type": "entities"
                                 },
                                 {
-                                    "camera_image": "camera.entrada",
+                                    "camera_image": "camera.netatmo_entrada",
                                     "entity": "sensor.outside_fence",
                                     "name": "Estado barrera",
                                     "type": "picture-entity"
@@ -204,17 +198,9 @@
                             "type": "entities"
                         },
                         {
-                            "card": {
-                                "entity": "climate.netatmo_general",
-                                "type": "thermostat"
-                            },
-                            "conditions": [
-                                {
-                                    "entity": "switch.thermostat",
-                                    "state": "on"
-                                }
-                            ],
-                            "type": "conditional"
+                            "entity": "climate.netatmo_general",
+                            "theme": "Backend-selected",
+                            "type": "thermostat"
                         }
                     ],
                     "icon": "mdi:home",
@@ -270,7 +256,8 @@
                             "type": "picture-glance"
                         },
                         {
-                            "camera_image": "camera.entrada",
+                            "aspect_ratio": "0%",
+                            "camera_image": "camera.netatmo_entrada",
                             "entities": [
                                 "input_boolean.entrada_camara_det_mov",
                                 "binary_sensor.entrada_outdoor_motion",
@@ -738,11 +725,21 @@
                         },
                         {
                             "entities": [
-                                "sensor.netatmo_anemometro_strength",
-                                "sensor.netatmo_anemometro_angle",
-                                "sensor.netatmo_anemometro_gust_strength",
-                                "sensor.netatmo_anemometro_gust_angle",
-                                "sensor.netatmo_anemometro_radio"
+                                {
+                                    "entity": "sensor.netatmo_anemometro_wind_strength"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_anemometro_angle"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_anemometro_gust_strength"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_anemometro_gust_angle"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_anemometro_radio"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Viento",
@@ -799,7 +796,8 @@
                             "type": "picture-glance"
                         },
                         {
-                            "camera_image": "camera.entrada",
+                            "aspect_ratio": "0%",
+                            "camera_image": "camera.netatmo_entrada",
                             "entities": [
                                 "input_boolean.entrada_camara_det_mov",
                                 "binary_sensor.entrada_outdoor_motion",
@@ -937,6 +935,12 @@
                                             "icon": "mdi:ev-station",
                                             "name": "Cargador Sant Miquel",
                                             "secondary_info": "last-changed"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_paseo_mallorca",
+                                            "icon": "mdi:ev-station",
+                                            "name": "Cargador Paseo Mallorca",
+                                            "secondary_info": "last-changed"
                                         }
                                     ],
                                     "show_header_toggle": false,
@@ -960,10 +964,14 @@
                                         {
                                             "entity": "sensor.cargador_sant_miquel",
                                             "name": "Sant Miquel"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_paseo_mallorca",
+                                            "name": "Paseo Mallorca"
                                         }
                                     ],
                                     "hours_to_show": 72,
-                                    "refresh_interval": 60,
+                                    "refresh_interval": 120,
                                     "type": "history-graph"
                                 }
                             ],
@@ -1124,19 +1132,19 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "sensor.netatmo_exterior_battery"
+                                    "entity": "sensor.netatmo_exterior_battery_percent"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_pluviometro_battery"
+                                    "entity": "sensor.netatmo_pluviometro_battery_percent"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_anemometro_battery"
+                                    "entity": "sensor.netatmo_anemometro_battery_percent"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_suite_battery"
+                                    "entity": "sensor.netatmo_suite_battery_percent"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_habitacion_battery"
+                                    "entity": "sensor.netatmo_habitacion_battery_percent"
                                 },
                                 {
                                     "entity": "sensor.porche_sensor_puerta_bateria"
