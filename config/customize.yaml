@@ -360,24 +360,30 @@ sensor.piscina_width:
   friendly_name: Ancho piscina
 sensor.netatmo_exterior_max_temp:
   device_class: temperature
+  friendly_name: Max Temp. Exterior
   icon: mdi:thermometer-plus
 sensor.netatmo_habitacion_max_temp:
   device_class: temperature
+  friendly_name: Max Temp. Habitación
   icon: mdi:thermometer-plus
 sensor.netatmo_salon_max_temp:
   device_class: temperature
+  friendly_name: Temp. Max Salón
   icon: mdi:thermometer-plus
 sensor.netatmo_suite_max_temp:
   device_class: temperature
   icon: mdi:thermometer-plus
 sensor.netatmo_exterior_min_temp:
   device_class: temperature
+  friendly_name: Min. Temp. Exterior
   icon: mdi:thermometer-minus
 sensor.netatmo_habitacion_min_temp:
   device_class: temperature
+  friendly_name: Min Temp. Habitación
   icon: mdi:thermometer-minus
 sensor.netatmo_salon_min_temp:
   device_class: temperature
+  friendly_name: Temp. Min Salón
   icon: mdi:thermometer-minus
 sensor.netatmo_suite_min_temp:
   device_class: temperature
@@ -434,9 +440,12 @@ sensor.piscina_recirculation:
   friendly_name: Recirculación piscina
 sensor.car_ioniq_state_battery_health:
   friendly_name: Salud batería Ioniq
-sensor.netatmo_habitacion_temperature: {}
-sensor.netatmo_exterior_temperature: {}
-sensor.netatmo_salon_temperature: {}
+sensor.netatmo_habitacion_temperature:
+  friendly_name: Temperatura Habitación
+sensor.netatmo_exterior_temperature:
+  friendly_name: Temperatura exterior
+sensor.netatmo_salon_temperature:
+  friendly_name: Temperatura Salón
 sensor.netatmo_suite_temperature: {}
 sensor.first_floor_temperature_trend:
   friendly_name: Tendencia temp. 1ª planta
@@ -444,8 +453,10 @@ sensor.ground_floor_temperature_trend:
   friendly_name: Tendencia temp. planta baja
 sensor.netatmo_habitacion_radio:
   device_class: signal_strength
+  friendly_name: Señal radio módulo Habitación Netatmo
 sensor.netatmo_salon_wifi:
   device_class: signal_strength
+  friendly_name: Wifi Salón
 sensor.netatmo_suite_radio:
   device_class: signal_strength
 sensor.comedor_switch_power:
@@ -468,3 +479,45 @@ sensor.cargador_sant_miquel:
 switch.guest_mode:
   friendly_name: Modo invitado
   icon: mdi:account-clock
+sensor.netatmo_salon_co2:
+  friendly_name: CO2 Salón
+sensor.netatmo_salon_humidity:
+  friendly_name: Humedad Salón
+sensor.netatmo_salon_pressure:
+  friendly_name: Persión Atmosférica Salón
+sensor.netatmo_salon_noise:
+  friendly_name: Nivel de Ruido Salón
+sensor.netatmo_suite_battery_percent:
+  friendly_name: Batería Netatmo Suite
+sensor.netatmo_anemometro_angle:
+  friendly_name: Dirección del viento
+sensor.netatmo_anemometro_battery:
+  friendly_name: Batería anemómetro
+sensor.netatmo_anemometro_gust_angle:
+  friendly_name: Dirección rachas
+sensor.netatmo_anemometro_gust_strength:
+  friendly_name: Fuerza rachas
+sensor.netatmo_anemometro_radio:
+  friendly_name: Señal radio anemómetro
+sensor.netatmo_anemometro_wind_strength:
+  friendly_name: Fuerza viento
+sensor.netatmo_anemometro_battery_percent:
+  friendly_name: Batería anemómetro
+sensor.netatmo_exterior_battery:
+  friendly_name: Batería módulo exterior Netatmo
+sensor.netatmo_exterior_humidity:
+  friendly_name: Humedad exterior
+sensor.netatmo_exterior_radio:
+  friendly_name: Señal radio módulo exterior Netatmo
+sensor.netatmo_exterior_battery_percent:
+  friendly_name: Batería módulo exterior Netatmo
+sensor.netatmo_habitacion_battery:
+  friendly_name: Batería habitación Netatmo
+sensor.netatmo_habitacion_co2:
+  friendly_name: CO2 Habitación
+sensor.netatmo_habitacion_humidity:
+  friendly_name: Humedad Habitación
+sensor.netatmo_habitacion_battery_percent:
+  friendly_name: Batería módulo Habitación Netatmo
+sensor.netatmo_pluviometro_battery:
+  friendly_name: Batería Pluviómetro
