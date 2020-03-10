@@ -10,6 +10,32 @@
                     ],
                     "cards": [
                         {
+                            "entities": [
+                                {
+                                    "entity": "sensor.spain_coronavirus_confirmed",
+                                    "icon": "mdi:emoticon-neutral-outline",
+                                    "name": "Confirmados"
+                                },
+                                {
+                                    "entity": "sensor.spain_coronavirus_current",
+                                    "icon": "mdi:emoticon-frown-outline",
+                                    "name": "Actual"
+                                },
+                                {
+                                    "entity": "sensor.spain_coronavirus_recovered",
+                                    "icon": "mdi:emoticon-happy-outline",
+                                    "name": "Recuperados"
+                                },
+                                {
+                                    "entity": "sensor.spain_coronavirus_deaths",
+                                    "icon": "mdi:emoticon-dead-outline",
+                                    "name": "Muertes"
+                                }
+                            ],
+                            "title": "Coronavirus Espa\u00f1a",
+                            "type": "glance"
+                        },
+                        {
                             "cards": [
                                 {
                                     "cards": [
