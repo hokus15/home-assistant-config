@@ -37,7 +37,7 @@ binary_sensor:
     state_topic: 'car/sensor/ioniq/state'
     name: car_ioniq_state_sensor
     value_template: 'ON'
-    json_attributes_topic: 'car/sensor/ioniq/state'
+    json_attributes_topic: 'car/sensor/ioniq/battery'
     force_update: true
     off_delay: 90
 
@@ -63,12 +63,12 @@ sensor:
     unit_prefix: k
     round: 2
 
-#  - platform: mqtt
-#    state_topic: 'car/sensor/ioniq/location'
-#    name: car_ioniq_location
-#    value_template: '{{ value_json.last_update|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
-#    json_attributes_topic: 'car/sensor/ioniq/location'
-
+  - platform: mqtt
+    state_topic: 'car/sensor/ioniq/odometer'
+    name: car_ioniq_state_odometer
+    icon: 'mdi:counter'
+    unit_of_measurement: 'Km'
+    
   - platform: mqtt
     state_topic: 'car/sensor/ioniq/state/daily'
     name: car_ioniq_state_daily
@@ -263,11 +263,11 @@ sensor:
         value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "soc_bms")}}'
         unit_of_measurement: '%'
       # Ioniq odometer
-      car_ioniq_state_odometer:
-        friendly_name: 'Odómetro'
-        icon_template: 'mdi:counter'
-        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "odometer")}}'
-        unit_of_measurement: 'Km'
+#      car_ioniq_state_odometer:
+#        friendly_name: 'Odómetro'
+#        icon_template: 'mdi:counter'
+#        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "odometer")}}'
+#        unit_of_measurement: 'Km'
       # Ioniq distance traveled since codes cleared
 #      car_ioniq_state_distance_since_cc:
 #        friendly_name: 'Distancia cc'
@@ -300,9 +300,9 @@ sensor:
         value_template: '{{state_attr("sensor.car_ioniq_state_daily", "odometer")}}'
         unit_of_measurement: 'Km'
       # Ioniq daily distance traveled since codes cleared
-      car_ioniq_state_daily_distance_since_cc:
-        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "distance_since_cc")}}'
-        unit_of_measurement: 'Km'
+#      car_ioniq_state_daily_distance_since_cc:
+#        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "distance_since_cc")}}'
+#        unit_of_measurement: 'Km'
       # Ioniq daily Cumulative Energy Discharged
       car_ioniq_state_daily_ced:
         value_template: '{{state_attr("sensor.car_ioniq_state_daily", "ced")}}'
