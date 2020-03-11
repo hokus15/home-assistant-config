@@ -2,19 +2,19 @@
 - alias: '[Alarm - Notification] Notify camera motion detection'
   trigger:
     - platform: mqtt
-      topic: home/sensor/camera/recibidor/motion/attributes
+      topic: home/camera/recibidor/motion/attributes
     - platform: mqtt
-      topic: home/sensor/camera/piscina/motion/attributes
+      topic: home/camera/piscina/motion/attributes
     - platform: mqtt
-      topic: home/sensor/camera/barbacoa/motion/attributes
+      topic: home/camera/barbacoa/motion/attributes
     - platform: mqtt
-      topic: home/sensor/camera/salon/motion/attributes
+      topic: home/camera/salon/motion/attributes
     - platform: mqtt
-      topic: home/sensor/camera/caseta/motion/attributes
+      topic: home/camera/caseta/motion/attributes
     - platform: mqtt
-      topic: home/sensor/camera/entrada/motion/attributes
+      topic: home/camera/entrada/motion/attributes
     - platform: mqtt
-      topic: home/sensor/camera/desconocido/motion/attributes
+      topic: home/camera/desconocido/motion/attributes
   condition:
     condition: or
     conditions:

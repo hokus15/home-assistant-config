@@ -10,13 +10,13 @@
         payload: 'ON'
         retain: true
         topic: >- 
-            {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/sensor/camera/recibidor/motion
-            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/sensor/camera/piscina/motion
-            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/sensor/camera/barbacoa/motion
-            {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/sensor/camera/caseta/motion
-            {%- elif "puerta_principal" in trigger.event.data.folder -%}home/sensor/camera/entrada/motion
-            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/sensor/camera/salon/motion
-            {%- else -%}home/sensor/camera/desconocido/motion{%-endif-%}
+            {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/camera/recibidor/motion
+            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/camera/piscina/motion
+            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/camera/barbacoa/motion
+            {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/camera/caseta/motion
+            {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/motion
+            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/salon/motion
+            {%- else -%}home/camera/desconocido/motion{%-endif-%}
     - service: mqtt.publish
       data_template:
         payload_template: >-
@@ -30,13 +30,13 @@
           {%-endif-%}
         retain: true
         topic: >- 
-            {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/sensor/camera/recibidor/motion/attributes
-            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/sensor/camera/piscina/motion/attributes
-            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/sensor/camera/barbacoa/motion/attributes
-            {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/sensor/camera/caseta/motion/attributes
-            {%- elif "puerta_principal" in trigger.event.data.folder -%}home/sensor/camera/entrada/motion/attributes
-            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/sensor/camera/salon/motion/attributes
-            {%- else -%}home/sensor/camera/desconocido/motion/attributes{%-endif-%}
+            {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/camera/recibidor/motion/attributes
+            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/camera/piscina/motion/attributes
+            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/camera/barbacoa/motion/attributes
+            {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/camera/caseta/motion/attributes
+            {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/motion/attributes
+            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/salon/motion/attributes
+            {%- else -%}home/camera/desconocido/motion/attributes{%-endif-%}
     - event: CAMERA_MOTION_DETECTED
       event_data_template:
         name: 'Movimiento detectado'
@@ -56,13 +56,13 @@
         payload: 'OFF'
         retain: true
         topic:  >- 
-            {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/sensor/camera/recibidor/motion
-            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/sensor/camera/piscina/motion
-            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/sensor/camera/barbacoa/motion
-            {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/sensor/camera/caseta/motion
-            {%- elif "puerta_principal" in trigger.event.data.folder -%}home/sensor/camera/entrada/motion
-            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/sensor/camera/salon/motion
-            {%- else -%}home/sensor/camera/desconocido/motion{%-endif-%}
+            {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/camera/recibidor/motion
+            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/camera/piscina/motion
+            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/camera/barbacoa/motion
+            {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/camera/caseta/motion
+            {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/motion
+            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/salon/motion
+            {%- else -%}home/camera/desconocido/motion{%-endif-%}
 
 #    - service: logbook.log
 #      data_template:

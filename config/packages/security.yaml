@@ -237,42 +237,42 @@ binary_sensor:
   
   # Alarm status for foscam cam in hall
   - platform: mqtt
-    state_topic: 'home/sensor/camera/recibidor/motion'
+    state_topic: 'home/camera/recibidor/motion'
     name: recibidor_camara_det_mov
     device_class: motion
-    json_attributes_topic: 'home/sensor/camera/recibidor/motion/attributes'
+    json_attributes_topic: 'home/camera/recibidor/motion/attributes'
 
   # Alarm status for foscam cam in swimming pool
   - platform: mqtt
-    state_topic: 'home/sensor/camera/piscina/motion'
+    state_topic: 'home/camera/piscina/motion'
     name: piscina_camara_det_mov
     device_class: motion
-    json_attributes_topic: 'home/sensor/camera/piscina/motion/attributes'
+    json_attributes_topic: 'home/camera/piscina/motion/attributes'
 
   # Alarm status for foscam cam in bbq
   - platform: mqtt
-    state_topic: 'home/sensor/camera/barbacoa/motion'
+    state_topic: 'home/camera/barbacoa/motion'
     name: barbacoa_camara_det_mov
     device_class: motion
-    json_attributes_topic: 'home/sensor/camera/barbacoa/motion/attributes'
+    json_attributes_topic: 'home/camera/barbacoa/motion/attributes'
 
   # Alarm status for foscam cam in living room
   - platform: mqtt
-    state_topic: 'home/sensor/camera/salon/motion'
+    state_topic: 'home/camera/salon/motion'
     name: salon_camara_det_mov
     device_class: motion
-    json_attributes_topic: 'home/sensor/camera/salon/motion/attributes'
+    json_attributes_topic: 'home/camera/salon/motion/attributes'
 
   # Alarm status for Linksys cam in caseta
   - platform: mqtt
-    state_topic: 'home/sensor/camera/caseta/motion'
+    state_topic: 'home/camera/caseta/motion'
     name: caseta_camara_det_mov
     device_class: motion
-    json_attributes_topic: 'home/sensor/camera/caseta/motion/attributes'
+    json_attributes_topic: 'home/camera/caseta/motion/attributes'
 
   # Alarm status for Netatmo presence
   - platform: mqtt
-    state_topic: 'home/sensor/camera/entrada/motion'
+    state_topic: 'home/camera/entrada/motion'
     name: entrada_camara_det_mov
     device_class: motion
-    json_attributes_topic: 'home/sensor/camera/entrada/motion/attributes'
+    json_attributes_topic: 'home/camera/entrada/motion/attributes'
