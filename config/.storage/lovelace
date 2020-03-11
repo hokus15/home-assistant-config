@@ -19,7 +19,7 @@
                                 {
                                     "entity": "sensor.spain_coronavirus_current",
                                     "icon": "mdi:emoticon-frown-outline",
-                                    "name": "Actual"
+                                    "name": "Activos"
                                 },
                                 {
                                     "entity": "sensor.spain_coronavirus_recovered",
@@ -34,6 +34,30 @@
                             ],
                             "title": "Coronavirus Espa\u00f1a",
                             "type": "glance"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.spain_coronavirus_confirmed",
+                                    "name": "Confirmados"
+                                },
+                                {
+                                    "entity": "sensor.spain_coronavirus_current",
+                                    "name": "Activos"
+                                },
+                                {
+                                    "entity": "sensor.spain_coronavirus_deaths",
+                                    "name": "Muertes"
+                                },
+                                {
+                                    "entity": "sensor.spain_coronavirus_recovered",
+                                    "name": "Recuperados"
+                                }
+                            ],
+                            "hours_to_show": 240,
+                            "refresh_interval": 300,
+                            "title": "Coronavirus Espa\u00f1a",
+                            "type": "history-graph"
                         },
                         {
                             "cards": [

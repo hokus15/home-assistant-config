@@ -66,6 +66,10 @@ recorder:
       - sensor.disk_free
       - sensor.db_size
       - sensor.disk_use_share_camera
+      - sensor.spain_coronavirus_confirmed
+      - sensor.spain_coronavirus_current
+      - sensor.spain_coronavirus_recovered
+      - sensor.spain_coronavirus_deaths
   
 
 # View all events in a logbook
@@ -101,7 +105,7 @@ logger:
 #    homeassistant.helpers.intent: debug
 #    homeassistant.components.intent_script: debug
 #    homeassistant.helpers.script: debug
-#    homeassistant.components.automation: debug
+#   homeassistant.components.automation: debug
 #    homeassistant.components.device_tracker: debug
 #    homeassistant.components.device_tracker.luci: debug
 #    homeassistant.core: debug
