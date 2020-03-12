@@ -548,6 +548,9 @@
                                     "entity": "sensor.netatmo_suite_temperature"
                                 },
                                 {
+                                    "entity": "sensor.suite_temperature_change_per_hour"
+                                },
+                                {
                                     "entity": "sensor.netatmo_suite_temperature_trend"
                                 },
                                 {
@@ -671,6 +674,17 @@
                                 "person.guest"
                             ],
                             "title": "Ocupaci\u00f3n",
+                            "type": "history-graph"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.suite_temperature_change_per_hour"
+                                }
+                            ],
+                            "hours_to_show": 24,
+                            "refresh_interval": 0,
+                            "title": "Cambio temperatura en Suite",
                             "type": "history-graph"
                         }
                     ],

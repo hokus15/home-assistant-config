@@ -25,6 +25,7 @@ recorder:
       - sensor.despacho_sensor_movimiento_temperature
       - sensor.entrance_hall_thermostat_target_temperature
       - sensor.porche_sensor_puerta_temperature
+      - sensor.suite_temperature_change_per_hour
 
 logbook:
   exclude:
@@ -206,6 +207,13 @@ sensor:
     sampling_size: 1440
     max_age:
       hours: 24
+
+  - platform: derivative
+    source: sensor.netatmo_suite_temperature
+    name: suite_temperature_change_per_hour
+    round: 1
+    unit_time: h
+    time_window: "00:30:00"  # we look at the change over the last half hour
 
   - platform: template
     sensors:
