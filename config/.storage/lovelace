@@ -309,11 +309,9 @@
                             "aspect_ratio": "0%",
                             "camera_image": "camera.netatmo_entrada",
                             "entities": [
-                                "input_boolean.entrada_camara_det_mov",
-                                "binary_sensor.entrada_outdoor_motion",
-                                "binary_sensor.entrada_outdoor_human",
-                                "binary_sensor.entrada_outdoor_animal",
-                                "binary_sensor.entrada_outdoor_vehicle"
+                                {
+                                    "entity": "input_boolean.entrada_camara_det_mov"
+                                }
                             ],
                             "title": "Entrada",
                             "type": "picture-glance"
@@ -863,11 +861,9 @@
                             "aspect_ratio": "0%",
                             "camera_image": "camera.netatmo_entrada",
                             "entities": [
-                                "input_boolean.entrada_camara_det_mov",
-                                "binary_sensor.entrada_outdoor_motion",
-                                "binary_sensor.entrada_outdoor_human",
-                                "binary_sensor.entrada_outdoor_animal",
-                                "binary_sensor.entrada_outdoor_vehicle"
+                                {
+                                    "entity": "input_boolean.entrada_camara_det_mov"
+                                }
                             ],
                             "title": "Entrada",
                             "type": "picture-glance"

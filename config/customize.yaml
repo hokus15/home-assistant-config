@@ -297,16 +297,6 @@ binary_sensor.caseta_camara_det_mov:
 switch.caseta_camara_det_mov:
   friendly_name: Det. mov. caseta
   icon: mdi:transit-transfer
-binary_sensor.entrada_outdoor_motion:
-  friendly_name: Movimiento desconocido entrada
-binary_sensor.entrada_outdoor_human:
-  friendly_name: Persona detectada entrada
-binary_sensor.entrada_outdoor_animal:
-  friendly_name: Animal detectado entrada
-  icon: mdi:paw
-binary_sensor.entrada_outdoor_vehicle:
-  friendly_name: Vehiculo detectado entrada
-  icon: mdi:car
 binary_sensor.despacho_sensor_movimiento:
   friendly_name: Movimiento despacho
   device_class: motion
