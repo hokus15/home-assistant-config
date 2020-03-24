@@ -2,6 +2,7 @@ recorder:
   include:
     entities:
       - input_boolean.home_comfort_mode
+      - input_boolean.sleep_mode
       - sensor.netatmo_exterior_temperature
       - sensor.netatmo_exterior_humidity
       - sensor.netatmo_pluviometro_rain
