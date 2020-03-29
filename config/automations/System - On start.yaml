@@ -3,4 +3,36 @@
     platform: homeassistant
     event: start
   action:
+    # Create HA_VERSION.json file containing homeassistant version
     - service: shell_command.version_tojson
+    # Set correct energy tariff
+    - service: mqtt.publish
+      data:
+        topic: 'home/sensor/energy/tariff'
+        retain: true
+        qos: 0
+        payload_template: >-
+          {%- if is_state('binary_sensor.summer_time', 'on') %}
+            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
+              Pico
+            {%- else %}
+              Valle
+            {%- endif %}
+          {%- else %}
+            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=22).replace(minute=0).replace(second=0))%}
+              Pico
+            {%- else %}
+              Valle
+            {%- endif %}
+          {%- endif %}
+
+########################
+# Template for 3 tariffs
+#          {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=1).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0)) %}
+#            Super valle
+#          {%- elif as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
+#            Pico
+#          {%- else %}
+#            Valle
+#          {%- endif %}
+########################
