@@ -1,4 +1,4 @@
-- alias: "Presence - Guest - Morning"
+- alias: "Presence - Guest - In the morning"
   trigger:
     platform: time
     at: '08:15:00'
