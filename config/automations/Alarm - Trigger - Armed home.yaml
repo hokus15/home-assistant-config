@@ -1,0 +1,26 @@
+- alias: 'Alarm - Trigger - Armed home'
+  trigger:
+    # When Kitchen blind is open
+    - platform: state
+      entity_id: binary_sensor.porche_sensor_persiana
+      to: 'on'
+    # When Outside kitched door is open
+    - platform: state
+      entity_id: binary_sensor.porche_sensor_puerta
+      to: 'on'
+    # When Laundry door is open
+    - platform: state
+      entity_id: binary_sensor.coladuria_sensor_puerta
+      to: 'on'
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: alarm_control_panel.home
+        state: armed_home
+      - condition: state
+        entity_id: alarm_control_panel.home
+        state: armed_night
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.home

@@ -1,0 +1,9 @@
+- alias: 'Presence - Family - Someone at home'
+  trigger:
+    platform: state
+    entity_id: group.unidad_familiar
+    to: 'home'
+  action:
+    - service: script.turn_on
+      data:
+        entity_id: script.presence_someone_home

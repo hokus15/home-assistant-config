@@ -1,0 +1,9 @@
+- alias: 'Alarm - Notification - Disarmed'
+  trigger: 
+    - platform: state
+      entity_id: alarm_control_panel.home
+      to: 'disarmed'
+  action:
+    - service: script.alarm_notify_state_change_slack
+      data_template:
+        message: 'Alarma desarmada'

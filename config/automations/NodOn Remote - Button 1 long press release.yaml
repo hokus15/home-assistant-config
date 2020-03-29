@@ -1,0 +1,12 @@
+- alias: 'NodOn Remote - Button 1 long press release'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.recibidor_remote
+      scene_id: 11
+  action:
+    - service: logbook.log
+      data:
+        name: 'NodOn'
+        message: 'Botón 1 soltado después de una pulsación larga'

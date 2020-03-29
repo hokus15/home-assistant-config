@@ -1,0 +1,12 @@
+- alias: 'Fence - State - Fence moving'
+  trigger:
+    platform: state
+    entity_id: switch.barrera
+    to: 'on'
+  action:
+    - service: mqtt.publish
+      data:
+        topic: home/sensor/fence
+        payload: "En movimiento"
+        qos: 0
+        retain: true

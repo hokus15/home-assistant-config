@@ -1,0 +1,7 @@
+- alias: 'Comfort - In the morning'
+  trigger:
+    platform: time
+    at: '6:00:00'
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.sleep_mode

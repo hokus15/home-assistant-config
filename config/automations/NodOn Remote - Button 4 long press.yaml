@@ -1,0 +1,12 @@
+- alias: 'NodOn Remote - Button 4 long press'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.recibidor_remote
+      scene_id: 42
+  action:
+    - service: logbook.log
+      data:
+        name: 'NodOn'
+        message: 'Botón 4 pulsación larga'

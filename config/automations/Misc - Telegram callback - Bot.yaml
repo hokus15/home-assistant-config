@@ -1,0 +1,31 @@
+# Telegram bot that executes a service from a callback with the format <service>#<entity_id>. i.e.: script.turn_on#script.fence_close
+- alias: 'Misc - Telegram callback - Bot'
+  trigger:
+    - platform: event
+      event_type: telegram_callback
+  condition:
+    # Run only in case it has a # in the event data
+    condition: template
+    value_template: '{{ trigger.event.data.data.find("#") != -1 }}'
+  action:
+    # Answer callback
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
+        message: 'Respuesta recibida!'
+        show_alert: false
+    # Remove inline keyboard from original message.
+    - service: telegram_bot.edit_replymarkup
+      data_template:
+             message_id: '{{ trigger.event.data.message.message_id }}'
+             chat_id: '{{ trigger.event.data.chat_id }}'
+             inline_keyboard: []
+    # Execute service with the format <service>#<entity_id>.
+    # If the service or the entity id don't exist, the execution will silently fail
+    - service_template: >
+        {%- if trigger.event.data.data.find("#") != -1 -%}
+          {{trigger.event.data.data[1:trigger.event.data.data.find("#")]}}
+        {%- endif -%}
+  
+      data_template:
+        entity_id: '{{trigger.event.data.data[trigger.event.data.data.find("#")+1:]}}'

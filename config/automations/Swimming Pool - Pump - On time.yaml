@@ -1,0 +1,16 @@
+- alias: 'Swimming Pool - Pump - On time'
+  trigger: 
+    platform: template
+    value_template: '{{states.sensor.date_time.state == states.sensor.piscina_on_time.state}}'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.motor_piscina
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'warning'
+              pretext: ':swimmer: *Piscina* :swimmer:'
+              text: 'Motor piscina encendido'
+              fallback: 'Piscina'

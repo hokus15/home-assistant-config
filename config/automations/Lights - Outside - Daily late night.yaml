@@ -1,0 +1,14 @@
+# Turn off outside lights at night at 00:15
+- alias: 'Lights - Outside - Daily late night'
+  trigger:
+    platform: time
+    at: '00:15'
+  condition:
+    condition: state
+    entity_id: light.luces_exteriores
+    state: 'on'
+  action:
+    - service: script.turn_off_outside_lights
+      data_template:
+        data:
+          logbook_message: 'apagadas a las 00:15'

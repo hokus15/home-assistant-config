@@ -1,0 +1,25 @@
+- alias: 'Energy - Notification - Power back normal'
+  trigger:
+    - platform: state
+      entity_id: sensor.energy_ups_status
+      to: 'Cargando'
+    - platform: state
+      entity_id: sensor.energy_ups_status
+      to: 'Normal'
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.ha_runtime_in_minutes
+      above: 2
+  action:
+    - service: notify.telegram
+      data:
+        message: 'Suministro eléctrico reestablecido'
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'good'
+              pretext: ':zap: *Suministro eléctrico* :zap:'
+              text: 'Suministro eléctrico restablecido'
+              fallback: 'Suministro eléctrico'

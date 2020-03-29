@@ -1,0 +1,9 @@
+- alias: 'Presence - Notification - Guest at home'
+  trigger:
+    - platform: state
+      entity_id: person.guest
+      to: 'home'
+  action:
+    - service: script.presence_notify_state_change_slack
+      data_template:
+        message: 'Invitado en casa'

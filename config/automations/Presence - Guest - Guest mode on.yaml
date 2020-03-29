@@ -1,0 +1,18 @@
+- alias: 'Presence - Guest - Guest mode on'
+  trigger:
+    platform: state
+    entity_id: switch.guest_mode
+    to: 'on'
+  action:
+    - service: device_tracker.see
+      data:
+        dev_id: 'guest'
+        location_name: 'home'
+    - service: notify.telegram
+      data_template:
+        message: >
+          Activado modo invitado durante {{ (states.input_number.guest_mode_minutes.state | int) // 60 }} hora(s) y {{ (states.input_number.guest_mode_minutes.state | int) % 60 }} minutos
+    - delay: '{{ (states.input_number.guest_mode_minutes.state | int) // 60 }}:{{ (states.input_number.guest_mode_minutes.state | int) % 60 }}'
+    - service: homeassistant.turn_off
+      data:
+        entity_id: switch.guest_mode

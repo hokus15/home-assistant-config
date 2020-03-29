@@ -1,0 +1,10 @@
+- alias: 'Car - Charge - Tariff from valle'
+  trigger:
+    platform: state
+    entity_id: utility_meter.energy_home_daily
+    from: 'Valle'
+  action:
+    - delay:
+        minutes: 5
+    - service: switch.turn_off
+      entity_id: switch.car_ioniq_charger

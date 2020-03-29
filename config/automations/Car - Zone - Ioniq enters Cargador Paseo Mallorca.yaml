@@ -1,0 +1,16 @@
+- alias: 'Car - Zone - Ioniq enters Cargador Paseo Mallorca'
+  trigger:
+     - platform: zone
+       entity_id: device_tracker.car_ioniq
+       zone: zone.cargador_paseo_mallorca
+       event: enter
+  action:
+    - service: mqtt.publish
+      data:
+        payload_template: >
+          El cargador de Paseo Mallorca está {{ states.sensor.cargador_paseo_mallorca.state }}
+        retain: false
+        topic: 'phone/sensor/hokus/cmnd/say'
+    - service: notify.telegram
+      data_template:
+        message: 'El cargador de Paseo Mallorca está {{ states.sensor.cargador_paseo_mallorca.state }}'

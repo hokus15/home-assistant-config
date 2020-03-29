@@ -1,0 +1,56 @@
+# Notify camera motion detection including attached video or image when alarm triggered
+- alias: 'Alarm - Notification - Camera motion detection'
+  trigger:
+    - platform: mqtt
+      topic: home/camera/recibidor/motion/attributes
+    - platform: mqtt
+      topic: home/camera/piscina/motion/attributes
+    - platform: mqtt
+      topic: home/camera/barbacoa/motion/attributes
+    - platform: mqtt
+      topic: home/camera/salon/motion/attributes
+    - platform: mqtt
+      topic: home/camera/caseta/motion/attributes
+    - platform: mqtt
+      topic: home/camera/entrada/motion/attributes
+    - platform: mqtt
+      topic: home/camera/desconocido/motion/attributes
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: switch.recibidor_camara_det_mov
+      state: 'on'
+    - condition: state
+      entity_id: switch.salon_camara_det_mov
+      state: 'on'
+    - condition: state
+      entity_id: switch.barbacoa_camara_det_mov
+      state: 'on'
+    - condition: state
+      entity_id: switch.piscina_camara_det_mov
+      state: 'on'
+    - condition: state
+      entity_id: switch.caseta_camara_det_mov
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.entrada_camara_det_mov
+      state: 'on'
+  action:
+    # Delay before evaluating alarm state. This is needed to allow the alarm_control panel to be triggered and avoid skipping notifications
+    - delay:
+        seconds: 1
+    # Only continue execution if alarm has been triggered
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'triggered'
+    # Delay to allow the file to be totally written in the FTP before sending it
+    - delay:
+        seconds: 15
+    # Notify the image/video taken
+    - service: script.alarm_notify_camera
+      data_template:
+        data:
+          file: '{{ trigger.payload_json.file_path }}'
+          camera_name: '{{trigger.payload_json.camera_name}}'
+          turn_off_entity_id: '{{trigger.payload_json.detection_entity_id}}'

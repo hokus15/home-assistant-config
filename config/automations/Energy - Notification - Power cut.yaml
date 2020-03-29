@@ -1,0 +1,20 @@
+- alias: 'Energy - Notification - Power cut'
+  trigger:
+    platform: state
+    entity_id: sensor.energy_ups_status
+    to: 'Batería'
+    for:
+      minutes: 1
+  action:
+    - service: notify.telegram
+      data:
+        message: 'Corte en el suministro eléctrico detectado'
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'warning'
+              pretext: ':zap: *Suministro eléctrico* :zap:'
+              text: 'Corte en el suministro eléctrico detectado'
+              fallback: 'Suministro eléctrico'

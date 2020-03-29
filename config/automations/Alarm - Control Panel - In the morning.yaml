@@ -1,0 +1,23 @@
+# At 7:00 AM, disarm alarm armed night when someone at home
+- alias: 'Alarm - Control Panel - In the morning'
+  trigger:
+    platform: time
+    at: '07:00:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: 'group.unidad_familiar'
+        state: 'home'
+      - condition: state
+        entity_id: alarm_control_panel.home
+        state: armed_night
+  action:
+    - service: logbook.log
+      data_template:
+        name: 'Alarma'
+        message: 'Alarma desarmada automáticamente porque son las 7:00 de la mañana'
+        entity_id: alarm_control_panel.home
+        domain: alarm_control_panel
+    - service: alarm_control_panel.alarm_disarm
+      entity_id: alarm_control_panel.home

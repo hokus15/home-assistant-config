@@ -1,0 +1,20 @@
+##############################
+# Valle tariff
+# Starting at 23 in summer
+# Starting at 22 in winter
+##############################
+- alias: 'Energy - Tariff - Valle start winter'
+  trigger:
+    - platform: time
+      at: '22:00:00'
+  condition:
+    - condition: state
+      entity_id: 'binary_sensor.summer_time'
+      state: 'off'
+  action:
+    - service: mqtt.publish
+      data:
+        topic: 'home/sensor/energy/tariff'
+        retain: true
+        qos: 0
+        payload_template: 'Valle'

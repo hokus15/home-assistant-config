@@ -1,0 +1,28 @@
+# When laundry door is open and heating is on, notify every 10 minutes
+- alias: 'Comfort - Notification - Laundry door open'
+  trigger:
+    platform: time_pattern
+    minutes: '/1'
+    seconds: 00
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.coladuria_sensor_puerta
+        state: 'on'
+      - condition: template
+        value_template: "{{states.climate.netatmo_general != None}}"
+      - condition: template
+        value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
+      - condition: template
+        value_template: "{{is_state_attr('climate.netatmo_general', 'hvac_action', 'heating')}}"
+      - condition: template
+        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.coladuria_sensor_puerta.last_changed))//60)%10 == 0 }}'
+      - condition: template
+        value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.coladuria_sensor_puerta.last_changed))//60) != 0 }}'
+  action:
+    - service: tts.google_translate_say
+      entity_id: media_player.recibidor
+      data_template:
+        message: 'Puerta de la coladuría abierta durante más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.coladuria_sensor_puerta.last_changed))|int//60 }} minutos'
+        cache: false

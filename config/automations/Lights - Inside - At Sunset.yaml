@@ -1,0 +1,13 @@
+- alias: 'Lights - Inside - At sunset'
+  trigger:
+    platform: sun
+    event: sunset
+  condition:
+    condition: state
+    entity_id: group.unidad_familiar
+    state: 'home'
+  action:
+    - service: script.turn_on_hall_lamp
+      data_template:
+        data:
+          logbook_message: 'encendida por la puesta de sol'

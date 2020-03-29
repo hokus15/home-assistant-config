@@ -1,0 +1,29 @@
+- alias: 'Presence - Holiday - Switch holiday mode on'
+  trigger:
+    platform: state
+    entity_id: switch.holiday
+    from: 'off'
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+      - condition: template
+        value_template: "{{states.climate.netatmo_general != None}}"
+      - condition: template
+        value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
+  action:
+    # Turn off thermostat
+    - service: script.turn_on
+      entity_id: script.climate_power_off
+    - service: notify.telegram
+      data:
+        message: 'Modo vacaciones activado'
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'good'
+              pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+              text: 'Modo vacaciones activado'
+              fallback: 'Presencia'

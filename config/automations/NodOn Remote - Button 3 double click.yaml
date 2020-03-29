@@ -1,0 +1,12 @@
+- alias: 'NodOn Remote - Button 3 double click'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.recibidor_remote
+      scene_id: 33
+  action:
+    - service: logbook.log
+      data:
+        name: 'NodOn'
+        message: 'Botón 3 doble pulsación'

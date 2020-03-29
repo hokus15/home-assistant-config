@@ -1,0 +1,32 @@
+- alias: 'Car - Zone - Ioniq enters home'
+  trigger:
+     - platform: zone
+       entity_id: device_tracker.car_ioniq
+       zone: zone.home
+       event: enter
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: cover.outside_fence
+        state: 'closed'
+      - condition: state
+        entity_id: binary_sensor.car_ioniq_state
+        state: 'on'
+  action:
+    - service: cover.open_cover
+      entity_id: cover.outside_fence
+    - service: mqtt.publish
+      data:
+        payload_template: >-
+          He abierto la barrera. {%- if is_state("person.geni", "home") -%}Jeni está en casa.{%- else -%}Jeni no está en casa.{%- endif -%}
+        retain: false
+        topic: 'phone/sensor/hokus/cmnd/say'
+    - delay:
+        seconds: 5
+    - service: telegram_bot.send_message
+      data_template:
+        message: 'Barrera abierta automáticamente'
+        target: !secret hokusphone_telegram_chat_id
+        inline_keyboard: 
+          - 'Cerrar:/switch.turn_on#switch.barrera'

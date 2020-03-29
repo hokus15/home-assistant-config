@@ -1,0 +1,17 @@
+# Turn off outside lights after 10 seconds when there is day light
+- alias: 'Lights - Outside - Turned on when daylight'
+  trigger:
+    platform: state
+    entity_id: light.luces_exteriores
+    to: 'on'
+  condition:
+    condition: state 
+    entity_id: sun.sun
+    state: 'above_horizon'
+  action:
+    - delay:
+        seconds: 10
+    - service: script.turn_off_outside_lights
+      data_template:
+        data:
+          logbook_message: 'apagadas porque es de dia'

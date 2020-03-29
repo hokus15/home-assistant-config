@@ -1,0 +1,18 @@
+- alias: 'Energy - Notification - UPS battery to be replaced'
+  trigger:
+    platform: state
+    entity_id: sensor.energy_ups_status
+    to: 'Reemplazar batería'
+  action:
+    - service: notify.telegram
+      data:
+        message: 'Batería del SAI agotándose, reemplazar'
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'warning'
+              pretext: ':zap: *Suministro eléctrico* :zap:'
+              text: 'Batería del SAI agotándose, reemplazar'
+              fallback: 'Suministro eléctrico'

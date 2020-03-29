@@ -1,0 +1,86 @@
+- alias: 'Security - Motion detection - New file video or image in FTP'
+  trigger:
+    platform: event
+    event_type: folder_watcher
+    event_data:
+      event_type: created
+  action:
+    - service: mqtt.publish
+      data_template:
+        payload: 'ON'
+        retain: true
+        topic: >- 
+            {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/camera/recibidor/motion
+            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/camera/piscina/motion
+            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/camera/barbacoa/motion
+            {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/camera/caseta/motion
+            {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/motion
+            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/salon/motion
+            {%- else -%}home/camera/desconocido/motion{%-endif-%}
+    - service: mqtt.publish
+      data_template:
+        payload_template: >-
+          {%- if "C1_00626E615161" in trigger.event.data.folder -%}{{{"event_type": "motion", "camera": "C1_00626E615161", "camera_name": "recibidor", "camera_entity_id": "camera.recibidor", "detection_entity_id": "switch.recibidor_camara_det_mov", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado en el recibidor"} | tojson }}
+          {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}{{{"event_type": "motion", "camera": "FI9853EP_00626E563E69", "camera_name": "piscina", "camera_entity_id": "camera.piscina", "detection_entity_id": "switch.piscina_camara_det_mov", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado en la piscina"} | tojson }}
+          {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}{{{"event_type": "motion", "camera": "FI9900P_00626E6D21B2", "camera_name": "barbacoa", "camera_entity_id": "camera.barbacoa", "detection_entity_id": "switch.barbacoa_camara_det_mov", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado en la barbacoa"} | tojson }}
+          {%- elif "WVC54CGA" in trigger.event.data.folder -%}{{{"event_type": "motion", "camera": "WVC54CGA", "camera_name": "caseta", "camera_entity_id": "camera.caseta", "detection_entity_id": "switch.caseta_camara_det_mov", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado en la caseta"} | tojson }}
+          {%- elif "puerta_principal" in trigger.event.data.folder -%}{{{"event_type": "motion", "camera": "puerta_principal", "camera_name": "entrada", "camera_entity_id": "camera.entrada", "detection_entity_id": "input_boolean.entrada_camara_det_mov", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado en la entrada"} | tojson }}
+          {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}{{{"event_type": "motion", "camera": "C1_00626E8305E1", "camera_name": "salon", "camera_entity_id": "camera.salon", "detection_entity_id": "switch.salon_camara_det_mov", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado en el salón"} | tojson }}
+          {%- else -%}{{{"event_type": "motion", "camera": "Unknown", "camera_name": "desconocido", "camera_entity_id": "camera.desconocido", "detection_entity_id": "none", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado"} | tojson }}
+          {%-endif-%}
+        retain: true
+        topic: >- 
+            {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/camera/recibidor/motion/attributes
+            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/camera/piscina/motion/attributes
+            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/camera/barbacoa/motion/attributes
+            {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/camera/caseta/motion/attributes
+            {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/motion/attributes
+            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/salon/motion/attributes
+            {%- else -%}home/camera/desconocido/motion/attributes{%-endif-%}
+    - event: CAMERA_MOTION_DETECTED
+      event_data_template:
+        name: 'Movimiento detectado'
+        customData:  >-
+          {%- if "C1_00626E615161" in trigger.event.data.folder -%}{{{"event_type": "motion", "camera": "C1_00626E615161", "camera_name": "recibidor", "camera_entity_id": "camera.recibidor", "detection_entity_id": "switch.recibidor_camara_det_mov", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado en el recibidor"} | tojson }}
+          {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}{{{"event_type": "motion", "camera": "FI9853EP_00626E563E69", "camera_name": "piscina", "camera_entity_id": "camera.piscina", "detection_entity_id": "switch.piscina_camara_det_mov", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado en la piscina"} | tojson }}
+          {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}{{{"event_type": "motion", "camera": "FI9900P_00626E6D21B2", "camera_name": "barbacoa", "camera_entity_id": "camera.barbacoa", "detection_entity_id": "switch.barbacoa_camara_det_mov", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado en la barbacoa"} | tojson }}
+          {%- elif "WVC54CGA" in trigger.event.data.folder -%}{{{"event_type": "motion", "camera": "WVC54CGA", "camera_name": "caseta", "camera_entity_id": "camera.caseta", "detection_entity_id": "switch.caseta_camara_det_mov", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado en la caseta"} | tojson }}
+          {%- elif "puerta_principal" in trigger.event.data.folder -%}{{{"event_type": "motion", "camera": "puerta_principal", "camera_name": "entrada", "camera_entity_id": "camera.entrada", "detection_entity_id": "input_boolean.entrada_camara_det_mov", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado en la entrada"} | tojson }}
+          {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}{{{"event_type": "motion", "camera": "C1_00626E8305E1", "camera_name": "salon", "camera_entity_id": "camera.salon", "detection_entity_id": "switch.salon_camara_det_mov", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado en el salón"} | tojson }}
+          {%- else -%}{{{"event_type": "motion", "camera": "Unknown", "camera_name": "desconocido", "camera_entity_id": "camera.desconocido", "detection_entity_id": "none", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado"} | tojson }}
+          {%-endif-%}
+    - delay:
+        seconds: 30
+    - service: mqtt.publish
+      data_template:
+        payload: 'OFF'
+        retain: true
+        topic:  >- 
+            {%- if "C1_00626E615161" in trigger.event.data.folder -%}home/camera/recibidor/motion
+            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}home/camera/piscina/motion
+            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}home/camera/barbacoa/motion
+            {%- elif "WVC54CGA" in trigger.event.data.folder -%}home/camera/caseta/motion
+            {%- elif "puerta_principal" in trigger.event.data.folder -%}home/camera/entrada/motion
+            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}home/camera/salon/motion
+            {%- else -%}home/camera/desconocido/motion{%-endif-%}
+
+#    - service: logbook.log
+#      data_template:
+#        name: >-
+#            {%- if "C1_00626E615161" in trigger.event.data.folder -%}Recibidor
+#            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}Piscina
+#            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}Barbacoa
+#            {%- elif "WVC54CGA" in trigger.event.data.folder -%}Caseta
+#            {%- elif "puerta_principal" in trigger.event.data.folder -%}Entrada principal
+#            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}Salón
+#            {%- else -%}desconocido{%-endif-%}
+#        message: 'Movimiento detectado'
+#        entity_id: >-
+#            {%- if "C1_00626E615161" in trigger.event.data.folder -%}camera.recibidor
+#            {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}camera.piscina
+#            {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}camera.barbacoa
+#            {%- elif "WVC54CGA" in trigger.event.data.folder -%}camera.caseta
+#            {%- elif "puerta_principal" in trigger.event.data.folder -%}camera.entrada
+#            {%- elif "C1_00626E8305E1" in trigger.event.data.folder -%}camera.salon
+#            {%- else -%}desconocido{%-endif-%}
+#        domain: camera

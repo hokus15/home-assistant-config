@@ -1,0 +1,17 @@
+- alias: "Presence - Guest - Morning"
+  trigger:
+    platform: time
+    at: '08:15:00'
+  condition:
+    condition: time
+    weekday:
+      - tue
+      - fri
+  action:
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.guest_mode_minutes
+        value: 240.0
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.guest_mode

@@ -1,0 +1,11 @@
+# Turn off security group when alarm is disarmed
+- alias: 'Alarm - Control Panel - Disarmed'
+  trigger: 
+    - platform: state
+      entity_id: alarm_control_panel.home
+      to: 'disarmed'
+  action:
+    # Turn off alarm related sensors
+    - service: homeassistant.turn_off
+      data:
+        entity_id: group.seguridad

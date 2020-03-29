@@ -1,0 +1,19 @@
+- alias: 'Presence - Holiday - Calendar holiday mode on'
+  trigger:
+    platform: state
+    entity_id: calendar.holiday_mode
+    from: 'off'
+    to: 'on'
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.holiday
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: 'good'
+              pretext: ':bust_in_silhouette: *Presencia* :bust_in_silhouette:'
+              text: 'Modo vacaciones activado'
+              fallback: 'Presencia'

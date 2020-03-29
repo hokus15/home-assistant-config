@@ -1,0 +1,19 @@
+- alias: 'System - Notification - Update available'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.updater
+      from: 'off'
+      to: 'on'
+  action:
+    - service: notify.telegram
+      data_template:
+        message: 'Nueva versión {{ states.updater.updater.state }} de Home Assistant disponible.'
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          attachments:
+            - color: '#439FE0'
+              pretext: ':house_with_garden: *Home-Assistant* :house_with_garden:'
+              text: 'Nueva versión de Home Assistant {{ state_attr("binary_sensor.updater", "newest_version") }} está disponible.'
+              fallback: 'Home-Assistant'

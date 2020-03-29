@@ -1,0 +1,11 @@
+# Turn on outside lights at sunset
+- alias: 'Lights - Outside - Daily low daylight'
+  trigger:
+    platform: sun
+    event: 'sunset'
+    offset: '00:10:00'
+  action:
+    - service: script.turn_on_outside_lights_75pct
+      data_template:
+        data:
+          logbook_message: 'encendidas por la puesta de sol'

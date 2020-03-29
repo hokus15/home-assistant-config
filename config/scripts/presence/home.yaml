@@ -1,5 +1,5 @@
 presence_empty_home:
-  alias: '[Presence - Home] Empty home'
+  alias: '[Presence - Home] Nobody at home'
   sequence:
     # Alarm arm away
     - service: script.turn_on

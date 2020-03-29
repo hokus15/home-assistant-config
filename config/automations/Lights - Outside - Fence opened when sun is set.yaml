@@ -1,0 +1,21 @@
+# Turn on outside lights when fence is opened and the sun is set
+- alias: 'Lights - Outside - Fence opened when sun is set'
+  trigger:
+    platform: state
+    entity_id: sensor.outside_fence
+    from: 'Cerrada'
+    to: 'En movimiento'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: 'light.luces_exteriores'
+        state: 'off'
+      - condition: state 
+        entity_id: sun.sun
+        state: 'below_horizon'
+  action:
+    - service: script.turn_on_outside_lights_75pct
+      data_template:
+        data:
+          logbook_message: 'encendidas porque se ha abierto la barrera y es de noche'

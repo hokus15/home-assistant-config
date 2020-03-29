@@ -1,0 +1,20 @@
+##############################
+# Pico tariff
+# Starting at 13 in summer
+# Starting at 12 in winter
+##############################
+- alias: 'Energy - Tariff - Pico start summer'
+  trigger:
+    platform: time
+    at: '13:00:00'
+  condition:
+    - condition: state
+      entity_id: 'binary_sensor.summer_time'
+      state: 'on'
+  action:
+    - service: mqtt.publish
+      data:
+        topic: 'home/sensor/energy/tariff'
+        retain: true
+        qos: 0
+        payload_template: 'Pico'

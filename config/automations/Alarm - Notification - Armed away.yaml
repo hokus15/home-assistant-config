@@ -1,0 +1,10 @@
+- alias: 'Alarm - Notification - Armed away'
+  trigger: 
+    - platform: state
+      entity_id: alarm_control_panel.home
+      from: 'disarmed'
+      to: 'armed_away'
+  action:
+    - service: script.alarm_notify_state_change_slack
+      data_template:
+        message: 'Alarma armada en modo fuera de casa'

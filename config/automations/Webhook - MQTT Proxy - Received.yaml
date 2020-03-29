@@ -1,0 +1,11 @@
+- alias: 'Webhook - MQTT Proxy - Received'
+  trigger:
+    - platform: webhook
+      webhook_id: mqtt-proxy-webhook
+  action:
+    - service: mqtt.publish
+      data_template:
+        topic: "{{ trigger.json.t }}" 
+        payload: "{{ trigger.json.m }}"
+        qos: "{{ trigger.json.q|default(0) }}"
+        retain: "{{ trigger.json.r|default(false) }}"

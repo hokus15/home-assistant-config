@@ -1,0 +1,13 @@
+- alias: 'Misc - Notification] - Before Geni goes to work'
+  trigger:
+    platform: time
+    at: '20:45:00'
+  condition:
+    condition: state
+    entity_id: 'calendar.turnos_geni_noche'
+    state: 'on'
+  action:
+    - service: notify.telegram
+      data:
+        target: !secret geniphone_telegram_chat_id
+        message: '¿Has desconectado ya el despertador? Si no lo has hecho, es hora de hacerlo.'

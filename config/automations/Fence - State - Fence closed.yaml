@@ -1,0 +1,12 @@
+- alias: 'Fence - State - Fence closed'
+  trigger:
+    platform: state
+    entity_id: sensor.outside_fence_sensor_state
+    to: 'on'
+  action:
+    - service: mqtt.publish
+      data:
+        topic: home/sensor/fence
+        payload: Cerrada
+        qos: 0
+        retain: true

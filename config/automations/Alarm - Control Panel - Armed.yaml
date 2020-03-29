@@ -1,0 +1,11 @@
+# Turn on security group when alarm changes the state from disarmed
+- alias: 'Alarm - Control Panel - Armed'
+  trigger: 
+    - platform: state
+      entity_id: alarm_control_panel.home
+      from: 'disarmed'
+  action:
+    # Turn on alarm related sensors
+    - service: homeassistant.turn_on
+      data:
+        entity_id: group.seguridad

@@ -1,0 +1,9 @@
+- alias: 'Presence - Notification - Jordi not at home'
+  trigger:
+    - platform: state
+      entity_id: person.jordi
+      from: 'home'
+  action:
+    - service: script.presence_notify_state_change_slack
+      data_template:
+        message: 'Jordi no está en casa'

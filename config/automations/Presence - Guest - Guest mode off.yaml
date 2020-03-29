@@ -1,0 +1,10 @@
+- alias: 'Presence - Guest - Guest mode off'
+  trigger:
+    platform: state
+    entity_id: switch.guest_mode
+    to: 'off'
+  action:
+    - service: device_tracker.see
+      data:
+        dev_id: 'guest'
+        location_name: 'not_home'
