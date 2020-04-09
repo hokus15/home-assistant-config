@@ -95,35 +95,7 @@ sensor:
             {% else %}
                 Apagada
             {%- endif %}
-  
-  #- platform: cups
-  #  printers:
-  #    - HP_Photosmart_5520
-  
-  # Magenta ink level
-  - platform: mqtt
-    state_topic: 'home/sensor/printer/magenta'
-    name: ink_level_magenta
-    unit_of_measurement: '%'
-  
-  # Cyan ink level
-  - platform: mqtt
-    state_topic: 'home/sensor/printer/cyan'
-    name: ink_level_cyan
-    unit_of_measurement: '%'
-  
-  # Yellow ink level
-  - platform: mqtt
-    state_topic: 'home/sensor/printer/yellow'
-    name: ink_level_yellow
-    unit_of_measurement: '%'
-  
-  # black ink level
-  - platform: mqtt
-    state_topic: 'home/sensor/printer/black'
-    name: ink_level_black
-    unit_of_measurement: '%'
-  
+
   - platform: cert_expiry
     host: !secret cert_expiry_host
 

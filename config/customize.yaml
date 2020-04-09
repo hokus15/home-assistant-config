@@ -17,16 +17,16 @@ sensor.sunset:
   icon: mdi:weather-sunset-down
 sensor.sunrise:
   icon: mdi:weather-sunset-up
-sensor.ink_level_magenta:
+sensor.hp_photosmart_5520_series_magenta_ink:
   friendly_name: Magenta
   entity_picture: /local/printer_ink_magenta.png
-sensor.ink_level_cyan:
+sensor.hp_photosmart_5520_series_cyan_ink:
   friendly_name: Cyan
   entity_picture: /local/printer_ink_cyan.png
-sensor.ink_level_yellow:
+sensor.hp_photosmart_5520_series_yellow_ink:
   friendly_name: Amarillo
   entity_picture: /local/printer_ink_yellow.png
-sensor.ink_level_black:
+sensor.hp_photosmart_5520_series_black_ink:
   friendly_name: Negro
   entity_picture: /local/printer_ink_black.png
 sensor.hp_photosmart_5520:

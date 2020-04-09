@@ -1116,14 +1116,17 @@
                         {
                             "cards": [
                                 {
-                                    "entity": "sensor.hp_photosmart_5520",
+                                    "aspect_ratio": "0%",
+                                    "entity": "sensor.hp_photosmart_5520_series",
                                     "image": "/local/device_tracker.hp_photosmart_5520.jpg",
                                     "type": "picture-entity"
                                 },
                                 {
                                     "cards": [
                                         {
-                                            "entity": "sensor.ink_level_black",
+                                            "entity": "sensor.hp_photosmart_5520_series_black_ink",
+                                            "max": 100,
+                                            "min": 0,
                                             "name": "Negro",
                                             "severity": {
                                                 "green": 50,
@@ -1133,7 +1136,7 @@
                                             "type": "gauge"
                                         },
                                         {
-                                            "entity": "sensor.ink_level_magenta",
+                                            "entity": "sensor.hp_photosmart_5520_series_magenta_ink",
                                             "name": "Magenta",
                                             "severity": {
                                                 "green": 50,
@@ -1148,7 +1151,9 @@
                                 {
                                     "cards": [
                                         {
-                                            "entity": "sensor.ink_level_cyan",
+                                            "entity": "sensor.hp_photosmart_5520_series_cyan_ink",
+                                            "max": 100,
+                                            "min": 0,
                                             "name": "Cyan",
                                             "severity": {
                                                 "green": 50,
@@ -1158,7 +1163,7 @@
                                             "type": "gauge"
                                         },
                                         {
-                                            "entity": "sensor.ink_level_yellow",
+                                            "entity": "sensor.hp_photosmart_5520_series_yellow_ink",
                                             "name": "Amarillo",
                                             "severity": {
                                                 "green": 50,
