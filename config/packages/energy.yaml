@@ -43,16 +43,16 @@ sensor:
             Desconocido
           {%- endif %}
 
-  - platform: nut
-    host: a0d7b954-nut
-    resources:
-      - ups.status
-      - ups.status.display
-      - battery.charge
-      - battery.runtime
-      - ups.beeper.status
-      - ups.mfr
-      - ups.model
+#  - platform: nut
+#    host: a0d7b954-nut
+#    resources:
+#      - ups.status
+#      - ups.status.display
+#      - battery.charge
+#      - battery.runtime
+#      - ups.beeper.status
+#      - ups.mfr
+#      - ups.model
 
   - platform: mqtt
     state_topic: 'home/sensor/energy/tariff'
