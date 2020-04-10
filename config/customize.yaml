@@ -327,9 +327,6 @@ climate.netatmo_general:
 sensor.first_floor_temperature:
   device_class: temperature
   friendly_name: Temp. media 1ª planta
-switch.thermostat_away_mode:
-  friendly_name: Termostato modo ausente
-  icon: mdi:home-outline
 sensor.season:
   friendly_name: Estación
 sensor.home_temperature_stats:

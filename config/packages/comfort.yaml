@@ -65,13 +65,13 @@ binary_sensor:
       # And heating is idle
       # And first floor temperature trend is going down
       home_comfort_state:
-        entity_id: sensor.first_floor_temperature, climate.netatmo_general, group.unidad_familiar, switch.thermostat_away_mode, binary_sensor.first_floor_temperature_down
+        entity_id: sensor.first_floor_temperature, climate.netatmo_general, group.unidad_familiar, binary_sensor.first_floor_temperature_down
         value_template: >- 
           {{ states('sensor.first_floor_temperature')|float < states.sensor.entrance_hall_thermostat_target_temperature|float
              and is_state('group.unidad_familiar', 'home')
              and states.climate.netatmo_general != None
              and not is_state('climate.netatmo_general', 'off')
-             and is_state('switch.thermostat_away_mode','off')
+             and not is_state_attr('climate.netatmo_general', 'preset_mode', 'away')
              and is_state_attr('climate.netatmo_general', 'hvac_action', 'off')
              and is_state('binary_sensor.first_floor_temperature_down','on')
           }}
@@ -442,22 +442,22 @@ sensor:
           mdi:window-minimize
           {%- endif %}
 
-switch:
-  - platform: template
-    switches:
-      thermostat_away_mode:
-        entity_id: climate.netatmo_general
-        value_template: "{{is_state_attr('climate.netatmo_general', 'preset_mode', 'away')}}"
-        turn_on:
-          service: climate.set_preset_mode
-          entity_id: climate.netatmo_general
-          data:
-            preset_mode: 'away'
-        turn_off:
-          service: climate.set_preset_mode
-          entity_id: climate.netatmo_general
-          data:
-            preset_mode: 'Schedule'
+#switch:
+#  - platform: template
+#    switches:
+#      thermostat_away_mode:
+#        entity_id: climate.netatmo_general
+#        value_template: "{{is_state_attr('climate.netatmo_general', 'preset_mode', 'away')}}"
+#        turn_on:
+#          service: climate.set_preset_mode
+#          entity_id: climate.netatmo_general
+#          data:
+#            preset_mode: 'away'
+#        turn_off:
+#          service: climate.set_preset_mode
+#          entity_id: climate.netatmo_general
+#          data:
+#            preset_mode: 'Schedule'
 
 input_boolean:
   home_comfort_mode:

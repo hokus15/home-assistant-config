@@ -23,7 +23,7 @@
           
           Estado calefacción: {{states.climate.netatmo_general.state}}
           
-          Modo ausente: {{states.switch.thermostat_away_mode.state}}
+          Modo ausente: {{is_state_attr('climate.netatmo_general', 'preset_mode', 'away')}}
           
           Estado termostato: {{states.climate.netatmo_general.attributes.hvac_mode}}
           
