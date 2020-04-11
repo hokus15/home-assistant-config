@@ -286,21 +286,29 @@
                             "type": "horizontal-stack"
                         },
                         {
+                            "aspect_ratio": "0%",
                             "camera_image": "camera.recibidor",
                             "entities": [
-                                "switch.recibidor_camara_det_mov",
-                                "binary_sensor.recibidor_camara_infrarrojo",
-                                "binary_sensor.recibidor_camara_det_mov"
+                                {
+                                    "entity": "switch.recibidor_camara_det_mov"
+                                },
+                                {
+                                    "entity": "binary_sensor.recibidor_camara_infrarrojo"
+                                }
                             ],
                             "title": "Recibidor",
                             "type": "picture-glance"
                         },
                         {
+                            "aspect_ratio": "0%",
                             "camera_image": "camera.salon",
                             "entities": [
-                                "switch.salon_camara_det_mov",
-                                "binary_sensor.salon_camara_infrarrojo",
-                                "binary_sensor.salon_camara_det_mov"
+                                {
+                                    "entity": "switch.salon_camara_det_mov"
+                                },
+                                {
+                                    "entity": "binary_sensor.salon_camara_infrarrojo"
+                                }
                             ],
                             "title": "Sal\u00f3n",
                             "type": "picture-glance"
@@ -317,30 +325,40 @@
                             "type": "picture-glance"
                         },
                         {
+                            "aspect_ratio": "0%",
                             "camera_image": "camera.piscina",
                             "entities": [
-                                "switch.piscina_camara_det_mov",
-                                "binary_sensor.piscina_camara_infrarrojo",
-                                "binary_sensor.piscina_camara_det_mov"
+                                {
+                                    "entity": "switch.piscina_camara_det_mov"
+                                },
+                                {
+                                    "entity": "binary_sensor.piscina_camara_infrarrojo"
+                                }
                             ],
                             "title": "Piscina",
                             "type": "picture-glance"
                         },
                         {
+                            "aspect_ratio": "0%",
                             "camera_image": "camera.barbacoa",
                             "entities": [
-                                "switch.barbacoa_camara_det_mov",
-                                "binary_sensor.barbacoa_camara_infrarrojo",
-                                "binary_sensor.barbacoa_camara_det_mov"
+                                {
+                                    "entity": "switch.barbacoa_camara_det_mov"
+                                },
+                                {
+                                    "entity": "binary_sensor.barbacoa_camara_infrarrojo"
+                                }
                             ],
                             "title": "Barbacoa",
                             "type": "picture-glance"
                         },
                         {
+                            "aspect_ratio": "0%",
                             "camera_image": "camera.caseta",
                             "entities": [
-                                "switch.caseta_camara_det_mov",
-                                "binary_sensor.caseta_camara_det_mov"
+                                {
+                                    "entity": "switch.caseta_camara_det_mov"
+                                }
                             ],
                             "title": "Caseta",
                             "type": "picture-glance"
@@ -451,9 +469,12 @@
                             "aspect_ratio": "0%",
                             "camera_image": "camera.salon",
                             "entities": [
-                                "switch.salon_camara_det_mov",
-                                "binary_sensor.salon_camara_infrarrojo",
-                                "binary_sensor.salon_camara_det_mov",
+                                {
+                                    "entity": "switch.salon_camara_det_mov"
+                                },
+                                {
+                                    "entity": "binary_sensor.salon_camara_infrarrojo"
+                                },
                                 {
                                     "entity": "light.salon_light"
                                 },
@@ -495,12 +516,18 @@
                             "type": "entities"
                         },
                         {
+                            "aspect_ratio": "0%",
                             "camera_image": "camera.recibidor",
                             "entities": [
-                                "switch.recibidor_camara_det_mov",
-                                "binary_sensor.recibidor_camara_infrarrojo",
-                                "binary_sensor.recibidor_camara_det_mov",
-                                "light.entrance_hall_lamp_light"
+                                {
+                                    "entity": "switch.recibidor_camara_det_mov"
+                                },
+                                {
+                                    "entity": "binary_sensor.recibidor_camara_infrarrojo"
+                                },
+                                {
+                                    "entity": "light.entrance_hall_lamp_light"
+                                }
                             ],
                             "title": "Recibidor",
                             "type": "picture-glance"
@@ -628,9 +655,6 @@
                                 },
                                 {
                                     "entity": "group.unidad_familiar"
-                                },
-                                {
-                                    "entity": "switch.thermostat_away_mode"
                                 },
                                 {
                                     "entity": "input_boolean.sleep_mode"
@@ -762,11 +786,15 @@
                                     "type": "history-graph"
                                 },
                                 {
+                                    "aspect_ratio": "0%",
                                     "camera_image": "camera.piscina",
                                     "entities": [
-                                        "switch.piscina_camara_det_mov",
-                                        "binary_sensor.piscina_camara_infrarrojo",
-                                        "binary_sensor.piscina_camara_det_mov"
+                                        {
+                                            "entity": "switch.piscina_camara_det_mov"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.piscina_camara_infrarrojo"
+                                        }
                                     ],
                                     "title": "Piscina",
                                     "type": "picture-glance"
@@ -839,20 +867,26 @@
                             "type": "entities"
                         },
                         {
+                            "aspect_ratio": "0%",
                             "camera_image": "camera.caseta",
                             "entities": [
-                                "switch.caseta_camara_det_mov",
-                                "binary_sensor.caseta_camara_det_mov"
+                                {
+                                    "entity": "switch.caseta_camara_det_mov"
+                                }
                             ],
                             "title": "Caseta",
                             "type": "picture-glance"
                         },
                         {
+                            "aspect_ratio": "0%",
                             "camera_image": "camera.barbacoa",
                             "entities": [
-                                "switch.barbacoa_camara_det_mov",
-                                "binary_sensor.barbacoa_camara_infrarrojo",
-                                "binary_sensor.barbacoa_camara_det_mov"
+                                {
+                                    "entity": "switch.barbacoa_camara_det_mov"
+                                },
+                                {
+                                    "entity": "binary_sensor.barbacoa_camara_infrarrojo"
+                                }
                             ],
                             "title": "Barbacoa",
                             "type": "picture-glance"
