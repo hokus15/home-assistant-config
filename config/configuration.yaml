@@ -94,6 +94,8 @@ logger:
     homeassistant.components.sensor.command_line: warn
     homeassistant.components.netatmo.sensor: error
     homeassistant.components.withings: error
+    homeassistant.components.ipp: fatal
+    homeassistant.config_entries: error
 #    homeassistant.components.mqtt: debug
 #    homeassistant.components.media_player.cast: debug
 #    homeassistant.components.sensor: debug
