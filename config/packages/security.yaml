@@ -5,11 +5,6 @@ recorder:
       - binary_sensor.porche_sensor_puerta
       - binary_sensor.porche_sensor_persiana
       - binary_sensor.despacho_sensor_movimiento
-      - binary_sensor.salon_camara_det_mov
-      - binary_sensor.recibidor_camara_det_mov
-      - binary_sensor.piscina_camara_det_mov
-      - binary_sensor.barbacoa_camara_det_mov
-      - binary_sensor.caseta_camara_det_mov
 
       - switch.recibidor_camara_det_mov
       - switch.salon_camara_det_mov
@@ -230,45 +225,3 @@ binary_sensor:
     payload_on: '1'
     payload_off: '0'
     #device_class: light
-  
-  # Alarm status for foscam cam in hall
-  - platform: mqtt
-    state_topic: 'home/camera/recibidor/motion'
-    name: recibidor_camara_det_mov
-    device_class: motion
-    json_attributes_topic: 'home/camera/recibidor/motion/attributes'
-
-  # Alarm status for foscam cam in swimming pool
-  - platform: mqtt
-    state_topic: 'home/camera/piscina/motion'
-    name: piscina_camara_det_mov
-    device_class: motion
-    json_attributes_topic: 'home/camera/piscina/motion/attributes'
-
-  # Alarm status for foscam cam in bbq
-  - platform: mqtt
-    state_topic: 'home/camera/barbacoa/motion'
-    name: barbacoa_camara_det_mov
-    device_class: motion
-    json_attributes_topic: 'home/camera/barbacoa/motion/attributes'
-
-  # Alarm status for foscam cam in living room
-  - platform: mqtt
-    state_topic: 'home/camera/salon/motion'
-    name: salon_camara_det_mov
-    device_class: motion
-    json_attributes_topic: 'home/camera/salon/motion/attributes'
-
-  # Alarm status for Linksys cam in caseta
-  - platform: mqtt
-    state_topic: 'home/camera/caseta/motion'
-    name: caseta_camara_det_mov
-    device_class: motion
-    json_attributes_topic: 'home/camera/caseta/motion/attributes'
-
-  # Alarm status for Netatmo presence
-  - platform: mqtt
-    state_topic: 'home/camera/entrada/motion'
-    name: entrada_camara_det_mov
-    device_class: motion
-    json_attributes_topic: 'home/camera/entrada/motion/attributes'

@@ -255,8 +255,6 @@ camera.recibidor:
 binary_sensor.recibidor_camara_infrarrojo:
   friendly_name: Infrarrojos recibidor
   icon: mdi:led-on
-binary_sensor.recibidor_camara_det_mov:
-  friendly_name: Movimiento recibidor
 switch.recibidor_camara_det_mov:
   friendly_name: Det. mov. recibidor
   icon: mdi:transit-transfer
@@ -265,8 +263,6 @@ camera.salon:
 binary_sensor.salon_camara_infrarrojo:
   friendly_name: Infrarrojos salón
   icon: mdi:led-on
-binary_sensor.salon_camara_det_mov:
-  friendly_name: Movimiento salón
 switch.salon_camara_det_mov:
   friendly_name: Det. mov. salón
   icon: mdi:transit-transfer
@@ -275,8 +271,6 @@ camera.piscina:
 binary_sensor.piscina_camara_infrarrojo:
   friendly_name: Infrarrojos piscina
   icon: mdi:led-on
-binary_sensor.piscina_camara_det_mov:
-  friendly_name: Movimiento piscina
 switch.piscina_camara_det_mov:
   friendly_name: Det. mov. piscina
   icon: mdi:transit-transfer
@@ -285,15 +279,11 @@ camera.barbacoa:
 binary_sensor.barbacoa_camara_infrarrojo:
   friendly_name: Infrarrojos barbacoa
   icon: mdi:led-on
-binary_sensor.barbacoa_camara_det_mov:
-  friendly_name: Movimiento barbacoa
 switch.barbacoa_camara_det_mov:
   friendly_name: Det. mov. barbacoa
   icon: mdi:transit-transfer
 camera.caseta:
   friendly_name: Caseta
-binary_sensor.caseta_camara_det_mov:
-  friendly_name: Movimiento caseta
 switch.caseta_camara_det_mov:
   friendly_name: Det. mov. caseta
   icon: mdi:transit-transfer
