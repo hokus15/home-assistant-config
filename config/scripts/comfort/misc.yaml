@@ -1,13 +1,18 @@
-jordi_on_bed:
-  alias: '[Comfort - Misc] Jordi On bed'
+jordi_in_bed:
+  alias: '[Comfort - Misc] Jordi in bed'
   sequence:
-    - condition: state
-      entity_id: input_boolean.sleep_mode
-      state: 'on'
-    - service: script.turn_off_inside_lights
-      data_template:
-        data:
-          logbook_message: 'apagadas porque Jordi ya está en la cama'
+    - event: bed_occupancy_changed
+      event_data:
+        state: 'in_bed'
+        bed_id: 'jordi'
+
+jordi_not_in_bed:
+  alias: '[Comfort - Misc] Jordi not in bed'
+  sequence:
+    - event: bed_occupancy_changed
+      event_data:
+        state: 'not_in_bed'
+        bed_id: 'jordi'
 
 speech_set_tts_volume_level:
   alias: '[Comfort - Misc] Lower the home-assistant tts volume level between 22 and 8:30'
