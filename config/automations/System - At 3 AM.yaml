@@ -10,8 +10,10 @@
     data_template:
       message: ''
       data:
-        attachments:
-          - color: 'danger'
-            pretext: ':floppy_disk: *Copia seguridad* :floppy_disk:'
-            text: 'Copia de seguridad [{{ now().strftime("%Y%m%d") }} - Auto] creada'
-            fallback: 'Copia seguridad'
+        blocks:
+          - type: 'divider'
+          - type: 'section'
+            text:
+              type: 'mrkdwn'
+              text: ':content-save: Copia de seguridad [{{ now().strftime("%Y%m%d") }} - Auto] creada'
+          - type: 'divider'

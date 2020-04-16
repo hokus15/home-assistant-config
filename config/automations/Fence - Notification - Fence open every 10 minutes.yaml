@@ -31,8 +31,10 @@
       data_template:
         message: ''
         data:
-          attachments:
-            - color: 'warning'
-              pretext: ':door: *Barrera abierta* :door:'
-              text: 'Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos.'
-              fallback: 'Barrera abierta'
+          blocks:
+            - type: 'divider'
+            - type: 'section'
+              text:
+                type: 'mrkdwn'
+                text: ':gate: Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos.'
+            - type: 'divider'
