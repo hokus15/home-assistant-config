@@ -5,12 +5,3 @@
   action:
     - service: switch.turn_on
       entity_id: switch.motor_piscina
-    - service: notify.slack
-      data_template:
-        message: ''
-        data:
-          attachments:
-            - color: 'warning'
-              pretext: ':swimmer: *Piscina* :swimmer:'
-              text: 'Motor piscina encendido'
-              fallback: 'Piscina'
