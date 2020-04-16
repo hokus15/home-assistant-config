@@ -75,20 +75,6 @@ alarm_notify_sensor:
           - 'Desarmar 2 horas:/120_mins, Desarmar 3 horas:/180_mins'
           - 'Desarmar alarma:/script.turn_on#script.alarm_disarm_telegram'
 
-    - service: notify.slack
-      data_template:
-        message: ''
-        data:
-          blocks:
-            - type: section
-              text:
-                type: mrkdwn
-                text: ':bell: *Alarma* :bell:'
-            - type: section
-              text:
-                type: mrkdwn
-                text: '{{data.message}}'
-
 alarm_notify_state_change_slack:
   alias: '[Alarm - Notification] Notify alarm state changes to slack'
   sequence:
