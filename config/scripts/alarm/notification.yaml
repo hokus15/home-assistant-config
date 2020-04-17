@@ -1,5 +1,5 @@
 alarm_notify_camera:
-  alias: '[Alarm - Notification] Notifies camera motion detection with photo/video attached'
+  alias: 'Alarm - Notify camera'
   sequence:
 #    # Send the video to slack
 #    - service: notify.slack
@@ -35,59 +35,59 @@ alarm_notify_camera:
 
     # Continue to notify in telegram only if jpg or mp4 video
     - condition: template
-      value_template: '{{ "jpg" in data.file or "mp4" in data.file }}'
+      value_template: '{{ "jpg" in file_path or "mp4" in file_path }}'
 
     # Notify to telegram
     - service_template: >-
-        {%- if "jpg" in data.file -%}
+        {%- if "jpg" in file_path -%}
           telegram_bot.send_photo
-        {%- elif "mp4" in data.file -%}
+        {%- elif "mp4" in file_path -%}
           telegram_bot.send_video
         {%- endif -%}
 
       data_template:
-        file: '{{data.file}}'
-        caption: '{{data.message}}'
+        file: '{{file_path}}'
+        caption: '{{message}}'
         target: 
           - !secret hokusphone_telegram_chat_id
           #- !secret geniphone_telegram_chat_id
         disable_notification: false
         inline_keyboard:
-          - 'Desactivar det. mov. {{data.camera_name}}:/homeassistant.turn_off#{{data.turn_off_entity_id}}'
+          - 'Desactivar det. mov. {{place}}:/homeassistant.turn_off#{{turn_off_entity_id}}'
           - 'Desarmar 30 mins:/30_mins, Desarmar 1 hora:/60_mins'
           - 'Desarmar 2 horas:/120_mins, Desarmar 3 horas:/180_mins'
           - 'Desarmar alarma:/script.turn_on#script.alarm_disarm_telegram'
 
 alarm_notify_sensor:
-  alias: '[Alarm - Notification] Notifies sensor alarm'
+  alias: 'Alarm - Notify sensor'
   sequence:
     # Send the notification
     - service: telegram_bot.send_message
       data_template:
-        message: '{{data.message}}'
+        message: '{{message}}'
         target: 
           - !secret hokusphone_telegram_chat_id
           #- !secret geniphone_telegram_chat_id
         disable_notification: false
         inline_keyboard:
-          - 'Desactivar sensor:/homeassistant.turn_off#{{data.turn_off_entity_id}}'
+          - 'Desactivar sensor:/homeassistant.turn_off#{{turn_off_entity_id}}'
           - 'Desarmar 30 mins:/30_mins, Desarmar 1 hora:/60_mins'
           - 'Desarmar 2 horas:/120_mins, Desarmar 3 horas:/180_mins'
           - 'Desarmar alarma:/script.turn_on#script.alarm_disarm_telegram'
 
-alarm_notify_state_change_slack:
-  alias: '[Alarm - Notification] Notify alarm state changes to slack'
-  sequence:
-    - service: notify.slack
-      data_template:
-        message: ''
-        data:
-          blocks:
-            - type: section
-              text:
-                type: mrkdwn
-                text: ':bell: *Alarma* :bell:'
-            - type: section
-              text:
-                type: mrkdwn
-                text: '{{message}}'
+#alarm_notify_state_change_slack:
+#  alias: '[Alarm - Notification] Notify alarm state changes to slack'
+#  sequence:
+#    - service: notify.slack
+#      data_template:
+#        message: ''
+#        data:
+#          blocks:
+#            - type: section
+#              text:
+#                type: mrkdwn
+#                text: ':bell: *Alarma* :bell:'
+#            - type: section
+#              text:
+#                type: mrkdwn
+#                text: '{{message}}'
