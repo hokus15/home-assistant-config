@@ -1,5 +1,5 @@
 comfort_mode_on:
-  alias: '[Comfort] Turn on comfort mode'
+  alias: 'Comfort - Mode on'
   sequence:
     # Set thermostat boost mode 
     - service: climate.set_preset_mode
@@ -19,7 +19,7 @@ comfort_mode_on:
         entity_id: input_boolean.home_comfort_mode
 
 comfort_mode_off:
-  alias: '[Comfort] Turn off comfort mode'
+  alias: 'Comfort - Mode off'
   sequence:
     # Set thermostat Schedule mode 
     - service: climate.set_preset_mode
