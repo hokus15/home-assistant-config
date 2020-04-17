@@ -3,6 +3,7 @@ recorder:
     entities:
       - input_boolean.home_comfort_mode
       - input_boolean.sleep_mode
+      - input_boolean.bed_occupancy_jordi
       - sensor.netatmo_exterior_temperature
       - sensor.netatmo_exterior_humidity
       - sensor.netatmo_pluviometro_rain
@@ -466,6 +467,9 @@ input_boolean:
   sleep_mode:
     name: Modo dormir
     icon: 'mdi:sleep'
+  bed_occupancy_jordi:
+    name: Jordi en la cama
+    icon: 'mdi:bed'
 
 weather:
   - platform: darksky
