@@ -6,13 +6,15 @@
   action:
     - service: notify.telegram
       data:
-        message: 'Batería del SAI agotándose, reemplazar'
+        message: '🔋 Batería del SAI agotada, reemplazar'
     - service: notify.slack
       data_template:
         message: ''
         data:
-          attachments:
-            - color: 'warning'
-              pretext: ':zap: *Suministro eléctrico* :zap:'
-              text: 'Batería del SAI agotándose, reemplazar'
-              fallback: 'Suministro eléctrico'
+          blocks:
+            - type: 'divider'
+            - type: 'section'
+              text:
+                type: 'mrkdwn'
+                text: ':battery-low: Batería del SAI agotada, reemplazar'
+            - type: 'divider'

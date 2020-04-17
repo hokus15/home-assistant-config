@@ -11,8 +11,10 @@
       data_template:
         message: ''
         data:
-          attachments:
-            - color: 'good'
-              pretext: ':euro: *Inversiones* :euro:'
-              text: 'Bitcoin ha llegado a un valor de {{states.sensor.exchange_rate_1_btc.state}} {{states.sensor.exchange_rate_1_btc.attributes.unit_of_measurement}}'
-              fallback: 'Inversiones'
+          blocks:
+            - type: 'divider'
+            - type: 'section'
+              text:
+                type: 'mrkdwn'
+                text: ':bitcoin: Bitcoin ha llegado a un valor de {{states.sensor.exchange_rate_1_btc.state}} {{states.sensor.exchange_rate_1_btc.attributes.unit_of_measurement}}'
+            - type: 'divider'

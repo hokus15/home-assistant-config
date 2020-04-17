@@ -13,13 +13,15 @@
   action:
     - service: notify.telegram
       data:
-        message: 'Suministro eléctrico reestablecido'
+        message: '🔌 Suministro eléctrico reestablecido'
     - service: notify.slack
       data_template:
         message: ''
         data:
-          attachments:
-            - color: 'good'
-              pretext: ':zap: *Suministro eléctrico* :zap:'
-              text: 'Suministro eléctrico restablecido'
-              fallback: 'Suministro eléctrico'
+          blocks:
+            - type: 'divider'
+            - type: 'section'
+              text:
+                type: 'mrkdwn'
+                text: ':flash: Suministro eléctrico restablecido'
+            - type: 'divider'

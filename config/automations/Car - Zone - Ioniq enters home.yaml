@@ -26,7 +26,18 @@
         seconds: 5
     - service: telegram_bot.send_message
       data_template:
-        message: 'Barrera abierta automáticamente'
+        message: '🚪 Barrera abierta automáticamente'
         target: !secret hokusphone_telegram_chat_id
         inline_keyboard: 
           - 'Cerrar:/switch.turn_on#switch.barrera'
+    - service: notify.slack
+      data_template:
+        message: ''
+        data:
+          blocks:
+            - type: 'divider'
+            - type: 'section'
+              text:
+                type: 'mrkdwn'
+                text: ':gate: Barrera abierta automáticamente'
+            - type: 'divider'

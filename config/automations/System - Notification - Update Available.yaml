@@ -7,13 +7,15 @@
   action:
     - service: notify.telegram
       data_template:
-        message: 'Nueva versión {{ states.updater.updater.state }} de Home Assistant disponible.'
+        message: 'La versión {{ state_attr("binary_sensor.updater", "newest_version") }} de Home Assistant está disponible.'
     - service: notify.slack
       data_template:
         message: ''
         data:
-          attachments:
-            - color: '#439FE0'
-              pretext: ':house_with_garden: *Home-Assistant* :house_with_garden:'
-              text: 'Nueva versión de Home Assistant {{ state_attr("binary_sensor.updater", "newest_version") }} está disponible.'
-              fallback: 'Home-Assistant'
+          blocks:
+            - type: 'divider'
+            - type: 'section'
+              text:
+                type: 'mrkdwn'
+                text: ':home-assistant: La versión {{ state_attr("binary_sensor.updater", "newest_version") }} de Home Assistant está disponible'
+            - type: 'divider'

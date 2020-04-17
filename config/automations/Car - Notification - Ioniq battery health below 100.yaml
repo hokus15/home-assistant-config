@@ -6,13 +6,15 @@
   action:
     - service: notify.telegram
       data_template:
-        message: 'La salud de la batería del Ioniq es del: {{states.sensor.car_ioniq_state_battery_health.state}}{{states.sensor.car_ioniq_state_battery_health.attributes.unit_of_measurement}}'
+        message: '🚘 La salud de la batería del Ioniq es del {{states.sensor.car_ioniq_state_battery_health.state}}{{states.sensor.car_ioniq_state_battery_health.attributes.unit_of_measurement}}'
     - service: notify.slack
       data_template:
         message: ''
         data:
-          attachments:
-            - color: 'warning'
-              pretext: ':oncoming_automobile: *Coche* :oncoming_automobile:'
-              text: 'La salud de la batería del Ioniq es del: {{states.sensor.car_ioniq_state_battery_health.state}}{{states.sensor.car_ioniq_state_battery_health.attributes.unit_of_measurement}}'
-              fallback: 'Coche'
+          blocks:
+            - type: 'divider'
+            - type: 'section'
+              text:
+                type: 'mrkdwn'
+                text: ':car-electric: La salud de la batería del Ioniq es del {{states.sensor.car_ioniq_state_battery_health.state}}{{states.sensor.car_ioniq_state_battery_health.attributes.unit_of_measurement}}'
+            - type: 'divider'

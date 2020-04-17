@@ -11,7 +11,7 @@
     - service: telegram_bot.send_message
       data_template:
         message: > 
-          Calefacción encendida para mejorar para estar más calentitos
+          Calefacción encendida para estar más calentitos
           
           Temperatura objetivo: {{ states.sensor.entrance_hall_thermostat_target_temperature }}
           

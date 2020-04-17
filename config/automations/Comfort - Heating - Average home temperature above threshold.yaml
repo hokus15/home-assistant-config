@@ -24,7 +24,7 @@
         domain: climate
     - service: telegram_bot.send_message
       data_template:
-        message: 'Empieza el calor!!!! He apagado la calefacción.'
+        message: 'Empieza el calor 🌞🌞🌞!!!! He apagado la calefacción.'
         target: 
           - !secret hokusphone_telegram_chat_id
           - !secret geniphone_telegram_chat_id

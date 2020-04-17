@@ -21,7 +21,7 @@
         cache: false
     - service: telegram_bot.send_message
       data_template:
-        message: 'Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos'
+        message: '🚪 Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos'
         target: 
           - !secret hokusphone_telegram_chat_id
           - !secret geniphone_telegram_chat_id
