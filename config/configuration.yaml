@@ -83,7 +83,7 @@ logbook:
       - sensor.disk_use_share_camera
 
 logger:
-  default: warn
+  default: error
   logs:
     openzwave: warn
     libopenzwave: warn
