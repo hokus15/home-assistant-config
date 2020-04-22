@@ -15,6 +15,12 @@ sensor:
       - 'date_time'
   
   - platform: google_wifi
+    monitored_conditions:
+      - current_version
+      - new_version
+      - uptime
+      - last_restart
+      - status
   
   - platform: rest
     resource: https://api.gdax.com/products/ETH-EUR/ticker
