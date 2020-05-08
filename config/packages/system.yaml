@@ -102,6 +102,17 @@ sensor:
                 Apagada
             {%- endif %}
 
+  - platform: mqtt
+    name: "Hokuslaptop - Remaining Battery"
+    state_topic: "home/hokuslan/hokuslaptop/windows-monitor/stats/battery/remaining-percent"
+    unit_of_measurement: '%'
+    device_class: battery
+    value_template: "{{ value }}"
+    availability_topic: "home/hokuslan/hokuslaptop/lwt"
+    payload_available: "ON"
+    payload_not_available: "OFF"
+    qos: 1
+
   - platform: cert_expiry
     host: !secret cert_expiry_host
 
