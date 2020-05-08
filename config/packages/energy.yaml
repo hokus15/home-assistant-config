@@ -3,6 +3,10 @@ recorder:
     entities:
       - sensor.efergy_2577
       - sensor.energy_ups_status
+      - sensor.pvpcdha
+      - sensor.energy_home_hourly_cost
+      - sensor.energy_home_daily_cost
+      - sensor.energy_home_monthly_cost
       - binary_sensor.energy_ups_status_bs
 
 logbook:
@@ -42,7 +46,14 @@ sensor:
           {% else %}
             Desconocido
           {%- endif %}
-
+      energy_cost_hour:
+        friendly_name: "Coste energía (hora en curso)"
+        unit_of_measurement: '€'
+        icon_template: "mdi:cash-multiple"
+        value_template: "{%if states.sensor.pvpcdha.state %}{{ ((states.sensor.energy_home_hourly.state | float) * (states.sensor.pvpcdha.state | float)) | round(5) }}{% else %}unknown{% endif %}"
+        entity_id:
+          - sensor.energy_home_hourly
+          - sensor.pvpcdha
 #  - platform: nut
 #    host: a0d7b954-nut
 #    resources:
@@ -69,6 +80,9 @@ binary_sensor:
           seconds: 30
 
 utility_meter:
+  energy_home_hourly:
+    source: sensor.energy_spent
+    cycle: hourly 
   energy_home_daily:
     source: sensor.energy_spent
     cycle: daily 
@@ -83,3 +97,12 @@ utility_meter:
       - Pico
       - Valle
 #      - Super valle
+  energy_home_hourly_cost:
+    source: sensor.energy_cost_hour
+    cycle: hourly
+  energy_home_daily_cost:
+    source: sensor.energy_cost_hour
+    cycle: daily
+  energy_home_monthly_cost:
+    source: sensor.energy_cost_hour
+    cycle: monthly

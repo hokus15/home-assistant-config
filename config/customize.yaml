@@ -500,3 +500,14 @@ sensor.netatmo_habitacion_battery_percent:
   friendly_name: Batería módulo Habitación Netatmo
 sensor.netatmo_pluviometro_battery:
   friendly_name: Batería Pluviómetro
+sensor.energy_home_hourly:
+  friendly_name: Energía consumida (hora en curso)
+sensor.energy_home_hourly_cost:
+  friendly_name: Coste horario
+  icon: mdi:cash-multiple
+sensor.energy_home_daily_cost:
+  friendly_name: Coste diario
+  icon: mdi:cash-multiple
+sensor.energy_home_monthly_cost:
+  friendly_name: Coste mensual
+  icon: mdi:cash-multiple

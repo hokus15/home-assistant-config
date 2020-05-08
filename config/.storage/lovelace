@@ -130,6 +130,12 @@
                                         },
                                         {
                                             "entity": "sensor.energy_ups_status"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_cost_hour"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_home_hourly"
                                         }
                                     ],
                                     "show_header_toggle": false,
@@ -144,6 +150,29 @@
                                     "name": "Consumo instant\u00e1neo",
                                     "type": "sensor",
                                     "unit": "W"
+                                },
+                                {
+                                    "entity": "sensor.pvpcdha",
+                                    "graph": "line",
+                                    "hours_to_show": 48,
+                                    "name": "Precio electricidad",
+                                    "type": "sensor"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.energy_home_hourly_cost"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_home_daily_cost"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_home_monthly_cost"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "Coste energ\u00eda",
+                                    "type": "entities"
                                 },
                                 {
                                     "entities": [
