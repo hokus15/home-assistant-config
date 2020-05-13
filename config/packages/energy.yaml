@@ -3,11 +3,15 @@ recorder:
     entities:
       - sensor.efergy_2577
       - sensor.energy_ups_status
+      - sensor.nut_ups_status_data
       - sensor.pvpcdha
+      - sensor.pvpcdha_access_toll
       - sensor.energy_home_hourly_cost
       - sensor.energy_home_daily_cost
       - sensor.energy_home_monthly_cost
+      - sensor.energy_home_monthly_valle_pct
       - binary_sensor.energy_ups_status_bs
+      - sensor.energy_cost_hour_toll
 
 logbook:
   exclude:
@@ -29,14 +33,31 @@ sensor:
 
   - platform: template
     sensors:
+      energy_price_access_toll:
+        friendly_name: 'Peaje acceso'
+        value_template: 0.044027
+        unit_of_measurement: '€/kWh'
+        entity_id: sensor.date_time
+      energy_price_electriciy_tax:
+        friendly_name: 'Impuesto sobre la electricidad'
+        value_template: 5.1127
+        unit_of_measurement: '%'
+        entity_id: sensor.date_time
+      energy_price_vat:
+        friendly_name: 'IVA'
+        value_template: 21
+        unit_of_measurement: '%'
+        entity_id: sensor.date_time
       energy_ups_status:
         value_template: >-
           {%- if is_state('sensor.nut_ups_status_data', 'OL') %}
             Normal
           {% elif is_state('sensor.nut_ups_status_data', 'OL LB') %}
-            Normal Batería baja
+            Normal batería baja
           {% elif is_state('sensor.nut_ups_status_data', 'OL CHRG') %}
             Cargando
+          {% elif is_state('sensor.nut_ups_status_data', 'OL CHRG LB') %}
+            Cargando batería baja
           {% elif is_state('sensor.nut_ups_status_data', 'OB DISCHRG') %}
             Batería
           {% elif is_state('sensor.nut_ups_status_data', 'LB DISCHRG') %}
@@ -46,6 +67,22 @@ sensor:
           {% else %}
             Desconocido
           {%- endif %}
+      pvpcdha_access_toll:
+        friendly_name: "Precio energía con peaje"
+        unit_of_measurement: '€/kWh'
+        icon_template: "mdi:cash-multiple"
+        value_template: "{%if states.sensor.pvpcdha.state %}{{ ((states.sensor.energy_price_access_toll.state | float) + (states.sensor.pvpcdha.state | float)) | round(5) }}{% else %}unknown{% endif %}"
+        entity_id:
+          - sensor.energy_price_access_toll
+          - sensor.pvpcdha
+      energy_cost_hour_toll:
+        friendly_name: "Coste energía con peaje (hora en curso)"
+        unit_of_measurement: '€'
+        icon_template: "mdi:cash-multiple"
+        value_template: "{%if states.sensor.pvpcdha_access_toll.state %}{{ ((states.sensor.energy_home_hourly.state | float) * (states.sensor.pvpcdha_access_toll.state | float)) | round(5) }}{% else %}unknown{% endif %}"
+        entity_id:
+          - sensor.energy_home_hourly
+          - sensor.pvpcdha_access_toll
       energy_cost_hour:
         friendly_name: "Coste energía (hora en curso)"
         unit_of_measurement: '€'
@@ -54,16 +91,32 @@ sensor:
         entity_id:
           - sensor.energy_home_hourly
           - sensor.pvpcdha
-#  - platform: nut
-#    host: a0d7b954-nut
-#    resources:
-#      - ups.status
-#      - ups.status.display
-#      - battery.charge
-#      - battery.runtime
-#      - ups.beeper.status
-#      - ups.mfr
-#      - ups.model
+      energy_home_daily_valle_pct:
+        friendly_name: "Proporción diaria"
+        unit_of_measurement: '%'
+        icon_template: "mdi:label-percent"
+        value_template: "{{ (((states.sensor.energy_home_daily_valle.state | float))/(((states.sensor.energy_home_daily_pico.state | float) + (states.sensor.energy_home_daily_valle.state | float))) * 100)  | round(1) }}"
+        entity_id:
+          - sensor.energy_home_daily_pico
+          - sensor.energy_home_daily_valle
+      energy_home_monthly_valle_pct:
+        friendly_name: "Proporción mensual"
+        unit_of_measurement: '%'
+        icon_template: "mdi:label-percent"
+        value_template: "{{ (((states.sensor.energy_home_monthly_valle.state | float))/(((states.sensor.energy_home_monthly_pico.state | float) + (states.sensor.energy_home_monthly_valle.state | float))) * 100)  | round(1) }}"
+        entity_id:
+          - sensor.energy_home_monthly_pico
+          - sensor.energy_home_monthly_valle
+
+  - platform: nut
+    resources:
+      - ups.status
+      - ups.status.display
+      - battery.charge
+      - battery.runtime
+      - ups.beeper.status
+      - ups.load
+      - input.voltage
 
   - platform: mqtt
     state_topic: 'home/sensor/energy/tariff'
@@ -75,7 +128,8 @@ binary_sensor:
       energy_ups_status_bs:
         device_class: plug
         entity_id: sensor.nut_ups_status_data
-        value_template: "{{ is_state('sensor.nut_ups_status_data', 'OL') or is_state('sensor.nut_ups_status_data', 'OL CHRG') or is_state('sensor.nut_ups_status_data', 'OL LB')}}"
+        # Takes into consideration: OL, OL CHRG, OL LB, OL CHRG LB
+        value_template: "{{ 'OL' in states('sensor.nut_ups_status_data') }}"
         delay_off:
           seconds: 30
 
