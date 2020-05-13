@@ -511,3 +511,5 @@ sensor.energy_home_daily_cost:
 sensor.energy_home_monthly_cost:
   friendly_name: Coste mensual
   icon: mdi:cash-multiple
+sensor.nut_ups_beeper_status:
+  icon: mdi:whistle
