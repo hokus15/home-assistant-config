@@ -130,16 +130,10 @@
                                         },
                                         {
                                             "entity": "sensor.energy_ups_status"
-                                        },
-                                        {
-                                            "entity": "sensor.energy_cost_hour"
-                                        },
-                                        {
-                                            "entity": "sensor.energy_home_hourly"
                                         }
                                     ],
                                     "show_header_toggle": false,
-                                    "title": "Energ\u00eda",
+                                    "title": "Electricidad",
                                     "type": "entities"
                                 },
                                 {
@@ -150,48 +144,6 @@
                                     "name": "Consumo instant\u00e1neo",
                                     "type": "sensor",
                                     "unit": "W"
-                                },
-                                {
-                                    "entity": "sensor.pvpcdha",
-                                    "graph": "line",
-                                    "hours_to_show": 48,
-                                    "name": "Precio electricidad",
-                                    "type": "sensor"
-                                },
-                                {
-                                    "entities": [
-                                        {
-                                            "entity": "sensor.energy_home_hourly_cost"
-                                        },
-                                        {
-                                            "entity": "sensor.energy_home_daily_cost"
-                                        },
-                                        {
-                                            "entity": "sensor.energy_home_monthly_cost"
-                                        }
-                                    ],
-                                    "show_header_toggle": false,
-                                    "title": "Coste energ\u00eda",
-                                    "type": "entities"
-                                },
-                                {
-                                    "entities": [
-                                        {
-                                            "entity": "sensor.energy_home_daily_pico"
-                                        },
-                                        {
-                                            "entity": "sensor.energy_home_daily_valle"
-                                        },
-                                        {
-                                            "entity": "sensor.energy_home_monthly_pico"
-                                        },
-                                        {
-                                            "entity": "sensor.energy_home_monthly_valle"
-                                        }
-                                    ],
-                                    "show_header_toggle": false,
-                                    "title": "Consumo energ\u00e9tico",
-                                    "type": "entities"
                                 }
                             ],
                             "type": "vertical-stack"
@@ -935,6 +887,164 @@
                     "icon": "mdi:tree",
                     "path": "exterior",
                     "title": "Exterior"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "cards": [
+                                {
+                                    "content": "### Distribuidora",
+                                    "type": "markdown"
+                                },
+                                {
+                                    "hold_action": {
+                                        "action": "none"
+                                    },
+                                    "image": "https://www.edistribucion.com/content/dam/edistribucion/logo_e-distribution.jpg",
+                                    "tap_action": {
+                                        "action": "url",
+                                        "url_path": "https://zonaprivada.edistribucion.com/areaprivada/s/login/?language=es"
+                                    },
+                                    "type": "picture"
+                                },
+                                {
+                                    "entity": "sensor.pvpcdha",
+                                    "graph": "line",
+                                    "hours_to_show": 48,
+                                    "name": "Precio electricidad",
+                                    "type": "sensor"
+                                },
+                                {
+                                    "content": "### Comercializadora",
+                                    "type": "markdown"
+                                },
+                                {
+                                    "hold_action": {
+                                        "action": "none"
+                                    },
+                                    "image": "https://www.energiaxxi.com/static/iberia/open-power/img/logos-mr/energiaxxi_es.svg",
+                                    "tap_action": {
+                                        "action": "url",
+                                        "url_path": "https://www.energiaxxi.com/login.html"
+                                    },
+                                    "type": "picture"
+                                },
+                                {
+                                    "entity": "sensor.pvpcdha_access_toll",
+                                    "graph": "line",
+                                    "name": "Precio electricidad con peaje de acceso",
+                                    "type": "sensor"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "utility_meter.energy_home_daily"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_home_daily_valle_pct",
+                                            "name": "Proporci\u00f3n valle diaria"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_home_monthly_valle_pct",
+                                            "name": "Proporci\u00f3n valle mensual"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_home_hourly_cost"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_home_daily_cost"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_home_monthly_cost"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "type": "entities"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "binary_sensor.energy_ups_status_bs",
+                                    "type": "entity"
+                                },
+                                {
+                                    "detail": 2,
+                                    "entity": "sensor.efergy_2577",
+                                    "graph": "line",
+                                    "hours_to_show": 24,
+                                    "name": "Consumo instant\u00e1neo",
+                                    "type": "sensor",
+                                    "unit": "W"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "sensor.energy_ups_status",
+                                    "name": " APC Back-UPS XS 650CI",
+                                    "type": "entity"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.nut_ups_battery_runtime",
+                                            "name": "Tiempo con bater\u00eda"
+                                        },
+                                        {
+                                            "entity": "sensor.nut_ups_beeper_status",
+                                            "name": "Pitido"
+                                        },
+                                        {
+                                            "entity": "sensor.qnapups_input_voltage",
+                                            "name": "Voltage entrada"
+                                        }
+                                    ],
+                                    "type": "glance"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "sensor.nut_ups_battery_charge",
+                                            "max": 100,
+                                            "min": 0,
+                                            "name": "Carga bater\u00eda",
+                                            "severity": {
+                                                "green": 0,
+                                                "red": -80,
+                                                "yellow": -30
+                                            },
+                                            "theme": "default",
+                                            "type": "gauge"
+                                        },
+                                        {
+                                            "entity": "sensor.qnapups_load",
+                                            "max": 100,
+                                            "min": 0,
+                                            "name": "Carga",
+                                            "severity": {
+                                                "green": 0,
+                                                "red": 90,
+                                                "yellow": 70
+                                            },
+                                            "theme": "default",
+                                            "type": "gauge"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        }
+                    ],
+                    "icon": "mdi:transmission-tower",
+                    "path": "energia",
+                    "title": "Energ\u00eda"
                 },
                 {
                     "badges": [],
