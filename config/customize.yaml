@@ -184,6 +184,9 @@ utility_meter.energy_home_daily:
 sensor.car_ioniq_location_last_update:
   friendly_name: Última actualización posición
   icon: mdi:update
+binary_sensor.car_ioniq_location_sensor:
+  friendly_name: Ioniq
+  entity_picture: /local/device_tracker.car_ioniq_icon.png
 sensor.car_ioniq_charge_state:
   friendly_name: Estado cargador Ioniq
   icon: mdi:flash-circle
