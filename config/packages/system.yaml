@@ -107,6 +107,8 @@ sensor:
     state_topic: "home/hokuslan/hokuslaptop/windows-monitor/stats/battery/remaining-percent"
     unit_of_measurement: '%'
     device_class: battery
+    force_update: true
+    expire_after: 120
     value_template: "{{ value }}"
     availability_topic: "home/hokuslan/hokuslaptop/lwt"
     payload_available: "ON"
