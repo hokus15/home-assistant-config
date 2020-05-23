@@ -989,50 +989,6 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "sensor.car_ioniq_charge_state"
-                                },
-                                {
-                                    "entity": "switch.car_ioniq_charger"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_current_power"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_today_energy_charged"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Carga Ioniq",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "entity": "sensor.car_ioniq_charger_daily_pico"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_daily_valle"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_monthly_pico"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_monthly_valle"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_yearly_pico"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_yearly_valle"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Consumo cargador Ioniq",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                {
                                     "entity": "binary_sensor.car_ioniq_state"
                                 },
                                 {
@@ -1072,6 +1028,50 @@
                             ],
                             "show_header_toggle": false,
                             "title": "Localizaci\u00f3n Ioniq",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.car_ioniq_charge_state"
+                                },
+                                {
+                                    "entity": "switch.car_ioniq_charger"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_current_power"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_today_energy_charged"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Carga Ioniq",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.car_ioniq_charger_daily_pico"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_daily_valle"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_monthly_pico"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_monthly_valle"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_yearly_pico"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_yearly_valle"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Consumo cargador Ioniq",
                             "type": "entities"
                         },
                         {
