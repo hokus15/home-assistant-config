@@ -1444,6 +1444,7 @@
                                     "entities": [
                                         "device_tracker.car_ioniq"
                                     ],
+                                    "hours_to_show": 24,
                                     "type": "map"
                                 },
                                 {
