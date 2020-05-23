@@ -7,7 +7,7 @@ alarm_control_panel:
   - platform: manual
     name: home
     # Time in seconds to leave the building before triggering the alarm
-    pending_time: 0
+    arming_time: 0
     # Time in seconds to disarm the alarm when coming back
     delay_time: 0
     # Time in seconds to keep the triggered status
