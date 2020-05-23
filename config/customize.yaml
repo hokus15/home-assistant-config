@@ -224,8 +224,6 @@ sensor.car_ioniq_charger_daily_super_valle:
   icon: mdi:trending-down
 binary_sensor.car_ioniq_state:
   friendly_name: Estado Ioniq
-camera.car_ioniq:
-  friendly_name: Ioniq
 switch.car_ioniq_charger:
   friendly_name: Cargador Ioniq
   icon: mdi:ev-station

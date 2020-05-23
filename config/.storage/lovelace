@@ -27,6 +27,28 @@
                             "type": "vertical-stack"
                         },
                         {
+                            "entities": [
+                                {
+                                    "entity": "binary_sensor.car_ioniq_state"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_soc_display"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_odometer"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_last_update"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_location_last_update"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Estado Ioniq",
+                            "type": "entities"
+                        },
+                        {
                             "cards": [
                                 {
                                     "cards": [
@@ -119,28 +141,6 @@
                             ],
                             "show_header_toggle": false,
                             "title": "Presencia",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "entity": "binary_sensor.car_ioniq_state"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_soc_display"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_odometer"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_last_update"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_location_last_update"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Estado Ioniq",
                             "type": "entities"
                         },
                         {
@@ -1031,54 +1031,6 @@
                             "type": "entities"
                         },
                         {
-                            "entities": [
-                                {
-                                    "entity": "sensor.car_ioniq_charge_state"
-                                },
-                                {
-                                    "entity": "switch.car_ioniq_charger"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_current_power"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_today_energy_charged"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Carga Ioniq",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "entity": "sensor.car_ioniq_charger_daily_pico"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_daily_valle"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_monthly_pico"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_monthly_valle"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_yearly_pico"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_yearly_valle"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Consumo cargador Ioniq",
-                            "type": "entities"
-                        },
-                        {
-                            "entity": "camera.car_ioniq",
-                            "type": "picture-entity"
-                        },
-                        {
                             "cards": [
                                 {
                                     "entities": [
@@ -1146,6 +1098,60 @@
                                 }
                             ],
                             "type": "vertical-stack"
+                        },
+                        {
+                            "default_zoom": 14,
+                            "entities": [
+                                {
+                                    "entity": "device_tracker.car_ioniq"
+                                }
+                            ],
+                            "hours_to_show": 24,
+                            "type": "map"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.car_ioniq_charge_state"
+                                },
+                                {
+                                    "entity": "switch.car_ioniq_charger"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_current_power"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_today_energy_charged"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Carga Ioniq",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.car_ioniq_charger_daily_pico"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_daily_valle"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_monthly_pico"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_monthly_valle"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_yearly_pico"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_yearly_valle"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Consumo cargador Ioniq",
+                            "type": "entities"
                         }
                     ],
                     "icon": "mdi:car-multiple",
@@ -1435,17 +1441,17 @@
                                     "type": "picture-elements"
                                 },
                                 {
-                                    "aspect_ratio": "80%",
-                                    "type": "iframe",
-                                    "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjqHrJxdPMLiDP8RVoePKxwa1o9zvelQVq8Rcb7PejAkFCI_9sNPait1r9Z0DdYdXztehIO9zY79HZ/pubchart?oid=1004631484&format=interactive"
-                                },
-                                {
                                     "default_zoom": 14,
                                     "entities": [
                                         "device_tracker.car_ioniq"
                                     ],
                                     "hours_to_show": 24,
                                     "type": "map"
+                                },
+                                {
+                                    "aspect_ratio": "80%",
+                                    "type": "iframe",
+                                    "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjqHrJxdPMLiDP8RVoePKxwa1o9zvelQVq8Rcb7PejAkFCI_9sNPait1r9Z0DdYdXztehIO9zY79HZ/pubchart?oid=1004631484&format=interactive"
                                 },
                                 {
                                     "cards": [

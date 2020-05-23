@@ -418,9 +418,3 @@ utility_meter:
       - Pico
       - Valle
 #      - Super valle
-
-camera:
-  - platform: generic
-    name: car_ioniq
-    still_image_url: !secret camera_ioniq_still_image_url
-    limit_refetch_to_url_change: true
