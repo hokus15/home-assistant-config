@@ -3,6 +3,9 @@
     platform: state
     entity_id: sensor.car_ioniq_charge_state
     from: 'Cargando'
+  condition:
+    condition: template
+    value_template: "{{ state_attr('switch.car_ioniq_charger', 'today_energy_kwh') is not none }}"
   action:
     - service: notify.telegram
       data_template:
