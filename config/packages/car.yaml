@@ -9,6 +9,7 @@ recorder:
       - sensor.car_ioniq_state_odometer
       - sensor.car_ioniq_state_soc_display
       - sensor.car_ioniq_state_soc_bms
+      - sensor.car_ioniq_location_gps_accuracy
       - sensor.cargador_aragon
       - sensor.cargador_conquistador
       - sensor.cargador_palmanyola
