@@ -1,7 +1,7 @@
 binary_sensor:
  - platform: workday
    country: ES
-   province: IBA
+   province: IB
 
 sensor:
   - platform: version
