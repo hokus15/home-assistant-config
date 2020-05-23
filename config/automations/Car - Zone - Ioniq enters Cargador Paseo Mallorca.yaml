@@ -4,6 +4,14 @@
        entity_id: device_tracker.car_ioniq
        zone: zone.cargador_paseo_mallorca
        event: enter
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.car_ioniq_state
+        state: 'on'
+      - condition: template
+        value_template: "{{ (state_attr('device_tracker.car_ioniq', 'gps_accuracy')|int) < 100}}"
   action:
     - service: mqtt.publish
       data:

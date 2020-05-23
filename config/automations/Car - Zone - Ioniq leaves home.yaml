@@ -5,9 +5,13 @@
        zone: zone.home
        event: leave
   condition:
-    - condition: state
-      entity_id: binary_sensor.car_ioniq_state
-      state: 'on'
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.car_ioniq_state
+        state: 'on'
+      - condition: template
+        value_template: "{{ (state_attr('device_tracker.car_ioniq', 'gps_accuracy')|int) < 100}}"
   action:
     - service: mqtt.publish
       data:

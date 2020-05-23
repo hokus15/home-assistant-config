@@ -13,6 +13,8 @@
       - condition: state
         entity_id: binary_sensor.car_ioniq_state
         state: 'on'
+      - condition: template
+        value_template: "{{ (state_attr('device_tracker.car_ioniq', 'gps_accuracy')|int) < 100}}"
   action:
     - service: cover.open_cover
       entity_id: cover.outside_fence
