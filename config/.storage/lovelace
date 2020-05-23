@@ -12,7 +12,7 @@
                         {
                             "cards": [
                                 {
-                                    "entity": "binary_sensor.energy_ups_status_bs",
+                                    "entity": "binary_sensor.energy_home_status",
                                     "type": "entity"
                                 },
                                 {
@@ -20,15 +20,7 @@
                                     "type": "entity"
                                 },
                                 {
-                                    "entity": "sensor.energy_ups_status",
-                                    "type": "entity"
-                                },
-                                {
                                     "entity": "sensor.efergy_2577",
-                                    "type": "entity"
-                                },
-                                {
-                                    "entity": "sensor.pvpcdha_access_toll",
                                     "type": "entity"
                                 }
                             ],
@@ -913,7 +905,7 @@
                         {
                             "cards": [
                                 {
-                                    "entity": "binary_sensor.energy_ups_status_bs",
+                                    "entity": "binary_sensor.energy_home_status",
                                     "type": "entity"
                                 },
                                 {
@@ -931,23 +923,23 @@
                         {
                             "cards": [
                                 {
-                                    "entity": "sensor.energy_ups_status",
+                                    "entity": "sensor.qnapups_status_spanish",
                                     "name": " APC Back-UPS XS 650CI",
                                     "type": "entity"
                                 },
                                 {
                                     "entities": [
                                         {
-                                            "entity": "sensor.nut_ups_battery_runtime",
+                                            "entity": "sensor.qnapups_battery_runtime",
                                             "name": "Tiempo con bater\u00eda"
                                         },
                                         {
-                                            "entity": "sensor.nut_ups_beeper_status",
+                                            "entity": "sensor.qnapups_beeper_status",
                                             "name": "Pitido"
                                         },
                                         {
                                             "entity": "sensor.qnapups_input_voltage",
-                                            "name": "Voltage entrada"
+                                            "name": "Voltaje entrada"
                                         }
                                     ],
                                     "type": "glance"
@@ -955,7 +947,7 @@
                                 {
                                     "cards": [
                                         {
-                                            "entity": "sensor.nut_ups_battery_charge",
+                                            "entity": "sensor.qnapups_battery_charge",
                                             "max": 100,
                                             "min": 0,
                                             "name": "Carga bater\u00eda",

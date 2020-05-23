@@ -153,14 +153,10 @@ sensor.efergy_2577:
 sensor.energy_ups_status:
   friendly_name: Estado SAI
   icon: mdi:power-socket-eu
-sensor.nut_ups_manufacturer:
-  friendly_name: Marca SAI
-sensor.nut_ups_model:
-  friendly_name: Modelo SAI
-sensor.nut_ups_battery_charge:
+sensor.qnapups_battery_charge:
   device_class: battery
   friendly_name: Carga SAI
-sensor.nut_ups_battery_runtime:
+sensor.qnapups_battery_runtime:
   friendly_name: Tiempo restante SAI
 sensor.energy_home_daily_pico:
   friendly_name: Consumo diario pico Casa
@@ -174,11 +170,8 @@ sensor.energy_home_monthly_valle:
   friendly_name: Consumo mensual valle Casa
 sensor.energy_home_monthly_super_valle:
   friendly_name: Consumo mensual super valle Casa
-binary_sensor.energy_ups_status_bs:
+binary_sensor.energy_home_status:
   friendly_name: Suministro eléctrico casa
-switch.energy_ups_beeper:
-  friendly_name: Pitido
-  icon: mdi:music-note
 utility_meter.energy_home_daily:
   friendly_name: Tarifa
 sensor.car_ioniq_location_last_update:
@@ -514,5 +507,5 @@ sensor.energy_home_daily_cost:
 sensor.energy_home_monthly_cost:
   friendly_name: Coste mensual
   icon: mdi:cash-multiple
-sensor.nut_ups_beeper_status:
+sensor.qnapups_beeper_status:
   icon: mdi:whistle
