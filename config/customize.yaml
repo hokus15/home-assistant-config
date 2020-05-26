@@ -507,3 +507,7 @@ sensor.energy_home_monthly_cost:
   icon: mdi:cash-multiple
 sensor.qnapups_beeper_status:
   icon: mdi:whistle
+sensor.car_ioniq_state_odometer_last_update:
+  icon: mdi:update
+sensor.car_ioniq_state_battery_last_update:
+  icon: mdi:update

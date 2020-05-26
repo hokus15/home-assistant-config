@@ -41,6 +41,12 @@
                                     "entity": "sensor.car_ioniq_state_last_update"
                                 },
                                 {
+                                    "entity": "sensor.car_ioniq_state_battery_last_update"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_odometer_last_update"
+                                },
+                                {
                                     "entity": "sensor.car_ioniq_location_last_update"
                                 }
                             ],

@@ -245,7 +245,13 @@ sensor:
       # Ioniq State last update
       car_ioniq_state_last_update:
         friendly_name: 'Última actualización'
+        value_template: '{{as_timestamp(states.binary_sensor.car_ioniq_state_sensor.last_updated)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
+      car_ioniq_state_battery_last_update:
+        friendly_name: 'Última actualización batería'
         value_template: '{{((state_attr("binary_sensor.car_ioniq_state_sensor", "timestamp")|int)/1000)|round(0)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
+      car_ioniq_state_odometer_last_update:
+        friendly_name: 'Última actualización odómetro'
+        value_template: '{{as_timestamp(states.sensor.car_ioniq_state_odometer.last_updated)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
       # Ioniq State Of Charge display
       car_ioniq_state_soc_display:
         friendly_name: 'Batería mostrada'
