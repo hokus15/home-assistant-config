@@ -78,7 +78,7 @@ sensor:
     json_attributes_topic: 'car/sensor/ioniq/state/daily'
 
   - platform: rest
-    resource: https://ws.consorcidetransports.com/produccio/ximelib-mobile/rest/devicegroups/41
+    resource: https://ximeintranet.tib.org/ximelib-mobile/rest/devicegroups/41
     name: Cargador Conquistador
     scan_interval: 120
     json_attributes:
@@ -108,7 +108,7 @@ sensor:
           {%- endif %}
 
   - platform: rest
-    resource: https://ws.consorcidetransports.com/produccio/ximelib-mobile/rest/devicegroups/38
+    resource: https://ximeintranet.tib.org/ximelib-mobile/rest/devicegroups/38
     name: Cargador Aragón
     scan_interval: 120
     json_attributes:
@@ -138,7 +138,7 @@ sensor:
           {%- endif %}
 
   - platform: rest
-    resource: https://ws.consorcidetransports.com/produccio/ximelib-mobile/rest/devicegroups/32
+    resource: https://ximeintranet.tib.org/ximelib-mobile/rest/devicegroups/32
     name: Cargador Sant Miquel
     scan_interval: 120
     json_attributes:
@@ -168,7 +168,7 @@ sensor:
           {%- endif %}
 
   - platform: rest
-    resource: https://ws.consorcidetransports.com/produccio/ximelib-mobile/rest/devicegroups/672
+    resource: https://ximeintranet.tib.org/ximelib-mobile/rest/devicegroups/672
     name: Cargador Palmanyola
     scan_interval: 120
     json_attributes:
@@ -198,7 +198,7 @@ sensor:
           {%- endif %}
 
   - platform: rest
-    resource: https://ws.consorcidetransports.com/produccio/ximelib-mobile/rest/devicegroups/29
+    resource: https://ximeintranet.tib.org/ximelib-mobile/rest/devicegroups/29
     name: Cargador Paseo Mallorca
     scan_interval: 120
     json_attributes:
