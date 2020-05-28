@@ -190,6 +190,7 @@ zwave:
 
 tts:
   - platform: google_translate
+    base_url: !secret ha_base_url
 #    cache: true
 #    cache_dir: /tmp/tts
 #    time_memory: 300
