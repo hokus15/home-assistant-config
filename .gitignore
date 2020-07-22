@@ -45,3 +45,4 @@ config/node-red/.flows_cred.json.backup
 config/node-red/.config.json.backup
 config/node-red/.flows.json.backup
 config/.storage/tmpawlr_pit
+config/.storage/core.uuid
