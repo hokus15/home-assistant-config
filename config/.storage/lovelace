@@ -835,6 +835,184 @@
                     "badges": [],
                     "cards": [
                         {
+                            "entities": [
+                                {
+                                    "entity": "binary_sensor.car_ioniq_state"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_soc_display"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_soc_bms"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_odometer"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_energy_consumption"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_battery_health"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_last_update"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_odometer_last_update"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Estado Ioniq",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.car_ioniq_location_gps_accuracy"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_location_last_update"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_location_distance_travelled_between_updates"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Localizaci\u00f3n Ioniq",
+                            "type": "entities"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.cargador_aragon",
+                                            "icon": "mdi:ev-station",
+                                            "name": "Cargador Arag\u00f3n",
+                                            "secondary_info": "last-changed"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_conquistador",
+                                            "icon": "mdi:ev-station",
+                                            "name": "Cargador Conquistador",
+                                            "secondary_info": "last-changed"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_palmanyola",
+                                            "icon": "mdi:ev-station",
+                                            "name": "Cargador Palmanyola",
+                                            "secondary_info": "last-changed"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_sant_miquel",
+                                            "icon": "mdi:ev-station",
+                                            "name": "Cargador Sant Miquel",
+                                            "secondary_info": "last-changed"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_paseo_mallorca",
+                                            "icon": "mdi:ev-station",
+                                            "name": "Cargador Paseo Mallorca",
+                                            "secondary_info": "last-changed"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "Cargadores favoritos",
+                                    "type": "entities"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.cargador_aragon",
+                                            "name": "Arag\u00f3n"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_conquistador",
+                                            "name": "Conquistador"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_palmanyola",
+                                            "name": "Palmanyola"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_sant_miquel",
+                                            "name": "Sant Miquel"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_paseo_mallorca",
+                                            "name": "Paseo Mallorca"
+                                        }
+                                    ],
+                                    "hours_to_show": 72,
+                                    "refresh_interval": 120,
+                                    "type": "history-graph"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "default_zoom": 14,
+                            "entities": [
+                                {
+                                    "entity": "device_tracker.car_ioniq"
+                                }
+                            ],
+                            "hours_to_show": 24,
+                            "type": "map"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.car_ioniq_charge_state"
+                                },
+                                {
+                                    "entity": "switch.car_ioniq_charger"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_current_power"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_state_today_energy_charged"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Carga Ioniq",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.car_ioniq_charger_daily_pico"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_daily_valle"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_monthly_pico"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_monthly_valle"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_yearly_pico"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_yearly_valle"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Consumo cargador Ioniq",
+                            "type": "entities"
+                        }
+                    ],
+                    "icon": "mdi:car-multiple",
+                    "path": "coches",
+                    "title": "Coches"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
                             "cards": [
                                 {
                                     "content": "### Distribuidora",
@@ -988,181 +1166,6 @@
                     "icon": "mdi:transmission-tower",
                     "path": "energia",
                     "title": "Energ\u00eda"
-                },
-                {
-                    "badges": [],
-                    "cards": [
-                        {
-                            "entities": [
-                                {
-                                    "entity": "binary_sensor.car_ioniq_state"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_soc_display"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_soc_bms"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_odometer"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_energy_consumption"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_battery_health"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_last_update"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Estado Ioniq",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "entity": "sensor.car_ioniq_location_gps_accuracy"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_location_last_update"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_location_distance_travelled_between_updates"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Localizaci\u00f3n Ioniq",
-                            "type": "entities"
-                        },
-                        {
-                            "cards": [
-                                {
-                                    "entities": [
-                                        {
-                                            "entity": "sensor.cargador_aragon",
-                                            "icon": "mdi:ev-station",
-                                            "name": "Cargador Arag\u00f3n",
-                                            "secondary_info": "last-changed"
-                                        },
-                                        {
-                                            "entity": "sensor.cargador_conquistador",
-                                            "icon": "mdi:ev-station",
-                                            "name": "Cargador Conquistador",
-                                            "secondary_info": "last-changed"
-                                        },
-                                        {
-                                            "entity": "sensor.cargador_palmanyola",
-                                            "icon": "mdi:ev-station",
-                                            "name": "Cargador Palmanyola",
-                                            "secondary_info": "last-changed"
-                                        },
-                                        {
-                                            "entity": "sensor.cargador_sant_miquel",
-                                            "icon": "mdi:ev-station",
-                                            "name": "Cargador Sant Miquel",
-                                            "secondary_info": "last-changed"
-                                        },
-                                        {
-                                            "entity": "sensor.cargador_paseo_mallorca",
-                                            "icon": "mdi:ev-station",
-                                            "name": "Cargador Paseo Mallorca",
-                                            "secondary_info": "last-changed"
-                                        }
-                                    ],
-                                    "show_header_toggle": false,
-                                    "title": "Cargadores favoritos",
-                                    "type": "entities"
-                                },
-                                {
-                                    "entities": [
-                                        {
-                                            "entity": "sensor.cargador_aragon",
-                                            "name": "Arag\u00f3n"
-                                        },
-                                        {
-                                            "entity": "sensor.cargador_conquistador",
-                                            "name": "Conquistador"
-                                        },
-                                        {
-                                            "entity": "sensor.cargador_palmanyola",
-                                            "name": "Palmanyola"
-                                        },
-                                        {
-                                            "entity": "sensor.cargador_sant_miquel",
-                                            "name": "Sant Miquel"
-                                        },
-                                        {
-                                            "entity": "sensor.cargador_paseo_mallorca",
-                                            "name": "Paseo Mallorca"
-                                        }
-                                    ],
-                                    "hours_to_show": 72,
-                                    "refresh_interval": 120,
-                                    "type": "history-graph"
-                                }
-                            ],
-                            "type": "vertical-stack"
-                        },
-                        {
-                            "default_zoom": 14,
-                            "entities": [
-                                {
-                                    "entity": "device_tracker.car_ioniq"
-                                }
-                            ],
-                            "hours_to_show": 24,
-                            "type": "map"
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "entity": "sensor.car_ioniq_charge_state"
-                                },
-                                {
-                                    "entity": "switch.car_ioniq_charger"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_current_power"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_today_energy_charged"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Carga Ioniq",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "entity": "sensor.car_ioniq_charger_daily_pico"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_daily_valle"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_monthly_pico"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_monthly_valle"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_yearly_pico"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_yearly_valle"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Consumo cargador Ioniq",
-                            "type": "entities"
-                        }
-                    ],
-                    "icon": "mdi:car-multiple",
-                    "path": "coches",
-                    "title": "Coches"
                 },
                 {
                     "badges": [],
