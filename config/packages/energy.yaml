@@ -137,6 +137,8 @@ utility_meter:
   energy_home_monthly:
     source: sensor.energy_spent
     cycle: monthly
+    offset:
+      days: 5
     tariffs:
       - Pico
       - Valle
@@ -150,3 +152,5 @@ utility_meter:
   energy_home_monthly_cost:
     source: sensor.energy_cost_hour
     cycle: monthly
+    offset:
+      days: 5
