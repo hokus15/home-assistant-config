@@ -144,8 +144,8 @@ netatmo:
 withings:
   client_id: !secret withings_client_id
   client_secret: !secret withings_client_secret
-  profiles:
-    - JM
+#  profiles:
+#    - JM
 
 google:
   client_id: !secret google_client_id
@@ -154,10 +154,10 @@ google:
 speedtestdotnet:
   scan_interval:
     hours: 6
-  monitored_conditions:
-    - ping
-    - download
-    - upload
+#  monitored_conditions:
+#    - ping
+#    - download
+#    - upload
 
 zwave:
   usb_path: /dev/ttyACM0
