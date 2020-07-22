@@ -248,7 +248,7 @@ sensor:
         value_template: '{{as_timestamp(states.binary_sensor.car_ioniq_state_sensor.last_updated)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
       car_ioniq_state_battery_last_update:
         friendly_name: 'Última actualización batería'
-        value_template: '{{((state_attr("binary_sensor.car_ioniq_state_sensor", "timestamp")|int)/1000)|round(0)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
+        value_template: '{{((state_attr("binary_sensor.car_ioniq_state_sensor", "timestamp")|int))|round(0)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
       car_ioniq_state_odometer_last_update:
         friendly_name: 'Última actualización odómetro'
         value_template: '{{as_timestamp(states.sensor.car_ioniq_state_odometer.last_updated)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
@@ -256,7 +256,7 @@ sensor:
       car_ioniq_state_soc_display:
         friendly_name: 'Batería mostrada'
         device_class: 'battery'
-        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "soc_display")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "socDisplay")}}'
         unit_of_measurement: '%'
       # Ioniq State Of Health
       car_ioniq_state_battery_health:
@@ -268,7 +268,7 @@ sensor:
       car_ioniq_state_soc_bms:
         friendly_name: 'Batería BMS'
         device_class: 'battery'
-        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "soc_bms")}}'
+        value_template: '{{state_attr("binary_sensor.car_ioniq_state_sensor", "socBms")}}'
         unit_of_measurement: '%'
       # Ioniq odometer
 #      car_ioniq_state_odometer:
@@ -293,7 +293,7 @@ sensor:
 ######################### Daily state data #########################
       # Ioniq daily State Of Charge display
       car_ioniq_state_daily_soc_display:
-        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "soc_display")}}'
+        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "socDisplay")}}'
         unit_of_measurement: '%'
       # Ioniq daily State Of Health
       car_ioniq_state_daily_battery_health:
@@ -301,7 +301,7 @@ sensor:
         unit_of_measurement: '%'
       # Ioniq daily State Of Charge BMS
       car_ioniq_state_daily_soc_bms:
-        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "soc_bms")}}'
+        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "socBms")}}'
         unit_of_measurement: '%'
       # Ioniq daily odometer
       car_ioniq_state_daily_odometer:
