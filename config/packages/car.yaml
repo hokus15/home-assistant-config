@@ -67,9 +67,11 @@ sensor:
 
   - platform: mqtt
     state_topic: 'car/sensor/ioniq/odometer'
+    value_template: '{{ value_json.odometer }}'
     name: car_ioniq_state_odometer
     icon: 'mdi:counter'
     unit_of_measurement: 'Km'
+    force_update: true
     
   - platform: mqtt
     state_topic: 'car/sensor/ioniq/state/daily'
