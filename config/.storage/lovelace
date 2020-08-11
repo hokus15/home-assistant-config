@@ -29,16 +29,13 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "binary_sensor.car_ioniq_state"
+                                    "entity": "binary_sensor.car_ioniq_state_sensor"
                                 },
                                 {
                                     "entity": "sensor.car_ioniq_state_soc_display"
                                 },
                                 {
                                     "entity": "sensor.car_ioniq_state_odometer"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_last_update"
                                 },
                                 {
                                     "entity": "sensor.car_ioniq_state_battery_last_update"
@@ -835,35 +832,54 @@
                     "badges": [],
                     "cards": [
                         {
-                            "entities": [
+                            "cards": [
                                 {
-                                    "entity": "binary_sensor.car_ioniq_state"
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.car_ioniq_state"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_state_soc_display"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_state_soc_bms"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_state_odometer"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_state_energy_consumption"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_state_battery_health"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_state_battery_last_update"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_state_odometer_last_update"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_charge_time_to_100_human"
+                                        }
+                                    ],
+                                    "title": "Estado Ioniq",
+                                    "type": "entities"
                                 },
                                 {
-                                    "entity": "sensor.car_ioniq_state_soc_display"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_soc_bms"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_odometer"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_energy_consumption"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_battery_health"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_last_update"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_state_odometer_last_update"
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.car_ioniq_charge_time_to_100_mins",
+                                            "name": "Tiempo restante de carga"
+                                        }
+                                    ],
+                                    "hours_to_show": 72,
+                                    "refresh_interval": 0,
+                                    "title": "Tiempo restante de carga",
+                                    "type": "history-graph"
                                 }
                             ],
-                            "show_header_toggle": false,
-                            "title": "Estado Ioniq",
-                            "type": "entities"
+                            "type": "vertical-stack"
                         },
                         {
                             "entities": [
@@ -963,7 +979,7 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "sensor.car_ioniq_charge_state"
+                                    "entity": "sensor.car_ioniq_charger_charge_state"
                                 },
                                 {
                                     "entity": "switch.car_ioniq_charger"
@@ -976,7 +992,7 @@
                                 }
                             ],
                             "show_header_toggle": false,
-                            "title": "Carga Ioniq",
+                            "title": "Cargador Ioniq",
                             "type": "entities"
                         },
                         {
@@ -1373,7 +1389,7 @@
                                 {
                                     "elements": [
                                         {
-                                            "entity": "sensor.car_ioniq_charge_state",
+                                            "entity": "sensor.car_ioniq_charger_charge_state",
                                             "state_image": {
                                                 "Apagado": "/local/background-square-orange.png",
                                                 "Cargando": "/local/background-square-blue.png",
@@ -1418,7 +1434,7 @@
                                             "type": "state-label"
                                         },
                                         {
-                                            "entity": "binary_sensor.car_ioniq_state",
+                                            "entity": "binary_sensor.car_ioniq_state_sensor",
                                             "style": {
                                                 "left": "93%",
                                                 "top": "17%"
@@ -1434,7 +1450,7 @@
                                             ],
                                             "elements": [
                                                 {
-                                                    "entity": "sensor.car_ioniq_charger_powerused",
+                                                    "entity": "sensor.car_ioniq_charger_current_power",
                                                     "style": {
                                                         "left": "13%",
                                                         "top": "17%"

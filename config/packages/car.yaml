@@ -2,9 +2,9 @@ recorder:
   include:
     entities:
       - device_tracker.car_ioniq
-      - binary_sensor.car_ioniq_state
+      - sensor.car_ioniq_state
+      - sensor.car_ioniq_charger_charge_state
       - switch.car_ioniq_charger
-      - sensor.car_ioniq_charge_state
       - sensor.car_ioniq_charger_current_power
       - sensor.car_ioniq_location_distance_travelled_between_updates
       - sensor.car_ioniq_state_odometer
@@ -16,6 +16,7 @@ recorder:
       - sensor.cargador_palmanyola
       - sensor.cargador_sant_miquel
       - sensor.cargador_paseo_mallorca
+      - sensor.car_ioniq_charge_time_to_100_mins
 
 logbook:
   exclude:
@@ -25,6 +26,7 @@ logbook:
       - sensor.car_ioniq_state_odometer
       - sensor.car_ioniq_state_soc_display
       - sensor.car_ioniq_state_soc_bms
+      - sensor.car_ioniq_charge_time_to_100_mins
 
 device_tracker:
   - platform: mqtt_json
@@ -36,12 +38,25 @@ device_tracker:
 
 binary_sensor:
   - platform: mqtt
-    state_topic: 'car/sensor/ioniq/state'
+    state_topic: 'car/sensor/ioniq/battery'
     name: car_ioniq_state_sensor
-    value_template: 'ON'
+    payload_on: 1
+    payload_off: 0
+    value_template: '{{ value_json.bmsIgnition }}'
     json_attributes_topic: 'car/sensor/ioniq/battery'
     force_update: true
     off_delay: 90
+    device_class: 'moving'
+
+  - platform: mqtt
+    state_topic: 'car/sensor/ioniq/battery'
+    name: car_ioniq_charge_state
+    payload_on: 1
+    payload_off: 0
+    value_template: '{{ value_json.charging }}'
+    force_update: true
+    off_delay: 180
+    device_class: 'battery_charging'
 
   - platform: mqtt
     state_topic: 'car/sensor/ioniq/location'
@@ -51,12 +66,12 @@ binary_sensor:
     force_update: true
     off_delay: 45
 
-  - platform: template
-    sensors:
-      car_ioniq_state:
-        friendly_name: "Estado Ioniq"
-        device_class: 'moving'
-        value_template: "{{is_state('binary_sensor.car_ioniq_location_sensor', 'on') or is_state('binary_sensor.car_ioniq_state_sensor', 'on')}}"
+# TODO use car_ioniq_location_distance_travelled_between_updates to improve reliability of binary_sensor.car_ioniq_state_sensor????
+#  - platform: template
+#    sensors:
+#      car_ioniq_state:
+#        friendly_name: "Estado Ioniq"
+#        value_template: "{{is_state('binary_sensor.car_ioniq_location_sensor', 'on') or is_state('binary_sensor.car_ioniq_state_sensor', 'on')}}"
 
 sensor:
   - platform: integration 
@@ -69,6 +84,7 @@ sensor:
     state_topic: 'car/sensor/ioniq/odometer'
     value_template: '{{ value_json.odometer }}'
     name: car_ioniq_state_odometer
+    json_attributes_topic: 'car/sensor/ioniq/odometer'
     icon: 'mdi:counter'
     unit_of_measurement: 'Km'
     force_update: true
@@ -231,6 +247,18 @@ sensor:
 
   - platform: template
     sensors:
+      car_ioniq_state:
+        friendly_name: 'Estado Ioniq'
+        # TODO use car_ioniq_location_distance_travelled_between_updates to improve reliability of binary_sensor.car_ioniq_state_sensor????
+        value_template: >-
+          {%- if is_state('binary_sensor.car_ioniq_state_sensor', 'on') %}
+            Encendido
+          {%- elif is_state('binary_sensor.car_ioniq_charge_state', 'on')%}
+            Cargando
+          {% else %}
+            Apagado
+          {%- endif %}
+
       # Charger today energy charged
       car_ioniq_state_today_energy_charged:
         value_template: >- 
@@ -245,15 +273,13 @@ sensor:
         value_template: "{{state_attr('switch.car_ioniq_charger','current_power_w')|int}}"
         unit_of_measurement: W
       # Ioniq State last update
-      car_ioniq_state_last_update:
-        friendly_name: 'Última actualización'
-        value_template: '{{as_timestamp(states.binary_sensor.car_ioniq_state_sensor.last_updated)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
       car_ioniq_state_battery_last_update:
         friendly_name: 'Última actualización batería'
         value_template: '{{((state_attr("binary_sensor.car_ioniq_state_sensor", "timestamp")|int))|round(0)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
       car_ioniq_state_odometer_last_update:
         friendly_name: 'Última actualización odómetro'
-        value_template: '{{as_timestamp(states.sensor.car_ioniq_state_odometer.last_updated)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
+        value_template: '{{((state_attr("sensor.car_ioniq_state_odometer", "timestamp")|int))|round(0)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
+
       # Ioniq State Of Charge display
       car_ioniq_state_soc_display:
         friendly_name: 'Batería mostrada'
@@ -368,9 +394,9 @@ sensor:
         icon_template: 'mdi:map-marker-radius'
         entity_id: 
           - device_tracker.car_ioniq
-      car_ioniq_charge_state:
+      car_ioniq_charger_charge_state:
         value_template: >-
-          {%- if states('sensor.car_ioniq_charger_current_power')|float > 1000.0 or is_state_attr('binary_sensor.car_ioniq_state_sensor', 'charging', 1) %}
+          {%- if states('sensor.car_ioniq_charger_current_power')|float > 1000.0 and is_state('binary_sensor.car_ioniq_charge_state', 'on') %}
              Cargando
           {%- elif is_state('switch.car_ioniq_charger', 'off') %}
             Apagado
@@ -381,6 +407,21 @@ sensor:
           - switch.car_ioniq_charger
           - binary_sensor.car_ioniq_charger_current_power
           - binary_sensor.car_ioniq_state_sensor
+      car_ioniq_charge_time_to_100_mins:
+        value_template:  >-
+          {%- if is_state('binary_sensor.car_ioniq_charge_state', 'on') %}
+            {{state_attr('binary_sensor.car_ioniq_state_sensor', 'minsToCompleteCharge') | int}}
+          {% else %}
+            0
+          {%- endif %}
+
+      car_ioniq_charge_time_to_100_human:
+        value_template:  >-
+          {%- if is_state('binary_sensor.car_ioniq_charge_state', 'on') %}
+            {{(state_attr('binary_sensor.car_ioniq_state_sensor', 'minsToCompleteCharge')/60) | round(0)}} horas {{state_attr('binary_sensor.car_ioniq_state_sensor', 'minsToCompleteCharge')%60}} minutos
+          {% else %}
+            No está en carga
+          {%- endif %}
 
   # Google travel time to work
   - platform: google_travel_time

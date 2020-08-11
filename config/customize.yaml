@@ -511,3 +511,20 @@ sensor.car_ioniq_state_odometer_last_update:
   icon: mdi:update
 sensor.car_ioniq_state_battery_last_update:
   icon: mdi:update
+binary_sensor.car_ioniq_state_sensor:
+  friendly_name: Estado Ioniq
+sensor.car_ioniq_charge_time_to_100_mins:
+  device_class: power
+  friendly_name: Min restantes de carga
+sensor.car_ioniq_charge_time_to_100_human:
+  friendly_name: Tiempo restante de carga
+  icon: mdi:battery-charging
+binary_sensor.car_ioniq_charge_state:
+  device_class: power
+  friendly_name: Carga Ioniq
+sensor.car_ioniq_charger_charge_state:
+  friendly_name: Estado cargador
+  icon: mdi:ev-plug-type2
+sensor.car_ioniq_state:
+  friendly_name: Estado Ioniq
+  icon: mdi:car-electric
