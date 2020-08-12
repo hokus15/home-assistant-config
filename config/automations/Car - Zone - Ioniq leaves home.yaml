@@ -8,8 +8,8 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: binary_sensor.car_ioniq_state
-        state: 'on'
+        entity_id: sensor.car_ioniq_state
+        state: 'Encendido'
       - condition: numeric_state
         entity_id: sensor.car_ioniq_location_gps_accuracy
         below: 100
