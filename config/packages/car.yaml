@@ -45,7 +45,7 @@ binary_sensor:
     value_template: '{{ value_json.bmsIgnition }}'
     json_attributes_topic: 'car/sensor/ioniq/battery'
     force_update: true
-    off_delay: 90
+    off_delay: 300
     device_class: 'moving'
 
   - platform: mqtt
@@ -55,7 +55,7 @@ binary_sensor:
     payload_off: 0
     value_template: '{{ value_json.charging }}'
     force_update: true
-    off_delay: 180
+    off_delay: 300
     device_class: 'battery_charging'
 
   - platform: mqtt
