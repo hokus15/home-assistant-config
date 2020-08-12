@@ -80,7 +80,14 @@ sensor:
     icon: 'mdi:counter'
     unit_of_measurement: 'Km'
     force_update: true
-    
+
+  - platform: mqtt
+    state_topic: 'car/sensor/ioniq/tpms'
+    value_template: '{{ value_json.timestamp }}'
+    name: car_ioniq_tpms
+    json_attributes_topic: 'car/sensor/ioniq/tpms'
+    force_update: true
+
   - platform: mqtt
     state_topic: 'car/sensor/ioniq/state/daily'
     name: car_ioniq_state_daily
@@ -296,6 +303,9 @@ sensor:
       car_ioniq_battery_cec:
         value_template: '{{state_attr("sensor.car_ioniq_battery", "cumulativeEnergyCharged")}}'
         unit_of_measurement: 'kWh'
+      car_ioniq_battery_power:
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryPower") | float | abs | round(3)}}'
+        unit_of_measurement: 'kW'
 ######################### Daily state data #########################
       # Ioniq daily State Of Charge display
       car_ioniq_state_daily_soc_display:
@@ -326,6 +336,31 @@ sensor:
         value_template: '{{state_attr("sensor.car_ioniq_state_daily", "charged_energy_kwh")}}'
         unit_of_measurement: 'kWh'
 ######################### Daily state data #########################
+      car_ioniq_tpms_fl_pressure:
+        value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_fl_pressure")}}'
+        unit_of_measurement: 'bar'
+      car_ioniq_tpms_fl_temperature:
+        value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_fl_temperature")}}'
+        unit_of_measurement: 'ºC'
+      car_ioniq_tpms_fr_pressure:
+        value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_fr_pressure")}}'
+        unit_of_measurement: 'bar'
+      car_ioniq_tpms_fr_temperature:
+        value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_fr_temperature")}}'
+        unit_of_measurement: 'ºC'
+      car_ioniq_tpms_bl_pressure:
+        value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_bl_pressure")}}'
+        unit_of_measurement: 'bar'
+      car_ioniq_tpms_bl_temperature:
+        value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_bl_temperature")}}'
+        unit_of_measurement: 'ºC'
+      car_ioniq_tpms_br_pressure:
+        value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_br_pressure")}}'
+        unit_of_measurement: 'bar'
+      car_ioniq_tpms_br_temperature:
+        value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_br_temperature")}}'
+        unit_of_measurement: 'ºC'
+
       # Ioniq Average energy consumption without taking into account regeneration
       car_ioniq_battery_energy_consumption:
         friendly_name: 'Consumo medio'
