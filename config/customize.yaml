@@ -513,7 +513,7 @@ sensor.car_ioniq_charger_charge_state:
 #  icon: mdi:ev-plug-type2
   icon: mdi:flash-circle
 sensor.car_ioniq_state:
-  friendly_name: Estado Ioniq
+  friendly_name: Estado script Ioniq
   icon: mdi:car-electric
 sensor.car_ioniq_state_sensor:
   icon: mdi:car-electric
