@@ -401,7 +401,9 @@ sensor.piscina_pump_power:
 sensor.piscina_recirculation:
   friendly_name: Recirculación piscina
 sensor.car_ioniq_battery_health:
+  device_class: battery
   friendly_name: Salud batería Ioniq
+  icon: mdi:battery-heart-variant
 sensor.netatmo_habitacion_temperature:
   friendly_name: Temperatura Habitación
 sensor.netatmo_exterior_temperature:
@@ -510,7 +512,6 @@ binary_sensor.car_ioniq_charge_state:
   friendly_name: Carga Ioniq
 sensor.car_ioniq_charger_charge_state:
   friendly_name: Estado cargador EV
-#  icon: mdi:ev-plug-type2
   icon: mdi:flash-circle
 sensor.car_ioniq_state:
   friendly_name: Estado script Ioniq

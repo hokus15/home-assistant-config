@@ -1389,111 +1389,210 @@
                                 {
                                     "elements": [
                                         {
-                                            "entity": "sensor.car_ioniq_charger_charge_state",
-                                            "state_image": {
-                                                "Apagado": "/local/background-square-orange.png",
-                                                "Cargando": "/local/background-square-blue.png",
-                                                "Listo": "/local/background-square-green.png"
-                                            },
-                                            "style": {
-                                                "position": "absolute",
-                                                "transform": "translate(0%, -100%)"
-                                            },
-                                            "type": "image"
-                                        },
-                                        {
-                                            "entity": "sensor.car_ioniq_battery",
-                                            "style": {
-                                                "left": "70%",
-                                                "top": "82%"
-                                            },
-                                            "type": "state-icon"
-                                        },
-                                        {
-                                            "entity": "sensor.car_ioniq_battery",
-                                            "style": {
-                                                "left": "70%",
-                                                "top": "90%"
-                                            },
-                                            "type": "state-label"
-                                        },
-                                        {
-                                            "entity": "sensor.car_ioniq_odometer",
-                                            "style": {
-                                                "left": "87%",
-                                                "top": "82%"
-                                            },
-                                            "type": "state-icon"
-                                        },
-                                        {
-                                            "entity": "sensor.car_ioniq_odometer",
-                                            "style": {
-                                                "left": "87%",
-                                                "top": "90%"
-                                            },
-                                            "type": "state-label"
-                                        },
-                                        {
                                             "conditions": [
                                                 {
-                                                    "entity": "sensor.car_ioniq_charge_state",
+                                                    "entity": "sensor.car_ioniq_state_sensor",
                                                     "state": "Cargando"
                                                 }
                                             ],
                                             "elements": [
                                                 {
-                                                    "entity": "sensor.car_ioniq_charger_current_power",
+                                                    "entity": "sensor.car_ioniq_charge_time_to_100_human",
                                                     "style": {
-                                                        "left": "13%",
-                                                        "top": "17%"
+                                                        "font-weight": "bold",
+                                                        "left": "50%",
+                                                        "top": "16%"
+                                                    },
+                                                    "type": "state-label"
+                                                },
+                                                {
+                                                    "entity": "sensor.car_ioniq_battery_power",
+                                                    "style": {
+                                                        "font-weight": "bold",
+                                                        "left": "50%",
+                                                        "top": "19%"
                                                     },
                                                     "type": "state-label"
                                                 }
                                             ],
                                             "type": "conditional"
-                                        }
-                                    ],
-                                    "image": "/local/device_tracker.car_ioniq_big.png",
-                                    "title": "Hyundai Ioniq",
-                                    "type": "picture-elements"
-                                },
-                                {
-                                    "default_zoom": 14,
-                                    "entities": [
-                                        "device_tracker.car_ioniq"
-                                    ],
-                                    "hours_to_show": 24,
-                                    "type": "map"
-                                },
-                                {
-                                    "aspect_ratio": "80%",
-                                    "type": "iframe",
-                                    "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjqHrJxdPMLiDP8RVoePKxwa1o9zvelQVq8Rcb7PejAkFCI_9sNPait1r9Z0DdYdXztehIO9zY79HZ/pubchart?oid=1004631484&format=interactive"
-                                },
-                                {
-                                    "cards": [
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_state_sensor",
+                                            "state_image": {
+                                                "Cargando": "/local/car.ioniq.state.sensor.charing.png"
+                                            },
+                                            "style": {
+                                                "left": "50%",
+                                                "max-width": "10%",
+                                                "position": "absolute",
+                                                "top": "11%"
+                                            },
+                                            "type": "image"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_odometer",
+                                            "style": {
+                                                "left": "37%",
+                                                "top": "45%"
+                                            },
+                                            "type": "state-icon"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_odometer",
+                                            "style": {
+                                                "font-weight": "bold",
+                                                "left": "52%",
+                                                "top": "45%"
+                                            },
+                                            "type": "state-label"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_battery",
+                                            "style": {
+                                                "left": "37%",
+                                                "top": "50%"
+                                            },
+                                            "type": "state-icon"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_battery",
+                                            "style": {
+                                                "font-weight": "bold",
+                                                "left": "52%",
+                                                "top": "50%"
+                                            },
+                                            "type": "state-label"
+                                        },
                                         {
                                             "entity": "sensor.car_ioniq_battery_health",
-                                            "max": 100,
-                                            "min": 0,
-                                            "severity": {
-                                                "green": 100,
-                                                "red": 0,
-                                                "yellow": 70
+                                            "style": {
+                                                "left": "37%",
+                                                "top": "55%"
                                             },
-                                            "type": "gauge"
+                                            "type": "state-icon"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_battery_health",
+                                            "style": {
+                                                "font-weight": "bold",
+                                                "left": "52%",
+                                                "top": "55%"
+                                            },
+                                            "type": "state-label"
                                         },
                                         {
                                             "entity": "sensor.car_ioniq_battery_soc_bms",
-                                            "severity": {
-                                                "green": 50,
-                                                "red": 0,
-                                                "yellow": 25
+                                            "icon": "mdi:battery-charging",
+                                            "style": {
+                                                "color": "#44739e",
+                                                "left": "37%",
+                                                "top": "60%"
                                             },
-                                            "type": "gauge"
+                                            "type": "icon"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_battery_soc_bms",
+                                            "style": {
+                                                "font-weight": "bold",
+                                                "left": "52%",
+                                                "top": "60%"
+                                            },
+                                            "type": "state-label"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_battery_energy_consumption",
+                                            "style": {
+                                                "left": "37%",
+                                                "top": "65%"
+                                            },
+                                            "type": "state-icon"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_battery_energy_consumption",
+                                            "style": {
+                                                "font-weight": "bold",
+                                                "left": "53%",
+                                                "top": "65%"
+                                            },
+                                            "type": "state-label"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_tpms_fl_pressure",
+                                            "style": {
+                                                "font-weight": "bold",
+                                                "left": "20%",
+                                                "top": "18%"
+                                            },
+                                            "type": "state-label"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_tpms_fl_temperature",
+                                            "style": {
+                                                "font-weight": "bold",
+                                                "left": "20%",
+                                                "top": "21%"
+                                            },
+                                            "type": "state-label"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_tpms_bl_pressure",
+                                            "style": {
+                                                "font-weight": "bold",
+                                                "left": "20%",
+                                                "top": "80%"
+                                            },
+                                            "type": "state-label"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_tpms_bl_temperature",
+                                            "style": {
+                                                "font-weight": "bold",
+                                                "left": "20%",
+                                                "top": "83%"
+                                            },
+                                            "type": "state-label"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_tpms_fr_pressure",
+                                            "style": {
+                                                "font-weight": "bold",
+                                                "left": "81%",
+                                                "top": "18%"
+                                            },
+                                            "type": "state-label"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_tpms_fr_temperature",
+                                            "style": {
+                                                "font-weight": "bold",
+                                                "left": "81%",
+                                                "top": "21%"
+                                            },
+                                            "type": "state-label"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_tpms_br_pressure",
+                                            "style": {
+                                                "font-weight": "bold",
+                                                "left": "81%",
+                                                "top": "80%"
+                                            },
+                                            "type": "state-label"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_tpms_br_temperature",
+                                            "style": {
+                                                "font-weight": "bold",
+                                                "left": "81%",
+                                                "top": "83%"
+                                            },
+                                            "type": "state-label"
                                         }
                                     ],
-                                    "type": "horizontal-stack"
+                                    "image": "/local/device_tracker.car_ioniq_top_view_vertical.jpg",
+                                    "title": "Hyundai Ioniq",
+                                    "type": "picture-elements"
                                 }
                             ],
                             "type": "vertical-stack"
