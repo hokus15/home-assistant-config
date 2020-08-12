@@ -11,7 +11,7 @@
         entity_id: cover.outside_fence
         state: 'closed'
       - condition: state
-        entity_id: sensor.car_ioniq_state
+        entity_id: sensor.car_ioniq_state_sensor
         state: 'Encendido'
       - condition: numeric_state
         entity_id: sensor.car_ioniq_location_gps_accuracy

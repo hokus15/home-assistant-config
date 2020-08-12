@@ -180,52 +180,47 @@ sensor.car_ioniq_location_last_update:
 binary_sensor.car_ioniq_location_sensor:
   friendly_name: Ioniq
   entity_picture: /local/device_tracker.car_ioniq_icon.png
-sensor.car_ioniq_charge_state:
-  friendly_name: Estado cargador Ioniq
-  icon: mdi:flash-circle
-sensor.car_ioniq_state_today_energy_charged:
-  friendly_name: Energía cargada hoy Ioniq
+sensor.car_ioniq_charger_today_energy_charged:
+  friendly_name: Energía hoy cargador EV
   icon: mdi:battery-charging-70
 sensor.car_al_colegio:
   friendly_name: Al colegio
 sensor.car_a_la_oficina:
   friendly_name: A la oficina
 sensor.car_ioniq_charger_current_power:
-  friendly_name: Potencia carga Ioniq
+  friendly_name: Potencia cargador EV
   icon: mdi:speedometer
 sensor.car_ioniq_charger_yearly_pico:
-  friendly_name: Consumo anual pico Ioniq
+  friendly_name: Consumo anual pico cargador EV
   icon: mdi:trending-up
 sensor.car_ioniq_charger_yearly_valle:
-  friendly_name: Consumo anual valle Ioniq
+  friendly_name: Consumo anual valle cargador EV
   icon: mdi:trending-down
   unit_of_measurement: kWh
 sensor.car_ioniq_charger_yearly_super_valle:
-  friendly_name: Consumo anual super valle Ioniq
+  friendly_name: Consumo anual super valle cargador EV
   icon: mdi:trending-down
   unit_of_measurement: kWh
 sensor.car_ioniq_charger_monthly_pico:
-  friendly_name: Consumo mensual pico Ioniq
+  friendly_name: Consumo mensual pico cargador EV
   icon: mdi:trending-up
 sensor.car_ioniq_charger_monthly_valle:
-  friendly_name: Consumo mensual valle Ioniq
+  friendly_name: Consumo mensual valle cargador EV
   icon: mdi:trending-down
 sensor.car_ioniq_charger_monthly_super_valle:
-  friendly_name: Consumo mensual super valle Ioniq
+  friendly_name: Consumo mensual super valle cargador EV
   icon: mdi:trending-down
 sensor.car_ioniq_charger_daily_pico:
-  friendly_name: Consumo diario pico Ioniq
+  friendly_name: Consumo diario pico cargador EV
   icon: mdi:trending-up
 sensor.car_ioniq_charger_daily_valle:
-  friendly_name: Consumo diario valle Ioniq
+  friendly_name: Consumo diario valle cargador EV
   icon: mdi:trending-down
 sensor.car_ioniq_charger_daily_super_valle:
-  friendly_name: Consumo diario super valle Ioniq
+  friendly_name: Consumo diario super valle cargador EV
   icon: mdi:trending-down
-binary_sensor.car_ioniq_state:
-  friendly_name: Estado Ioniq
 switch.car_ioniq_charger:
-  friendly_name: Cargador Ioniq
+  friendly_name: Cargador EV
   icon: mdi:ev-station
 device_tracker.car_ioniq:
   entity_picture: /local/device_tracker.car_ioniq_icon.png
@@ -387,14 +382,10 @@ sensor.piscina_height:
   friendly_name: Largo piscina
 switch.barrera:
   friendly_name: Interruptor Barrera
-sensor.car_ioniq_state_soc_display:
-  friendly_name: Batería mostrada Ioniq
 sensor.piscina_capacity:
   friendly_name: Capacidad piscina
-sensor.car_ioniq_state_energy_consumption:
+sensor.car_ioniq_battery_energy_consumption:
   friendly_name: Consumo medio Ioniq
-sensor.car_ioniq_state_distance_since_cc:
-  friendly_name: Distancia cc Ioniq
 sensor.piscina_pump_efficiency:
   friendly_name: Eficiencia bomba piscina
 switch.luz_piscina:
@@ -403,13 +394,13 @@ switch.comedor_switch:
   friendly_name: Luz comedor Interruptor
 switch.salon_switch:
   friendly_name: Luz salón Interruptor
-sensor.car_ioniq_state_odometer:
+sensor.car_ioniq_odometer:
   friendly_name: Odómetro Ioniq
 sensor.piscina_pump_power:
   friendly_name: Potencia motor piscina
 sensor.piscina_recirculation:
   friendly_name: Recirculación piscina
-sensor.car_ioniq_state_battery_health:
+sensor.car_ioniq_battery_health:
   friendly_name: Salud batería Ioniq
 sensor.netatmo_habitacion_temperature:
   friendly_name: Temperatura Habitación
@@ -436,9 +427,6 @@ sensor.salon_switch_power:
   icon: mdi:power-plug
 sensor.comedor_switch_energy:
   icon: mdi:speedometer
-sensor.car_ioniq_state_last_update:
-  friendly_name: Última actualización estado
-  icon: mdi:update
 sensor.cargador_aragon:
   icon: mdi:ev-station
 sensor.cargador_conquistador:
@@ -507,12 +495,10 @@ sensor.energy_home_monthly_cost:
   icon: mdi:cash-multiple
 sensor.qnapups_beeper_status:
   icon: mdi:whistle
-sensor.car_ioniq_state_odometer_last_update:
+sensor.car_ioniq_odometer_last_update:
   icon: mdi:update
-sensor.car_ioniq_state_battery_last_update:
+sensor.car_ioniq_battery_last_update:
   icon: mdi:update
-binary_sensor.car_ioniq_state_sensor:
-  friendly_name: Estado Ioniq
 sensor.car_ioniq_charge_time_to_100_mins:
   device_class: power
   friendly_name: Min restantes de carga
@@ -523,8 +509,13 @@ binary_sensor.car_ioniq_charge_state:
   device_class: power
   friendly_name: Carga Ioniq
 sensor.car_ioniq_charger_charge_state:
-  friendly_name: Estado cargador
-  icon: mdi:ev-plug-type2
+  friendly_name: Estado cargador EV
+#  icon: mdi:ev-plug-type2
+  icon: mdi:flash-circle
 sensor.car_ioniq_state:
   friendly_name: Estado Ioniq
   icon: mdi:car-electric
+sensor.car_ioniq_state_sensor:
+  icon: mdi:car-electric
+sensor.car_ioniq_battery:
+  friendly_name: Batería Ioniq

@@ -8,7 +8,7 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: sensor.car_ioniq_state
+        entity_id: sensor.car_ioniq_state_sensor
         state: 'Encendido'
       - condition: numeric_state
         entity_id: sensor.car_ioniq_location_gps_accuracy

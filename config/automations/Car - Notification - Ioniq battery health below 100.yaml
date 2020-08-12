@@ -1,12 +1,12 @@
 - alias: 'Car - Notification - Ioniq battery health below 100%'
   trigger:
     platform: numeric_state
-    entity_id: sensor.car_ioniq_state_battery_health
+    entity_id: sensor.car_ioniq_battery_health
     below: 100
   action:
     - service: notify.telegram
       data_template:
-        message: '🚘 La salud de la batería del Ioniq es del {{states.sensor.car_ioniq_state_battery_health.state}}{{states.sensor.car_ioniq_state_battery_health.attributes.unit_of_measurement}}'
+        message: '🚘 La salud de la batería del Ioniq es del {{states.sensor.car_ioniq_battery_health.state}}{{states.sensor.car_ioniq_battery_health.attributes.unit_of_measurement}}'
     - service: notify.slack
       data_template:
         message: ''
@@ -16,5 +16,5 @@
             - type: 'section'
               text:
                 type: 'mrkdwn'
-                text: ':car-electric: La salud de la batería del Ioniq es del {{states.sensor.car_ioniq_state_battery_health.state}}{{states.sensor.car_ioniq_state_battery_health.attributes.unit_of_measurement}}'
+                text: ':car-electric: La salud de la batería del Ioniq es del {{states.sensor.car_ioniq_battery_health.state}}{{states.sensor.car_ioniq_battery_health.attributes.unit_of_measurement}}'
             - type: 'divider'

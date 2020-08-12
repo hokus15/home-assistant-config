@@ -1,7 +1,7 @@
 - alias: 'Car - Notification - Ioniq charge finishes'
   trigger:
     platform: state
-    entity_id: sensor.car_ioniq_charge_state
+    entity_id: sensor.car_ioniq_charger_charge_state
     from: 'Cargando'
     to: 'Listo'
   condition:
