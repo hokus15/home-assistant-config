@@ -35,7 +35,7 @@
                                     "entity": "sensor.car_ioniq_battery"
                                 },
                                 {
-                                    "entity": "sensor.car_ioniq_state_odometer"
+                                    "entity": "sensor.car_ioniq_odometer"
                                 },
                                 {
                                     "entity": "sensor.car_ioniq_battery_last_update"
@@ -845,9 +845,6 @@
                                             "entity": "sensor.car_ioniq_battery_soc_bms"
                                         },
                                         {
-                                            "entity": "sensor.car_ioniq_odometer_last_update"
-                                        },
-                                        {
                                             "entity": "sensor.car_ioniq_battery_energy_consumption"
                                         },
                                         {
@@ -855,6 +852,9 @@
                                         },
                                         {
                                             "entity": "sensor.car_ioniq_battery_last_update"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_odometer"
                                         },
                                         {
                                             "entity": "sensor.car_ioniq_odometer_last_update"
@@ -1418,7 +1418,7 @@
                                             "type": "state-label"
                                         },
                                         {
-                                            "entity": "sensor.car_ioniq_state_odometer",
+                                            "entity": "sensor.car_ioniq_odometer",
                                             "style": {
                                                 "left": "87%",
                                                 "top": "82%"
@@ -1426,7 +1426,7 @@
                                             "type": "state-icon"
                                         },
                                         {
-                                            "entity": "sensor.car_ioniq_state_odometer",
+                                            "entity": "sensor.car_ioniq_odometer",
                                             "style": {
                                                 "left": "87%",
                                                 "top": "90%"
