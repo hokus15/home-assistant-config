@@ -3,6 +3,7 @@ recorder:
     entities:
       - device_tracker.car_ioniq
       - binary_sensor.car_ioniq_state
+      - binary_sensor.car_ioniq_location_sensor
       - sensor.car_ioniq_state_sensor
       - sensor.car_ioniq_charger_charge_state
       - switch.car_ioniq_charger
@@ -45,13 +46,14 @@ binary_sensor:
     payload_off: 0
     value_template: '{{ value_json.state }}'
     force_update: true
-    off_delay: 90
+    off_delay: 180
     device_class: 'moving'
 
   - platform: mqtt
     state_topic: 'car/sensor/ioniq/location'
     name: car_ioniq_location_sensor
-    value_template: 'ON'
+    payload_on: 'running'
+    value_template: '{{ value_json.state }}'
     json_attributes_topic: 'car/sensor/ioniq/location'
     force_update: true
     off_delay: 45
@@ -249,7 +251,7 @@ sensor:
       car_ioniq_state_sensor:
         friendly_name: 'Estado Ioniq'
         value_template: >-
-          {%- if is_state('binary_sensor.car_ioniq_state', 'on') %}
+          {%- if is_state('binary_sensor.car_ioniq_state', 'on') or is_state('binary_sensor.car_ioniq_location_sensor', 'on') %}
             {%- if is_state_attr('sensor.car_ioniq_battery', 'bmsIgnition', 1) %}
                 Encendido
             {%- elif is_state('sensor.car_ioniq_battery', 'charging', 1)%}
