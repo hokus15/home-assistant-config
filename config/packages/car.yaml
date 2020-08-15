@@ -254,7 +254,7 @@ sensor:
           {%- if is_state('binary_sensor.car_ioniq_state', 'on') or is_state('binary_sensor.car_ioniq_location_sensor', 'on') %}
             {%- if is_state_attr('sensor.car_ioniq_battery', 'bmsIgnition', 1) %}
                 Encendido
-            {%- elif is_state('sensor.car_ioniq_battery', 'charging', 1)%}
+            {%- elif is_state_attr('sensor.car_ioniq_battery', 'charging', 1)%}
                 Cargando
             {% else %}
                 Apagado
