@@ -432,7 +432,7 @@ sensor:
       car_ioniq_charge_time_to_100_human:
         value_template:  >-
           {%- if states('sensor.car_ioniq_charge_time_to_100_mins') | int > 0 %}
-            {{states('sensor.car_ioniq_charge_time_to_100_mins') | int | round(0)}} horas {{states('sensor.car_ioniq_charge_time_to_100_mins') | int % 60}} minutos
+            {{(states('sensor.car_ioniq_charge_time_to_100_mins') | int / 60) | round(0)}} horas {{states('sensor.car_ioniq_charge_time_to_100_mins') | int % 60}} minutos
           {% else %}
             No está en carga
           {%- endif %}
