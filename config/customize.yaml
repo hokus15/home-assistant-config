@@ -520,3 +520,5 @@ sensor.car_ioniq_state_sensor:
   icon: mdi:car-electric
 sensor.car_ioniq_battery:
   friendly_name: Batería Ioniq
+sensor.car_ioniq_tpms_last_update:
+  icon: mdi:update

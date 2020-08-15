@@ -283,6 +283,9 @@ sensor:
       car_ioniq_odometer_last_update:
         friendly_name: 'Última actualización odómetro'
         value_template: '{{((state_attr("sensor.car_ioniq_odometer", "timestamp")|int))|round(0)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
+      car_ioniq_tpms_last_update:
+        friendly_name: 'Última actualización tpms'
+        value_template: '{{((state_attr("sensor.car_ioniq_tpms", "timestamp")|int))|round(0)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
 
       # Ioniq State Of Health
       car_ioniq_battery_health:
