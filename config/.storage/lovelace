@@ -1593,6 +1593,20 @@
                                     "image": "/local/device_tracker.car_ioniq_top_view_vertical.jpg",
                                     "title": "Hyundai Ioniq",
                                     "type": "picture-elements"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.car_ioniq_battery_last_update"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_odometer_last_update"
+                                        },
+                                        {
+                                            "entity": "sensor.car_ioniq_location_last_update"
+                                        }
+                                    ],
+                                    "type": "entities"
                                 }
                             ],
                             "type": "vertical-stack"
