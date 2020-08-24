@@ -522,3 +522,6 @@ sensor.car_ioniq_battery:
   friendly_name: Batería Ioniq
 sensor.car_ioniq_tpms_last_update:
   icon: mdi:update
+sensor.car_ioniq_battery_power:
+  friendly_name: Potencia de carga Ioniq
+  icon: mdi:flash

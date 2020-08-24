@@ -866,6 +866,9 @@
                                             "entity": "sensor.car_ioniq_charge_time_to_100_human"
                                         },
                                         {
+                                            "entity": "sensor.car_ioniq_battery_power"
+                                        },
+                                        {
                                             "entity": "sensor.car_ioniq_tpms_last_update"
                                         }
                                     ],
