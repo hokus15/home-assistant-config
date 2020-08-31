@@ -866,6 +866,9 @@
                                             "entity": "sensor.car_ioniq_charge_time_to_100_human"
                                         },
                                         {
+                                            "entity": "sensor.car_ioniq_charge_time_to_100"
+                                        },
+                                        {
                                             "entity": "sensor.car_ioniq_battery_power"
                                         },
                                         {
@@ -1406,11 +1409,21 @@
                                             ],
                                             "elements": [
                                                 {
+                                                    "entity": "sensor.car_ioniq_charge_time_to_100",
+                                                    "prefix": "Fin estimado: ",
+                                                    "style": {
+                                                        "font-weight": "bold",
+                                                        "left": "50%",
+                                                        "top": "11%"
+                                                    },
+                                                    "type": "state-label"
+                                                },
+                                                {
                                                     "entity": "sensor.car_ioniq_charge_time_to_100_human",
                                                     "style": {
                                                         "font-weight": "bold",
                                                         "left": "50%",
-                                                        "top": "16%"
+                                                        "top": "15%"
                                                     },
                                                     "type": "state-label"
                                                 },
@@ -1425,19 +1438,6 @@
                                                 }
                                             ],
                                             "type": "conditional"
-                                        },
-                                        {
-                                            "entity": "sensor.car_ioniq_state_sensor",
-                                            "state_image": {
-                                                "Cargando": "/local/car.ioniq.state.sensor.charing.png"
-                                            },
-                                            "style": {
-                                                "left": "50%",
-                                                "max-width": "10%",
-                                                "position": "absolute",
-                                                "top": "11%"
-                                            },
-                                            "type": "image"
                                         },
                                         {
                                             "entity": "sensor.car_ioniq_odometer",

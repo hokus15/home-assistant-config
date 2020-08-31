@@ -11,6 +11,7 @@ recorder:
       - sensor.car_ioniq_location_distance_travelled_between_updates
       - sensor.car_ioniq_odometer
       - sensor.car_ioniq_battery
+      - sensor.car_ioniq_battery_power
       - sensor.car_ioniq_battery_soc_bms
       - sensor.car_ioniq_location_gps_accuracy
       - sensor.cargador_aragon
@@ -309,7 +310,13 @@ sensor:
         value_template: '{{state_attr("sensor.car_ioniq_battery", "cumulativeEnergyCharged")}}'
         unit_of_measurement: 'kWh'
       car_ioniq_battery_power:
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryPower") | float | abs | round(3)}}'
+        value_template: >-
+          {%- if is_state('sensor.car_ioniq_state_sensor', 'Cargando')%}
+           {{state_attr("sensor.car_ioniq_battery", "dcBatteryPower") | float | abs | round(3)}}
+          {% else %}
+            0
+          {% endif %}
+
         unit_of_measurement: 'kW'
 ######################### Daily state data #########################
       # Ioniq daily State Of Charge display
@@ -422,6 +429,7 @@ sensor:
           - sensor.car_ioniq_charger_current_power
           - sensor.car_ioniq_state_sensor
       car_ioniq_charge_time_to_100_mins:
+        unit_of_measurement: min
         value_template:  >-
           {%- if is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
             {{state_attr('sensor.car_ioniq_battery', 'minsToCompleteCharge') | int}}
@@ -433,6 +441,14 @@ sensor:
         value_template:  >-
           {%- if states('sensor.car_ioniq_charge_time_to_100_mins') | int > 0 %}
             {{(states('sensor.car_ioniq_charge_time_to_100_mins') | int / 60) | round(0, 'floor')}} horas {{states('sensor.car_ioniq_charge_time_to_100_mins') | int % 60}} minutos
+          {% else %}
+            No está en carga
+          {%- endif %}
+
+      car_ioniq_charge_time_to_100:
+        value_template:  >-
+          {%- if is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
+            {{(now() | as_timestamp() + (states('sensor.car_ioniq_charge_time_to_100_mins') | int)) | timestamp_custom("%H:%M")}}
           {% else %}
             No está en carga
           {%- endif %}

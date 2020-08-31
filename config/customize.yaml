@@ -525,3 +525,6 @@ sensor.car_ioniq_tpms_last_update:
 sensor.car_ioniq_battery_power:
   friendly_name: Potencia de carga Ioniq
   icon: mdi:flash
+sensor.car_ioniq_charge_time_to_100:
+  friendly_name: Hora estimada fin carga
+  icon: mdi:clock
