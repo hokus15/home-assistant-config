@@ -448,7 +448,7 @@ sensor:
       car_ioniq_charge_time_to_100:
         value_template:  >-
           {%- if is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
-            {{(now() | as_timestamp() + (states('sensor.car_ioniq_charge_time_to_100_mins') | int)) | timestamp_custom("%H:%M")}}
+            {{(now() | as_timestamp() + ((states('sensor.car_ioniq_charge_time_to_100_mins') | int) * 60)) | timestamp_custom("%H:%M")}}
           {% else %}
             No está en carga
           {%- endif %}
