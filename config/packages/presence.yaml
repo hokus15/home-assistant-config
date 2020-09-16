@@ -35,7 +35,7 @@ sensor:
       next_holiday_mode_start:
         friendly_name: 'Inicio vacaciones'
         value_template: >-
-             {%- if states.calendar.holiday_mode.attributes.start_time is not none %}
+             {%- if state_attr('calendar.holiday_mode','start_time') is not none %}
                  {{ as_timestamp(states.calendar.holiday_mode.attributes.start_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}
              {% else %}
                  No previstas
@@ -43,7 +43,7 @@ sensor:
       next_holiday_mode_end:
         friendly_name: 'Fin vacaciones'
         value_template: >-
-             {%- if states.calendar.holiday_mode.attributes.end_time is not none %}
+             {%- if state_attr('calendar.holiday_mode','end_time') is not none %}
                  {{ as_timestamp(states.calendar.holiday_mode.attributes.end_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}
              {% else %}
                  No previstas
