@@ -13,7 +13,7 @@ homeassistant:
   external_url: !secret ha_base_url
   internal_url: "http://homeassistant.local:8123"
   customize: !include customize.yaml
-  whitelist_external_dirs:
+  allowlist_external_dirs:
     - /share/camera
   packages: !include_dir_named packages
 
