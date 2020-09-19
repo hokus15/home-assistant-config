@@ -43,9 +43,9 @@ binary_sensor:
   - platform: mqtt
     state_topic: 'car/sensor/ioniq/state'
     name: car_ioniq_state
-    payload_on: 'running'
-    payload_off: 0
-    value_template: '{{ value_json.state }}'
+    payload_on: ON
+    payload_off: OFF
+    value_template: '{{ value_json.states is not none }}'
     force_update: true
     off_delay: 180
     device_class: 'moving'
@@ -53,8 +53,9 @@ binary_sensor:
   - platform: mqtt
     state_topic: 'car/sensor/ioniq/location'
     name: car_ioniq_location_sensor
-    payload_on: 'running'
-    value_template: '{{ value_json.state }}'
+    payload_on: ON
+    payload_off: OFF
+    value_template: '{{ value_json.last_update is not none }}'
     json_attributes_topic: 'car/sensor/ioniq/location'
     force_update: true
     off_delay: 45
