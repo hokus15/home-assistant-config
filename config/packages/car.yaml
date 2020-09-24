@@ -47,7 +47,7 @@ binary_sensor:
     payload_off: OFF
     value_template: '{{ value_json.states is not none }}'
     force_update: true
-    off_delay: 180
+    off_delay: 35
     device_class: 'moving'
 
   - platform: mqtt
@@ -58,7 +58,7 @@ binary_sensor:
     value_template: '{{ value_json.last_update is not none }}'
     json_attributes_topic: 'car/sensor/ioniq/location'
     force_update: true
-    off_delay: 45
+    off_delay: 25
 
 sensor:
   - platform: integration 
@@ -385,12 +385,18 @@ sensor:
           - sensor.car_ioniq_odometer
       # Ioniq Previous latitude
       car_ioniq_location_previous_latitude:
-        value_template: '{{state_attr("binary_sensor.car_ioniq_location_sensor", "platitude")}}'
+        value_template: >-
+             {%- if state_attr("binary_sensor.car_ioniq_location_sensor", "platitude") is not none %}
+                {{state_attr("binary_sensor.car_ioniq_location_sensor", "platitude")}}
+             {%- endif %}
         entity_id: 
           - binary_sensor.car_ioniq_location_sensor
       # Ioniq Previous longitude
       car_ioniq_location_previous_longitude:
-        value_template: '{{state_attr("binary_sensor.car_ioniq_location_sensor", "plongitude")}}'
+        value_template:  >-
+             {%- if state_attr("binary_sensor.car_ioniq_location_sensor", "plongitude") is not none %}
+                {{state_attr("binary_sensor.car_ioniq_location_sensor", "plongitude")}}
+             {%- endif %}
         entity_id: 
           - binary_sensor.car_ioniq_location_sensor
       # Ioniq Distance travelled between updates
