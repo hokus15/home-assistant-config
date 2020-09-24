@@ -4,6 +4,8 @@ recorder:
       - person
     entities:
       - group.unidad_familiar
+#      - device_tracker.hokusphone
+#      - device_tracker.geniphone
 
 group:
   Unidad Familiar:
@@ -28,6 +30,9 @@ device_tracker:
       hokusphone_wifi: phone/sensor/hokus/wifi
       # Updated when geniphone is connected to a WiFi
       geniphone_wifi: phone/sensor/geni/wifi
+#  - platform: nmap_tracker
+#    hosts:
+#      - 10.155.106.90-99
 
 sensor:
   - platform: template
@@ -101,11 +106,11 @@ zone:
   - name: Colegio
     latitude: !secret school_latitude
     longitude: !secret school_longitude
-    radius: 175
+    radius: 250
     icon: mdi:school
   
   - name: Hospital
     latitude: !secret office2_latitude
     longitude: !secret office2_longitude
-    radius: 250
+    radius: 300
     icon: mdi:hospital-building
