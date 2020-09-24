@@ -144,8 +144,7 @@ netatmo:
 withings:
   client_id: !secret withings_client_id
   client_secret: !secret withings_client_secret
-#  profiles:
-#    - JM
+  use_webhook: true
 
 google:
   client_id: !secret google_client_id
