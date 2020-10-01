@@ -30,11 +30,17 @@ device_tracker:
       hokusphone_wifi: phone/sensor/hokus/wifi
       # Updated when geniphone is connected to a WiFi
       geniphone_wifi: phone/sensor/geni/wifi
+    source_type: 'router'
+    consider_home: 180
 #  - platform: nmap_tracker
 #    hosts:
 #      - 10.155.106.90-99
 
 sensor:
+  - platform: mqtt
+    state_topic: 'phone/sensor/hokus/wifi/home'
+    name: hokusphone_wifi_home
+
   - platform: template
     sensors:
       next_holiday_mode_start:

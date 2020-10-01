@@ -1,0 +1,17 @@
+- alias: 'Presence - HokusPhone - Wifi not_home'
+  trigger:
+    - platform: state
+      entity_id: sensor.hokusphone_wifi_home
+      to: 'not_home'
+      for: '00:03:00'
+  condition:
+    condition: state
+    entity_id: device_tracker.hokusphone_wifi
+    state: 'home'
+  action:
+    - service: mqtt.publish
+      data:
+        topic: 'phone/sensor/hokus/wifi'
+        payload: 'not_home'
+        qos: 0
+        retain: true
