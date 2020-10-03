@@ -4,10 +4,10 @@ recorder:
       - device_tracker.car_ioniq
       - binary_sensor.car_ioniq_state
       - binary_sensor.car_ioniq_location_sensor
-      - sensor.car_ioniq_state_sensor
-      - sensor.car_ioniq_charger_charge_state
       - switch.car_ioniq_charger
+      - sensor.car_ioniq_charger_charge_state
       - sensor.car_ioniq_charger_current_power
+      - sensor.car_ioniq_state_sensor
       - sensor.car_ioniq_location_distance_travelled_between_updates
       - sensor.car_ioniq_odometer
       - sensor.car_ioniq_battery
@@ -20,6 +20,7 @@ recorder:
       - sensor.cargador_sant_miquel
       - sensor.cargador_paseo_mallorca
       - sensor.car_ioniq_charge_time_to_100_mins
+      - input_boolean.car_ioniq_has_charged
 
 logbook:
   exclude:
@@ -38,6 +39,10 @@ device_tracker:
       car_ioniq: car/sensor/ioniq/location
       # Nissan tracker
       #nissan: car/nissan/location
+
+input_boolean:
+  car_ioniq_has_charged:
+    name: Has Ioniq been chaged today?
 
 binary_sensor:
   - platform: mqtt
@@ -319,36 +324,6 @@ sensor:
           {% endif %}
 
         unit_of_measurement: 'kW'
-######################### Daily state data #########################
-      # Ioniq daily State Of Charge display
-      car_ioniq_state_daily_soc_display:
-        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "soc_display")}}'
-        unit_of_measurement: '%'
-      # Ioniq daily State Of Health
-      car_ioniq_state_daily_battery_health:
-        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "soh")}}'
-        unit_of_measurement: '%'
-      # Ioniq daily State Of Charge BMS
-      car_ioniq_state_daily_soc_bms:
-        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "soc_bms")}}'
-        unit_of_measurement: '%'
-      # Ioniq daily odometer
-      car_ioniq_state_daily_odometer:
-        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "odometer")}}'
-        unit_of_measurement: 'Km'
-      # Ioniq daily Cumulative Energy Discharged
-      car_ioniq_state_daily_ced:
-        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "ced")}}'
-        unit_of_measurement: 'kWh'
-      # Ioniq daily Cumulative Energy Charged
-      car_ioniq_state_daily_cec:
-        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "cec")}}'
-        unit_of_measurement: 'kWh'
-      # Ioniq daily energy charged
-      car_ioniq_state_daily_energy_charged:
-        value_template: '{{state_attr("sensor.car_ioniq_state_daily", "charged_energy_kwh")}}'
-        unit_of_measurement: 'kWh'
-######################### Daily state data #########################
       car_ioniq_tpms_fl_pressure:
         value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_fl_pressure")}}'
         unit_of_measurement: 'bar'
