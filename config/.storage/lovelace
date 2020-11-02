@@ -1,4 +1,6 @@
 {
+    "version": 1,
+    "key": "lovelace",
     "data": {
         "config": {
             "title": "Casa",
@@ -1369,10 +1371,6 @@
                             "type": "entities"
                         },
                         {
-                            "entity": "media_player.hokussqueezebox",
-                            "type": "media-control"
-                        },
-                        {
                             "entity": "media_player.salon",
                             "type": "media-control"
                         },
@@ -1664,7 +1662,5 @@
                 }
             ]
         }
-    },
-    "key": "lovelace",
-    "version": 1
+    }
 }
