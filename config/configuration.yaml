@@ -46,13 +46,6 @@ wemo:
     - 10.155.106.70 # Lights - Wemo Link
     - 10.155.106.71 # Car charger - Wemo Insight
 
-cast:
-  media_player:
-    - host: 10.155.106.32 # Hall Google Home Mini
-    - host: 10.155.106.41 # Living room chromecast
-    - host: 10.155.106.50 # Suite Google Nest Hub
-    - host: 10.155.106.72 # Kichen chromecast audio
-
 
 recorder:
   purge_keep_days: 30
