@@ -355,48 +355,33 @@ sensor:
         icon_template: 'mdi:car-electric'
         value_template: '{{ ((states.sensor.car_ioniq_battery_ced.state | float / states.sensor.car_ioniq_odometer.state | float) * 100) | round(1)}}'
         unit_of_measurement: 'kWh/100Km'
-        entity_id:
-          - sensor.car_ioniq_battery_ced
-          - sensor.car_ioniq_odometer
       # Ioniq Previous latitude
       car_ioniq_location_previous_latitude:
         value_template: >-
              {%- if state_attr("binary_sensor.car_ioniq_location_sensor", "platitude") is not none %}
                 {{state_attr("binary_sensor.car_ioniq_location_sensor", "platitude")}}
              {%- endif %}
-        entity_id: 
-          - binary_sensor.car_ioniq_location_sensor
       # Ioniq Previous longitude
       car_ioniq_location_previous_longitude:
         value_template:  >-
              {%- if state_attr("binary_sensor.car_ioniq_location_sensor", "plongitude") is not none %}
                 {{state_attr("binary_sensor.car_ioniq_location_sensor", "plongitude")}}
              {%- endif %}
-        entity_id: 
-          - binary_sensor.car_ioniq_location_sensor
       # Ioniq Distance travelled between updates
       car_ioniq_location_distance_travelled_between_updates:
         unit_of_measurement: 'm'
         friendly_name: 'Dist. entre actualizaciones'
         value_template: '{% if states.device_tracker.car_ioniq.attributes.latitude %} {{ (distance(states("sensor.car_ioniq_location_previous_latitude"), states("sensor.car_ioniq_location_previous_longitude"), states.device_tracker.car_ioniq.attributes.latitude, states.device_tracker.car_ioniq.attributes.longitude) * 1000) | round (2) }} {% else %} -1 {% endif %}'
         icon_template: 'mdi:tape-measure'
-        entity_id: 
-          - device_tracker.car_ioniq
-          - sensor.car_ioniq_location_previous_latitude
-          - sensor.car_ioniq_location_previous_longitude
       # Ioniq Previous longitude
       car_ioniq_location_last_update:
         value_template: '{{state_attr("binary_sensor.car_ioniq_location_sensor", "last_update")|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
-        entity_id: 
-          - binary_sensor.car_ioniq_location_sensor
       # Ioniq GPS accuracy
       car_ioniq_location_gps_accuracy:
         unit_of_measurement: 'm'
         friendly_name: 'Precisión GPS'
         value_template: '{{state_attr("device_tracker.car_ioniq", "gps_accuracy")}}'
         icon_template: 'mdi:map-marker-radius'
-        entity_id: 
-          - device_tracker.car_ioniq
       car_ioniq_charger_charge_state:
         value_template: >-
           {%- if states('sensor.car_ioniq_charger_current_power')|float > 1000.0 and is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
@@ -406,10 +391,6 @@ sensor:
           {% else %}
             Listo
           {%- endif %}
-        entity_id: 
-          - switch.car_ioniq_charger
-          - sensor.car_ioniq_charger_current_power
-          - sensor.car_ioniq_state_sensor
       car_ioniq_charge_time_to_100_mins:
         unit_of_measurement: min
         value_template:  >-

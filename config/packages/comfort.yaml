@@ -226,10 +226,8 @@ sensor:
         value_template: '{{ as_timestamp(states.sun.sun.attributes.next_setting)|timestamp_custom("%H:%M:%S") }}'
       # Thermostat sensors
       entrance_hall_thermostat_target_temperature:
-        entity_id: climate.netatmo_general
         value_template: "{{state_attr('climate.netatmo_general', 'temperature')}}"
       entrance_hall_thermostat_temperature:
-        entity_id: climate.netatmo_general
         value_template: "{{state_attr('climate.netatmo_general', 'current_temperature')}}"
       # Trend sensors
       ground_floor_temperature_trend:

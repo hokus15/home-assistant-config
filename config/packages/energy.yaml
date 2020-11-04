@@ -37,17 +37,14 @@ sensor:
         friendly_name: 'Peaje acceso'
         value_template: 0.044027
         unit_of_measurement: '€/kWh'
-        entity_id: sensor.date_time
       energy_price_electriciy_tax:
         friendly_name: 'Impuesto sobre la electricidad'
         value_template: 5.1127
         unit_of_measurement: '%'
-        entity_id: sensor.date_time
       energy_price_vat:
         friendly_name: 'IVA'
         value_template: 21
         unit_of_measurement: '%'
-        entity_id: sensor.date_time
       qnapups_status_spanish:
         value_template: >-
           {%- if is_state('sensor.qnapups_status_data', 'OL') %}
@@ -72,41 +69,26 @@ sensor:
         unit_of_measurement: '€/kWh'
         icon_template: "mdi:cash-multiple"
         value_template: "{%if states.sensor.pvpcdha.state %}{{ ((states.sensor.energy_price_access_toll.state | float) + (states.sensor.pvpcdha.state | float)) | round(5) }}{% else %}unknown{% endif %}"
-        entity_id:
-          - sensor.energy_price_access_toll
-          - sensor.pvpcdha
       energy_cost_hour_toll:
         friendly_name: "Coste energía con peaje (hora en curso)"
         unit_of_measurement: '€'
         icon_template: "mdi:cash-multiple"
         value_template: "{%if states.sensor.pvpcdha_access_toll.state %}{{ ((states.sensor.energy_home_hourly.state | float) * (states.sensor.pvpcdha_access_toll.state | float)) | round(5) }}{% else %}unknown{% endif %}"
-        entity_id:
-          - sensor.energy_home_hourly
-          - sensor.pvpcdha_access_toll
       energy_cost_hour:
         friendly_name: "Coste energía (hora en curso)"
         unit_of_measurement: '€'
         icon_template: "mdi:cash-multiple"
         value_template: "{%if states.sensor.pvpcdha.state %}{{ ((states.sensor.energy_home_hourly.state | float) * (states.sensor.pvpcdha.state | float)) | round(5) }}{% else %}unknown{% endif %}"
-        entity_id:
-          - sensor.energy_home_hourly
-          - sensor.pvpcdha
       energy_home_daily_valle_pct:
         friendly_name: "Proporción diaria"
         unit_of_measurement: '%'
         icon_template: "mdi:label-percent"
         value_template: "{{ (((states.sensor.energy_home_daily_valle.state | float))/(((states.sensor.energy_home_daily_pico.state | float) + (states.sensor.energy_home_daily_valle.state | float))) * 100)  | round(1) }}"
-        entity_id:
-          - sensor.energy_home_daily_pico
-          - sensor.energy_home_daily_valle
       energy_home_monthly_valle_pct:
         friendly_name: "Proporción mensual"
         unit_of_measurement: '%'
         icon_template: "mdi:label-percent"
         value_template: "{{ (((states.sensor.energy_home_monthly_valle.state | float))/(((states.sensor.energy_home_monthly_pico.state | float) + (states.sensor.energy_home_monthly_valle.state | float))) * 100)  | round(1) }}"
-        entity_id:
-          - sensor.energy_home_monthly_pico
-          - sensor.energy_home_monthly_valle
 
   - platform: mqtt
     state_topic: 'home/sensor/energy/tariff'
