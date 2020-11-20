@@ -420,9 +420,6 @@
                                 },
                                 {
                                     "entity": "sensor.entrance_hall_thermostat_temperature"
-                                },
-                                {
-                                    "entity": "sensor.entrance_hall_thermostat_temperature_trend"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -448,9 +445,12 @@
                         },
                         {
                             "entities": [
-                                "sensor.despacho_sensor_movimiento_luminance",
-                                "sensor.despacho_sensor_movimiento_temperature",
-                                "sensor.office_sensor_temperature_trend"
+                                {
+                                    "entity": "sensor.despacho_sensor_movimiento_luminance"
+                                },
+                                {
+                                    "entity": "sensor.despacho_sensor_movimiento_temperature"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Despacho",
@@ -509,9 +509,6 @@
                                     "entity": "sensor.netatmo_habitacion_co2"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_habitacion_co2_trend"
-                                },
-                                {
                                     "entity": "sensor.netatmo_habitacion_humidity"
                                 },
                                 {
@@ -548,13 +545,7 @@
                                     "entity": "sensor.ground_floor_temperature"
                                 },
                                 {
-                                    "entity": "sensor.ground_floor_temperature_trend"
-                                },
-                                {
                                     "entity": "sensor.first_floor_temperature"
-                                },
-                                {
-                                    "entity": "sensor.first_floor_temperature_trend"
                                 },
                                 {
                                     "entity": "sensor.home_temperature"
