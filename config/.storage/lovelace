@@ -342,15 +342,6 @@
                                     "entity": "sensor.netatmo_salon_temperature"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_salon_temperature_trend"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_salon_min_temp"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_salon_max_temp"
-                                },
-                                {
                                     "entity": "sensor.netatmo_salon_humidity"
                                 },
                                 {
@@ -361,9 +352,6 @@
                                 },
                                 {
                                     "entity": "sensor.netatmo_salon_co2"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_salon_co2_trend"
                                 },
                                 {
                                     "entity": "sensor.netatmo_salon_wifi"
@@ -499,22 +487,7 @@
                                     "entity": "sensor.netatmo_suite_temperature"
                                 },
                                 {
-                                    "entity": "sensor.suite_temperature_change_per_hour"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_suite_temperature_trend"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_suite_min_temp"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_suite_max_temp"
-                                },
-                                {
                                     "entity": "sensor.netatmo_suite_co2"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_suite_co2_trend"
                                 },
                                 {
                                     "entity": "sensor.netatmo_suite_humidity"
@@ -529,14 +502,21 @@
                         },
                         {
                             "entities": [
-                                "sensor.netatmo_habitacion_temperature",
-                                "sensor.netatmo_habitacion_temperature_trend",
-                                "sensor.netatmo_habitacion_min_temp",
-                                "sensor.netatmo_habitacion_max_temp",
-                                "sensor.netatmo_habitacion_co2",
-                                "sensor.netatmo_habitacion_co2_trend",
-                                "sensor.netatmo_habitacion_humidity",
-                                "sensor.netatmo_habitacion_radio"
+                                {
+                                    "entity": "sensor.netatmo_habitacion_temperature"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_habitacion_co2"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_habitacion_co2_trend"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_habitacion_humidity"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_habitacion_radio"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Habitaci\u00f3n ni\u00f1os",
@@ -623,17 +603,6 @@
                             ],
                             "title": "Ocupaci\u00f3n",
                             "type": "history-graph"
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "entity": "sensor.suite_temperature_change_per_hour"
-                                }
-                            ],
-                            "hours_to_show": 24,
-                            "refresh_interval": 0,
-                            "title": "Cambio temperatura en Suite",
-                            "type": "history-graph"
                         }
                     ],
                     "icon": "mdi:home-map-marker",
@@ -662,12 +631,15 @@
                         },
                         {
                             "entities": [
-                                "sensor.netatmo_exterior_temperature",
-                                "sensor.netatmo_exterior_min_temp",
-                                "sensor.netatmo_exterior_max_temp",
-                                "sensor.netatmo_exterior_humidity",
-                                "sensor.netatmo_exterior_temperature_trend",
-                                "sensor.netatmo_exterior_radio"
+                                {
+                                    "entity": "sensor.netatmo_exterior_temperature"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_exterior_humidity"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_exterior_radio"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Temperatura",
