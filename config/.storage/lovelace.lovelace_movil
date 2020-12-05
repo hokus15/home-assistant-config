@@ -269,6 +269,10 @@
                                 }
                             ],
                             "type": "vertical-stack"
+                        },
+                        {
+                            "type": "thermostat",
+                            "entity": "climate.netatmo_general"
                         }
                     ]
                 }
