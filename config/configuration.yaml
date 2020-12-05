@@ -187,6 +187,9 @@ tts:
 #    cache_dir: /tmp/tts
 #    time_memory: 300
     language: 'es'
+  - platform: google_cloud
+    key_file: google_cloud.json
+    voice: es-ES-Standard-B
 
 automation: !include_dir_merge_list automations
 script: !include_dir_merge_named scripts
