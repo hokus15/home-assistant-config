@@ -2,7 +2,7 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.exchange_rate_1_btc
-    above: 10000
+    above: 16000
   action:
     - service: notify.telegram
       data_template:
