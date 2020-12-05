@@ -46,3 +46,4 @@ config/node-red/.config.json.backup
 config/node-red/.flows.json.backup
 config/.storage/tmpawlr_pit
 config/.storage/core.uuid
+config/google_cloud.json
