@@ -9,6 +9,7 @@ before_install:
   - HA_VERSION=$(<config/.HA_VERSION)
 install:
   - pip3 install six==1.12.0
+  - mv /home/travis/virtualenv/python3.8.0/lib/python3.8/site-packages/six-1.12.0.dist-info/METADATA.json /home/travis/virtualenv/python3.8.0/lib/python3.8/site-packages/six-1.12.0.dist-info/METADATA
   - pip3 install homeassistant==${HA_VERSION}
 script:
   - hass -c config --script check_config
