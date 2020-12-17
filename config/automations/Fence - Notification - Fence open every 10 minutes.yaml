@@ -14,11 +14,13 @@
       - condition: template
         value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))//60) != 0 }}'
   action:
-    - service: tts.google_cloud_say
+    - service: tts.cloud_say
       entity_id: media_player.recibidor
       data_template:
         message: 'Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos'
-        cache: false
+        options:
+          gender: male
+        language: es-ES
     - service: telegram_bot.send_message
       data_template:
         message: '🚪 Barrera {{ states.sensor.outside_fence.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.sensor.outside_fence.last_changed))|int//60 }} minutos'

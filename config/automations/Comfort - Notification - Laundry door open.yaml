@@ -21,8 +21,10 @@
       - condition: template
         value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.coladuria_sensor_puerta.last_changed))//60) != 0 }}'
   action:
-    - service: tts.google_cloud_say
+    - service: tts.cloud_say
       entity_id: media_player.recibidor
       data_template:
         message: 'Puerta de la coladuría abierta durante más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.coladuria_sensor_puerta.last_changed))|int//60 }} minutos'
-        cache: false
+        options:
+          gender: male
+        language: es-ES
