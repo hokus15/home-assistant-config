@@ -115,6 +115,8 @@ sensor:
             {% else %}
                 Apagada
             {%- endif %}
+      ha_runtime_in_minutes:
+        value_template: '{{((as_timestamp(now()) - as_timestamp(states.sensor.time_online.state)) / 60)| round }}'
 
   - platform: mqtt
     name: "Hokuslaptop - Remaining Battery"
@@ -141,8 +143,8 @@ sensor:
     name: Dominio nena
   
   - platform: uptime
-    name: "HA runtime in minutes"
-    unit_of_measurement: minutes
+    name: "Time Online"
+
   
   - platform: sql
     db_url: !secret recorder_db_url

@@ -1180,17 +1180,39 @@
                     "cards": [
                         {
                             "entities": [
-                                "sensor.speedtest_ping",
-                                "sensor.speedtest_download",
-                                "sensor.speedtest_upload",
-                                "sensor.caducidad_certificado_ssl",
-                                "sensor.dominio_principal",
-                                "sensor.dominio_nena",
-                                "sensor.google_wifi_current_version",
-                                "sensor.google_wifi_last_restart",
-                                "sensor.google_wifi_new_version",
-                                "sensor.google_wifi_status",
-                                "sensor.google_wifi_uptime"
+                                {
+                                    "entity": "sensor.speedtest_ping"
+                                },
+                                {
+                                    "entity": "sensor.speedtest_download"
+                                },
+                                {
+                                    "entity": "sensor.speedtest_upload"
+                                },
+                                {
+                                    "entity": "sensor.cert_expiry_timestamp"
+                                },
+                                {
+                                    "entity": "sensor.dominio_principal"
+                                },
+                                {
+                                    "entity": "sensor.dominio_nena"
+                                },
+                                {
+                                    "entity": "sensor.google_wifi_current_version"
+                                },
+                                {
+                                    "entity": "sensor.google_wifi_last_restart"
+                                },
+                                {
+                                    "entity": "sensor.google_wifi_new_version"
+                                },
+                                {
+                                    "entity": "sensor.google_wifi_status"
+                                },
+                                {
+                                    "entity": "sensor.google_wifi_uptime"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Internet",
