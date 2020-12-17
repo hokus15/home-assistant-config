@@ -7,6 +7,7 @@ before_install:
   - sed -i '/stream:/d' ./config/configuration.yaml
   - sudo apt-get install -y libudev-dev
   - HA_VERSION=$(<config/.HA_VERSION)
+  - pip3 install six
 install:
   - pip3 install homeassistant==${HA_VERSION}
 script:
