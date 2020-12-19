@@ -1,0 +1,25 @@
+- alias: 'Energy - Notification - Possible differential switch down'
+  trigger:
+    platform: state
+    entity_id: climate.netatmo_general, switch.car_ioniq_charger, switch.luz_piscina, switch.motor_piscina
+    to: 'unavailable'
+  condition:
+    - condition: state
+      entity_id: 'binary_sensor.energy_home_status'
+      state: 'on'
+    - condition: state
+      entity_id: 'climate.netatmo_general'
+      state: 'unavailable'
+    - condition: state
+      entity_id: 'switch.car_ioniq_charger'
+      state: 'unavailable'
+    - condition: state
+      entity_id: 'switch.luz_piscina'
+      state: 'unavailable'
+    - condition: state
+      entity_id: 'switch.motor_piscina'
+      state: 'unavailable'
+  action:
+    - service: notify.telegram
+      data:
+        message: 'Es posible que haya saltado un diferencial. Los dispositivos afectados son: lavavajillas, piscina (luz y depuradora), lavadora, secadora, caldera, barrera, cargador del coche y el aire acondicionado'
