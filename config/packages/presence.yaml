@@ -4,8 +4,7 @@ recorder:
       - person
     entities:
       - group.unidad_familiar
-#      - device_tracker.hokusphone
-#      - device_tracker.geniphone
+
 
 group:
   Unidad Familiar:
@@ -26,9 +25,9 @@ input_number:
 device_tracker:
   - platform: mqtt
     devices:
-      # Updated when hokusphone is connected to a WiFi
+      # Set to home when when hokusphone is connected to HokusWiFi and not_home otherwise
       hokusphone_wifi: phone/sensor/hokus/wifi
-      # Updated when geniphone is connected to a WiFi
+      # Set to home when when geniphone is connected to HokusWiFi and not_home otherwise
       geniphone_wifi: phone/sensor/geni/wifi
     source_type: 'router'
     consider_home: 180
@@ -37,9 +36,21 @@ device_tracker:
 #      - 10.155.106.90-99
 
 sensor:
+  # Consider_home is not working properly for mqtt device_tracker
+  # This sensor is to workaround it using some automations
+  # Presence - HokusPhone - Wifi home.yaml
+  # Presence - HokusPhone - Wifi not_home.yaml
   - platform: mqtt
-    state_topic: 'phone/sensor/hokus/wifi/home'
-    name: hokusphone_wifi_home
+    state_topic: 'phone/sensor/hokus/wifi/ssid'
+    name: hokusphone_wifi_ssid
+
+  # Consider_home is not working properly for mqtt device_tracker
+  # This sensor is to workaround it using some automations
+  # Presence - GeniPhone - Wifi home.yaml
+  # Presence - GeniPhone - Wifi not_home.yaml
+  - platform: mqtt
+    state_topic: 'phone/sensor/geni/wifi/ssid'
+    name: geniphone_wifi_ssid
 
   - platform: template
     sensors:

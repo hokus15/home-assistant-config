@@ -1,21 +1,21 @@
 # Consider_home is not working properly for mqtt device_tracker
 # This sensor is to workaround it using some automations
-# Presence - HokusPhone - Wifi home.yaml
-# Presence - HokusPhone - Wifi not_home.yaml
-- alias: 'Presence - HokusPhone - Wifi not_home'
+# Presence - GeniPhone - Wifi home.yaml
+# Presence - GeniPhone - Wifi not_home.yaml
+- alias: 'Presence - GeniPhone - Wifi not_home'
   trigger:
     - platform: state
-      entity_id: sensor.hokusphone_wifi_ssid
+      entity_id: sensor.geniphone_wifi_ssid
       to: 'not_connected'
       for: '00:03:00'
   condition:
     condition: state
-    entity_id: device_tracker.hokusphone_wifi
+    entity_id: device_tracker.geniphone_wifi
     state: 'home'
   action:
     - service: mqtt.publish
       data:
-        topic: 'phone/sensor/hokus/wifi'
+        topic: 'phone/sensor/geni/wifi'
         payload: 'not_home'
         qos: 0
         retain: true

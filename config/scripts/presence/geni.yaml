@@ -1,17 +1,19 @@
+# Called from IFTTT when Geni phone is connected to home WiFi
 presence_geniphone_connected_home_wifi:
   alias: 'Presence - GeniPhone connected home WiFi'
   sequence:
     - service: mqtt.publish
       data:
-        payload: 'home'
+        payload: 'HokusWiFi'
         retain: true
-        topic: 'phone/sensor/geni/wifi'
+        topic: 'phone/sensor/geni/wifi/ssid'
 
+# Called from IFTTT when Geni phone is disconnected from home WiFi
 presence_geniphone_not_connected_home_wifi:
   alias: 'Presence - GeniPhone not connected home WiFi'
   sequence:
     - service: mqtt.publish
       data:
-        payload: 'not_home'
+        payload: 'not_connected'
         retain: true
-        topic: 'phone/sensor/geni/wifi'
+        topic: 'phone/sensor/geni/wifi/ssid'
