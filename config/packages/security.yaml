@@ -106,6 +106,21 @@ switch:
         # 'curl -k --silent "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=getMotionDetectConfig&usr=<camera_username>&pwd=<camera_password>" | grep -oP "(?<=isEnable>).*?(?=</isEnable>)"'
         command_state: !secret cam_salon_motion_detection_state
         value_template: '{{ value == "1" }}'
+
+  - platform: command_line
+    switches:
+      #Switch for Foscam Motion Detection
+      cocina_camara_det_mov:
+        # Command used:
+        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=1&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
+        command_on: !secret cam_cocina_motion_detection_on
+        # Command used:
+        # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=0&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
+        command_off: !secret cam_cocina_motion_detection_off
+        # Command used:
+        # 'curl -k --silent "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=getMotionDetectConfig&usr=<camera_username>&pwd=<camera_password>" | grep -oP "(?<=isEnable>).*?(?=</isEnable>)"'
+        command_state: !secret cam_cocina_motion_detection_state
+        value_template: '{{ value == "1" }}'
   
   - platform: command_line
     switches:
@@ -176,6 +191,14 @@ camera:
     username: !secret cam_salon_username
     password: !secret cam_salon_password
 
+   # Kitchen camera
+  - platform: foscam
+    ip: !secret cam_cocina_host
+    name: Cocina
+    port: !secret cam_cocina_port
+    username: !secret cam_cocina_username
+    password: !secret cam_cocina_password
+
   # Backyard stand camera
   # For Linksys WVC54GCA http://<cam-host>:<cam_port>/img/snapshot.cgi
   - platform: generic
@@ -216,7 +239,7 @@ binary_sensor:
     payload_off: '0'
     #device_class: light
   
-  # Infrared status for foscam cam in 
+  # Infrared status for foscam cam in living room
   - platform: command_line
     # Command used to get infrared status for a foscam camera:
     # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
@@ -225,3 +248,16 @@ binary_sensor:
     payload_on: '1'
     payload_off: '0'
     #device_class: light
+
+  # Infrared status for foscam cam in kitchen
+  - platform: command_line
+    # Command used to get infrared status for a foscam camera:
+    # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
+    command: !secret cam_cocina_infrared_command
+    name: cocina_camara_infrarrojo
+    payload_on: '1'
+    payload_off: '0'
+    #device_class: light
+
+shell_command:
+  ptz_preset_point_main: !secret cam_salon_ptz_preset_point_main

@@ -396,24 +396,159 @@
                             "type": "entities"
                         },
                         {
-                            "aspect_ratio": "0%",
-                            "camera_image": "camera.salon",
-                            "entities": [
+                            "type": "picture-elements",
+                            "elements": [
                                 {
-                                    "entity": "switch.salon_camara_det_mov"
+                                    "type": "icon",
+                                    "icon": "mdi:home",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "25px",
+                                        "bottom": "25px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "shell_command.ptz_preset_point_main"
+                                    }
                                 },
                                 {
-                                    "entity": "binary_sensor.salon_camara_infrarrojo"
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-up",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "25px",
+                                        "bottom": "50px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "foscam.ptz",
+                                        "service_data": {
+                                            "entity_id": "camera.salon",
+                                            "movement": "up"
+                                        }
+                                    }
                                 },
                                 {
-                                    "entity": "light.salon_light"
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-down",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "25px",
+                                        "bottom": "0px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "foscam.ptz",
+                                        "service_data": {
+                                            "entity_id": "camera.salon",
+                                            "movement": "down"
+                                        }
+                                    }
                                 },
                                 {
-                                    "entity": "light.comedor_light"
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-left",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "50px",
+                                        "bottom": "25px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "foscam.ptz",
+                                        "service_data": {
+                                            "entity_id": "camera.salon",
+                                            "movement": "left"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-right",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "0px",
+                                        "bottom": "25px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "foscam.ptz",
+                                        "service_data": {
+                                            "entity_id": "camera.salon",
+                                            "movement": "right"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-top-left",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "50px",
+                                        "bottom": "50px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "foscam.ptz",
+                                        "service_data": {
+                                            "entity_id": "camera.salon",
+                                            "movement": "top_left"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-top-right",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "0px",
+                                        "bottom": "50px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "foscam.ptz",
+                                        "service_data": {
+                                            "entity_id": "camera.salon",
+                                            "movement": "top_right"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-bottom-left",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "50px",
+                                        "bottom": "0px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "foscam.ptz",
+                                        "service_data": {
+                                            "entity_id": "camera.salon",
+                                            "movement": "bottom_left"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-bottom-right",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "0px",
+                                        "bottom": "0px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "foscam.ptz",
+                                        "service_data": {
+                                            "entity_id": "camera.salon",
+                                            "movement": "bottom_right"
+                                        }
+                                    }
                                 }
                             ],
-                            "title": "Sal\u00f3n",
-                            "type": "picture-glance"
+                            "camera_image": "camera.salon"
                         },
                         {
                             "entities": [
