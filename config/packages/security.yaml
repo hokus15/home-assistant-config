@@ -262,4 +262,6 @@ binary_sensor:
     #device_class: light
 
 shell_command:
-  ptz_preset_point_main: !secret cam_salon_ptz_preset_point_main
+  cam_salon_ptz_preset_point_main: !secret cam_salon_ptz_preset_point_main
+  cam_salon_ptz_preset_point_main_left: !secret cam_salon_ptz_preset_point_mainleft
+  cam_salon_ptz_preset_point_main_right: !secret cam_salon_ptz_preset_point_mainright

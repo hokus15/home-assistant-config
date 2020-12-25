@@ -249,12 +249,38 @@
                                     "icon": "mdi:home",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "25px",
+                                        "right": "50px",
                                         "bottom": "25px"
                                     },
                                     "tap_action": {
                                         "action": "call-service",
-                                        "service": "shell_command.ptz_preset_point_main"
+                                        "service": "shell_command.cam_salon_ptz_preset_point_main"
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-expand-left",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "100px",
+                                        "bottom": "25px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "shell_command.cam_salon_ptz_preset_point_main_left"
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-expand-right",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "0px",
+                                        "bottom": "25px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "shell_command.cam_salon_ptz_preset_point_main_right"
                                     }
                                 },
                                 {
@@ -262,7 +288,7 @@
                                     "icon": "mdi:arrow-up",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "25px",
+                                        "right": "50px",
                                         "bottom": "50px"
                                     },
                                     "tap_action": {
@@ -279,7 +305,7 @@
                                     "icon": "mdi:arrow-down",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "25px",
+                                        "right": "50px",
                                         "bottom": "0px"
                                     },
                                     "tap_action": {
@@ -296,7 +322,7 @@
                                     "icon": "mdi:arrow-left",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "50px",
+                                        "right": "75px",
                                         "bottom": "25px"
                                     },
                                     "tap_action": {
@@ -313,7 +339,7 @@
                                     "icon": "mdi:arrow-right",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "0px",
+                                        "right": "25px",
                                         "bottom": "25px"
                                     },
                                     "tap_action": {
@@ -330,7 +356,7 @@
                                     "icon": "mdi:arrow-top-left",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "50px",
+                                        "right": "75px",
                                         "bottom": "50px"
                                     },
                                     "tap_action": {
@@ -347,7 +373,7 @@
                                     "icon": "mdi:arrow-top-right",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "0px",
+                                        "right": "25px",
                                         "bottom": "50px"
                                     },
                                     "tap_action": {
@@ -364,7 +390,7 @@
                                     "icon": "mdi:arrow-bottom-left",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "50px",
+                                        "right": "75px",
                                         "bottom": "0px"
                                     },
                                     "tap_action": {
@@ -381,7 +407,7 @@
                                     "icon": "mdi:arrow-bottom-right",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "0px",
+                                        "right": "25px",
                                         "bottom": "0px"
                                     },
                                     "tap_action": {
@@ -538,12 +564,38 @@
                                     "icon": "mdi:home",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "25px",
+                                        "right": "50px",
                                         "bottom": "25px"
                                     },
                                     "tap_action": {
                                         "action": "call-service",
-                                        "service": "shell_command.ptz_preset_point_main"
+                                        "service": "shell_command.cam_salon_ptz_preset_point_main"
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-expand-left",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "100px",
+                                        "bottom": "25px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "shell_command.cam_salon_ptz_preset_point_main_left"
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-expand-right",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "0px",
+                                        "bottom": "25px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "shell_command.cam_salon_ptz_preset_point_main_right"
                                     }
                                 },
                                 {
@@ -551,7 +603,7 @@
                                     "icon": "mdi:arrow-up",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "25px",
+                                        "right": "50px",
                                         "bottom": "50px"
                                     },
                                     "tap_action": {
@@ -568,7 +620,7 @@
                                     "icon": "mdi:arrow-down",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "25px",
+                                        "right": "50px",
                                         "bottom": "0px"
                                     },
                                     "tap_action": {
@@ -585,7 +637,7 @@
                                     "icon": "mdi:arrow-left",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "50px",
+                                        "right": "75px",
                                         "bottom": "25px"
                                     },
                                     "tap_action": {
@@ -602,7 +654,7 @@
                                     "icon": "mdi:arrow-right",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "0px",
+                                        "right": "25px",
                                         "bottom": "25px"
                                     },
                                     "tap_action": {
@@ -619,7 +671,7 @@
                                     "icon": "mdi:arrow-top-left",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "50px",
+                                        "right": "75px",
                                         "bottom": "50px"
                                     },
                                     "tap_action": {
@@ -636,7 +688,7 @@
                                     "icon": "mdi:arrow-top-right",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "0px",
+                                        "right": "25px",
                                         "bottom": "50px"
                                     },
                                     "tap_action": {
@@ -653,7 +705,7 @@
                                     "icon": "mdi:arrow-bottom-left",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "50px",
+                                        "right": "75px",
                                         "bottom": "0px"
                                     },
                                     "tap_action": {
@@ -670,7 +722,7 @@
                                     "icon": "mdi:arrow-bottom-right",
                                     "style": {
                                         "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "0px",
+                                        "right": "25px",
                                         "bottom": "0px"
                                     },
                                     "tap_action": {
