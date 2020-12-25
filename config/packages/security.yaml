@@ -8,6 +8,7 @@ recorder:
 
       - switch.recibidor_camara_det_mov
       - switch.salon_camara_det_mov
+      - switch.cocina_camara_det_mov
       - switch.piscina_camara_det_mov
       - switch.barbacoa_camara_det_mov
       - switch.caseta_camara_det_mov
@@ -37,6 +38,7 @@ group:
     entities:
       - switch.recibidor_camara_det_mov
       - switch.salon_camara_det_mov
+      - switch.cocina_camara_det_mov
       - switch.piscina_camara_det_mov
       - switch.barbacoa_camara_det_mov
       - switch.caseta_camara_det_mov
@@ -194,7 +196,7 @@ camera:
    # Kitchen camera
   - platform: foscam
     ip: !secret cam_cocina_host
-    name: Cocina
+    name: cocina
     port: !secret cam_cocina_port
     username: !secret cam_cocina_username
     password: !secret cam_cocina_password

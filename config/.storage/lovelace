@@ -242,8 +242,163 @@
                             "type": "picture-glance"
                         },
                         {
+                            "type": "picture-elements",
+                            "elements": [
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:home",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "25px",
+                                        "bottom": "25px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "shell_command.ptz_preset_point_main"
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-up",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "25px",
+                                        "bottom": "50px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "foscam.ptz",
+                                        "service_data": {
+                                            "entity_id": "camera.salon",
+                                            "movement": "up"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-down",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "25px",
+                                        "bottom": "0px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "foscam.ptz",
+                                        "service_data": {
+                                            "entity_id": "camera.salon",
+                                            "movement": "down"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-left",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "50px",
+                                        "bottom": "25px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "foscam.ptz",
+                                        "service_data": {
+                                            "entity_id": "camera.salon",
+                                            "movement": "left"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-right",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "0px",
+                                        "bottom": "25px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "foscam.ptz",
+                                        "service_data": {
+                                            "entity_id": "camera.salon",
+                                            "movement": "right"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-top-left",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "50px",
+                                        "bottom": "50px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "foscam.ptz",
+                                        "service_data": {
+                                            "entity_id": "camera.salon",
+                                            "movement": "top_left"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-top-right",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "0px",
+                                        "bottom": "50px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "foscam.ptz",
+                                        "service_data": {
+                                            "entity_id": "camera.salon",
+                                            "movement": "top_right"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-bottom-left",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "50px",
+                                        "bottom": "0px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "foscam.ptz",
+                                        "service_data": {
+                                            "entity_id": "camera.salon",
+                                            "movement": "bottom_left"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "icon",
+                                    "icon": "mdi:arrow-bottom-right",
+                                    "style": {
+                                        "background": "rgba(255, 255, 255, 0.5)",
+                                        "right": "0px",
+                                        "bottom": "0px"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "foscam.ptz",
+                                        "service_data": {
+                                            "entity_id": "camera.salon",
+                                            "movement": "bottom_right"
+                                        }
+                                    }
+                                }
+                            ],
+                            "camera_image": "camera.salon"
+                        },
+                        {
                             "aspect_ratio": "0%",
-                            "camera_image": "camera.salon",
+                            "camera_image": "camera.cocina",
                             "entities": [
                                 {
                                     "entity": "switch.salon_camara_det_mov"
@@ -252,7 +407,7 @@
                                     "entity": "binary_sensor.salon_camara_infrarrojo"
                                 }
                             ],
-                            "title": "Sal\u00f3n",
+                            "title": "Cocina",
                             "type": "picture-glance"
                         },
                         {
@@ -307,16 +462,39 @@
                         },
                         {
                             "entities": [
-                                "switch.recibidor_camara_det_mov",
-                                "switch.salon_camara_det_mov",
-                                "switch.piscina_camara_det_mov",
-                                "switch.barbacoa_camara_det_mov",
-                                "switch.caseta_camara_det_mov",
-                                "input_boolean.entrada_camara_det_mov",
-                                "input_boolean.despacho_sensor_movimiento",
-                                "input_boolean.porche_sensor_puerta",
-                                "input_boolean.porche_sensor_persiana",
-                                "input_boolean.coladuria_sensor_puerta"
+                                {
+                                    "entity": "switch.recibidor_camara_det_mov"
+                                },
+                                {
+                                    "entity": "switch.salon_camara_det_mov"
+                                },
+                                {
+                                    "entity": "switch.cocina_camara_det_mov"
+                                },
+                                {
+                                    "entity": "switch.piscina_camara_det_mov"
+                                },
+                                {
+                                    "entity": "switch.barbacoa_camara_det_mov"
+                                },
+                                {
+                                    "entity": "switch.caseta_camara_det_mov"
+                                },
+                                {
+                                    "entity": "input_boolean.entrada_camara_det_mov"
+                                },
+                                {
+                                    "entity": "input_boolean.despacho_sensor_movimiento"
+                                },
+                                {
+                                    "entity": "input_boolean.porche_sensor_puerta"
+                                },
+                                {
+                                    "entity": "input_boolean.porche_sensor_persiana"
+                                },
+                                {
+                                    "entity": "input_boolean.coladuria_sensor_puerta"
+                                }
                             ],
                             "show_header_toggle": true,
                             "title": "Seguridad",
@@ -352,49 +530,6 @@
                 {
                     "badges": [],
                     "cards": [
-                        {
-                            "entities": [
-                                {
-                                    "entity": "sensor.netatmo_salon_temperature"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_salon_humidity"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_salon_noise"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_salon_pressure"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_salon_co2"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_salon_wifi"
-                                },
-                                {
-                                    "entity": "light.salon_light"
-                                },
-                                {
-                                    "entity": "sensor.salon_switch_power"
-                                },
-                                {
-                                    "entity": "sensor.salon_switch_energy"
-                                },
-                                {
-                                    "entity": "light.comedor_light"
-                                },
-                                {
-                                    "entity": "sensor.comedor_switch_power"
-                                },
-                                {
-                                    "entity": "sensor.comedor_switch_energy"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Sal\u00f3n",
-                            "type": "entities"
-                        },
                         {
                             "type": "picture-elements",
                             "elements": [
@@ -552,6 +687,63 @@
                         },
                         {
                             "entities": [
+                                {
+                                    "entity": "sensor.netatmo_salon_temperature"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_salon_humidity"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_salon_noise"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_salon_pressure"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_salon_co2"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_salon_wifi"
+                                },
+                                {
+                                    "entity": "light.salon_light"
+                                },
+                                {
+                                    "entity": "sensor.salon_switch_power"
+                                },
+                                {
+                                    "entity": "sensor.salon_switch_energy"
+                                },
+                                {
+                                    "entity": "light.comedor_light"
+                                },
+                                {
+                                    "entity": "sensor.comedor_switch_power"
+                                },
+                                {
+                                    "entity": "sensor.comedor_switch_energy"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Sal\u00f3n",
+                            "type": "entities"
+                        },
+                        {
+                            "aspect_ratio": "0%",
+                            "camera_image": "camera.cocina",
+                            "entities": [
+                                {
+                                    "entity": "switch.salon_camara_det_mov"
+                                },
+                                {
+                                    "entity": "binary_sensor.salon_camara_infrarrojo"
+                                }
+                            ],
+                            "title": "Cocina",
+                            "type": "picture-glance"
+                        },
+                        {
+                            "entities": [
                                 "binary_sensor.porche_sensor_puerta",
                                 "input_boolean.porche_sensor_puerta",
                                 "binary_sensor.porche_sensor_persiana",
@@ -562,19 +754,6 @@
                             ],
                             "show_header_toggle": true,
                             "title": "Cocina",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "entity": "light.entrance_hall_lamp_light"
-                                },
-                                {
-                                    "entity": "sensor.entrance_hall_thermostat_temperature"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Recibidor",
                             "type": "entities"
                         },
                         {
@@ -593,6 +772,19 @@
                             ],
                             "title": "Recibidor",
                             "type": "picture-glance"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "light.entrance_hall_lamp_light"
+                                },
+                                {
+                                    "entity": "sensor.entrance_hall_thermostat_temperature"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Recibidor",
+                            "type": "entities"
                         },
                         {
                             "entities": [

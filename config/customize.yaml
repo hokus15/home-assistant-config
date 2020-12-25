@@ -255,6 +255,14 @@ binary_sensor.salon_camara_infrarrojo:
 switch.salon_camara_det_mov:
   friendly_name: Det. mov. salón
   icon: mdi:transit-transfer
+camera.cocina:
+  friendly_name: Cocina
+binary_sensor.cocina_camara_infrarrojo:
+  friendly_name: Infrarrojos cocina
+  icon: mdi:led-on
+switch.cocina_camara_det_mov:
+  friendly_name: Det. mov. cocina
+  icon: mdi:transit-transfer
 camera.piscina:
   friendly_name: Piscina
 binary_sensor.piscina_camara_infrarrojo:
