@@ -192,6 +192,7 @@ camera:
     port: !secret cam_salon_port
     username: !secret cam_salon_username
     password: !secret cam_salon_password
+    rtsp_port: 443
 
    # Kitchen camera
   - platform: foscam
