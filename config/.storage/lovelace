@@ -83,6 +83,9 @@
                                 },
                                 {
                                     "entity": "sensor.car_ioniq_location_last_update"
+                                },
+                                {
+                                    "entity": "input_boolean.car_ioniq_has_charged"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -101,7 +104,8 @@
                                 "person.geni",
                                 "person.jordi",
                                 "person.guest",
-                                "sensor.outside_fence"
+                                "sensor.outside_fence",
+                                "alarm_control_panel.home"
                             ],
                             "hours_to_show": 24
                         },
@@ -427,10 +431,10 @@
                             "camera_image": "camera.cocina",
                             "entities": [
                                 {
-                                    "entity": "switch.salon_camara_det_mov"
+                                    "entity": "switch.cocina_camara_det_mov"
                                 },
                                 {
-                                    "entity": "binary_sensor.salon_camara_infrarrojo"
+                                    "entity": "binary_sensor.cocina_camara_infrarrojo"
                                 }
                             ],
                             "title": "Cocina",
@@ -557,205 +561,35 @@
                     "badges": [],
                     "cards": [
                         {
-                            "type": "picture-elements",
-                            "elements": [
+                            "aspect_ratio": "0%",
+                            "camera_image": "camera.salon",
+                            "entities": [
                                 {
-                                    "type": "icon",
-                                    "icon": "mdi:home",
-                                    "style": {
-                                        "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "50px",
-                                        "bottom": "25px"
-                                    },
-                                    "tap_action": {
-                                        "action": "call-service",
-                                        "service": "shell_command.cam_salon_ptz_preset_point_main"
-                                    }
+                                    "entity": "switch.salon_camara_det_mov"
                                 },
                                 {
-                                    "type": "icon",
-                                    "icon": "mdi:arrow-expand-left",
-                                    "style": {
-                                        "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "100px",
-                                        "bottom": "25px"
-                                    },
-                                    "tap_action": {
-                                        "action": "call-service",
-                                        "service": "shell_command.cam_salon_ptz_preset_point_main_left"
-                                    }
-                                },
-                                {
-                                    "type": "icon",
-                                    "icon": "mdi:arrow-expand-right",
-                                    "style": {
-                                        "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "0px",
-                                        "bottom": "25px"
-                                    },
-                                    "tap_action": {
-                                        "action": "call-service",
-                                        "service": "shell_command.cam_salon_ptz_preset_point_main_right"
-                                    }
-                                },
-                                {
-                                    "type": "icon",
-                                    "icon": "mdi:arrow-up",
-                                    "style": {
-                                        "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "50px",
-                                        "bottom": "50px"
-                                    },
-                                    "tap_action": {
-                                        "action": "call-service",
-                                        "service": "foscam.ptz",
-                                        "service_data": {
-                                            "entity_id": "camera.salon",
-                                            "movement": "up"
-                                        }
-                                    }
-                                },
-                                {
-                                    "type": "icon",
-                                    "icon": "mdi:arrow-down",
-                                    "style": {
-                                        "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "50px",
-                                        "bottom": "0px"
-                                    },
-                                    "tap_action": {
-                                        "action": "call-service",
-                                        "service": "foscam.ptz",
-                                        "service_data": {
-                                            "entity_id": "camera.salon",
-                                            "movement": "down"
-                                        }
-                                    }
-                                },
-                                {
-                                    "type": "icon",
-                                    "icon": "mdi:arrow-left",
-                                    "style": {
-                                        "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "75px",
-                                        "bottom": "25px"
-                                    },
-                                    "tap_action": {
-                                        "action": "call-service",
-                                        "service": "foscam.ptz",
-                                        "service_data": {
-                                            "entity_id": "camera.salon",
-                                            "movement": "left"
-                                        }
-                                    }
-                                },
-                                {
-                                    "type": "icon",
-                                    "icon": "mdi:arrow-right",
-                                    "style": {
-                                        "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "25px",
-                                        "bottom": "25px"
-                                    },
-                                    "tap_action": {
-                                        "action": "call-service",
-                                        "service": "foscam.ptz",
-                                        "service_data": {
-                                            "entity_id": "camera.salon",
-                                            "movement": "right"
-                                        }
-                                    }
-                                },
-                                {
-                                    "type": "icon",
-                                    "icon": "mdi:arrow-top-left",
-                                    "style": {
-                                        "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "75px",
-                                        "bottom": "50px"
-                                    },
-                                    "tap_action": {
-                                        "action": "call-service",
-                                        "service": "foscam.ptz",
-                                        "service_data": {
-                                            "entity_id": "camera.salon",
-                                            "movement": "top_left"
-                                        }
-                                    }
-                                },
-                                {
-                                    "type": "icon",
-                                    "icon": "mdi:arrow-top-right",
-                                    "style": {
-                                        "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "25px",
-                                        "bottom": "50px"
-                                    },
-                                    "tap_action": {
-                                        "action": "call-service",
-                                        "service": "foscam.ptz",
-                                        "service_data": {
-                                            "entity_id": "camera.salon",
-                                            "movement": "top_right"
-                                        }
-                                    }
-                                },
-                                {
-                                    "type": "icon",
-                                    "icon": "mdi:arrow-bottom-left",
-                                    "style": {
-                                        "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "75px",
-                                        "bottom": "0px"
-                                    },
-                                    "tap_action": {
-                                        "action": "call-service",
-                                        "service": "foscam.ptz",
-                                        "service_data": {
-                                            "entity_id": "camera.salon",
-                                            "movement": "bottom_left"
-                                        }
-                                    }
-                                },
-                                {
-                                    "type": "icon",
-                                    "icon": "mdi:arrow-bottom-right",
-                                    "style": {
-                                        "background": "rgba(255, 255, 255, 0.5)",
-                                        "right": "25px",
-                                        "bottom": "0px"
-                                    },
-                                    "tap_action": {
-                                        "action": "call-service",
-                                        "service": "foscam.ptz",
-                                        "service_data": {
-                                            "entity_id": "camera.salon",
-                                            "movement": "bottom_right"
-                                        }
-                                    }
+                                    "entity": "binary_sensor.salon_camara_infrarrojo"
                                 }
                             ],
-                            "camera_image": "camera.salon"
+                            "title": "Sala",
+                            "type": "picture-glance"
                         },
                         {
                             "entities": [
                                 {
-                                    "entity": "sensor.netatmo_salon_temperature"
+                                    "entity": "sensor.netatmo_bunyola_salon_temperature"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_salon_humidity"
+                                    "entity": "sensor.netatmo_bunyola_salon_humidity"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_salon_noise"
+                                    "entity": "sensor.netatmo_bunyola_salon_noise"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_salon_pressure"
+                                    "entity": "sensor.netatmo_bunyola_salon_pressure"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_salon_co2"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_salon_wifi"
+                                    "entity": "sensor.netatmo_bunyola_salon_co2"
                                 },
                                 {
                                     "entity": "light.salon_light"
@@ -785,10 +619,10 @@
                             "camera_image": "camera.cocina",
                             "entities": [
                                 {
-                                    "entity": "switch.salon_camara_det_mov"
+                                    "entity": "switch.cocina_camara_det_mov"
                                 },
                                 {
-                                    "entity": "binary_sensor.salon_camara_infrarrojo"
+                                    "entity": "binary_sensor.cocina_camara_infrarrojo"
                                 }
                             ],
                             "title": "Cocina",
@@ -879,16 +713,13 @@
                                     "entity": "sensor.suite_switch_power"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_suite_temperature"
+                                    "entity": "sensor.netatmo_bunyola_suite_temperature"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_suite_co2"
+                                    "entity": "sensor.netatmo_bunyola_suite_co2"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_suite_humidity"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_suite_radio"
+                                    "entity": "sensor.netatmo_bunyola_suite_humidity"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -898,16 +729,13 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "sensor.netatmo_habitacion_temperature"
+                                    "entity": "sensor.netatmo_bunyola_habitacion_temperature"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_habitacion_co2"
+                                    "entity": "sensor.netatmo_bunyola_habitacion_co2"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_habitacion_humidity"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_habitacion_radio"
+                                    "entity": "sensor.netatmo_bunyola_habitacion_humidity"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -1018,13 +846,10 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "sensor.netatmo_exterior_temperature"
+                                    "entity": "sensor.netatmo_bunyola_exterior_temperature"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_exterior_humidity"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_exterior_radio"
+                                    "entity": "sensor.netatmo_bunyola_exterior_humidity"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -1033,7 +858,9 @@
                         },
                         {
                             "entities": [
-                                "sensor.netatmo_exterior_temperature"
+                                {
+                                    "entity": "sensor.netatmo_bunyola_exterior_temperature"
+                                }
                             ],
                             "hours_to_show": 24,
                             "refresh_interval": 60,
@@ -1088,10 +915,15 @@
                         },
                         {
                             "entities": [
-                                "sensor.netatmo_pluviometro_rain",
-                                "sensor.netatmo_pluviometro_sum_rain_1",
-                                "sensor.netatmo_pluviometro_sum_rain_24",
-                                "sensor.netatmo_pluviometro_radio"
+                                {
+                                    "entity": "sensor.netatmo_bunyola_pluviometro_rain"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_bunyola_pluviometro_rain"
+                                },
+                                {
+                                    "entity": "sensor.netatmo_bunyola_pluviometro_rain_today"
+                                }
                             ],
                             "show_header_toggle": false,
                             "title": "Lluvia",
@@ -1100,19 +932,10 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "sensor.netatmo_anemometro_wind_strength"
+                                    "entity": "sensor.netatmo_bunyola_anemometro_wind_strength"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_anemometro_angle"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_anemometro_gust_strength"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_anemometro_gust_angle"
-                                },
-                                {
-                                    "entity": "sensor.netatmo_anemometro_radio"
+                                    "entity": "sensor.netatmo_bunyola_anemometro_direction"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -1734,19 +1557,19 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "sensor.netatmo_exterior_battery_percent"
+                                    "entity": "sensor.netatmo_bunyola_exterior_battery_percent"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_pluviometro_battery_percent"
+                                    "entity": "sensor.netatmo_bunyola_pluviometro_battery_percent"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_anemometro_battery_percent"
+                                    "entity": "sensor.netatmo_bunyola_anemometro_battery_percent"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_suite_battery_percent"
+                                    "entity": "sensor.netatmo_bunyola_suite_battery_percent"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_habitacion_battery_percent"
+                                    "entity": "sensor.netatmo_bunyola_habitacion_battery_percent"
                                 },
                                 {
                                     "entity": "sensor.porche_sensor_puerta_bateria"
