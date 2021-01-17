@@ -42,7 +42,7 @@ device_tracker:
 
 input_boolean:
   car_ioniq_has_charged:
-    name: Has Ioniq been chaged today?
+    name: ¿Carga Ioniq hoy?
 
 binary_sensor:
   - platform: mqtt
