@@ -40,11 +40,11 @@ frontend:
 
 wemo:
   discovery: true
-  static:
-    - 10.155.106.21 # Laptop - Wemo switch
-    - 10.155.106.31 # Fence - Wemo Maker
-    - 10.155.106.70 # Lights - Wemo Link
-    - 10.155.106.71 # Car charger - Wemo Insight
+#  static:
+#    - 10.155.106.21 # Laptop - Wemo switch
+#    - 10.155.106.31 # Fence - Wemo Maker
+#    - 10.155.106.70 # Lights - Wemo Link
+#    - 10.155.106.71 # Car charger - Wemo Insight
 
 
 recorder:
@@ -76,6 +76,7 @@ logbook:
 logger:
   default: error
   logs:
+    libav.h264: fatal
     openzwave: warn
     libopenzwave: warn
     homeassistant.components.zwave: warn
