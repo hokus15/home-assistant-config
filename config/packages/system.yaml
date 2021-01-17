@@ -131,6 +131,11 @@ sensor:
     payload_not_available: "OFF"
     qos: 1
 
+  - platform: mqtt
+    name: "Node RED"
+    state_topic: "homeassistant/addons/node-red"
+    expire_after: 300
+
   - platform: cert_expiry
     host: !secret cert_expiry_host
 
@@ -153,6 +158,11 @@ sensor:
         query: 'SELECT table_schema "database", Round((Sum(data_length + index_length) / 1024) / 1024, 0) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;'
         column: 'value'
         unit_of_measurement: MiB
+
+input_boolean:
+    node_red:
+        name: 'node RED Watchdog'
+        initial: on
 
 panel_iframe:
   shift_calendar:

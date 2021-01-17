@@ -1,0 +1,13 @@
+- alias: 'System - Node RED Watchdog'
+  trigger:
+    platform: state
+    entity_id: sensor.node_red
+    from: 'online'
+    to: 'unknown'
+  action:
+    - service: hassio.addon_restart
+      data:
+        addon: a0d7b954_nodered
+    - service: notify.telegram
+      data:
+        message: 'He reiniciado node RED porque no repondía'
