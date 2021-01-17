@@ -3,5 +3,7 @@
     "description": "A Node-RED Project",
     "version": "0.0.1",
     "private": true,
-    "dependencies": {}
+    "dependencies": {
+        "node-red-contrib-light-scheduler": "0.0.16"
+    }
 }

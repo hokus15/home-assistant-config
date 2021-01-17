@@ -449,7 +449,7 @@
     },
     "node-red-contrib-home-assistant-websocket": {
         "name": "node-red-contrib-home-assistant-websocket",
-        "version": "0.27.4",
+        "version": "0.27.5",
         "local": false,
         "nodes": {
             "server": {
@@ -633,7 +633,7 @@
     },
     "node-red-contrib-influxdb": {
         "name": "node-red-contrib-influxdb",
-        "version": "0.5.0",
+        "version": "0.5.1",
         "local": false,
         "nodes": {
             "influxdb": {
@@ -1294,7 +1294,7 @@
     },
     "node-red-node-ping": {
         "name": "node-red-node-ping",
-        "version": "0.2.1",
+        "version": "0.2.2",
         "local": false,
         "nodes": {
             "ping": {
@@ -1447,6 +1447,43 @@
                 "local": false,
                 "module": "node-red-node-twitter",
                 "file": "/opt/node_modules/node-red-node-twitter/27-twitter.js"
+            }
+        }
+    },
+    "node-red-contrib-light-scheduler": {
+        "name": "node-red-contrib-light-scheduler",
+        "version": "0.0.16",
+        "local": false,
+        "nodes": {
+            "light-scheduler": {
+                "name": "light-scheduler",
+                "types": [
+                    "light-scheduler"
+                ],
+                "enabled": true,
+                "local": true,
+                "module": "node-red-contrib-light-scheduler",
+                "file": "/config/node-red/node_modules/node-red-contrib-light-scheduler/light-scheduler.js"
+            },
+            "light-scheduler-filter": {
+                "name": "light-scheduler-filter",
+                "types": [
+                    "light-scheduler-filter"
+                ],
+                "enabled": true,
+                "local": true,
+                "module": "node-red-contrib-light-scheduler",
+                "file": "/config/node-red/node_modules/node-red-contrib-light-scheduler/light-scheduler-filter.js"
+            },
+            "light-scheduler-settings": {
+                "name": "light-scheduler-settings",
+                "types": [
+                    "light-scheduler-settings"
+                ],
+                "enabled": true,
+                "local": true,
+                "module": "node-red-contrib-light-scheduler",
+                "file": "/config/node-red/node_modules/node-red-contrib-light-scheduler/light-scheduler-settings.js"
             }
         }
     }
