@@ -4,24 +4,24 @@ recorder:
       - input_boolean.home_comfort_mode
       - input_boolean.sleep_mode
       - input_boolean.bed_occupancy_jordi
-      - sensor.netatmo_exterior_temperature
-      - sensor.netatmo_exterior_humidity
-      - sensor.netatmo_pluviometro_rain
-      - sensor.netatmo_anemometro_strength
-      - sensor.netatmo_salon_temperature
-      - sensor.netatmo_salon_humidity
-      - sensor.netatmo_salon_noise
-      - sensor.netatmo_salon_pressure
-      - sensor.netatmo_salon_co2
+      - sensor.netatmo_bunyola_exterior_temperature
+      - sensor.netatmo_bunyola_exterior_humidity
+      - sensor.netatmo_bunyola_pluviometro_rain
+      - sensor.netatmo_bunyola_anemometro_wind_strength
+      - sensor.netatmo_bunyola_salon_temperature
+      - sensor.netatmo_bunyola_salon_humidity
+      - sensor.netatmo_bunyola_salon_noise
+      - sensor.netatmo_bunyola_salon_pressure
+      - sensor.netatmo_bunyola_salon_co2
       - sensor.home_temperature
       - sensor.ground_floor_temperature
       - sensor.first_floor_temperature
-      - sensor.netatmo_suite_temperature
-      - sensor.netatmo_suite_co2
-      - sensor.netatmo_suite_humidity
-      - sensor.netatmo_habitacion_temperature
-      - sensor.netatmo_habitacion_co2
-      - sensor.netatmo_habitacion_humidity
+      - sensor.netatmo_bunyola_suite_temperature
+      - sensor.netatmo_bunyola_suite_co2
+      - sensor.netatmo_bunyola_suite_humidity
+      - sensor.netatmo_bunyola_habitacion_temperature
+      - sensor.netatmo_bunyola_habitacion_co2
+      - sensor.netatmo_bunyola_habitacion_humidity
       - sensor.entrance_hall_thermostat_temperature
       - sensor.despacho_sensor_movimiento_luminance
       - sensor.despacho_sensor_movimiento_temperature
@@ -31,24 +31,24 @@ recorder:
 logbook:
   exclude:
     entities:
-      - sensor.netatmo_exterior_temperature
-      - sensor.netatmo_exterior_humidity
-      - sensor.netatmo_pluviometro_rain
-      - sensor.netatmo_anemometro_strength
-      - sensor.netatmo_salon_temperature
-      - sensor.netatmo_salon_humidity
-      - sensor.netatmo_salon_noise
-      - sensor.netatmo_salon_pressure
-      - sensor.netatmo_salon_co2
+      - sensor.netatmo_bunyola_exterior_temperature
+      - sensor.netatmo_bunyola_exterior_humidity
+      - sensor.netatmo_bunyola_pluviometro_rain
+      - sensor.netatmo_bunyola_anemometro_wind_strength
+      - sensor.netatmo_bunyola_salon_temperature
+      - sensor.netatmo_bunyola_salon_humidity
+      - sensor.netatmo_bunyola_salon_noise
+      - sensor.netatmo_bunyola_salon_pressure
+      - sensor.netatmo_bunyola_salon_co2
       - sensor.home_temperature
       - sensor.ground_floor_temperature
       - sensor.first_floor_temperature
-      - sensor.netatmo_suite_temperature
-      - sensor.netatmo_suite_co2
-      - sensor.netatmo_suite_humidity
-      - sensor.netatmo_habitacion_temperature
-      - sensor.netatmo_habitacion_co2
-      - sensor.netatmo_habitacion_humidity
+      - sensor.netatmo_bunyola_suite_temperature
+      - sensor.netatmo_bunyola_suite_co2
+      - sensor.netatmo_bunyola_suite_humidity
+      - sensor.netatmo_bunyola_habitacion_temperature
+      - sensor.netatmo_bunyola_habitacion_co2
+      - sensor.netatmo_bunyola_habitacion_humidity
       - sensor.entrance_hall_thermostat_temperature
       - sensor.despacho_sensor_movimiento_luminance
       - sensor.despacho_sensor_movimiento_temperature
@@ -111,7 +111,7 @@ sensor:
     round_digits: 1
     entity_ids:
       - sensor.entrance_hall_thermostat_temperature
-      - sensor.netatmo_salon_temperature
+      - sensor.netatmo_bunyola_salon_temperature
       - sensor.despacho_sensor_movimiento_temperature
       - sensor.porche_sensor_puerta_temperature
   
@@ -120,17 +120,17 @@ sensor:
     type: mean
     round_digits: 1
     entity_ids:
-      - sensor.netatmo_suite_temperature
-      - sensor.netatmo_habitacion_temperature
+      - sensor.netatmo_bunyola_suite_temperature
+      - sensor.netatmo_bunyola_habitacion_temperature
 
   - platform: min_max
     name: home_temperature
     type: mean
     round_digits: 1
     entity_ids:
-      - sensor.netatmo_suite_temperature
-      - sensor.netatmo_habitacion_temperature
-      - sensor.netatmo_salon_temperature
+      - sensor.netatmo_bunyola_suite_temperature
+      - sensor.netatmo_bunyola_habitacion_temperature
+      - sensor.netatmo_bunyola_salon_temperature
       - sensor.entrance_hall_thermostat_temperature
       - sensor.despacho_sensor_movimiento_temperature
       - sensor.porche_sensor_puerta_temperature
