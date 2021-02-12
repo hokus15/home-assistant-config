@@ -11,7 +11,6 @@ recorder:
       - sensor.energy_home_monthly_cost
       - sensor.energy_home_monthly_valle_pct
       - binary_sensor.energy_home_status
-      - sensor.energy_cost_hour_toll
 
 logbook:
   exclude:
@@ -33,9 +32,13 @@ sensor:
 
   - platform: template
     sensors:
-      energy_price_access_toll:
-        friendly_name: 'Peaje acceso'
-        value_template: 0.044027
+      energy_price_valle_access_toll:
+        friendly_name: 'Peaje acceso valle'
+        value_template: 0.002215
+        unit_of_measurement: '€/kWh'
+      energy_price_pico_access_toll:
+        friendly_name: 'Peaje acceso valle punta'
+        value_template: 0.062012
         unit_of_measurement: '€/kWh'
       energy_price_electriciy_tax:
         friendly_name: 'Impuesto sobre la electricidad'
@@ -68,12 +71,18 @@ sensor:
         friendly_name: "Precio energía con peaje"
         unit_of_measurement: '€/kWh'
         icon_template: "mdi:cash-multiple"
-        value_template: "{%if states.sensor.pvpcdha.state %}{{ ((states.sensor.energy_price_access_toll.state | float) + (states.sensor.pvpcdha.state | float)) | round(5) }}{% else %}unknown{% endif %}"
-      energy_cost_hour_toll:
-        friendly_name: "Coste energía con peaje (hora en curso)"
-        unit_of_measurement: '€'
-        icon_template: "mdi:cash-multiple"
-        value_template: "{%if states.sensor.pvpcdha_access_toll.state %}{{ ((states.sensor.energy_home_hourly.state | float) * (states.sensor.pvpcdha_access_toll.state | float)) | round(5) }}{% else %}unknown{% endif %}"
+        value_template: >- 
+            {%if states.sensor.pvpcdha.state %}
+              {% if is_state('sensor.energy_tariff', 'Pico') %}
+                {{ ((states.sensor.energy_price_pico_access_toll.state | float) + (states.sensor.pvpcdha.state | float)) | round(5) }}
+              {% elif is_state('sensor.energy_tariff', 'Valle') %}
+                {{ ((states.sensor.energy_price_valle_access_toll.state | float) + (states.sensor.pvpcdha.state | float)) | round(5) }}
+              {% else %}
+                unknown
+              {% endif %}
+            {% else %}
+              unknown
+            {% endif %}
       energy_cost_hour:
         friendly_name: "Coste energía (hora en curso)"
         unit_of_measurement: '€'
