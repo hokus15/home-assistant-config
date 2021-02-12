@@ -3,7 +3,7 @@
     platform: state
     entity_id: sensor.node_red
     from: 'online'
-    to: 'unknown'
+    to: 'unavailable'
   action:
     - service: hassio.addon_restart
       data:
