@@ -1,0 +1,11 @@
+- alias: 'Nuki callback'
+  trigger:
+    - platform: webhook
+      webhook_id: nuki-webhook
+  action:
+    - service: mqtt.publish
+      data_template:
+        topic: 'home/lock/entrada'
+        retain: true
+        payload: '{{ trigger.json|to_json }}'
+        qos: 0
