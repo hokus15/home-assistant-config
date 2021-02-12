@@ -105,7 +105,9 @@
                                 "person.jordi",
                                 "person.guest",
                                 "sensor.outside_fence",
-                                "alarm_control_panel.home"
+                                "alarm_control_panel.home",
+                                "sensor.lock_entrada_sensor_lock_state",
+                                "binary_sensor.entrada_sensor_puerta"
                             ],
                             "hours_to_show": 24
                         },
@@ -493,37 +495,52 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "switch.recibidor_camara_det_mov"
+                                    "entity": "switch.recibidor_camara_det_mov",
+                                    "icon": "hass:toggle-switch-outline"
                                 },
                                 {
-                                    "entity": "switch.salon_camara_det_mov"
+                                    "entity": "switch.salon_camara_det_mov",
+                                    "icon": "hass:toggle-switch-outline"
                                 },
                                 {
-                                    "entity": "switch.cocina_camara_det_mov"
+                                    "entity": "switch.cocina_camara_det_mov",
+                                    "icon": "hass:toggle-switch-outline"
                                 },
                                 {
-                                    "entity": "switch.piscina_camara_det_mov"
+                                    "entity": "switch.piscina_camara_det_mov",
+                                    "icon": "hass:toggle-switch-outline"
                                 },
                                 {
-                                    "entity": "switch.barbacoa_camara_det_mov"
+                                    "entity": "switch.barbacoa_camara_det_mov",
+                                    "icon": "hass:toggle-switch-outline"
                                 },
                                 {
-                                    "entity": "switch.caseta_camara_det_mov"
+                                    "entity": "switch.caseta_camara_det_mov",
+                                    "icon": "hass:toggle-switch-outline"
                                 },
                                 {
-                                    "entity": "input_boolean.entrada_camara_det_mov"
+                                    "entity": "input_boolean.entrada_camara_det_mov",
+                                    "icon": "hass:toggle-switch-outline"
                                 },
                                 {
-                                    "entity": "input_boolean.despacho_sensor_movimiento"
+                                    "entity": "input_boolean.despacho_sensor_movimiento",
+                                    "icon": "hass:toggle-switch-outline"
                                 },
                                 {
-                                    "entity": "input_boolean.porche_sensor_puerta"
+                                    "entity": "input_boolean.porche_sensor_puerta",
+                                    "icon": "hass:toggle-switch-outline"
                                 },
                                 {
-                                    "entity": "input_boolean.porche_sensor_persiana"
+                                    "entity": "input_boolean.porche_sensor_persiana",
+                                    "icon": "hass:toggle-switch-outline"
                                 },
                                 {
-                                    "entity": "input_boolean.coladuria_sensor_puerta"
+                                    "entity": "input_boolean.coladuria_sensor_puerta",
+                                    "icon": "hass:toggle-switch-outline"
+                                },
+                                {
+                                    "entity": "input_boolean.entrada_sensor_puerta",
+                                    "icon": "hass:toggle-switch-outline"
                                 }
                             ],
                             "show_header_toggle": true,
@@ -531,7 +548,7 @@
                             "type": "entities"
                         },
                         {
-                            "columns": 2,
+                            "columns": 3,
                             "entities": [
                                 {
                                     "entity": "binary_sensor.coladuria_sensor_puerta"
@@ -544,13 +561,17 @@
                                 },
                                 {
                                     "entity": "binary_sensor.despacho_sensor_movimiento"
+                                },
+                                {
+                                    "entity": "binary_sensor.entrada_sensor_puerta"
                                 }
                             ],
                             "show_icon": true,
                             "show_name": true,
                             "show_state": true,
                             "title": "Sensores",
-                            "type": "glance"
+                            "type": "glance",
+                            "state_color": true
                         }
                     ],
                     "icon": "mdi:shield-home",
@@ -577,19 +598,24 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "sensor.netatmo_bunyola_salon_temperature"
+                                    "entity": "sensor.netatmo_bunyola_salon_temperature",
+                                    "name": "Temperatura sal\u00f3n"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_bunyola_salon_humidity"
+                                    "entity": "sensor.netatmo_bunyola_salon_humidity",
+                                    "name": "Humedad sal\u00f3n"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_bunyola_salon_noise"
+                                    "entity": "sensor.netatmo_bunyola_salon_noise",
+                                    "name": "Nivel ruido sal\u00f3n"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_bunyola_salon_pressure"
+                                    "entity": "sensor.netatmo_bunyola_salon_pressure",
+                                    "name": "Presi\u00f3n atmosf\u00e9rica sal\u00f3n"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_bunyola_salon_co2"
+                                    "entity": "sensor.netatmo_bunyola_salon_co2",
+                                    "name": "Nivel CO2 sal\u00f3n"
                                 },
                                 {
                                     "entity": "light.salon_light"
@@ -1479,6 +1505,11 @@
                                     "entity": "sensor.ethereum_walet_value"
                                 },
                                 {
+                                    "entity": "sensor.exchange_rate_1_bch",
+                                    "name": "Bitcoin cash",
+                                    "icon": "mdi:currency-btc"
+                                },
+                                {
                                     "entity": "sensor.bitcoincash_balance"
                                 },
                                 {
@@ -1557,19 +1588,24 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "sensor.netatmo_bunyola_exterior_battery_percent"
+                                    "entity": "sensor.netatmo_bunyola_exterior_battery_percent",
+                                    "name": "Bater\u00eda mod. exterior Netatmo"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_bunyola_pluviometro_battery_percent"
+                                    "entity": "sensor.netatmo_bunyola_pluviometro_battery_percent",
+                                    "name": "Bater\u00eda pluvi\u00f3metro Netatmo"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_bunyola_anemometro_battery_percent"
+                                    "entity": "sensor.netatmo_bunyola_anemometro_battery_percent",
+                                    "name": "Bater\u00eda anem\u00f3metro Netatmo"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_bunyola_suite_battery_percent"
+                                    "entity": "sensor.netatmo_bunyola_suite_battery_percent",
+                                    "name": "Bater\u00eda mod. suite Netatmo"
                                 },
                                 {
-                                    "entity": "sensor.netatmo_bunyola_habitacion_battery_percent"
+                                    "entity": "sensor.netatmo_bunyola_habitacion_battery_percent",
+                                    "name": "Bater\u00eda mod. habitaci\u00f3n Netatmo"
                                 },
                                 {
                                     "entity": "sensor.porche_sensor_puerta_bateria"
@@ -1585,11 +1621,16 @@
                                 },
                                 {
                                     "entity": "sensor.recibidor_remote_bateria"
+                                },
+                                {
+                                    "entity": "sensor.lock_entrada_sensor_battery_state",
+                                    "name": "Bater\u00eda Nuki"
                                 }
                             ],
                             "show_header_toggle": false,
                             "title": "Estado bater\u00edas",
-                            "type": "entities"
+                            "type": "entities",
+                            "state_color": false
                         },
                         {
                             "entity": "media_player.salon",
