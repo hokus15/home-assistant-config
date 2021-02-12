@@ -1,0 +1,14 @@
+- id: '1609615620174'
+  alias: node RED restart
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.node_red
+    from: 'ON'
+    to: unknown
+  condition: []
+  action:
+  - service: hassio.addon_restart
+    data:
+      addon: a0d7b954_nodered
+  mode: single
