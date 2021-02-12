@@ -134,7 +134,7 @@ sensor:
   - platform: mqtt
     name: "Node RED"
     state_topic: "homeassistant/addons/node-red"
-    expire_after: 300
+    expire_after: 120
 
   - platform: cert_expiry
     host: !secret cert_expiry_host
