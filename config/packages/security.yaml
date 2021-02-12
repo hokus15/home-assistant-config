@@ -4,8 +4,13 @@ recorder:
       - binary_sensor.coladuria_sensor_puerta
       - binary_sensor.porche_sensor_puerta
       - binary_sensor.porche_sensor_persiana
+      - binary_sensor.entrada_sensor_puerta
       - binary_sensor.despacho_sensor_movimiento
 
+      - sensor.lock_entrada_sensor_door_state
+      - sensor.lock_entrada_sensor_battery_state
+      - sensor.lock_entrada_sensor_lock_state
+      
       - switch.recibidor_camara_det_mov
       - switch.salon_camara_det_mov
       - switch.cocina_camara_det_mov
@@ -18,8 +23,10 @@ recorder:
       - input_boolean.porche_sensor_puerta
       - input_boolean.porche_sensor_persiana
       - input_boolean.coladuria_sensor_puerta
-      
+
       - group.seguridad
+
+      - lock.entrada
 
 logbook:
   exclude:
@@ -47,6 +54,7 @@ group:
       - input_boolean.porche_sensor_puerta
       - input_boolean.porche_sensor_persiana
       - input_boolean.coladuria_sensor_puerta
+      - input_boolean.entrada_sensor_puerta
 
 switch:
   - platform: command_line
@@ -150,6 +158,10 @@ input_boolean:
   
   coladuria_sensor_puerta:
     name: Det. apert. puerta coladuría
+    icon: 'mdi:glassdoor'
+
+  entrada_sensor_puerta:
+    name: Det. apert. puerta entrada
     icon: 'mdi:glassdoor'
   
   despacho_sensor_movimiento:
@@ -262,7 +274,80 @@ binary_sensor:
     payload_off: '0'
     #device_class: light
 
+  - platform: template
+    sensors:
+      entrada_sensor_puerta:
+        friendly_name: 'Puerta entrada'
+        device_class: door
+        value_template: "{{is_state_attr('sensor.lock_entrada_state', 'doorsensorState', 3) }}"
+
 shell_command:
   cam_salon_ptz_preset_point_main: !secret cam_salon_ptz_preset_point_main
   cam_salon_ptz_preset_point_main_left: !secret cam_salon_ptz_preset_point_mainleft
   cam_salon_ptz_preset_point_main_right: !secret cam_salon_ptz_preset_point_mainright
+
+lock:
+  - platform: nuki
+    host: !secret lock_nuki_host
+    token: !secret lock_nuki_token
+
+sensor:
+  - platform: mqtt
+    state_topic: 'home/lock/entrada'
+    value_template: '{{ value_json.stateName }}'
+    name: lock_entrada_state
+    json_attributes_topic: 'home/lock/entrada'
+    force_update: true
+
+  - platform: template
+    sensors:
+      lock_entrada_sensor_door_state:
+        friendly_name: 'Puerta entrada'
+        value_template: >-
+          {%- if is_state_attr('sensor.lock_entrada_state', 'doorsensorState', 1) %}
+              Sensor no activo
+          {%- elif is_state_attr('sensor.lock_entrada_state', 'doorsensorState', 2) %}
+              Cerrada
+          {%- elif is_state_attr('sensor.lock_entrada_state', 'doorsensorState', 3) %}
+              Abierta
+          {%- elif is_state_attr('sensor.lock_entrada_state', 'doorsensorState', 4) %}
+              Indefinido
+          {%- elif is_state_attr('sensor.lock_entrada_state', 'doorsensorState', 5) %}
+              Calibrando
+          {% else %}
+              Desconocido
+          {%- endif %}
+
+      lock_entrada_sensor_lock_state:
+        friendly_name: 'Cerradura entrada'
+        value_template: >-
+          {%- if is_state_attr('sensor.lock_entrada_state', 'state', 0) %}
+              No calibrado
+          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 1) %}
+              Bloqueado
+          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 2) %}
+              Desbloqueando
+          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 3) %}
+              Desbloqueado
+          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 4) %}
+              Bloqueando
+          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 5) %}
+              Abierto
+          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 6) %}
+              Desbloqueado (lock'n'go)
+          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 7) %}
+              Abriendo
+          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 253) %}
+              ?
+          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 254) %}
+              Motor bloqueado
+          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 255) %}
+              Indefinido
+          {% else %}
+              Desconocido
+          {%- endif %}
+
+      lock_entrada_sensor_battery_state:
+        value_template: "{{state_attr('sensor.lock_entrada_state','batteryChargeState')|int}}"
+        device_class: 'battery'
+        unit_of_measurement: '%'
