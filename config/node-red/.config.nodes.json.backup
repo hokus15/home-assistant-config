@@ -859,23 +859,6 @@
             }
         }
     },
-    "node-red-contrib-state-machine": {
-        "name": "node-red-contrib-state-machine",
-        "version": "1.2.0",
-        "local": false,
-        "nodes": {
-            "state-machine": {
-                "name": "state-machine",
-                "types": [
-                    "state-machine"
-                ],
-                "enabled": true,
-                "local": false,
-                "module": "node-red-contrib-state-machine",
-                "file": "/opt/node_modules/node-red-contrib-state-machine/state-machine.js"
-            }
-        }
-    },
     "node-red-contrib-statistics": {
         "name": "node-red-contrib-statistics",
         "version": "2.2.2",
@@ -1511,6 +1494,23 @@
                 "local": false,
                 "module": "node-red-contrib-persistent-fsm",
                 "file": "/opt/node_modules/node-red-contrib-persistent-fsm/state-machine.js"
+            }
+        }
+    },
+    "node-red-contrib-timerswitch": {
+        "name": "node-red-contrib-timerswitch",
+        "version": "1.3.0",
+        "local": true,
+        "nodes": {
+            "timerswitch": {
+                "name": "timerswitch",
+                "types": [
+                    "timerswitch"
+                ],
+                "enabled": true,
+                "local": true,
+                "module": "node-red-contrib-timerswitch",
+                "file": "/config/node-red/node_modules/node-red-contrib-timerswitch/timerswitch.js"
             }
         }
     }

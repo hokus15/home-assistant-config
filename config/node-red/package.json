@@ -4,6 +4,7 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
-        "node-red-contrib-light-scheduler": "0.0.16"
+        "node-red-contrib-light-scheduler": "0.0.16",
+        "node-red-contrib-timerswitch": "~1.3.0"
     }
 }
