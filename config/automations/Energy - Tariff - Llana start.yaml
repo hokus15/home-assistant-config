@@ -1,0 +1,23 @@
+##############################
+# Llana tariff
+# Starting at 8, 14 and 22 workdays 
+##############################
+- alias: 'Energy - Tariff - Llana start'
+  trigger:
+    - platform: time
+      at: '8:00:00'
+    - platform: time
+      at: '14:00:00'
+    - platform: time
+      at: '22:00:00'
+  condition:
+    condition: state
+    entity_id: binary_sensor.energy_valle_full_day_tariff
+    state: 'off'
+  action:
+    - service: mqtt.publish
+      data:
+        topic: 'home/sensor/energy/tariff_new'
+        retain: true
+        qos: 0
+        payload_template: 'Llana'

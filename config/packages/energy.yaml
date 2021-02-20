@@ -11,6 +11,7 @@ recorder:
       - sensor.energy_home_monthly_cost
       - sensor.energy_home_monthly_valle_pct
       - binary_sensor.energy_home_status
+      - sensor.energy_tariff_new
 
 logbook:
   exclude:
@@ -103,9 +104,32 @@ sensor:
     state_topic: 'home/sensor/energy/tariff'
     name: energy_tariff
 
+  - platform: mqtt
+    state_topic: 'home/sensor/energy/tariff/new'
+    name: energy_tariff_new
+
 binary_sensor:
   - platform: template
     sensors:
+      # Valle full day tariff on weekends and national fix date holidays (local holidays and easter excluded)
+      # 1 de enero (Año Nuevo)
+      # 1 de mayo (Fiesta del Trabajo)
+      # 12 de octubre (Fiesta Nacional de España)
+      # 1 de noviembre (Todos los Santos)
+      # 6 de diciembre (Día de la Constitución Española)
+      # 8 de diciembre (Inmaculada Concepción)
+      # 25 de diciembre (Natividad del Señor)
+      energy_valle_full_day_tariff:
+        value_template: >- 
+            {{now().weekday() in (5,6) or
+            (now().day == 1 and now().month == 1) or
+            (now().day == 1 and now().month == 5) or
+            (now().day == 12 and now().month == 10) or
+            (now().day == 1 and now().month == 11) or
+            (now().day == 6 and now().month == 12) or
+            (now().day == 8 and now().month == 12) or
+            (now().day == 25 and now().month == 12)}}
+        
       energy_home_status:
         device_class: plug
         # Takes into consideration: OL, OL CHRG, OL LB, OL CHRG LB
