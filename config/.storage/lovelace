@@ -1485,42 +1485,6 @@
                             "type": "entities"
                         },
                         {
-                            "entities": [
-                                {
-                                    "entity": "sensor.exchange_rate_1_btc"
-                                },
-                                {
-                                    "entity": "sensor.bitcoin_balance"
-                                },
-                                {
-                                    "entity": "sensor.bitcoin_walet_value"
-                                },
-                                {
-                                    "entity": "sensor.exchange_rate_1_eth"
-                                },
-                                {
-                                    "entity": "sensor.ethereum_balance"
-                                },
-                                {
-                                    "entity": "sensor.ethereum_walet_value"
-                                },
-                                {
-                                    "entity": "sensor.exchange_rate_1_bch",
-                                    "name": "Bitcoin cash",
-                                    "icon": "mdi:currency-btc"
-                                },
-                                {
-                                    "entity": "sensor.bitcoincash_balance"
-                                },
-                                {
-                                    "entity": "sensor.bitcoincash_walet_value"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Crypto Currency",
-                            "type": "entities"
-                        },
-                        {
                             "cards": [
                                 {
                                     "aspect_ratio": "0%",
