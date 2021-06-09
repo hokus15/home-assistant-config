@@ -1,4 +1,6 @@
 {
+    "version": 1,
+    "key": "zone",
     "data": {
         "items": [
             {
@@ -26,7 +28,7 @@
                 "longitude": 2.657374,
                 "name": "Cargador Arag\u00f3n",
                 "passive": true,
-                "radius": 500.0
+                "radius": 725.3121690807606
             },
             {
                 "icon": "mdi:ev-station",
@@ -47,7 +49,5 @@
                 "radius": 1000.0
             }
         ]
-    },
-    "key": "zone",
-    "version": 1
+    }
 }
