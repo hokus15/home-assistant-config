@@ -15,7 +15,7 @@
   action:
     - service: mqtt.publish
       data:
-        topic: 'home/sensor/energy/tariff_new'
+        topic: 'home/sensor/energy/tariff'
         retain: true
         qos: 0
         payload_template: 'Punta'

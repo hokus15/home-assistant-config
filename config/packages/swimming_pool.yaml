@@ -118,11 +118,12 @@ sensor:
       piscina_off_time:
         friendly_name: 'Apagado'
         value_template: >- 
-          {%- if is_state('binary_sensor.summer_time', 'on') %}
-            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
-          {% else %}
-            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
-          {%- endif %}
+          {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=8).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
+#          {%- if is_state('binary_sensor.summer_time', 'on') %}
+#            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
+#          {% else %}
+#            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
+#          {%- endif %}
         icon_template: 'mdi:power-plug-off'
       piscina_on_time:
         friendly_name: 'Encendido'

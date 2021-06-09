@@ -11,7 +11,7 @@ recorder:
       - sensor.energy_home_monthly_cost
       - sensor.energy_home_monthly_valle_pct
       - binary_sensor.energy_home_status
-      - sensor.energy_tariff_new
+      - sensor.energy_tariff
 
 logbook:
   exclude:
@@ -100,13 +100,13 @@ sensor:
         icon_template: "mdi:label-percent"
         value_template: "{{ (((states.sensor.energy_home_monthly_valle.state | float))/(((states.sensor.energy_home_monthly_pico.state | float) + (states.sensor.energy_home_monthly_valle.state | float))) * 100)  | round(1) }}"
 
+#  - platform: mqtt
+#    state_topic: 'home/sensor/energy/tariff'
+#    name: energy_tariff
+
   - platform: mqtt
     state_topic: 'home/sensor/energy/tariff'
     name: energy_tariff
-
-  - platform: mqtt
-    state_topic: 'home/sensor/energy/tariff/new'
-    name: energy_tariff_new
 
 binary_sensor:
   - platform: template
@@ -145,18 +145,18 @@ utility_meter:
     source: sensor.energy_spent
     cycle: daily 
     tariffs:
-      - Pico
+      - Punta
+      - Llana
       - Valle
-#      - Super valle
   energy_home_monthly:
     source: sensor.energy_spent
     cycle: monthly
     offset:
       days: 5
     tariffs:
-      - Pico
+      - Punta
+      - Llana
       - Valle
-#      - Super valle
   energy_home_hourly_cost:
     source: sensor.energy_cost_hour
     cycle: hourly
