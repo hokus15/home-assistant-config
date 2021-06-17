@@ -144,14 +144,6 @@ google:
   client_id: !secret google_client_id
   client_secret: !secret google_secret
 
-speedtestdotnet:
-  scan_interval:
-    hours: 6
-#  monitored_conditions:
-#    - ping
-#    - download
-#    - upload
-
 zwave:
   usb_path: /dev/ttyACM0
   device_config_glob:
