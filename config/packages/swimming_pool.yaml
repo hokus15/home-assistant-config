@@ -107,8 +107,8 @@ sensor:
           {% set filtering_time = (states.sensor.piscina_k_factor.state | float * ((states.sensor.piscina_temperature.state | float / 10) * states.sensor.piscina_recirculation.state | float )) | float | round(2)%}
           {%- if filtering_time < 2 %}
             {{ 2 | float }}
-          {% elif filtering_time > 12 %}
-            {{ 12 | float }}
+          {% elif filtering_time > 8 %}
+            {{ 8 | float }}
           {% else %}
             {{ filtering_time }}
           {%- endif %}
