@@ -1,15 +1,12 @@
 - alias: 'Energy - Notification - Possible differential switch down'
   trigger:
     platform: state
-    entity_id: climate.netatmo_general, switch.car_ioniq_charger, switch.luz_piscina, switch.motor_piscina
+    entity_id: switch.car_ioniq_charger, switch.luz_piscina, switch.motor_piscina
     to: 'unavailable'
   condition:
     - condition: state
       entity_id: 'binary_sensor.energy_home_status'
       state: 'on'
-    - condition: state
-      entity_id: 'climate.netatmo_general'
-      state: 'unavailable'
     - condition: state
       entity_id: 'switch.car_ioniq_charger'
       state: 'unavailable'
