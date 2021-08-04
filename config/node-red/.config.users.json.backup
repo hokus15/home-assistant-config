@@ -7,12 +7,12 @@
                 "view-grid-size": "20",
                 "view-node-status": true,
                 "view-node-show-label": true,
-                "view-show-tips": true
+                "view-show-tips": false
             }
         },
         "menu-deploymenu-item-flow": false,
         "menu-deploymenu-item-full": true,
         "menu-menu-item-sidebar": true,
-        "menu-menu-item-palette": true
+        "menu-menu-item-palette": false
     }
 }
