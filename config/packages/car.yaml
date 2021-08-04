@@ -524,3 +524,26 @@ sensor:
       language: es
       departure_time: now
       traffic_model: pessimistic
+
+utility_meter:
+  car_ioniq_charger_daily:
+    source: sensor.car_ioniq_charger_spent
+    cycle: daily
+    tariffs:
+      - Pico
+      - Valle
+#      - Super valle
+  car_ioniq_charger_monthly:
+    source: sensor.car_ioniq_charger_spent
+    cycle: monthly
+    tariffs:
+      - Pico
+      - Valle
+#      - Super valle
+  car_ioniq_charger_yearly:
+    source: sensor.car_ioniq_charger_spent
+    cycle: yearly
+    tariffs:
+      - Pico
+      - Valle
+#      - Super valle
