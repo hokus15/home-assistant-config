@@ -9,3 +9,15 @@ binary_sensor:
     entity_id: sensor.bomba_agua_power
     upper: 5
     device_class: power
+
+sensor:
+  - platform: integration 
+    source: sensor.bomba_agua_power
+    name: water_pump_energy
+    unit_prefix: k
+    round: 2
+
+utility_meter:
+  energy_water_pump_today:
+    source: sensor.water_pump_energy
+    cycle: daily

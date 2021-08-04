@@ -5,9 +5,5 @@
   action:
     - service: utility_meter.select_tariff
       data_template:
-        entity_id: utility_meter.energy_home_daily 
-        tariff: '{{trigger.payload}}'
-    - service: utility_meter.select_tariff
-      data_template:
-        entity_id: utility_meter.energy_home_monthly
+        entity_id: utility_meter.energy_home_today
         tariff: '{{trigger.payload}}'

@@ -232,6 +232,7 @@ sensor.piscina_water_temperature:
   device_class: temperature
   friendly_name: Temperatura agua piscina
   icon: mdi:oil-temperature
+  state_class: measurement
 sensor.piscina_temperature:
   device_class: temperature
   friendly_name: Temp. media agua piscina
@@ -437,6 +438,7 @@ sensor.salon_switch_power:
   icon: mdi:power-plug
 sensor.comedor_switch_energy:
   icon: mdi:speedometer
+  state_class: measurement
 sensor.cargador_aragon:
   icon: mdi:ev-station
 sensor.cargador_conquistador:
@@ -536,3 +538,9 @@ sensor.car_ioniq_battery_power:
 sensor.car_ioniq_charge_time_to_100:
   friendly_name: Hora estimada fin carga
   icon: mdi:clock
+sensor.energy_home_today:
+  friendly_name: Energia red
+sensor.energy_grid_today:
+  friendly_name: Energia XXI
+sensor.energy_water_pump_today:
+  friendly_name: Energía bomba agua

@@ -6,7 +6,7 @@ recorder:
       - binary_sensor.car_ioniq_location_sensor
       - switch.car_ioniq_charger
       - sensor.car_ioniq_charger_charge_state
-      - sensor.car_ioniq_charger_current_power
+      - sensor.cargador_ioniq_current_power
       - sensor.car_ioniq_state_sensor
       - sensor.car_ioniq_location_distance_travelled_between_updates
       - sensor.car_ioniq_odometer
@@ -43,7 +43,7 @@ recorder:
 logbook:
   exclude:
     entities:
-      - sensor.car_ioniq_charger_current_power
+      - sensor.cargador_ioniq_current_power
       - sensor.car_ioniq_location_distance_travelled_between_updates
       - sensor.car_ioniq_odometer
       - sensor.car_ioniq_battery
@@ -84,12 +84,6 @@ binary_sensor:
     off_delay: 25
 
 sensor:
-  - platform: integration 
-    source: sensor.car_ioniq_charger_current_power
-    name: car_ioniq_charger_spent
-    unit_prefix: k
-    round: 2
-
   - platform: mqtt
     state_topic: 'car/sensor/ioniq/battery'
     value_template: '{{ value_json.socDisplay }}'
@@ -288,19 +282,6 @@ sensor:
             Apagado
           {%- endif %}
 
-      # Charger today energy charged
-      car_ioniq_charger_today_energy_charged:
-        value_template: >- 
-          {% if state_attr('switch.car_ioniq_charger', 'today_energy_kwh') is not none %}
-            {{state_attr('switch.car_ioniq_charger', 'today_energy_kwh')}}
-          {% else %}
-            0
-          {% endif %}
-        unit_of_measurement: kWh
-      # Current power used by Ioniq charger
-      car_ioniq_charger_current_power:
-        value_template: "{{state_attr('switch.car_ioniq_charger','current_power_w')|int}}"
-        unit_of_measurement: W
       # Ioniq State last update
       car_ioniq_battery_last_update:
         friendly_name: 'Última actualización batería'
@@ -471,7 +452,7 @@ sensor:
         icon_template: 'mdi:map-marker-radius'
       car_ioniq_charger_charge_state:
         value_template: >-
-          {%- if states('sensor.car_ioniq_charger_current_power')|float > 1000.0 and is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
+          {%- if states('sensor.cargador_ioniq_current_power')|float > 1000.0 and is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
              Cargando
           {%- elif is_state('switch.car_ioniq_charger', 'off') %}
             Apagado
@@ -524,26 +505,3 @@ sensor:
       language: es
       departure_time: now
       traffic_model: pessimistic
-
-utility_meter:
-  car_ioniq_charger_daily:
-    source: sensor.car_ioniq_charger_spent
-    cycle: daily
-    tariffs:
-      - Pico
-      - Valle
-#      - Super valle
-  car_ioniq_charger_monthly:
-    source: sensor.car_ioniq_charger_spent
-    cycle: monthly
-    tariffs:
-      - Pico
-      - Valle
-#      - Super valle
-  car_ioniq_charger_yearly:
-    source: sensor.car_ioniq_charger_spent
-    cycle: yearly
-    tariffs:
-      - Pico
-      - Valle
-#      - Super valle

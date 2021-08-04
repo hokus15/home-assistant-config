@@ -83,6 +83,13 @@ binary_sensor:
           seconds: 30
 
 utility_meter:
-  energy_home_hourly:
+  energy_grid_today:
     source: sensor.energy_spent
-    cycle: hourly 
+    cycle: daily
+  energy_home_today:
+    source: sensor.energy_spent
+    cycle: daily
+    tariffs:
+      - Punta
+      - Llana
+      - Valle
