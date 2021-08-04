@@ -14,6 +14,24 @@ recorder:
       - sensor.car_ioniq_battery_power
       - sensor.car_ioniq_battery_soc_bms
       - sensor.car_ioniq_location_gps_accuracy
+      - sensor.car_ioniq_battery_inlet_temp
+      - sensor.car_ioniq_battery_max_temp
+      - sensor.car_ioniq_battery_min_temp
+      - sensor.car_ioniq_battery_avg_temp
+      - sensor.car_ioniq_battery_module01_temp
+      - sensor.car_ioniq_battery_module02_temp
+      - sensor.car_ioniq_battery_module03_temp
+      - sensor.car_ioniq_battery_module04_temp
+      - sensor.car_ioniq_battery_module05_temp
+      - sensor.car_ioniq_battery_module06_temp
+      - sensor.car_ioniq_battery_module07_temp
+      - sensor.car_ioniq_battery_module08_temp
+      - sensor.car_ioniq_battery_module09_temp
+      - sensor.car_ioniq_battery_module10_temp
+      - sensor.car_ioniq_battery_module11_temp
+      - sensor.car_ioniq_battery_module12_temp
+      - sensor.car_ioniq_battery_fan_state
+      - sensor.car_ioniq_battery_fan_feedback
       - sensor.cargador_aragon
       - sensor.cargador_conquistador
       - sensor.cargador_palmanyola
@@ -293,7 +311,77 @@ sensor:
       car_ioniq_tpms_last_update:
         friendly_name: 'Última actualización tpms'
         value_template: '{{((state_attr("sensor.car_ioniq_tpms", "timestamp")|int))|round(0)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
-
+      # Ioniq battery temperature
+      car_ioniq_battery_inlet_temp:
+        friendly_name: 'Temperatura enchufe batería'
+        device_class: 'temperature'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryInletTemperature")}}'
+      car_ioniq_battery_max_temp:
+        friendly_name: 'Temperatura máxima batería'
+        device_class: 'temperature'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryMaxTemperature")}}'
+      car_ioniq_battery_min_temp:
+        friendly_name: 'Temperatura mínima batería'
+        device_class: 'temperature'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryMinTemperature")}}'
+      car_ioniq_battery_avg_temp:
+        friendly_name: 'Temperatura media batería'
+        device_class: 'temperature'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryAvgTemperature")}}'
+      car_ioniq_battery_module01_temp:
+        friendly_name: 'Temperatura módulo 1 batería'
+        device_class: 'temperature'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp01")}}'
+      car_ioniq_battery_module02_temp:
+        friendly_name: 'Temperatura módulo 2 batería'
+        device_class: 'temperature'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp02")}}'
+      car_ioniq_battery_module03_temp:
+        friendly_name: 'Temperatura módulo 3 batería'
+        device_class: 'temperature'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp03")}}'
+      car_ioniq_battery_module04_temp:
+        friendly_name: 'Temperatura módulo 4 batería'
+        device_class: 'temperature'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp04")}}'
+      car_ioniq_battery_module05_temp:
+        friendly_name: 'Temperatura módulo 5 batería'
+        device_class: 'temperature'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp05")}}'
+      car_ioniq_battery_module06_temp:
+        friendly_name: 'Temperatura módulo 6 batería'
+        device_class: 'temperature'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp06")}}'
+      car_ioniq_battery_module07_temp:
+        friendly_name: 'Temperatura módulo 7 batería'
+        device_class: 'temperature'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp07")}}'
+      car_ioniq_battery_module08_temp:
+        friendly_name: 'Temperatura módulo 8 batería'
+        device_class: 'temperature'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp08")}}'
+      car_ioniq_battery_module09_temp:
+        friendly_name: 'Temperatura módulo 9 batería'
+        device_class: 'temperature'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp09")}}'
+      car_ioniq_battery_module10_temp:
+        friendly_name: 'Temperatura módulo 10 batería'
+        device_class: 'temperature'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp10")}}'
+      car_ioniq_battery_module11_temp:
+        friendly_name: 'Temperatura módulo 11 batería'
+        device_class: 'temperature'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp11")}}'
+      car_ioniq_battery_module12_temp:
+        friendly_name: 'Temperatura módulo 12 batería'
+        device_class: 'temperature'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp12")}}'
+      car_ioniq_battery_fan_state:
+        friendly_name: 'Velocidad ventilador'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "fanStatus")}}'
+      car_ioniq_battery_fan_feedback:
+        friendly_name: 'Señal ventilador Hz'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "fanFeedback")}}'
       # Ioniq State Of Health
       car_ioniq_battery_health:
         friendly_name: 'Salud batería'
@@ -306,7 +394,6 @@ sensor:
         device_class: 'battery'
         value_template: '{{state_attr("sensor.car_ioniq_battery", "socBms")}}'
         unit_of_measurement: '%'
-      # Ioniq odometer
       # Ioniq Cumulative Energy Discharged
       car_ioniq_battery_ced:
         value_template: '{{state_attr("sensor.car_ioniq_battery", "cumulativeEnergyDischarged")}}'
@@ -324,6 +411,7 @@ sensor:
           {% endif %}
 
         unit_of_measurement: 'kW'
+      # Ioniq tires pressure
       car_ioniq_tpms_fl_pressure:
         value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_fl_pressure")}}'
         unit_of_measurement: 'bar'
@@ -348,7 +436,6 @@ sensor:
       car_ioniq_tpms_br_temperature:
         value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_br_temperature")}}'
         unit_of_measurement: 'ºC'
-
       # Ioniq Average energy consumption without taking into account regeneration
       car_ioniq_battery_energy_consumption:
         friendly_name: 'Consumo medio'
@@ -437,26 +524,3 @@ sensor:
       language: es
       departure_time: now
       traffic_model: pessimistic
-
-utility_meter:
-  car_ioniq_charger_daily:
-    source: sensor.car_ioniq_charger_spent
-    cycle: daily
-    tariffs:
-      - Pico
-      - Valle
-#      - Super valle
-  car_ioniq_charger_monthly:
-    source: sensor.car_ioniq_charger_spent
-    cycle: monthly
-    tariffs:
-      - Pico
-      - Valle
-#      - Super valle
-  car_ioniq_charger_yearly:
-    source: sensor.car_ioniq_charger_spent
-    cycle: yearly
-    tariffs:
-      - Pico
-      - Valle
-#      - Super valle
