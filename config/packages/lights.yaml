@@ -39,3 +39,11 @@ light:
       - light.entrance_hall_lamp_light
       - light.comedor_light
       - light.salon_light
+
+  - platform: group
+    name: Luces interiores modo dormir
+    entities:
+      - light.escalera_light
+      - light.entrance_hall_lamp_light
+      - light.comedor_light
+      - light.salon_light
