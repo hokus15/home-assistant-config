@@ -1,0 +1,17 @@
+- alias: 'Car - Energy - Tariff change'
+  trigger:
+    platform: mqtt
+    topic: 'home/sensor/energy/tariff'
+  action:
+    - service: utility_meter.select_tariff
+      data_template:
+        entity_id: utility_meter.car_ioniq_charger_daily
+        tariff: '{{trigger.payload}}'
+    - service: utility_meter.select_tariff
+      data_template:
+        entity_id: utility_meter.car_ioniq_charger_monthly
+        tariff: '{{trigger.payload}}'
+    - service: utility_meter.select_tariff
+      data_template:
+        entity_id: utility_meter.car_ioniq_charger_yearly
+        tariff: '{{trigger.payload}}'
