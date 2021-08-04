@@ -5,11 +5,7 @@ recorder:
       - sensor.qnapups_status_spanish
       - sensor.qnapups_status_data
       - sensor.pvpcdha
-      - sensor.pvpcdha_access_toll
-      - sensor.energy_home_hourly_cost
-      - sensor.energy_home_daily_cost
-      - sensor.energy_home_monthly_cost
-      - sensor.energy_home_monthly_valle_pct
+      - sensor.energy_home_hourly
       - binary_sensor.energy_home_status
       - sensor.energy_tariff
 
@@ -33,22 +29,6 @@ sensor:
 
   - platform: template
     sensors:
-      energy_price_valle_access_toll:
-        friendly_name: 'Peaje acceso valle'
-        value_template: 0.002215
-        unit_of_measurement: '€/kWh'
-      energy_price_pico_access_toll:
-        friendly_name: 'Peaje acceso valle punta'
-        value_template: 0.062012
-        unit_of_measurement: '€/kWh'
-      energy_price_electriciy_tax:
-        friendly_name: 'Impuesto sobre la electricidad'
-        value_template: 5.1127
-        unit_of_measurement: '%'
-      energy_price_vat:
-        friendly_name: 'IVA'
-        value_template: 21
-        unit_of_measurement: '%'
       qnapups_status_spanish:
         value_template: >-
           {%- if is_state('sensor.qnapups_status_data', 'OL') %}
@@ -68,41 +48,6 @@ sensor:
           {% else %}
             Desconocido
           {%- endif %}
-      pvpcdha_access_toll:
-        friendly_name: "Precio energía con peaje"
-        unit_of_measurement: '€/kWh'
-        icon_template: "mdi:cash-multiple"
-        value_template: >- 
-            {%if states.sensor.pvpcdha.state %}
-              {% if is_state('sensor.energy_tariff', 'Pico') %}
-                {{ ((states.sensor.energy_price_pico_access_toll.state | float) + (states.sensor.pvpcdha.state | float)) | round(5) }}
-              {% elif is_state('sensor.energy_tariff', 'Valle') %}
-                {{ ((states.sensor.energy_price_valle_access_toll.state | float) + (states.sensor.pvpcdha.state | float)) | round(5) }}
-              {% else %}
-                unknown
-              {% endif %}
-            {% else %}
-              unknown
-            {% endif %}
-      energy_cost_hour:
-        friendly_name: "Coste energía (hora en curso)"
-        unit_of_measurement: '€'
-        icon_template: "mdi:cash-multiple"
-        value_template: "{%if states.sensor.pvpcdha.state %}{{ ((states.sensor.energy_home_hourly.state | float) * (states.sensor.pvpcdha.state | float)) | round(5) }}{% else %}unknown{% endif %}"
-      energy_home_daily_valle_pct:
-        friendly_name: "Proporción diaria"
-        unit_of_measurement: '%'
-        icon_template: "mdi:label-percent"
-        value_template: "{{ (((states.sensor.energy_home_daily_valle.state | float))/(((states.sensor.energy_home_daily_pico.state | float) + (states.sensor.energy_home_daily_valle.state | float))) * 100)  | round(1) }}"
-      energy_home_monthly_valle_pct:
-        friendly_name: "Proporción mensual"
-        unit_of_measurement: '%'
-        icon_template: "mdi:label-percent"
-        value_template: "{{ (((states.sensor.energy_home_monthly_valle.state | float))/(((states.sensor.energy_home_monthly_pico.state | float) + (states.sensor.energy_home_monthly_valle.state | float))) * 100)  | round(1) }}"
-
-#  - platform: mqtt
-#    state_topic: 'home/sensor/energy/tariff'
-#    name: energy_tariff
 
   - platform: mqtt
     state_topic: 'home/sensor/energy/tariff'
@@ -141,30 +86,3 @@ utility_meter:
   energy_home_hourly:
     source: sensor.energy_spent
     cycle: hourly 
-  energy_home_daily:
-    source: sensor.energy_spent
-    cycle: daily 
-    tariffs:
-      - Punta
-      - Llana
-      - Valle
-  energy_home_monthly:
-    source: sensor.energy_spent
-    cycle: monthly
-    offset:
-      days: 5
-    tariffs:
-      - Punta
-      - Llana
-      - Valle
-  energy_home_hourly_cost:
-    source: sensor.energy_cost_hour
-    cycle: hourly
-  energy_home_daily_cost:
-    source: sensor.energy_cost_hour
-    cycle: daily
-  energy_home_monthly_cost:
-    source: sensor.energy_cost_hour
-    cycle: monthly
-    offset:
-      days: 5
