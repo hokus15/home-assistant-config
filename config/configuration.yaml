@@ -145,35 +145,6 @@ google:
   client_id: !secret google_client_id
   client_secret: !secret google_secret
 
-zwave:
-  usb_path: /dev/ttyACM0
-  device_config_glob:
-    "*_burglar*":
-      ignored: true
-      polling_intensity: 0
-    "*_alarm_type":
-      ignored: true
-      polling_intensity: 0
-    "*_alarm_level":
-      ignored: true
-      polling_intensity: 0
-    "*_sourcenodeid":
-      ignored: true
-    "sensor.*_exporting*":
-      ignored: true
-    "sensor.*_heat":
-      ignored: true
-    "sensor.*_power_management":
-      ignored: true
-    "sensor.*_general":
-      ignored: true
-    "sensor.*_acceleration_x_axis":
-      ignored: true
-    "sensor.*_acceleration_y_axis":
-      ignored: true
-    "sensor.*_acceleration_z_axis":
-      ignored: true
-
 tts:
   - platform: google_translate
     base_url: !secret ha_base_url
