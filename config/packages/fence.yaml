@@ -1,7 +1,8 @@
 recorder:
   include:
     entities:
-      - sensor.outside_fence
+#      - sensor.outside_fence
+      - cover.outside_fence
 
 sensor:
   - platform: template
@@ -10,10 +11,10 @@ sensor:
       outside_fence_sensor_state:
         value_template: '{{state_attr("switch.barrera", "sensor_state")}}'
 
-  - platform: mqtt
-    name: 'outside_fence'
-    state_topic: 'home/sensor/fence'
-    icon: mdi:garage
+#  - platform: mqtt
+#    name: 'outside_fence'
+#    state_topic: 'home/sensor/fence'
+#    icon: mdi:garage
 
 cover:
   - platform: template
@@ -30,10 +31,8 @@ cover:
           data:
             entity_id: switch.barrera
         icon_template: >-
-          {%- if is_state("sensor.outside_fence", "Abierta") %}
+          {%- if is_state("sensor.outside_fence_sensor_state", "off") %}
             mdi:garage-open
-          {%- elif is_state("sensor.outside_fence", "En movimiento") %}
-            mdi:garage-alert
           {% else %}
             mdi:garage
           {% endif %}
