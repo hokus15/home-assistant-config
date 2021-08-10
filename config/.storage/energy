@@ -1,0 +1,49 @@
+{
+    "version": 1,
+    "key": "energy",
+    "data": {
+        "energy_sources": [
+            {
+                "type": "grid",
+                "flow_from": [
+                    {
+                        "stat_energy_from": "sensor.energy_grid_today_punta",
+                        "stat_cost": null,
+                        "entity_energy_from": "sensor.energy_grid_today_punta",
+                        "entity_energy_price": "sensor.pvpcdha",
+                        "number_energy_price": null
+                    },
+                    {
+                        "stat_energy_from": "sensor.energy_grid_today_llana",
+                        "stat_cost": null,
+                        "entity_energy_from": "sensor.energy_grid_today_llana",
+                        "entity_energy_price": "sensor.pvpcdha",
+                        "number_energy_price": null
+                    }
+                ],
+                "flow_to": [],
+                "cost_adjustment_day": 0.0
+            }
+        ],
+        "device_consumption": [
+            {
+                "stat_consumption": "sensor.cargador_ioniq_today_energy"
+            },
+            {
+                "stat_consumption": "sensor.energy_water_pump_today"
+            },
+            {
+                "stat_consumption": "sensor.comedor_switch_energy_today"
+            },
+            {
+                "stat_consumption": "sensor.salon_switch_energy_today"
+            },
+            {
+                "stat_consumption": "sensor.escalera_switch_energy_today"
+            },
+            {
+                "stat_consumption": "sensor.suite_switch_energy_today"
+            }
+        ]
+    }
+}

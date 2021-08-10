@@ -2,6 +2,7 @@ recorder:
   include:
     entities:
       - binary_sensor.water_pump_status
+      - sensor.energy_water_pump_today
 
 binary_sensor:
   - platform: threshold

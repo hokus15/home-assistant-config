@@ -1,7 +1,7 @@
 - alias: 'Car - Charge - Tariff from valle'
   trigger:
     platform: state
-    entity_id: utility_meter.energy_home_today
+    entity_id: utility_meter.energy_grid_today
     from: 'Valle'
   action:
     - delay:

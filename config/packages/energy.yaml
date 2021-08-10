@@ -5,7 +5,30 @@ recorder:
       - sensor.qnapups_status_spanish
       - sensor.qnapups_status_data
       - sensor.pvpcdha
-      - sensor.energy_home_hourly
+
+      - sensor.energy_grid_today_punta
+      - sensor.energy_grid_today_punta_cost
+      - sensor.energy_grid_today_llana
+      - sensor.energy_grid_today_llana_cost
+      - sensor.energy_grid_today_valle
+      - sensor.energy_grid_today_valle_cost
+
+      - sensor.salon_switch_power
+      - sensor.salon_switch_energy_spent
+      - sensor.salon_switch_energy_today
+
+      - sensor.comedor_switch_power
+      - sensor.comedor_switch_energy_spent
+      - sensor.comedor_switch_energy_today
+
+      - sensor.suite_switch_power
+      - sensor.suite_switch_energy_spent
+      - sensor.suite_switch_energy_today
+
+      - sensor.escalera_switch_power
+      - sensor.escalera_switch_energy_spent
+      - sensor.escalera_switch_energy_today
+
       - binary_sensor.energy_home_status
       - sensor.energy_tariff
 
@@ -24,6 +47,30 @@ sensor:
   - platform: integration 
     source: sensor.efergy_2577
     name: energy_spent
+    unit_prefix: k
+    round: 2
+
+  - platform: integration
+    source: sensor.salon_switch_power
+    name: salon_switch_energy_spent
+    unit_prefix: k
+    round: 2
+
+  - platform: integration
+    source: sensor.comedor_switch_power
+    name: comedor_switch_energy_spent
+    unit_prefix: k
+    round: 2
+
+  - platform: integration
+    source: sensor.suite_switch_power
+    name: suite_switch_energy_spent
+    unit_prefix: k
+    round: 2
+
+  - platform: integration
+    source: sensor.escalera_switch_power
+    name: escalera_switch_energy_spent
     unit_prefix: k
     round: 2
 
@@ -74,7 +121,7 @@ binary_sensor:
             (now().day == 6 and now().month == 12) or
             (now().day == 8 and now().month == 12) or
             (now().day == 25 and now().month == 12)}}
-        
+
       energy_home_status:
         device_class: plug
         # Takes into consideration: OL, OL CHRG, OL LB, OL CHRG LB
@@ -86,10 +133,19 @@ utility_meter:
   energy_grid_today:
     source: sensor.energy_spent
     cycle: daily
-  energy_home_today:
-    source: sensor.energy_spent
-    cycle: daily
     tariffs:
       - Punta
       - Llana
-      - Valle
+      - Valle 
+  salon_switch_energy_today:
+    source: sensor.salon_switch_energy_spent
+    cycle: daily
+  comedor_switch_energy_today:
+    source: sensor.comedor_switch_energy_spent
+    cycle: daily
+  suite_switch_energy_today:
+    source: sensor.suite_switch_energy_spent
+    cycle: daily
+  escalera_switch_energy_today:
+    source: sensor.escalera_switch_energy_spent
+    cycle: daily
