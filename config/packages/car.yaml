@@ -7,6 +7,7 @@ recorder:
       - switch.car_ioniq_charger
       - sensor.car_ioniq_charger_charge_state
       - sensor.cargador_ioniq_current_power
+      - sensor.cargador_ioniq_today_energy
       - sensor.car_ioniq_state_sensor
       - sensor.car_ioniq_location_distance_travelled_between_updates
       - sensor.car_ioniq_odometer
@@ -296,73 +297,90 @@ sensor:
       car_ioniq_battery_inlet_temp:
         friendly_name: 'Temperatura enchufe batería'
         device_class: 'temperature'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryInletTemperature")}}'
+        unit_of_measurement: 'ºC'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryInletTemperature") | default(0) | float}}'
       car_ioniq_battery_max_temp:
         friendly_name: 'Temperatura máxima batería'
         device_class: 'temperature'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryMaxTemperature")}}'
+        unit_of_measurement: 'ºC'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryMaxTemperature") | default(0) | float}}'
       car_ioniq_battery_min_temp:
         friendly_name: 'Temperatura mínima batería'
         device_class: 'temperature'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryMinTemperature")}}'
+        unit_of_measurement: 'ºC'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryMinTemperature") | replace("non-numeric","0") | float}}'
       car_ioniq_battery_avg_temp:
         friendly_name: 'Temperatura media batería'
         device_class: 'temperature'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryAvgTemperature")}}'
+        unit_of_measurement: 'ºC'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryAvgTemperature") | replace("non-numeric","0") | float}}'
       car_ioniq_battery_module01_temp:
         friendly_name: 'Temperatura módulo 1 batería'
         device_class: 'temperature'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp01")}}'
+        unit_of_measurement: 'ºC'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp01") | replace("non-numeric","0") | float}}'
       car_ioniq_battery_module02_temp:
         friendly_name: 'Temperatura módulo 2 batería'
         device_class: 'temperature'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp02")}}'
+        unit_of_measurement: 'ºC'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp02") | replace("non-numeric","0") | float}}'
       car_ioniq_battery_module03_temp:
         friendly_name: 'Temperatura módulo 3 batería'
         device_class: 'temperature'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp03")}}'
+        unit_of_measurement: 'ºC'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp03") | replace("non-numeric","0") | float}}'
       car_ioniq_battery_module04_temp:
         friendly_name: 'Temperatura módulo 4 batería'
         device_class: 'temperature'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp04")}}'
+        unit_of_measurement: 'ºC'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp04") | replace("non-numeric","0") | float}}'
       car_ioniq_battery_module05_temp:
         friendly_name: 'Temperatura módulo 5 batería'
         device_class: 'temperature'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp05")}}'
+        unit_of_measurement: 'ºC'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp05") | replace("non-numeric","0") | float}}'
       car_ioniq_battery_module06_temp:
         friendly_name: 'Temperatura módulo 6 batería'
         device_class: 'temperature'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp06")}}'
+        unit_of_measurement: 'ºC'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp06") | replace("non-numeric","0") | float}}'
       car_ioniq_battery_module07_temp:
         friendly_name: 'Temperatura módulo 7 batería'
         device_class: 'temperature'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp07")}}'
+        unit_of_measurement: 'ºC'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp07") | replace("non-numeric","0") | float}}'
       car_ioniq_battery_module08_temp:
         friendly_name: 'Temperatura módulo 8 batería'
         device_class: 'temperature'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp08")}}'
+        unit_of_measurement: 'ºC'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp08") | replace("non-numeric","0") | float}}'
       car_ioniq_battery_module09_temp:
         friendly_name: 'Temperatura módulo 9 batería'
         device_class: 'temperature'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp09")}}'
+        unit_of_measurement: 'ºC'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp09") | replace("non-numeric","0") | float}}'
       car_ioniq_battery_module10_temp:
         friendly_name: 'Temperatura módulo 10 batería'
         device_class: 'temperature'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp10")}}'
+        unit_of_measurement: 'ºC'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp10") | replace("non-numeric","0") | float}}'
       car_ioniq_battery_module11_temp:
         friendly_name: 'Temperatura módulo 11 batería'
         device_class: 'temperature'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp11")}}'
+        unit_of_measurement: 'ºC'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp11") | replace("non-numeric","0") | float}}'
       car_ioniq_battery_module12_temp:
         friendly_name: 'Temperatura módulo 12 batería'
         device_class: 'temperature'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp12")}}'
+        unit_of_measurement: 'ºC'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp12") | replace("non-numeric","0") | float}}'
       car_ioniq_battery_fan_state:
         friendly_name: 'Velocidad ventilador'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "fanStatus")}}'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "fanStatus") | replace("non-numeric","0") | float}}'
       car_ioniq_battery_fan_feedback:
-        friendly_name: 'Señal ventilador Hz'
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "fanFeedback")}}'
+        friendly_name: 'Señal ventilador'
+        unit_of_measurement: 'Hz'
+        value_template: '{{state_attr("sensor.car_ioniq_battery", "fanFeedback") | replace("non-numeric","0") | float}}'
       # Ioniq State Of Health
       car_ioniq_battery_health:
         friendly_name: 'Salud batería'
