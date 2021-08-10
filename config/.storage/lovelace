@@ -14,16 +14,43 @@
                         {
                             "cards": [
                                 {
-                                    "entity": "binary_sensor.energy_home_status",
-                                    "type": "entity"
+                                    "title": "Distribuci\u00f3n de la energ\u00eda hoy",
+                                    "type": "energy-distribution",
+                                    "link_dashboard": true
                                 },
                                 {
-                                    "entity": "utility_meter.energy_home_daily",
-                                    "type": "entity"
+                                    "type": "energy-sources-table"
                                 },
                                 {
+                                    "type": "entities",
+                                    "entities": [
+                                        {
+                                            "entity": "binary_sensor.energy_home_status",
+                                            "secondary_info": "last-changed"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_tariff",
+                                            "name": "Tarifa",
+                                            "secondary_info": "last-changed"
+                                        },
+                                        {
+                                            "entity": "sensor.pvpcdha",
+                                            "name": "Precio",
+                                            "secondary_info": "last-changed"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "gauge",
                                     "entity": "sensor.efergy_2577",
-                                    "type": "entity"
+                                    "min": 0,
+                                    "max": 10000,
+                                    "needle": true,
+                                    "severity": {
+                                        "green": 0,
+                                        "yellow": 3000,
+                                        "red": 4600
+                                    }
                                 }
                             ],
                             "type": "vertical-stack"
@@ -126,13 +153,18 @@
                                     ],
                                     "show_header_toggle": false,
                                     "title": "Barrera",
-                                    "type": "entities"
+                                    "type": "entities",
+                                    "state_color": true
                                 },
                                 {
                                     "camera_image": "camera.netatmo_entrada",
-                                    "entity": "sensor.outside_fence",
+                                    "entity": "cover.outside_fence",
                                     "name": "Estado barrera",
-                                    "type": "picture-entity"
+                                    "type": "picture-entity",
+                                    "show_name": false,
+                                    "tap_action": {
+                                        "action": "more-info"
+                                    }
                                 }
                             ],
                             "type": "vertical-stack"
@@ -624,16 +656,10 @@
                                     "entity": "sensor.salon_switch_power"
                                 },
                                 {
-                                    "entity": "sensor.salon_switch_energy"
-                                },
-                                {
                                     "entity": "light.comedor_light"
                                 },
                                 {
                                     "entity": "sensor.comedor_switch_power"
-                                },
-                                {
-                                    "entity": "sensor.comedor_switch_energy"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -717,9 +743,6 @@
                                     "entity": "light.escalera_light"
                                 },
                                 {
-                                    "entity": "sensor.escalera_switch_energy"
-                                },
-                                {
                                     "entity": "sensor.escalera_switch_power"
                                 }
                             ],
@@ -731,9 +754,6 @@
                             "entities": [
                                 {
                                     "entity": "light.suite_light"
-                                },
-                                {
-                                    "entity": "sensor.suite_switch_energy"
                                 },
                                 {
                                     "entity": "sensor.suite_switch_power"
@@ -843,6 +863,17 @@
                             ],
                             "title": "Ocupaci\u00f3n",
                             "type": "history-graph"
+                        },
+                        {
+                            "type": "history-graph",
+                            "entities": [
+                                {
+                                    "entity": "binary_sensor.water_pump_status"
+                                }
+                            ],
+                            "hours_to_show": 24,
+                            "refresh_interval": 0,
+                            "title": "Bomba de agua"
                         }
                     ],
                     "icon": "mdi:home-map-marker",
@@ -1206,10 +1237,10 @@
                                     "entity": "switch.car_ioniq_charger"
                                 },
                                 {
-                                    "entity": "sensor.car_ioniq_charger_current_power"
+                                    "entity": "sensor.cargador_ioniq_current_power"
                                 },
                                 {
-                                    "entity": "sensor.car_ioniq_charger_today_energy_charged"
+                                    "entity": "sensor.cargador_ioniq_today_energy"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -1217,29 +1248,60 @@
                             "type": "entities"
                         },
                         {
+                            "type": "history-graph",
                             "entities": [
                                 {
-                                    "entity": "sensor.car_ioniq_charger_daily_pico"
+                                    "entity": "sensor.car_ioniq_battery_avg_temp"
                                 },
                                 {
-                                    "entity": "sensor.car_ioniq_charger_daily_valle"
+                                    "entity": "sensor.car_ioniq_battery_max_temp"
                                 },
                                 {
-                                    "entity": "sensor.car_ioniq_charger_monthly_pico"
+                                    "entity": "sensor.car_ioniq_battery_min_temp"
                                 },
                                 {
-                                    "entity": "sensor.car_ioniq_charger_monthly_valle"
+                                    "entity": "sensor.car_ioniq_battery_inlet_temp"
                                 },
                                 {
-                                    "entity": "sensor.car_ioniq_charger_yearly_pico"
+                                    "entity": "sensor.car_ioniq_battery_module01_temp"
                                 },
                                 {
-                                    "entity": "sensor.car_ioniq_charger_yearly_valle"
+                                    "entity": "sensor.car_ioniq_battery_module02_temp"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_battery_module03_temp"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_battery_module04_temp"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_battery_module05_temp"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_battery_module06_temp"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_battery_module07_temp"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_battery_module08_temp"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_battery_module09_temp"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_battery_module10_temp"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_battery_module11_temp"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_battery_module12_temp"
                                 }
                             ],
-                            "show_header_toggle": false,
-                            "title": "Consumo cargador Ioniq",
-                            "type": "entities"
+                            "hours_to_show": 72,
+                            "refresh_interval": 0,
+                            "title": "Temperatura bater\u00eda"
                         }
                     ],
                     "icon": "mdi:car-multiple",
@@ -1267,11 +1329,9 @@
                                     "type": "picture"
                                 },
                                 {
-                                    "entity": "sensor.pvpcdha",
-                                    "graph": "line",
-                                    "hours_to_show": 48,
-                                    "name": "Precio electricidad",
-                                    "type": "sensor"
+                                    "title": "Distribuci\u00f3n de la energ\u00eda hoy",
+                                    "type": "energy-distribution",
+                                    "link_dashboard": true
                                 },
                                 {
                                     "content": "### Comercializadora",
@@ -1289,36 +1349,7 @@
                                     "type": "picture"
                                 },
                                 {
-                                    "entity": "sensor.pvpcdha_access_toll",
-                                    "graph": "line",
-                                    "name": "Precio electricidad con peaje de acceso",
-                                    "type": "sensor"
-                                },
-                                {
-                                    "entities": [
-                                        {
-                                            "entity": "utility_meter.energy_home_daily"
-                                        },
-                                        {
-                                            "entity": "sensor.energy_home_daily_valle_pct",
-                                            "name": "Proporci\u00f3n valle diaria"
-                                        },
-                                        {
-                                            "entity": "sensor.energy_home_monthly_valle_pct",
-                                            "name": "Proporci\u00f3n valle mensual"
-                                        },
-                                        {
-                                            "entity": "sensor.energy_home_hourly_cost"
-                                        },
-                                        {
-                                            "entity": "sensor.energy_home_daily_cost"
-                                        },
-                                        {
-                                            "entity": "sensor.energy_home_monthly_cost"
-                                        }
-                                    ],
-                                    "show_header_toggle": false,
-                                    "type": "entities"
+                                    "type": "energy-sources-table"
                                 }
                             ],
                             "type": "vertical-stack"
