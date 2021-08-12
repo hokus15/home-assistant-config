@@ -4,7 +4,7 @@ recorder:
       - sensor.efergy_2577
       - sensor.qnapups_status_spanish
       - sensor.qnapups_status_data
-      - sensor.pvpcdha
+      - sensor.energy_pvpc
 
       - sensor.energy_grid_today_punta
       - sensor.energy_grid_today_punta_cost
