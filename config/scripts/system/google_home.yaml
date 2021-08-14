@@ -7,7 +7,7 @@ google_home_good_morning:
     - service: script.turn_on
       data:
         entity_id: script.speech_parte_meteorologico_corto
-    - wait_template: "{{ is_state('media_player.recibidor', 'playing') }}"
+#    - wait_template: "{{ is_state('media_player.recibidor', 'playing') }}"
     - wait_template: "{{ not is_state('media_player.recibidor', 'playing') }}"
     - service: script.turn_on
       data:
@@ -77,7 +77,16 @@ geni_shift:
            {%- elif diff >= 86400 and diff < 86400*2 -%}
              Jeni trabaja mañana por la {{ states("sensor.next_shift_event") }}
            {%- else -%}
-             Jeni trabaja el próximo {{ states("sensor.next_shift_date") }} por la {{ states("sensor.next_shift_event") }}
+             {%- set date = as_timestamp(strptime(states.calendar.turnos_geni_everything.attributes.start_time, "%Y-%m-%d %H:%M:%S")) -%}
+             {% set days_of_week = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"] %}
+             {% set months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"] %}
+             {% set month = date | timestamp_custom("%m") | int %}
+             {% set day = date | timestamp_custom("%w") | int %}
+             {% set day_es = days_of_week[day] %}
+             {% set calendar_day = date | timestamp_custom("%d") | int %}
+             {% set month_es = months[month - 1] %}
+             Jeni trabaja el próximo {{ day_es }} {{ calendar_day }} de {{ month_es }} por la {{ states("sensor.next_shift_event") }}
+
            {% endif %}
          {% endif %}
 
