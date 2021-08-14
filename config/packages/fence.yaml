@@ -1,15 +1,19 @@
 recorder:
   include:
     entities:
-#      - sensor.outside_fence
       - cover.outside_fence
 
 sensor:
   - platform: template
     sensors:
-      # Wemo Maker sensor state (off: fence opened, on: fence closed)
+      # Wemo Maker sensor state (off: fence open, on: fence closed)
       outside_fence_sensor_state:
-        value_template: '{{state_attr("switch.barrera", "sensor_state")}}'
+        value_template: >-
+          {%- if is_state_attr('switch.barrera', 'sensor_state', 'off') %}
+            abierta
+          {% else %}
+            cerrada
+          {% endif %}
 
 #  - platform: mqtt
 #    name: 'outside_fence'
@@ -31,7 +35,7 @@ cover:
           data:
             entity_id: switch.barrera
         icon_template: >-
-          {%- if is_state("sensor.outside_fence_sensor_state", "off") %}
+          {%- if is_state_attr('switch.barrera', 'sensor_state', 'off') %}
             mdi:garage-open
           {% else %}
             mdi:garage
