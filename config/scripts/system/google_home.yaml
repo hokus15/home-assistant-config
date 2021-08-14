@@ -20,15 +20,11 @@ speech_parte_meteorologico:
       entity_id: media_player.recibidor
       data_template:
         message: >
-          La temperatura exterior es de {{ states("sensor.netatmo_exterior_temperature") | replace("."," con ") }} grados 
-          y una humedad del {{ states("sensor.netatmo_exterior_humidity") }} {{states.sensor["netatmo_exterior_humidity"].attributes.unit_of_measurement }}.
-          La temperatura máxima de hoy ha sido de {{ states("sensor.netatmo_exterior_max_temp") | replace("."," con ") }} grados.
-          La temperatura mínima de hoy ha sido de {{ states("sensor.netatmo_exterior_min_temp") | replace("."," con ") }} grados.
-          La presión atmosférica es de {{ states("sensor.netatmo_salon_pressure") | replace("."," con ") }} {{states.sensor["netatmo_salon_pressure"].attributes.unit_of_measurement }}.
-          Las rachas de viento son de {{ states("sensor.netatmo_anemometro_gust_strength") }} {{states.sensor["netatmo_anemometro_gust_strength"].attributes.unit_of_measurement }}'
-          {%- if states("sensor.netatmo_pluviometro_rain") == "0" %} No está lloviendo.{% else %} Está lloviendo unos {{ states("sensor.netatmo_pluviometro_rain") | replace("."," con ") }} {{states.sensor["netatmo_pluviometro_rain"].attributes.unit_of_measurement }}.{% endif %}
-          {%- if states("sensor.netatmo_pluviometro_sum_rain_1") == "0" %} No ha llovido durante la última hora.{% else %} La precipitación de la última hora ha sido de {{ states("sensor.netatmo_pluviometro_sum_rain_1") | replace("."," con ") }} {{states.sensor["netatmo_pluviometro_sum_rain_1"].attributes.unit_of_measurement }}.{% endif %}
-          {%- if states("sensor.netatmo_pluviometro_sum_rain_24") == "0" %} No ha llovido durante las últimas 24 horas.{% else %} La precipitación de las últimas 24 horas ha sido de {{ states("sensor.netatmo_pluviometro_sum_rain_24") | replace("."," con ") }} {{states.sensor["netatmo_pluviometro_sum_rain_24"].attributes.unit_of_measurement }}.{% endif %}
+          La temperatura exterior es de {{ states("sensor.netatmo_bunyola_exterior_temperature") | replace("."," con ") }} grados 
+          y una humedad del {{ states("sensor.netatmo_bunyola_exterior_humidity") }} %.
+          La presión atmosférica es de {{ states("sensor.netatmo_bunyola_salon_pressure") | replace("."," con ") }} milibares.
+          {%- if states("sensor.netatmo_bunyola_pluviometro_rain") == "0" %} No está lloviendo.{% else %} Está lloviendo unos {{ states("sensor.netatmo_bunyola_pluviometro_rain") | replace("."," con ") }} litros por metro cuadrado.{% endif %}
+          {%- if states("sensor.netatmo_bunyola_pluviometro_rain_today") == "0" %} Hoy no ha llovido.{% else %} La lluvia acumulada de hoy es de unos {{ states("sensor.netatmo_bunyola_pluviometro_rain_today") | replace("."," con ") }}  litros por metro cuadrado.{% endif %}
         cache: false
 
 speech_parte_meteorologico_corto:
@@ -38,9 +34,7 @@ speech_parte_meteorologico_corto:
       entity_id: media_player.recibidor
       data_template:
         message: >
-          La temperatura exterior es de {{ states("sensor.netatmo_exterior_temperature") | replace("."," con ") }} grados.
-          La temperatura máxima de hoy ha sido de {{ states("sensor.netatmo_exterior_max_temp") | replace("."," con ") }} grados.
-          La temperatura mínima de hoy ha sido de {{ states("sensor.netatmo_exterior_min_temp") | replace("."," con ") }} grados.
+          La temperatura exterior es de {{ states("sensor.netatmo_bunyola_exterior_temperature") | replace("."," con ") }} grados.
         cache: false
 
 chores:
@@ -112,5 +106,3 @@ presence_leave_home:
           {%- if is_state("switch.comedor_switch", "on") %}{% set incidence = true %}Luz del comedor encendida. {% endif %}
           {%- if is_state("switch.salon_switch", "on") %}{% set incidence = true %}Luz del salón encendida. {% endif %}
           {%- if is_state("switch.suite_switch", "on") %}{% set incidence = true %}Luz de la suite encendida. {% endif %}
-          {%- if is_state("sensor.outside_fence", "Abierta") %}{% set incidence = true %}Barrera abierta.{% endif -%}
-          {%- if not incidence %}Todo correcto.{% endif %}
