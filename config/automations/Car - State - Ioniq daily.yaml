@@ -8,4 +8,4 @@
         topic: 'car/sensor/ioniq/state/daily'
         retain: true
         qos: 0
-        payload_template: "{{{\"home_charged_energy_kwh\": states('sensor.cargador_ioniq_today_energy'),\"odometer\": states('sensor.car_ioniq_odometer'),\"ced\": states('sensor.car_ioniq_battery_ced'),\"cec\": states('sensor.car_ioniq_battery_cec'),\"soh\": states('sensor.car_ioniq_battery_health'),\"soc_display\":states('sensor.car_ioniq_battery'),\"charged\":states('input_boolean.car_ioniq_has_charged'),\"soc_bms\":states('sensor.car_ioniq_battery_soc_bms'),\"timestamp\": as_timestamp(now())|round,} | tojson}}"
+        payload_template: "{{{\"home_charged_energy_kwh\": states('sensor.cargador_ev_today_energy'),\"odometer\": states('sensor.car_ioniq_odometer'),\"ced\": states('sensor.car_ioniq_battery_ced'),\"cec\": states('sensor.car_ioniq_battery_cec'),\"soh\": states('sensor.car_ioniq_battery_health'),\"soc_display\":states('sensor.car_ioniq_battery'),\"charged\":states('input_boolean.car_ioniq_has_charged'),\"soc_bms\":states('sensor.car_ioniq_battery_soc_bms'),\"timestamp\": as_timestamp(now())|round,} | tojson}}"

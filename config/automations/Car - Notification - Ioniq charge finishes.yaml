@@ -6,11 +6,11 @@
     to: 'Listo'
   condition:
     condition: template
-    value_template: "{{ state_attr('switch.car_ioniq_charger', 'today_energy_kwh') is not none }}"
+    value_template: "{{ state('sensor.cargador_ev_today_energy') is not none }}"
   action:
     - service: notify.telegram
       data_template:
-        message: '🚘 Carga del Ioniq finalizada. {{state_attr("switch.car_ioniq_charger", "today_energy_kwh")}} kWh cargados.'
+        message: '🚘 Carga del Ioniq finalizada. {{state("sensor.cargador_ev_today_energy")}} kWh cargados.'
     - service: notify.slack
       data_template:
         message: ''
@@ -20,5 +20,5 @@
             - type: 'section'
               text:
                 type: 'mrkdwn'
-                text: ':car-electric: Carga del Ioniq finalizada. {{state_attr("switch.car_ioniq_charger", "today_energy_kwh")}} kWh cargados.'
+                text: ':car-electric: Carga del Ioniq finalizada. {{state("sensor.cargador_ev_today_energy")}} kWh cargados.'
             - type: 'divider'

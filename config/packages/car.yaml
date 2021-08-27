@@ -4,10 +4,10 @@ recorder:
       - device_tracker.car_ioniq
       - binary_sensor.car_ioniq_state
       - binary_sensor.car_ioniq_location_sensor
-      - switch.car_ioniq_charger
+#      - switch.car_ioniq_charger
       - sensor.car_ioniq_charger_charge_state
-      - sensor.cargador_ioniq_current_power
-      - sensor.cargador_ioniq_today_energy
+#      - sensor.cargador_ioniq_current_power
+#      - sensor.cargador_ioniq_today_energy
       - sensor.car_ioniq_state_sensor
       - sensor.car_ioniq_location_distance_travelled_between_updates
       - sensor.car_ioniq_odometer
@@ -44,7 +44,7 @@ recorder:
 logbook:
   exclude:
     entities:
-      - sensor.cargador_ioniq_current_power
+#      - sensor.cargador_ioniq_current_power
       - sensor.car_ioniq_location_distance_travelled_between_updates
       - sensor.car_ioniq_odometer
       - sensor.car_ioniq_battery
@@ -470,9 +470,9 @@ sensor:
         icon_template: 'mdi:map-marker-radius'
       car_ioniq_charger_charge_state:
         value_template: >-
-          {%- if states('sensor.cargador_ioniq_current_power')|float > 1000.0 and is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
+          {%- if states('sensor.cargador_ev_power')|float > 1000.0 and is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
              Cargando
-          {%- elif is_state('switch.car_ioniq_charger', 'off') %}
+          {%- elif is_state('switch.cargador_ev_switch', 'off') %}
             Apagado
           {% else %}
             Listo

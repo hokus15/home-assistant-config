@@ -1,0 +1,22 @@
+recorder:
+  include:
+    entities:
+      - binary_sensor.bomba_agua_status
+      - sensor.bomba_agua_power
+      - sensor.bomba_agua_energy_calc
+
+binary_sensor:
+  - platform: threshold
+    name: bomba_agua_status
+    entity_id: sensor.bomba_agua_power
+    upper: 5
+    device_class: power
+
+sensor:
+  # Sensor needed due to a bug in the device that shows negative value
+  # when the plug is turned on but no power is consumed
+  - platform: integration 
+    source: sensor.bomba_agua_power
+    name: bomba_agua_energy_calc
+    unit_prefix: k
+    round: 2

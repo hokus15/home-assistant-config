@@ -1,0 +1,27 @@
+recorder:
+  include:
+    entities:
+      - binary_sensor.lavadora_status
+      - sensor.lavadora_power
+      - sensor.lavadora_energy_calc
+      - sensor.lavadora_power_statistics
+
+binary_sensor:
+  - platform: threshold
+    name: lavadora_status
+    entity_id: sensor.lavadora_power_statistics
+    upper: 2.5
+    device_class: power
+
+sensor:
+  # Sensor needed due to a bug in the device that shows negative value
+  # when the plug is turned on but no power is consumed
+  - platform: integration 
+    source: sensor.lavadora_power
+    name: lavadora_energy_calc
+    unit_prefix: k
+    round: 2
+
+  - platform: statistics
+    name: lavadora_power_statistics
+    entity_id: sensor.lavadora_power

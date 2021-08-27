@@ -1,0 +1,51 @@
+recorder:
+  include:
+    entities:
+      - binary_sensor.cargador_ev_status
+      - sensor.cargador_ev_power
+      - sensor.cargador_ev_energy_calc
+      - sensor.cargador_ev_today_cost
+      - sensor.cargador_ev_month_cost
+
+binary_sensor:
+  - platform: threshold
+    name: cargador_ev_status
+    entity_id: sensor.cargador_ev_power
+    upper: 5
+    device_class: power
+
+sensor:
+  # Sensor needed due to a bug in the device that shows negative value
+  # when the plug is turned on but no power is consumed
+  - platform: integration 
+    source: sensor.cargador_ev_power
+    name: cargador_ev_energy_calc
+    unit_prefix: k
+    round: 2
+
+  - platform: template
+    sensors:
+      cargador_ev_hour_cost:
+        friendly_name: Coste carga hora actual
+        value_template: '{{ states("sensor.cargador_ev_hour_energy") | float * states("sensor.energy_pvpc") | float }}'
+        unit_of_measurement: '€'
+        icon_template: hass:currency-eur
+
+utility_meter:
+  cargador_ev_today_energy:
+    source: sensor.cargador_ev_energy_calc
+    cycle: daily
+
+  cargador_ev_hour_energy:
+    source: sensor.cargador_ev_energy_calc
+    cycle: hourly
+
+  cargador_ev_today_cost:
+    source: sensor.cargador_ev_hour_cost
+    cycle: daily
+
+  cargador_ev_month_cost:
+    source: sensor.cargador_ev_hour_cost
+    cycle: monthly
+    offset:
+      days: 5

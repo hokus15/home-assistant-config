@@ -538,16 +538,6 @@ sensor.car_ioniq_battery_power:
 sensor.car_ioniq_charge_time_to_100:
   friendly_name: Hora estimada fin carga
   icon: mdi:clock
-sensor.energy_water_pump_today:
-  friendly_name: Bomba agua
-sensor.comedor_switch_energy_today:
-  friendly_name: Luz comedor
-sensor.salon_switch_energy_today:
-  friendly_name: Luz salón
-sensor.escalera_switch_energy_today:
-  friendly_name: Luz escalera
-sensor.suite_switch_energy_today:
-  friendly_name: Luz suite
 sensor.energy_grid_today_punta:
   friendly_name: Punta
 sensor.energy_grid_today_llana:
@@ -555,4 +545,52 @@ sensor.energy_grid_today_llana:
 sensor.energy_grid_today_valle:
   friendly_name: Valle
 sensor.cargador_ioniq_today_energy:
-  friendly_name: Cargador EV
+  friendly_name: Consumo cargador EV
+  icon: mdi:speedometer
+sensor.bomba_agua_energy_calc:
+  friendly_name: Consumo bomba agua
+  icon: mdi:speedometer
+sensor.ladron_salon_energy_calc:
+  friendly_name: Consumo ladrón salón
+  icon: mdi:speedometer
+sensor.lavadora_energy_calc:
+  friendly_name: Consumo lavadora
+  icon: mdi:speedometer
+sensor.lavaplatos_energy_calc:
+  friendly_name: Consumo lavaplatos
+  icon: mdi:speedometer
+sensor.secadora_energy_calc:
+  friendly_name: Consumo secadora
+  icon: mdi:speedometer
+sensor.ladron_salon_power:
+  friendly_name: Potencia ladrón salón
+sensor.lavadora_power:
+  friendly_name: Potencia lavadora
+sensor.lavaplatos_power:
+  friendly_name: Potencia lavaplatos
+sensor.secadora_power:
+  friendly_name: Potencia secadora
+binary_sensor.bomba_agua_status:
+  friendly_name: Bomba agua
+binary_sensor.lavadora_status:
+  friendly_name: Lavadora
+binary_sensor.lavaplatos_status:
+  friendly_name: Lavaplatos
+binary_sensor.secadora_status:
+  friendly_name: Secadora
+binary_sensor.cargador_ev_status:
+  friendly_name: Estado cargador EV
+sensor.cargador_ev_today_energy:
+  friendly_name: Energía cargador EV (hoy)
+sensor.cargador_ev_energy:
+  friendly_name: Consumo cargador EV
+  icon: mdi:speedometer
+sensor.piscina_energy:
+  friendly_name: Consumo piscina
+  icon: mdi:speedometer
+sensor.cargador_ev_month_cost:
+  friendly_name: Coste cargas mes
+  icon: mdi:currency-eur
+sensor.cargador_ev_today_cost:
+  friendly_name: Coste cargas hoy
+  icon: mdi:currency-eur

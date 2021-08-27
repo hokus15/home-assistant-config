@@ -1,0 +1,40 @@
+recorder:
+  include:
+    entities:
+      - sensor.qnapups_status_spanish
+      - sensor.qnapups_status_data
+
+      - binary_sensor.energy_home_status
+
+sensor:
+  - platform: template
+    sensors:
+      qnapups_status_spanish:
+        value_template: >-
+          {%- if is_state('sensor.qnapups_status_data', 'OL') %}
+            Normal
+          {% elif is_state('sensor.qnapups_status_data', 'OL LB') %}
+            Normal batería baja
+          {% elif is_state('sensor.qnapups_status_data', 'OL CHRG') %}
+            Cargando
+          {% elif is_state('sensor.qnapups_status_data', 'OL CHRG LB') %}
+            Cargando batería baja
+          {% elif is_state('sensor.qnapups_status_data', 'OB DISCHRG') %}
+            Batería
+          {% elif is_state('sensor.qnapups_status_data', 'LB DISCHRG') %}
+            Batería baja
+          {% elif is_state('sensor.qnapups_status_data', 'RB') %}
+            Reemplazar batería
+          {% else %}
+            Desconocido
+          {%- endif %}
+
+binary_sensor:
+  - platform: template
+    sensors:
+      energy_home_status:
+        device_class: plug
+        # Takes into consideration: OL, OL CHRG, OL LB, OL CHRG LB
+        value_template: "{{ 'OL' in states('sensor.qnapups_status_data') }}"
+        delay_off:
+          seconds: 30
