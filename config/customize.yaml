@@ -594,3 +594,6 @@ sensor.cargador_ev_month_cost:
 sensor.cargador_ev_today_cost:
   friendly_name: Coste cargas hoy
   icon: mdi:currency-eur
+sensor.cargador_ev_energy_calc:
+  friendly_name: Consumo cargador EV
+  icon: mdi:speedometer
