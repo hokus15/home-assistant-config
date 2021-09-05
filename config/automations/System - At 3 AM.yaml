@@ -3,7 +3,7 @@
     platform: time
     at: '3:00:00'
   action:
-  - service: hassio.snapshot_full
+  - service: hassio.backup_full
     data_template:
       name: '{{ now().strftime("%Y%m%d") }} - Auto'
   - service: notify.slack
