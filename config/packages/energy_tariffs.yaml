@@ -15,6 +15,13 @@ sensor:
     state_topic: 'home/sensor/energy/tariff'
     name: energy_tariff
 
+  - platform: mqtt
+    state_topic: 'home/sensor/energy/price'
+    name: energy_price
+    state_class: 'measurement'
+    unit_of_measurement: '€/kWh'
+    icon: 'mdi:currency-eur'
+
 binary_sensor:
   - platform: template
     sensors:

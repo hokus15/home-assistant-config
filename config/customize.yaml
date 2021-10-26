@@ -597,3 +597,10 @@ sensor.cargador_ev_today_cost:
 sensor.cargador_ev_energy_calc:
   friendly_name: Consumo cargador EV
   icon: mdi:speedometer
+sensor.piscina_month_cost:
+  friendly_name: Coste mensusal piscina
+  icon: mdi:currency-eur
+sensor.energy_cost:
+  friendly_name: Iberdrola
+sensor.energy_price:
+  friendly_name: Precio tarifa contratada (Iberdrola)

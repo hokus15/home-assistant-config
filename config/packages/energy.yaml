@@ -3,6 +3,7 @@ recorder:
     entities:
       - sensor.efergy_2577
       - sensor.energy_pvpc
+      - sensor.energy_price
 
       - sensor.salon_switch_power
       - sensor.salon_switch_energy
