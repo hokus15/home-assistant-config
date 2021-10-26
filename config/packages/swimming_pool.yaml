@@ -121,7 +121,7 @@ sensor:
       piscina_off_time:
         friendly_name: 'Apagado'
         value_template: >- 
-          {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=8).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
+          {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
 #          {%- if is_state('binary_sensor.summer_time', 'on') %}
 #            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
 #          {% else %}
