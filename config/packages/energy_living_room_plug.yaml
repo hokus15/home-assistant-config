@@ -1,6 +1,7 @@
 recorder:
   include:
     entities:
+      - switch.ladron_salon
       - sensor.ladron_salon_power
       - sensor.ladron_salon_energy_calc
 
