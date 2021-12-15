@@ -19,18 +19,17 @@ recorder:
       
       - sensor.piscina_power
       - sensor.piscina_energy
+      
+      - climate.netatmo_general
+      
+      - sensor.co2_intensity
+      - sensor.grid_fossil_fuel_percentage
 logbook:
   exclude:
     entities:
       - sensor.efergy_2577
 
 sensor:
-  - platform: efergy
-    app_token: !secret efergy_app_token
-    utc_offset: 2
-    monitored_variables:
-      - type: current_values
-
   - platform: integration 
     source: sensor.efergy_2577
     name: energy_spent
