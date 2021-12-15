@@ -49,3 +49,4 @@ config/.storage/core.uuid
 config/google_cloud.json
 config/node-red/node_modules
 config/.storage/core.analytics
+config/home-assistant.log.fault
