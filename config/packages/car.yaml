@@ -15,24 +15,24 @@ recorder:
       - sensor.car_ioniq_battery_power
       - sensor.car_ioniq_battery_soc_bms
       - sensor.car_ioniq_location_gps_accuracy
-      - sensor.car_ioniq_battery_inlet_temp
-      - sensor.car_ioniq_battery_max_temp
-      - sensor.car_ioniq_battery_min_temp
-      - sensor.car_ioniq_battery_avg_temp
-      - sensor.car_ioniq_battery_module01_temp
-      - sensor.car_ioniq_battery_module02_temp
-      - sensor.car_ioniq_battery_module03_temp
-      - sensor.car_ioniq_battery_module04_temp
-      - sensor.car_ioniq_battery_module05_temp
-      - sensor.car_ioniq_battery_module06_temp
-      - sensor.car_ioniq_battery_module07_temp
-      - sensor.car_ioniq_battery_module08_temp
-      - sensor.car_ioniq_battery_module09_temp
-      - sensor.car_ioniq_battery_module10_temp
-      - sensor.car_ioniq_battery_module11_temp
-      - sensor.car_ioniq_battery_module12_temp
-      - sensor.car_ioniq_battery_fan_state
-      - sensor.car_ioniq_battery_fan_feedback
+#      - sensor.car_ioniq_battery_inlet_temp
+#      - sensor.car_ioniq_battery_max_temp
+#      - sensor.car_ioniq_battery_min_temp
+#      - sensor.car_ioniq_battery_avg_temp
+#      - sensor.car_ioniq_battery_module01_temp
+#      - sensor.car_ioniq_battery_module02_temp
+#      - sensor.car_ioniq_battery_module03_temp
+#      - sensor.car_ioniq_battery_module04_temp
+#      - sensor.car_ioniq_battery_module05_temp
+#      - sensor.car_ioniq_battery_module06_temp
+#      - sensor.car_ioniq_battery_module07_temp
+#      - sensor.car_ioniq_battery_module08_temp
+#      - sensor.car_ioniq_battery_module09_temp
+#      - sensor.car_ioniq_battery_module10_temp
+#      - sensor.car_ioniq_battery_module11_temp
+#      - sensor.car_ioniq_battery_module12_temp
+#      - sensor.car_ioniq_battery_fan_state
+#      - sensor.car_ioniq_battery_fan_feedback
       - sensor.cargador_aragon
       - sensor.cargador_conquistador
       - sensor.cargador_palmanyola
