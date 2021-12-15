@@ -27,7 +27,7 @@ sensor:
     sensors:
       cargador_ev_hour_cost:
         friendly_name: Coste carga hora actual
-        value_template: '{{ states("sensor.cargador_ev_hour_energy") | float * states("sensor.energy_pvpc") | float }}'
+        value_template: '{{ states("sensor.cargador_ev_hour_energy") | float * states("sensor.energy_price") | float }}'
         unit_of_measurement: '€'
         icon_template: hass:currency-eur
 
