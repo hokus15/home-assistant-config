@@ -1,7 +1,7 @@
 - alias: 'Energy - Notification - Possible differential switch down'
   trigger:
     platform: state
-    entity_id: switch.cargador_ev_switch, switch.luz_piscina, switch.motor_piscina, switch.piscina_switch
+    entity_id: switch.cargador_ev_switch, switch.luz_piscina, switch.motor_piscina, switch.piscina
     to: 'unavailable'
   condition:
     - condition: state
@@ -17,7 +17,7 @@
       entity_id: 'switch.motor_piscina'
       state: 'unavailable'
     - condition: state
-      entity_id: 'switch.piscina_switch'
+      entity_id: 'switch.piscina'
       state: 'unavailable'
   action:
     - service: notify.telegram
