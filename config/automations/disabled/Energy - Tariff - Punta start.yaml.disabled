@@ -1,0 +1,21 @@
+##############################
+# Punta tariff
+# Starting at 10 and 18 workdays 
+##############################
+- alias: 'Energy - Tariff - Punta start'
+  trigger:
+    - platform: time
+      at: '10:00:00'
+    - platform: time
+      at: '18:00:00'
+  condition:
+    condition: state
+    entity_id: binary_sensor.energy_valle_full_day_tariff
+    state: 'off'
+  action:
+    - service: mqtt.publish
+      data:
+        topic: 'home/sensor/energy/tariff'
+        retain: true
+        qos: 0
+        payload_template: 'Punta'
