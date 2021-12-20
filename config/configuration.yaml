@@ -80,6 +80,7 @@ logger:
     libav.h264: fatal
     openzwave: warn
     libopenzwave: warn
+    homeassistant.components.stream: fatal
     homeassistant.components.zwave: warn
     homeassistant.components.zwave.util: warn
     homeassistant.components.websocket_api: warn
