@@ -438,7 +438,6 @@ sensor.salon_switch_power:
   icon: mdi:power-plug
 sensor.comedor_switch_energy:
   icon: mdi:speedometer
-  state_class: measurement
 sensor.cargador_aragon:
   icon: mdi:ev-station
 sensor.cargador_conquistador:
