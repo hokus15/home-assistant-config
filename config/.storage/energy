@@ -1,5 +1,6 @@
 {
     "version": 1,
+    "minor_version": 1,
     "key": "energy",
     "data": {
         "energy_sources": [
@@ -10,14 +11,21 @@
                         "stat_energy_from": "sensor.energy_grid_today_punta",
                         "stat_cost": null,
                         "entity_energy_from": "sensor.energy_grid_today_punta",
-                        "entity_energy_price": "sensor.pvpcdha",
+                        "entity_energy_price": "sensor.energy_price",
+                        "number_energy_price": null
+                    },
+                    {
+                        "stat_energy_from": "sensor.energy_grid_today_valle",
+                        "stat_cost": null,
+                        "entity_energy_from": "sensor.energy_grid_today_valle",
+                        "entity_energy_price": "sensor.energy_price",
                         "number_energy_price": null
                     },
                     {
                         "stat_energy_from": "sensor.energy_grid_today_llana",
                         "stat_cost": null,
                         "entity_energy_from": "sensor.energy_grid_today_llana",
-                        "entity_energy_price": "sensor.pvpcdha",
+                        "entity_energy_price": "sensor.energy_price",
                         "number_energy_price": null
                     }
                 ],
@@ -27,22 +35,37 @@
         ],
         "device_consumption": [
             {
-                "stat_consumption": "sensor.cargador_ioniq_today_energy"
+                "stat_consumption": "sensor.comedor_switch_energy"
             },
             {
-                "stat_consumption": "sensor.energy_water_pump_today"
+                "stat_consumption": "sensor.escalera_switch_energy"
             },
             {
-                "stat_consumption": "sensor.comedor_switch_energy_today"
+                "stat_consumption": "sensor.salon_switch_energy"
             },
             {
-                "stat_consumption": "sensor.salon_switch_energy_today"
+                "stat_consumption": "sensor.suite_switch_energy"
             },
             {
-                "stat_consumption": "sensor.escalera_switch_energy_today"
+                "stat_consumption": "sensor.bomba_agua_energy_calc"
             },
             {
-                "stat_consumption": "sensor.suite_switch_energy_today"
+                "stat_consumption": "sensor.ladron_salon_energy_calc"
+            },
+            {
+                "stat_consumption": "sensor.lavadora_energy_calc"
+            },
+            {
+                "stat_consumption": "sensor.lavaplatos_energy_calc"
+            },
+            {
+                "stat_consumption": "sensor.secadora_energy_calc"
+            },
+            {
+                "stat_consumption": "sensor.cargador_ev_energy_calc"
+            },
+            {
+                "stat_consumption": "sensor.piscina_energy"
             }
         ]
     }

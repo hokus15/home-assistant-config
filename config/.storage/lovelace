@@ -1,5 +1,6 @@
 {
     "version": 1,
+    "minor_version": 1,
     "key": "lovelace",
     "data": {
         "config": {
@@ -34,8 +35,8 @@
                                             "secondary_info": "last-changed"
                                         },
                                         {
-                                            "entity": "sensor.pvpcdha",
-                                            "name": "Precio",
+                                            "entity": "sensor.energy_price",
+                                            "name": "Precio (incluye peaje)",
                                             "secondary_info": "last-changed"
                                         }
                                     ]
@@ -660,6 +661,12 @@
                                 },
                                 {
                                     "entity": "sensor.comedor_switch_power"
+                                },
+                                {
+                                    "entity": "switch.ladron_salon"
+                                },
+                                {
+                                    "entity": "sensor.ladron_salon_power"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -682,13 +689,63 @@
                         },
                         {
                             "entities": [
-                                "binary_sensor.porche_sensor_puerta",
-                                "input_boolean.porche_sensor_puerta",
-                                "binary_sensor.porche_sensor_persiana",
-                                "input_boolean.porche_sensor_persiana",
-                                "binary_sensor.coladuria_sensor_puerta",
-                                "input_boolean.coladuria_sensor_puerta",
-                                "sensor.porche_sensor_puerta_temperature"
+                                {
+                                    "entity": "binary_sensor.porche_sensor_puerta"
+                                },
+                                {
+                                    "entity": "input_boolean.porche_sensor_puerta"
+                                },
+                                {
+                                    "entity": "binary_sensor.porche_sensor_persiana"
+                                },
+                                {
+                                    "entity": "input_boolean.porche_sensor_persiana"
+                                },
+                                {
+                                    "entity": "binary_sensor.coladuria_sensor_puerta"
+                                },
+                                {
+                                    "entity": "input_boolean.coladuria_sensor_puerta"
+                                },
+                                {
+                                    "entity": "sensor.porche_sensor_puerta_temperature"
+                                },
+                                {
+                                    "entity": "switch.bomba_agua_switch"
+                                },
+                                {
+                                    "entity": "binary_sensor.bomba_agua_status"
+                                },
+                                {
+                                    "entity": "sensor.bomba_agua_power"
+                                },
+                                {
+                                    "entity": "switch.lavaplatos_switch"
+                                },
+                                {
+                                    "entity": "binary_sensor.lavaplatos_status"
+                                },
+                                {
+                                    "entity": "sensor.lavaplatos_power"
+                                },
+                                {
+                                    "entity": "switch.lavadora_switch"
+                                },
+                                {
+                                    "entity": "binary_sensor.lavadora_status"
+                                },
+                                {
+                                    "entity": "sensor.lavadora_power"
+                                },
+                                {
+                                    "entity": "switch.secadora_switch"
+                                },
+                                {
+                                    "entity": "binary_sensor.secadora_status"
+                                },
+                                {
+                                    "entity": "sensor.secadora_power"
+                                }
                             ],
                             "show_header_toggle": true,
                             "title": "Cocina",
@@ -785,7 +842,7 @@
                                 }
                             ],
                             "show_header_toggle": false,
-                            "title": "Habitaci\u00f3n ni\u00f1os",
+                            "title": "Habitaci\u00f3n Carlos",
                             "type": "entities"
                         },
                         {
@@ -928,16 +985,57 @@
                             "cards": [
                                 {
                                     "entities": [
-                                        "switch.motor_piscina",
-                                        "light.piscina_light",
-                                        "sensor.piscina_on_history",
-                                        "input_number.temperature_correction",
-                                        "sensor.piscina_water_temperature",
-                                        "sensor.piscina_temperature",
-                                        "sensor.piscina_k_factor",
-                                        "sensor.piscina_filtering_time",
-                                        "sensor.piscina_on_time",
-                                        "sensor.piscina_off_time"
+                                        {
+                                            "entity": "switch.motor_piscina"
+                                        },
+                                        {
+                                            "entity": "light.piscina_light"
+                                        },
+                                        {
+                                            "entity": "sensor.piscina_on_history"
+                                        },
+                                        {
+                                            "entity": "input_number.temperature_correction"
+                                        },
+                                        {
+                                            "entity": "sensor.piscina_water_temperature"
+                                        },
+                                        {
+                                            "entity": "sensor.piscina_temperature"
+                                        },
+                                        {
+                                            "entity": "sensor.piscina_k_factor"
+                                        },
+                                        {
+                                            "entity": "sensor.piscina_filtering_time"
+                                        },
+                                        {
+                                            "entity": "sensor.piscina_on_time"
+                                        },
+                                        {
+                                            "entity": "sensor.piscina_off_time"
+                                        },
+                                        {
+                                            "entity": "sensor.piscina_power"
+                                        },
+                                        {
+                                            "entity": "switch.piscina"
+                                        },
+                                        {
+                                            "entity": "sensor.piscina_month_cost"
+                                        },
+                                        {
+                                            "entity": "sensor.power_production_now"
+                                        },
+                                        {
+                                            "entity": "input_number.piscina_pump_on_trigger"
+                                        },
+                                        {
+                                            "entity": "input_number.piscina_pump_off_trigger"
+                                        },
+                                        {
+                                            "entity": "input_boolean.piscina_should_be_on"
+                                        }
                                     ],
                                     "show_header_toggle": false,
                                     "title": "Piscina",
@@ -945,8 +1043,15 @@
                                 },
                                 {
                                     "entities": [
-                                        "sensor.piscina_water_temperature",
-                                        "sensor.piscina_temperature"
+                                        {
+                                            "entity": "sensor.piscina_water_temperature"
+                                        },
+                                        {
+                                            "entity": "sensor.piscina_temperature"
+                                        },
+                                        {
+                                            "entity": "sensor.piscina_power"
+                                        }
                                     ],
                                     "hours_to_show": 336,
                                     "refresh_interval": 600,
@@ -1000,17 +1105,31 @@
                             "type": "entities"
                         },
                         {
-                            "entities": [
+                            "cards": [
                                 {
-                                    "entity": "cover.outside_fence"
+                                    "entities": [
+                                        {
+                                            "entity": "cover.outside_fence",
+                                            "name": "Control"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "Barrera",
+                                    "type": "entities",
+                                    "state_color": true
                                 },
                                 {
-                                    "entity": "sensor.outside_fence"
+                                    "camera_image": "camera.netatmo_entrada",
+                                    "entity": "cover.outside_fence",
+                                    "name": "Estado barrera",
+                                    "type": "picture-entity",
+                                    "show_name": false,
+                                    "tap_action": {
+                                        "action": "more-info"
+                                    }
                                 }
                             ],
-                            "show_header_toggle": false,
-                            "title": "Barrera",
-                            "type": "entities"
+                            "type": "vertical-stack"
                         },
                         {
                             "entity": "light.luces_exteriores",
@@ -1234,74 +1353,27 @@
                                     "entity": "sensor.car_ioniq_charger_charge_state"
                                 },
                                 {
-                                    "entity": "switch.car_ioniq_charger"
+                                    "entity": "switch.cargador_ev_switch"
                                 },
                                 {
-                                    "entity": "sensor.cargador_ioniq_current_power"
+                                    "entity": "sensor.cargador_ev_power"
                                 },
                                 {
-                                    "entity": "sensor.cargador_ioniq_today_energy"
+                                    "entity": "sensor.cargador_ev_today_energy"
+                                },
+                                {
+                                    "entity": "sensor.cargador_ev_hour_cost"
+                                },
+                                {
+                                    "entity": "sensor.cargador_ev_today_cost"
+                                },
+                                {
+                                    "entity": "sensor.cargador_ev_month_cost"
                                 }
                             ],
                             "show_header_toggle": false,
                             "title": "Cargador EV",
                             "type": "entities"
-                        },
-                        {
-                            "type": "history-graph",
-                            "entities": [
-                                {
-                                    "entity": "sensor.car_ioniq_battery_avg_temp"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_battery_max_temp"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_battery_min_temp"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_battery_inlet_temp"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_battery_module01_temp"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_battery_module02_temp"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_battery_module03_temp"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_battery_module04_temp"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_battery_module05_temp"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_battery_module06_temp"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_battery_module07_temp"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_battery_module08_temp"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_battery_module09_temp"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_battery_module10_temp"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_battery_module11_temp"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_battery_module12_temp"
-                                }
-                            ],
-                            "hours_to_show": 72,
-                            "refresh_interval": 0,
-                            "title": "Temperatura bater\u00eda"
                         }
                     ],
                     "icon": "mdi:car-multiple",
@@ -1309,8 +1381,20 @@
                     "title": "Coches"
                 },
                 {
+                    "type": "sidebar",
+                    "icon": "mdi:transmission-tower",
+                    "path": "energia",
+                    "title": "Energ\u00eda",
                     "badges": [],
                     "cards": [
+                        {
+                            "type": "energy-usage-graph",
+                            "title": "Consumo energ\u00eda"
+                        },
+                        {
+                            "type": "energy-devices-graph",
+                            "title": "Electrodom\u00e9sticos / dispositivos individuales"
+                        },
                         {
                             "cards": [
                                 {
@@ -1352,7 +1436,18 @@
                                     "type": "energy-sources-table"
                                 }
                             ],
-                            "type": "vertical-stack"
+                            "type": "vertical-stack",
+                            "view_layout": {
+                                "position": "sidebar"
+                            }
+                        },
+                        {
+                            "type": "entity",
+                            "entity": "sensor.energy_tariff",
+                            "name": "Tarifa",
+                            "view_layout": {
+                                "position": "sidebar"
+                            }
                         },
                         {
                             "cards": [
@@ -1364,13 +1459,15 @@
                                     "detail": 2,
                                     "entity": "sensor.efergy_2577",
                                     "graph": "line",
-                                    "hours_to_show": 24,
                                     "name": "Consumo instant\u00e1neo",
                                     "type": "sensor",
                                     "unit": "W"
                                 }
                             ],
-                            "type": "vertical-stack"
+                            "type": "vertical-stack",
+                            "view_layout": {
+                                "position": "sidebar"
+                            }
                         },
                         {
                             "cards": [
@@ -1428,12 +1525,108 @@
                                     "type": "horizontal-stack"
                                 }
                             ],
-                            "type": "vertical-stack"
+                            "type": "vertical-stack",
+                            "view_layout": {
+                                "position": "sidebar"
+                            }
+                        },
+                        {
+                            "type": "history-graph",
+                            "entities": [
+                                {
+                                    "entity": "sensor.energy_pvpc"
+                                },
+                                {
+                                    "entity": "sensor.energy_price"
+                                }
+                            ],
+                            "hours_to_show": 24,
+                            "refresh_interval": 0
+                        },
+                        {
+                            "type": "vertical-stack",
+                            "cards": [
+                                {
+                                    "type": "history-graph",
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.efergy_2577"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_ioniq_current_power"
+                                        },
+                                        {
+                                            "entity": "sensor.secadora_power"
+                                        },
+                                        {
+                                            "entity": "sensor.lavadora_power"
+                                        },
+                                        {
+                                            "entity": "sensor.lavaplatos_power"
+                                        },
+                                        {
+                                            "entity": "sensor.piscina_power"
+                                        },
+                                        {
+                                            "entity": "sensor.bomba_agua_power"
+                                        },
+                                        {
+                                            "entity": "sensor.ladron_salon_power"
+                                        }
+                                    ],
+                                    "hours_to_show": 24,
+                                    "refresh_interval": 0
+                                },
+                                {
+                                    "type": "history-graph",
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.suite_switch_power"
+                                        },
+                                        {
+                                            "entity": "sensor.comedor_switch_power"
+                                        },
+                                        {
+                                            "entity": "sensor.escalera_switch_power"
+                                        },
+                                        {
+                                            "entity": "sensor.salon_switch_power"
+                                        }
+                                    ],
+                                    "hours_to_show": 24,
+                                    "refresh_interval": 0
+                                }
+                            ]
+                        },
+                        {
+                            "type": "history-graph",
+                            "entities": [
+                                {
+                                    "entity": "binary_sensor.lavadora_status"
+                                },
+                                {
+                                    "entity": "binary_sensor.lavaplatos_status"
+                                },
+                                {
+                                    "entity": "binary_sensor.secadora_status"
+                                },
+                                {
+                                    "entity": "binary_sensor.bomba_agua_status"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_charge_state"
+                                },
+                                {
+                                    "entity": "switch.motor_piscina"
+                                }
+                            ],
+                            "hours_to_show": 24,
+                            "refresh_interval": 0,
+                            "view_layout": {
+                                "position": "sidebar"
+                            }
                         }
-                    ],
-                    "icon": "mdi:transmission-tower",
-                    "path": "energia",
-                    "title": "Energ\u00eda"
+                    ]
                 },
                 {
                     "badges": [],
