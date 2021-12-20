@@ -24,6 +24,17 @@ recorder:
       
       - sensor.co2_intensity
       - sensor.grid_fossil_fuel_percentage
+      
+      - sensor.energy_next_hour
+      - sensor.energy_current_hour
+      - sensor.energy_production_today
+      - sensor.energy_production_tomorrow
+      
+      - sensor.power_production_next_12hours
+      - sensor.power_production_next_24hours
+      - sensor.power_production_next_hour
+      - sensor.power_production_now
+      
 logbook:
   exclude:
     entities:
