@@ -1,0 +1,13 @@
+- alias: 'Swimming Pool - Pump - Off'
+  trigger:
+    - platform: state
+      entity_id: sensor.energy_tariff
+      from: 'Valle'
+    - platform: numeric_state
+      entity_id: sensor.power_production_now
+      below: input_number.piscina_pump_off_trigger
+      for:
+        minutes: 10
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.piscina_should_be_on

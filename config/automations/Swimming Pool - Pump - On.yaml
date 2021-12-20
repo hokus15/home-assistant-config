@@ -1,0 +1,8 @@
+- alias: 'Swimming Pool - Pump - On'
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.power_production_now
+      above: input_number.piscina_pump_on_trigger
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.piscina_should_be_on

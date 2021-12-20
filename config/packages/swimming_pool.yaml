@@ -8,6 +8,7 @@ recorder:
       - sensor.piscina_today_cost
       - sensor.piscina_month_cost
 
+      - input_boolean.piscina_should_be_on
 
 logbook:
   exclude:
@@ -138,7 +139,7 @@ sensor:
         icon_template: 'mdi:power-plug'
       piscina_hour_cost:
         friendly_name: Coste depuración hora actual
-        value_template: '{{ states("sensor.piscina_hour_energy") | float * states("sensor.energy_pvpc") | float }}'
+        value_template: '{{ states("sensor.piscina_hour_energy") | float * states("sensor.energy_price") | float }}'
         unit_of_measurement: '€'
         icon_template: hass:currency-eur
 
@@ -173,6 +174,26 @@ input_number:
     max: 5
     step: 0.5
     mode: box
+  piscina_pump_on_trigger:
+    name: 'Potencia encendido'
+    unit_of_measurement: 'W'
+    icon: 'mdi:lightning-bolt'
+    initial: 1700
+    min: 1200
+    max: 2500
+    step: 100
+  piscina_pump_off_trigger:
+    name: 'Potencia apagado'
+    unit_of_measurement: 'W'
+    icon: 'mdi:lightning-bolt'
+    initial: 1200
+    min: 1000
+    max: 2000
+    step: 100
+
+input_boolean:
+  piscina_should_be_on:
+    name: Test boolean for piscina pump on
 
 utility_meter:
   piscina_today_energy:
