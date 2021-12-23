@@ -47,5 +47,3 @@ utility_meter:
   cargador_ev_month_cost:
     source: sensor.cargador_ev_hour_cost
     cycle: monthly
-    offset:
-      days: 5
