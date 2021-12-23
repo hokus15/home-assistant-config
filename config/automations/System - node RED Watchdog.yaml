@@ -1,4 +1,5 @@
-- alias: 'System - Node RED Watchdog'
+- id: 'System - Node RED Watchdog'
+  alias: 'System - Node RED Watchdog'
   trigger:
     platform: state
     entity_id: sensor.node_red

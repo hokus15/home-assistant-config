@@ -2,7 +2,8 @@
 # Valle tariff
 # Starting at 1AM every day
 ##############################
-- alias: 'Energy - Tariff - Valle start'
+- id: 'Energy - Tariff - Valle start'
+  alias: 'Energy - Tariff - Valle start'
   trigger:
     - platform: time
       at: '01:00:00'

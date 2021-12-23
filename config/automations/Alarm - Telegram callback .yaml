@@ -1,4 +1,5 @@
-- alias: 'Alarm - Telegram callback'
+- id: 'Alarm - Telegram callback'
+  alias: 'Alarm - Telegram callback'
   trigger:
     - platform: event
       event_type: telegram_callback

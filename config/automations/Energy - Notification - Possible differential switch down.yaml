@@ -1,4 +1,5 @@
-- alias: 'Energy - Notification - Possible differential switch down'
+- id: 'Energy - Notification - Possible differential switch down'
+  alias: 'Energy - Notification - Possible differential switch down'
   trigger:
     platform: state
     entity_id: switch.cargador_ev_switch, switch.luz_piscina, switch.motor_piscina, switch.piscina

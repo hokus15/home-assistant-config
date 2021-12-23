@@ -1,4 +1,5 @@
-- alias: 'Webhook - Slack - Received'
+- id: 'Webhook - Slack - Received'
+  alias: 'Webhook - Slack - Received'
   trigger:
     - platform: webhook
       webhook_id: slack-webhook

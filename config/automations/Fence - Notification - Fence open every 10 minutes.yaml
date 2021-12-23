@@ -1,4 +1,5 @@
-- alias: 'Fence - Notification - Fence open every 10 minutes'
+- id: 'Fence - Notification - Fence open every 10 minutes'
+  alias: 'Fence - Notification - Fence open every 10 minutes'
   trigger:
     - platform: state
       entity_id: cover.outside_fence

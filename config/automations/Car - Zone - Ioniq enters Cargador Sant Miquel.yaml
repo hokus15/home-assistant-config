@@ -1,4 +1,5 @@
-- alias: 'Car - Zone - Ioniq enters Cargador Sant Miquel'
+- id: 'Car - Zone - Ioniq enters Cargador Sant Miquel'
+  alias: 'Car - Zone - Ioniq enters Cargador Sant Miquel'
   trigger:
      - platform: zone
        entity_id: device_tracker.car_ioniq

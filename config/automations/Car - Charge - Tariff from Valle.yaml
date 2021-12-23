@@ -1,4 +1,5 @@
-- alias: 'Car - Charge - Tariff from valle'
+- id: 'Car - Charge - Tariff from valle'
+  alias: 'Car - Charge - Tariff from valle'
   trigger:
     platform: state
     entity_id: utility_meter.energy_grid_today

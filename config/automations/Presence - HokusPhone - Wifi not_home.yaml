@@ -2,7 +2,8 @@
 # This sensor is to workaround it using some automations
 # Presence - HokusPhone - Wifi home.yaml
 # Presence - HokusPhone - Wifi not_home.yaml
-- alias: 'Presence - HokusPhone - Wifi not_home'
+- id: 'Presence - HokusPhone - Wifi not_home'
+  alias: 'Presence - HokusPhone - Wifi not_home'
   trigger:
     - platform: state
       entity_id: sensor.hokusphone_wifi_ssid

@@ -1,5 +1,6 @@
 # Telegram bot that executes a service from a callback with the format <service>#<entity_id>. i.e.: script.turn_on#script.fence_close
-- alias: 'Misc - Telegram callback - Bot'
+- id: 'Misc - Telegram callback - Bot'
+  alias: 'Misc - Telegram callback - Bot'
   trigger:
     - platform: event
       event_type: telegram_callback

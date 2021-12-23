@@ -1,5 +1,6 @@
 # Turn on comfort mode when comfort state is true and is after 16:00
-- alias: 'Comfort - Sensor comfort mode on'
+- id: 'Comfort - Sensor comfort mode on'
+  alias: 'Comfort - Sensor comfort mode on'
   trigger:
     platform: state
     entity_id: binary_sensor.home_comfort_state

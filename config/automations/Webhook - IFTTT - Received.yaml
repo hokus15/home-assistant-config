@@ -1,4 +1,5 @@
-- alias: 'Webhook - IFTTT - Received'
+- id: 'Webhook - IFTTT - Received'
+  alias: 'Webhook - IFTTT - Received'
   trigger:
     platform: event
     event_type: ifttt_webhook_received

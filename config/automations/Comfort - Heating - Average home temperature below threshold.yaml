@@ -1,5 +1,6 @@
 # Turn on heating when home mean temperature for last 24 hours is below 18.5 degrees
-- alias: 'Comfort - Heating - Average home temperature below threshold'
+- id: 'Comfort - Heating - Average home temperature below threshold'
+  alias: 'Comfort - Heating - Average home temperature below threshold'
   trigger:
     platform: numeric_state
     entity_id: sensor.home_temperature_stats

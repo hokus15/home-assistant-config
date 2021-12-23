@@ -1,4 +1,5 @@
-- alias: 'Energy - Notification - UPS battery to be replaced'
+- id: 'Energy - Notification - UPS battery to be replaced'
+  alias: 'Energy - Notification - UPS battery to be replaced'
   trigger:
     platform: state
     entity_id: sensor.energy_ups_status

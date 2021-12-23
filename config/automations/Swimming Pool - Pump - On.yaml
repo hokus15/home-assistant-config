@@ -1,4 +1,5 @@
-- alias: 'Swimming Pool - Pump - On'
+- id: 'Swimming Pool - Pump - On'
+  alias: 'Swimming Pool - Pump - On'
   trigger:
     - platform: numeric_state
       entity_id: sensor.power_production_now

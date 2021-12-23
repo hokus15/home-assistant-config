@@ -1,4 +1,5 @@
-- alias: 'Comfort - Switch comfort mode on'
+- id: 'Comfort - Switch comfort mode on'
+  alias: 'Comfort - Switch comfort mode on'
   trigger:
     platform: state
     entity_id: input_boolean.home_comfort_mode

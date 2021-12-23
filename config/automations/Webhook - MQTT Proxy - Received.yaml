@@ -1,4 +1,5 @@
-- alias: 'Webhook - MQTT Proxy - Received'
+- id: 'Webhook - MQTT Proxy - Received'
+  alias: 'Webhook - MQTT Proxy - Received'
   trigger:
     - platform: webhook
       webhook_id: mqtt-proxy-webhook

@@ -1,4 +1,5 @@
-- alias: 'Swimming Pool - Notification - Pump on more than expected'
+- id: 'Swimming Pool - Notification - Pump on more than expected'
+  alias: 'Swimming Pool - Notification - Pump on more than expected'
   trigger: 
     platform: template
     value_template: '{{states.sensor.piscina_on_history.state|float > (states.sensor.piscina_filtering_time.state|float + 0.15)}}'

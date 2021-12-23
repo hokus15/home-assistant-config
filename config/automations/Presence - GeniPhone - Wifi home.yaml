@@ -2,7 +2,8 @@
 # This sensor is to workaround it using some automations
 # Presence - GeniPhone - Wifi home.yaml
 # Presence - GeniPhone - Wifi not_home.yaml
-- alias: 'Presence - GeniPhone - Wifi home'
+- id: 'Presence - GeniPhone - Wifi home'
+  alias: 'Presence - GeniPhone - Wifi home'
   trigger:
     - platform: state
       entity_id: sensor.geniphone_wifi_ssid

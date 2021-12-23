@@ -1,4 +1,5 @@
-- alias: 'Swimming Pool - Pump - Off'
+- id: 'Swimming Pool - Pump - Off'
+  alias: 'Swimming Pool - Pump - Off'
   trigger:
     - platform: state
       entity_id: sensor.energy_tariff

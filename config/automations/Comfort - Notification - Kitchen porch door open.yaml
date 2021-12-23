@@ -1,5 +1,6 @@
 # When porch door in the kitchen is open and heating is on, notify every 10 minutes
-- alias: 'Comfort - Notification - Kitchen porch door open'
+- id: 'Comfort - Notification - Kitchen porch door open'
+  alias: 'Comfort - Notification - Kitchen porch door open'
   trigger:
     platform: time_pattern
     minutes: '/1'

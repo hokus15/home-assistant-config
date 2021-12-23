@@ -1,4 +1,5 @@
-- alias: 'Swimming Pool - Pump - Off time'
+- id: 'Swimming Pool - Pump - Off time'
+  alias: 'Swimming Pool - Pump - Off time'
   trigger: 
     platform: template
     value_template: '{{states.sensor.date_time.state == states.sensor.piscina_off_time.state}}'

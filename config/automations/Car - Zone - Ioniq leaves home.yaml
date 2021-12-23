@@ -1,4 +1,5 @@
-- alias: 'Car - Zone - Ioniq leaves home'
+- id: 'Car - Zone - Ioniq leaves home'
+  alias: 'Car - Zone - Ioniq leaves home'
   trigger:
      - platform: zone
        entity_id: device_tracker.car_ioniq
