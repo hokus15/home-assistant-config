@@ -158,5 +158,5 @@ tts:
 #    voice: es-ES-Standard-B
 
 automation: !include_dir_merge_list automations
-script: !include_dir_merge_named scripts
+script: !include scripts.yaml
 scene: !include scenes.yaml

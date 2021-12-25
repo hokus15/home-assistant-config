@@ -1,3 +1,180 @@
+alarm_disarm_telegram:
+  alias: 'Alarm - Alarm disarm telegram'
+  sequence:
+    # Alarm disarm
+    - service: alarm_control_panel.alarm_disarm
+      data:
+        entity_id: alarm_control_panel.home
+    # Send message
+    - service: telegram_bot.send_message
+      data_template:
+        message: 'Alarma desarmada manualmente desde Telegram'
+        target: 
+          - !secret hokusphone_telegram_chat_id
+          #- !secret geniphone_telegram_chat_id
+        disable_notification: false
+        inline_keyboard:
+               - 'Armar alarma:/alarm_control_panel.alarm_arm_away#alarm_control_panel.home'
+
+alarm_disarm_telegram_temporary:
+  alias: 'Alarm - Disarm telegram temporary'
+  sequence:
+    # Alarm disarm
+    - service: alarm_control_panel.alarm_disarm
+      data:
+        entity_id: alarm_control_panel.home
+    # Send message
+    - service: telegram_bot.send_message
+      data_template:
+        message: 'Alarma desarmada durante {{data.minutes}} minutos desde Telegram'
+        target: 
+          - !secret hokusphone_telegram_chat_id
+          #- !secret geniphone_telegram_chat_id
+        disable_notification: false
+        inline_keyboard:
+               - 'Armar alarma:/alarm_control_panel.alarm_arm_away#alarm_control_panel.home'
+    # Wait specified time before arming the alarm again
+    - delay: "{{ data.minutes | multiply(60) | timestamp_custom('%H:%M:%S',False) }}"
+    # Only rearm if nobody at home
+    - condition: state
+      entity_id: group.unidad_familiar
+      state: 'not_home'
+    # Alarm arm away
+    - service: alarm_control_panel.alarm_arm_away
+      data:
+        entity_id: alarm_control_panel.home
+
+alarm_notify_camera:
+  alias: 'Alarm - Notify camera'
+  sequence:
+#    # Send the video to slack
+#    - service: notify.slack
+#      data_template:
+#        message: 'Movimiento detectado en {{data.camera_name}}'
+#        data:
+#          file:
+#            path: '{{data.file}}'
+#
+#    # Notify to slack
+#    - service: notify.slack
+#      data_template:
+#        message: ''
+#        data:
+#          attachments:
+#            - color: 'danger'
+#              pretext: ':bell: *Alarma* :bell:'
+#              text: 'Movimiento detectado en {{data.camera_name}}'
+#              fallback: 'Alarma'
+#            - color: 'danger'
+#              title: '¿Qué quieres hacer?'
+#              callback_id: 'alarma_{{data.camera_name}}'
+#              attachment_type: 'default'
+#              actions: 
+#                - name: 'desactivar_{{data.camera_name}}'
+#                  text: 'Desactivar det. mov. {{data.camera_name}}'
+#                  type: 'button'
+#                  value: 'homeassistant.turn_off#{{data.turn_off_entity_id}}'
+#                - name: 'desarmar_alarma'
+#                  text: 'Desarmar alarma'
+#                  type: 'button'
+#                  value: 'script.turn_on#script.alarm_disarm_slack'
+
+    # Continue to notify in telegram only if jpg or mp4 video
+    - condition: template
+      value_template: '{{ "jpg" in file_path or "mp4" in file_path }}'
+
+    # Notify to telegram
+    - service_template: >-
+        {%- if "jpg" in file_path -%}
+          telegram_bot.send_photo
+        {%- elif "mp4" in file_path -%}
+          telegram_bot.send_video
+        {%- endif -%}
+
+      data_template:
+        file: '{{file_path}}'
+        caption: '{{message}}'
+        target: 
+          - !secret hokusphone_telegram_chat_id
+          #- !secret geniphone_telegram_chat_id
+        disable_notification: false
+        inline_keyboard:
+          - 'Desactivar det. mov. {{place}}:/homeassistant.turn_off#{{turn_off_entity_id}}'
+          - 'Desarmar 30 mins:/30_mins, Desarmar 1 hora:/60_mins'
+          - 'Desarmar 2 horas:/120_mins, Desarmar 3 horas:/180_mins'
+          - 'Desarmar alarma:/script.turn_on#script.alarm_disarm_telegram'
+
+alarm_notify_sensor:
+  alias: 'Alarm - Notify sensor'
+  sequence:
+    # Send the notification
+    - service: telegram_bot.send_message
+      data_template:
+        message: '{{message}}'
+        target: 
+          - !secret hokusphone_telegram_chat_id
+          #- !secret geniphone_telegram_chat_id
+        disable_notification: false
+        inline_keyboard:
+          - 'Desactivar sensor:/homeassistant.turn_off#{{turn_off_entity_id}}'
+          - 'Desarmar 30 mins:/30_mins, Desarmar 1 hora:/60_mins'
+          - 'Desarmar 2 horas:/120_mins, Desarmar 3 horas:/180_mins'
+          - 'Desarmar alarma:/script.turn_on#script.alarm_disarm_telegram'
+
+comfort_mode_on:
+  alias: 'Comfort - Mode on'
+  sequence:
+    # Set thermostat boost mode 
+    - service: climate.set_preset_mode
+      entity_id: climate.netatmo_general
+      data_template:
+        preset_mode: 'boost'
+    - delay:
+        seconds: 15
+    # Update entity
+    - service: homeassistant.update_entity
+      entity_id: climate.netatmo_general
+    - delay:
+         minutes: 90
+    # Turn off comfort mode (after 90 minutes)
+    - service: homeassistant.turn_off
+      data:
+        entity_id: input_boolean.home_comfort_mode
+
+comfort_mode_off:
+  alias: 'Comfort - Mode off'
+  sequence:
+    # Set thermostat Schedule mode 
+    - service: climate.set_preset_mode
+      entity_id: climate.netatmo_general
+      data_template:
+        preset_mode: 'Schedule'
+    - delay:
+        seconds: 15
+    # Update entity
+    - service: homeassistant.update_entity
+      entity_id: climate.netatmo_general
+
+# Called from IFTTT when Geni phone is connected to home WiFi
+presence_geniphone_connected_home_wifi:
+  alias: 'Presence - GeniPhone connected home WiFi'
+  sequence:
+    - service: mqtt.publish
+      data:
+        payload: 'HokusWiFi'
+        retain: true
+        topic: 'phone/sensor/geni/wifi/ssid'
+
+# Called from IFTTT when Geni phone is disconnected from home WiFi
+presence_geniphone_not_connected_home_wifi:
+  alias: 'Presence - GeniPhone not connected home WiFi'
+  sequence:
+    - service: mqtt.publish
+      data:
+        payload: 'not_connected'
+        retain: true
+        topic: 'phone/sensor/geni/wifi/ssid'
+
 google_home_good_morning:
   alias: 'Google Home - Good morning'
   sequence:
@@ -115,3 +292,13 @@ presence_leave_home:
           {%- if is_state("switch.comedor_switch", "on") %}{% set incidence = true %}Luz del comedor encendida. {% endif %}
           {%- if is_state("switch.salon_switch", "on") %}{% set incidence = true %}Luz del salón encendida. {% endif %}
           {%- if is_state("switch.suite_switch", "on") %}{% set incidence = true %}Luz de la suite encendida. {% endif %}
+
+system_restart_ha:
+  alias: '[System] Hass Restart'
+  sequence:
+      - service: homeassistant.restart
+
+system_reboot_pi:
+  alias: '[System] Host reboot'
+  sequence:
+      - service: hassio.host_reboot

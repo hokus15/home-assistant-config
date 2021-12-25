@@ -1,9 +1,0 @@
-system_restart_ha:
-  alias: '[System] Hass Restart'
-  sequence:
-      - service: homeassistant.restart
-
-system_reboot_pi:
-  alias: '[System] Host reboot'
-  sequence:
-      - service: hassio.host_reboot
