@@ -74,17 +74,6 @@
                                         }
                                     ],
                                     "type": "horizontal-stack"
-                                },
-                                {
-                                    "entities": [
-                                        {
-                                            "entity": "sensor.next_shift_event"
-                                        },
-                                        {
-                                            "entity": "sensor.next_shift_date"
-                                        }
-                                    ],
-                                    "type": "entities"
                                 }
                             ],
                             "type": "vertical-stack"
@@ -194,12 +183,6 @@
                                 },
                                 {
                                     "entity": "sensor.next_holiday_mode_end"
-                                },
-                                {
-                                    "entity": "sensor.next_shift_event"
-                                },
-                                {
-                                    "entity": "sensor.next_shift_date"
                                 }
                             ],
                             "show_header_toggle": false,

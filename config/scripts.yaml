@@ -238,35 +238,6 @@ chores:
             Hoy estáis de suerte, no hay que sacar la basura
           {% endif %}
 
-geni_shift:
-  alias: '[Google Home] Turno Geni'
-  sequence:
-    - service: tts.google_translate_say
-      entity_id: media_player.recibidor
-      data_template:
-        message: >
-         {%- if is_state("sensor.next_shift_event", "Saliente") -%}
-           Jeni está hoy saliente de noche
-         {%- else -%}
-           {% set diff = as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time) - as_timestamp(now().replace(hour=0).replace(minute=0).replace(second=0).replace(microsecond=0)) %}
-           {%- if diff < 86400 -%}
-             Jeni trabaja hoy por la {{ states("sensor.next_shift_event") }}
-           {%- elif diff >= 86400 and diff < 86400*2 -%}
-             Jeni trabaja mañana por la {{ states("sensor.next_shift_event") }}
-           {%- else -%}
-             {%- set date = as_timestamp(strptime(states.calendar.turnos_geni_everything.attributes.start_time, "%Y-%m-%d %H:%M:%S")) -%}
-             {% set days_of_week = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"] %}
-             {% set months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"] %}
-             {% set month = date | timestamp_custom("%m") | int %}
-             {% set day = date | timestamp_custom("%w") | int %}
-             {% set day_es = days_of_week[day] %}
-             {% set calendar_day = date | timestamp_custom("%d") | int %}
-             {% set month_es = months[month - 1] %}
-             Jeni trabaja el próximo {{ day_es }} {{ calendar_day }} de {{ month_es }} por la {{ states("sensor.next_shift_event") }}
-
-           {% endif %}
-         {% endif %}
-
 goto_sleep:
   alias: '[Google Home] Me voy dormir'
   sequence:

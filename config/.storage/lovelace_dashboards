@@ -1,17 +1,8 @@
 {
     "version": 1,
+    "minor_version": 1,
     "key": "lovelace_dashboards",
     "data": {
-        "items": [
-            {
-                "require_admin": true,
-                "show_in_sidebar": true,
-                "icon": "mdi:cellphone",
-                "title": "M\u00f3vil",
-                "url_path": "lovelace-movil",
-                "mode": "storage",
-                "id": "lovelace_movil"
-            }
-        ]
+        "items": []
     }
 }

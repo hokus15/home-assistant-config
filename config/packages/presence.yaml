@@ -70,27 +70,6 @@ sensor:
              {% else %}
                  No previstas
              {%- endif %}
-      next_shift_event:
-        friendly_name: 'Próx. turno'
-        value_template: '{{ states.calendar.turnos_geni_everything.attributes.message }}'
-      next_shift_date:
-        friendly_name: 'Próx. turno'
-        value_template: >-
-            {%- if as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 0 %}
-                Domingo, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
-            {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 1 %}
-                Lunes, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
-            {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 2 %}
-                Martes, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
-            {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 3 %}
-                Miércoles, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
-            {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 4 %}
-                Jueves, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
-            {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 5 %}
-                Viernes, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
-            {% elif as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%w")|int == 6 %}
-                Sábado, {{ as_timestamp(states.calendar.turnos_geni_everything.attributes.start_time)|timestamp_custom("%d/%m/%Y") }}
-            {%- endif %}
 
 switch:
   - platform: mqtt
