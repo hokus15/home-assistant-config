@@ -4,6 +4,7 @@ recorder:
       - person
     entities:
       - group.unidad_familiar
+      - input_boolean.google_home_occupancy
 
 
 group:
@@ -21,6 +22,10 @@ input_number:
     min: 0
     max: 240
     step: 5
+
+input_boolean:
+  google_home_occupancy:
+    name: Presencia según google home
 
 device_tracker:
   - platform: mqtt
