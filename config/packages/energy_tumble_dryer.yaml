@@ -5,13 +5,18 @@ recorder:
       - sensor.secadora_power
       - sensor.secadora_energy_calc
 
-binary_sensor:
-  - platform: threshold
-    name: secadora_status
-    entity_id: sensor.secadora_power
-    upper: 5
-    device_class: power
-
+template:
+  - binary_sensor:
+      - name: secadora_status
+        state: "{{ states('sensor.secadora_power') | float > 5 }}"
+        delay_off: "0:00:15"
+        icon: >-
+          {% if states('sensor.secadora_power') | float > 5 -%}
+            mdi:tumble-dryer
+          {%- else -%}
+            mdi:tumble-dryer-off
+          {%- endif %}
+        
 sensor:
   # Sensor needed due to a bug in the device that shows negative value
   # when the plug is turned on but no power is consumed

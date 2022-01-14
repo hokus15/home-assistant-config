@@ -5,12 +5,17 @@ recorder:
       - sensor.lavaplatos_power
       - sensor.lavaplatos_energy_calc
 
-binary_sensor:
-  - platform: threshold
-    name: lavaplatos_status
-    entity_id: sensor.lavaplatos_power
-    upper: 5
-    device_class: power
+template:
+  - binary_sensor:
+      - name: lavaplatos_status
+        state: "{{ states('sensor.lavaplatos_power') | float > 5 }}"
+        delay_off: "0:05:00"
+        icon: >-
+          {% if states('sensor.lavaplatos_power') | float > 5 -%}
+            mdi:dishwasher
+          {%- else -%}
+            mdi:dishwasher-off
+          {%- endif %}
 
 sensor:
   # Sensor needed due to a bug in the device that shows negative value

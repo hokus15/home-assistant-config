@@ -6,12 +6,17 @@ recorder:
       - sensor.lavadora_energy_calc
       - sensor.lavadora_power_statistics
 
-binary_sensor:
-  - platform: threshold
-    name: lavadora_status
-    entity_id: sensor.lavadora_power_statistics
-    upper: 2.5
-    device_class: power
+template:
+  - binary_sensor:
+      - name: lavadora_status
+        state: "{{ states('sensor.lavadora_power') | float > 5 }}"
+        delay_off: "0:00:15"
+        icon: >-
+          {% if states('sensor.lavadora_power') | float > 5 -%}
+            mdi:washing-machine
+          {%- else -%}
+            mdi:washing-machine-off
+          {%- endif %}
 
 sensor:
   # Sensor needed due to a bug in the device that shows negative value

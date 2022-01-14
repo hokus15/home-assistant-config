@@ -5,12 +5,16 @@ recorder:
       - sensor.bomba_agua_power
       - sensor.bomba_agua_energy_calc
 
-binary_sensor:
-  - platform: threshold
-    name: bomba_agua_status
-    entity_id: sensor.bomba_agua_power
-    upper: 5
-    device_class: power
+template:
+  - binary_sensor:
+      - name: bomba_agua_status
+        state: "{{ states('sensor.bomba_agua_power') | float > 5 }}"
+        icon: >-
+          {% if states('sensor.bomba_agua_power') | float > 5 -%}
+            mdi:water-pump
+          {%- else -%}
+            mdi:water-pump-off
+          {%- endif %}
 
 sensor:
   # Sensor needed due to a bug in the device that shows negative value
