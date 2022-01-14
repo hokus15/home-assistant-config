@@ -129,10 +129,6 @@ notify:
 ifttt:
   key: !secret ifttt_api_key
 
-#netatmo:
-#  client_id: !secret netatmo_client_id
-#  client_secret: !secret netatmo_secret_key
-
 withings:
   client_id: !secret withings_client_id
   client_secret: !secret withings_client_secret
