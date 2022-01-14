@@ -7,8 +7,11 @@
     - platform: numeric_state
       entity_id: sensor.power_production_now
       below: input_number.piscina_pump_off_trigger
-      for:
-        minutes: 10
+#      for:
+#        minutes: 10
+    - platform: numeric_state
+      entity_id: sensor.piscina_on_history
+      above: sensor.piscina_filtering_time
   action:
     - service: input_boolean.turn_off
       entity_id: input_boolean.piscina_should_be_on
