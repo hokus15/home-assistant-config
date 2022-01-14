@@ -20,6 +20,7 @@ sensor:
       - 'date_time'
   
   - platform: google_wifi
+    host: 10.155.106.1
     monitored_conditions:
       - current_version
       - new_version
