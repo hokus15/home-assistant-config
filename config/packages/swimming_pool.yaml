@@ -7,6 +7,7 @@ recorder:
       - sensor.piscina_filtering_time
       - sensor.piscina_today_cost
       - sensor.piscina_month_cost
+      - sensor.piscina_on_history
 
       - input_boolean.piscina_should_be_on
 
@@ -164,6 +165,7 @@ sensor:
     state_topic: "home/switch/motor_piscina/tele/SENSOR"
     value_template: "{{ value_json.DS18B20.Temperature | float + states.input_number.temperature_correction.state | float }}"
     unit_of_measurement: "ºC"
+    state_class: measurement
 
 input_number:
   temperature_correction:
