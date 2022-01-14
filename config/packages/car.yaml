@@ -71,7 +71,7 @@ binary_sensor:
     payload_off: OFF
     value_template: '{{ value_json.states is not none }}'
     force_update: true
-    off_delay: 35
+    off_delay: 60
     device_class: 'moving'
 
   - platform: mqtt
@@ -82,7 +82,7 @@ binary_sensor:
     value_template: '{{ value_json.last_update is not none }}'
     json_attributes_topic: 'car/sensor/ioniq/location'
     force_update: true
-    off_delay: 25
+    off_delay: 60
 
 sensor:
   - platform: mqtt
