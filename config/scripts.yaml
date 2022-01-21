@@ -184,11 +184,6 @@ google_home_good_morning:
     - service: script.turn_on
       data:
         entity_id: script.speech_parte_meteorologico_corto
-#    - wait_template: "{{ is_state('media_player.recibidor', 'playing') }}"
-    - wait_template: "{{ not is_state('media_player.recibidor', 'playing') }}"
-    - service: script.turn_on
-      data:
-        entity_id: script.geni_shift
 
 speech_parte_meteorologico:
   alias: '[Google Home] Parte meteorológico'
@@ -257,19 +252,9 @@ presence_leave_home:
           {% set incidence = false %}
           {%- if is_state("binary_sensor.porche_sensor_puerta", "on") %}{% set incidence = true %}Puerta de la cocina abierta. {% endif %}
           {%- if is_state("binary_sensor.porche_sensor_persiana", "on") %}{% set incidence = true %}Persiana de la cocina abierta. {% endif %}
-          {%- if is_state("binary_sensor.coladuria_sensor_puerta", "on") %}{% set incidence = true %}Puerta de la coladuria abierta. {% endif %}
+          {%- if is_state("binary_sensor.coladuria_sensor_puerta", "on") %}{% set incidence = true %}Puerta de la coladuría abierta. {% endif %}
           {%- if is_state("switch.entrance_hall_lamp_switch", "on") %}{% set incidence = true %}Lámpara del recibidor encendida. {% endif %}
           {%- if is_state("switch.escalera_switch", "on") %}{% set incidence = true %}Luz de la escalera encendida. {% endif %}
           {%- if is_state("switch.comedor_switch", "on") %}{% set incidence = true %}Luz del comedor encendida. {% endif %}
           {%- if is_state("switch.salon_switch", "on") %}{% set incidence = true %}Luz del salón encendida. {% endif %}
           {%- if is_state("switch.suite_switch", "on") %}{% set incidence = true %}Luz de la suite encendida. {% endif %}
-
-system_restart_ha:
-  alias: '[System] Hass Restart'
-  sequence:
-      - service: homeassistant.restart
-
-system_reboot_pi:
-  alias: '[System] Host reboot'
-  sequence:
-      - service: hassio.host_reboot
