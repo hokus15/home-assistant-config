@@ -4,12 +4,11 @@ recorder:
       - person
     entities:
       - group.unidad_familiar
-      - input_boolean.google_home_occupancy
-
 
 group:
   Unidad Familiar:
     entities:
+      #- person.familia
       - person.jordi
       - person.geni
       - person.guest
@@ -23,17 +22,16 @@ input_number:
     max: 240
     step: 5
 
-input_boolean:
-  google_home_occupancy:
-    name: Presencia según google home
-
 device_tracker:
   - platform: mqtt
     devices:
-      # Set to home when when hokusphone is connected to HokusWiFi and not_home otherwise
+      # Set to 'home' when when hokusphone is connected to HokusWiFi and 'not_home' otherwise
       hokusphone_wifi: phone/sensor/hokus/wifi
-      # Set to home when when geniphone is connected to HokusWiFi and not_home otherwise
+      # Set to 'home' when when geniphone is connected to HokusWiFi and 'not_home' otherwise
       geniphone_wifi: phone/sensor/geni/wifi
+      # Set to 'home' by Google Home routine (using switch.google_home_occupancy) when at least ONE person at home
+      # and 'not_home' when ALL the persons are away
+      google_home: home/switch/google_home_occupancy
     source_type: 'router'
     consider_home: 180
 #  - platform: nmap_tracker
@@ -93,6 +91,17 @@ switch:
     command_topic: 'home/switch/guest_mode'
     payload_on: 'ON'
     payload_off: 'OFF'
+    optimistic: false
+    qos: 0
+    retain: true
+
+  - platform: mqtt
+    unique_id: 'google_home_occupancy'
+    name: 'google_home_occupancy'
+    state_topic: 'home/switch/google_home_occupancy'
+    command_topic: 'home/switch/google_home_occupancy'
+    payload_on: 'home'
+    payload_off: 'not_home'
     optimistic: false
     qos: 0
     retain: true
