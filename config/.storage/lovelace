@@ -43,7 +43,7 @@
                                 },
                                 {
                                     "type": "gauge",
-                                    "entity": "sensor.efergy_2577",
+                                    "entity": "sensor.fronius_power_grid",
                                     "min": 0,
                                     "max": 10000,
                                     "needle": true,
@@ -758,6 +758,12 @@
                                 },
                                 {
                                     "entity": "sensor.entrance_hall_thermostat_temperature"
+                                },
+                                {
+                                    "entity": "binary_sensor.puerta"
+                                },
+                                {
+                                    "entity": "lock.entrada"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -889,6 +895,9 @@
                                 },
                                 {
                                     "entity": "person.guest"
+                                },
+                                {
+                                    "entity": "person.familia"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -897,18 +906,32 @@
                         },
                         {
                             "entities": [
-                                "person.jordi",
-                                "person.geni",
-                                "person.guest"
+                                {
+                                    "entity": "person.jordi"
+                                },
+                                {
+                                    "entity": "person.geni"
+                                },
+                                {
+                                    "entity": "person.guest"
+                                },
+                                {
+                                    "entity": "person.familia"
+                                },
+                                {
+                                    "entity": "group.unidad_familiar"
+                                }
                             ],
                             "title": "Ocupaci\u00f3n",
-                            "type": "history-graph"
+                            "type": "history-graph",
+                            "hours_to_show": 24,
+                            "refresh_interval": 0
                         },
                         {
                             "type": "history-graph",
                             "entities": [
                                 {
-                                    "entity": "binary_sensor.water_pump_status"
+                                    "entity": "binary_sensor.bomba_agua_status"
                                 }
                             ],
                             "hours_to_show": 24,
@@ -1656,12 +1679,6 @@
                         },
                         {
                             "entities": [
-                                {
-                                    "entity": "script.system_restart_ha"
-                                },
-                                {
-                                    "entity": "script.system_reboot_pi"
-                                },
                                 {
                                     "entity": "sensor.processor_use"
                                 },

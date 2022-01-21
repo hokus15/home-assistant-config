@@ -29,8 +29,23 @@
                         "number_energy_price": null
                     }
                 ],
-                "flow_to": [],
+                "flow_to": [
+                    {
+                        "stat_energy_to": "sensor.fronius_smartmeter_energy_real_produced",
+                        "stat_compensation": null,
+                        "entity_energy_to": "sensor.fronius_smartmeter_energy_real_produced",
+                        "entity_energy_price": null,
+                        "number_energy_price": null
+                    }
+                ],
                 "cost_adjustment_day": 0.0
+            },
+            {
+                "type": "solar",
+                "stat_energy_from": "sensor.fronius_inverter_energy_total",
+                "config_entry_solar_forecast": [
+                    "0b77e48054ea88286aec32196876a1ad"
+                ]
             }
         ],
         "device_consumption": [

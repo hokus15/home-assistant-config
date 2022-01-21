@@ -46,7 +46,7 @@ binary_sensor:
 
 utility_meter:
   energy_grid_today:
-    source: sensor.energy_spent
+    source: sensor.fronius_smartmeter_energy_real_consumed
     cycle: daily
     tariffs:
       - Punta

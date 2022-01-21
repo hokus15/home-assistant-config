@@ -1,5 +1,7 @@
 recorder:
   include:
+    entity_globs:
+      - sensor.fronius_*
     entities:
       - sensor.efergy_2577
       - sensor.energy_pvpc
@@ -39,10 +41,12 @@ logbook:
   exclude:
     entities:
       - sensor.efergy_2577
+    entity_globs:
+      - sensor.fronius_*
 
-sensor:
-  - platform: integration 
-    source: sensor.efergy_2577
-    name: energy_spent
-    unit_prefix: k
-    round: 2
+#sensor:
+#  - platform: integration 
+#    source: sensor.fronius_power_grid
+#    name: energy_grid_import
+#    unit_prefix: k
+#    round: 2
