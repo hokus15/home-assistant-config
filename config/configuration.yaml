@@ -149,6 +149,9 @@ tts:
 #    key_file: google_cloud.json
 #    voice: es-ES-Standard-B
 
+freedns:
+  url: !secret freedns_url
+  
 automation: !include_dir_merge_list automations
 script: !include scripts.yaml
 scene: !include scenes.yaml
