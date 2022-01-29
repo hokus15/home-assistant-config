@@ -1,0 +1,13 @@
+- id: 'Car - Charge - Turn on charger'
+  alias: 'Car - Charge - Turn on charger'
+  trigger:
+    - platform: state
+      entity_id: switch.motor_piscina
+      to: 'off'
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.estomated_power_production_now
+      above: input_number.cargador_ev_on_threshold
+  action:
+    - service: switch.turn_on
+      entity_id: switch.cargador_ev_switch

@@ -4,8 +4,6 @@ recorder:
       - binary_sensor.cargador_ev_status
       - sensor.cargador_ev_power
       - sensor.cargador_ev_energy_calc
-      - sensor.cargador_ev_today_cost
-      - sensor.cargador_ev_month_cost
 
 binary_sensor:
   - platform: threshold
@@ -23,14 +21,6 @@ sensor:
     unit_prefix: k
     round: 2
 
-  - platform: template
-    sensors:
-      cargador_ev_hour_cost:
-        friendly_name: Coste carga hora actual
-        value_template: '{{ states("sensor.cargador_ev_hour_energy") | float * states("sensor.energy_price") | float }}'
-        unit_of_measurement: '€'
-        icon_template: hass:currency-eur
-
 utility_meter:
   cargador_ev_today_energy:
     source: sensor.cargador_ev_energy_calc
@@ -40,10 +30,23 @@ utility_meter:
     source: sensor.cargador_ev_energy_calc
     cycle: hourly
 
-  cargador_ev_today_cost:
-    source: sensor.cargador_ev_hour_cost
-    cycle: daily
-
-  cargador_ev_month_cost:
-    source: sensor.cargador_ev_hour_cost
-    cycle: monthly
+input_number:
+  # Max power consumed from grid allowed.
+  # If this threshold is broken for x minutes it, the charger will be turned off by an automation
+  cargador_ev_off_threshold:
+    name: 'Potencia apagado'
+    unit_of_measurement: 'W'
+    icon: 'mdi:lightning-bolt'
+    initial: 500
+    min: 0
+    max: 2000
+    step: 50
+  # Estimated power generated to turn on tha car charger.
+  cargador_ev_on_threshold:
+    name: 'Potencia encendido'
+    unit_of_measurement: 'W'
+    icon: 'mdi:lightning-bolt'
+    initial: 1900
+    min: 0
+    max: 2500
+    step: 100
