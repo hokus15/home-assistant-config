@@ -36,14 +36,14 @@
                                         },
                                         {
                                             "entity": "sensor.energy_price",
-                                            "name": "Precio (incluye peaje)",
+                                            "name": "Precio (impuestos)",
                                             "secondary_info": "last-changed"
                                         }
                                     ]
                                 },
                                 {
                                     "type": "gauge",
-                                    "entity": "sensor.fronius_power_grid",
+                                    "entity": "sensor.energy_power_house",
                                     "min": 0,
                                     "max": 10000,
                                     "needle": true,
@@ -52,6 +52,25 @@
                                         "yellow": 3000,
                                         "red": 4600
                                     }
+                                },
+                                {
+                                    "type": "gauge",
+                                    "entity": "sensor.energy_power_photovoltaics",
+                                    "min": 0,
+                                    "max": 4500,
+                                    "needle": true
+                                },
+                                {
+                                    "type": "gauge",
+                                    "entity": "sensor.fronius_solarnet_power_grid",
+                                    "min": -4500,
+                                    "severity": {
+                                        "green": -4500,
+                                        "yellow": 0,
+                                        "red": 2995
+                                    },
+                                    "max": 8000,
+                                    "needle": true
                                 }
                             ],
                             "type": "vertical-stack"
@@ -1031,16 +1050,14 @@
                                             "entity": "sensor.piscina_month_cost"
                                         },
                                         {
-                                            "entity": "sensor.power_production_now"
+                                            "entity": "sensor.estimated_power_production_now",
+                                            "name": "Producci\u00f3n estimada de potencia (ahora)"
                                         },
                                         {
-                                            "entity": "input_number.piscina_pump_on_trigger"
+                                            "entity": "input_number.piscina_pump_on_threshold"
                                         },
                                         {
-                                            "entity": "input_number.piscina_pump_off_trigger"
-                                        },
-                                        {
-                                            "entity": "input_boolean.piscina_should_be_on"
+                                            "entity": "input_number.piscina_pump_off_threshold"
                                         }
                                     ],
                                     "show_header_toggle": false,
@@ -1368,18 +1385,25 @@
                                     "entity": "sensor.cargador_ev_today_energy"
                                 },
                                 {
-                                    "entity": "sensor.cargador_ev_hour_cost"
+                                    "entity": "sensor.estimated_power_production_now",
+                                    "name": "Producci\u00f3n estimada de potencia (ahora)"
                                 },
                                 {
-                                    "entity": "sensor.cargador_ev_today_cost"
+                                    "entity": "input_number.cargador_ev_on_threshold"
                                 },
                                 {
-                                    "entity": "sensor.cargador_ev_month_cost"
+                                    "entity": "input_number.cargador_ev_off_threshold"
                                 }
                             ],
                             "show_header_toggle": false,
                             "title": "Cargador EV",
-                            "type": "entities"
+                            "type": "entities",
+                            "footer": {
+                                "type": "graph",
+                                "entity": "sensor.cargador_ev_power",
+                                "hours_to_show": 24,
+                                "detail": 2
+                            }
                         }
                     ],
                     "icon": "mdi:car-multiple",
@@ -1463,11 +1487,37 @@
                                 },
                                 {
                                     "detail": 2,
-                                    "entity": "sensor.efergy_2577",
+                                    "entity": "sensor.energy_power_photovoltaics",
                                     "graph": "line",
-                                    "name": "Consumo instant\u00e1neo",
+                                    "name": "Potencia generada",
                                     "type": "sensor",
-                                    "unit": "W"
+                                    "unit": "W",
+                                    "icon": "mdi:solar-power"
+                                },
+                                {
+                                    "detail": 2,
+                                    "entity": "sensor.energy_power_house",
+                                    "graph": "line",
+                                    "type": "sensor",
+                                    "unit": "W",
+                                    "icon": "mdi:home-lightning-bolt"
+                                },
+                                {
+                                    "type": "sensor",
+                                    "entity": "sensor.energy_power_grid_import",
+                                    "graph": "line",
+                                    "unit": "W",
+                                    "detail": 1,
+                                    "name": "Potencia de la red",
+                                    "icon": "mdi:transmission-tower-import"
+                                },
+                                {
+                                    "type": "sensor",
+                                    "entity": "sensor.energy_power_grid_export",
+                                    "graph": "line",
+                                    "unit": "W",
+                                    "icon": "mdi:transmission-tower-export",
+                                    "name": "Potencia a la red"
                                 }
                             ],
                             "type": "vertical-stack",
