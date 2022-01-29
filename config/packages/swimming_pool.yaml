@@ -176,7 +176,7 @@ input_number:
     max: 5
     step: 0.5
     mode: box
-  piscina_pump_on_trigger:
+  piscina_pump_on_threshold:
     name: 'Potencia encendido'
     unit_of_measurement: 'W'
     icon: 'mdi:lightning-bolt'
@@ -184,14 +184,14 @@ input_number:
     min: 1200
     max: 2500
     step: 100
-  piscina_pump_off_trigger:
+  piscina_pump_off_threshold:
     name: 'Potencia apagado'
     unit_of_measurement: 'W'
     icon: 'mdi:lightning-bolt'
-    initial: 1200
-    min: 1000
+    initial: 300
+    min: 0
     max: 2000
-    step: 100
+    step: 50
 
 utility_meter:
   piscina_today_energy:
