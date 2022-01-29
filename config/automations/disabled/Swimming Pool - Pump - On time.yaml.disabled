@@ -1,0 +1,8 @@
+- id: 'Swimming Pool - Pump - On time'
+  alias: 'Swimming Pool - Pump - On time'
+  trigger: 
+    platform: template
+    value_template: '{{states.sensor.date_time.state == states.sensor.piscina_on_time.state}}'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.motor_piscina
