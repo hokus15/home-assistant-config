@@ -193,10 +193,6 @@ input_number:
     max: 2000
     step: 100
 
-input_boolean:
-  piscina_should_be_on:
-    name: Test boolean for piscina pump on
-
 utility_meter:
   piscina_today_energy:
     source: sensor.piscina_energy
