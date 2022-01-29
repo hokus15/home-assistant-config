@@ -3,9 +3,14 @@ recorder:
     entity_globs:
       - sensor.fronius_*
     entities:
-      - sensor.efergy_2577
+#      - sensor.efergy_2577
       - sensor.energy_pvpc
       - sensor.energy_price
+
+      - sensor.energy_power_photovoltaics
+      - sensor.energy_power_house
+      - sensor.energy_power_grid_import
+      - sensor.energy_power_grid_export
 
       - sensor.salon_switch_power
       - sensor.salon_switch_energy
@@ -39,10 +44,39 @@ recorder:
       
 logbook:
   exclude:
-    entities:
-      - sensor.efergy_2577
+#    entities:
+#      - sensor.efergy_2577
     entity_globs:
       - sensor.fronius_*
+sensor:
+  - platform: template
+    sensors:
+      # The raw Fronius photovoltaic state goes to unknown after dark, so force it to zero
+      energy_power_photovoltaics:
+        device_class: power
+        friendly_name: "Producción fotovoltáica"
+        unit_of_measurement: "W"
+        value_template: "{{ states('sensor.fronius_solarnet_power_photovoltaics')|float }}"
+
+      energy_power_house:
+        device_class: power
+        friendly_name: "Potencia casa"
+        unit_of_measurement: "W"
+        value_template: "{{ 0 - states('sensor.fronius_solarnet_power_load')|float|round(1) }}"
+
+      # The raw grid power is negative if exporting and positive if importing, so produce
+      # separate figures here so we can calculate energy based on them below
+      energy_power_grid_import:
+        device_class: power
+        friendly_name: "Potencia red"
+        unit_of_measurement: "W"
+        value_template: "{{ [states('sensor.fronius_solarnet_power_grid')|float, 0]|max }}"
+
+      energy_power_grid_export:
+        device_class: power
+        friendly_name: "Potencia vertida"
+        unit_of_measurement: "W"
+        value_template: "{{ [0 - states('sensor.fronius_solarnet_power_grid')|float, 0]|max }}"
 
 #sensor:
 #  - platform: integration 
