@@ -53,3 +53,4 @@ config/home-assistant.log.fault
 config/.storage/trace.saved_traces
 config/.storage/zwave_js.legacy_zwave_migration
 config/home-assistant.log.1
+*.pyc
