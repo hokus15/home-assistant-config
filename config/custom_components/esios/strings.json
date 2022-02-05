@@ -1,0 +1,37 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "api_token": "ESIOS API Authentication Token",
+          "pvpc": "Electricity hourly price (PVPC, tarif 2.0TD)",
+          "inyection_price": "Surplus energy hourly price (electricity grid inyection)",
+          "co2_gen": "CO2 Associated with the Real Generation of the electricity grid",
+          "co2_free": "Percentage of CO2-free generation on the electricity grid"
+        },
+        "description": "Request a personal access token by [sending an empty email to esios](mailto:consultasios@ree.es?subject=Personal%20token%20request)"
+      }
+    },
+    "error": {
+      "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
+      "invalid_auth": "[%key:common::config_flow::error::invalid_auth%]",
+      "unknown": "[%key:common::config_flow::error::unknown%]"
+    },
+    "abort": {
+      "already_configured": "[%key:common::config_flow::abort::already_configured_device%]"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "description": "Enable or disable the available ESIOS indicators.",
+        "data": {
+          "pvpc": "Electricity hourly price (PVPC, tarif 2.0TD)",
+          "inyection_price": "Surplus energy hourly price (electricity grid inyection)",
+          "co2_gen": "CO2 Associated with the Real Generation of the electricity grid",
+          "co2_free": "Percentage of CO2-free generation on the electricity grid"
+        }
+      }
+    }
+  }
+}
