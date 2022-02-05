@@ -58,7 +58,12 @@
                                     "entity": "sensor.energy_power_photovoltaics",
                                     "min": 0,
                                     "max": 4500,
-                                    "needle": true
+                                    "needle": true,
+                                    "severity": {
+                                        "green": 2000,
+                                        "yellow": 400,
+                                        "red": 0
+                                    }
                                 },
                                 {
                                     "type": "gauge",
@@ -234,6 +239,20 @@
                             "entity": "climate.netatmo_general",
                             "theme": "Backend-selected",
                             "type": "thermostat"
+                        },
+                        {
+                            "type": "history-graph",
+                            "entities": [
+                                {
+                                    "entity": "sensor.energy_power_house"
+                                },
+                                {
+                                    "entity": "sensor.energy_power_photovoltaics"
+                                }
+                            ],
+                            "hours_to_show": 24,
+                            "refresh_interval": 0,
+                            "title": "Producci\u00f3n energ\u00eda vs consumo"
                         }
                     ],
                     "icon": "mdi:home",
@@ -1047,17 +1066,16 @@
                                             "entity": "switch.piscina"
                                         },
                                         {
-                                            "entity": "sensor.piscina_month_cost"
-                                        },
-                                        {
-                                            "entity": "sensor.estimated_power_production_now",
-                                            "name": "Producci\u00f3n estimada de potencia (ahora)"
+                                            "entity": "sensor.fronius_solarnet_power_grid"
                                         },
                                         {
                                             "entity": "input_number.piscina_pump_on_threshold"
                                         },
                                         {
                                             "entity": "input_number.piscina_pump_off_threshold"
+                                        },
+                                        {
+                                            "entity": "input_number.piscina_pump_off_delay"
                                         }
                                     ],
                                     "show_header_toggle": false,
@@ -1385,25 +1403,21 @@
                                     "entity": "sensor.cargador_ev_today_energy"
                                 },
                                 {
-                                    "entity": "sensor.estimated_power_production_now",
-                                    "name": "Producci\u00f3n estimada de potencia (ahora)"
+                                    "entity": "sensor.fronius_solarnet_power_grid"
                                 },
                                 {
                                     "entity": "input_number.cargador_ev_on_threshold"
                                 },
                                 {
                                     "entity": "input_number.cargador_ev_off_threshold"
+                                },
+                                {
+                                    "entity": "input_number.cargador_ev_off_delay"
                                 }
                             ],
                             "show_header_toggle": false,
                             "title": "Cargador EV",
-                            "type": "entities",
-                            "footer": {
-                                "type": "graph",
-                                "entity": "sensor.cargador_ev_power",
-                                "hours_to_show": 24,
-                                "detail": 2
-                            }
+                            "type": "entities"
                         }
                     ],
                     "icon": "mdi:car-multiple",
