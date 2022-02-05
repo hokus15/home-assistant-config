@@ -1,9 +1,16 @@
+# Turn on swimming pool when exporting energy to the grid over a threshold and it has been on less that the time expected
 - id: 'Swimming Pool - Pump - On'
   alias: 'Swimming Pool - Pump - On'
   trigger:
     - platform: numeric_state
-      entity_id: sensor.estimated_power_production_now
-      above: input_number.piscina_pump_on_threshold
+      entity_id: sensor.fronius_solarnet_power_grid
+      below: input_number.piscina_pump_on_threshold
+      for:
+        minutes: 1
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.piscina_on_history
+      below: sensor.piscina_filtering_time
   action:
     - service: switch.turn_on
       entity_id: switch.motor_piscina

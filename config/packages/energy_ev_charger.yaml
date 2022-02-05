@@ -31,22 +31,31 @@ utility_meter:
     cycle: hourly
 
 input_number:
+  # Grid power (negative exporting / positive importing) to turn on EV charger.
+  # i.e: -1300 Means turn on EV charger when exporting 1300W to the grid.
+  cargador_ev_on_threshold:
+    name: 'Potencia para encendido'
+    unit_of_measurement: 'W'
+    icon: 'mdi:lightning-bolt'
+    initial: -1300
+    min: -3000
+    max: 0
+    step: 100
   # Max power consumed from grid allowed.
-  # If this threshold is broken for x minutes it, the charger will be turned off by an automation
+  # If the consumed power is over this threshold for x minutes, the EV charger will be turned off by an automation.
   cargador_ev_off_threshold:
-    name: 'Potencia apagado'
+    name: 'Consumo para apagado'
     unit_of_measurement: 'W'
     icon: 'mdi:lightning-bolt'
     initial: 500
     min: 0
     max: 2000
-    step: 50
-  # Estimated power generated to turn on tha car charger.
-  cargador_ev_on_threshold:
-    name: 'Potencia encendido'
-    unit_of_measurement: 'W'
-    icon: 'mdi:lightning-bolt'
-    initial: 1900
-    min: 0
-    max: 2500
     step: 100
+  cargador_ev_off_delay:
+    name: 'Retardo apagado'
+    unit_of_measurement: 'mins'
+    icon: 'mdi:lightning-bolt'
+    initial: 10
+    min: 0
+    max: 60
+    step: 2

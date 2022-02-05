@@ -1,11 +1,18 @@
 - id: 'Car - Charge - Turn off charger'
   alias: 'Car - Charge - Turn off charger'
   trigger:
+    # When exit 'Valle' energy tariff
+    - platform: state
+      entity_id: sensor.energy_tariff
+      from: 'Valle'
+    # When consuming from grid more power than threshold for 10 minutes
     - platform: numeric_state
       entity_id: sensor.fronius_solarnet_power_grid
       above: input_number.cargador_ev_off_threshold
       for:
-        minutes: 10
+        minutes: input_number.cargador_ev_off_delay
+  # Only execute action when not in 'Valle' tariff. This is to allow to charge EV during 'Valle' tariff.
+  condition: "{{ states('sensor.energy_tariff') != 'Valle' }}"
   action:
     - service: switch.turn_off
       entity_id: switch.cargador_ev_switch

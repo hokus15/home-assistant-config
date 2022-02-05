@@ -5,8 +5,6 @@ recorder:
       - sensor.piscina_water_temperature
       - sensor.piscina_temperature
       - sensor.piscina_filtering_time
-      - sensor.piscina_today_cost
-      - sensor.piscina_month_cost
       - sensor.piscina_on_history
 
       - input_boolean.piscina_should_be_on
@@ -138,11 +136,6 @@ sensor:
             {{(((as_timestamp(strptime(states.sensor.piscina_off_time.state, "%Y-%m-%d, %H:%M"))-(states.sensor.piscina_filtering_time.state | float * 60 * 60)) // 60) * 60)|timestamp_custom("%Y-%m-%d, %H:%M")}}
           {%- endif %}
         icon_template: 'mdi:power-plug'
-      piscina_hour_cost:
-        friendly_name: Coste depuración hora actual
-        value_template: '{{ states("sensor.piscina_hour_energy") | float * states("sensor.energy_price") | float }}'
-        unit_of_measurement: '€'
-        icon_template: hass:currency-eur
 
   - platform: statistics
     name: piscina_temperature
@@ -176,22 +169,35 @@ input_number:
     max: 5
     step: 0.5
     mode: box
+  # Grid power (negative exporting / positive importing) to turn on swimming pool pump.
+  # i.e: -1200 Means turn on swimming pool pump when exporting 1200W to the grid.
   piscina_pump_on_threshold:
-    name: 'Potencia encendido'
+    name: 'Potencia para encendido'
     unit_of_measurement: 'W'
     icon: 'mdi:lightning-bolt'
-    initial: 1700
-    min: 1200
-    max: 2500
+    initial: -1200
+    min: -2000
+    max: 0
     step: 100
+  # Max power consumed from grid allowed.
+  # If the consumed power is over this threshold for x minutes, the swimming pool pump will be turned off by an automation.
   piscina_pump_off_threshold:
-    name: 'Potencia apagado'
+    name: 'Consumo para apagado'
     unit_of_measurement: 'W'
     icon: 'mdi:lightning-bolt'
     initial: 300
     min: 0
     max: 2000
-    step: 50
+    step: 100
+  piscina_pump_off_delay:
+    name: 'Retardo apagado'
+    unit_of_measurement: 'mins'
+    icon: 'mdi:lightning-bolt'
+    initial: 12
+    min: 0
+    max: 60
+    step: 2
+
 
 utility_meter:
   piscina_today_energy:
@@ -201,13 +207,3 @@ utility_meter:
   piscina_hour_energy:
     source: sensor.piscina_energy
     cycle: hourly
-
-  piscina_today_cost:
-    source: sensor.piscina_hour_cost
-    cycle: daily
-
-  piscina_month_cost:
-    source: sensor.piscina_hour_cost
-    cycle: monthly
-    offset:
-      days: 5
