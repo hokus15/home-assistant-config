@@ -6,8 +6,9 @@ recorder:
       - sensor.piscina_temperature
       - sensor.piscina_filtering_time
       - sensor.piscina_on_history
-
-      - input_boolean.piscina_should_be_on
+      - input_number.piscina_pump_on_threshold
+      - input_number.piscina_pump_off_threshold
+      - input_number.piscina_pump_off_delay
 
 logbook:
   exclude:
@@ -15,6 +16,9 @@ logbook:
       - sensor.piscina_water_temperature
       - sensor.piscina_temperature
       - sensor.piscina_filtering_time
+      - input_number.piscina_pump_on_threshold
+      - input_number.piscina_pump_off_threshold
+      - input_number.piscina_pump_off_delay
 
 light:
   - platform: switch
@@ -185,7 +189,7 @@ input_number:
     name: 'Consumo para apagado'
     unit_of_measurement: 'W'
     icon: 'mdi:lightning-bolt'
-    initial: 300
+    initial: 500
     min: 0
     max: 2000
     step: 100
