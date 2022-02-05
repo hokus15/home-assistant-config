@@ -4,8 +4,6 @@ recorder:
       - sensor.fronius_*
     entities:
 #      - sensor.efergy_2577
-      - sensor.energy_pvpc
-      - sensor.energy_price
 
       - sensor.energy_power_photovoltaics
       - sensor.energy_power_house

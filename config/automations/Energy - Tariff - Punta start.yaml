@@ -16,7 +16,7 @@
         payload_template: 'Punta'
     - service: mqtt.publish
       data:
-        topic: 'home/sensor/energy/price'
+        topic: 'home/sensor/energy/price/buy'
         retain: true
         qos: 0
         payload_template: 0.303019

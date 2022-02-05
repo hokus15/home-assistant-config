@@ -8,6 +8,10 @@ recorder:
       - sensor.energy_grid_today_valle
       - sensor.energy_grid_today_valle_cost
 
+      - sensor.energy_pvpc
+      - sensor.energy_price_buy
+      - sensor.energy_price_sell
+
       - sensor.energy_tariff
 
 sensor:
@@ -16,8 +20,17 @@ sensor:
     name: energy_tariff
 
   - platform: mqtt
-    state_topic: 'home/sensor/energy/price'
-    name: energy_price
+    state_topic: 'home/sensor/energy/price/buy'
+    name: energy_price_buy
+    unique_id: energy_price_buy
+    state_class: 'measurement'
+    unit_of_measurement: '€/kWh'
+    icon: 'mdi:currency-eur'
+
+  - platform: mqtt
+    state_topic: 'home/sensor/energy/price/sell'
+    name: energy_price_sell
+    unique_id: energy_price_sell
     state_class: 'measurement'
     unit_of_measurement: '€/kWh'
     icon: 'mdi:currency-eur'
