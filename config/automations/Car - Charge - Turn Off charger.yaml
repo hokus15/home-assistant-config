@@ -5,12 +5,12 @@
     - platform: state
       entity_id: sensor.energy_tariff
       from: 'Valle'
-    # When consuming from grid more power than threshold for 10 minutes
+    # When consuming from grid more power than threshold for 'input_number.cargador_ev_off_delay' minutes
     - platform: numeric_state
       entity_id: sensor.fronius_solarnet_power_grid
       above: input_number.cargador_ev_off_threshold
       for:
-        minutes: input_number.cargador_ev_off_delay
+        minutes: "{{ states('input_number.cargador_ev_off_delay') | int }}"
   # Only execute action when not in 'Valle' tariff. This is to allow to charge EV during 'Valle' tariff.
   condition: "{{ states('sensor.energy_tariff') != 'Valle' }}"
   action:
