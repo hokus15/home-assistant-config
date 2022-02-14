@@ -35,9 +35,12 @@
                                             "secondary_info": "last-changed"
                                         },
                                         {
-                                            "entity": "sensor.energy_price",
+                                            "entity": "sensor.energy_price_buy",
                                             "name": "Precio (impuestos)",
                                             "secondary_info": "last-changed"
+                                        },
+                                        {
+                                            "entity": "sensor.energy_price_sell"
                                         }
                                     ]
                                 },
@@ -1504,6 +1507,14 @@
                                 },
                                 {
                                     "detail": 2,
+                                    "entity": "sensor.energy_power_house",
+                                    "graph": "line",
+                                    "type": "sensor",
+                                    "unit": "W",
+                                    "icon": "mdi:home-lightning-bolt"
+                                },
+                                {
+                                    "detail": 2,
                                     "entity": "sensor.energy_power_photovoltaics",
                                     "graph": "line",
                                     "name": "Potencia generada",
@@ -1512,29 +1523,13 @@
                                     "icon": "mdi:solar-power"
                                 },
                                 {
-                                    "detail": 2,
-                                    "entity": "sensor.energy_power_house",
-                                    "graph": "line",
                                     "type": "sensor",
-                                    "unit": "W",
-                                    "icon": "mdi:home-lightning-bolt"
-                                },
-                                {
-                                    "type": "sensor",
-                                    "entity": "sensor.energy_power_grid_import",
+                                    "entity": "sensor.fronius_solarnet_power_grid",
                                     "graph": "line",
                                     "unit": "W",
                                     "detail": 1,
                                     "name": "Potencia de la red",
                                     "icon": "mdi:transmission-tower-import"
-                                },
-                                {
-                                    "type": "sensor",
-                                    "entity": "sensor.energy_power_grid_export",
-                                    "graph": "line",
-                                    "unit": "W",
-                                    "icon": "mdi:transmission-tower-export",
-                                    "name": "Potencia a la red"
                                 }
                             ],
                             "type": "vertical-stack",
@@ -1616,6 +1611,22 @@
                                     "entity": "sensor.energy_price_sell"
                                 }
                             ],
+                            "hours_to_show": 72,
+                            "refresh_interval": 0
+                        },
+                        {
+                            "type": "history-graph",
+                            "entities": [
+                                {
+                                    "entity": "sensor.energy_power_photovoltaics"
+                                },
+                                {
+                                    "entity": "sensor.fronius_solarnet_power_grid"
+                                },
+                                {
+                                    "entity": "sensor.energy_power_house"
+                                }
+                            ],
                             "hours_to_show": 24,
                             "refresh_interval": 0
                         },
@@ -1625,9 +1636,6 @@
                                 {
                                     "type": "history-graph",
                                     "entities": [
-                                        {
-                                            "entity": "sensor.cargador_ioniq_current_power"
-                                        },
                                         {
                                             "entity": "sensor.secadora_power"
                                         },
@@ -1645,6 +1653,9 @@
                                         },
                                         {
                                             "entity": "sensor.energy_power_photovoltaics"
+                                        },
+                                        {
+                                            "entity": "sensor.cargador_ev_power"
                                         }
                                     ],
                                     "hours_to_show": 24,
