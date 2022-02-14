@@ -12,4 +12,5 @@ sensor:
     source: sensor.ladron_salon_power
     name: ladron_salon_energy_calc
     unit_prefix: k
+    method: left
     round: 2

@@ -23,4 +23,5 @@ sensor:
     source: sensor.bomba_agua_power
     name: bomba_agua_energy_calc
     unit_prefix: k
+    method: left
     round: 2

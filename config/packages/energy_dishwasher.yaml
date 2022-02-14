@@ -24,4 +24,5 @@ sensor:
     source: sensor.lavaplatos_power
     name: lavaplatos_energy_calc
     unit_prefix: k
+    method: left
     round: 2

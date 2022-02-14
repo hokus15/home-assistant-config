@@ -10,7 +10,7 @@ template:
   - binary_sensor:
       - name: lavadora_status
         state: "{{ states('sensor.lavadora_power') | float > 5 }}"
-        delay_off: "0:00:15"
+        delay_off: "0:01:15"
         icon: >-
           {% if states('sensor.lavadora_power') | float > 5 -%}
             mdi:washing-machine
@@ -25,6 +25,7 @@ sensor:
     source: sensor.lavadora_power
     name: lavadora_energy_calc
     unit_prefix: k
+    method: left
     round: 2
 
   - platform: statistics

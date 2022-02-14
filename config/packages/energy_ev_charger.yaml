@@ -29,6 +29,7 @@ sensor:
     source: sensor.cargador_ev_power
     name: cargador_ev_energy_calc
     unit_prefix: k
+    method: left
     round: 2
 
 utility_meter:
