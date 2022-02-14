@@ -1,4 +1,5 @@
-# Turn on swimming pool when exporting energy to the grid over a threshold and it has been on less that the time expected
+# Turn on swimming pool when exporting energy to the grid over a threshold (during a period of time) and it has been on less that the time expected
+# and specific appliances (dish washer, tuble dryer, wasing machine,...) are off
 - id: 'Swimming Pool - Pump - On'
   alias: 'Swimming Pool - Pump - On'
   trigger:
@@ -6,11 +7,17 @@
       entity_id: sensor.fronius_solarnet_power_grid
       below: input_number.piscina_pump_on_threshold
       for:
-        minutes: 1
+        minutes: 2
   condition:
     - condition: numeric_state
       entity_id: sensor.piscina_on_history
       below: sensor.piscina_filtering_time
+    - condition: state
+      entity_id: 
+        - binary_sensor.lavadora_status
+        - binary_sensor.secadora_status
+        - binary_sensor.lavaplatos_status
+      state: "off"
   action:
     - service: switch.turn_on
       entity_id: switch.motor_piscina
