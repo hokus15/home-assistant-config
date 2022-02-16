@@ -9,7 +9,7 @@ template:
   - binary_sensor:
       - name: secadora_status
         state: "{{ states('sensor.secadora_power') | float > 5 }}"
-        delay_off: "0:00:30"
+        delay_off: "0:01:15"
         icon: >-
           {% if states('sensor.secadora_power') | float > 5 -%}
             mdi:tumble-dryer
