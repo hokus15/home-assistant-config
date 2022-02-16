@@ -7,6 +7,7 @@ recorder:
       - sensor.piscina_filtering_time
       - sensor.piscina_on_history
       - input_number.piscina_pump_on_threshold
+      - input_number.piscina_pump_on_delay
       - input_number.piscina_pump_off_threshold
       - input_number.piscina_pump_off_delay
 
@@ -193,14 +194,22 @@ input_number:
     min: 0
     max: 2000
     step: 100
+  piscina_pump_on_delay:
+    name: 'Retardo encendido'
+    unit_of_measurement: 'mins'
+    icon: 'mdi:clock-in'
+    initial: 2
+    min: 0
+    max: 60
+    step: 1
   piscina_pump_off_delay:
     name: 'Retardo apagado'
     unit_of_measurement: 'mins'
-    icon: 'mdi:lightning-bolt'
+    icon: 'mdi:clock-out'
     initial: 12
     min: 0
     max: 60
-    step: 2
+    step: 1
 
 
 utility_meter:

@@ -5,6 +5,7 @@ recorder:
       - sensor.cargador_ev_power
       - sensor.cargador_ev_energy_calc
       - input_number.cargador_ev_on_threshold
+      - input_number.cargador_ev_on_delay
       - input_number.cargador_ev_off_threshold
       - input_number.cargador_ev_off_delay
 
@@ -62,10 +63,19 @@ input_number:
     min: 0
     max: 2000
     step: 100
+  cargador_ev_on_delay:
+    name: 'Retardo encendido'
+    unit_of_measurement: 'mins'
+    icon: 'mdi:clock-in'
+    initial: 3
+    min: 0
+    max: 60
+    step: 1
+
   cargador_ev_off_delay:
     name: 'Retardo apagado'
     unit_of_measurement: 'mins'
-    icon: 'mdi:lightning-bolt'
+    icon: 'mdi:clock-out'
     initial: 10
     min: 0
     max: 60

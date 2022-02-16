@@ -7,7 +7,7 @@
       entity_id: sensor.fronius_solarnet_power_grid
       below: input_number.piscina_pump_on_threshold
       for:
-        minutes: 2
+        minutes: "{{ states('input_number.piscina_pump_on_delay') | int }}"
   condition:
     - condition: numeric_state
       entity_id: sensor.piscina_on_history
