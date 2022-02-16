@@ -173,47 +173,6 @@ input_boolean:
     icon: 'mdi:transit-transfer'
 
 camera:
-  # Hall camera
-  - platform: foscam
-    ip: !secret cam_recibidor_host
-    name: recibidor
-    port: !secret cam_recibidor_port
-    username: !secret cam_recibidor_username
-    password: !secret cam_recibidor_password
-  
-   # Swiming pool camera
-  - platform: foscam
-    ip: !secret cam_piscina_host
-    name: piscina
-    port: !secret cam_piscina_port
-    username: !secret cam_piscina_username
-    password: !secret cam_piscina_password
-  
-   # Bbq camera
-  - platform: foscam
-    ip: !secret cam_barbacoa_host
-    name: barbacoa
-    port: !secret cam_barbacoa_port
-    username: !secret cam_barbacoa_username
-    password: !secret cam_barbacoa_password
-  
-   # Living room camera
-  - platform: foscam
-    ip: !secret cam_salon_host
-    name: salon
-    port: !secret cam_salon_port
-    username: !secret cam_salon_username
-    password: !secret cam_salon_password
-    rtsp_port: 443
-
-   # Kitchen camera
-  - platform: foscam
-    ip: !secret cam_cocina_host
-    name: cocina
-    port: !secret cam_cocina_port
-    username: !secret cam_cocina_username
-    password: !secret cam_cocina_password
-
   # Backyard stand camera
   # For Linksys WVC54GCA http://<cam-host>:<cam_port>/img/snapshot.cgi
   - platform: generic
@@ -285,11 +244,6 @@ shell_command:
   cam_salon_ptz_preset_point_main: !secret cam_salon_ptz_preset_point_main
   cam_salon_ptz_preset_point_main_left: !secret cam_salon_ptz_preset_point_mainleft
   cam_salon_ptz_preset_point_main_right: !secret cam_salon_ptz_preset_point_mainright
-
-lock:
-  - platform: nuki
-    host: !secret lock_nuki_host
-    token: !secret lock_nuki_token
 
 sensor:
   - platform: mqtt

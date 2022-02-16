@@ -501,25 +501,3 @@ sensor:
           {% else %}
             No está en carga
           {%- endif %}
-
-  # Google travel time to work
-  - platform: google_travel_time
-    name: 'car_a_la_oficina'
-    api_key: !secret google_api_key
-    origin: device_tracker.car_ioniq
-    destination: zone.oficina
-    options:
-      language: es
-      departure_time: now
-      traffic_model: pessimistic
-  
-  # Google travel time to school
-  - platform: google_travel_time
-    name: 'car_al_colegio'
-    api_key: !secret google_api_key
-    origin: device_tracker.car_ioniq
-    destination: zone.colegio
-    options:
-      language: es
-      departure_time: now
-      traffic_model: pessimistic
