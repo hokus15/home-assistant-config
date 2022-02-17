@@ -3,6 +3,12 @@
     "minor_version": 1,
     "key": "lovelace_resources",
     "data": {
-        "items": []
+        "items": [
+            {
+                "url": "/local/mini-graph-card-bundle.js?v=0.11.0",
+                "type": "module",
+                "id": "ec0c5109233b4effbcf9ed4fc8b780e2"
+            }
+        ]
     }
 }
