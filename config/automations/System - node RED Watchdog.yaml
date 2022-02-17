@@ -1,4 +1,4 @@
-- id: 'System - Node RED Watchdog'
+- id: 'system_node_red_watchdog'
   alias: 'System - Node RED Watchdog'
   trigger:
     platform: state

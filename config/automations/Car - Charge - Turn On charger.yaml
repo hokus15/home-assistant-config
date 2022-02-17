@@ -1,4 +1,4 @@
-- id: 'Car - Charge - Turn on charger'
+- id: 'car_charge_turn_on_charger'
   alias: 'Car - Charge - Turn on charger'
   trigger:
     - platform: numeric_state

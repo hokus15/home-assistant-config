@@ -1,4 +1,4 @@
-- id: 'Energy - Notification - UPS battery to be replaced'
+- id: 'energy_notification_ups_battery_to_be_replaced'
   alias: 'Energy - Notification - UPS battery to be replaced'
   trigger:
     platform: state

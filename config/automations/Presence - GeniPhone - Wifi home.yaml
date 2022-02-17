@@ -1,8 +1,8 @@
-# Consider_home is not working properly for mqtt device_tracker
+# consider_home is not working properly for mqtt device_tracker
 # This sensor is to workaround it using some automations
 # Presence - GeniPhone - Wifi home.yaml
 # Presence - GeniPhone - Wifi not_home.yaml
-- id: 'Presence - GeniPhone - Wifi home'
+- id: 'presence_geniphone_wifi_home'
   alias: 'Presence - GeniPhone - Wifi home'
   trigger:
     - platform: state

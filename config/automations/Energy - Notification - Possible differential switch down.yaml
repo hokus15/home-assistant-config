@@ -1,4 +1,4 @@
-- id: 'Energy - Notification - Possible differential switch down'
+- id: 'energy_notification_possible_differential_switch_down'
   alias: 'Energy - Notification - Possible differential switch down'
   trigger:
     platform: state

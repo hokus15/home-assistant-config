@@ -1,7 +1,7 @@
 ##############################
 # Sell price update
 ##############################
-- id: 'Energy - Tariff - Price Update Sell'
+- id: 'energy_tariff_price_update_sell'
   alias: 'Energy - Tariff - Price Update Sell'
   trigger:
     - platform: state

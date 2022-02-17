@@ -1,8 +1,8 @@
-# Consider_home is not working properly for mqtt device_tracker
+# consider_home is not working properly for mqtt device_tracker
 # This sensor is to workaround it using some automations
 # Presence - HokusPhone - Wifi home.yaml
 # Presence - HokusPhone - Wifi not_home.yaml
-- id: 'Presence - HokusPhone - Wifi home'
+- id: 'presence_hokusphone_wifi_home'
   alias: 'Presence - HokusPhone - Wifi home'
   trigger:
     - platform: state

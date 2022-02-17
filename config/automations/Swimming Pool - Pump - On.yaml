@@ -1,6 +1,6 @@
 # Turn on swimming pool when exporting energy to the grid over a threshold (during a period of time) and it has been on less that the time expected
 # and specific appliances (dish washer, tuble dryer, wasing machine,...) are off
-- id: 'Swimming Pool - Pump - On'
+- id: 'swimming_pool_pump_on'
   alias: 'Swimming Pool - Pump - On'
   trigger:
     - platform: numeric_state

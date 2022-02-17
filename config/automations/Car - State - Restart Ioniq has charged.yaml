@@ -1,4 +1,4 @@
-- id: 'Car - State - Restart Ioniq has charged'
+- id: 'car_state_restart_ioniq_has_charged'
   alias: 'Car - State - Restart Ioniq has charged'
   trigger:
     platform: time

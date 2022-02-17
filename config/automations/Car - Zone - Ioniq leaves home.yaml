@@ -1,4 +1,4 @@
-- id: 'Car - Zone - Ioniq leaves home'
+- id: 'car_zone_ioniq_leaves_home'
   alias: 'Car - Zone - Ioniq leaves home'
   trigger:
      - platform: zone

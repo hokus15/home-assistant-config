@@ -1,7 +1,7 @@
 ##############################
 # Buy price update
 ##############################
-- id: 'Energy - Tariff - Price Update Buy'
+- id: 'energy_tariff_price_update_buy'
   alias: 'Energy - Tariff - Price Update Buy'
   trigger:
     - platform: state

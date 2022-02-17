@@ -1,17 +1,17 @@
-- id: 'Swimming Pool - Pump - Off'
+- id: 'swimming_pool_pump_off'
   alias: 'Swimming Pool - Pump - Off'
   trigger:
     # When exit 'Valle' tariff
     - platform: state
       entity_id: sensor.energy_tariff
       from: 'Valle'
-    # When consuming from grid more power than threshold for 10 minutes
+    # When consuming from grid more power than threshold for configured minutes
     - platform: numeric_state
       entity_id: sensor.fronius_solarnet_power_grid
       above: input_number.piscina_pump_off_threshold
       for:
         minutes: "{{ states('input_number.piscina_pump_off_delay') | int }}"
-    # When it has been on for needed filtering time.
+    # When it has been on for calculated filtering time.
     - platform: numeric_state
       entity_id: sensor.piscina_on_history
       above: sensor.piscina_filtering_time

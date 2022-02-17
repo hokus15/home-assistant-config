@@ -1,4 +1,4 @@
-- id: 'Energy - Tariff - Change'
+- id: 'energy_tariff_change'
   alias: 'Energy - Tariff - Change'
   trigger:
     platform: mqtt

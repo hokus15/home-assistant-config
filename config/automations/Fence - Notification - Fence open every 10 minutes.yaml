@@ -1,4 +1,4 @@
-- id: 'Fence - Notification - Fence open every 10 minutes'
+- id: 'fence_notification_fence_open_every_10_minutes'
   alias: 'Fence - Notification - Fence open every 10 minutes'
   trigger:
     - platform: state

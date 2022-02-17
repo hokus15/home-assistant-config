@@ -1,4 +1,4 @@
-- id: 'Swimming Pool - Notification - Pump on more than expected'
+- id: 'swimming_pool_notification_pump_on_more_than_expected'
   alias: 'Swimming Pool - Notification - Pump on more than expected'
   trigger: 
     platform: template

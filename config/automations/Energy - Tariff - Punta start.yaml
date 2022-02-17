@@ -2,7 +2,7 @@
 # Punta tariff
 # Starting at 7:00 every day
 ##############################
-- id: 'Energy - Tariff - Punta start'
+- id: 'energy_tariff_punta_start'
   alias: 'Energy - Tariff - Punta start'
   trigger:
     - platform: time

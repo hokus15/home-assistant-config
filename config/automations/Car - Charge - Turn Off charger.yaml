@@ -1,4 +1,4 @@
-- id: 'Car - Charge - Turn off charger'
+- id: 'car_charge_turn_off_charger'
   alias: 'Car - Charge - Turn off charger'
   trigger:
     # When exit 'Valle' energy tariff

@@ -1,4 +1,4 @@
-- id: 'System - On start'
+- id: 'system_on_start'
   alias: 'System - On start'
   trigger:
     platform: homeassistant

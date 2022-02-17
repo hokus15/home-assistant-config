@@ -1,4 +1,4 @@
-- id: 'Car - State - Ioniq daily'
+- id: 'car_state_ioniq_daily'
   alias: 'Car - State - Ioniq daily'
   trigger:
     platform: time

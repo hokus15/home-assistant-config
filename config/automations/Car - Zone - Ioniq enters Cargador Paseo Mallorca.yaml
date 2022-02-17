@@ -1,4 +1,4 @@
-- id: 'Car - Zone - Ioniq enters Cargador Paseo Mallorca'
+- id: 'car_zone_ioniq_enters_cargador_paseo_mallorca'
   alias: 'Car - Zone - Ioniq enters Cargador Paseo Mallorca'
   trigger:
      - platform: zone

@@ -1,4 +1,4 @@
-- id: 'Comfort - Switch comfort mode off'
+- id: 'comfort_switch_comfort_mode_off'
   alias: 'Comfort - Switch comfort mode off'
   trigger:
     platform: state

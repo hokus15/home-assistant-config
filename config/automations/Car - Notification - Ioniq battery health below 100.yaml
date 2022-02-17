@@ -1,4 +1,4 @@
-- id: 'Car - Notification - Ioniq battery health below 100%'
+- id: 'car_notification_ioniq_battery_health_below_100pct'
   alias: 'Car - Notification - Ioniq battery health below 100%'
   trigger:
     platform: numeric_state

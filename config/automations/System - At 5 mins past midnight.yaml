@@ -1,4 +1,4 @@
-- id: 'System - At 5 mins past midnight'
+- id: 'system_at_5_mins_past_midnight'
   alias: 'System - At 5 mins past midnight'
   trigger:
     platform: time

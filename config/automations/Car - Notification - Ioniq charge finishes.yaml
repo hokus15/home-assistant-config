@@ -1,4 +1,4 @@
-- id: 'Car - Notification - Ioniq charge finishes'
+- id: 'car_notification_ioniq_charge_finishes'
   alias: 'Car - Notification - Ioniq charge finishes'
   trigger:
     platform: state

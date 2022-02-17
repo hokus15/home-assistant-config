@@ -1,4 +1,4 @@
-- id: 'Presence - Notification - New device'
+- id: 'presence_notification_new_device'
   alias: 'Presence - Notification - New device'
   trigger:
     platform: event

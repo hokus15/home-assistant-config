@@ -1,5 +1,5 @@
 # Turn off heating when home mean temperature for last 24 hours is above 20 degrees
-- id: 'Comfort - Heating - Average home temperature above threshold'
+- id: 'comfort_heating_average_home_temperature_above_threshold'
   alias: 'Comfort - Heating - Average home temperature above threshold'
   trigger:
     platform: numeric_state

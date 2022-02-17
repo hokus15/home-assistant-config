@@ -1,4 +1,4 @@
-- id: 'Car - Charge - Tariff from valle'
+- id: 'car_charge_tariff_from_valle'
   alias: 'Car - Charge - Tariff from valle'
   trigger:
     platform: state
