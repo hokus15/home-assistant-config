@@ -8,7 +8,8 @@ recorder:
       - sensor.energy_power_photovoltaics
       - sensor.energy_power_house
       - sensor.energy_power_grid_import
-      - sensor.energy_power_grid_export
+      - sensor.energy_net_balance_hour
+      - sensor.energy_net_balance
 
       - sensor.salon_switch_power
       - sensor.salon_switch_energy
@@ -62,23 +63,21 @@ sensor:
         unit_of_measurement: "W"
         value_template: "{{ 0 - states('sensor.fronius_solarnet_power_load')|float|round(1) }}"
 
-      # The raw grid power is negative if exporting and positive if importing, so produce
-      # separate figures here so we can calculate energy based on them below
+      # The raw grid power is negative if exporting and positive if importing
       energy_power_grid_import:
         device_class: power
         friendly_name: "Potencia red"
         unit_of_measurement: "W"
         value_template: "{{ [states('sensor.fronius_solarnet_power_grid')|float, 0]|max }}"
 
-      energy_power_grid_export:
-        device_class: power
-        friendly_name: "Potencia vertida"
-        unit_of_measurement: "W"
-        value_template: "{{ [0 - states('sensor.fronius_solarnet_power_grid')|float, 0]|max }}"
+  - platform: integration
+    source: sensor.fronius_solarnet_power_grid
+    name: energy_net_balance
+    unit_prefix: k
+    round: 2
 
-#sensor:
-#  - platform: integration 
-#    source: sensor.fronius_power_grid
-#    name: energy_grid_import
-#    unit_prefix: k
-#    round: 2
+utility_meter:
+  energy_net_balance_hour:
+    source: sensor.energy_net_balance
+    cycle: hourly
+    net_consumption: true
