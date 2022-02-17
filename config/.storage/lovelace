@@ -1075,6 +1075,9 @@
                                             "entity": "input_number.piscina_pump_on_threshold"
                                         },
                                         {
+                                            "entity": "input_number.piscina_pump_on_delay"
+                                        },
+                                        {
                                             "entity": "input_number.piscina_pump_off_threshold"
                                         },
                                         {
@@ -1412,6 +1415,9 @@
                                     "entity": "input_number.cargador_ev_on_threshold"
                                 },
                                 {
+                                    "entity": "input_number.cargador_ev_on_delay"
+                                },
+                                {
                                     "entity": "input_number.cargador_ev_off_threshold"
                                 },
                                 {
@@ -1437,6 +1443,106 @@
                         {
                             "type": "energy-usage-graph",
                             "title": "Consumo energ\u00eda"
+                        },
+                        {
+                            "type": "history-graph",
+                            "entities": [
+                                {
+                                    "entity": "binary_sensor.lavadora_status"
+                                },
+                                {
+                                    "entity": "binary_sensor.lavaplatos_status"
+                                },
+                                {
+                                    "entity": "binary_sensor.secadora_status"
+                                },
+                                {
+                                    "entity": "binary_sensor.bomba_agua_status"
+                                },
+                                {
+                                    "entity": "sensor.car_ioniq_charger_charge_state"
+                                },
+                                {
+                                    "entity": "switch.motor_piscina"
+                                }
+                            ],
+                            "hours_to_show": 24,
+                            "refresh_interval": 0,
+                            "view_layout": {
+                                "position": "sidebar"
+                            },
+                            "title": "Electrodom\u00e9sticos"
+                        },
+                        {
+                            "type": "custom:mini-graph-card",
+                            "entities": [
+                                {
+                                    "entity": "sensor.energy_net_balance_hour",
+                                    "name": "Balance neto por hora"
+                                }
+                            ],
+                            "hours_to_show": 24,
+                            "aggregate_func": "max",
+                            "group_by": "hour",
+                            "show": {
+                                "graph": "bar",
+                                "labels": true,
+                                "extrema": true
+                            },
+                            "color_thresholds": [
+                                {
+                                    "value": 0.2,
+                                    "color": "#ff0000"
+                                },
+                                {
+                                    "color": "#00ff00"
+                                },
+                                {
+                                    "value": -0.2,
+                                    "color": "#ffff00"
+                                }
+                            ],
+                            "view_layout": {
+                                "position": "sidebar"
+                            }
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "detail": 2,
+                                    "entity": "sensor.energy_power_house",
+                                    "graph": "line",
+                                    "type": "sensor",
+                                    "unit": "W",
+                                    "icon": "mdi:home-lightning-bolt"
+                                },
+                                {
+                                    "detail": 2,
+                                    "entity": "sensor.energy_power_photovoltaics",
+                                    "graph": "line",
+                                    "name": "Potencia generada",
+                                    "type": "sensor",
+                                    "unit": "W",
+                                    "icon": "mdi:solar-power"
+                                },
+                                {
+                                    "type": "sensor",
+                                    "entity": "sensor.fronius_solarnet_power_grid",
+                                    "graph": "line",
+                                    "unit": "W",
+                                    "detail": 1,
+                                    "name": "Potencia de la red",
+                                    "icon": "mdi:transmission-tower-import"
+                                },
+                                {
+                                    "entity": "binary_sensor.energy_home_status",
+                                    "type": "entity"
+                                }
+                            ],
+                            "type": "vertical-stack",
+                            "view_layout": {
+                                "position": "sidebar"
+                            }
                         },
                         {
                             "cards": [
@@ -1485,7 +1591,8 @@
                             }
                         },
                         {
-                            "type": "energy-solar-graph"
+                            "type": "energy-solar-graph",
+                            "title": "Producci\u00f3n solar"
                         },
                         {
                             "type": "energy-devices-graph",
@@ -1495,44 +1602,6 @@
                             "type": "entity",
                             "entity": "sensor.energy_tariff",
                             "name": "Tarifa",
-                            "view_layout": {
-                                "position": "sidebar"
-                            }
-                        },
-                        {
-                            "cards": [
-                                {
-                                    "entity": "binary_sensor.energy_home_status",
-                                    "type": "entity"
-                                },
-                                {
-                                    "detail": 2,
-                                    "entity": "sensor.energy_power_house",
-                                    "graph": "line",
-                                    "type": "sensor",
-                                    "unit": "W",
-                                    "icon": "mdi:home-lightning-bolt"
-                                },
-                                {
-                                    "detail": 2,
-                                    "entity": "sensor.energy_power_photovoltaics",
-                                    "graph": "line",
-                                    "name": "Potencia generada",
-                                    "type": "sensor",
-                                    "unit": "W",
-                                    "icon": "mdi:solar-power"
-                                },
-                                {
-                                    "type": "sensor",
-                                    "entity": "sensor.fronius_solarnet_power_grid",
-                                    "graph": "line",
-                                    "unit": "W",
-                                    "detail": 1,
-                                    "name": "Potencia de la red",
-                                    "icon": "mdi:transmission-tower-import"
-                                }
-                            ],
-                            "type": "vertical-stack",
                             "view_layout": {
                                 "position": "sidebar"
                             }
@@ -1662,34 +1731,6 @@
                                     "refresh_interval": 0
                                 }
                             ]
-                        },
-                        {
-                            "type": "history-graph",
-                            "entities": [
-                                {
-                                    "entity": "binary_sensor.lavadora_status"
-                                },
-                                {
-                                    "entity": "binary_sensor.lavaplatos_status"
-                                },
-                                {
-                                    "entity": "binary_sensor.secadora_status"
-                                },
-                                {
-                                    "entity": "binary_sensor.bomba_agua_status"
-                                },
-                                {
-                                    "entity": "sensor.car_ioniq_charger_charge_state"
-                                },
-                                {
-                                    "entity": "switch.motor_piscina"
-                                }
-                            ],
-                            "hours_to_show": 24,
-                            "refresh_interval": 0,
-                            "view_layout": {
-                                "position": "sidebar"
-                            }
                         }
                     ]
                 },
