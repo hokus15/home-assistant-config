@@ -3,17 +3,15 @@
 - id: 'swimming_pool_pump_on'
   alias: 'Swimming Pool - Pump - On'
   trigger:
-    - platform: numeric_state
-      entity_id: sensor.fronius_solarnet_power_grid
-      below: input_number.piscina_pump_on_threshold
-      for:
-        minutes: "{{ states('input_number.piscina_pump_on_delay') | int }}"
+    - platform: state
+      entity_id: binary_sensor.piscina_pump_on_energy_and_delay_met
   condition:
     - condition: numeric_state
       entity_id: sensor.piscina_on_history
       below: sensor.piscina_filtering_time
     - condition: state
       entity_id: 
+        - switch.motor_piscina
         - binary_sensor.lavadora_status
         - binary_sensor.secadora_status
         - binary_sensor.lavaplatos_status

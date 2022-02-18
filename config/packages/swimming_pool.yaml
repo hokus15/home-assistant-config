@@ -165,6 +165,18 @@ sensor:
     unit_of_measurement: "ºC"
     state_class: measurement
 
+template:
+    binary_sensor:
+      # on when the exported energy is over the input_number.piscina_pump_on_threshold threshold
+      - name: piscina_pump_on_energy_export_over_threshold
+        state: "{{ states('sensor.fronius_solarnet_power_grid') <= states('input_number.piscina_pump_on_threshold') }}"
+      # on when the exported energy is over the input_number.piscina_pump_on_threshold threshold during input_number.piscina_pump_on_delay minutes
+      - name: piscina_pump_on_delay_met
+        state: "{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.piscina_pump_on_energy_export_over_threshold.last_changed))|int//60)|int > states('input_number.piscina_pump_on_delay')|int }}"
+      # on when both above sensors are on
+      - name: piscina_pump_on_energy_and_delay_met
+        state: "{{ states('binary_sensor.piscina_pump_on_energy_export_over_threshold') == 'on' and states('binary_sensor.piscina_pump_on_delay_met') == 'on' }}"
+
 input_number:
   temperature_correction:
     name: 'Corrección temp.'
