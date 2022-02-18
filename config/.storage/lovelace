@@ -1057,12 +1057,6 @@
                                             "entity": "sensor.piscina_filtering_time"
                                         },
                                         {
-                                            "entity": "sensor.piscina_on_time"
-                                        },
-                                        {
-                                            "entity": "sensor.piscina_off_time"
-                                        },
-                                        {
                                             "entity": "sensor.piscina_power"
                                         },
                                         {
@@ -1670,9 +1664,6 @@
                         {
                             "type": "history-graph",
                             "entities": [
-                                {
-                                    "entity": "sensor.energy_pvpc"
-                                },
                                 {
                                     "entity": "sensor.energy_price_buy"
                                 },
