@@ -1752,10 +1752,10 @@
                                     "entity": "sensor.cert_expiry_timestamp"
                                 },
                                 {
-                                    "entity": "sensor.dominio_principal"
+                                    "entity": "sensor.dominio_principal_expires"
                                 },
                                 {
-                                    "entity": "sensor.dominio_nena"
+                                    "entity": "sensor.dominio_nena_expires"
                                 },
                                 {
                                     "entity": "sensor.google_wifi_current_version"
