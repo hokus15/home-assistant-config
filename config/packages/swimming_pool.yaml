@@ -123,24 +123,24 @@ sensor:
           {% else %}Calculando...{%- endif %}
         unit_of_measurement: 'h'
         icon_template: 'mdi:clock'
-      piscina_off_time:
-        friendly_name: 'Apagado'
-        value_template: >- 
-          {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
-#          {%- if is_state('binary_sensor.summer_time', 'on') %}
-#            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
-#          {% else %}
-#            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
+#      piscina_off_time:
+#        friendly_name: 'Apagado'
+#        value_template: >- 
+#          {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
+##          {%- if is_state('binary_sensor.summer_time', 'on') %}
+##            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
+##          {% else %}
+##            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
+##          {%- endif %}
+#        icon_template: 'mdi:power-plug-off'
+#      piscina_on_time:
+#        friendly_name: 'Encendido'
+#        # The time round to the minute
+#        value_template: >-
+#          {%- if states.sensor.piscina_off_time %}
+#            {{(((as_timestamp(strptime(states.sensor.piscina_off_time.state, "%Y-%m-%d, %H:%M"))-(states.sensor.piscina_filtering_time.state | float * 60 * 60)) // 60) * 60)|timestamp_custom("%Y-%m-%d, %H:%M")}}
 #          {%- endif %}
-        icon_template: 'mdi:power-plug-off'
-      piscina_on_time:
-        friendly_name: 'Encendido'
-        # The time round to the minute
-        value_template: >-
-          {%- if states.sensor.piscina_off_time %}
-            {{(((as_timestamp(strptime(states.sensor.piscina_off_time.state, "%Y-%m-%d, %H:%M"))-(states.sensor.piscina_filtering_time.state | float * 60 * 60)) // 60) * 60)|timestamp_custom("%Y-%m-%d, %H:%M")}}
-          {%- endif %}
-        icon_template: 'mdi:power-plug'
+#        icon_template: 'mdi:power-plug'
 
   - platform: statistics
     name: piscina_temperature
@@ -155,7 +155,9 @@ sensor:
     name: piscina_on_history
     entity_id: switch.motor_piscina
     state: 'on'
-    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+    # Start at 7AM. The preference is to run swmming pool pump when there is sun light but in some cases it may be desired to run it at 'Valle' tariff.
+    # If starts at midnight it would run at 'Valle' tariff first (during night). So start counting when valle tariff ends so we make sure the priority is when there is sun light
+    start: '{{ now().replace(hour=7).replace(minute=0).replace(second=0) }}'
     end: '{{ now() }}'
 
   - platform: mqtt

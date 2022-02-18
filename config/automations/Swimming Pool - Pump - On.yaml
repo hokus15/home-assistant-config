@@ -3,19 +3,33 @@
 - id: 'swimming_pool_pump_on'
   alias: 'Swimming Pool - Pump - On'
   trigger:
-    - platform: state
-      entity_id: binary_sensor.piscina_pump_on_energy_and_delay_met
+    # Trigger every minute
+    - platform: time_pattern
+      minutes: "*"
   condition:
-    - condition: numeric_state
-      entity_id: sensor.piscina_on_history
-      below: sensor.piscina_filtering_time
-    - condition: state
-      entity_id: 
-        - switch.motor_piscina
-        - binary_sensor.lavadora_status
-        - binary_sensor.secadora_status
-        - binary_sensor.lavaplatos_status
-      state: "off"
+    condition: and
+    conditions:
+      # Has filtering time left
+      - condition: numeric_state
+        entity_id: sensor.piscina_on_history
+        below: sensor.piscina_filtering_time
+      # Specific appliances are off
+      - condition: state
+        entity_id: 
+          - switch.motor_piscina
+          - binary_sensor.lavadora_status
+          - binary_sensor.secadora_status
+          - binary_sensor.lavaplatos_status
+        state: "off"
+      - condition: or
+        conditions:
+          # There is enough energy created to start pump OR it's in 'valle' tariff
+          - condition: state
+            entity_id: binary_sensor.piscina_pump_on_energy_and_delay_met
+            state: "on"
+          - condition: state
+            entity_id: sensor.energy_tariff
+            state: "Valle"
   action:
     - service: switch.turn_on
       entity_id: switch.motor_piscina
