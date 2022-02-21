@@ -1391,6 +1391,9 @@
                         {
                             "entities": [
                                 {
+                                    "entity": "input_boolean.cargador_ev_manual_charge"
+                                },
+                                {
                                     "entity": "sensor.car_ioniq_charger_charge_state"
                                 },
                                 {
