@@ -42,6 +42,10 @@ utility_meter:
     source: sensor.cargador_ev_energy_calc
     cycle: hourly
 
+input_boolean:
+  cargador_ev_manual_charge:
+    name: Carga manual
+
 input_number:
   # Grid power (negative exporting / positive importing) to turn on EV charger.
   # i.e: -1300 Means turn on EV charger when exporting 1300W to the grid.

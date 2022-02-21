@@ -20,3 +20,5 @@
         retain: true
         qos: 0
         payload_template: 0.038983
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.cargador_ev_manual_charge
