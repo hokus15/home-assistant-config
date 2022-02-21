@@ -5,7 +5,5 @@
     entity_id: utility_meter.energy_grid_today
     from: 'Valle'
   action:
-    - delay:
-        minutes: 5
     - service: switch.turn_off
       entity_id: switch.cargador_ev_switch
