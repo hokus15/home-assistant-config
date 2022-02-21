@@ -3,9 +3,9 @@
 - id: 'swimming_pool_pump_on'
   alias: 'Swimming Pool - Pump - On'
   trigger:
-    # Trigger every minute
+    # Trigger every 5 minutes
     - platform: time_pattern
-      minutes: "*"
+      minutes: "/5"
   condition:
     condition: and
     conditions:
@@ -23,7 +23,7 @@
         state: "off"
       - condition: or
         conditions:
-          # There is enough energy created to start pump OR it's in 'valle' tariff
+          # There is enough energy generated to start pump OR it's in 'Valle' tariff
           - condition: state
             entity_id: binary_sensor.piscina_pump_on_energy_and_delay_met
             state: "on"
