@@ -10,7 +10,7 @@ template:
   - binary_sensor:
       - name: lavadora_status
         state: "{{ states('sensor.lavadora_power') | float > 5 }}"
-        delay_off: "0:01:15"
+        delay_off: "0:05:00"
         icon: >-
           {% if states('sensor.lavadora_power') | float > 5 -%}
             mdi:washing-machine
