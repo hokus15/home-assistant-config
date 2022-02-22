@@ -47,7 +47,7 @@ group:
       - switch.salon_camara_det_mov
       - switch.cocina_camara_det_mov
       - switch.piscina_camara_det_mov
-      - switch.barbacoa_camara_det_mov
+#      - switch.barbacoa_camara_det_mov
       - switch.caseta_camara_det_mov
       - input_boolean.entrada_camara_det_mov
       - input_boolean.despacho_sensor_movimiento
