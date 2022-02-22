@@ -31,3 +31,4 @@ sensor:
   - platform: statistics
     name: lavadora_power_statistics
     entity_id: sensor.lavadora_power
+    state_characteristic: mean

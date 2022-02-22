@@ -137,6 +137,7 @@ sensor:
 
   - platform: statistics
     name: home_temperature_stats
+    state_characteristic: mean
     entity_id: sensor.home_temperature
     sampling_size: 1440
     max_age:
