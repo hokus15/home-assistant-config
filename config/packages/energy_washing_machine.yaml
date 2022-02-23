@@ -2,9 +2,9 @@ recorder:
   include:
     entities:
       - binary_sensor.lavadora_status
+      - binary_sensor.lavadora_status_high_power
       - sensor.lavadora_power
       - sensor.lavadora_energy_calc
-      - sensor.lavadora_power_statistics
 
 template:
   - binary_sensor:
@@ -17,6 +17,16 @@ template:
           {%- else -%}
             mdi:washing-machine-off
           {%- endif %}
+        # Washing machine uses more power during first 30 mins (to warm the water).
+        # This template calculates how long the washing machine has been on and is set to on when is in the first 30 mins of operation
+        # This is useful to allow to start other appliances while the washing machine has not finished and it's not using high power.
+      - name: lavadora_status_high_power
+        state: >
+          {% if states('binary_sensor.lavadora_status') == 'off' %} 
+          off
+          {% else %}
+          {{ (now().timestamp() - states.binary_sensor.lavadora_status.last_changed.timestamp()) <= 1800 }}
+          {% endif %}
 
 sensor:
   # Sensor needed due to a bug in the device that shows negative value
@@ -27,8 +37,3 @@ sensor:
     unit_prefix: k
     method: left
     round: 2
-
-  - platform: statistics
-    name: lavadora_power_statistics
-    entity_id: sensor.lavadora_power
-    state_characteristic: mean
