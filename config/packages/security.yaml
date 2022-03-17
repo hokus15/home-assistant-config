@@ -272,34 +272,34 @@ sensor:
               Desconocido
           {%- endif %}
 
-      lock_entrada_sensor_lock_state:
-        friendly_name: 'Cerradura entrada'
-        value_template: >-
-          {%- if is_state_attr('sensor.lock_entrada_state', 'state', 0) %}
-              No calibrado
-          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 1) %}
-              Bloqueado
-          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 2) %}
-              Desbloqueando
-          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 3) %}
-              Desbloqueado
-          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 4) %}
-              Bloqueando
-          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 5) %}
-              Abierto
-          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 6) %}
-              Desbloqueado (lock'n'go)
-          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 7) %}
-              Abriendo
-          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 253) %}
-              ?
-          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 254) %}
-              Motor bloqueado
-          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 255) %}
-              Indefinido
-          {% else %}
-              Desconocido
-          {%- endif %}
+#      lock_entrada_sensor_lock_state:
+#        friendly_name: 'Cerradura entrada'
+#        value_template: >-
+#          {%- if is_state_attr('sensor.lock_entrada_state', 'state', 0) %}
+#              No calibrado
+#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 1) %}
+#              Bloqueado
+#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 2) %}
+#              Desbloqueando
+#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 3) %}
+#              Desbloqueado
+#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 4) %}
+#              Bloqueando
+#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 5) %}
+#              Abierto
+#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 6) %}
+#              Desbloqueado (lock'n'go)
+#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 7) %}
+#              Abriendo
+#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 253) %}
+#              ?
+#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 254) %}
+#              Motor bloqueado
+#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 255) %}
+#              Indefinido
+#          {% else %}
+#              Desconocido
+#          {%- endif %}
 
       lock_entrada_sensor_battery_state:
         value_template: "{{state_attr('sensor.lock_entrada_state','batteryChargeState')|int}}"
