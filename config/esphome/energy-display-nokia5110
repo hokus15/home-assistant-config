@@ -1,0 +1,140 @@
+esphome:
+  name: energy-display-nokia5110
+
+esp32:
+  board: nodemcu-32s
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: "ca8d39e6e27182b8ea6fd066fbc70bf3"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Energy-Display Fallback Hotspot"
+    password: "1SaaIFzlFHrw"
+
+captive_portal:
+
+font:
+  - file: 'verdanab.ttf'
+    id: data
+    size: 12
+
+#  - file: 'verdana.ttf'
+#    id: title
+#    size: 10
+#    glyphs:
+#      ['&', '@', '!', ',', '.', '"', '%', '(', ')', '+', '-', '_', ':', '°', '0',
+#       '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
+#       'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+#       'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
+#       'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+#       'u', 'v', 'w', 'x', 'y', 'z','á', 'é', 'í', 'ó', 'ú']
+
+  - file: 'ariblk.ttf'
+    id: temp
+    size: 20
+
+  - file: 'materialdesignicons-webfont.ttf' 
+    id: icon_font_big
+    size: 25
+    glyphs: [
+      '󱣖', # mdi-sun-thermometer
+    ]
+
+  - file: 'materialdesignicons-webfont.ttf' 
+    id: icon_font
+    size: 15
+    glyphs: [
+      '󰩲', # mdi-solar-power
+      '󱤃', # mdi-home-lightning-bolt
+      '󰴾', # mdi-transmission-tower
+      '󰗑', # mdi-scale-balance
+    ]
+switch:
+  - platform: gpio
+    pin: GPIO32
+    name: "Energy display backlight"
+
+sensor:
+  - platform: homeassistant
+    id: netatmo_bunyola_exterior_temperature
+    entity_id: sensor.netatmo_bunyola_exterior_temperature
+    internal: true
+
+  - platform: homeassistant
+    id: energy_power_house
+    entity_id: sensor.energy_power_house
+    internal: true
+    
+  - platform: homeassistant
+    id: energy_power_photovoltaics
+    entity_id: sensor.energy_power_photovoltaics
+    internal: true
+    
+  - platform: homeassistant
+    id: fronius_solarnet_power_grid
+    entity_id: sensor.fronius_solarnet_power_grid
+    internal: true
+
+  - platform: homeassistant
+    id: energy_net_balance_hour
+    entity_id: sensor.energy_net_balance_hour
+    internal: true
+
+spi:
+  clk_pin: GPIO27
+  mosi_pin: GPIO26
+
+display:
+  - platform: pcd8544
+    id: my_display
+    reset_pin: GPIO33
+    cs_pin: GPIO14
+    dc_pin: GPIO25
+    contrast: 0x32
+    pages:
+      - id: page1
+        lambda: |-
+          it.print(0, 6, id(icon_font), TextAlign::LEFT, "󰴾");
+          if (id(fronius_solarnet_power_grid).has_state()) {
+            it.printf(84, 6, id(data), TextAlign::RIGHT, "%.1fW", id(fronius_solarnet_power_grid).state);
+          }
+          it.print(0, 26, id(icon_font), TextAlign::LEFT, "󰩲");
+          if (id(energy_power_photovoltaics).has_state()) {
+            it.printf(84, 26, id(data), TextAlign::RIGHT, "%.1fW", id(energy_power_photovoltaics).state);
+          }
+      - id: page2
+        lambda: |-
+          it.print(0, 6, id(icon_font), TextAlign::LEFT, "󱤃");
+          if (id(energy_power_house).has_state()) {
+            it.printf(84, 6, id(data), TextAlign::RIGHT, "%.1fW", id(energy_power_house).state);
+          }
+          it.print(0, 26, id(icon_font), TextAlign::LEFT, "󰗑");
+          if (id(energy_net_balance_hour).has_state()) {
+            it.printf(84, 26, id(data), TextAlign::RIGHT, "%.2fkWh", id(energy_net_balance_hour).state);
+          }
+      - id: page3
+        lambda: |-
+          it.print(0, 21, id(icon_font_big), TextAlign::CENTER_VERTICAL, "󱣖");
+          if (id(netatmo_bunyola_exterior_temperature).has_state()) {
+            it.printf(30, 21, id(temp), TextAlign::CENTER_VERTICAL, "%.1f°", id(netatmo_bunyola_exterior_temperature).state);
+          }
+
+interval:
+  - interval: 10s
+    then:
+      - display.page.show_next: my_display
+      - component.update: my_display      
+      

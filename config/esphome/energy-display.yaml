@@ -1,0 +1,122 @@
+esphome:
+  name: energy-display
+
+esp32:
+  board: nodemcu-32s
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: "ca8d39e6e27182b8ea6fd066fbc70bf3"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Energy-Display Fallback Hotspot"
+    password: "1SaaIFzlFHrw"
+
+captive_portal:
+
+font:
+  - file: 'verdanab.ttf'
+    id: data
+    size: 18
+
+  - file: 'verdanab.ttf'
+    id: time_data
+    size: 25
+
+  - file: 'materialdesignicons-webfont.ttf' 
+    id: icon_font
+    size: 24
+    glyphs: [
+      '󰩲', # mdi-solar-power
+      '󱤃', # mdi-home-lightning-bolt
+      '󰴾', # mdi-transmission-tower
+      '󰗑', # mdi-scale-balance
+      '󱣖', # mdi-sun-thermometer
+    ]
+
+sensor:
+  - platform: homeassistant
+    id: netatmo_bunyola_exterior_temperature
+    entity_id: sensor.netatmo_bunyola_exterior_temperature
+    internal: true
+
+  - platform: homeassistant
+    id: energy_power_house
+    entity_id: sensor.energy_power_house
+    internal: true
+    
+  - platform: homeassistant
+    id: energy_power_photovoltaics
+    entity_id: sensor.energy_power_photovoltaics
+    internal: true
+    
+  - platform: homeassistant
+    id: fronius_solarnet_power_grid
+    entity_id: sensor.fronius_solarnet_power_grid
+    internal: true
+
+  - platform: homeassistant
+    id: energy_net_balance_hour
+    entity_id: sensor.energy_net_balance_hour
+    internal: true
+
+time:
+  - platform: homeassistant
+    id: esptime
+
+i2c:
+  sda: GPIO21
+  scl: GPIO22
+  
+display:
+  - platform: ssd1306_i2c
+    model: "SSD1306 128x64"
+    address: 0x3C
+    id: my_display
+    pages:
+      - id: page1
+        lambda: |-
+          it.print(0, 0, id(icon_font), TextAlign::LEFT, "󱤃");
+          if (id(energy_power_house).has_state()) {
+            it.printf(128, 0, id(data), TextAlign::RIGHT, "%.0f W", id(energy_power_house).state);
+          }
+          it.print(0, 32, id(icon_font), TextAlign::LEFT, "󰴾");
+          if (id(fronius_solarnet_power_grid).has_state()) {
+            it.printf(128, 32, id(data), TextAlign::RIGHT, "%.0f W", id(fronius_solarnet_power_grid).state);
+          }
+      - id: page2
+        lambda: |-
+          it.print(0, 0, id(icon_font), TextAlign::LEFT, "󰩲");
+          if (id(energy_power_photovoltaics).has_state()) {
+            it.printf(128, 0, id(data), TextAlign::RIGHT, "%.0f W", id(energy_power_photovoltaics).state);
+          }
+          it.print(0, 32, id(icon_font), TextAlign::LEFT, "󰗑");
+          if (id(energy_net_balance_hour).has_state()) {
+            it.printf(128, 32, id(data), TextAlign::RIGHT, "%.2fkWh", id(energy_net_balance_hour).state);
+          }
+      - id: page3
+        lambda: |-
+          it.print(0, 0, id(icon_font), TextAlign::LEFT, "󱣖");
+          if (id(netatmo_bunyola_exterior_temperature).has_state()) {
+            it.printf(128, 0, id(data), TextAlign::RIGHT, "%.1f°C", id(netatmo_bunyola_exterior_temperature).state);
+          }
+          it.strftime(64, 50, id(time_data), TextAlign::CENTER, "%H:%M:%S", id(esptime).now());
+
+interval:
+  - interval: 10s
+    then:
+      - display.page.show_next: my_display
+      - component.update: my_display      
+      
