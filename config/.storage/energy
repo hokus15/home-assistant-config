@@ -20,13 +20,6 @@
                         "entity_energy_from": "sensor.energy_grid_today_valle",
                         "entity_energy_price": "sensor.energy_price_buy",
                         "number_energy_price": null
-                    },
-                    {
-                        "stat_energy_from": "sensor.energy_grid_today_llana",
-                        "stat_cost": null,
-                        "entity_energy_from": "sensor.energy_grid_today_llana",
-                        "entity_energy_price": "sensor.energy_price_buy",
-                        "number_energy_price": null
                     }
                 ],
                 "flow_to": [
