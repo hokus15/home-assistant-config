@@ -759,6 +759,11 @@
                                     "entity": "binary_sensor.lavadora_status"
                                 },
                                 {
+                                    "entity": "binary_sensor.lavadora_status_high_power",
+                                    "name": "Fase alto consumo lavadora",
+                                    "icon": "mdi:washing-machine-alert"
+                                },
+                                {
                                     "entity": "sensor.lavadora_power"
                                 },
                                 {
@@ -1448,6 +1453,9 @@
                                     "entity": "binary_sensor.lavadora_status"
                                 },
                                 {
+                                    "entity": "binary_sensor.lavadora_status_high_power"
+                                },
+                                {
                                     "entity": "binary_sensor.lavaplatos_status"
                                 },
                                 {
@@ -1461,6 +1469,9 @@
                                 },
                                 {
                                     "entity": "switch.motor_piscina"
+                                },
+                                {
+                                    "entity": "switch.ladron_salon"
                                 }
                             ],
                             "hours_to_show": 24,
@@ -1571,10 +1582,10 @@
                                     "hold_action": {
                                         "action": "none"
                                     },
-                                    "image": "https://www.energiaxxi.com/static/iberia/open-power/img/logos-mr/energiaxxi_es.svg",
+                                    "image": "https://www.iberdrola.es/webclipb/gc/prod/eu_ES/home/html/footer_res/pastillaIbr.png",
                                     "tap_action": {
                                         "action": "url",
-                                        "url_path": "https://www.energiaxxi.com/login.html"
+                                        "url_path": "https://www.iberdrola.es/wclifral/login/loginForm"
                                     },
                                     "type": "picture"
                                 },
@@ -1719,6 +1730,9 @@
                                         },
                                         {
                                             "entity": "sensor.cargador_ev_power"
+                                        },
+                                        {
+                                            "entity": "sensor.bomba_agua_power"
                                         }
                                     ],
                                     "hours_to_show": 24,
