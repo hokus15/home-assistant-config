@@ -63,5 +63,5 @@ utility_meter:
     cycle: daily
     tariffs:
       - Punta
-      - Llana
+#      - Llana
       - Valle 
