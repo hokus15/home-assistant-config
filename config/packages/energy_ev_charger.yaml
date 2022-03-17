@@ -4,17 +4,19 @@ recorder:
       - binary_sensor.cargador_ev_status
       - sensor.cargador_ev_power
       - sensor.cargador_ev_energy_calc
-      - input_number.cargador_ev_on_threshold
-      - input_number.cargador_ev_on_delay
-      - input_number.cargador_ev_off_threshold
-      - input_number.cargador_ev_off_delay
+#      - input_number.cargador_ev_on_threshold
+#      - input_number.cargador_ev_on_delay
+#      - input_number.cargador_ev_off_threshold
+#      - input_number.cargador_ev_off_delay
 
 logbook:
   exclude:
     entities:
-      - input_number.cargador_ev_on_threshold
-      - input_number.cargador_ev_off_threshold
-      - input_number.cargador_ev_off_delay
+      - sensor.cargador_ev_power
+      - sensor.cargador_ev_energy_calc
+#      - input_number.cargador_ev_on_threshold
+#      - input_number.cargador_ev_off_threshold
+#      - input_number.cargador_ev_off_delay
 
 binary_sensor:
   - platform: threshold

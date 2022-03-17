@@ -1,16 +1,15 @@
 recorder:
   include:
-    # TODO Include only needed fronius sensors instead of all
-    entity_globs:
-      - sensor.fronius_*
+#    entity_globs:
+#      - sensor.fronius_*
     entities:
 #      - sensor.efergy_2577
 
-# TODO Include only needed fronius sensors instead of all
-#      - sensor.fronius_solarnet_power_photovoltaics
-#      - sensor.fronius_solarnet_power_load
-#      - sensor.fronius_solarnet_power_grid
-
+      - sensor.fronius_smartmeter_energy_real_produced
+      - sensor.fronius_smartmeter_energy_real_produced_compensation
+      - sensor.fronius_inverter_energy_total
+      - sensor.fronius_solarnet_power_grid
+      
       - sensor.energy_power_photovoltaics
       - sensor.energy_power_house
       - sensor.energy_net_balance_hour
@@ -40,12 +39,7 @@ recorder:
       - sensor.energy_current_hour
       - sensor.energy_production_today
       - sensor.energy_production_tomorrow
-      
-      - sensor.power_production_next_12hours
-      - sensor.power_production_next_24hours
-      - sensor.power_production_next_hour
-      - sensor.power_production_now
-      
+
 logbook:
   exclude:
 #    entities:

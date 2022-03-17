@@ -2,7 +2,7 @@ recorder:
   include:
     entities:
       - sensor.qnapups_status_spanish
-      - sensor.qnapups_status_data
+#      - sensor.qnapups_status_data
 
       - binary_sensor.energy_home_status
 
