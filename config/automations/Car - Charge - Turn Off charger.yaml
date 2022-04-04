@@ -11,9 +11,9 @@
       above: input_number.cargador_ev_off_threshold
       for:
         minutes: "{{ states('input_number.cargador_ev_off_delay') | int }}"
-  # Only execute action when not in 'Valle' tariff and not in manual charge.
+  # Only execute action when not in 'Valle' tariff and when automatic disconnection is enabled.
   # This is to allow to charge EV during 'Valle' tariff or when I've chosen to do a manual charge regardless the tariff.
-  condition: "{{ states('sensor.energy_tariff') != 'Valle' and states('input_boolean.cargador_ev_manual_charge') == 'off'}}"
+  condition: "{{ states('sensor.energy_tariff') != 'Valle' and states('input_boolean.cargador_ev_automatic_turn_off') == 'on'}}"
   action:
     - service: switch.turn_off
       entity_id: switch.cargador_ev_switch

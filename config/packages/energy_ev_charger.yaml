@@ -45,8 +45,8 @@ utility_meter:
     cycle: hourly
 
 input_boolean:
-  cargador_ev_manual_charge:
-    name: Carga manual
+  cargador_ev_automatic_turn_off:
+    name: Desconexión automática
 
 input_number:
   # Grid power (negative exporting / positive importing) to turn on EV charger.
