@@ -6,6 +6,7 @@ recorder:
       - sensor.piscina_temperature
       - sensor.piscina_filtering_time
       - sensor.piscina_on_history
+      - binary_sensor.piscina_pump_off_filtering_time_met
 #      - input_number.piscina_pump_on_threshold
 #      - input_number.piscina_pump_on_delay
 #      - input_number.piscina_pump_off_threshold
@@ -157,15 +158,17 @@ sensor:
     name: piscina_on_history
     entity_id: switch.motor_piscina
     state: 'on'
-    # Start at 7AM. The preference is to run swmming pool pump when there is sun light but in some cases it may be desired to run it at 'Valle' tariff.
+    # Start at 7AM. The preference is to run swimming pool pump when there is sun light but in some cases it may be desired to run it at 'Valle' tariff.
     # If starts at midnight it would run at 'Valle' tariff first (during night). So start counting when valle tariff ends so we make sure the priority is when there is sun light
-    start: '{{ now().replace(hour=7).replace(minute=0).replace(second=0) }}'
-    end: '{{ now() }}'
+    end: "{{ (now().replace(minute=0,second=0) + timedelta(hours=17)).replace(hour=7) }}"
+    duration:
+      hours: 24
 
   - platform: mqtt
     name: piscina_water_temperature
     state_topic: "home/switch/motor_piscina/tele/SENSOR"
     value_template: "{{ value_json.DS18B20.Temperature | float + states.input_number.temperature_correction.state | float }}"
+    device_class: "temperature"
     unit_of_measurement: "ºC"
     state_class: measurement
 
@@ -190,6 +193,8 @@ template:
       # on when both above sensors are on
       - name: piscina_pump_off_energy_and_delay_met
         state: "{{ states('binary_sensor.piscina_pump_off_energy_consumed_over_threshold') == 'on' and states('binary_sensor.piscina_pump_off_delay_met') == 'on' }}"
+      - name: piscina_pump_off_filtering_time_met
+        state: "{{ states('sensor.piscina_on_history')|float >= states('sensor.piscina_filtering_time')|float }}"
 
 input_number:
   temperature_correction:
@@ -237,6 +242,9 @@ input_number:
     max: 60
     step: 1
 
+input_boolean:
+  piscina_pump_manual_mode:
+    name: Modo manual
 
 utility_meter:
   piscina_today_energy:
