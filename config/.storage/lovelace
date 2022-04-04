@@ -1038,6 +1038,9 @@
                                 {
                                     "entities": [
                                         {
+                                            "entity": "input_boolean.piscina_pump_manual_mode"
+                                        },
+                                        {
                                             "entity": "switch.motor_piscina"
                                         },
                                         {
@@ -1123,9 +1126,6 @@
                         },
                         {
                             "entities": [
-                                {
-                                    "entity": "sensor.netatmo_bunyola_pluviometro_rain"
-                                },
                                 {
                                     "entity": "sensor.netatmo_bunyola_pluviometro_rain"
                                 },
@@ -1396,7 +1396,7 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "input_boolean.cargador_ev_manual_charge"
+                                    "entity": "input_boolean.cargador_ev_automatic_turn_off"
                                 },
                                 {
                                     "entity": "sensor.car_ioniq_charger_charge_state"
@@ -1428,7 +1428,8 @@
                             ],
                             "show_header_toggle": false,
                             "title": "Cargador EV",
-                            "type": "entities"
+                            "type": "entities",
+                            "state_color": true
                         }
                     ],
                     "icon": "mdi:car-multiple",
@@ -1683,6 +1684,9 @@
                                 },
                                 {
                                     "entity": "sensor.energy_price_sell"
+                                },
+                                {
+                                    "entity": "sensor.energy_pvpc"
                                 }
                             ],
                             "hours_to_show": 72,
