@@ -1,0 +1,15 @@
+- id: 'swimming_pool_pump_off_valle'
+  alias: 'Swimming Pool - Pump Off - Valle'
+  trigger:
+    # When it has been on for calculated filtering time.
+    - platform: numeric_state
+      entity_id: sensor.piscina_on_history
+      above: sensor.piscina_filtering_time
+# Only execute action when in 'Valle' tariff. This is to allow to filter swimming pool during 'Valle' tariff.
+  condition:
+    condition: state
+    entity_id: sensor.energy_tariff
+    state: "Valle"
+  action:
+    - service: switch.turn_off
+      entity_id: switch.motor_piscina
