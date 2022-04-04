@@ -41,7 +41,12 @@ font:
     glyphs: [
       '󰩲', # mdi-solar-power
       '󱤃', # mdi-home-lightning-bolt
+      '󱤄', # mdi-home-lightning-bolt-outline
       '󰴾', # mdi-transmission-tower
+      '󱤬', # mdi-transmission-tower-export
+      '󱤭', # mdi-transmission-tower-import
+      '󰾛', # mdi-home-export-outline
+      '󰾜', # mdi-home-import-outline
       '󰗑', # mdi-scale-balance
       '󱣖', # mdi-sun-thermometer
     ]
@@ -88,12 +93,18 @@ display:
     pages:
       - id: page1
         lambda: |-
-          it.print(0, 0, id(icon_font), TextAlign::LEFT, "󱤃");
+          it.print(0, 0, id(icon_font), TextAlign::LEFT, "󱤄");
           if (id(energy_power_house).has_state()) {
             it.printf(128, 0, id(data), TextAlign::RIGHT, "%.0f W", id(energy_power_house).state);
           }
-          it.print(0, 32, id(icon_font), TextAlign::LEFT, "󰴾");
           if (id(fronius_solarnet_power_grid).has_state()) {
+            if (id(fronius_solarnet_power_grid).state > 0) {
+              it.print(0, 32, id(icon_font), TextAlign::LEFT, "󰾜"); 
+            } else if (id(fronius_solarnet_power_grid).state < 0) {
+              it.print(0, 32, id(icon_font), TextAlign::LEFT, "󰾛");
+            } else {
+              it.print(0, 32, id(icon_font), TextAlign::LEFT, "󰴾");
+            }
             it.printf(128, 32, id(data), TextAlign::RIGHT, "%.0f W", id(fronius_solarnet_power_grid).state);
           }
       - id: page2
