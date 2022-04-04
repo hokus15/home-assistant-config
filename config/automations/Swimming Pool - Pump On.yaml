@@ -9,14 +9,13 @@
   condition:
     condition: and
     conditions:
-      # Has filtering time left
-      - condition: numeric_state
-        entity_id: sensor.piscina_on_history
-        below: sensor.piscina_filtering_time
-      # Specific appliances are off
       - condition: state
         entity_id: 
+          # Has filtering time left
+          - binary_sensor.piscina_pump_off_filtering_time_met
+          # It's not already on
           - switch.motor_piscina
+          # Specific appliances are off
           - binary_sensor.lavadora_status_high_power
           - binary_sensor.secadora_status
           - binary_sensor.lavaplatos_status
