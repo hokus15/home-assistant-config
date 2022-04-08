@@ -60,7 +60,7 @@
                                     "type": "gauge",
                                     "entity": "sensor.energy_power_photovoltaics",
                                     "min": 0,
-                                    "max": 4500,
+                                    "max": 4100,
                                     "needle": true,
                                     "severity": {
                                         "green": 2000,
@@ -71,7 +71,7 @@
                                 {
                                     "type": "gauge",
                                     "entity": "sensor.fronius_solarnet_power_grid",
-                                    "min": -4500,
+                                    "min": -4100,
                                     "severity": {
                                         "green": -4500,
                                         "yellow": 0,
