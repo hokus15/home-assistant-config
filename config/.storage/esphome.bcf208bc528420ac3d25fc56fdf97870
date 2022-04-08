@@ -7,10 +7,10 @@
             "uses_password": false,
             "name": "energy-display",
             "mac_address": "08:3A:F2:8C:B4:AC",
-            "compilation_time": "Mar 18 2022, 12:03:48",
+            "compilation_time": "Apr  4 2022, 21:50:44",
             "model": "nodemcu-32s",
             "has_deep_sleep": false,
-            "esphome_version": "2022.3.0",
+            "esphome_version": "2022.3.2",
             "project_name": "",
             "project_version": "",
             "webserver_port": 0
