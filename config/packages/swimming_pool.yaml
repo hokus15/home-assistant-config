@@ -110,21 +110,21 @@ sensor:
           {%- endif %}
           {% else %}Calculando...{%- endif %}
         icon_template: 'mdi:arrow-down-bold'
-      piscina_filtering_time:
-        friendly_name: 'Tiempo de filtrado'
-        value_template: >- 
-          {%if states.sensor.ha_runtime_in_minutes.state|float > 2 %}
-          {% set filtering_time = (states.sensor.piscina_k_factor.state | float * ((states.sensor.piscina_temperature.state | float / 10) * states.sensor.piscina_recirculation.state | float )) | float | round(2)%}
-          {%- if filtering_time < 2 %}
-            {{ 2 | float }}
-          {% elif filtering_time > 8 %}
-            {{ 8 | float }}
-          {% else %}
-            {{ filtering_time }}
-          {%- endif %}
-          {% else %}Calculando...{%- endif %}
-        unit_of_measurement: 'h'
-        icon_template: 'mdi:clock'
+#      piscina_filtering_time:
+#        friendly_name: 'Tiempo de filtrado'
+#        value_template: >- 
+#          {%if states.sensor.ha_runtime_in_minutes.state|float > 2 %}
+#          {% set filtering_time = (states.sensor.piscina_k_factor.state | float * ((states.sensor.piscina_temperature.state | float / 10) * states.sensor.piscina_recirculation.state | float )) | float | round(2)%}
+#          {%- if filtering_time < 2 %}
+#            {{ 2 | float }}
+#          {% elif filtering_time > 8 %}
+#            {{ 8 | float }}
+#          {% else %}
+#            {{ filtering_time }}
+#          {%- endif %}
+#          {% else %}Calculando...{%- endif %}
+#        unit_of_measurement: 'h'
+#        icon_template: 'mdi:clock'
 #      piscina_off_time:
 #        friendly_name: 'Apagado'
 #        value_template: >- 
@@ -173,7 +173,27 @@ sensor:
     state_class: measurement
 
 template:
-    binary_sensor:
+  - trigger:
+      - platform: time_pattern
+        # This will update every day at 7AM
+        hours: 7
+        minutes: 0
+      - platform: numeric_state
+        entity_id: sensor.ha_runtime_in_minutes
+        above: 2
+    sensor:
+      - name: piscina_filtering_time
+        state: >- 
+          {% set filtering_time = (states.sensor.piscina_k_factor.state | float * ((states.sensor.piscina_temperature.state | float / 10) * states.sensor.piscina_recirculation.state | float )) | float | round(2)%}
+          {%- if filtering_time < 2 %}
+            {{ 2 | float }}
+          {% elif filtering_time > 8 %}
+            {{ 8 | float }}
+          {% else %}
+            {{ filtering_time }}
+          {%- endif %}
+        unit_of_measurement: 'h'
+  - binary_sensor:
       # on when the exported energy is over the input_number.piscina_pump_on_threshold threshold
       - name: piscina_pump_on_energy_export_over_threshold
         state: "{{ states('sensor.fronius_solarnet_power_grid')|float <= states('input_number.piscina_pump_on_threshold')|float }}"
