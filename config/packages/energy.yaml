@@ -76,15 +76,3 @@ sensor:
 #        friendly_name: "Potencia vertida"
 #        unit_of_measurement: "W"
 #        value_template: "{{ [states('sensor.fronius_solarnet_power_grid')|float, 0]|min }}"
-
-  - platform: integration
-    source: sensor.fronius_solarnet_power_grid
-    name: energy_net_balance
-    unit_prefix: k
-    round: 2
-
-utility_meter:
-  energy_net_balance_hour:
-    source: sensor.energy_net_balance
-    cycle: hourly
-    net_consumption: true

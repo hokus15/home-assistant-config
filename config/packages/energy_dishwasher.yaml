@@ -16,13 +16,3 @@ template:
           {%- else -%}
             mdi:dishwasher-off
           {%- endif %}
-
-sensor:
-  # Sensor needed due to a bug in the device that shows negative value
-  # when the plug is turned on but no power is consumed
-  - platform: integration 
-    source: sensor.lavaplatos_power
-    name: lavaplatos_energy_calc
-    unit_prefix: k
-    method: left
-    round: 2

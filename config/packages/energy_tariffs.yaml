@@ -3,8 +3,8 @@ recorder:
     entities:
       - sensor.energy_grid_today_punta
       - sensor.energy_grid_today_punta_cost
-      - sensor.energy_grid_today_llana
-      - sensor.energy_grid_today_llana_cost
+#      - sensor.energy_grid_today_llana
+#      - sensor.energy_grid_today_llana_cost
       - sensor.energy_grid_today_valle
       - sensor.energy_grid_today_valle_cost
 
@@ -56,12 +56,3 @@ binary_sensor:
             (now().day == 6 and now().month == 12) or
             (now().day == 8 and now().month == 12) or
             (now().day == 25 and now().month == 12)}}
-
-utility_meter:
-  energy_grid_today:
-    source: sensor.fronius_smartmeter_energy_real_consumed
-    cycle: daily
-    tariffs:
-      - Punta
-#      - Llana
-      - Valle 

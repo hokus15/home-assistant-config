@@ -88,7 +88,7 @@ binary_sensor:
 
 sensor:
   # Sensor to define the season of the year
-  - platform: season
+#  - platform: season
 
   - platform: darksky
     api_key: !secret dark_sky_api_key

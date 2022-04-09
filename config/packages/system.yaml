@@ -9,8 +9,6 @@ binary_sensor:
    province: IB
 
 sensor:
-  - platform: version
-
   - platform: websocket_api
   
   - platform: time_date
@@ -27,22 +25,6 @@ sensor:
       - uptime
       - last_restart
       - status
-  
-  #- platform: template
-  #  sensors:
-  #    hokuslaptop_powerused:
-  #      value_template: '{{states.switch.hokuslaptop.attributes.current_power_w | int}}'
-  #    ph_piscina:
-  #      value_template: '{{states. image_processing.sevensegment_ocr_ph_piscina.state | int / 100}}'
-  #      friendly_name: 'pH'
-  #      icon_template: mdi:beaker
-  
-  #- platform: template
-  #  sensors:
-  #    # Nodon Octan button battery level
-  #    recibidor_boton_bateria:
-  #      value_template: '{% if states.zwave.nodon_crc3100_octan_remote %}{{ states.zwave.nodon_crc3100_octan_remote.attributes.battery_level }}{% else %}Desconocido{% endif %}'
-  #      unit_of_measurement: '%'
   
   - platform: systemmonitor
     resources:
@@ -98,22 +80,6 @@ sensor:
     state_topic: "homeassistant/addons/node-red"
     expire_after: 120
 
-
-  - platform: cert_expiry
-    host: !secret cert_expiry_host
-
-  - platform: whois
-    domain: !secret domain_name1
-    name: Dominio principal
-    
-  - platform: whois
-    domain: !secret domain_name2
-    name: Dominio nena
-  
-  - platform: uptime
-    name: "Time Online"
-
-  
   - platform: sql
     db_url: !secret recorder_db_url
     queries:

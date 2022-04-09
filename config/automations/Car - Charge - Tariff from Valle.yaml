@@ -2,7 +2,7 @@
   alias: 'Car - Charge - Tariff from valle'
   trigger:
     platform: state
-    entity_id: utility_meter.energy_grid_today
+    entity_id: select.energy_grid_today
     from: 'Valle'
   action:
     - service: switch.turn_off

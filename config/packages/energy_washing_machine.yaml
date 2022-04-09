@@ -27,13 +27,3 @@ template:
           {% else %}
           {{ (now().timestamp() - states.binary_sensor.lavadora_status.last_changed.timestamp()) <= 1800 }}
           {% endif %}
-
-sensor:
-  # Sensor needed due to a bug in the device that shows negative value
-  # when the plug is turned on but no power is consumed
-  - platform: integration 
-    source: sensor.lavadora_power
-    name: lavadora_energy_calc
-    unit_prefix: k
-    method: left
-    round: 2

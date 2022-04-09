@@ -15,13 +15,3 @@ template:
           {%- else -%}
             mdi:water-pump-off
           {%- endif %}
-
-sensor:
-  # Sensor needed due to a bug in the device that shows negative value
-  # when the plug is turned on but no power is consumed
-  - platform: integration 
-    source: sensor.bomba_agua_power
-    name: bomba_agua_energy_calc
-    unit_prefix: k
-    method: left
-    round: 2

@@ -172,16 +172,6 @@ input_boolean:
     name: Det. mov. entrada ppal.
     icon: 'mdi:transit-transfer'
 
-camera:
-  # Backyard stand camera
-  # For Linksys WVC54GCA http://<cam-host>:<cam_port>/img/snapshot.cgi
-  - platform: generic
-    still_image_url: !secret cam_caseta_still_image_url
-    name: caseta
-    username: !secret cam_caseta_username
-    password: !secret cam_caseta_password
-    authentication: basic
-
 binary_sensor:
   # Infrared status for foscam cam in hall
   - platform: command_line

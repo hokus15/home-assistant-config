@@ -266,11 +266,11 @@ input_boolean:
   piscina_pump_manual_mode:
     name: Modo manual
 
-utility_meter:
-  piscina_today_energy:
-    source: sensor.piscina_energy
-    cycle: daily
-
-  piscina_hour_energy:
-    source: sensor.piscina_energy
-    cycle: hourly
+#utility_meter:
+#  piscina_today_energy:
+#    source: sensor.piscina_energy
+#    cycle: daily
+#
+#  piscina_hour_energy:
+#    source: sensor.piscina_energy
+#    cycle: hourly

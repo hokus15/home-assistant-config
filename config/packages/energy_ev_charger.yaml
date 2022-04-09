@@ -4,19 +4,12 @@ recorder:
       - binary_sensor.cargador_ev_status
       - sensor.cargador_ev_power
       - sensor.cargador_ev_energy_calc
-#      - input_number.cargador_ev_on_threshold
-#      - input_number.cargador_ev_on_delay
-#      - input_number.cargador_ev_off_threshold
-#      - input_number.cargador_ev_off_delay
 
 logbook:
   exclude:
     entities:
       - sensor.cargador_ev_power
       - sensor.cargador_ev_energy_calc
-#      - input_number.cargador_ev_on_threshold
-#      - input_number.cargador_ev_off_threshold
-#      - input_number.cargador_ev_off_delay
 
 binary_sensor:
   - platform: threshold
@@ -24,25 +17,6 @@ binary_sensor:
     entity_id: sensor.cargador_ev_power
     upper: 5
     device_class: power
-
-sensor:
-  # Sensor needed due to a bug in the device that shows negative value
-  # when the plug is turned on but no power is consumed
-  - platform: integration 
-    source: sensor.cargador_ev_power
-    name: cargador_ev_energy_calc
-    unit_prefix: k
-    method: left
-    round: 2
-
-utility_meter:
-  cargador_ev_today_energy:
-    source: sensor.cargador_ev_energy_calc
-    cycle: daily
-
-  cargador_ev_hour_energy:
-    source: sensor.cargador_ev_energy_calc
-    cycle: hourly
 
 input_boolean:
   cargador_ev_automatic_turn_off:
