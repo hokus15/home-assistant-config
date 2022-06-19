@@ -22,7 +22,7 @@
               message: '🚪 Barrera {{ states.sensor.outside_fence_sensor_state.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.cover.outside_fence.last_changed))|int//60 }} minutos'
               target: 
                 - !secret hokusphone_telegram_chat_id
-                - !secret geniphone_telegram_chat_id
+#                - !secret geniphone_telegram_chat_id
               inline_keyboard: 
                 - 'Cerrar:/switch.turn_on#switch.barrera'
           - service: notify.slack

@@ -28,7 +28,7 @@
         message: 'Empieza el calor 🌞🌞🌞!!!! He apagado la calefacción.'
         target: 
           - !secret hokusphone_telegram_chat_id
-          - !secret geniphone_telegram_chat_id
+#          - !secret geniphone_telegram_chat_id
         disable_notification: false
         inline_keyboard:
                - 'Enciende la calefacción:/climate.turn_on#climate.netatmo_general'
