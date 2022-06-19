@@ -54,14 +54,14 @@ sensor:
         device_class: power
         friendly_name: "Producción fotovoltáica"
         unit_of_measurement: "W"
-        value_template: "{{ states('sensor.fronius_solarnet_power_photovoltaics')|float }}"
+        value_template: "{{ states('sensor.fronius_solarnet_power_photovoltaics')|float(0) }}"
 
       # Total home instant power
       energy_power_house:
         device_class: power
         friendly_name: "Potencia casa"
         unit_of_measurement: "W"
-        value_template: "{{ 0 - states('sensor.fronius_solarnet_power_load')|float|round(1) }}"
+        value_template: "{{ 0 - states('sensor.fronius_solarnet_power_load')|float(0)|round(1) }}"
 
       # The raw grid power is negative if exporting and positive if importing,
       # so produce separate figures here so we can calculate energy based on them below

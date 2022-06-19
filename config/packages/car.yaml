@@ -457,7 +457,7 @@ sensor:
       car_ioniq_location_distance_travelled_between_updates:
         unit_of_measurement: 'm'
         friendly_name: 'Dist. entre actualizaciones'
-        value_template: '{% if states.device_tracker.car_ioniq.attributes.latitude %} {{ (distance(states("sensor.car_ioniq_location_previous_latitude"), states("sensor.car_ioniq_location_previous_longitude"), states.device_tracker.car_ioniq.attributes.latitude, states.device_tracker.car_ioniq.attributes.longitude) * 1000) | round (2) }} {% else %} -1 {% endif %}'
+        value_template: '{% if state_attr("device_tracker.car_ioniq", "latitude") != None %} {{ (distance(states("sensor.car_ioniq_location_previous_latitude"), states("sensor.car_ioniq_location_previous_longitude"), states.device_tracker.car_ioniq.attributes.latitude, states.device_tracker.car_ioniq.attributes.longitude) * 1000) | float(-1) | round (2) }} {% else %} -1 {% endif %}'
         icon_template: 'mdi:tape-measure'
       # Ioniq Previous longitude
       car_ioniq_location_last_update:
@@ -470,7 +470,7 @@ sensor:
         icon_template: 'mdi:map-marker-radius'
       car_ioniq_charger_charge_state:
         value_template: >-
-          {%- if states('sensor.cargador_ev_power')|float > 1000.0 and is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
+          {%- if states('sensor.cargador_ev_power')|float(0) > 1000.0 and is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
              Cargando
           {%- elif is_state('switch.cargador_ev_switch', 'off') %}
             Apagado
@@ -481,15 +481,15 @@ sensor:
         unit_of_measurement: min
         value_template:  >-
           {%- if is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
-            {{state_attr('sensor.car_ioniq_battery', 'minsToCompleteCharge') | int}}
+            {{state_attr('sensor.car_ioniq_battery', 'minsToCompleteCharge') | int(0)}}
           {% else %}
             0
           {%- endif %}
 
       car_ioniq_charge_time_to_100_human:
         value_template:  >-
-          {%- if states('sensor.car_ioniq_charge_time_to_100_mins') | int > 0 %}
-            {{(states('sensor.car_ioniq_charge_time_to_100_mins') | int / 60) | round(0, 'floor')}} horas {{states('sensor.car_ioniq_charge_time_to_100_mins') | int % 60}} minutos
+          {%- if states('sensor.car_ioniq_charge_time_to_100_mins') | int(0) > 0 %}
+            {{(states('sensor.car_ioniq_charge_time_to_100_mins') | int(0) / 60) | round(0, 'floor')}} horas {{states('sensor.car_ioniq_charge_time_to_100_mins') | int(0) % 60}} minutos
           {% else %}
             No está en carga
           {%- endif %}
@@ -497,7 +497,7 @@ sensor:
       car_ioniq_charge_time_to_100:
         value_template:  >-
           {%- if is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
-            {{(now() | as_timestamp() + ((states('sensor.car_ioniq_charge_time_to_100_mins') | int) * 60)) | timestamp_custom("%H:%M")}}
+            {{(now() | as_timestamp() + ((states('sensor.car_ioniq_charge_time_to_100_mins') | int(0)) * 60)) | timestamp_custom("%H:%M")}}
           {% else %}
             No está en carga
           {%- endif %}

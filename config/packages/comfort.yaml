@@ -66,7 +66,7 @@ binary_sensor:
       # And first floor temperature trend is going down
       home_comfort_state:
         value_template: >- 
-          {{ states('sensor.first_floor_temperature')|float < states.sensor.entrance_hall_thermostat_target_temperature|float
+          {{ states('sensor.first_floor_temperature')|float(0) < states('sensor.entrance_hall_thermostat_target_temperature')|float(0)
              and is_state('group.unidad_familiar', 'home')
              and states.climate.netatmo_general != None
              and not is_state('climate.netatmo_general', 'off')

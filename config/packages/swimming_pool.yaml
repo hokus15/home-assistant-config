@@ -2,11 +2,13 @@ recorder:
   include:
     entities:
       - switch.motor_piscina
+      - switch.piscina
       - sensor.piscina_water_temperature
       - sensor.piscina_temperature
       - sensor.piscina_filtering_time
       - sensor.piscina_on_history
       - binary_sensor.piscina_pump_off_filtering_time_met
+      - binary_sensor.piscina_pump_off_energy_and_delay_met
 #      - input_number.piscina_pump_on_threshold
 #      - input_number.piscina_pump_on_delay
 #      - input_number.piscina_pump_off_threshold
@@ -78,7 +80,7 @@ sensor:
       piscina_capacity:
         friendly_name: 'Capacidad'
         value_template: >-
-          {%if states.sensor.ha_runtime_in_minutes.state|float > 2 %}
+          {%if states.sensor.ha_runtime_in_minutes.state|float(0) > 2 %}
           {%- if states.sensor.piscina_width and states.sensor.piscina_height and states.sensor.piscina_average_depth %}
           {{ states.sensor.piscina_width.state | float * states.sensor.piscina_height.state | float * states.sensor.piscina_average_depth.state | float}}
           {%- endif %}
@@ -87,7 +89,7 @@ sensor:
       piscina_recirculation:
         friendly_name: 'Recirculación'
         value_template: >-
-          {%if states.sensor.ha_runtime_in_minutes.state|float > 2 %}
+          {%if states.sensor.ha_runtime_in_minutes.state|float(0) > 2 %}
           {%- if states.sensor.piscina_capacity and states.sensor.piscina_pump_power and states.sensor.piscina_pump_efficiency %}
           {{ (states.sensor.piscina_capacity.state | float / (states.sensor.piscina_pump_power.state | float * states.sensor.piscina_pump_efficiency.state | float )) | round(1) }}
           {%- endif %}
@@ -96,7 +98,7 @@ sensor:
       piscina_k_factor:
         friendly_name: 'Factor reduccion (K)'
         value_template: >-
-          {%if states.sensor.ha_runtime_in_minutes.state|float > 2 %}
+          {%if states.sensor.ha_runtime_in_minutes.state|float(0) > 2 %}
           {%- if states.sensor.piscina_temperature.state | float > 15 %}
             1
           {% elif states.sensor.piscina_temperature.state | float <= 15 and states.sensor.piscina_temperature.state | float > 13 %}
@@ -113,7 +115,7 @@ sensor:
 #      piscina_filtering_time:
 #        friendly_name: 'Tiempo de filtrado'
 #        value_template: >- 
-#          {%if states.sensor.ha_runtime_in_minutes.state|float > 2 %}
+#          {%if states.sensor.ha_runtime_in_minutes.state|float(0) > 2 %}
 #          {% set filtering_time = (states.sensor.piscina_k_factor.state | float * ((states.sensor.piscina_temperature.state | float / 10) * states.sensor.piscina_recirculation.state | float )) | float | round(2)%}
 #          {%- if filtering_time < 2 %}
 #            {{ 2 | float }}
@@ -167,7 +169,7 @@ sensor:
   - platform: mqtt
     name: piscina_water_temperature
     state_topic: "home/switch/motor_piscina/tele/SENSOR"
-    value_template: "{{ value_json.DS18B20.Temperature | float + states.input_number.temperature_correction.state | float }}"
+    value_template: "{{ value_json.DS18B20.Temperature | float(0) + states.input_number.temperature_correction.state | float(0) }}"
     device_class: "temperature"
     unit_of_measurement: "ºC"
     state_class: measurement
@@ -184,11 +186,11 @@ template:
     sensor:
       - name: piscina_filtering_time
         state: >- 
-          {% set filtering_time = (states.sensor.piscina_k_factor.state | float * ((states.sensor.piscina_temperature.state | float / 10) * states.sensor.piscina_recirculation.state | float )) | float | round(2)%}
+          {% set filtering_time = (states.sensor.piscina_k_factor.state | float(0) * ((states.sensor.piscina_temperature.state | float(0) / 10) * states.sensor.piscina_recirculation.state | float(0) )) | float(0) | round(2)%}
           {%- if filtering_time < 2 %}
-            {{ 2 | float }}
+            {{ 2 | float(0) }}
           {% elif filtering_time > 8 %}
-            {{ 8 | float }}
+            {{ 8 | float(0) }}
           {% else %}
             {{ filtering_time }}
           {%- endif %}
@@ -196,25 +198,25 @@ template:
   - binary_sensor:
       # on when the exported energy is over the input_number.piscina_pump_on_threshold threshold
       - name: piscina_pump_on_energy_export_over_threshold
-        state: "{{ states('sensor.fronius_solarnet_power_grid')|float <= states('input_number.piscina_pump_on_threshold')|float }}"
+        state: "{{ states('sensor.fronius_solarnet_power_grid')|float(0) <= states('input_number.piscina_pump_on_threshold')|float(0) }}"
       # on when the exported energy is over the input_number.piscina_pump_on_threshold threshold during input_number.piscina_pump_on_delay minutes
       - name: piscina_pump_on_delay_met
-        state: "{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.piscina_pump_on_energy_export_over_threshold.last_changed))|int//60)|int > states('input_number.piscina_pump_on_delay')|int }}"
+        state: "{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.piscina_pump_on_energy_export_over_threshold.last_changed))|int(0)//60)|int(0) > states('input_number.piscina_pump_on_delay')|int(0) }}"
       # on when both above sensors are on
       - name: piscina_pump_on_energy_and_delay_met
         state: "{{ states('binary_sensor.piscina_pump_on_energy_export_over_threshold') == 'on' and states('binary_sensor.piscina_pump_on_delay_met') == 'on' }}"
 
-      # on when the consumed energy is over the input_number.piscina_pump_off_threshold threshold
+      # on when the consumed energy is over the input_number.piscina_pump_off_threshold threshold and the hour net balance is over 0
       - name: piscina_pump_off_energy_consumed_over_threshold
-        state: "{{ states('sensor.fronius_solarnet_power_grid')|float >= states('input_number.piscina_pump_off_threshold')|float }}"
+        state: "{{ states('sensor.fronius_solarnet_power_grid')|float(0) >= states('input_number.piscina_pump_off_threshold')|float(0) and states('sensor.energy_net_balance_hour')|float(0) > 0 }}"
       # on when the consumed energy is over the input_number.piscina_pump_off_threshold threshold during input_number.piscina_pump_off_delay minutes
       - name: piscina_pump_off_delay_met
-        state: "{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.piscina_pump_off_energy_consumed_over_threshold.last_changed))|int//60)|int > states('input_number.piscina_pump_off_delay')|int }}"
+        state: "{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.piscina_pump_off_energy_consumed_over_threshold.last_changed))|int(0)//60)|int(0) > states('input_number.piscina_pump_off_delay')|int(0) }}"
       # on when both above sensors are on
       - name: piscina_pump_off_energy_and_delay_met
         state: "{{ states('binary_sensor.piscina_pump_off_energy_consumed_over_threshold') == 'on' and states('binary_sensor.piscina_pump_off_delay_met') == 'on' }}"
       - name: piscina_pump_off_filtering_time_met
-        state: "{{ states('sensor.piscina_on_history')|float >= states('sensor.piscina_filtering_time')|float }}"
+        state: "{{ states('sensor.piscina_on_history')|float(0) >= states('sensor.piscina_filtering_time')|float(0) }}"
 
 input_number:
   temperature_correction:
@@ -232,7 +234,7 @@ input_number:
     unit_of_measurement: 'W'
     icon: 'mdi:lightning-bolt'
     initial: -1200
-    min: -2000
+    min: -3500
     max: 0
     step: 100
   # Max power consumed from grid allowed.
