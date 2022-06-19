@@ -18,10 +18,6 @@ binary_sensor:
     upper: 5
     device_class: power
 
-input_boolean:
-  cargador_ev_automatic_turn_off:
-    name: Desconexión automática
-
 input_number:
   # Grid power (negative exporting / positive importing) to turn on EV charger.
   # i.e: -1300 Means turn on EV charger when exporting 1300W to the grid.
