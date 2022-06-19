@@ -1,5 +1,6 @@
 {
     "version": 1,
+    "minor_version": 1,
     "key": "camera",
     "data": {
         "camera.barbacoa": {
@@ -18,6 +19,9 @@
             "preload_stream": true
         },
         "camera.cocina": {
+            "preload_stream": true
+        },
+        "camera.caseta": {
             "preload_stream": true
         }
     }
