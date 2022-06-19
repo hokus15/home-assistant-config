@@ -1408,9 +1408,6 @@
                                     "entity": "sensor.cargador_ev_power"
                                 },
                                 {
-                                    "entity": "sensor.cargador_ev_today_energy"
-                                },
-                                {
                                     "entity": "sensor.fronius_solarnet_power_grid"
                                 },
                                 {
