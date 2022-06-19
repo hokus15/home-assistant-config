@@ -80,13 +80,13 @@ sensor:
     state_topic: "homeassistant/addons/node-red"
     expire_after: 120
 
-  - platform: sql
-    db_url: !secret recorder_db_url
-    queries:
-      - name: DB size
-        query: 'SELECT table_schema "database", Round((Sum(data_length + index_length) / 1024) / 1024, 0) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;'
-        column: 'value'
-        unit_of_measurement: MiB
+#  - platform: sql
+#    db_url: !secret recorder_db_url
+#    queries:
+#      - name: DB size
+#        query: 'SELECT table_schema "database", Round((Sum(data_length + index_length) / 1024) / 1024, 0) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;'
+#        column: 'value'
+#        unit_of_measurement: MiB
 
 input_boolean:
     node_red:
