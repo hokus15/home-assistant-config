@@ -9,6 +9,8 @@ recorder:
       - sensor.piscina_on_history
       - binary_sensor.piscina_pump_off_filtering_time_met
       - binary_sensor.piscina_pump_off_energy_and_delay_met
+      - binary_sensor.piscina_pump_on_delay_met
+      - binary_sensor.piscina_pump_on_energy_export_over_threshold
 #      - input_number.piscina_pump_on_threshold
 #      - input_number.piscina_pump_on_delay
 #      - input_number.piscina_pump_off_threshold
