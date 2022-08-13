@@ -7,7 +7,13 @@
                 "view-grid-size": "20",
                 "view-node-status": true,
                 "view-node-show-label": true,
-                "view-show-tips": false
+                "view-show-tips": false,
+                "view-show-welcome-tours": true,
+                "view-store-position": false,
+                "view-store-zoom": false
+            },
+            "tours": {
+                "welcome": "3.0.0"
             }
         },
         "menu-deploymenu-item-flow": false,
