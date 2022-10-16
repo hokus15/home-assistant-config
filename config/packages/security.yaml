@@ -235,14 +235,15 @@ shell_command:
   cam_salon_ptz_preset_point_main_left: !secret cam_salon_ptz_preset_point_mainleft
   cam_salon_ptz_preset_point_main_right: !secret cam_salon_ptz_preset_point_mainright
 
-sensor:
-  - platform: mqtt
-    state_topic: 'home/lock/entrada'
-    value_template: '{{ value_json.stateName }}'
-    name: lock_entrada_state
-    json_attributes_topic: 'home/lock/entrada'
-    force_update: true
+mqtt:
+  sensor:
+    - state_topic: 'home/lock/entrada'
+      value_template: '{{ value_json.stateName }}'
+      name: lock_entrada_state
+      json_attributes_topic: 'home/lock/entrada'
+      force_update: true
 
+sensor:
   - platform: template
     sensors:
       lock_entrada_sensor_door_state:

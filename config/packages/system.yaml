@@ -49,36 +49,35 @@ sensor:
       ha_runtime_in_minutes:
         value_template: '{{((as_timestamp(now()) - as_timestamp(states.sensor.time_online.state)) / 60)| round }}'
 
-  - platform: mqtt
-    name: "HokusLaptop - Remaining Battery"
-    state_topic: "home/hokuslan/hokuslaptop/windows-monitor/stats/battery/remaining-percent"
-    unit_of_measurement: '%'
-    device_class: battery
-    force_update: true
-    expire_after: 120
-    value_template: "{{ value }}"
-    availability_topic: "home/hokuslan/hokuslaptop/lwt"
-    payload_available: "ON"
-    payload_not_available: "OFF"
-    qos: 1
+mqtt:
+  sensor:
+    - name: "HokusLaptop - Remaining Battery"
+      state_topic: "home/hokuslan/hokuslaptop/windows-monitor/stats/battery/remaining-percent"
+      unit_of_measurement: '%'
+      device_class: battery
+      force_update: true
+      expire_after: 120
+      value_template: "{{ value }}"
+      availability_topic: "home/hokuslan/hokuslaptop/lwt"
+      payload_available: "ON"
+      payload_not_available: "OFF"
+      qos: 1
 
-  - platform: mqtt
-    name: "GeniLaptop - Remaining Battery"
-    state_topic: "home/hokuslan/genilaptop/windows-monitor/stats/battery/remaining-percent"
-    unit_of_measurement: '%'
-    device_class: battery
-    force_update: true
-    expire_after: 120
-    value_template: "{{ value }}"
-    availability_topic: "home/hokuslan/genilaptop/lwt"
-    payload_available: "ON"
-    payload_not_available: "OFF"
-    qos: 1
+    - name: "GeniLaptop - Remaining Battery"
+      state_topic: "home/hokuslan/genilaptop/windows-monitor/stats/battery/remaining-percent"
+      unit_of_measurement: '%'
+      device_class: battery
+      force_update: true
+      expire_after: 120
+      value_template: "{{ value }}"
+      availability_topic: "home/hokuslan/genilaptop/lwt"
+      payload_available: "ON"
+      payload_not_available: "OFF"
+      qos: 1
 
-  - platform: mqtt
-    name: "Node RED"
-    state_topic: "homeassistant/addons/node-red"
-    expire_after: 120
+    - name: "Node RED"
+      state_topic: "homeassistant/addons/node-red"
+      expire_after: 120
 
 #  - platform: sql
 #    db_url: !secret recorder_db_url

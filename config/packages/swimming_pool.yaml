@@ -32,30 +32,37 @@ light:
     name: piscina_light
     entity_id: switch.luz_piscina
 
-switch:
-  - platform: mqtt
-    name: "Motor piscina"
-    icon: mdi:pool
-    state_topic: "home/switch/motor_piscina/stat/POWER"
-    command_topic: "home/switch/motor_piscina/cmnd/POWER"
-    availability_topic: "home/switch/motor_piscina/tele/LWT"
-    payload_available: "Online"
-    payload_not_available: "Offline"
-    payload_off: "OFF"
-    payload_on: "ON"
-    retain: false
+mqtt:
+  switch:
+    - name: "Motor piscina"
+      icon: mdi:pool
+      state_topic: "home/switch/motor_piscina/stat/POWER"
+      command_topic: "home/switch/motor_piscina/cmnd/POWER"
+      availability_topic: "home/switch/motor_piscina/tele/LWT"
+      payload_available: "Online"
+      payload_not_available: "Offline"
+      payload_off: "OFF"
+      payload_on: "ON"
+      retain: false
 
-  - platform: mqtt
-    name: "Luz Piscina"
-    icon: 'mdi:lightbulb'
-    state_topic: "home/light/piscina/stat/POWER"
-    command_topic: "home/light/piscina/cmnd/POWER"
-    availability_topic: "home/light/piscina/tele/LWT"
-    payload_available: "Online"
-    payload_not_available: "Offline"
-    payload_off: "OFF"
-    payload_on: "ON"
-    retain: false
+    - name: "Luz Piscina"
+      icon: 'mdi:lightbulb'
+      state_topic: "home/light/piscina/stat/POWER"
+      command_topic: "home/light/piscina/cmnd/POWER"
+      availability_topic: "home/light/piscina/tele/LWT"
+      payload_available: "Online"
+      payload_not_available: "Offline"
+      payload_off: "OFF"
+      payload_on: "ON"
+      retain: false
+
+  sensor:
+    - name: piscina_water_temperature
+      state_topic: "home/switch/motor_piscina/tele/SENSOR"
+      value_template: "{{ value_json.DS18B20.Temperature | float(0) + states.input_number.temperature_correction.state | float(0) }}"
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state_class: measurement
 
 sensor:
   - platform: template
@@ -167,14 +174,6 @@ sensor:
     end: "{{ (now().replace(minute=0,second=0) + timedelta(hours=17)).replace(hour=7) }}"
     duration:
       hours: 24
-
-  - platform: mqtt
-    name: piscina_water_temperature
-    state_topic: "home/switch/motor_piscina/tele/SENSOR"
-    value_template: "{{ value_json.DS18B20.Temperature | float(0) + states.input_number.temperature_correction.state | float(0) }}"
-    device_class: "temperature"
-    unit_of_measurement: "ºC"
-    state_class: measurement
 
 template:
   - trigger:

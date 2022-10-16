@@ -14,26 +14,24 @@ recorder:
 
       - sensor.energy_tariff
 
-sensor:
-  - platform: mqtt
-    state_topic: 'home/sensor/energy/tariff'
-    name: energy_tariff
+mqtt:
+  sensor:
+    - state_topic: 'home/sensor/energy/tariff'
+      name: energy_tariff
 
-  - platform: mqtt
-    state_topic: 'home/sensor/energy/price/buy'
-    name: energy_price_buy
-    unique_id: energy_price_buy
-    state_class: 'measurement'
-    unit_of_measurement: '€/kWh'
-    icon: 'mdi:currency-eur'
+    - state_topic: 'home/sensor/energy/price/buy'
+      name: energy_price_buy
+      unique_id: energy_price_buy
+      state_class: 'measurement'
+      unit_of_measurement: '€/kWh'
+      icon: 'mdi:currency-eur'
 
-  - platform: mqtt
-    state_topic: 'home/sensor/energy/price/sell'
-    name: energy_price_sell
-    unique_id: energy_price_sell
-    state_class: 'measurement'
-    unit_of_measurement: '€/kWh'
-    icon: 'mdi:currency-eur'
+    - state_topic: 'home/sensor/energy/price/sell'
+      name: energy_price_sell
+      unique_id: energy_price_sell
+      state_class: 'measurement'
+      unit_of_measurement: '€/kWh'
+      icon: 'mdi:currency-eur'
 
 binary_sensor:
   - platform: template

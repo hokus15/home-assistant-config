@@ -63,59 +63,54 @@ input_boolean:
   car_ioniq_has_charged:
     name: ¿Carga Ioniq hoy?
 
-binary_sensor:
-  - platform: mqtt
-    state_topic: 'car/sensor/ioniq/state'
-    name: car_ioniq_state
-    payload_on: ON
-    payload_off: OFF
-    value_template: '{{ value_json.states is not none }}'
-    force_update: true
-    off_delay: 60
-    device_class: 'moving'
+mqtt:
+  binary_sensor:
+    - state_topic: 'car/sensor/ioniq/state'
+      name: car_ioniq_state
+      payload_on: ON
+      payload_off: OFF
+      value_template: '{{ value_json.states is not none }}'
+      force_update: true
+      off_delay: 60
+      device_class: 'moving'
 
-  - platform: mqtt
-    state_topic: 'car/sensor/ioniq/location'
-    name: car_ioniq_location_sensor
-    payload_on: ON
-    payload_off: OFF
-    value_template: '{{ value_json.last_update is not none }}'
-    json_attributes_topic: 'car/sensor/ioniq/location'
-    force_update: true
-    off_delay: 60
+    - state_topic: 'car/sensor/ioniq/location'
+      name: car_ioniq_location_sensor
+      payload_on: ON
+      payload_off: OFF
+      value_template: '{{ value_json.last_update is not none }}'
+      json_attributes_topic: 'car/sensor/ioniq/location'
+      force_update: true
+      off_delay: 60
+  sensor:
+    - state_topic: 'car/sensor/ioniq/battery'
+      value_template: '{{ value_json.socDisplay }}'
+      name: car_ioniq_battery
+      json_attributes_topic: 'car/sensor/ioniq/battery'
+      force_update: true
+      device_class: 'battery'
+      unit_of_measurement: '%'
+
+    - state_topic: 'car/sensor/ioniq/odometer'
+      value_template: '{{ value_json.odometer }}'
+      name: car_ioniq_odometer
+      json_attributes_topic: 'car/sensor/ioniq/odometer'
+      icon: 'mdi:counter'
+      unit_of_measurement: 'Km'
+      force_update: true
+
+    - state_topic: 'car/sensor/ioniq/tpms'
+      value_template: '{{ value_json.timestamp }}'
+      name: car_ioniq_tpms
+      json_attributes_topic: 'car/sensor/ioniq/tpms'
+      force_update: true
+
+    - state_topic: 'car/sensor/ioniq/state/daily'
+      name: car_ioniq_state_daily
+      value_template: '{{ value_json.timestamp|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
+      json_attributes_topic: 'car/sensor/ioniq/state/daily'
 
 sensor:
-  - platform: mqtt
-    state_topic: 'car/sensor/ioniq/battery'
-    value_template: '{{ value_json.socDisplay }}'
-    name: car_ioniq_battery
-    json_attributes_topic: 'car/sensor/ioniq/battery'
-    force_update: true
-    device_class: 'battery'
-    unit_of_measurement: '%'
-
-  - platform: mqtt
-    state_topic: 'car/sensor/ioniq/odometer'
-    value_template: '{{ value_json.odometer }}'
-    name: car_ioniq_odometer
-    json_attributes_topic: 'car/sensor/ioniq/odometer'
-    icon: 'mdi:counter'
-    unit_of_measurement: 'Km'
-    force_update: true
-
-  - platform: mqtt
-    state_topic: 'car/sensor/ioniq/tpms'
-    value_template: '{{ value_json.timestamp }}'
-    name: car_ioniq_tpms
-    json_attributes_topic: 'car/sensor/ioniq/tpms'
-    force_update: true
-
-  - platform: mqtt
-    state_topic: 'car/sensor/ioniq/state/daily'
-    name: car_ioniq_state_daily
-    value_template: '{{ value_json.timestamp|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
-    json_attributes_topic: 'car/sensor/ioniq/state/daily'
-
   - platform: rest
     resource: https://ximeintranet.tib.org/ximelib-mobile/rest/devicegroups/41
     name: Cargador Conquistador
