@@ -1084,6 +1084,24 @@
                                         },
                                         {
                                             "entity": "input_number.piscina_pump_off_delay"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.piscina_pump_on_delay_met",
+                                            "name": "Encendido por tiempo"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.piscina_pump_on_energy_export_over_threshold",
+                                            "name": "Encendido por energ\u00eda"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.piscina_pump_off_energy_and_delay_met",
+                                            "name": "Apagado por energ\u00eda",
+                                            "secondary_info": "last-changed"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.piscina_pump_off_filtering_time_met",
+                                            "name": "Apagado por tiempo",
+                                            "secondary_info": "last-changed"
                                         }
                                     ],
                                     "show_header_toggle": false,
@@ -1488,8 +1506,9 @@
                                 }
                             ],
                             "hours_to_show": 24,
-                            "aggregate_func": "max",
+                            "aggregate_func": "last",
                             "group_by": "hour",
+                            "hour24": true,
                             "show": {
                                 "graph": "bar",
                                 "labels": true,
@@ -1497,15 +1516,19 @@
                             },
                             "color_thresholds": [
                                 {
-                                    "value": 0.2,
+                                    "value": 1,
+                                    "color": "#aa0000"
+                                },
+                                {
+                                    "value": 0.05,
                                     "color": "#ff0000"
                                 },
                                 {
                                     "color": "#00ff00"
                                 },
                                 {
-                                    "value": -0.2,
-                                    "color": "#ffff00"
+                                    "value": -0.05,
+                                    "color": "#00aa00"
                                 }
                             ],
                             "view_layout": {
@@ -1694,9 +1717,6 @@
                             "entities": [
                                 {
                                     "entity": "sensor.energy_power_photovoltaics"
-                                },
-                                {
-                                    "entity": "sensor.fronius_solarnet_power_grid"
                                 },
                                 {
                                     "entity": "sensor.energy_power_house"
