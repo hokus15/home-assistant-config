@@ -19,4 +19,4 @@
         topic: 'home/sensor/energy/price/buy'
         retain: true
         qos: 0
-        payload_template: 0.303019
+        payload_template: 0.277758
