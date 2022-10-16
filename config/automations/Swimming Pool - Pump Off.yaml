@@ -9,6 +9,10 @@
     - platform: state
       entity_id: binary_sensor.piscina_pump_off_energy_and_delay_met
       to: 'on'
+    # When hour net balance is positive
+    - platform: numeric_state
+      entity_id: sensor.energy_net_balance_hour
+      above: 0
 # Only execute action when not in 'Valle' tariff and not in manual mode. This is to allow to filter swimming pool during 'Valle' tariff or in manual mode.
   condition: "{{ states('sensor.energy_tariff') != 'Valle' and states('input_boolean.piscina_pump_manual_mode') == 'off' }}"
   action:
