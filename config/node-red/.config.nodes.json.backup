@@ -1,7 +1,7 @@
 {
     "node-red": {
         "name": "node-red",
-        "version": "3.0.1",
+        "version": "3.0.2",
         "local": false,
         "user": false,
         "nodes": {
@@ -556,7 +556,7 @@
     },
     "node-red-contrib-modbus": {
         "name": "node-red-contrib-modbus",
-        "version": "5.21.2",
+        "version": "5.23.1",
         "local": false,
         "user": false,
         "nodes": {
