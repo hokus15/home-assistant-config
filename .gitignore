@@ -55,3 +55,5 @@ config/.storage/zwave_js.legacy_zwave_migration
 config/home-assistant.log.1
 *.pyc
 config/.storage/http.auth
+config/.storage/application_credentials
+config/.storage/repairs.issue_registry
