@@ -4,6 +4,7 @@ recorder:
       - person
     entities:
       - group.unidad_familiar
+      - switch.google_home_occupancy
 
 group:
   Unidad Familiar:
