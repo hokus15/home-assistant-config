@@ -1,6 +1,10 @@
 esphome:
   name: energy-display
-
+  on_boot:
+    priority: -10
+    then:
+      - delay: 15s
+      - component.update: epaperdisplay
 esp32:
   board: nodemcu-32s
   framework:
@@ -29,15 +33,33 @@ captive_portal:
 font:
   - file: 'verdanab.ttf'
     id: data
-    size: 18
+    size: 46
 
   - file: 'verdanab.ttf'
-    id: time_data
-    size: 25
+    id: text
+    size: 16
+    glyphs:
+      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D',
+       'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+       'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', 'a', 'b', 'c', 'd', 'e',
+       'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+       't', 'u', 'v', 'w', 'x', 'y', 'z', 'á', 'é', 'í', 'ó', 'ú', '.', '-',
+       'Á', 'É', 'Í', 'Ó', 'Ú', ':']
+
+  - file: 'verdanab.ttf'
+    id: text_small
+    size: 12
+    glyphs:
+      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D',
+       'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+       'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', 'a', 'b', 'c', 'd', 'e',
+       'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+       't', 'u', 'v', 'w', 'x', 'y', 'z', 'á', 'é', 'í', 'ó', 'ú', '.', '-',
+       'Á', 'É', 'Í', 'Ó', 'Ú', ':']
 
   - file: 'materialdesignicons-webfont.ttf' 
     id: icon_font
-    size: 24
+    size: 44
     glyphs: [
       '󰩲', # mdi-solar-power
       '󱤃', # mdi-home-lightning-bolt
@@ -80,54 +102,74 @@ sensor:
 time:
   - platform: homeassistant
     id: esptime
+    on_time:
+      # Every 5 mins
+      - seconds: 0
+        minutes: /5
+      # Every 1 minutes
+#      - seconds: 0
+        then:
+          - component.update: epaperdisplay    
+spi:
+  clk_pin: 26
+  mosi_pin: 23  #DIN
 
-i2c:
-  sda: GPIO21
-  scl: GPIO22
-  
 display:
-  - platform: ssd1306_i2c
-    model: "SSD1306 128x64"
-    address: 0x3C
-    id: my_display
-    pages:
-      - id: page1
-        lambda: |-
-          it.print(0, 0, id(icon_font), TextAlign::LEFT, "󱤄");
+  - platform: waveshare_epaper
+    id: epaperdisplay
+    cs_pin: 25
+    dc_pin: 33
+    rotation: 180
+    update_interval: 6000s
+    reset_duration: 2ms
+    busy_pin: 35
+    reset_pin: 32
+    model: 4.20in-bV2
+# print 1er param desplazamiento horizontal, 2º desplazamiento vertical
+    lambda: |-
+          int vertOffsetIcon = 54;
+          int vertOffsetData = 53;
+          
+          int horOffsetIcon = 15;
+          int horOffsetData = 390;
+          
+          int row = 1;
+          int textSmallOffset = 8;
+          
+          it.print(horOffsetIcon, vertOffsetIcon * (row -1), id(icon_font), TextAlign::LEFT, "󱤄");
+          it.print(35, (vertOffsetIcon * row) - textSmallOffset, id(text_small), TextAlign::CENTER, "Potencia");
           if (id(energy_power_house).has_state()) {
-            it.printf(128, 0, id(data), TextAlign::RIGHT, "%.0f W", id(energy_power_house).state);
+            it.printf(horOffsetData, vertOffsetData * (row -1), id(data), TextAlign::RIGHT, "%.0f W", id(energy_power_house).state);
           }
+          row = 2;
           if (id(fronius_solarnet_power_grid).has_state()) {
             if (id(fronius_solarnet_power_grid).state > 0) {
-              it.print(0, 32, id(icon_font), TextAlign::LEFT, "󰾜"); 
+              it.print(horOffsetIcon, vertOffsetIcon * (row -1), id(icon_font), TextAlign::LEFT, "󰾜"); 
             } else if (id(fronius_solarnet_power_grid).state < 0) {
-              it.print(0, 32, id(icon_font), TextAlign::LEFT, "󰾛");
+              it.print(horOffsetIcon, vertOffsetIcon * (row -1), id(icon_font), TextAlign::LEFT, "󰾛");
             } else {
-              it.print(0, 32, id(icon_font), TextAlign::LEFT, "󰴾");
+              it.print(horOffsetIcon, vertOffsetIcon * (row -1), id(icon_font), TextAlign::LEFT, "󰴾");
             }
-            it.printf(128, 32, id(data), TextAlign::RIGHT, "%.0f W", id(fronius_solarnet_power_grid).state);
+            it.print(34, (vertOffsetIcon * row) - textSmallOffset, id(text_small), TextAlign::CENTER, "Red");
+            it.printf(horOffsetData, vertOffsetData * (row -1), id(data), TextAlign::RIGHT, "%.0f W", id(fronius_solarnet_power_grid).state);
           }
-      - id: page2
-        lambda: |-
-          it.print(0, 0, id(icon_font), TextAlign::LEFT, "󰩲");
+          row = 3;
+          it.print(horOffsetIcon, vertOffsetIcon * (row -1), id(icon_font), TextAlign::LEFT, "󰩲");
+          it.print(38, (vertOffsetIcon * row) - textSmallOffset, id(text_small), TextAlign::CENTER, "Producción");
           if (id(energy_power_photovoltaics).has_state()) {
-            it.printf(128, 0, id(data), TextAlign::RIGHT, "%.0f W", id(energy_power_photovoltaics).state);
+            it.printf(horOffsetData, vertOffsetData * (row -1), id(data), TextAlign::RIGHT, "%.0f W", id(energy_power_photovoltaics).state);
           }
-          it.print(0, 32, id(icon_font), TextAlign::LEFT, "󰗑");
+          row = 4;
+          it.print(horOffsetIcon, vertOffsetIcon * (row -1), id(icon_font), TextAlign::LEFT, "󰗑");
+          it.print(45, (vertOffsetIcon * row) - textSmallOffset, id(text_small), TextAlign::CENTER, "Bal. neto hora");
           if (id(energy_net_balance_hour).has_state()) {
-            it.printf(128, 32, id(data), TextAlign::RIGHT, "%.2fkWh", id(energy_net_balance_hour).state);
+            it.printf(horOffsetData, vertOffsetData * (row -1), id(data), TextAlign::RIGHT, "%.2fkWh", id(energy_net_balance_hour).state);
           }
-      - id: page3
-        lambda: |-
-          it.print(0, 0, id(icon_font), TextAlign::LEFT, "󱣖");
+          row = 5;
+          it.print(horOffsetIcon, vertOffsetIcon * (row -1), id(icon_font), TextAlign::LEFT, "󱣖");
+          it.print(40, (vertOffsetIcon * row) - textSmallOffset, id(text_small), TextAlign::CENTER, "Temp. ext.");
           if (id(netatmo_bunyola_exterior_temperature).has_state()) {
-            it.printf(128, 0, id(data), TextAlign::RIGHT, "%.1f°C", id(netatmo_bunyola_exterior_temperature).state);
+            it.printf(horOffsetData, vertOffsetData * (row -1), id(data), TextAlign::RIGHT, "%.1f°C", id(netatmo_bunyola_exterior_temperature).state);
           }
-          it.strftime(64, 50, id(time_data), TextAlign::CENTER, "%H:%M:%S", id(esptime).now());
-
-interval:
-  - interval: 10s
-    then:
-      - display.page.show_next: my_display
-      - component.update: my_display      
-      
+          
+          it.strftime(200, 295, id(text), TextAlign::BASELINE_CENTER, "Última actualización %H:%M", id(esptime).now());
