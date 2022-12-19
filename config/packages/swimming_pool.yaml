@@ -181,15 +181,15 @@ template:
         # This will update every day at 7AM
         hours: 7
         minutes: 0
-      - platform: numeric_state
-        entity_id: sensor.ha_runtime_in_minutes
-        above: 2
+#      - platform: numeric_state
+#        entity_id: sensor.ha_runtime_in_minutes
+#        above: 2
     sensor:
       - name: piscina_filtering_time
         state: >- 
           {% set filtering_time = (states.sensor.piscina_k_factor.state | float(0) * ((states.sensor.piscina_temperature.state | float(0) / 10) * states.sensor.piscina_recirculation.state | float(0) )) | float(0) | round(2)%}
           {%- if filtering_time < 2 %}
-            {{ 2 | float(0) }}
+            {{ 0 | float(0) }}
           {% elif filtering_time > 8 %}
             {{ 8 | float(0) }}
           {% else %}
