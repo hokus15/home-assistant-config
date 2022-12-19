@@ -8,6 +8,7 @@ homeassistant:
   # Location required to calculate the time the sun rises and sets
   latitude: !secret ha_latitude
   longitude: !secret ha_longitude
+  country: ES
   elevation: 119
   unit_system: metric
   external_url: !secret ha_base_url
