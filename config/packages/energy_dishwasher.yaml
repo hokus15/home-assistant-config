@@ -3,6 +3,7 @@ recorder:
     entities:
       - binary_sensor.lavaplatos_status
       - sensor.lavaplatos_power
+      - sensor.lavaplatos_power_filtered
       - sensor.lavaplatos_energy_calc
 
 template:
@@ -16,3 +17,13 @@ template:
           {%- else -%}
             mdi:dishwasher-off
           {%- endif %}
+
+sensor:
+  - platform: filter
+    name: lavaplatos_power_filtered
+    unique_id: lavaplatos_power_filtered
+    entity_id: sensor.lavaplatos_power
+    filters:
+      - filter: outlier
+        window_size: 4
+        radius: 10000.0

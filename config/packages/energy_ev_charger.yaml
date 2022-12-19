@@ -3,6 +3,7 @@ recorder:
     entities:
       - binary_sensor.cargador_ev_status
       - sensor.cargador_ev_power
+      - sensor.cargador_ev_power_filtered
       - sensor.cargador_ev_energy_calc
 
 logbook:
@@ -17,6 +18,16 @@ binary_sensor:
     entity_id: sensor.cargador_ev_power
     upper: 5
     device_class: power
+
+sensor:
+  - platform: filter
+    name: cargador_ev_power_filtered
+    unique_id: cargador_ev_power_filtered
+    entity_id: sensor.cargador_ev_power
+    filters:
+      - filter: outlier
+        window_size: 4
+        radius: 10000.0
 
 input_number:
   # Grid power (negative exporting / positive importing) to turn on EV charger.

@@ -4,6 +4,7 @@ recorder:
       - binary_sensor.lavadora_status
       - binary_sensor.lavadora_status_high_power
       - sensor.lavadora_power
+      - sensor.lavadora_power_filtered
       - sensor.lavadora_energy_calc
 
 template:
@@ -27,3 +28,13 @@ template:
           {% else %}
           {{ (now().timestamp() - states.binary_sensor.lavadora_status.last_changed.timestamp()) <= 1800 }}
           {% endif %}
+
+sensor:
+  - platform: filter
+    name: lavadora_power_filtered
+    unique_id: lavadora_power_filtered
+    entity_id: sensor.lavadora_power
+    filters:
+      - filter: outlier
+        window_size: 4
+        radius: 10000.0

@@ -3,4 +3,15 @@ recorder:
     entities:
       - switch.ladron_salon
       - sensor.ladron_salon_power
+      - sensor.ladron_salon_power_filtered
       - sensor.ladron_salon_energy_calc
+      
+sensor:
+  - platform: filter
+    name: ladron_salon_power_filtered
+    unique_id: ladron_salon_power_filtered
+    entity_id: sensor.ladron_salon_power
+    filters:
+      - filter: outlier
+        window_size: 4
+        radius: 10000.0

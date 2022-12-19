@@ -3,6 +3,7 @@ recorder:
     entities:
       - binary_sensor.secadora_status
       - sensor.secadora_power
+      - sensor.secadora_power_filtered
       - sensor.secadora_energy_calc
 
 template:
@@ -16,3 +17,13 @@ template:
           {%- else -%}
             mdi:tumble-dryer-off
           {%- endif %}
+
+sensor:
+  - platform: filter
+    name: secadora_power_filtered
+    unique_id: secadora_power_filtered
+    entity_id: sensor.secadora_power
+    filters:
+      - filter: outlier
+        window_size: 4
+        radius: 10000.0

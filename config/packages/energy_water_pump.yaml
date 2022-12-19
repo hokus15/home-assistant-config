@@ -3,6 +3,7 @@ recorder:
     entities:
       - binary_sensor.bomba_agua_status
       - sensor.bomba_agua_power
+      - sensor.bomba_agua_power_filtered
       - sensor.bomba_agua_energy_calc
 
 template:
@@ -15,3 +16,13 @@ template:
           {%- else -%}
             mdi:water-pump-off
           {%- endif %}
+
+sensor:
+  - platform: filter
+    name: bomba_agua_power_filtered
+    unique_id: bomba_agua_power_filtered
+    entity_id: sensor.bomba_agua_power
+    filters:
+      - filter: outlier
+        window_size: 4
+        radius: 10000.0
