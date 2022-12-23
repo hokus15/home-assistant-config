@@ -76,3 +76,14 @@ sensor:
 #        friendly_name: "Potencia vertida"
 #        unit_of_measurement: "W"
 #        value_template: "{{ [states('sensor.fronius_solarnet_power_grid')|float, 0]|min }}"
+
+utility_meter:
+  energy_grid_today:
+    unique_id: energy_grid_today
+    source: sensor.fronius_smartmeter_energy_real_consumed
+    cycle: daily
+    tariffs:
+      - Punta
+      - Llana
+      - Valle
+      - Super-valle

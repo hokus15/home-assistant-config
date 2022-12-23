@@ -3,10 +3,12 @@ recorder:
     entities:
       - sensor.energy_grid_today_punta
       - sensor.energy_grid_today_punta_cost
-#      - sensor.energy_grid_today_llana
-#      - sensor.energy_grid_today_llana_cost
+      - sensor.energy_grid_today_llana
+      - sensor.energy_grid_today_llana_cost
       - sensor.energy_grid_today_valle
       - sensor.energy_grid_today_valle_cost
+      - sensor.energy_grid_today_super_valle
+      - sensor.energy_grid_today_super_valle_cost
 
       - sensor.energy_pvpc
       - sensor.energy_price_buy
