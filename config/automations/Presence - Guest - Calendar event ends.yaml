@@ -1,0 +1,10 @@
+- id: 'presence_guest_calendar_event_ends'
+  alias: 'Presence - Guest - Calendar event ends'
+  trigger:
+    - platform: calendar
+      event: end
+      entity_id: calendar.invitado
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.guest_mode

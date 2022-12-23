@@ -1,0 +1,19 @@
+- id: 'energy_tariff_calendar_event_starts'
+  alias: 'Energy - Tariff - Calendar event starts'
+  trigger:
+    - platform: calendar
+      event: start
+      entity_id: calendar.horarios_tarifas_electricas
+  action:
+    - service: mqtt.publish
+      data:
+        topic: 'home/sensor/energy/tariff'
+        retain: true
+        qos: 0
+        payload_template: "{{ trigger.calendar_event.summary.split('@')[0] }}"
+    - service: mqtt.publish
+      data:
+        topic: 'home/sensor/energy/price/buy'
+        retain: true
+        qos: 0
+        payload_template: "{{ trigger.calendar_event.summary.split('@')[1]|float }}"
