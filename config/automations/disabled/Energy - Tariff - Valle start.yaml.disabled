@@ -1,14 +1,12 @@
 ##############################
 # Valle tariff
-# Starting at 00 and non workdays 
+# Starting at 1AM every day
 ##############################
-- alias: 'Energy - Tariff - Valle start'
+- id: 'energy_tariff_valle_start'
+  alias: 'Energy - Tariff - Valle start'
   trigger:
     - platform: time
-      at: '00:00:00'
-    - platform: state
-      entity_id: 'binary_sensor.energy_valle_full_day_tariff'
-      to: 'on'
+      at: '01:00:00'
   action:
     - service: mqtt.publish
       data:
@@ -16,3 +14,11 @@
         retain: true
         qos: 0
         payload_template: 'Valle'
+    - service: mqtt.publish
+      data:
+        topic: 'home/sensor/energy/price/buy'
+        retain: true
+        qos: 0
+        payload_template: 0.038983
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.cargador_ev_manual_charge
