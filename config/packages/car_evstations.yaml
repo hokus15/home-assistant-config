@@ -37,6 +37,8 @@ rest:
             Libre
           {% elif status == 'OutOfOrder' %}
             Fuera de servicio
+          {% elif status == 'NoManaged' %}
+            No gestionado
           {% else %}
             Desconocido
           {%- endif %}
@@ -62,6 +64,8 @@ rest:
             Libre
           {% elif status == 'OutOfOrder' %}
             Fuera de servicio
+          {% elif status == 'NoManaged' %}
+            No gestionado
           {% else %}
             Desconocido
           {%- endif %}
@@ -87,6 +91,8 @@ rest:
             Libre
           {% elif status == 'OutOfOrder' %}
             Fuera de servicio
+          {% elif status == 'NoManaged' %}
+            No gestionado
           {% else %}
             Desconocido
           {%- endif %}
@@ -107,6 +113,10 @@ rest:
             Libre
           {% elif status == 'OpeningSoon' %}
             Próximamente
+          {% elif status == 'NoManaged' %}
+            No gestionado
+          {% elif status == 'OutOfOrder' %}
+            Fuera de servicio
           {% else %}
             Desconocido
           {%- endif %}
@@ -127,6 +137,10 @@ rest:
             Libre
           {% elif status == 'OpeningSoon' %}
             Próximamente
+          {% elif status == 'NoManaged' %}
+            No gestionado
+          {% elif status == 'OutOfOrder' %}
+            Fuera de servicio
           {% else %}
             Desconocido
           {%- endif %}
@@ -152,6 +166,8 @@ rest:
             Libre
           {% elif status == 'OutOfOrder' %}
             Fuera de servicio
+          {% elif status == 'NoManaged' %}
+            No gestionado
           {% else %}
             Desconocido
           {%- endif %}
@@ -177,6 +193,8 @@ rest:
             Libre
           {% elif status == 'OutOfOrder' %}
             Fuera de servicio
+          {% elif status == 'NoManaged' %}
+            No gestionado
           {% else %}
             Desconocido
           {%- endif %}
