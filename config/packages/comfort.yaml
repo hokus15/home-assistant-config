@@ -19,9 +19,12 @@ recorder:
       - sensor.netatmo_bunyola_suite_temperature
       - sensor.netatmo_bunyola_suite_co2
       - sensor.netatmo_bunyola_suite_humidity
-      - sensor.netatmo_bunyola_habitacion_temperature
-      - sensor.netatmo_bunyola_habitacion_co2
-      - sensor.netatmo_bunyola_habitacion_humidity
+      - sensor.netatmo_bunyola_habitacion_carlos_temperature
+      - sensor.netatmo_bunyola_habitacion_carlos_co2
+      - sensor.netatmo_bunyola_habitacion_carlos_humidity
+      - sensor.netatmo_bunyola_habitacion_coque_temperature
+      - sensor.netatmo_bunyola_habitacion_coque_co2
+      - sensor.netatmo_bunyola_habitacion_coque_humidity
       - sensor.entrance_hall_thermostat_temperature
       - sensor.despacho_sensor_movimiento_luminance
       - sensor.despacho_sensor_movimiento_temperature
@@ -46,9 +49,12 @@ logbook:
       - sensor.netatmo_bunyola_suite_temperature
       - sensor.netatmo_bunyola_suite_co2
       - sensor.netatmo_bunyola_suite_humidity
-      - sensor.netatmo_bunyola_habitacion_temperature
-      - sensor.netatmo_bunyola_habitacion_co2
-      - sensor.netatmo_bunyola_habitacion_humidity
+      - sensor.netatmo_bunyola_habitacion_carlos_temperature
+      - sensor.netatmo_bunyola_habitacion_carlos_co2
+      - sensor.netatmo_bunyola_habitacion_carlos_humidity
+      - sensor.netatmo_bunyola_habitacion_coque_temperature
+      - sensor.netatmo_bunyola_habitacion_coque_co2
+      - sensor.netatmo_bunyola_habitacion_coque_humidity
       - sensor.entrance_hall_thermostat_temperature
       - sensor.despacho_sensor_movimiento_luminance
       - sensor.despacho_sensor_movimiento_temperature
@@ -121,7 +127,8 @@ sensor:
     round_digits: 1
     entity_ids:
       - sensor.netatmo_bunyola_suite_temperature
-      - sensor.netatmo_bunyola_habitacion_temperature
+      - sensor.netatmo_bunyola_habitacion_carlos_temperature
+      - sensor.netatmo_bunyola_habitacion_coque_temperature
 
   - platform: min_max
     name: home_temperature
@@ -129,7 +136,8 @@ sensor:
     round_digits: 1
     entity_ids:
       - sensor.netatmo_bunyola_suite_temperature
-      - sensor.netatmo_bunyola_habitacion_temperature
+      - sensor.netatmo_bunyola_habitacion_carlos_temperature
+      - sensor.netatmo_bunyola_habitacion_coque_temperature
       - sensor.netatmo_bunyola_salon_temperature
       - sensor.entrance_hall_thermostat_temperature
       - sensor.despacho_sensor_movimiento_temperature
