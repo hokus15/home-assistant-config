@@ -40,7 +40,7 @@ rest:
           {% elif status == 'NoManaged' %}
             No gestionado
           {% else %}
-            Desconocido
+            {{status}}
           {%- endif %}
 
     - name: Cargador Aragón
@@ -67,7 +67,7 @@ rest:
           {% elif status == 'NoManaged' %}
             No gestionado
           {% else %}
-            Desconocido
+            {{status}}
           {%- endif %}
 
     - name: Cargador Sant Miquel
@@ -94,55 +94,61 @@ rest:
           {% elif status == 'NoManaged' %}
             No gestionado
           {% else %}
-            Desconocido
+            {{status}}
           {%- endif %}
 
     - name: Cargador Palmanyola Dalias
-      # coming soon
-      json_attributes_path: "$.[?(@.location.id=='85ae19c0-05c1-11ed-aa43-f58cc380021c')].location"
-#      json_attributes_path: "$[*].chargepoints[?(@.serialOCPP=='melibmalloxx')]"
+      # melibmallo19
+#      json_attributes_path: "$.[?(@.location.id=='85ae19c0-05c1-11ed-aa43-f58cc380021c')].location"
+      json_attributes_path: "$[*].chargepoints[?(@.serialOCPP=='melibmallo19')]"
       json_attributes:
-        - id
         - name
         - status
+        - connected
+        - numberPhases
       value_template: >-
-          {% set status = (value_json | selectattr('location.id','eq','85ae19c0-05c1-11ed-aa43-f58cc380021c') | list | first).location.status %}
+          {% set chargepointsList = namespace(chargepoints=[]) %}
+          {% for cargador in value_json %}
+          {% set chargepointsList.chargepoints = chargepointsList.chargepoints + cargador.chargepoints %}
+          {%- endfor %}
+          {% set status = (chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo19') | list | first).status %}
           {%- if status == 'Busy' %}
             Ocupado
           {% elif status == 'Available' %}
             Libre
-          {% elif status == 'OpeningSoon' %}
-            Próximamente
-          {% elif status == 'NoManaged' %}
-            No gestionado
           {% elif status == 'OutOfOrder' %}
             Fuera de servicio
+          {% elif status == 'NoManaged' %}
+            No gestionado
           {% else %}
-            Desconocido
+            {{status}}
           {%- endif %}
 
     - name: Cargador Palmanyola Violetes
-      # coming soon
-      json_attributes_path: "$.[?(@.location.id=='f66750f0-034b-11ed-aa43-f58cc380021c')].location"
-#      json_attributes_path: "$[*].chargepoints[?(@.serialOCPP=='melibmalloyy')]"
+       # melibmallo20
+#      json_attributes_path: "$.[?(@.location.id=='f66750f0-034b-11ed-aa43-f58cc380021c')].location"
+      json_attributes_path: "$[*].chargepoints[?(@.serialOCPP=='melibmallo20')]"
       json_attributes:
-        - id
         - name
         - status
+        - connected
+        - numberPhases
       value_template: >-
-          {% set status = (value_json | selectattr('location.id','eq','f66750f0-034b-11ed-aa43-f58cc380021c') | list | first).location.status %}
+          {% set chargepointsList = namespace(chargepoints=[]) %}
+          {% for cargador in value_json %}
+          {% set chargepointsList.chargepoints = chargepointsList.chargepoints + cargador.chargepoints %}
+          {%- endfor %}
+          {% set status = (chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo20') | list | first).status %}
           {%- if status == 'Busy' %}
             Ocupado
           {% elif status == 'Available' %}
             Libre
-          {% elif status == 'OpeningSoon' %}
-            Próximamente
-          {% elif status == 'NoManaged' %}
-            No gestionado
           {% elif status == 'OutOfOrder' %}
             Fuera de servicio
+          {% elif status == 'NoManaged' %}
+            No gestionado
           {% else %}
-            Desconocido
+            {{status}}
           {%- endif %}
 
     - name: Cargador Paseo Mallorca
@@ -169,7 +175,7 @@ rest:
           {% elif status == 'NoManaged' %}
             No gestionado
           {% else %}
-            Desconocido
+            {{status}}
           {%- endif %}
 
     - name: Cargador Sestanyol
@@ -196,5 +202,5 @@ rest:
           {% elif status == 'NoManaged' %}
             No gestionado
           {% else %}
-            Desconocido
+            {{status}}
           {%- endif %}
