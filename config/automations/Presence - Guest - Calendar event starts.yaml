@@ -5,6 +5,11 @@
       event: start
       entity_id: calendar.invitado
   action:
+    - service: input_number.set_value
+      target:
+        entity_id: input_number.guest_mode_minutes
+      data:
+        value: 1440
     - service: switch.turn_on
       target:
         entity_id: switch.guest_mode

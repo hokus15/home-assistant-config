@@ -8,3 +8,8 @@
     - service: switch.turn_off
       target:
         entity_id: switch.guest_mode
+    - service: input_number.set_value
+      target:
+        entity_id: input_number.guest_mode_minutes
+      data:
+        value: 180
