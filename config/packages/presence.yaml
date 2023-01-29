@@ -5,6 +5,7 @@ recorder:
     entities:
       - group.unidad_familiar
       - switch.google_home_occupancy
+      - binary_sensor.withings_in_bed_jm
 
 group:
   Unidad Familiar:
@@ -20,16 +21,16 @@ input_number:
     name: Minutos invitado
     initial: 180
     min: 0
-    max: 240
+    max: 1440
     step: 5
 
 mqtt:
   device_tracker:
     # Set to 'home' when when hokusphone is connected to HokusWiFi and 'not_home' otherwise
-    - name: hokusphone_wifi
-      state_topic: phone/sensor/hokus/wifi
-      source_type: 'router'
-      unique_id: hokusphone_wifi
+#    - name: hokusphone_wifi
+#      state_topic: phone/sensor/hokus/wifi
+#      source_type: 'router'
+#      unique_id: hokusphone_wifi
       # Set to 'home' when when geniphone is connected to HokusWiFi and 'not_home' otherwise
     - name: geniphone_wifi
       state_topic: phone/sensor/geni/wifi
@@ -47,8 +48,8 @@ mqtt:
     # This sensor is to workaround it using some automations
     # Presence - HokusPhone - Wifi home.yaml
     # Presence - HokusPhone - Wifi not_home.yaml
-    - state_topic: 'phone/sensor/hokus/wifi/ssid'
-      name: hokusphone_wifi_ssid
+#    - state_topic: 'phone/sensor/hokus/wifi/ssid'
+#      name: hokusphone_wifi_ssid
 
     # Consider_home is not working properly for mqtt device_tracker
     # This sensor is to workaround it using some automations
