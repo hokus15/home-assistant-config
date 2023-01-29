@@ -131,8 +131,8 @@ ifttt:
   key: !secret ifttt_api_key
 
 withings:
-  client_id: !secret withings_client_id
-  client_secret: !secret withings_client_secret
+#  client_id: !secret withings_client_id
+#  client_secret: !secret withings_client_secret
   use_webhook: true
 
 #google:
