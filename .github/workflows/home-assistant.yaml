@@ -16,7 +16,7 @@ jobs:
           echo $HA_VERSION
           echo "current_version=$HA_VERSION" >> $GITHUB_OUTPUT
   home-assistant:
-    name: Home Assistant Core Configuration Check for version ${{ matrix.version }}
+    name: Home Assistant Core Configuration Check for ${{ matrix.version }} version
     runs-on: ubuntu-latest
     needs: [version_env]
     strategy:
