@@ -7,7 +7,7 @@ To get detailed description on how everything is configured please visit the [Wi
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/hokus15/home-assistant-config?logo=github)
 [![Build Status](https://github.com/hokus15/home-assistant-config/actions/workflows/home-assistant.yaml/badge.svg)](https://github.com/hokus15/home-assistant-config/actions)
-![Home-Assistant version](https://img.shields.io/badge/dynamic/json?color=blue&label=Home-Assistant&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fhokus15%2Fhome-assistant-config%2Fmaster%2Fconfig%2FHA_VERSION.json&logo=home-assistant)
+[![Home-Assistant version](https://img.shields.io/badge/dynamic/json?color=blue&label=Home-Assistant&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fhokus15%2Fhome-assistant-config%2Fmaster%2Fconfig%2FHA_VERSION.json&logo=home-assistant)](https://www.home-assistant.io/)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/hokus15/home-assistant-config?logo=github)
 
 ## Screenshot Home
