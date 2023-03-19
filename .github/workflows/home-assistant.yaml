@@ -7,8 +7,9 @@ jobs:
     steps:
       - name: ⤵️ Check out configuration from GitHub
         uses: actions/checkout@v3
-      - name: Update folder_watcher config
+      - name: Update config
         run: |
+          sed -i 's/\/share\/camera/.\/config/g' ./config/configuration.yaml
           sed -i 's/\/share\/camera/.\/config/g' ./config/packages/security.yaml
       - name: 🚀 Run Home Assistant Configuration Check
         uses: frenck/action-home-assistant@v1.4
