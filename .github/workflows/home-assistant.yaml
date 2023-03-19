@@ -7,9 +7,10 @@ jobs:
     steps:
       - name: ⤵️ Check out configuration from GitHub
         uses: actions/checkout@v3
-      - name: Create folder
+      - name: Remove conflicting lines
         run: |
-          sudo mkdir -p /share/camera
+          sed -i '/allowlist_external_dirs:/d' ./config/configuration.yaml
+          sed -i '/- /share/camera/d' ./config/configuration.yaml
       - name: 🚀 Run Home Assistant Configuration Check
         uses: frenck/action-home-assistant@v1.4
         with:
