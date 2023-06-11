@@ -35,6 +35,7 @@ recorder:
 #      - sensor.car_ioniq_battery_fan_feedback
       - sensor.car_ioniq_charge_time_to_100_mins
       - input_boolean.car_ioniq_has_charged
+      - binary_sensor.hokusphone_android_auto
 
 logbook:
   exclude:
