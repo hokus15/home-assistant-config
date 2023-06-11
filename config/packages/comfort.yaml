@@ -93,23 +93,6 @@ binary_sensor:
         max_samples: 5
 
 sensor:
-  # Sensor to define the season of the year
-#  - platform: season
-
-  - platform: darksky
-    api_key: !secret dark_sky_api_key
-    forecast:
-      - 0
-    language: 'es'
-    latitude: !secret ha_latitude
-    longitude: !secret ha_longitude
-    units: 'ca'
-    monitored_conditions:
-      - summary
-      - icon
-    scan_interval:
-      hours: 1
-  
   # Comfort sensors
   - platform: min_max
     name: ground_floor_temperature
@@ -176,11 +159,3 @@ input_boolean:
   bed_occupancy_jordi:
     name: Jordi en la cama
     icon: 'mdi:bed'
-
-weather:
-  - platform: darksky
-    api_key: !secret dark_sky_api_key
-    latitude: !secret ha_latitude
-    longitude: !secret ha_longitude
-#    units: 'ca'
-    mode: daily
