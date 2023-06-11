@@ -6,6 +6,7 @@ recorder:
       - group.unidad_familiar
       - switch.google_home_occupancy
       - binary_sensor.withings_in_bed_jm
+      - device_tracker.hokusphone
 
 group:
   Unidad Familiar:
@@ -93,16 +94,16 @@ sensor:
       next_holiday_mode_start:
         friendly_name: 'Inicio vacaciones'
         value_template: >-
-             {%- if state_attr('calendar.holiday_mode','start_time') is not none %}
-                 {{ as_timestamp(states.calendar.holiday_mode.attributes.start_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}
+             {%- if state_attr('calendar.vacaciones','start_time') is not none %}
+                 {{ as_timestamp(states.calendar.vacaciones.attributes.start_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}
              {% else %}
                  No previstas
              {%- endif %}
       next_holiday_mode_end:
         friendly_name: 'Fin vacaciones'
         value_template: >-
-             {%- if state_attr('calendar.holiday_mode','end_time') is not none %}
-                 {{ as_timestamp(states.calendar.holiday_mode.attributes.end_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}
+             {%- if state_attr('calendar.vacaciones','end_time') is not none %}
+                 {{ as_timestamp(states.calendar.vacaciones.attributes.end_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}
              {% else %}
                  No previstas
              {%- endif %}
