@@ -74,10 +74,10 @@ binary_sensor:
         value_template: >- 
           {{ states('sensor.first_floor_temperature')|float(0) < states('sensor.entrance_hall_thermostat_target_temperature')|float(0)
              and is_state('group.unidad_familiar', 'home')
-             and states.climate.netatmo_general != None
-             and not is_state('climate.netatmo_general', 'off')
-             and not is_state_attr('climate.netatmo_general', 'preset_mode', 'away')
-             and is_state_attr('climate.netatmo_general', 'hvac_action', 'off')
+             and states.climate.recibidor != None
+             and not is_state('climate.recibidor', 'off')
+             and not is_state_attr('climate.recibidor', 'preset_mode', 'away')
+             and is_state_attr('climate.recibidor', 'hvac_action', 'off')
              and is_state('binary_sensor.first_floor_temperature_down','on')
           }}
       summer_time:
@@ -145,9 +145,9 @@ sensor:
         value_template: '{{ as_timestamp(states.sun.sun.attributes.next_setting)|timestamp_custom("%H:%M:%S") }}'
       # Thermostat sensors
       entrance_hall_thermostat_target_temperature:
-        value_template: "{{state_attr('climate.netatmo_general', 'temperature')}}"
+        value_template: "{{state_attr('climate.recibidor', 'temperature')}}"
       entrance_hall_thermostat_temperature:
-        value_template: "{{state_attr('climate.netatmo_general', 'current_temperature')}}"
+        value_template: "{{state_attr('climate.recibidor', 'current_temperature')}}"
 
 input_boolean:
   home_comfort_mode:
