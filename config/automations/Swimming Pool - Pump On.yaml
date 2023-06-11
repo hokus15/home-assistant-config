@@ -16,27 +16,27 @@
           # It's not already on
           - switch.motor_piscina
           # Specific appliances are off
-          - binary_sensor.lavadora_status_high_power
-          - binary_sensor.secadora_status
-          - binary_sensor.lavaplatos_status
+#          - binary_sensor.lavadora_status_high_power
+#          - binary_sensor.secadora_status
+#          - binary_sensor.lavaplatos_status
         state: "off"
       # Energy net balance is negative
 #      - condition: numeric_state
 #        entity_id: sensor.energy_net_balance_hour
 #        below: 0
       # There is enough energy generated to start pump
-#      - condition: state
-#        entity_id: binary_sensor.piscina_pump_on_energy_and_delay_met
-#        state: "on"
-      - condition: or
-        conditions:
+      - condition: state
+        entity_id: binary_sensor.piscina_pump_on_energy_and_delay_met
+        state: "on"
+#      - condition: or
+#        conditions:
           # There is enough energy generated to start pump OR it's in 'Valle' tariff
-          - condition: state
-            entity_id: binary_sensor.piscina_pump_on_energy_and_delay_met
-            state: "on"
-          - condition: state
-            entity_id: sensor.energy_tariff
-            state: "Valle"
+#          - condition: state
+#            entity_id: binary_sensor.piscina_pump_on_energy_and_delay_met
+#            state: "on"
+#          - condition: state
+#            entity_id: sensor.energy_tariff
+#            state: "Valle"
   action:
     - service: switch.turn_on
       entity_id: switch.motor_piscina

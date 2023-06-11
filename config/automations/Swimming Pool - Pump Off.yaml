@@ -2,9 +2,9 @@
   alias: 'Swimming Pool - Pump Off'
   trigger:
     # When exit 'Valle' tariff
-    - platform: state
-      entity_id: sensor.energy_tariff
-      from: 'Valle'
+#    - platform: state
+#      entity_id: sensor.energy_tariff
+#      from: 'Valle'
     # When consuming from grid more power than threshold for configured minutes
     - platform: state
       entity_id: binary_sensor.piscina_pump_off_energy_and_delay_met
@@ -14,7 +14,9 @@
       entity_id: sensor.energy_net_balance_hour
       above: 0.09
 # Only execute action when not in 'Valle' tariff and not in manual mode. This is to allow to filter swimming pool during 'Valle' tariff or in manual mode.
-  condition: "{{ states('sensor.energy_tariff') != 'Valle' and states('input_boolean.piscina_pump_manual_mode') == 'off' }}"
+#  condition: "{{ states('sensor.energy_tariff') != 'Valle' and states('input_boolean.piscina_pump_manual_mode') == 'off' }}"
+# Only execute action when not in manual mode. This is to allow to filter swimming pool in manual mode.
+  condition: "{{ states('input_boolean.piscina_pump_manual_mode') == 'off' }}"
   action:
     - service: switch.turn_off
       entity_id: switch.motor_piscina
