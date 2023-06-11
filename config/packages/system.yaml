@@ -3,11 +3,6 @@ recorder:
     entities:
       - sensor.node_red
 
-binary_sensor:
- - platform: workday
-   country: ES
-   province: IB
-
 sensor:
   - platform: websocket_api
   
