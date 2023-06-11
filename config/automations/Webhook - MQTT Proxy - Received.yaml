@@ -3,6 +3,7 @@
   trigger:
     - platform: webhook
       webhook_id: mqtt-proxy-webhook
+      local_only: false
   action:
     - service: mqtt.publish
       data_template:

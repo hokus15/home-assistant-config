@@ -3,6 +3,7 @@
   trigger:
     - platform: webhook
       webhook_id: nuki-webhook
+      local_only: false
   action:
     - service: mqtt.publish
       data_template:
