@@ -46,7 +46,7 @@ mqtt:
       retain: false
 
     - name: "Luz Piscina"
-      icon: 'mdi:lightbulb'
+      icon: "mdi:lightbulb"
       state_topic: "home/light/piscina/stat/POWER"
       command_topic: "home/light/piscina/cmnd/POWER"
       availability_topic: "home/light/piscina/tele/LWT"
@@ -59,7 +59,7 @@ mqtt:
   sensor:
     - name: piscina_water_temperature
       state_topic: "home/switch/motor_piscina/tele/SENSOR"
-      value_template: "{{ value_json.DS18B20.Temperature | float(0) + states.input_number.temperature_correction.state | float(0) }}"
+      value_template: "{{ value_json.DS18B20.Temperature | float(default=0) + states.input_number.temperature_correction.state | float(default=0) }}"
       device_class: "temperature"
       unit_of_measurement: "ºC"
       state_class: measurement
@@ -68,92 +68,92 @@ sensor:
   - platform: template
     sensors:
       piscina_width:
-        friendly_name: 'Ancho'
+        friendly_name: "Ancho"
         value_template: 3.5
         unit_of_measurement: m
       piscina_height:
-        friendly_name: 'Largo'
+        friendly_name: "Largo"
         value_template: 7
         unit_of_measurement: m
       piscina_average_depth:
-        friendly_name: 'Profundidad media'
+        friendly_name: "Profundidad media"
         value_template: 1.6
         unit_of_measurement: m
       piscina_pump_power:
-        friendly_name: 'Potencia'
+        friendly_name: "Potencia"
         value_template: 16
-        unit_of_measurement: 'm3/h'
+        unit_of_measurement: "m3/h"
       piscina_pump_efficiency:
-        friendly_name: 'Eficiencia'
+        friendly_name: "Eficiencia"
         value_template: 0.8
       piscina_capacity:
-        friendly_name: 'Capacidad'
+        friendly_name: "Capacidad"
         value_template: >-
-          {%if states.sensor.ha_runtime_in_minutes.state|float(0) > 2 %}
+          {%if states.sensor.ha_runtime_in_minutes.state | float(default=0) > 2 %}
           {%- if states.sensor.piscina_width and states.sensor.piscina_height and states.sensor.piscina_average_depth %}
-          {{ states.sensor.piscina_width.state | float * states.sensor.piscina_height.state | float * states.sensor.piscina_average_depth.state | float}}
+          {{ states.sensor.piscina_width.state | float(default=0) * states.sensor.piscina_height.state | float(default=0) * states.sensor.piscina_average_depth.state | float(default=0)}}
           {%- endif %}
-          {% else %}Calculando...{%- endif %}
-        unit_of_measurement: 'm3'
+          {% else %}0{%- endif %}
+        unit_of_measurement: "m3"
       piscina_recirculation:
-        friendly_name: 'Recirculación'
+        friendly_name: "Recirculación"
         value_template: >-
-          {%if states.sensor.ha_runtime_in_minutes.state|float(0) > 2 %}
-          {%- if states.sensor.piscina_capacity and states.sensor.piscina_pump_power and states.sensor.piscina_pump_efficiency %}
-          {{ (states.sensor.piscina_capacity.state | float / (states.sensor.piscina_pump_power.state | float * states.sensor.piscina_pump_efficiency.state | float )) | round(1) }}
+          {%if states.sensor.ha_runtime_in_minutes.state | float(default=0) > 2 %}
+          {%- if states.sensor.piscina_capacity and states.sensor.piscina_capacity is not none and states.sensor.piscina_pump_power and states.sensor.piscina_pump_power is not none and states.sensor.piscina_pump_efficiency and states.sensor.piscina_pump_efficiency is not none %}
+          {{ (states.sensor.piscina_capacity.state | float(default=0) / (states.sensor.piscina_pump_power.state | float(default=0) * states.sensor.piscina_pump_efficiency.state | float(default=0) )) | round(1) }}
           {%- endif %}
-          {% else %}Calculando...{%- endif %}
-        unit_of_measurement: 'h'
+          {% else %}0{%- endif %}
+        unit_of_measurement: "h"
       piscina_k_factor:
-        friendly_name: 'Factor reduccion (K)'
+        friendly_name: "Factor reduccion (K)"
         value_template: >-
-          {%if states.sensor.ha_runtime_in_minutes.state|float(0) > 2 %}
-          {%- if states.sensor.piscina_temperature.state | float > 15 %}
+          {%if states.sensor.ha_runtime_in_minutes.state | float(default=0) > 2 %}
+          {%- if states.sensor.piscina_temperature.state | float(default=0) > 15 %}
             1
-          {% elif states.sensor.piscina_temperature.state | float <= 15 and states.sensor.piscina_temperature.state | float > 13 %}
+          {% elif states.sensor.piscina_temperature.state | float(default=0) <= 15 and states.sensor.piscina_temperature.state | float(default=0) > 13 %}
             0.5
-          {% elif states.sensor.piscina_temperature.state | float <= 13 and states.sensor.piscina_temperature.state | float > 10 %}
+          {% elif states.sensor.piscina_temperature.state | float(default=0) <= 13 and states.sensor.piscina_temperature.state | float(default=0) > 10 %}
             0.33
-          {% elif states.sensor.piscina_temperature.state | float <= 10 and states.sensor.piscina_temperature.state | float > 5 %}
+          {% elif states.sensor.piscina_temperature.state | float(default=0) <= 10 and states.sensor.piscina_temperature.state | float(default=0) > 5 %}
             0.25
-          {% elif states.sensor.piscina_temperature.state | float <= 5 %}
+          {% elif states.sensor.piscina_temperature.state | float(default=0) <= 5 %}
             0.15
           {%- endif %}
-          {% else %}Calculando...{%- endif %}
-        icon_template: 'mdi:arrow-down-bold'
-#      piscina_filtering_time:
-#        friendly_name: 'Tiempo de filtrado'
-#        value_template: >- 
-#          {%if states.sensor.ha_runtime_in_minutes.state|float(0) > 2 %}
-#          {% set filtering_time = (states.sensor.piscina_k_factor.state | float * ((states.sensor.piscina_temperature.state | float / 10) * states.sensor.piscina_recirculation.state | float )) | float | round(2)%}
-#          {%- if filtering_time < 2 %}
-#            {{ 2 | float }}
-#          {% elif filtering_time > 8 %}
-#            {{ 8 | float }}
-#          {% else %}
-#            {{ filtering_time }}
-#          {%- endif %}
-#          {% else %}Calculando...{%- endif %}
-#        unit_of_measurement: 'h'
-#        icon_template: 'mdi:clock'
-#      piscina_off_time:
-#        friendly_name: 'Apagado'
-#        value_template: >- 
-#          {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
-##          {%- if is_state('binary_sensor.summer_time', 'on') %}
-##            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
-##          {% else %}
-##            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
-##          {%- endif %}
-#        icon_template: 'mdi:power-plug-off'
-#      piscina_on_time:
-#        friendly_name: 'Encendido'
-#        # The time round to the minute
-#        value_template: >-
-#          {%- if states.sensor.piscina_off_time %}
-#            {{(((as_timestamp(strptime(states.sensor.piscina_off_time.state, "%Y-%m-%d, %H:%M"))-(states.sensor.piscina_filtering_time.state | float * 60 * 60)) // 60) * 60)|timestamp_custom("%Y-%m-%d, %H:%M")}}
-#          {%- endif %}
-#        icon_template: 'mdi:power-plug'
+          {% else %}0{%- endif %}
+        icon_template: "mdi:arrow-down-bold"
+  #      piscina_filtering_time:
+  #        friendly_name: 'Tiempo de filtrado'
+  #        value_template: >-
+  #          {%if states.sensor.ha_runtime_in_minutes.state|float(0) > 2 %}
+  #          {% set filtering_time = (states.sensor.piscina_k_factor.state | float * ((states.sensor.piscina_temperature.state | float / 10) * states.sensor.piscina_recirculation.state | float )) | float | round(2)%}
+  #          {%- if filtering_time < 2 %}
+  #            {{ 2 | float }}
+  #          {% elif filtering_time > 8 %}
+  #            {{ 8 | float }}
+  #          {% else %}
+  #            {{ filtering_time }}
+  #          {%- endif %}
+  #          {% else %}Calculando...{%- endif %}
+  #        unit_of_measurement: 'h'
+  #        icon_template: 'mdi:clock'
+  #      piscina_off_time:
+  #        friendly_name: 'Apagado'
+  #        value_template: >-
+  #          {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=7).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
+  ##          {%- if is_state('binary_sensor.summer_time', 'on') %}
+  ##            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
+  ##          {% else %}
+  ##            {{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=12).replace(minute=0).replace(second=0))|timestamp_custom("%Y-%m-%d, %H:%M") }}
+  ##          {%- endif %}
+  #        icon_template: 'mdi:power-plug-off'
+  #      piscina_on_time:
+  #        friendly_name: 'Encendido'
+  #        # The time round to the minute
+  #        value_template: >-
+  #          {%- if states.sensor.piscina_off_time %}
+  #            {{(((as_timestamp(strptime(states.sensor.piscina_off_time.state, "%Y-%m-%d, %H:%M"))-(states.sensor.piscina_filtering_time.state | float * 60 * 60)) // 60) * 60)|timestamp_custom("%Y-%m-%d, %H:%M")}}
+  #          {%- endif %}
+  #        icon_template: 'mdi:power-plug'
 
   - platform: statistics
     name: piscina_temperature
@@ -163,12 +163,12 @@ sensor:
     sampling_size: 1440
     max_age:
       hours: 24
-  
+
   # Use of the swimming pool pump today
   - platform: history_stats
     name: piscina_on_history
     entity_id: switch.motor_piscina
-    state: 'on'
+    state: "on"
     # Start at 7AM. The preference is to run swimming pool pump when there is sun light but in some cases it may be desired to run it at 'Valle' tariff.
     # If starts at midnight it would run at 'Valle' tariff first (during night). So start counting when valle tariff ends so we make sure the priority is when there is sun light
     end: "{{ (now().replace(minute=0,second=0) + timedelta(hours=17)).replace(hour=7) }}"
@@ -181,49 +181,49 @@ template:
         # This will update every day at 7AM
         hours: 7
         minutes: 0
-#      - platform: numeric_state
-#        entity_id: sensor.ha_runtime_in_minutes
-#        above: 2
+    #      - platform: numeric_state
+    #        entity_id: sensor.ha_runtime_in_minutes
+    #        above: 2
     sensor:
       - name: piscina_filtering_time
-        state: >- 
-          {% set filtering_time = (states.sensor.piscina_k_factor.state | float(0) * ((states.sensor.piscina_temperature.state | float(0) / 10) * states.sensor.piscina_recirculation.state | float(0) )) | float(0) | round(2)%}
+        state: >-
+          {% set filtering_time = (states.sensor.piscina_k_factor.state | float(default=0) * ((states.sensor.piscina_temperature.state | float(default=0) / 10) * states.sensor.piscina_recirculation.state | float(default=0) )) | float(default=0) | round(2)%}
           {%- if filtering_time < 2 %}
-            {{ 0 | float(0) }}
+            {{ 0 | float(default=0) }}
           {% elif filtering_time > 8 %}
-            {{ 8 | float(0) }}
+            {{ 8 | float(default=0) }}
           {% else %}
             {{ filtering_time }}
           {%- endif %}
-        unit_of_measurement: 'h'
+        unit_of_measurement: "h"
   - binary_sensor:
       # on when the exported energy is over the input_number.piscina_pump_on_threshold threshold
       - name: piscina_pump_on_energy_export_over_threshold
-        state: "{{ states('sensor.fronius_solarnet_power_grid')|float(0) <= states('input_number.piscina_pump_on_threshold')|float(0) }}"
+        state: "{{ states('sensor.fronius_solarnet_power_grid') | float(default=0) <= states('input_number.piscina_pump_on_threshold') | float(default=0) }}"
       # on when the exported energy is over the input_number.piscina_pump_on_threshold threshold during input_number.piscina_pump_on_delay minutes
       - name: piscina_pump_on_delay_met
-        state: "{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.piscina_pump_on_energy_export_over_threshold.last_changed))|int(0)//60)|int(0) > states('input_number.piscina_pump_on_delay')|int(0) }}"
+        state: "{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.piscina_pump_on_energy_export_over_threshold.last_changed)) | int(default=0)//60) | int(default=0) > states('input_number.piscina_pump_on_delay') | int(default=0) }}"
       # on when both above sensors are on
       - name: piscina_pump_on_energy_and_delay_met
         state: "{{ states('binary_sensor.piscina_pump_on_energy_export_over_threshold') == 'on' and states('binary_sensor.piscina_pump_on_delay_met') == 'on' }}"
 
       # on when the consumed energy is over the input_number.piscina_pump_off_threshold threshold and the hour net balance is over 0
       - name: piscina_pump_off_energy_consumed_over_threshold
-        state: "{{ states('sensor.fronius_solarnet_power_grid')|float(0) >= states('input_number.piscina_pump_off_threshold')|float(0) and states('sensor.energy_net_balance_hour')|float(0) > 0 }}"
+        state: "{{ states('sensor.fronius_solarnet_power_grid') | float(default=0) >= states('input_number.piscina_pump_off_threshold') | float(default=0) and states('sensor.energy_net_balance_hour') | float(default=0) > 0 }}"
       # on when the consumed energy is over the input_number.piscina_pump_off_threshold threshold during input_number.piscina_pump_off_delay minutes
       - name: piscina_pump_off_delay_met
-        state: "{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.piscina_pump_off_energy_consumed_over_threshold.last_changed))|int(0)//60)|int(0) > states('input_number.piscina_pump_off_delay')|int(0) }}"
+        state: "{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.piscina_pump_off_energy_consumed_over_threshold.last_changed)) | int(default=0)//60) | int(default=0) > states('input_number.piscina_pump_off_delay') | int(default=0) }}"
       # on when both above sensors are on
       - name: piscina_pump_off_energy_and_delay_met
         state: "{{ states('binary_sensor.piscina_pump_off_energy_consumed_over_threshold') == 'on' and states('binary_sensor.piscina_pump_off_delay_met') == 'on' }}"
       - name: piscina_pump_off_filtering_time_met
-        state: "{{ states('sensor.piscina_on_history')|float(0) >= states('sensor.piscina_filtering_time')|float(0) }}"
+        state: "{{ states('sensor.piscina_on_history') | float(default=0) >= states('sensor.piscina_filtering_time') | float(default=0) }}"
 
 input_number:
   temperature_correction:
-    name: 'Corrección temp.'
-    unit_of_measurement: 'ºC'
-    icon: 'mdi:thermometer-lines'
+    name: "Corrección temp."
+    unit_of_measurement: "ºC"
+    icon: "mdi:thermometer-lines"
     min: -5
     max: 5
     step: 0.5
@@ -231,9 +231,9 @@ input_number:
   # Grid power (negative exporting / positive importing) to turn on swimming pool pump.
   # i.e: -1200 Means turn on swimming pool pump when exporting 1200W to the grid.
   piscina_pump_on_threshold:
-    name: 'Potencia para encendido'
-    unit_of_measurement: 'W'
-    icon: 'mdi:lightning-bolt'
+    name: "Potencia para encendido"
+    unit_of_measurement: "W"
+    icon: "mdi:lightning-bolt"
     initial: -1200
     min: -3500
     max: 0
@@ -241,25 +241,25 @@ input_number:
   # Max power consumed from grid allowed.
   # If the consumed power is over this threshold for x minutes, the swimming pool pump will be turned off by an automation.
   piscina_pump_off_threshold:
-    name: 'Consumo para apagado'
-    unit_of_measurement: 'W'
-    icon: 'mdi:lightning-bolt'
+    name: "Consumo para apagado"
+    unit_of_measurement: "W"
+    icon: "mdi:lightning-bolt"
     initial: 500
     min: 0
     max: 2000
     step: 100
   piscina_pump_on_delay:
-    name: 'Retardo encendido'
-    unit_of_measurement: 'mins'
-    icon: 'mdi:clock-in'
+    name: "Retardo encendido"
+    unit_of_measurement: "mins"
+    icon: "mdi:clock-in"
     initial: 2
     min: 0
     max: 60
     step: 1
   piscina_pump_off_delay:
-    name: 'Retardo apagado'
-    unit_of_measurement: 'mins'
-    icon: 'mdi:clock-out'
+    name: "Retardo apagado"
+    unit_of_measurement: "mins"
+    icon: "mdi:clock-out"
     initial: 12
     min: 0
     max: 60
@@ -268,7 +268,6 @@ input_number:
 input_boolean:
   piscina_pump_manual_mode:
     name: Modo manual
-
 #utility_meter:
 #  piscina_today_energy:
 #    source: sensor.piscina_energy

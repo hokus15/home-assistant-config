@@ -10,7 +10,7 @@ recorder:
       - sensor.lock_entrada_sensor_door_state
       - sensor.lock_entrada_sensor_battery_state
       - sensor.lock_entrada_sensor_lock_state
-      
+
       - switch.recibidor_camara_det_mov
       - switch.salon_camara_det_mov
       - switch.cocina_camara_det_mov
@@ -36,18 +36,18 @@ logbook:
 folder_watcher:
   - folder: /share/camera
     patterns:
-      - '*.jpg'
-      - '*.mp4'
-      - '*.mkv'
+      - "*.jpg"
+      - "*.mp4"
+      - "*.mkv"
 
 group:
   Seguridad:
     entities:
       - switch.recibidor_camara_det_mov
       - switch.salon_camara_det_mov
-      - switch.cocina_camara_det_mov
+      # - switch.cocina_camara_det_mov
       - switch.piscina_camara_det_mov
-#      - switch.barbacoa_camara_det_mov
+      # - switch.barbacoa_camara_det_mov
       - switch.caseta_camara_det_mov
       - input_boolean.entrada_camara_det_mov
       - input_boolean.despacho_sensor_movimiento
@@ -69,7 +69,7 @@ command_line:
       # 'curl -k --silent "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=getMotionDetectConfig&usr=<camera_username>&pwd=<camera_password>" | grep -oP "(?<=isEnable>).*?(?=</isEnable>)"'
       command_state: !secret cam_recibidor_motion_detection_state
       value_template: '{{ value == "1" }}'
-      
+
   - switch:
       name: piscina_camara_det_mov
       # Command used:
@@ -140,8 +140,8 @@ command_line:
       # Command used to get infrared status for a foscam camera:
       # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
       command: !secret cam_recibidor_infrared_command
-      payload_on: '1'
-      payload_off: '0'
+      payload_on: "1"
+      payload_off: "0"
       #device_class: light
 
   - binary_sensor:
@@ -149,8 +149,8 @@ command_line:
       # Command used to get infrared status for a foscam camera:
       # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
       command: !secret cam_piscina_infrared_command
-      payload_on: '1'
-      payload_off: '0'
+      payload_on: "1"
+      payload_off: "0"
       #device_class: light
 
   - binary_sensor:
@@ -158,58 +158,58 @@ command_line:
       # Command used to get infrared status for a foscam camera:
       # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
       command: !secret cam_barbacoa_infrared_command
-      payload_on: '1'
-      payload_off: '0'
+      payload_on: "1"
+      payload_off: "0"
       #device_class: light
-      
+
   - binary_sensor:
       name: salon_camara_infrarrojo
       # Command used to get infrared status for a foscam camera:
       # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
       command: !secret cam_salon_infrared_command
-      payload_on: '1'
-      payload_off: '0'
+      payload_on: "1"
+      payload_off: "0"
       #device_class: light
-      
+
   - binary_sensor:
       name: cocina_camara_infrarrojo
       # Command used to get infrared status for a foscam camera:
       # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
       command: !secret cam_cocina_infrared_command
-      payload_on: '1'
-      payload_off: '0'
+      payload_on: "1"
+      payload_off: "0"
       #device_class: light
 
 input_boolean:
   porche_sensor_puerta:
     name: Det. apert. puerta porche
-    icon: 'mdi:glassdoor'
-  
+    icon: "mdi:glassdoor"
+
   porche_sensor_persiana:
     name: Det. apert. persiana porche
-    icon: 'mdi:glassdoor'
-  
+    icon: "mdi:glassdoor"
+
   coladuria_sensor_puerta:
     name: Det. apert. puerta coladuría
-    icon: 'mdi:glassdoor'
+    icon: "mdi:glassdoor"
 
   entrada_sensor_puerta:
     name: Det. apert. puerta entrada
-    icon: 'mdi:glassdoor'
-  
+    icon: "mdi:glassdoor"
+
   despacho_sensor_movimiento:
     name: Det. mov. despacho
-    icon: 'mdi:transit-transfer'
-  
+    icon: "mdi:transit-transfer"
+
   entrada_camara_det_mov:
     name: Det. mov. entrada ppal.
-    icon: 'mdi:transit-transfer'
+    icon: "mdi:transit-transfer"
 
 binary_sensor:
   - platform: template
     sensors:
       entrada_sensor_puerta:
-        friendly_name: 'Puerta entrada'
+        friendly_name: "Puerta entrada"
         device_class: door
         value_template: "{{is_state_attr('sensor.lock_entrada_state', 'doorsensorState', 3) }}"
 
@@ -220,17 +220,17 @@ shell_command:
 
 mqtt:
   sensor:
-    - state_topic: 'home/lock/entrada'
-      value_template: '{{ value_json.stateName }}'
+    - state_topic: "home/lock/entrada"
+      value_template: "{{ value_json.stateName }}"
       name: lock_entrada_state
-      json_attributes_topic: 'home/lock/entrada'
+      json_attributes_topic: "home/lock/entrada"
       force_update: true
 
 sensor:
   - platform: template
     sensors:
       lock_entrada_sensor_door_state:
-        friendly_name: 'Puerta entrada'
+        friendly_name: "Puerta entrada"
         value_template: >-
           {%- if is_state_attr('sensor.lock_entrada_state', 'doorsensorState', 1) %}
               Sensor no activo
@@ -246,36 +246,36 @@ sensor:
               Desconocido
           {%- endif %}
 
-#      lock_entrada_sensor_lock_state:
-#        friendly_name: 'Cerradura entrada'
-#        value_template: >-
-#          {%- if is_state_attr('sensor.lock_entrada_state', 'state', 0) %}
-#              No calibrado
-#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 1) %}
-#              Bloqueado
-#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 2) %}
-#              Desbloqueando
-#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 3) %}
-#              Desbloqueado
-#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 4) %}
-#              Bloqueando
-#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 5) %}
-#              Abierto
-#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 6) %}
-#              Desbloqueado (lock'n'go)
-#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 7) %}
-#              Abriendo
-#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 253) %}
-#              ?
-#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 254) %}
-#              Motor bloqueado
-#          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 255) %}
-#              Indefinido
-#          {% else %}
-#              Desconocido
-#          {%- endif %}
+      #      lock_entrada_sensor_lock_state:
+      #        friendly_name: 'Cerradura entrada'
+      #        value_template: >-
+      #          {%- if is_state_attr('sensor.lock_entrada_state', 'state', 0) %}
+      #              No calibrado
+      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 1) %}
+      #              Bloqueado
+      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 2) %}
+      #              Desbloqueando
+      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 3) %}
+      #              Desbloqueado
+      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 4) %}
+      #              Bloqueando
+      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 5) %}
+      #              Abierto
+      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 6) %}
+      #              Desbloqueado (lock'n'go)
+      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 7) %}
+      #              Abriendo
+      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 253) %}
+      #              ?
+      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 254) %}
+      #              Motor bloqueado
+      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 255) %}
+      #              Indefinido
+      #          {% else %}
+      #              Desconocido
+      #          {%- endif %}
 
       lock_entrada_sensor_battery_state:
         value_template: "{{state_attr('sensor.lock_entrada_state','batteryChargeState')|int}}"
-        device_class: 'battery'
-        unit_of_measurement: '%'
+        device_class: "battery"
+        unit_of_measurement: "%"
