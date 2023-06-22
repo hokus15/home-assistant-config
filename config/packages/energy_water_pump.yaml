@@ -9,9 +9,9 @@ recorder:
 template:
   - binary_sensor:
       - name: bomba_agua_status
-        state: "{{ states('sensor.bomba_agua_power') | float > 5 }}"
+        state: "{{ states('sensor.bomba_agua_power') | float(default=0) > 5 }}"
         icon: >-
-          {% if states('sensor.bomba_agua_power') | float > 5 -%}
+          {% if states('sensor.bomba_agua_power') | float(default=0) > 5 -%}
             mdi:water-pump
           {%- else -%}
             mdi:water-pump-off

@@ -9,10 +9,10 @@ recorder:
 template:
   - binary_sensor:
       - name: lavaplatos_status
-        state: "{{ states('sensor.lavaplatos_power') | float > 5 }}"
+        state: "{{ states('sensor.lavaplatos_power') | float(default=0) > 5 }}"
         delay_off: "0:05:00"
         icon: >-
-          {% if states('sensor.lavaplatos_power') | float > 5 -%}
+          {% if states('sensor.lavaplatos_power') | float(default=0) > 5 -%}
             mdi:dishwasher
           {%- else -%}
             mdi:dishwasher-off
