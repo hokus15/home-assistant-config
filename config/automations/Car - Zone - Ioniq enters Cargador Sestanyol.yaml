@@ -1,16 +1,16 @@
-- id: 'car_zone_ioniq_enters_cargador_sestanyol'
-  alias: 'Car - Zone - Ioniq enters Cargador Sestanyol'
+- id: "car_zone_ioniq_enters_cargador_sestanyol"
+  alias: "Car - Zone - Ioniq enters Cargador Sestanyol"
   trigger:
-     - platform: zone
-       entity_id: device_tracker.car_ioniq
-       zone: zone.cargador_sestanyol
-       event: enter
+    - platform: zone
+      entity_id: device_tracker.car_ioniq
+      zone: zone.cargador_sestanyol
+      event: enter
   condition:
     condition: and
     conditions:
       - condition: state
         entity_id: sensor.car_ioniq_state_sensor
-        state: 'Encendido'
+        state: "Encendido"
       - condition: numeric_state
         entity_id: sensor.car_ioniq_location_gps_accuracy
         below: 100
@@ -20,7 +20,7 @@
         payload_template: >
           El cargador de Sestañol está {{ states.sensor.cargador_sestanyol.state }}
         retain: false
-        topic: 'phone/sensor/hokus/cmnd/say'
+        topic: "phone/sensor/hokus/cmnd/say"
     - service: notify.telegram
       data_template:
-        message: 'El cargador de Sestanyol está {{ states.sensor.cargador_sestanyol.state }}'
+        message: "El cargador de Sestanyol está {{ states.sensor.cargador_sestanyol.state }}"

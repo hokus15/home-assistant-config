@@ -1,10 +1,10 @@
 - id: 'car_zone_ioniq_enters_cargador_conquistador'
   alias: 'Car - Zone - Ioniq enters Cargador Conquistador'
   trigger:
-     - platform: zone
-       entity_id: device_tracker.car_ioniq
-       zone: zone.cargador_conquistador
-       event: enter
+    - platform: zone
+      entity_id: device_tracker.car_ioniq
+      zone: zone.cargador_conquistador
+      event: enter
   condition:
     condition: and
     conditions:

@@ -1,26 +1,29 @@
-- id: 'car_zone_ioniq_leaves_home'
-  alias: 'Car - Zone - Ioniq leaves home'
+- id: "car_zone_ioniq_leaves_home"
+  alias: "Car - Zone - Ioniq leaves home"
   trigger:
-     - platform: zone
-       entity_id: device_tracker.car_ioniq
-       zone: zone.home
-       event: leave
+    - platform: zone
+      entity_id: device_tracker.car_ioniq
+      zone: zone.home
+      event: leave
   condition:
     condition: and
     conditions:
       - condition: state
         entity_id: sensor.car_ioniq_state_sensor
-        state: 'Encendido'
+        state: "Encendido"
       - condition: numeric_state
         entity_id: sensor.car_ioniq_location_gps_accuracy
         below: 100
+      - condition: state
+        entity_id: group.unidad_familiar
+        state: "not_home"
   action:
     - service: mqtt.publish
       data:
         payload_template: >
-          {%- if is_state("group.unidad_familiar", "not_home") -%}{%- if is_state("sensor.outside_fence", "abierta") -%}Te has dejado la barrera abierta, la voy a cerrar. {%- endif -%}{%- if is_state("binary_sensor.porche_sensor_puerta", "on") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("binary_sensor.porche_sensor_persiana", "on") %}Persiana de la cocina abierta. {% endif -%}{%- endif -%}La previsión del tiempo es de {{ weather.aemet_daily.state }}
+          {%- if is_state("group.unidad_familiar", "not_home") -%}{%- if is_state("sensor.outside_fence", "abierta") -%}Te has dejado la barrera abierta, la voy a cerrar. {%- endif -%}{%- if is_state("binary_sensor.porche_sensor_puerta", "on") %}Puerta de la cocina abierta. {% endif -%}{%- if is_state("binary_sensor.porche_sensor_persiana", "on") %}Persiana de la cocina abierta. {% endif -%}{%- endif -%}
         retain: false
-        topic: 'phone/sensor/hokus/cmnd/say'
+        topic: "phone/sensor/hokus/cmnd/say"
     - service_template: >-
         {%- if is_state("group.unidad_familiar", "not_home") -%}
           {%- if is_state("cover.outside_fence", "open") -%}
