@@ -1,9 +1,0 @@
-- id: 'comfort_switch_comfort_mode_on'
-  alias: 'Comfort - Switch comfort mode on'
-  trigger:
-    platform: state
-    entity_id: input_boolean.home_comfort_mode
-    to: 'on'
-  action:
-    - service: script.turn_on
-      entity_id: script.comfort_mode_on
