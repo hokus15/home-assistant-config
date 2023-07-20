@@ -7,30 +7,10 @@ sensor.speedtest_download:
 sensor.speedtest_upload:
   friendly_name: Velicidad subida
   icon: mdi:cloud-upload
-sensor.exchange_rate_1_btc:
-  friendly_name: Bitcoin
-  icon: mdi:bitcoin
-sensor.exchange_rate_1_eth:
-  friendly_name: Ethereum
-  icon: mdi:ethereum
 sensor.sunset:
   icon: mdi:weather-sunset-down
 sensor.sunrise:
   icon: mdi:weather-sunset-up
-sensor.hp_photosmart_5520_series_magenta_ink:
-  friendly_name: Magenta
-  entity_picture: /local/printer_ink_magenta.png
-sensor.hp_photosmart_5520_series_cyan_ink:
-  friendly_name: Cyan
-  entity_picture: /local/printer_ink_cyan.png
-sensor.hp_photosmart_5520_series_yellow_ink:
-  friendly_name: Amarillo
-  entity_picture: /local/printer_ink_yellow.png
-sensor.hp_photosmart_5520_series_black_ink:
-  friendly_name: Negro
-  entity_picture: /local/printer_ink_black.png
-sensor.hp_photosmart_5520:
-  entity_picture: /local/printer_icon.png
 sensor.processor_use:
   friendly_name: Uso CPU
 sensor.memory_free:
@@ -41,20 +21,6 @@ sensor.disk_free:
 sensor.last_boot:
   friendly_name: Último reinicio
   icon: mdi:update
-sensor.since_last_boot:
-  friendly_name: Uptime
-sensor.recibidor_boton_bateria:
-  device_class: battery
-  friendly_name: Nodon
-sensor.caducidad_certificado_ssl:
-  friendly_name: Caducidad certificado SSL
-  unit_of_measurement: días
-sensor.dominio_principal:
-  friendly_name: Cad. dominio principal
-  unit_of_measurement: días
-sensor.dominio_nena:
-  friendly_name: Cad. dominio nena
-  unit_of_measurement: días
 sensor.connected_clients:
   friendly_name: Clientes conectados
   unit_of_measurement: cliente(s)
@@ -76,16 +42,8 @@ sensor.google_wifi_uptime:
 sensor.db_size:
   friendly_name: Tamaño BD
   icon: mdi:database
-script.restart_ha:
-  icon: mdi:autorenew
-script.reboot_pi:
-  icon: mdi:power
 sun.sun:
   friendly_name: Sol
-media_player.hokussqueezebox:
-  friendly_name: Squeezebox suite
-media_player.salon:
-  friendly_name: Chromecast Salón
 sensor.ground_floor_temperature:
   device_class: temperature
   friendly_name: Temp. media planta baja
@@ -93,19 +51,10 @@ sensor.next_holiday_mode_start:
   icon: mdi:airplane-takeoff
 sensor.next_holiday_mode_end:
   icon: mdi:airplane-landing
-sensor.next_shift_event:
-  icon: mdi:message
-sensor.next_shift_date:
-  friendly_name: Fecha próx. turno
-  icon: mdi:calendar
 switch.holiday:
   friendly_name: Modo Vacaciones
   icon: mdi:airplane
-input_number.empty_home_activation_delay_minutes:
-  icon: mdi:clock-end
 device_tracker.geniphone_wifi:
-  source_type: router
-device_tracker.hokusphone_wifi:
   source_type: router
 device_tracker.guest:
   icon: mdi:account-question
@@ -143,33 +92,13 @@ light.comedor_light:
 light.entrance_hall_lamp_light:
   friendly_name: Lámpara recibidor
   icon: mdi:lamp
-script.turn_off_lights_exterior:
-  hidden: true
 sensor.outside_fence:
   friendly_name: Estado barrera
-sensor.efergy_2577:
-  friendly_name: Consumo instantáneo Casa
-  icon: mdi:speedometer
-sensor.energy_ups_status:
-  friendly_name: Estado SAI
-  icon: mdi:power-socket-eu
 sensor.qnapups_battery_charge:
   device_class: battery
   friendly_name: Carga SAI
 sensor.qnapups_battery_runtime:
   friendly_name: Tiempo restante SAI
-sensor.energy_home_daily_pico:
-  friendly_name: Consumo diario pico Casa
-sensor.energy_home_daily_valle:
-  friendly_name: Consumo diario valle Casa
-sensor.energy_home_daily_super_valle:
-  friendly_name: Consumo diario super valle Casa
-sensor.energy_home_monthly_pico:
-  friendly_name: Consumo mensual pico Casa
-sensor.energy_home_monthly_valle:
-  friendly_name: Consumo mensual valle Casa
-sensor.energy_home_monthly_super_valle:
-  friendly_name: Consumo mensual super valle Casa
 binary_sensor.energy_home_status:
   friendly_name: Suministro eléctrico casa
 sensor.car_ioniq_location_last_update:
@@ -178,48 +107,10 @@ sensor.car_ioniq_location_last_update:
 binary_sensor.car_ioniq_location_sensor:
   entity_picture: /local/device_tracker.car_ioniq_icon.png
   friendly_name: Ioniq bs
-sensor.car_ioniq_charger_today_energy_charged:
-  friendly_name: Energía hoy cargador EV
-  icon: mdi:battery-charging-70
 sensor.car_al_colegio:
   friendly_name: Al colegio
 sensor.car_a_la_oficina:
   friendly_name: A la oficina
-sensor.car_ioniq_charger_current_power:
-  friendly_name: Potencia cargador EV
-  icon: mdi:speedometer
-sensor.car_ioniq_charger_yearly_pico:
-  friendly_name: Consumo anual pico cargador EV
-  icon: mdi:trending-up
-sensor.car_ioniq_charger_yearly_valle:
-  friendly_name: Consumo anual valle cargador EV
-  icon: mdi:trending-down
-  unit_of_measurement: kWh
-sensor.car_ioniq_charger_yearly_super_valle:
-  friendly_name: Consumo anual super valle cargador EV
-  icon: mdi:trending-down
-  unit_of_measurement: kWh
-sensor.car_ioniq_charger_monthly_pico:
-  friendly_name: Consumo mensual pico cargador EV
-  icon: mdi:trending-up
-sensor.car_ioniq_charger_monthly_valle:
-  friendly_name: Consumo mensual valle cargador EV
-  icon: mdi:trending-down
-sensor.car_ioniq_charger_monthly_super_valle:
-  friendly_name: Consumo mensual super valle cargador EV
-  icon: mdi:trending-down
-sensor.car_ioniq_charger_daily_pico:
-  friendly_name: Consumo diario pico cargador EV
-  icon: mdi:trending-up
-sensor.car_ioniq_charger_daily_valle:
-  friendly_name: Consumo diario valle cargador EV
-  icon: mdi:trending-down
-sensor.car_ioniq_charger_daily_super_valle:
-  friendly_name: Consumo diario super valle cargador EV
-  icon: mdi:trending-down
-switch.car_ioniq_charger:
-  friendly_name: Cargador EV
-  icon: mdi:ev-station
 device_tracker.car_ioniq:
   entity_picture: /local/device_tracker.car_ioniq_icon.png
 alarm_control_panel.home:
@@ -246,8 +137,6 @@ binary_sensor.recibidor_camara_infrarrojo:
 switch.recibidor_camara_det_mov:
   friendly_name: Det. mov. recibidor
   icon: mdi:transit-transfer
-camera.salon:
-  friendly_name: Salón
 binary_sensor.salon_camara_infrarrojo:
   friendly_name: Infrarrojos salón
   icon: mdi:led-on
@@ -286,30 +175,20 @@ switch.caseta_camara_det_mov:
 binary_sensor.despacho_sensor_movimiento:
   friendly_name: Movimiento despacho
   device_class: motion
-binary_sensor.despacho_sensor_movimiento_sabotaje:
-  friendly_name: Manipulación sensor despacho
 sensor.despacho_sensor_movimiento_luminance:
   icon: mdi:weather-sunny
 binary_sensor.porche_sensor_puerta:
   device_class: door
   friendly_name: Puerta porche
-sensor.porche_sensor_puerta:
-  friendly_name: Estado puerta porche
 sensor.porche_sensor_puerta_temperature:
   device_class: temperature
   friendly_name: Temperatura cocina
 binary_sensor.porche_sensor_persiana:
   device_class: door
   friendly_name: Persiana porche
-sensor.porche_sensor_persiana:
-  friendly_name: Estado persiana porche
 binary_sensor.coladuria_sensor_puerta:
   device_class: door
   friendly_name: Puerta coladuría
-sensor.coladuria_sensor_puerta:
-  friendly_name: Estado puerta coladuria
-climate.netatmo_general:
-  friendly_name: Calefacción
 sensor.first_floor_temperature:
   device_class: temperature
   friendly_name: Temp. media 1ª planta
@@ -325,52 +204,12 @@ sensor.entrance_hall_thermostat_temperature:
   device_class: temperature
   friendly_name: Temperatura recibidor
   unit_of_measurement: °C
-sensor.dark_sky_summary_0d:
-  friendly_name: Previsión
 binary_sensor.summer_time:
   friendly_name: Horario de verano
 sensor.piscina_width:
   friendly_name: Ancho piscina
-sensor.netatmo_exterior_max_temp:
-  device_class: temperature
-  friendly_name: Max Temp. Exterior
-  icon: mdi:thermometer-plus
-sensor.netatmo_habitacion_max_temp:
-  device_class: temperature
-  friendly_name: Max Temp. Habitación
-  icon: mdi:thermometer-plus
-sensor.netatmo_salon_max_temp:
-  device_class: temperature
-  friendly_name: Temp. Max Salón
-  icon: mdi:thermometer-plus
-sensor.netatmo_suite_max_temp:
-  device_class: temperature
-  icon: mdi:thermometer-plus
-sensor.netatmo_exterior_min_temp:
-  device_class: temperature
-  friendly_name: Min. Temp. Exterior
-  icon: mdi:thermometer-minus
-sensor.netatmo_habitacion_min_temp:
-  device_class: temperature
-  friendly_name: Min Temp. Habitación
-  icon: mdi:thermometer-minus
-sensor.netatmo_salon_min_temp:
-  device_class: temperature
-  friendly_name: Temp. Min Salón
-  icon: mdi:thermometer-minus
-sensor.netatmo_suite_min_temp:
-  device_class: temperature
-  icon: mdi:thermometer-minus
 sensor.despacho_sensor_movimiento_temperature:
   device_class: temperature
-script.system_restart_ha:
-  friendly_name: Reiniciar Home-Assistant
-script.system_reboot_pi:
-  friendly_name: Reiniciar Raspberry Pi
-sensor.piscina_on_time:
-  friendly_name: Encendido bomba piscina
-sensor.piscina_off_time:
-  friendly_name: Apagado bomba piscina
 sensor.piscina_filtering_time:
   friendly_name: Tiempo de filtrado piscina
 input_number.temperature_correction:
@@ -411,97 +250,15 @@ sensor.car_ioniq_battery_health:
   device_class: battery
   friendly_name: Salud batería Ioniq
   icon: mdi:battery-heart-variant
-sensor.netatmo_habitacion_temperature:
-  friendly_name: Temperatura Habitación
-sensor.netatmo_exterior_temperature:
-  friendly_name: Temperatura exterior
-sensor.netatmo_salon_temperature:
-  friendly_name: Temperatura Salón
-sensor.netatmo_suite_temperature: {}
-sensor.first_floor_temperature_trend:
-  friendly_name: Tendencia temp. 1ª planta
-sensor.ground_floor_temperature_trend:
-  friendly_name: Tendencia temp. planta baja
-sensor.netatmo_habitacion_radio:
-  device_class: signal_strength
-  friendly_name: Señal radio módulo Habitación Netatmo
-sensor.netatmo_salon_wifi:
-  device_class: signal_strength
-  friendly_name: Wifi Salón
-sensor.netatmo_suite_radio:
-  device_class: signal_strength
 sensor.comedor_switch_power:
   icon: mdi:power-plug
 sensor.salon_switch_power:
   icon: mdi:power-plug
 sensor.comedor_switch_energy:
   icon: mdi:speedometer
-sensor.cargador_aragon:
-  icon: mdi:ev-station
-sensor.cargador_conquistador:
-  icon: mdi:ev-station
-sensor.cargador_palmanyola:
-  icon: mdi:ev-station
-sensor.cargador_sant_miquel:
-  icon: mdi:ev-station
-sensor.cargador_paseo_mallorca:
-  icon: mdi:ev-station
 switch.guest_mode:
   friendly_name: Modo invitado
   icon: mdi:account-clock
-sensor.netatmo_salon_co2:
-  friendly_name: CO2 Salón
-sensor.netatmo_salon_humidity:
-  friendly_name: Humedad Salón
-sensor.netatmo_salon_pressure:
-  friendly_name: Persión Atmosférica Salón
-sensor.netatmo_salon_noise:
-  friendly_name: Nivel de Ruido Salón
-sensor.netatmo_suite_battery_percent:
-  friendly_name: Batería Netatmo Suite
-sensor.netatmo_anemometro_angle:
-  friendly_name: Dirección del viento
-sensor.netatmo_anemometro_battery:
-  friendly_name: Batería anemómetro
-sensor.netatmo_anemometro_gust_angle:
-  friendly_name: Dirección rachas
-sensor.netatmo_anemometro_gust_strength:
-  friendly_name: Fuerza rachas
-sensor.netatmo_anemometro_radio:
-  friendly_name: Señal radio anemómetro
-sensor.netatmo_anemometro_wind_strength:
-  friendly_name: Fuerza viento
-sensor.netatmo_anemometro_battery_percent:
-  friendly_name: Batería anemómetro
-sensor.netatmo_exterior_battery:
-  friendly_name: Batería módulo exterior Netatmo
-sensor.netatmo_exterior_humidity:
-  friendly_name: Humedad exterior
-sensor.netatmo_exterior_radio:
-  friendly_name: Señal radio módulo exterior Netatmo
-sensor.netatmo_exterior_battery_percent:
-  friendly_name: Batería módulo exterior Netatmo
-sensor.netatmo_habitacion_battery:
-  friendly_name: Batería habitación Netatmo
-sensor.netatmo_habitacion_co2:
-  friendly_name: CO2 Habitación
-sensor.netatmo_habitacion_humidity:
-  friendly_name: Humedad Habitación
-sensor.netatmo_habitacion_battery_percent:
-  friendly_name: Batería módulo Habitación Netatmo
-sensor.netatmo_pluviometro_battery:
-  friendly_name: Batería Pluviómetro
-sensor.energy_home_hourly:
-  friendly_name: Energía consumida (hora en curso)
-sensor.energy_home_hourly_cost:
-  friendly_name: Coste horario
-  icon: mdi:cash-multiple
-sensor.energy_home_daily_cost:
-  friendly_name: Coste diario
-  icon: mdi:cash-multiple
-sensor.energy_home_monthly_cost:
-  friendly_name: Coste mensual
-  icon: mdi:cash-multiple
 sensor.qnapups_beeper_status:
   icon: mdi:whistle
 sensor.car_ioniq_odometer_last_update:
@@ -514,15 +271,9 @@ sensor.car_ioniq_charge_time_to_100_mins:
 sensor.car_ioniq_charge_time_to_100_human:
   friendly_name: Tiempo restante de carga
   icon: mdi:battery-charging
-binary_sensor.car_ioniq_charge_state:
-  device_class: power
-  friendly_name: Carga Ioniq
 sensor.car_ioniq_charger_charge_state:
   friendly_name: Estado cargador EV
   icon: mdi:flash-circle
-sensor.car_ioniq_state:
-  friendly_name: Estado script Ioniq
-  icon: mdi:car-electric
 sensor.car_ioniq_state_sensor:
   icon: mdi:car-electric
 sensor.car_ioniq_battery:
@@ -541,36 +292,24 @@ sensor.energy_grid_today_llana:
   friendly_name: Llana
 sensor.energy_grid_today_valle:
   friendly_name: Valle
-sensor.cargador_ioniq_today_energy:
-  friendly_name: Consumo cargador EV
-  icon: mdi:speedometer
-sensor.bomba_agua_energy_calc:
-  friendly_name: Consumo bomba agua
-  icon: mdi:speedometer
 sensor.ladron_salon_energy_calc:
   friendly_name: Consumo ladrón salón
   icon: mdi:speedometer
-sensor.lavadora_energy_calc:
-  friendly_name: Consumo lavadora
-  icon: mdi:speedometer
+  device_class: energy
 sensor.lavaplatos_energy_calc:
   friendly_name: Consumo lavaplatos
   icon: mdi:speedometer
+  device_class: energy
 sensor.secadora_energy_calc:
   friendly_name: Consumo secadora
   icon: mdi:speedometer
+  device_class: energy
 sensor.ladron_salon_power:
   friendly_name: Potencia ladrón salón
-sensor.lavadora_power:
-  friendly_name: Potencia lavadora
 sensor.lavaplatos_power:
   friendly_name: Potencia lavaplatos
 sensor.secadora_power:
   friendly_name: Potencia secadora
-binary_sensor.bomba_agua_status:
-  friendly_name: Bomba agua
-binary_sensor.lavadora_status:
-  friendly_name: Lavadora
 binary_sensor.lavaplatos_status:
   friendly_name: Lavaplatos
 binary_sensor.secadora_status:
@@ -585,19 +324,7 @@ sensor.cargador_ev_energy:
 sensor.piscina_energy:
   friendly_name: Consumo piscina
   icon: mdi:speedometer
-sensor.cargador_ev_month_cost:
-  friendly_name: Coste cargas mes
-  icon: mdi:currency-eur
-sensor.cargador_ev_today_cost:
-  friendly_name: Coste cargas hoy
-  icon: mdi:currency-eur
 sensor.cargador_ev_energy_calc:
   friendly_name: Consumo cargador EV
   icon: mdi:speedometer
-sensor.piscina_month_cost:
-  friendly_name: Coste mensusal piscina
-  icon: mdi:currency-eur
-sensor.energy_cost:
-  friendly_name: Iberdrola
-sensor.energy_price:
-  friendly_name: Precio tarifa contratada (Iberdrola)
+  device_class: energy
