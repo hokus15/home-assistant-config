@@ -1,18 +1,4 @@
 homeassistant:
-  # Name of the location where Home Assistant is running
-  name: Casa
-  # C for Celcius, F for Fahrenheit
-  temperature_unit: C
-  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  time_zone: Europe/Madrid
-  # Location required to calculate the time the sun rises and sets
-  latitude: !secret ha_latitude
-  longitude: !secret ha_longitude
-  country: ES
-  elevation: 119
-  unit_system: metric
-  external_url: !secret ha_base_url
-  internal_url: "http://homeassistant.local:8123"
   customize: !include customize.yaml
   allowlist_external_dirs:
     - /share/camera
@@ -48,7 +34,6 @@ wemo:
 #    - 10.155.106.70 # Lights - Wemo Link
 #    - 10.155.106.71 # Car charger - Wemo Insight
 
-
 recorder:
   purge_keep_days: 30
   db_url: !secret recorder_db_url
@@ -59,7 +44,6 @@ recorder:
       - sensor.disk_free
       - sensor.db_size
       - sensor.disk_use_share_camera
-  
 
 # View all events in a logbook
 logbook:
@@ -131,28 +115,32 @@ ifttt:
   key: !secret ifttt_api_key
 
 withings:
-#  client_id: !secret withings_client_id
-#  client_secret: !secret withings_client_secret
+  #  client_id: !secret withings_client_id
+  #  client_secret: !secret withings_client_secret
   use_webhook: true
 
 #google:
 #  client_id: !secret google_client_id
 #  client_secret: !secret google_secret
 
-tts:
-  - platform: google_translate
-    base_url: !secret ha_base_url
+#tts:
+#  - platform: google_translate
+#    base_url: !secret ha_base_url
 #    cache: true
 #    cache_dir: /tmp/tts
 #    time_memory: 300
-    language: 'es'
+#    language: 'es'
 #  - platform: google_cloud
 #    key_file: google_cloud.json
 #    voice: es-ES-Standard-B
 
 freedns:
   url: !secret freedns_url
-  
+
+feedreader:
+  urls:
+    - https://www.agenciatributaria.es/AEAT.desarrolladores/Desarrolladores/Novedades/Novedades.xml
+
 automation: !include_dir_merge_list automations
 script: !include scripts.yaml
 scene: !include scenes.yaml
