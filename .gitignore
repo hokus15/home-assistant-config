@@ -27,3 +27,5 @@ config/google_cloud.json
 config/home-assistant.log.fault
 config/home-assistant.log.1
 *.pyc
+config/feedreader.pickle
+config/watchman_report.txt
