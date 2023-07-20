@@ -30,15 +30,10 @@ recorder:
       - sensor.piscina_power
       - sensor.piscina_energy
 
-      - climate.netatmo_general
+      - climate.recibidor
 
       - sensor.co2_intensity
       - sensor.grid_fossil_fuel_percentage
-
-      - sensor.energy_next_hour
-      - sensor.energy_current_hour
-      - sensor.energy_production_today
-      - sensor.energy_production_tomorrow
 
 logbook:
   exclude:

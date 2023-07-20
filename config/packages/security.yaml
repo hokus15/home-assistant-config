@@ -9,7 +9,6 @@ recorder:
 
       - sensor.lock_entrada_sensor_door_state
       - sensor.lock_entrada_sensor_battery_state
-      - sensor.lock_entrada_sensor_lock_state
 
       - switch.recibidor_camara_det_mov
       - switch.salon_camara_det_mov
