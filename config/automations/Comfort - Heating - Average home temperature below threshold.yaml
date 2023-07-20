@@ -1,6 +1,6 @@
 # Turn on heating when home mean temperature for last 24 hours is below 18.5 degrees
-- id: 'comfort_heating_average_home_temperature_below_threshold'
-  alias: 'Comfort - Heating - Average home temperature below threshold'
+- id: "comfort_heating_average_home_temperature_below_threshold"
+  alias: "Comfort - Heating - Average home temperature below threshold"
   trigger:
     platform: numeric_state
     entity_id: sensor.home_temperature_stats
@@ -9,31 +9,31 @@
     condition: and
     conditions:
       - condition: template
-        value_template: "{{states.climate.netatmo_general != None}}"
+        value_template: "{{states('climate.recibidor') is not none}}"
       - condition: state
-        entity_id: 'climate.netatmo_general'
-        state: 'off'
+        entity_id: "climate.recibidor"
+        state: "off"
   action:
     - service: climate.turn_on
-      entity_id: climate.netatmo_general
+      entity_id: climate.recibidor
     - service: climate.set_preset_mode
-      entity_id: climate.netatmo_general
+      entity_id: climate.recibidor
       data_template:
-        preset_mode: 'Schedule'
+        preset_mode: "Schedule"
     - service: homeassistant.update_entity
-      entity_id: climate.netatmo_general
+      entity_id: climate.recibidor
     - service: logbook.log
       data:
-        name: 'Calefacción'
-        message: 'encendida por baja temperatura'
-        entity_id: climate.netatmo_general
+        name: "Calefacción"
+        message: "encendida por baja temperatura"
+        entity_id: climate.recibidor
         domain: climate
     - service: telegram_bot.send_message
       data_template:
-        message: 'Como ya empieza a hacer fresquito ⛄⛄⛄, he encendido la calefacción. Convendría hacer un purgado de los radiadores.'
-        target: 
+        message: "Como ya empieza a hacer fresquito ⛄⛄⛄, he encendido la calefacción. Convendría hacer un purgado de los radiadores."
+        target:
           - !secret hokusphone_telegram_chat_id
-#          - !secret geniphone_telegram_chat_id
+        #          - !secret geniphone_telegram_chat_id
         disable_notification: false
         inline_keyboard:
-               - 'Apaga la calefacción:/climate.turn_off#climate.netatmo_general'
+          - "Apaga la calefacción:/climate.turn_off#climate.recibidor"

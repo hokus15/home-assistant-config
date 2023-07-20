@@ -1,21 +1,21 @@
-- id: 'energy_notification_ups_battery_to_be_replaced'
-  alias: 'Energy - Notification - UPS battery to be replaced'
+- id: "energy_notification_ups_battery_to_be_replaced"
+  alias: "Energy - Notification - UPS battery to be replaced"
   trigger:
     platform: state
-    entity_id: sensor.energy_ups_status
-    to: 'Reemplazar batería'
+    entity_id: sensor.qnapups_status
+    to: "Reemplazar batería"
   action:
     - service: notify.telegram
       data:
-        message: '🔋 Batería del SAI agotada, reemplazar'
+        message: "🔋 Batería del SAI agotada, reemplazar"
     - service: notify.slack
       data_template:
-        message: ''
+        message: ""
         data:
           blocks:
-            - type: 'divider'
-            - type: 'section'
+            - type: "divider"
+            - type: "section"
               text:
-                type: 'mrkdwn'
-                text: ':battery-low: Batería del SAI agotada, reemplazar'
-            - type: 'divider'
+                type: "mrkdwn"
+                text: ":battery-low: Batería del SAI agotada, reemplazar"
+            - type: "divider"

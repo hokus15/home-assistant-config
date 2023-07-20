@@ -1,6 +1,6 @@
 # Turn off heating when home mean temperature for last 24 hours is above 20 degrees
-- id: 'comfort_heating_average_home_temperature_above_threshold'
-  alias: 'Comfort - Heating - Average home temperature above threshold'
+- id: "comfort_heating_average_home_temperature_above_threshold"
+  alias: "Comfort - Heating - Average home temperature above threshold"
   trigger:
     platform: numeric_state
     entity_id: sensor.home_temperature_stats
@@ -9,26 +9,26 @@
     condition: and
     conditions:
       - condition: template
-        value_template: "{{states.climate.netatmo_general != None}}"
+        value_template: "{{states('climate.recibidor') is not none}}"
       - condition: template
-        value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
+        value_template: "{{not is_state('climate.recibidor', 'off')}}"
   action:
     - service: climate.turn_off
-      entity_id: climate.netatmo_general
+      entity_id: climate.recibidor
     - service: homeassistant.update_entity
-      entity_id: climate.netatmo_general
+      entity_id: climate.recibidor
     - service: logbook.log
       data:
-        name: 'Calefacción'
-        message: 'apagada por alta temperatura'
-        entity_id: climate.netatmo_general
+        name: "Calefacción"
+        message: "apagada por alta temperatura"
+        entity_id: climate.recibidor
         domain: climate
     - service: telegram_bot.send_message
       data_template:
-        message: 'Empieza el calor 🌞🌞🌞!!!! He apagado la calefacción.'
-        target: 
+        message: "Empieza el calor 🌞🌞🌞!!!! He apagado la calefacción."
+        target:
           - !secret hokusphone_telegram_chat_id
-#          - !secret geniphone_telegram_chat_id
+        #          - !secret geniphone_telegram_chat_id
         disable_notification: false
         inline_keyboard:
-               - 'Enciende la calefacción:/climate.turn_on#climate.netatmo_general'
+          - "Enciende la calefacción:/climate.turn_on#climate.recibidor"
