@@ -21,6 +21,3 @@
           El cargador de Sestañol está {{ states.sensor.cargador_sestanyol.state }}
         retain: false
         topic: "phone/sensor/hokus/cmnd/say"
-    - service: notify.telegram
-      data_template:
-        message: "El cargador de Sestanyol está {{ states.sensor.cargador_sestanyol.state }}"
