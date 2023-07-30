@@ -89,7 +89,7 @@ sensor:
       piscina_capacity:
         friendly_name: "Capacidad"
         value_template: >-
-          {%if states.sensor.ha_runtime_in_minutes.state | float(default=0) > 2 %}
+          {%if states.sensor.ha_runtime_in_minutes.state | float(default=0) > 1 %}
           {%- if states.sensor.piscina_width and states.sensor.piscina_height and states.sensor.piscina_average_depth %}
           {{ states.sensor.piscina_width.state | float(default=0) * states.sensor.piscina_height.state | float(default=0) * states.sensor.piscina_average_depth.state | float(default=0)}}
           {%- endif %}
@@ -98,7 +98,7 @@ sensor:
       piscina_recirculation:
         friendly_name: "Recirculación"
         value_template: >-
-          {%if states.sensor.ha_runtime_in_minutes.state | float(default=0) > 2 %}
+          {%if states.sensor.ha_runtime_in_minutes.state | float(default=0) > 1 %}
           {%- if states.sensor.piscina_capacity and states.sensor.piscina_capacity is not none and states.sensor.piscina_pump_power and states.sensor.piscina_pump_power is not none and states.sensor.piscina_pump_efficiency and states.sensor.piscina_pump_efficiency is not none %}
           {{ (states.sensor.piscina_capacity.state | float(default=0) / (states.sensor.piscina_pump_power.state | float(default=0) * states.sensor.piscina_pump_efficiency.state | float(default=0) )) | round(1) }}
           {%- endif %}
@@ -106,25 +106,26 @@ sensor:
         unit_of_measurement: "h"
       piscina_k_factor:
         friendly_name: "Factor reduccion (K)"
+        # TODO Usar evento de home assistant started????
         value_template: >-
-          {%if states.sensor.ha_runtime_in_minutes.state | float(default=0) > 2 %}
-          {%- if states.sensor.piscina_temperature.state | float(default=0) > 15 %}
+          {%if states.sensor.ha_runtime_in_minutes.state | float(default=0) > 1 %}
+          {%- if states.sensor.piscina_temperature.state | float(default=30) > 15 %}
             1
-          {% elif states.sensor.piscina_temperature.state | float(default=0) <= 15 and states.sensor.piscina_temperature.state | float(default=0) > 13 %}
+          {% elif states.sensor.piscina_temperature.state | float(default=30) <= 15 and states.sensor.piscina_temperature.state | float(default=30) > 13 %}
             0.5
-          {% elif states.sensor.piscina_temperature.state | float(default=0) <= 13 and states.sensor.piscina_temperature.state | float(default=0) > 10 %}
+          {% elif states.sensor.piscina_temperature.state | float(default=30) <= 13 and states.sensor.piscina_temperature.state | float(default=30) > 10 %}
             0.33
-          {% elif states.sensor.piscina_temperature.state | float(default=0) <= 10 and states.sensor.piscina_temperature.state | float(default=0) > 5 %}
+          {% elif states.sensor.piscina_temperature.state | float(default=30) <= 10 and states.sensor.piscina_temperature.state | float(default=30) > 5 %}
             0.25
-          {% elif states.sensor.piscina_temperature.state | float(default=0) <= 5 %}
+          {% elif states.sensor.piscina_temperature.state | float(default=30) <= 5 %}
             0.15
           {%- endif %}
-          {% else %}0{%- endif %}
+          {% else %}1{%- endif %}
         icon_template: "mdi:arrow-down-bold"
   #      piscina_filtering_time:
   #        friendly_name: 'Tiempo de filtrado'
   #        value_template: >-
-  #          {%if states.sensor.ha_runtime_in_minutes.state|float(0) > 2 %}
+  #          {%if states.sensor.ha_runtime_in_minutes.state|float(0) > 1 %}
   #          {% set filtering_time = (states.sensor.piscina_k_factor.state | float * ((states.sensor.piscina_temperature.state | float / 10) * states.sensor.piscina_recirculation.state | float )) | float | round(2)%}
   #          {%- if filtering_time < 2 %}
   #            {{ 2 | float }}
@@ -181,13 +182,13 @@ template:
         # This will update every day at 7AM
         hours: 7
         minutes: 0
-    #      - platform: numeric_state
-    #        entity_id: sensor.ha_runtime_in_minutes
-    #        above: 2
+      #- platform: numeric_state
+      #  entity_id: sensor.ha_runtime_in_minutes
+      #  above: 1
     sensor:
       - name: piscina_filtering_time
         state: >-
-          {% set filtering_time = (states.sensor.piscina_k_factor.state | float(default=0) * ((states.sensor.piscina_temperature.state | float(default=0) / 10) * states.sensor.piscina_recirculation.state | float(default=0) )) | float(default=0) | round(2)%}
+          {% set filtering_time = (states.sensor.piscina_k_factor.state | float(default=1) * ((states.sensor.piscina_temperature.state | float(default=30) / 10) * states.sensor.piscina_recirculation.state | float(default=0) )) | float(default=8) | round(2)%}
           {%- if filtering_time < 2 %}
             {{ 0 | float(default=0) }}
           {% elif filtering_time > 8 %}
