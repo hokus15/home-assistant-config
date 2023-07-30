@@ -92,8 +92,6 @@ light.comedor_light:
 light.entrance_hall_lamp_light:
   friendly_name: Lámpara recibidor
   icon: mdi:lamp
-sensor.outside_fence:
-  friendly_name: Estado barrera
 sensor.qnapups_battery_charge:
   device_class: battery
   friendly_name: Carga SAI
