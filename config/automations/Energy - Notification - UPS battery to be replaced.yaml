@@ -8,14 +8,3 @@
     - service: notify.telegram
       data:
         message: "🔋 Batería del SAI agotada, reemplazar"
-    - service: notify.slack
-      data_template:
-        message: ""
-        data:
-          blocks:
-            - type: "divider"
-            - type: "section"
-              text:
-                type: "mrkdwn"
-                text: ":battery-low: Batería del SAI agotada, reemplazar"
-            - type: "divider"

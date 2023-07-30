@@ -1,30 +1,19 @@
-- id: 'swimming_pool_notification_pump_on_more_than_expected'
-  alias: 'Swimming Pool - Notification - Pump on more than expected'
-  trigger: 
+- id: "swimming_pool_notification_pump_on_more_than_expected"
+  alias: "Swimming Pool - Notification - Pump on more than expected"
+  trigger:
     platform: template
-    value_template: '{{states.sensor.piscina_on_history.state|float > (states.sensor.piscina_filtering_time.state|float + 0.15)}}'
+    value_template: "{{states.sensor.piscina_on_history.state|float > (states.sensor.piscina_filtering_time.state|float + 0.15)}}"
   condition:
     condition: and
     conditions:
       - condition: state
         entity_id: switch.motor_piscina
-        state: 'on'
+        state: "on"
       - condition: template
         value_template: "{{ states('sensor.piscina_filtering_time') != 'Calculando...' }}"
   action:
     - service: telegram_bot.send_message
       data_template:
-        message: '🏊 Motor piscina encendido hoy durante {{states.sensor.piscina_on_history.state}} horas. Tiempo programado {{states.sensor.piscina_filtering_time.state}} horas.'
-        inline_keyboard: 
-          - 'Apagar:/homeassistant.turn_off#switch.motor_piscina'
-    - service: notify.slack
-      data_template:
-        message: ''
-        data:
-          blocks:
-            - type: 'divider'
-            - type: 'section'
-              text:
-                type: 'mrkdwn'
-                text: ':pool: Motor piscina encendido hoy durante {{states.sensor.piscina_on_history.state}} horas. Tiempo programado {{states.sensor.piscina_filtering_time.state}} horas.'
-            - type: 'divider'
+        message: "🏊 Motor piscina encendido hoy durante {{states.sensor.piscina_on_history.state}} horas. Tiempo programado {{states.sensor.piscina_filtering_time.state}} horas."
+        inline_keyboard:
+          - "Apagar:/homeassistant.turn_off#switch.motor_piscina"

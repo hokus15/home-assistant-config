@@ -1,20 +1,9 @@
-- id: 'system_at_3_am'
-  alias: 'System - At 3 AM'
+- id: "system_at_3_am"
+  alias: "System - At 3 AM"
   trigger:
     platform: time
-    at: '3:00:00'
+    at: "03:00:00"
   action:
-  - service: hassio.backup_full
-    data_template:
-      name: '{{ now().strftime("%Y%m%d") }} - Auto'
-  - service: notify.slack
-    data_template:
-      message: ''
-      data:
-        blocks:
-          - type: 'divider'
-          - type: 'section'
-            text:
-              type: 'mrkdwn'
-              text: ':content-save: Copia de seguridad [{{ now().strftime("%Y%m%d") }} - Auto] creada'
-          - type: 'divider'
+    - service: hassio.backup_full
+      data_template:
+        name: '{{ now().strftime("%Y%m%d") }} - Auto'

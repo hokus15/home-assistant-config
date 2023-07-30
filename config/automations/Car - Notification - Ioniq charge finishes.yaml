@@ -12,14 +12,3 @@
     - service: notify.telegram
       data_template:
         message: '🚘 Carga del Ioniq finalizada. {{state("sensor.cargador_ev_today_energy")}} kWh cargados.'
-    - service: notify.slack
-      data_template:
-        message: ''
-        data:
-          blocks:
-            - type: 'divider'
-            - type: 'section'
-              text:
-                type: 'mrkdwn'
-                text: ':car-electric: Carga del Ioniq finalizada. {{state("sensor.cargador_ev_today_energy")}} kWh cargados.'
-            - type: 'divider'

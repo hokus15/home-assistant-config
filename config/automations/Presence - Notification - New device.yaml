@@ -1,5 +1,5 @@
-- id: 'presence_notification_new_device'
-  alias: 'Presence - Notification - New device'
+- id: "presence_notification_new_device"
+  alias: "Presence - Notification - New device"
   trigger:
     platform: event
     event_type: device_tracker_new_device
@@ -11,18 +11,3 @@
           {{trigger.event.data.host_name}}
           ({{trigger.event.data.entity_id}})
         title: Nuevo dispositivo
-    - service: notify.slack
-      data_template:
-        message: ''
-        data:
-          attachments:
-            - color: 'warning'
-              text: ':iphone: *Nuevo dispositivo* :iphone:'
-              fields:
-                - title: 'Nombre'
-                  value: '{{trigger.event.data.host_name}}'
-                  short: true
-                - title: 'Entidad'
-                  value: '{{trigger.event.data.entity_id}}'
-                  short: true
-              fallback: 'Nuevo dispositivo'
