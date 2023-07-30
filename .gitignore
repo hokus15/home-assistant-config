@@ -29,3 +29,5 @@ config/home-assistant.log.1
 *.pyc
 config/feedreader.pickle
 config/watchman_report.txt
+Funcionalidades.txt
+config/beeperoff.sh
