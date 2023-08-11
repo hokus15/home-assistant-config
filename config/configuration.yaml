@@ -16,9 +16,6 @@ default_config:
 
 stream:
 
-# Discover some devices automatically
-discovery:
-
   # Enables the frontend
 frontend:
   themes: !include_dir_merge_named themes
