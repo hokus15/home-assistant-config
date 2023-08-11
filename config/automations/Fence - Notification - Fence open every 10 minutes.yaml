@@ -1,44 +1,33 @@
-- id: 'fence_notification_fence_open_every_10_minutes'
-  alias: 'Fence - Notification - Fence open every 10 minutes'
+- id: "fence_notification_fence_open_every_10_minutes"
+  alias: "Fence - Notification - Fence open every 10 minutes"
   trigger:
     - platform: state
       entity_id: cover.outside_fence
-      to: 'open'
-      for: '00:10:00'
+      to: "open"
+      for: "00:10:00"
   mode: single
   action:
-    - alias: 'Notify fence open'
+    - alias: "Notify fence open"
       repeat:
         sequence:
           - service: tts.cloud_say
             entity_id: media_player.recibidor
             data_template:
-              message: 'Barrera {{ states.sensor.outside_fence_sensor_state.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.cover.outside_fence.last_changed))|int//60 }} minutos'
+              message: "Barrera {{ states.sensor.outside_fence_sensor_state.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.cover.outside_fence.last_changed))|int//60 }} minutos"
               options:
                 gender: male
               language: es-ES
           - service: telegram_bot.send_message
             data_template:
-              message: '🚪 Barrera {{ states.sensor.outside_fence_sensor_state.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.cover.outside_fence.last_changed))|int//60 }} minutos'
-              target: 
+              message: "🚪 Barrera {{ states.sensor.outside_fence_sensor_state.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.cover.outside_fence.last_changed))|int//60 }} minutos"
+              target:
                 - !secret hokusphone_telegram_chat_id
-#                - !secret geniphone_telegram_chat_id
-              inline_keyboard: 
-                - 'Cerrar:/switch.turn_on#switch.barrera'
-          - service: notify.slack
-            data_template:
-              message: ''
-              data:
-                blocks:
-                  - type: 'divider'
-                  - type: 'section'
-                    text:
-                      type: 'mrkdwn'
-                      text: ':gate: Barrera {{ states.sensor.outside_fence_sensor_state.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.cover.outside_fence.last_changed))|int//60 }} minutos.'
-                  - type: 'divider'
-          - delay: '00:10:00'
+              #                - !secret geniphone_telegram_chat_id
+              inline_keyboard:
+                - "Cerrar:/switch.turn_on#switch.barrera"
+          - delay: "00:10:00"
         until:
-        # Fence closed
-        - condition: state
-          entity_id: cover.outside_fence
-          state: 'closed'
+          # Fence closed
+          - condition: state
+            entity_id: cover.outside_fence
+            state: "closed"
