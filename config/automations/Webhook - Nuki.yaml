@@ -1,13 +1,15 @@
-- id: 'nuki_callback'
-  alias: 'Nuki callback'
+- id: "nuki_callback"
+  alias: "Nuki callback"
   trigger:
     - platform: webhook
       webhook_id: nuki-webhook
+      allowed_methods:
+        - POST
       local_only: false
   action:
     - service: mqtt.publish
       data_template:
-        topic: 'home/lock/entrada'
+        topic: "home/lock/entrada"
         retain: true
-        payload: '{{ trigger.json|to_json }}'
+        payload: "{{ trigger.json|to_json }}"
         qos: 0
