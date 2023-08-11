@@ -1,19 +1,19 @@
-- id: 'car_zone_ioniq_enters_home'
-  alias: 'Car - Zone - Ioniq enters home'
+- id: "car_zone_ioniq_enters_home"
+  alias: "Car - Zone - Ioniq enters home"
   trigger:
-     - platform: zone
-       entity_id: device_tracker.car_ioniq
-       zone: zone.home
-       event: enter
+    - platform: zone
+      entity_id: device_tracker.car_ioniq
+      zone: zone.home
+      event: enter
   condition:
     condition: and
     conditions:
       - condition: state
         entity_id: cover.outside_fence
-        state: 'closed'
+        state: "closed"
       - condition: state
         entity_id: sensor.car_ioniq_state_sensor
-        state: 'Encendido'
+        state: "Encendido"
       - condition: numeric_state
         entity_id: sensor.car_ioniq_location_gps_accuracy
         below: 100
@@ -25,23 +25,12 @@
         payload_template: >-
           He abierto la barrera. {%- if is_state("person.geni", "home") -%}Jeni está en casa.{%- else -%}Jeni no está en casa.{%- endif -%}
         retain: false
-        topic: 'phone/sensor/hokus/cmnd/say'
+        topic: "phone/sensor/hokus/cmnd/say"
     - delay:
         seconds: 5
     - service: telegram_bot.send_message
       data_template:
-        message: '🚪 Barrera abierta automáticamente'
+        message: "🚪 Barrera abierta automáticamente"
         target: !secret hokusphone_telegram_chat_id
-        inline_keyboard: 
-          - 'Cerrar:/switch.turn_on#switch.barrera'
-    - service: notify.slack
-      data_template:
-        message: ''
-        data:
-          blocks:
-            - type: 'divider'
-            - type: 'section'
-              text:
-                type: 'mrkdwn'
-                text: ':gate: Barrera abierta automáticamente'
-            - type: 'divider'
+        inline_keyboard:
+          - "Cerrar:/switch.turn_on#switch.barrera"
