@@ -1,0 +1,48 @@
+- id: "swimming_pool_pump_off_scheduled"
+  alias: "Swimming Pool - Pump Off - Scheduled"
+  trigger:
+    - platform: time_pattern
+      # Every minute
+      minutes: "/1"
+  # Execute automation when:
+  #  - Pump is on
+  #  - NOT in manual mode.
+  #  - NOT ('Solar + Valle' mode AND in 'Valle' tariff)
+  #  - There is no remaining filtering time OR Hourly net balance is too low to keep the pump on
+  condition:
+    condition: and
+    conditions:
+      - alias: "Pump is on"
+        condition: state
+        entity_id: switch.motor_piscina
+        state: "on"
+      - condition: not
+        conditions:
+          - alias: "Not in manual mode"
+            condition: state
+            entity_id: input_select.piscina_pump_mode
+            state: "Manual"
+          - condition: and
+            conditions:
+              - alias: "'Solar + Valle' mode"
+                condition: state
+                entity_id: input_select.piscina_pump_mode
+                state: "Solar + Valle"
+              - alias: "'Valle' tariff"
+                condition: state
+                entity_id: select.energy_grid_today
+                state: "Valle"
+      - condition: or
+        conditions:
+          - alias: "There is no remaining filtering time"
+            condition: state
+            entity_id: binary_sensor.piscina_pump_remaining_time
+            state: "off"
+          - alias: "Hourly net balance is too low to keep the pump on"
+            condition: state
+            entity_id: binary_sensor.piscina_pump_on_enough_net_balance_hour
+            state: "off"
+
+  action:
+    - service: switch.turn_off
+      entity_id: switch.motor_piscina

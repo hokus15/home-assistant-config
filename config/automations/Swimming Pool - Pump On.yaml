@@ -1,42 +1,53 @@
-# Turn on swimming pool when exporting energy to the grid over a threshold (during a period of time) and it has been on less that the time expected
-# and specific appliances (dish washer, tuble dryer, wasing machine,...) are off
-- id: 'swimming_pool_pump_on'
-  alias: 'Swimming Pool - Pump On'
+- id: "swimming_pool_pump_on"
+  alias: "Swimming Pool - Pump On"
   trigger:
-    # Trigger every 5 minutes
-    - platform: time_pattern
-      minutes: "/5"
+    # When generating enough energy
+    - platform: state
+      entity_id: binary_sensor.piscina_pump_on_energy_export_over_threshold
+      to: "on"
+    # When hourly net balance is enough to turn on the pump
+    - platform: state
+      entity_id: binary_sensor.piscina_pump_on_enough_net_balance_hour
+      to: "on"
+      # When 'input_select.piscina_pump_mode' changes state
+    - platform: state
+      entity_id: input_select.piscina_pump_mode
+  # Execute automation when:
+  #  - 'Solar' OR 'Solar + Valle' modes
+  #  - Generating enough enery OR hourly net balance is enough
+  #  - Still has remaining filtering time
+  #  - Pump is off
   condition:
     condition: and
     conditions:
-      - condition: state
-        entity_id: 
-          # Has filtering time left
-          - binary_sensor.piscina_pump_off_filtering_time_met
-          # It's not already on
-          - switch.motor_piscina
-          # Specific appliances are off
-#          - binary_sensor.lavadora_status_high_power
-#          - binary_sensor.secadora_status
-#          - binary_sensor.lavaplatos_status
-        state: "off"
-      # Energy net balance is negative
-#      - condition: numeric_state
-#        entity_id: sensor.energy_net_balance_hour
-#        below: 0
-      # There is enough energy generated to start pump
-      - condition: state
-        entity_id: binary_sensor.piscina_pump_on_energy_and_delay_met
+      - alias: "'Solar' or 'Solar + Valle' modes"
+        condition: or
+        conditions:
+          - alias: "Solar mode"
+            condition: state
+            entity_id: input_select.piscina_pump_mode
+            state: "Solar"
+          - alias: "Solar + Valle mode"
+            condition: state
+            entity_id: input_select.piscina_pump_mode
+            state: "Solar + Valle"
+      - alias: "Generating enough enery or hourly net balance is enough"
+        condition: or
+        conditions:
+          - condition: state
+            entity_id: binary_sensor.piscina_pump_on_energy_export_over_threshold
+            state: "on"
+          - condition: state
+            entity_id: binary_sensor.piscina_pump_on_enough_net_balance_hour
+            state: "on"
+      - alias: "Still has remaining filtering time"
+        condition: state
+        entity_id: binary_sensor.piscina_pump_remaining_time
         state: "on"
-#      - condition: or
-#        conditions:
-          # There is enough energy generated to start pump OR it's in 'Valle' tariff
-#          - condition: state
-#            entity_id: binary_sensor.piscina_pump_on_energy_and_delay_met
-#            state: "on"
-#          - condition: state
-#            entity_id: sensor.energy_tariff
-#            state: "Valle"
+      - alias: "Pump is off"
+        condition: state
+        entity_id: switch.motor_piscina
+        state: "off"
   action:
     - service: switch.turn_on
       entity_id: switch.motor_piscina

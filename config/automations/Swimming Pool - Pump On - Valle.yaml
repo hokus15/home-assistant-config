@@ -1,0 +1,35 @@
+- id: "swimming_pool_pump_on_valle"
+  alias: "Swimming Pool - Pump On - Valle"
+  trigger:
+    # When electric tariff changes to 'Valle'
+    platform: state
+    entity_id: select.energy_grid_today
+    to: "Valle"
+  # Execute automation when:
+  #  - Solar + Valle mode
+  #  - Still has remaining filtering time
+  #  - Pump is off
+  #  - After 10AM -> This is to avoid to turn on pump when 'Valle' tariff starts in early morning.
+  #    I prefer to wait for the solar energy and if during the day it has not been able to filter all the needed time with solar energy,
+  #    retake filtering when 'Valle' tariff starts again in the afternoon.
+  condition:
+    condition: and
+    conditions:
+      - alias: "Solar + Valle mode"
+        condition: state
+        entity_id: input_select.piscina_pump_mode
+        state: "Solar + Valle"
+      - alias: "Still has remaining filtering time"
+        condition: state
+        entity_id: binary_sensor.piscina_pump_remaining_time
+        state: "on"
+      - alias: "Pump is off"
+        condition: state
+        entity_id: switch.motor_piscina
+        state: "off"
+      - alias: "After 10AM"
+        condition: time
+        after: "10:00:00"
+  action:
+    - service: switch.turn_on
+      entity_id: switch.motor_piscina

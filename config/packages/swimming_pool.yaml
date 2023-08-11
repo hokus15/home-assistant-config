@@ -7,14 +7,10 @@ recorder:
       - sensor.piscina_temperature
       - sensor.piscina_filtering_time
       - sensor.piscina_on_history
-      - binary_sensor.piscina_pump_off_filtering_time_met
-      - binary_sensor.piscina_pump_off_energy_and_delay_met
-      - binary_sensor.piscina_pump_on_delay_met
       - binary_sensor.piscina_pump_on_energy_export_over_threshold
-#      - input_number.piscina_pump_on_threshold
-#      - input_number.piscina_pump_on_delay
-#      - input_number.piscina_pump_off_threshold
-#      - input_number.piscina_pump_off_delay
+      - binary_sensor.piscina_pump_remaining_time
+      - binary_sensor.piscina_pump_on_enough_net_balance_hour
+      - binary_sensor.piscina_pump_off_enough_net_balance_hour
 
 logbook:
   exclude:
@@ -23,9 +19,6 @@ logbook:
       - sensor.piscina_temperature
       - sensor.piscina_filtering_time
       - sensor.piscina_on_history
-#      - input_number.piscina_pump_on_threshold
-#      - input_number.piscina_pump_off_threshold
-#      - input_number.piscina_pump_off_delay
 
 light:
   - platform: switch
@@ -199,26 +192,19 @@ template:
         unit_of_measurement: "h"
   - binary_sensor:
       # on when the exported energy is over the input_number.piscina_pump_on_threshold threshold
+      # during input_number.piscina_pump_on_delay minutes
       - name: piscina_pump_on_energy_export_over_threshold
         state: "{{ states('sensor.fronius_solarnet_power_grid') | float(default=0) <= states('input_number.piscina_pump_on_threshold') | float(default=0) }}"
-      # on when the exported energy is over the input_number.piscina_pump_on_threshold threshold during input_number.piscina_pump_on_delay minutes
-      - name: piscina_pump_on_delay_met
-        state: "{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.piscina_pump_on_energy_export_over_threshold.last_changed)) | int(default=0)//60) | int(default=0) > states('input_number.piscina_pump_on_delay') | int(default=0) }}"
-      # on when both above sensors are on
-      - name: piscina_pump_on_energy_and_delay_met
-        state: "{{ states('binary_sensor.piscina_pump_on_energy_export_over_threshold') == 'on' and states('binary_sensor.piscina_pump_on_delay_met') == 'on' }}"
-
-      # on when the consumed energy is over the input_number.piscina_pump_off_threshold threshold and the hour net balance is over 0
-      - name: piscina_pump_off_energy_consumed_over_threshold
-        state: "{{ states('sensor.fronius_solarnet_power_grid') | float(default=0) >= states('input_number.piscina_pump_off_threshold') | float(default=0) and states('sensor.energy_net_balance_hour') | float(default=0) > 0 }}"
-      # on when the consumed energy is over the input_number.piscina_pump_off_threshold threshold during input_number.piscina_pump_off_delay minutes
-      - name: piscina_pump_off_delay_met
-        state: "{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.piscina_pump_off_energy_consumed_over_threshold.last_changed)) | int(default=0)//60) | int(default=0) > states('input_number.piscina_pump_off_delay') | int(default=0) }}"
-      # on when both above sensors are on
-      - name: piscina_pump_off_energy_and_delay_met
-        state: "{{ states('binary_sensor.piscina_pump_off_energy_consumed_over_threshold') == 'on' and states('binary_sensor.piscina_pump_off_delay_met') == 'on' }}"
-      - name: piscina_pump_off_filtering_time_met
-        state: "{{ states('sensor.piscina_on_history') | float(default=0) >= states('sensor.piscina_filtering_time') | float(default=0) }}"
+        delay_on: "{{ states('input_number.piscina_pump_on_delay') | int(60) * 60 }}"
+      # on when the hourly net balance is enough to turn on the pump
+      - name: piscina_pump_on_enough_net_balance_hour
+        state: "{{ states('input_number.piscina_pump_on_net_balance_hour_threshold') | float(0) >= states('sensor.energy_net_balance_hour') | float(1) }}"
+      # on when there is still remaining filtering time
+      - name: piscina_pump_remaining_time
+        state: "{{ states('sensor.piscina_filtering_time') | float(default=0) >= states('sensor.piscina_on_history') | float(default=0) }}"
+      # on when hourly net balance is to low to keep the pump on
+      - name: piscina_pump_off_enough_net_balance_hour
+        state: "{{ states('input_number.piscina_pump_off_net_balance_hour_threshold') | float(0) >= states('sensor.energy_net_balance_hour') | float(1) }}"
 
 input_number:
   temperature_correction:
@@ -239,16 +225,6 @@ input_number:
     min: -3500
     max: 0
     step: 100
-  # Max power consumed from grid allowed.
-  # If the consumed power is over this threshold for x minutes, the swimming pool pump will be turned off by an automation.
-  piscina_pump_off_threshold:
-    name: "Consumo para apagado"
-    unit_of_measurement: "W"
-    icon: "mdi:lightning-bolt"
-    initial: 500
-    min: 0
-    max: 2000
-    step: 100
   piscina_pump_on_delay:
     name: "Retardo encendido"
     unit_of_measurement: "mins"
@@ -257,18 +233,18 @@ input_number:
     min: 0
     max: 60
     step: 1
-  piscina_pump_off_delay:
-    name: "Retardo apagado"
-    unit_of_measurement: "mins"
-    icon: "mdi:clock-out"
-    initial: 12
+  piscina_pump_on_net_balance_hour_threshold:
+    unit_of_measurement: "kWh"
+    initial: -0.2
+    min: -1
+    max: 0
+    step: 0.1
+  piscina_pump_off_net_balance_hour_threshold:
+    unit_of_measurement: "kWh"
+    initial: 0.1
     min: 0
-    max: 60
-    step: 1
-
-input_boolean:
-  piscina_pump_manual_mode:
-    name: Modo manual
+    max: 0.5
+    step: 0.01
 #utility_meter:
 #  piscina_today_energy:
 #    source: sensor.piscina_energy
