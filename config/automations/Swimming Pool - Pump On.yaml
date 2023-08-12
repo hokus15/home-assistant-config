@@ -9,9 +9,6 @@
     - platform: state
       entity_id: binary_sensor.piscina_pump_on_enough_net_balance_hour
       to: "on"
-      # When 'input_select.piscina_pump_mode' changes state
-    - platform: state
-      entity_id: input_select.piscina_pump_mode
   # Execute automation when:
   #  - 'Solar' OR 'Solar + Valle' modes
   #  - Generating enough enery OR hourly net balance is enough
