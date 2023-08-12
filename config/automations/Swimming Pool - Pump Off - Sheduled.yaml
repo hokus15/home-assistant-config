@@ -40,7 +40,7 @@
             state: "off"
           - alias: "Hourly net balance is too low to keep the pump on"
             condition: state
-            entity_id: binary_sensor.piscina_pump_on_enough_net_balance_hour
+            entity_id: binary_sensor.piscina_pump_off_enough_net_balance_hour
             state: "off"
 
   action:
