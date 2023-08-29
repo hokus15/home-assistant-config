@@ -1,0 +1,11 @@
+- id: "person_zone_carlos_enters_casa"
+  alias: "Person - Zone - Carlos enters casa"
+  trigger:
+    - platform: zone
+      entity_id: person.carlos
+      zone: zone.home
+      event: enter
+  action:
+    - service: notify.telegram_hokusphone
+      data:
+        message: "Carlos ha llegado a casa"
