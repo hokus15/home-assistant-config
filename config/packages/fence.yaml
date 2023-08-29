@@ -2,6 +2,8 @@ recorder:
   include:
     entities:
       - cover.outside_fence
+      - input_button.barrera_carlos
+      - input_button.barrera_coque
 
 sensor:
   - platform: template
