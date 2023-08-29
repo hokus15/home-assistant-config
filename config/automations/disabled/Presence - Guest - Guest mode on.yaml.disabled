@@ -8,7 +8,7 @@
       data:
         dev_id: 'guest'
         location_name: 'home'
-    - service: notify.telegram
+    - service: notify.telegram_hokusphone
       data_template:
         message: >
           Activado modo invitado durante {{ (states.input_number.guest_mode_minutes.state | int) // 60 }} hora(s) y {{ (states.input_number.guest_mode_minutes.state | int) % 60 }} minutos

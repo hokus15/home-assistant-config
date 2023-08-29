@@ -4,7 +4,7 @@
     entity_id: sensor.exchange_rate_1_btc
     above: 16000
   action:
-    - service: notify.telegram
+    - service: notify.telegram_hokusphone
       data_template:
         message: 'Bitcoin ha llegado a un valor de {{states.sensor.exchange_rate_1_btc.state}} {{states.sensor.exchange_rate_1_btc.attributes.unit_of_measurement}}'
     - service: notify.slack

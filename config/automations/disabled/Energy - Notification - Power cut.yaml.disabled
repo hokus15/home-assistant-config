@@ -6,7 +6,7 @@
     for:
       minutes: 1
   action:
-    - service: notify.telegram
+    - service: notify.telegram_hokusphone
       data:
         message: '🔌 Corte en el suministro eléctrico detectado'
     - service: notify.slack

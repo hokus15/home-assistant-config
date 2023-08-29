@@ -13,7 +13,7 @@
       entity_id: climate.netatmo_general
       data_template:
         preset_mode: 'away'
-    - service: notify.telegram
+    - service: notify.telegram_hokusphone
       data:
         message: 'Modo vacaciones desactivado'
     - service: notify.slack

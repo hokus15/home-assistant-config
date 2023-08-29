@@ -11,7 +11,7 @@
       entity_id: sensor.ha_runtime_in_minutes
       above: 2
   action:
-    - service: notify.telegram
+    - service: notify.telegram_hokusphone
       data:
         message: '🔌 Suministro eléctrico reestablecido'
     - service: notify.slack

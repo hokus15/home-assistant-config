@@ -5,7 +5,7 @@
       from: 'off'
       to: 'on'
   action:
-    - service: notify.telegram
+    - service: notify.telegram_hokusphone
       data_template:
         message: 'La versión {{ state_attr("binary_sensor.updater", "newest_version") }} de Home Assistant está disponible.'
     - service: notify.slack
