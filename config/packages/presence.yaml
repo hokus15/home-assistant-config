@@ -6,7 +6,8 @@ recorder:
       - group.unidad_familiar
       - switch.google_home_occupancy
       - binary_sensor.withings_in_bed_jm
-      - device_tracker.hokusphone
+      #- device_tracker.hokusphone
+      #- device_tracker.carlosphone
 
 group:
   Unidad Familiar:
@@ -15,6 +16,8 @@ group:
       - person.jordi
       - person.geni
       - person.guest
+      #- person.carlos
+      #- person.coque
 
 input_number:
   # Number of minutes to keep the guest mode on
@@ -27,63 +30,51 @@ input_number:
 
 mqtt:
   device_tracker:
-    # Set to 'home' when when hokusphone is connected to HokusWiFi and 'not_home' otherwise
-#    - name: hokusphone_wifi
-#      state_topic: phone/sensor/hokus/wifi
-#      source_type: 'router'
-#      unique_id: hokusphone_wifi
-      # Set to 'home' when when geniphone is connected to HokusWiFi and 'not_home' otherwise
+    # Set to 'home' when when geniphone is connected to HokusWiFi and 'not_home' otherwise
     - name: geniphone_wifi
       state_topic: phone/sensor/geni/wifi
-      source_type: 'router'
+      source_type: "router"
       unique_id: geniphone_wifi
       # Set to 'home' by Google Home routine (using switch.google_home_occupancy) when at least ONE person at home
       # and 'not_home' when ALL the persons are away
     - name: google_home
       state_topic: home/switch/google_home_occupancy
-      source_type: 'router'
+      source_type: "router"
       unique_id: google_home
 
   sensor:
     # Consider_home is not working properly for mqtt device_tracker
     # This sensor is to workaround it using some automations
-    # Presence - HokusPhone - Wifi home.yaml
-    # Presence - HokusPhone - Wifi not_home.yaml
-#    - state_topic: 'phone/sensor/hokus/wifi/ssid'
-#      name: hokusphone_wifi_ssid
-
-    # Consider_home is not working properly for mqtt device_tracker
-    # This sensor is to workaround it using some automations
     # Presence - GeniPhone - Wifi home.yaml
     # Presence - GeniPhone - Wifi not_home.yaml
-    - state_topic: 'phone/sensor/geni/wifi/ssid'
+    - state_topic: "phone/sensor/geni/wifi/ssid"
       name: geniphone_wifi_ssid
 
   switch:
-    - name: 'holiday'
-      state_topic: 'home/switch/holiday'
-      command_topic: 'home/switch/holiday'
-      payload_on: 'ON'
-      payload_off: 'OFF'
+    - name: "holiday"
+      state_topic: "home/switch/holiday"
+      command_topic: "home/switch/holiday"
+      payload_on: "ON"
+      payload_off: "OFF"
       optimistic: false
       qos: 0
       retain: true
 
-    - name: 'guest_mode'
-      state_topic: 'home/switch/guest_mode'
-      command_topic: 'home/switch/guest_mode'
-      payload_on: 'ON'
-      payload_off: 'OFF'
+    - name: "guest_mode"
+      state_topic: "home/switch/guest_mode"
+      command_topic: "home/switch/guest_mode"
+      payload_on: "ON"
+      payload_off: "OFF"
       optimistic: false
       qos: 0
       retain: true
 
-    - unique_id: 'google_home_occupancy'
-      name: 'google_home_occupancy'
-      state_topic: 'home/switch/google_home_occupancy'
-      command_topic: 'home/switch/google_home_occupancy'
-      payload_on: 'home'
-      payload_off: 'not_home'
+    - unique_id: "google_home_occupancy"
+      name: "google_home_occupancy"
+      state_topic: "home/switch/google_home_occupancy"
+      command_topic: "home/switch/google_home_occupancy"
+      payload_on: "home"
+      payload_off: "not_home"
       optimistic: false
       qos: 0
       retain: true
@@ -92,37 +83,18 @@ sensor:
   - platform: template
     sensors:
       next_holiday_mode_start:
-        friendly_name: 'Inicio vacaciones'
+        friendly_name: "Inicio vacaciones"
         value_template: >-
-             {%- if state_attr('calendar.vacaciones','start_time') is not none %}
-                 {{ as_timestamp(states.calendar.vacaciones.attributes.start_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}
-             {% else %}
-                 No previstas
-             {%- endif %}
+          {%- if state_attr('calendar.vacaciones','start_time') is not none %}
+              {{ as_timestamp(states.calendar.vacaciones.attributes.start_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}
+          {% else %}
+              No previstas
+          {%- endif %}
       next_holiday_mode_end:
-        friendly_name: 'Fin vacaciones'
+        friendly_name: "Fin vacaciones"
         value_template: >-
-             {%- if state_attr('calendar.vacaciones','end_time') is not none %}
-                 {{ as_timestamp(states.calendar.vacaciones.attributes.end_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}
-             {% else %}
-                 No previstas
-             {%- endif %}
-
-zone:
-  - name: Oficina
-    latitude: !secret office_latitude
-    longitude: !secret office_longitude
-    radius: 200
-    icon: mdi:briefcase
-  
-  - name: Colegio
-    latitude: !secret school_latitude
-    longitude: !secret school_longitude
-    radius: 250
-    icon: mdi:school
-  
-  - name: Hospital
-    latitude: !secret office2_latitude
-    longitude: !secret office2_longitude
-    radius: 300
-    icon: mdi:hospital-building
+          {%- if state_attr('calendar.vacaciones','end_time') is not none %}
+              {{ as_timestamp(states.calendar.vacaciones.attributes.end_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}
+          {% else %}
+              No previstas
+          {%- endif %}
