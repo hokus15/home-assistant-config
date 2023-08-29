@@ -1,0 +1,26 @@
+- id: "car_charge_turn_off_charger"
+  alias: "Car - Charge - Turn off charger"
+  trigger:
+    # When the binary_sensor defined to turn off the EV charger changes to 'on'
+    - platform: state
+      entity_id: binary_sensor.cargador_ev_turn_off_trigger
+      to: "on"
+    - platform: state
+      entity_id: input_select.cargador_ev_mode
+    - platform: time_pattern
+      # Every 5 minutes
+      minutes: "/5"
+  # When in 'Solar' mode only turn off when binary_sensor.cargador_ev_turn_off_trigger is "on"
+  # When in 'Solar + Valle' mode only turn off when binary_sensor.cargador_ev_turn_off_trigger is "on" and not in "Valle" tariff
+  # When in 'Manual' mode never turn off automatically.
+  condition: >-
+    {% if (states('input_select.cargador_ev_mode') == 'Solar' and states('binary_sensor.cargador_ev_turn_off_trigger') == 'on') %}
+      true
+    {% elif ((states('input_select.cargador_ev_mode') == 'Solar + Valle' and states('binary_sensor.cargador_ev_turn_off_trigger') == 'on') and states('sensor.energy_tariff') != 'Valle') %}
+      true
+    {% else %}
+      false
+    {% endif %}
+  action:
+    - service: switch.turn_off
+      entity_id: switch.cargador_ev_switch
