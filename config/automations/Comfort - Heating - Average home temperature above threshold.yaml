@@ -23,12 +23,18 @@
         message: "apagada por alta temperatura"
         entity_id: climate.recibidor
         domain: climate
-    - service: telegram_bot.send_message
-      data_template:
+    - service: notify.telegram_hokusphone
+      data:
         message: "Empieza el calor 🌞🌞🌞!!!! He apagado la calefacción."
-        target:
-          - !secret hokusphone_telegram_chat_id
-        #          - !secret geniphone_telegram_chat_id
         disable_notification: false
         inline_keyboard:
           - "Enciende la calefacción:/climate.turn_on#climate.recibidor"
+#    - service: telegram_bot.send_message
+#      data_template:
+#        message: "Empieza el calor 🌞🌞🌞!!!! He apagado la calefacción."
+#        target:
+#          - !secret hokusphone_telegram_chat_id
+#        #          - !secret geniphone_telegram_chat_id
+#        disable_notification: false
+#        inline_keyboard:
+#          - "Enciende la calefacción:/climate.turn_on#climate.recibidor"
