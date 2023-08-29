@@ -1,13 +1,13 @@
-- id: 'system_node_red_watchdog'
-  alias: 'System - Node RED Watchdog'
+- id: "system_node_red_watchdog"
+  alias: "System - Node RED Watchdog"
   trigger:
     platform: state
     entity_id: sensor.node_red
-    to: 'unavailable'
+    to: "unavailable"
   action:
     - service: hassio.addon_restart
       data:
         addon: a0d7b954_nodered
-    - service: notify.telegram
+    - service: notify.telegram_hokusphone
       data:
-        message: 'He reiniciado node RED porque no repondía'
+        message: "He reiniciado node RED porque no repondía"
