@@ -1,14 +1,14 @@
-- id: 'car_notification_ioniq_charge_finishes'
-  alias: 'Car - Notification - Ioniq charge finishes'
+- id: "car_notification_ioniq_charge_finishes"
+  alias: "Car - Notification - Ioniq charge finishes"
   trigger:
     platform: state
     entity_id: sensor.car_ioniq_charger_charge_state
-    from: 'Cargando'
-    to: 'Listo'
+    from: "Cargando"
+    to: "Listo"
   condition:
     condition: template
     value_template: "{{ state('sensor.cargador_ev_today_energy') is not none }}"
   action:
-    - service: notify.telegram
-      data_template:
+    - service: notify.telegram_hokusphone
+      data:
         message: '🚘 Carga del Ioniq finalizada. {{state("sensor.cargador_ev_today_energy")}} kWh cargados.'
