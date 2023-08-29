@@ -9,6 +9,12 @@
   #  - NOT in manual mode.
   #  - NOT ('Solar + Valle' mode AND in 'Valle' tariff)
   #  - There is no remaining filtering time OR Hourly net balance is too low to keep the pump on
+
+  
+  # TODO Add the condition to turn off when there is no remaining filtering time and not in 'Manual' mode.
+  #      This is to prevent the case that it turns on in Valle tariff because it's in 'Solar + Valle' mode
+  #      and while in valle tariff it has no remaining filtering time.
+  #      Without this condition it will be on even when there is not remaining time when in 'Solar + Valle' mode.
   condition:
     condition: and
     conditions:
