@@ -1,0 +1,66 @@
+recorder:
+  include:
+    entities:
+      - binary_sensor.porche_sensor_puerta_abierta_alerta
+      - binary_sensor.motor_piscina_encendido_alerta
+
+template:
+  - binary_sensor:
+      - name: "porche_sensor_puerta_abierta_alerta"
+        state: >-
+          {{ is_state('binary_sensor.porche_sensor_puerta', 'on')
+             and states('climate.recibidor') is not none
+             and not is_state('climate.recibidor', 'off')
+             and is_state_attr('climate.recibidor', 'hvac_action', 'heating') }}
+      - name: "motor_piscina_encendido_alerta"
+        state: >-
+          {{ is_state('switch.motor_piscina', 'on')
+             and states.sensor.piscina_on_history.state | float(0) > states.sensor.piscina_filtering_time.state | float(0) }}
+
+alert:
+  barrera_abierta:
+    name: Barrera abierta
+    entity_id: cover.outside_fence
+    state: "open"
+    repeat: 10
+    message: "Barrera {{ states.sensor.outside_fence_sensor_state.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.cover.outside_fence.last_changed))|int//60 }} minutos"
+    done_message: "Barrera cerrada"
+    can_acknowledge: true
+    skip_first: true
+    data:
+      inline_keyboard:
+        - "Cerrar:/switch.turn_on#switch.barrera"
+        - "Enterado:/alert.turn_off#alert.barrera_abierta"
+    notifiers:
+      - recibidor
+      - telegram_hokusphone
+  porche_sensor_puerta_abierta:
+    name: Puerta porche cocina abierta
+    entity_id: binary_sensor.porche_sensor_puerta_abierta_alerta
+    state: "on"
+    repeat: 10
+    message: "Puerta del porche en la cocina abierta durante más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.porche_sensor_puerta.last_changed))|int//60 }} minutos"
+    can_acknowledge: true
+    skip_first: true
+    data:
+      inline_keyboard:
+        - "Enterado:/alert.turn_off#alert.porche_sensor_puerta_abierta"
+    notifiers:
+      - recibidor
+      - suite
+      - telegram_hokusphone
+  motor_piscina_encendido:
+    name: Motor piscina encendido
+    entity_id: binary_sensor.motor_piscina_encendido_alerta
+    state: "on"
+    repeat: 5
+    message: "Motor de la piscina encendido hoy durante {{ ((states.sensor.piscina_on_history.state | float(0) * 60) // 60) | round(0) }} horas y {{ ((states.sensor.piscina_on_history.state | float(0) * 60) % 60) | round(0) }} minutos cuando el tiempo programado es de {{ ((states.sensor.piscina_filtering_time.state | float(0) * 60) // 60) | round(0) }} horas y {{ ((states.sensor.piscina_filtering_time.state | float(0) * 60) % 60) | round(0) }} minutos."
+    can_acknowledge: true
+    skip_first: true
+    data:
+      inline_keyboard:
+        - "Apagar:/switch.turn_off#switch.motor_piscina"
+        - "Enterado:/alert.turn_off#alert.motor_piscina_encendido"
+    notifiers:
+      - recibidor
+      - telegram_hokusphone
