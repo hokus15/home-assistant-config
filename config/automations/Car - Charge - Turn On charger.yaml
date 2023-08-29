@@ -1,0 +1,45 @@
+- id: "car_charge_turn_on_charger"
+  alias: "Car - Charge - Turn on charger"
+  trigger:
+    # When generating enough energy
+    - platform: state
+      entity_id: binary_sensor.cargador_ev_on_energy_export_over_threshold
+      to: "on"
+    # When hourly net balance is enough to turn on the EV charger
+    - platform: state
+      entity_id: binary_sensor.cargador_ev_on_enough_net_balance_hour
+      to: "on"
+  # Execute automation when:
+  #  - 'Solar' OR 'Solar + Valle' modes
+  #  - Generating enough enery OR hourly net balance is enough
+  #  - EV charger is off
+  condition:
+    condition: and
+    conditions:
+      - alias: "'Solar' or 'Solar + Valle' modes"
+        condition: or
+        conditions:
+          - alias: "Solar mode"
+            condition: state
+            entity_id: input_select.cargador_ev_mode
+            state: "Solar"
+          - alias: "Solar + Valle mode"
+            condition: state
+            entity_id: input_select.cargador_ev_mode
+            state: "Solar + Valle"
+      - alias: "Generating enough enery or hourly net balance is enough"
+        condition: or
+        conditions:
+          - condition: state
+            entity_id: binary_sensor.cargador_ev_on_energy_export_over_threshold
+            state: "on"
+          - condition: state
+            entity_id: binary_sensor.cargador_ev_on_enough_net_balance_hour
+            state: "on"
+      - alias: "EV charger is off"
+        condition: state
+        entity_id: switch.cargador_ev_switch
+        state: "off"
+  action:
+    - service: switch.turn_on
+      entity_id: switch.cargador_ev_switch

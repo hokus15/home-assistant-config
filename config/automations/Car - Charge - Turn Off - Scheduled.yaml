@@ -1,0 +1,42 @@
+- id: "car_charge_turn_off_scheduled"
+  alias: "Car - Charge - Turn Off - Scheduled"
+  trigger:
+    - platform: time_pattern
+      # Every minute
+      minutes: "/1"
+  # TODO Include: 'Manual con parada al acabar Valle' mode.
+  # Execute automation when:
+  #  - EV Charger is on
+  #  - NOT in manual mode.
+  #  - NOT ('Solar + Valle' mode AND in 'Valle' tariff)
+  #  - Hourly net balance is too low to keep the pump on
+  condition:
+    condition: and
+    conditions:
+      - alias: "EV Charger is on"
+        condition: state
+        entity_id: switch.cargador_ev_switch
+        state: "on"
+      - condition: not
+        conditions:
+          - alias: "Not in manual mode"
+            condition: state
+            entity_id: input_select.cargador_ev_mode
+            state: "Manual"
+          - condition: and
+            conditions:
+              - alias: "'Solar + Valle' mode"
+                condition: state
+                entity_id: input_select.cargador_ev_mode
+                state: "Solar + Valle"
+              - alias: "'Valle' tariff"
+                condition: state
+                entity_id: select.energy_grid_today
+                state: "Valle"
+      - alias: "Hourly net balance is too low to keep the EV charger on"
+        condition: state
+        entity_id: binary_sensor.cargador_ev_off_enough_net_balance_hour
+        state: "off"
+  action:
+    - service: switch.turn_off
+      entity_id: switch.cargador_ev_switch

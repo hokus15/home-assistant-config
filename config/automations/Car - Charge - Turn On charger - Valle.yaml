@@ -1,0 +1,24 @@
+- id: "car_charge_turn_on_charger_valle"
+  alias: "Car - Charge - Turn On charger - Valle"
+  trigger:
+    # When electric tariff changes to 'Valle'
+    platform: state
+    entity_id: select.energy_grid_today
+    to: "Valle"
+  # Execute automation when:
+  #  - Solar + Valle mode
+  #  - EV charger is off
+  condition:
+    condition: and
+    conditions:
+      - alias: "Solar + Valle mode"
+        condition: state
+        entity_id: input_select.cargador_ev_mode
+        state: "Solar + Valle"
+      - alias: "EV charger is off"
+        condition: state
+        entity_id: switch.cargador_ev_switch
+        state: "off"
+  action:
+    - service: switch.turn_on
+      entity_id: switch.cargador_ev_switch

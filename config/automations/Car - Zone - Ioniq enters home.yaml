@@ -28,9 +28,8 @@
         topic: "phone/sensor/hokus/cmnd/say"
     - delay:
         seconds: 5
-    - service: telegram_bot.send_message
-      data_template:
+    - service: notify.telegram_hokusphone
+      data:
         message: "🚪 Barrera abierta automáticamente"
-        target: !secret hokusphone_telegram_chat_id
         inline_keyboard:
           - "Cerrar:/switch.turn_on#switch.barrera"

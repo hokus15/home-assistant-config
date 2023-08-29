@@ -5,6 +5,10 @@ recorder:
       - sensor.cargador_ev_power
       - sensor.cargador_ev_power_filtered
       - sensor.cargador_ev_energy_calc
+      - binary_sensor.cargador_ev_on_energy_export_over_threshold
+      - binary_sensor.cargador_ev_on_enough_net_balance_hour
+      - binary_sensor.cargador_ev_off_enough_net_balance_hour
+      - input_select.cargador_ev_mode
 
 logbook:
   exclude:
@@ -29,41 +33,48 @@ sensor:
         window_size: 4
         radius: 10000.0
 
+template:
+  - binary_sensor:
+      # on when the exported energy is over the input_number.cargador_ev_on_threshold threshold
+      # during input_number.cargador_ev_on_delay minutes
+      - name: cargador_ev_on_energy_export_over_threshold
+        state: "{{ states('sensor.fronius_solarnet_power_grid') | float(default=0) <= states('input_number.cargador_ev_on_threshold') | float(default=0) }}"
+        delay_on: "{{ states('input_number.cargador_ev_on_delay') | int(60) * 60 }}"
+      # on when the hourly net balance is enough to turn on the EV Charger
+      - name: cargador_ev_on_enough_net_balance_hour
+        state: "{{ states('input_number.cargador_ev_on_net_balance_hour_threshold') | float(0) >= states('sensor.energy_net_balance_hour') | float(1) }}"
+      # on when hourly net balance is to low to keep the EV Charger on
+      - name: cargador_ev_off_enough_net_balance_hour
+        state: "{{ states('input_number.cargador_ev_off_net_balance_hour_threshold') | float(0) >= states('sensor.energy_net_balance_hour') | float(1) }}"
+
 input_number:
   # Grid power (negative exporting / positive importing) to turn on EV charger.
   # i.e: -1300 Means turn on EV charger when exporting 1300W to the grid.
   cargador_ev_on_threshold:
-    name: 'Potencia para encendido'
-    unit_of_measurement: 'W'
-    icon: 'mdi:lightning-bolt'
-    initial: -1300
+    name: "Potencia para encendido"
+    unit_of_measurement: "W"
+    icon: "mdi:lightning-bolt"
+    initial: -1800
     min: -3000
     max: 0
     step: 100
-  # Max power consumed from grid allowed.
-  # If the consumed power is over this threshold for x minutes, the EV charger will be turned off by an automation.
-  cargador_ev_off_threshold:
-    name: 'Consumo para apagado'
-    unit_of_measurement: 'W'
-    icon: 'mdi:lightning-bolt'
-    initial: 500
-    min: 0
-    max: 2000
-    step: 100
   cargador_ev_on_delay:
-    name: 'Retardo encendido'
-    unit_of_measurement: 'mins'
-    icon: 'mdi:clock-in'
+    name: "Retardo encendido"
+    unit_of_measurement: "mins"
+    icon: "mdi:clock-in"
     initial: 3
     min: 0
     max: 60
     step: 1
-
-  cargador_ev_off_delay:
-    name: 'Retardo apagado'
-    unit_of_measurement: 'mins'
-    icon: 'mdi:clock-out'
-    initial: 10
+  cargador_ev_on_net_balance_hour_threshold:
+    unit_of_measurement: "kWh"
+    initial: -0.3
+    min: -1
+    max: 0
+    step: 0.1
+  cargador_ev_off_net_balance_hour_threshold:
+    unit_of_measurement: "kWh"
+    initial: 0.05
     min: 0
-    max: 60
-    step: 2
+    max: 0.5
+    step: 0.01
