@@ -94,42 +94,29 @@ telegram_bot:
   parse_mode: html
   allowed_chat_ids:
     - !secret hokusphone_telegram_chat_id
-    - !secret hokuscar_telegram_chat_id
-#    - !secret geniphone_telegram_chat_id
+    - !secret geniphone_telegram_chat_id
 
 notify:
-  - name: telegram
+  - name: telegram_hokusphone
     platform: telegram
     chat_id: !secret hokusphone_telegram_chat_id
-
-#  - name: slack
-#    platform: slack
-#    api_key: !secret slack_token
-#    default_channel: '#general'
-#    icon: ':house_with_garden:'
+  - name: telegram_geniphone
+    platform: telegram
+    chat_id: !secret geniphone_telegram_chat_id
+  - name: recibidor
+    platform: tts
+    tts_service: tts.cloud_say
+    media_player: media_player.recibidor
+  - name: suite
+    platform: tts
+    tts_service: tts.cloud_say
+    media_player: media_player.suite
 
 ifttt:
   key: !secret ifttt_api_key
 
 withings:
-  #  client_id: !secret withings_client_id
-  #  client_secret: !secret withings_client_secret
   use_webhook: true
-
-#google:
-#  client_id: !secret google_client_id
-#  client_secret: !secret google_secret
-
-#tts:
-#  - platform: google_translate
-#    base_url: !secret ha_base_url
-#    cache: true
-#    cache_dir: /tmp/tts
-#    time_memory: 300
-#    language: 'es'
-#  - platform: google_cloud
-#    key_file: google_cloud.json
-#    voice: es-ES-Standard-B
 
 freedns:
   url: !secret freedns_url
