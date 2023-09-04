@@ -15,8 +15,8 @@ group:
       #- person.familia
       - person.jordi
       - person.geni
+      - person.carlos
       - person.guest
-      #- person.carlos
       #- person.coque
 
 input_number:
