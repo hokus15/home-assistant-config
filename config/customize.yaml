@@ -65,6 +65,10 @@ person.geni:
   entity_picture: /local/person.geni.jpg
 person.guest:
   icon: mdi:account-question
+person.carlos:
+  entity_picture: /local/person.carlos.jpg
+person.coque:
+  entity_picture: /local/person.coque.jpg
 sensor.escalera_switch_energy:
   icon: mdi:speedometer
   friendly_name: Consumo luz escalera
@@ -326,3 +330,19 @@ sensor.cargador_ev_energy_calc:
   friendly_name: Consumo cargador EV
   icon: mdi:speedometer
   device_class: energy
+zone.cargador_aragon:
+  friendly_name: Cargador de Aragón
+zone.cargador_conquistador:
+  friendly_name: Cargador de Conquistador
+zone.cargador_palmanyola_dalias:
+  friendly_name: Cargador de la calle Dalias de Palmañola
+zone.cargador_palmanyola_violetes:
+  friendly_name: Cargador de la calle Violetas de Palmañola
+zone.cargador_paseo_mallorca:
+  friendly_name: Cargador de Paseo Mallorca
+zone.cargador_sant_miquel:
+  friendly_name: Cargador de San Miguel
+zone.cargador_sestanyol:
+  friendly_name: Cargador de Sestañol
+zone.casa_cerca:
+  friendly_name: Casa
