@@ -5,13 +5,13 @@ recorder:
 
 sensor:
   - platform: websocket_api
-  
+
   - platform: time_date
     display_options:
-      - 'time'
-      - 'date'
-      - 'date_time'
-  
+      - "time"
+      - "date"
+      - "date_time"
+
   - platform: google_wifi
     host: 10.155.106.1
     monitored_conditions:
@@ -20,7 +20,7 @@ sensor:
       - uptime
       - last_restart
       - status
-  
+
   - platform: systemmonitor
     resources:
       - type: disk_free
@@ -30,17 +30,17 @@ sensor:
       - type: memory_free
       - type: processor_use
       - type: last_boot
-  
+
   - platform: template
     sensors:
       ha_runtime_in_minutes:
-        value_template: '{{((as_timestamp(now()) - as_timestamp(states.sensor.time_online.state)) / 60)| round }}'
+        value_template: "{{((as_timestamp(now()) - as_timestamp(states.sensor.time_online.state)) / 60)| round }}"
 
 mqtt:
   sensor:
     - name: "HokusLaptop - Remaining Battery"
       state_topic: "home/hokuslan/hokuslaptop/windows-monitor/stats/battery/remaining-percent"
-      unit_of_measurement: '%'
+      unit_of_measurement: "%"
       device_class: battery
       force_update: true
       expire_after: 120
@@ -52,7 +52,7 @@ mqtt:
 
     - name: "GeniLaptop - Remaining Battery"
       state_topic: "home/hokuslan/genilaptop/windows-monitor/stats/battery/remaining-percent"
-      unit_of_measurement: '%'
+      unit_of_measurement: "%"
       device_class: battery
       force_update: true
       expire_after: 120
@@ -66,18 +66,10 @@ mqtt:
       state_topic: "homeassistant/addons/node-red"
       expire_after: 120
 
-#  - platform: sql
-#    db_url: !secret recorder_db_url
-#    queries:
-#      - name: DB size
-#        query: 'SELECT table_schema "database", Round((Sum(data_length + index_length) / 1024) / 1024, 0) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;'
-#        column: 'value'
-#        unit_of_measurement: MiB
-
 input_boolean:
-    node_red:
-        name: 'node RED Watchdog'
-        initial: on
+  node_red:
+    name: "node RED Watchdog"
+    initial: on
 
 shell_command:
   mp4_convert: 'ffmpeg -i {{file}} -c copy {{file[0:file.find(".mkv")]}}.mp4'
@@ -86,4 +78,3 @@ shell_command:
   jpg_cleanup: 'find /share/camera/ -type f -name "*.jpg" -mtime +{{age}} -delete'
   empty_directories_cleanup: 'find /share/camera -depth -exec rmdir {} \; 2> /dev/null'
   version_tojson: 'echo -n "{\"version\": \"" > HA_VERSION.json && cat .HA_VERSION >> HA_VERSION.json && echo -n "\"}" >> HA_VERSION.json'
-  
