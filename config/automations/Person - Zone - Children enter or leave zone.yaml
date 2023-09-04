@@ -1,0 +1,109 @@
+- id: "person_zone_children_enter_leave_zone"
+  alias: "Person - Zone - Children enter or leave zone"
+  trigger:
+    - platform: zone
+      entity_id:
+        - person.carlos
+        - person.coque
+      zone: zone.casa_abu
+      event: enter
+      enabled: false
+    - platform: zone
+      entity_id:
+        - person.carlos
+        - person.coque
+      zone: zone.casa_avi_y_senyoravi
+      event: enter
+      enabled: false
+    - platform: zone
+      entity_id:
+        - person.carlos
+        - person.coque
+      zone: zone.casa_cerca
+      event: enter
+    #  enabled: false
+    - platform: zone
+      entity_id:
+        - person.carlos
+        - person.coque
+      zone: zone.colegio
+      event: enter
+    #  enabled: false
+    - platform: zone
+      entity_id:
+        - person.carlos
+        - person.coque
+      zone: zone.home
+      event: enter
+      enabled: false
+    - platform: zone
+      entity_id:
+        - person.carlos
+        - person.coque
+      zone: zone.sant_ferran
+      event: enter
+      enabled: false
+    - platform: zone
+      entity_id:
+        - person.carlos
+        - person.coque
+      zone: zone.son_moix
+      event: enter
+      enabled: false
+    - platform: zone
+      entity_id:
+        - person.carlos
+        - person.coque
+      zone: zone.casa_abu
+      event: leave
+      enabled: false
+    - platform: zone
+      entity_id:
+        - person.carlos
+        - person.coque
+      zone: zone.casa_avi_y_senyoravi
+      event: leave
+      enabled: false
+    - platform: zone
+      entity_id:
+        - person.carlos
+        - person.coque
+      zone: zone.casa_cerca
+      event: leave
+      enabled: false
+    - platform: zone
+      entity_id:
+        - person.carlos
+        - person.coque
+      zone: zone.colegio
+      event: leave
+    #  enabled: false
+    - platform: zone
+      entity_id:
+        - person.carlos
+        - person.coque
+      zone: zone.home
+      event: leave
+    #  enabled: false
+    - platform: zone
+      entity_id:
+        - person.carlos
+        - person.coque
+      zone: zone.sant_ferran
+      event: leave
+      enabled: false
+    - platform: zone
+      entity_id:
+        - person.carlos
+        - person.coque
+      zone: zone.son_moix
+      event: leave
+      enabled: false
+  action:
+    - variables:
+        person: "{{ trigger.to_state.attributes.friendly_name }}"
+        event: "{{ 'ha salido de' if trigger.event == 'leave' else 'ha llegado a' }}"
+        zone: "{{ trigger.zone.attributes.friendly_name }}"
+    - service: notify.telegram_familygroup
+      data:
+        message: "{{person}} {{event}} {{zone}}"
