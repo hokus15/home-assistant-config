@@ -1,22 +1,25 @@
-- id: "car_zone_ioniq_enters_home"
-  alias: "Car - Zone - Ioniq enters home"
+- id: "person_zone_jordi_enters_home"
+  alias: "Person - Zone - Jordi enters home"
   trigger:
     - platform: zone
-      entity_id: device_tracker.car_ioniq
+      entity_id: person.jordi
       zone: zone.home
       event: enter
   condition:
     condition: and
     conditions:
+      # Fence is closed
       - condition: state
         entity_id: cover.outside_fence
         state: "closed"
+      # Car engine is on
       - condition: state
         entity_id: sensor.car_ioniq_state_sensor
         state: "Encendido"
-      - condition: numeric_state
-        entity_id: sensor.car_ioniq_location_gps_accuracy
-        below: 100
+      # Hokusphone is plugged into the one car (usually my car)
+      - condition: state
+        entity_id: binary_sensor.hokusphone_android_auto
+        state: "on"
   action:
     - service: cover.open_cover
       entity_id: cover.outside_fence
