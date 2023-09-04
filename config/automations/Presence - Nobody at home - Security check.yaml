@@ -1,0 +1,40 @@
+- id: "presence_nobody_At_home_security_check"
+  alias: "Presence - Nobody at home - Security check"
+  trigger:
+    - platform: state
+      entity_id: group.unidad_familiar
+      from: "home"
+      to: "not_home"
+  condition:
+    condition: and
+    conditions:
+      # Car engine is on
+      - condition: state
+        entity_id: sensor.car_ioniq_state_sensor
+        state: "Encendido"
+      # Hokusphone is plugged into the one car (usually my car)
+      - condition: state
+        entity_id: binary_sensor.hokusphone_android_auto
+        state: "on"
+  action:
+    - service: mqtt.publish
+      data:
+        payload_template: >-
+          {%- if is_state("cover.outside_fence", "open") -%}
+            No hay nadie en casa y se ha quedado la barrera abierta, la cierro.
+          {%- endif -%}
+          {%- if is_state("binary_sensor.porche_sensor_puerta", "on") %}
+            Puerta de la cocina abierta.
+          {% endif -%}
+          {%- if is_state("binary_sensor.porche_sensor_persiana", "on") %}
+            Persiana de la cocina abierta.
+          {% endif -%}
+        retain: false
+        topic: "phone/sensor/hokus/cmnd/say"
+    - service_template: >-
+        {%- if is_state("cover.outside_fence", "open") -%}
+          cover.close_cover
+        {%- endif -%}
+
+      data:
+        entity_id: cover.outside_fence
