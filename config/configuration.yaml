@@ -95,6 +95,7 @@ telegram_bot:
   allowed_chat_ids:
     - !secret hokusphone_telegram_chat_id
     - !secret geniphone_telegram_chat_id
+    - !secret familygroup_telegram_chat_id
 
 notify:
   - name: telegram_hokusphone
@@ -111,6 +112,9 @@ notify:
     platform: tts
     tts_service: tts.cloud_say
     media_player: media_player.suite
+  - name: telegram_familygroup
+    platform: telegram
+    chat_id: !secret familygroup_telegram_chat_id
 
 ifttt:
   key: !secret ifttt_api_key
