@@ -1,0 +1,35 @@
+- id: "person_button_user_press_barrera"
+  alias: "Person - Button - User press barrera"
+  trigger:
+    - platform: state
+      entity_id: input_button.barrera
+  condition:
+    alias: "User that pushed the button is at home OR the fence is already open"
+    or:
+      # Check if the user (converted to person) that pushed the button is at home
+      - condition: template
+        value_template: >-
+          {% set p = states.person | selectattr('attributes.user_id', 'eq', trigger.to_state.context.user_id) | list %}
+          {{ (states(p[0].entity_id) == 'home') if p | count == 1 else false }}
+      # Check the fence is already opened, so it can be closed even when not home
+      - condition: state
+        entity_id: "cover.outside_fence"
+        state: "open"
+  action:
+    - variables:
+        event: "{{ 'abierto' if states.cover.outside_fence.state == 'closed' else 'cerrado' }}"
+    - service: cover.open_cover
+      entity_id: cover.outside_fence
+    - service: notify.telegram_familygroup
+      data:
+        message: >
+          {% set p = states.person | selectattr('attributes.user_id', 'eq', trigger.to_state.context.user_id) | list %}
+          {{ p[0].attributes.friendly_name if p | count == 1 else 'desconocido' }} ha {{ event }} la barrera.
+
+#    - service: logbook.log
+#      data:
+#        entity_id: cover.outside_fence
+#        domain: cover
+#        message: >
+#          {% set p = states.person | selectattr('attributes.user_id', 'eq', trigger.to_state.context.user_id) | list %}
+#          {{ p[0].attributes.friendly_name if p | count == 1 else 'desconocido' }} ha {{ event }} la barrera.
