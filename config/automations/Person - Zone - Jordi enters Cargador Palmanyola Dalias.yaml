@@ -1,24 +1,26 @@
-- id: "car_zone_ioniq_enters_cargador_palmanyola_dalias"
-  alias: "Car - Zone - Ioniq enters Cargador Palmanyola Dalias"
+- id: "person_zone_jordi_enters_cargador_palmanyola_dalias"
+  alias: "Person - Zone - Jordi enters Cargador Palmanyola Dalias"
   trigger:
     - platform: zone
-      entity_id: device_tracker.car_ioniq
+      entity_id: person.jordi
       zone: zone.cargador_palmanyola_dalias
       event: enter
   condition:
     condition: and
     conditions:
+      # Car engine is on
       - condition: state
         entity_id: sensor.car_ioniq_state_sensor
         state: "Encendido"
+      # Hokusphone is plugged into the one car (usually my car)
+      - condition: state
+        entity_id: binary_sensor.hokusphone_android_auto
+        state: "on"
       - condition: not
         conditions:
           - condition: state
             entity_id: sensor.cargador_palmanyola_dalias
             state: "No gestionado"
-      - condition: numeric_state
-        entity_id: sensor.car_ioniq_location_gps_accuracy
-        below: 100
       - condition: numeric_state
         entity_id: sensor.car_ioniq_battery
         below: 50
@@ -26,6 +28,6 @@
     - service: mqtt.publish
       data:
         payload_template: >
-          El cargador de la calle Dalias de Palmañola está {{ states.sensor.cargador_palmanyola_violetes.state }}
+          El {{ state_attr(trigger.zone.entity_id, "friendly_name") }} está {{ states(trigger.zone.entity_id | replace("zone", "sensor")) }}
         retain: false
         topic: "phone/sensor/hokus/cmnd/say"
