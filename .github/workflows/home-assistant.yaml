@@ -8,7 +8,7 @@ jobs:
       current_version: ${{ steps.currentver.outputs.current_version }}
     steps:
       - name: Get config from GitHub
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Get Installed Version from .HA_VERSION
         id: currentver
         run: |
@@ -24,7 +24,7 @@ jobs:
          version: ["${{needs.version_env.outputs.current_version}}", "stable"]
     steps:
       - name: ⤵️ Check out configuration from GitHub
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Update config
         run: |
           sed -i 's/\/share\/camera/.\/config/g' ./config/configuration.yaml
