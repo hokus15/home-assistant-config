@@ -1,0 +1,16 @@
+- id: "car_notification_iotconnect_started"
+  alias: "Car - Notification - IOTConnect started"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.car_ioniq_state
+    to: "on"
+  action:
+    - service: notify.mobile_app_hokusphone
+      data:
+        title: "IOTConnect"
+        message: "IOTConnect se ha iniciado"
+        data:
+          car_ui: true
+          notification_icon: "mdi:car-connected"
+          channel: "Ioniq"
+          importance: high

@@ -3,6 +3,12 @@ recorder:
     entities:
       - device_tracker.car_ioniq
       - binary_sensor.car_ioniq_state
+      - binary_sensor.car_ioniq_iotconnect_monitor
+      - binary_sensor.car_ioniq_iotconnect_gps_monitor
+      - binary_sensor.car_ioniq_iotconnect_ev_monitor
+      - binary_sensor.car_ioniq_iotconnect_ev_battery_monitor
+      - binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor
+      - binary_sensor.car_ioniq_iotconnect_ev_tpms_monitor
       - binary_sensor.car_ioniq_location_sensor
       #      - switch.car_ioniq_charger
       - sensor.car_ioniq_charger_charge_state
@@ -63,21 +69,94 @@ mqtt:
   binary_sensor:
     - state_topic: "car/sensor/ioniq/state"
       name: car_ioniq_state
-      payload_on: ON
-      payload_off: OFF
-      value_template: "{{ value_json.states is not none }}"
+      payload_on: true
+      payload_off: false
+      value_template: >-
+        {{ (((as_timestamp(now()) - value_json.timestamp) / 60) < 1)
+           and (value_json.state == "running")
+        }}
+      json_attributes_topic: "car/sensor/ioniq/state"
       force_update: true
+      icon: mdi:car-connected
       off_delay: 60
-      device_class: "moving"
+      device_class: "connectivity"
+
+    - state_topic: "car/sensor/ioniq/state"
+      name: car_ioniq_iotconnect_monitor
+      payload_on: true
+      payload_off: false
+      value_template: "{{ ((as_timestamp(now()) - value_json.timestamp) / 60) < 1 }}"
+      force_update: false
+      icon: mdi:car-connected
+      off_delay: 60
+      device_class: "connectivity"
+
+    - state_topic: "car/sensor/ioniq/state"
+      name: car_ioniq_iotconnect_gps_monitor
+      payload_on: true
+      payload_off: false
+      value_template: >-
+        {{ (((as_timestamp(now()) - value_json.timestamp) / 60) < 1)
+           and (value_json.monitors[0].GpsMonitor == "started")
+        }}
+      force_update: false
+      icon: mdi:car-connected
+      off_delay: 60
+      device_class: "connectivity"
+
+    - state_topic: "car/sensor/ioniq/state"
+      name: car_ioniq_iotconnect_ev_monitor
+      payload_on: true
+      payload_off: false
+      value_template: >-
+        {{ (((as_timestamp(now()) - value_json.timestamp) / 60) < 1)
+           and (value_json.monitors[1].IoniqEVMonitor == "started") }}
+      force_update: false
+      icon: mdi:car-connected
+      off_delay: 60
+      device_class: "connectivity"
+
+    - state_topic: "car/sensor/ioniq/battery"
+      name: car_ioniq_iotconnect_ev_battery_monitor
+      payload_on: true
+      payload_off: false
+      value_template: "{{ ((as_timestamp(now()) - value_json.timestamp) / 60) < 1 }}"
+      force_update: false
+      icon: mdi:car-connected
+      off_delay: 60
+      device_class: "connectivity"
+
+    - state_topic: "car/sensor/ioniq/odometer"
+      name: car_ioniq_iotconnect_ev_odometer_monitor
+      payload_on: true
+      payload_off: false
+      value_template: "{{ ((as_timestamp(now()) - value_json.timestamp) / 60) < 1 }}"
+      force_update: false
+      icon: mdi:car-connected
+      off_delay: 60
+      device_class: "connectivity"
+
+    - state_topic: "car/sensor/ioniq/tpms"
+      name: car_ioniq_iotconnect_ev_tpms_monitor
+      payload_on: true
+      payload_off: false
+      value_template: "{{ ((as_timestamp(now()) - value_json.timestamp) / 60) < 1 }}"
+      force_update: false
+      icon: mdi:car-connected
+      off_delay: 60
+      device_class: "connectivity"
 
     - state_topic: "car/sensor/ioniq/location"
       name: car_ioniq_location_sensor
-      payload_on: ON
-      payload_off: OFF
-      value_template: "{{ value_json.last_update is not none }}"
+      payload_on: true
+      payload_off: false
+      value_template: "{{ ((as_timestamp(now()) - value_json.last_update) / 60) < 1 }}"
       json_attributes_topic: "car/sensor/ioniq/location"
       force_update: true
+      icon: mdi:map-marker-radius
       off_delay: 60
+      device_class: "moving"
+
   sensor:
     - state_topic: "car/sensor/ioniq/battery"
       value_template: "{{ value_json.socDisplay }}"

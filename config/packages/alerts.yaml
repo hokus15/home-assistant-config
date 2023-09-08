@@ -3,6 +3,11 @@ recorder:
     entities:
       - binary_sensor.porche_sensor_puerta_abierta_alerta
       - binary_sensor.motor_piscina_encendido_alerta
+      - binary_sensor.car_ioniq_iotconnect_monitor_alert
+      - binary_sensor.car_ioniq_iotconnect_ev_battery_monitor_alert
+      - binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor_alert
+      - binary_sensor.car_ioniq_iotconnect_ev_tpms_monitor_alert
+      - binary_sensor.car_ioniq_iotconnect_gps_location_monitor_alert
 
 template:
   - binary_sensor:
@@ -12,10 +17,50 @@ template:
              and states('climate.recibidor') is not none
              and not is_state('climate.recibidor', 'off')
              and is_state_attr('climate.recibidor', 'hvac_action', 'heating') }}
+
       - name: "motor_piscina_encendido_alerta"
         state: >-
           {{ is_state('switch.motor_piscina', 'on')
              and states.sensor.piscina_on_history.state | float(0) > states.sensor.piscina_filtering_time.state | float(0) }}
+
+      - name: "car_ioniq_iotconnect_monitor_alert"
+        # If car_ioniq_iotconnect_monitor is off
+        # and hokusphone is plugged into a car with android auto
+        state: >-
+          {{ is_state("binary_sensor.car_ioniq_iotconnect_monitor", "off")
+             and is_state("binary_sensor.hokusphone_android_auto", "on") }}
+
+      - name: "car_ioniq_iotconnect_ev_battery_monitor_alert"
+        # If binary_sensor.car_ioniq_iotconnect_ev_monitor is off or car_ioniq_iotconnect_ev_battery_monitor is off
+        # and hokusphone is plugged into a car with android auto
+        state: >-
+          {{ (is_state("binary_sensor.car_ioniq_iotconnect_ev_monitor", "off")
+              or is_state("binary_sensor.car_ioniq_iotconnect_ev_battery_monitor", "off"))
+             and is_state("binary_sensor.hokusphone_android_auto", "on") }}
+
+      - name: "car_ioniq_iotconnect_ev_odometer_monitor_alert"
+        # If binary_sensor.car_ioniq_iotconnect_ev_monitor is off or car_ioniq_iotconnect_ev_odometer_monitor is off
+        # and hokusphone is plugged into a car with android auto
+        state: >-
+          {{ (is_state("binary_sensor.car_ioniq_iotconnect_ev_monitor", "off")
+              or is_state("binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor", "off"))
+             and is_state("binary_sensor.hokusphone_android_auto", "on") }}
+
+      - name: "car_ioniq_iotconnect_ev_tpms_monitor_alert"
+        # If binary_sensor.car_ioniq_iotconnect_ev_monitor is off or car_ioniq_iotconnect_ev_tpms_monitor is off
+        # and hokusphone is plugged into a car with android auto
+        state: >-
+          {{ (is_state("binary_sensor.car_ioniq_iotconnect_ev_tpms_monitor", "off"))
+             and is_state("binary_sensor.hokusphone_android_auto", "on") }}
+
+      - name:
+          "car_ioniq_iotconnect_gps_location_monitor_alert"
+          # If car_ioniq_location_sensor is off or binary_sensor.car_ioniq_gps_monitor is off
+          # and hokusphone is plugged into a car with android auto
+        state: >-
+          {{ (is_state("binary_sensor.car_ioniq_location_sensor", "off")
+             or is_state("binary_sensor.car_ioniq_iotconnect_gps_monitor", "off"))
+             and is_state("binary_sensor.hokusphone_android_auto", "on") }}
 
 alert:
   barrera_abierta:
@@ -33,6 +78,7 @@ alert:
     notifiers:
       - recibidor
       - telegram_hokusphone
+
   porche_sensor_puerta_abierta:
     name: Puerta porche cocina abierta
     entity_id: binary_sensor.porche_sensor_puerta_abierta_alerta
@@ -48,6 +94,7 @@ alert:
       - recibidor
       - suite
       - telegram_hokusphone
+
   motor_piscina_encendido:
     name: Motor piscina encendido
     entity_id: binary_sensor.motor_piscina_encendido_alerta
@@ -63,3 +110,88 @@ alert:
     notifiers:
       - recibidor
       - telegram_hokusphone
+
+  car_ioniq_iotconnect_monitor_alert:
+    name: IOTConnect monitor
+    entity_id: binary_sensor.car_ioniq_iotconnect_monitor_alert
+    state: "on"
+    repeat: 3
+    message: "IOTConnect está parado."
+    done_message: "IOTConnect está activo."
+    can_acknowledge: true
+    skip_first: true
+    data:
+      car_ui: true
+      notification_icon: "mdi:car-connected"
+      channel: "Ioniq"
+      importance: high
+    notifiers:
+      - mobile_app_hokusphone
+
+  car_ioniq_iotconnect_ev_battery_monitor_alert:
+    name: IOTConnect battery monitor
+    entity_id: binary_sensor.car_ioniq_iotconnect_ev_battery_monitor_alert
+    state: "on"
+    repeat: 3
+    message: "IOTConnect no está publicando datos de la batería."
+    done_message: "IOTConnect ya publica datos de la batería."
+    can_acknowledge: true
+    skip_first: true
+    data:
+      car_ui: true
+      notification_icon: "mdi:car-connected"
+      channel: "Ioniq"
+      importance: high
+    notifiers:
+      - mobile_app_hokusphone
+
+  car_ioniq_iotconnect_ev_odometer_monitor_alert:
+    name: IOTConnect odometer monitor
+    entity_id: binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor_alert
+    state: "on"
+    repeat: 3
+    message: "IOTConnect no está publicando datos del odómetro."
+    done_message: "IOTConnect ya publica datos del odómetro."
+    can_acknowledge: true
+    skip_first: true
+    data:
+      car_ui: true
+      notification_icon: "mdi:car-connected"
+      channel: "Ioniq"
+      importance: high
+    notifiers:
+      - mobile_app_hokusphone
+
+  car_ioniq_iotconnect_ev_tpms_monitor_alert:
+    name: IOTConnect TPMS monitor
+    entity_id: binary_sensor.car_ioniq_iotconnect_ev_tpms_monitor_alert
+    state: "on"
+    repeat: 3
+    message: "IOTConnect no está publicando datos de presión de los neumáticos."
+    done_message: "IOTConnect ya publica datos de presión de los neumáticos."
+    can_acknowledge: true
+    skip_first: true
+    data:
+      car_ui: true
+      notification_icon: "mdi:car-connected"
+      channel: "Ioniq"
+      importance: high
+    notifiers:
+      - mobile_app_hokusphone
+
+  car_ioniq_iotconnect_gps_location_monitor_alert:
+    name: IOTConnect location monitor
+    entity_id: binary_sensor.car_ioniq_iotconnect_gps_location_monitor_alert
+    state: "on"
+    repeat: 3
+    message: "IOTConnect está publicando datos de la posición."
+    done_message: "IOTConnect ya publica datos de la posición."
+    can_acknowledge: true
+    skip_first: true
+    data:
+      car_ui: true
+      notification_icon: "mdi:car-connected"
+      channel: "Ioniq"
+      importance: high
+    notifiers:
+      - mobile_app_hokusphone
