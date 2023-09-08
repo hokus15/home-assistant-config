@@ -1,0 +1,23 @@
+recorder:
+  include:
+    entity_globs:
+      - sensor.hokusphone_*
+      - binary_sensor.hokusphone_*
+      - sensor.carlosphone_*
+      - binary_sensor.carlosphone_*
+      - sensor.geniphone_*
+      - binary_sensor.geniphone_*
+logbook:
+  include:
+    entities:
+      - binary_sensor.hokusphone_android_auto
+      - sensor.hokusphone_detected_activity
+      - sensor.hokusphone_wifi_connection
+      - sensor.carlosphone_detected_activity
+      - sensor.carlosphone_wifi_connection
+      - sensor.geniphone_wifi_ssid
+  exclude:
+    entity_globs:
+      - sensor.hokusphone_*
+      - sensor.carlosphone_*
+      - sensor.geniphone_*
