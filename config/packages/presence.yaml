@@ -6,8 +6,6 @@ recorder:
       - group.unidad_familiar
       - switch.google_home_occupancy
       - binary_sensor.withings_in_bed_jm
-      #- device_tracker.hokusphone
-      #- device_tracker.carlosphone
 
 group:
   Unidad Familiar:
