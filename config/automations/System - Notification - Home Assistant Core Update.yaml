@@ -2,9 +2,17 @@
   alias: "System - Notify Home-Assistant Core Update"
   trigger:
     platform: state
-    entity_id: update.home_assistant_core_update
+    entity_id:
+      - update.home_assistant_core_update
+      - update.home_assistant_supervisor_update
+      - update.home_assistant_operating_system_update
     to: "on"
   action:
     - service: notify.telegram_hokusphone
       data:
-        message: 'Nueva versión de Home Asssitant disponible: {{ state_attr("update.home_assistant_core_update", "latest_version") }}.'
+        message: >
+          Actualización de <b>{{ state_attr(trigger.entity_id, "title") }}</b>:
+
+          Version instalada: <b>{{ state_attr(trigger.entity_id, "installed_version") }}</b>
+
+          Última versión: <b>{{ state_attr(trigger.entity_id, "latest_version") }}</b>
