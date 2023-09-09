@@ -4,6 +4,10 @@
     platform: state
     entity_id: binary_sensor.car_ioniq_state
     to: "on"
+  condition:
+    - condition: state
+      entity_id: binary_sensor.hokusphone_android_auto
+      state: "on"
   action:
     - service: notify.mobile_app_hokusphone
       data:
