@@ -5,6 +5,10 @@
       entity_id: person.jordi
       zone: zone.home
       event: enter
+    - platform: zone
+      entity_id: device_tracker.car_ioniq
+      zone: zone.home
+      event: enter
   condition:
     condition: and
     conditions:
@@ -12,13 +16,9 @@
       - condition: state
         entity_id: cover.outside_fence
         state: "closed"
-      # Car engine is on
+      # hokusphone is in car IONIQ (see binary_sensor.hokusphone_in_car_ioniq in phones.yaml)
       - condition: state
-        entity_id: sensor.car_ioniq_state_sensor
-        state: "Encendido"
-      # Hokusphone is plugged into the one car (usually my car)
-      - condition: state
-        entity_id: binary_sensor.hokusphone_android_auto
+        entity_id: binary_sensor.hokusphone_in_car_ioniq
         state: "on"
   action:
     - service: cover.open_cover
