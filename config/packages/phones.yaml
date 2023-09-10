@@ -7,6 +7,7 @@ recorder:
       - binary_sensor.carlosphone_*
       - sensor.geniphone_*
       - binary_sensor.geniphone_*
+
 logbook:
   include:
     entities:
@@ -21,3 +22,10 @@ logbook:
       - sensor.hokusphone_*
       - sensor.carlosphone_*
       - sensor.geniphone_*
+
+template:
+  - binary_sensor:
+      - name: "hokusphone_in_car_ioniq"
+        state: >-
+          {{ is_state("binary_sensor.hokusphone_android_auto", "on")
+             and state_attr("sensor.hokusphone_bluetooth_connection", "connected_paired_devices") | select("search","IONIQ") | list | length > 0 }}
