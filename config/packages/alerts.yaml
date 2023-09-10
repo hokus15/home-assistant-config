@@ -25,42 +25,41 @@ template:
 
       - name: "car_ioniq_iotconnect_monitor_alert"
         # If car_ioniq_iotconnect_monitor is off
-        # and hokusphone is plugged into a car with android auto
+        # and hokusphone is in car IONIQ (see binary_sensor.hokusphone_in_car_ioniq in phones.yaml)
         state: >-
           {{ is_state("binary_sensor.car_ioniq_iotconnect_monitor", "off")
-             and is_state("binary_sensor.hokusphone_android_auto", "on") }}
+             and is_state("binary_sensor.hokusphone_in_car_ioniq", "on") }}
 
       - name: "car_ioniq_iotconnect_ev_battery_monitor_alert"
         # If binary_sensor.car_ioniq_iotconnect_ev_monitor is off or car_ioniq_iotconnect_ev_battery_monitor is off
-        # and hokusphone is plugged into a car with android auto
+        # and hokusphone is in car IONIQ (see binary_sensor.hokusphone_in_car_ioniq in phones.yaml)
         state: >-
           {{ (is_state("binary_sensor.car_ioniq_iotconnect_ev_monitor", "off")
               or is_state("binary_sensor.car_ioniq_iotconnect_ev_battery_monitor", "off"))
-             and is_state("binary_sensor.hokusphone_android_auto", "on") }}
+             and is_state("binary_sensor.hokusphone_in_car_ioniq", "on") }}
 
       - name: "car_ioniq_iotconnect_ev_odometer_monitor_alert"
         # If binary_sensor.car_ioniq_iotconnect_ev_monitor is off or car_ioniq_iotconnect_ev_odometer_monitor is off
-        # and hokusphone is plugged into a car with android auto
+        # and hokusphone is in car IONIQ (see binary_sensor.hokusphone_in_car_ioniq in phones.yaml)
         state: >-
           {{ (is_state("binary_sensor.car_ioniq_iotconnect_ev_monitor", "off")
               or is_state("binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor", "off"))
-             and is_state("binary_sensor.hokusphone_android_auto", "on") }}
+             and is_state("binary_sensor.hokusphone_in_car_ioniq", "on") }}
 
       - name: "car_ioniq_iotconnect_ev_tpms_monitor_alert"
         # If binary_sensor.car_ioniq_iotconnect_ev_monitor is off or car_ioniq_iotconnect_ev_tpms_monitor is off
-        # and hokusphone is plugged into a car with android auto
+        # and hokusphone is in car IONIQ (see binary_sensor.hokusphone_in_car_ioniq in phones.yaml)
         state: >-
           {{ (is_state("binary_sensor.car_ioniq_iotconnect_ev_tpms_monitor", "off"))
-             and is_state("binary_sensor.hokusphone_android_auto", "on") }}
+             and is_state("binary_sensor.hokusphone_in_car_ioniq", "on") }}
 
-      - name:
-          "car_ioniq_iotconnect_gps_location_monitor_alert"
-          # If car_ioniq_location_sensor is off or binary_sensor.car_ioniq_gps_monitor is off
-          # and hokusphone is plugged into a car with android auto
+      - name: "car_ioniq_iotconnect_gps_location_monitor_alert"
+        # If car_ioniq_location_sensor is off or binary_sensor.car_ioniq_gps_monitor is off
+        # and hokusphone is in car IONIQ (see binary_sensor.hokusphone_in_car_ioniq in phones.yaml)
         state: >-
           {{ (is_state("binary_sensor.car_ioniq_location_sensor", "off")
              or is_state("binary_sensor.car_ioniq_iotconnect_gps_monitor", "off"))
-             and is_state("binary_sensor.hokusphone_android_auto", "on") }}
+             and is_state("binary_sensor.hokusphone_in_car_ioniq", "on") }}
 
 alert:
   barrera_abierta:
@@ -68,7 +67,7 @@ alert:
     entity_id: cover.outside_fence
     state: "open"
     repeat: 10
-    message: "Barrera {{ states.sensor.outside_fence_sensor_state.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.cover.outside_fence.last_changed))|int//60 }} minutos"
+    message: "Barrera {{ states.sensor.outside_fence_sensor_state.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.cover.outside_fence.last_changed))|int//60 }} minutos."
     can_acknowledge: true
     skip_first: true
     data:
@@ -115,7 +114,7 @@ alert:
     name: IOTConnect monitor
     entity_id: binary_sensor.car_ioniq_iotconnect_monitor_alert
     state: "on"
-    repeat: 5
+    repeat: 3
     message: "IOTConnect está parado."
     done_message: >-
       {% if is_state("binary_sensor.hokusphone_android_auto", "on") %}
@@ -124,12 +123,13 @@ alert:
         clear_notification
       {% endif %}
     can_acknowledge: true
-    skip_first: false
+    skip_first: true
     data:
       group: "IOTConnect"
       tag: iotconnect-app
       car_ui: true
-      notification_icon: "mdi:car-connected"
+      #notification_icon: "{{ 'mdi:car-connected' if is_state('alert.car_ioniq_iotconnect_monitor_alert', 'idle') else 'mdi:car-off' }}"
+      notification_icon: "mdi:car-off"
       channel: "Ioniq"
       importance: high
     notifiers:
@@ -139,7 +139,7 @@ alert:
     name: IOTConnect battery monitor
     entity_id: binary_sensor.car_ioniq_iotconnect_ev_battery_monitor_alert
     state: "on"
-    repeat: 5
+    repeat: 3
     message: "Batería: IOTConnect NO está publicando datos."
     done_message: >-
       {% if is_state("binary_sensor.hokusphone_android_auto", "on") %}
@@ -148,11 +148,12 @@ alert:
         clear_notification
       {% endif %}
     can_acknowledge: true
-    skip_first: false
+    skip_first: true
     data:
       group: "IOTConnect"
       tag: iotconnect-battery
       car_ui: true
+      #notification_icon: "{{ 'mdi:battery-charging-wireless' if is_state('alert.car_ioniq_iotconnect_monitor_alert', 'idle') else 'mdi:battery-charging-wireless-alert' }}"
       notification_icon: "mdi:battery-charging-wireless-alert"
       channel: "Ioniq"
       importance: high
@@ -163,7 +164,7 @@ alert:
     name: IOTConnect odometer monitor
     entity_id: binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor_alert
     state: "on"
-    repeat: 5
+    repeat: 3
     message: "Odómetro: IOTConnect NO está publicando datos."
     done_message: >-
       {% if is_state("binary_sensor.hokusphone_android_auto", "on") %}
@@ -172,12 +173,13 @@ alert:
         clear_notification
       {% endif %}
     can_acknowledge: true
-    skip_first: false
+    skip_first: true
     data:
       group: "IOTConnect"
       tag: iotconnect-odometer
       car_ui: true
-      notification_icon: "mdi:map-marker-distance"
+      #notification_icon: "{{ 'mdi:map-marker-distance' if is_state('alert.car_ioniq_iotconnect_monitor_alert', 'idle') else 'mdi:timeline-question' }}"
+      notification_icon: "mdi:timeline-question"
       channel: "Ioniq"
       importance: high
     notifiers:
@@ -187,7 +189,7 @@ alert:
     name: IOTConnect TPMS monitor
     entity_id: binary_sensor.car_ioniq_iotconnect_ev_tpms_monitor_alert
     state: "on"
-    repeat: 5
+    repeat: 3
     message: "TPMS: IOTConnect NO está publicando datos."
     done_message: >-
       {% if is_state("binary_sensor.hokusphone_android_auto", "on") %}
@@ -196,11 +198,12 @@ alert:
         clear_notification
       {% endif %}
     can_acknowledge: true
-    skip_first: false
+    skip_first: true
     data:
       group: "IOTConnect"
       tag: iotconnect-odometer
       car_ui: true
+      #notification_icon: "{{ 'mdi:tire' if is_state('alert.car_ioniq_iotconnect_monitor_alert', 'idle') else 'mdi:car-tire-alert' }}"
       notification_icon: "mdi:car-tire-alert"
       channel: "Ioniq"
       importance: high
@@ -211,7 +214,7 @@ alert:
     name: IOTConnect location monitor
     entity_id: binary_sensor.car_ioniq_iotconnect_gps_location_monitor_alert
     state: "on"
-    repeat: 5
+    repeat: 3
     message: "Posición: IOTConnect NO está publicando datos."
     done_message: >-
       {% if is_state("binary_sensor.hokusphone_android_auto", "on") %}
@@ -220,12 +223,13 @@ alert:
         clear_notification
       {% endif %}
     can_acknowledge: true
-    skip_first: false
+    skip_first: true
     data:
       group: "IOTConnect"
       tag: iotconnect-location
       car_ui: true
-      notification_icon: "mdi:crosshairs-gps"
+      #notification_icon: "{{ 'mdi:crosshairs-gps' if is_state('alert.car_ioniq_iotconnect_monitor_alert', 'idle') else 'mdi:crosshairs-question' }}"
+      notification_icon: "mdi:crosshairs-question"
       channel: "Ioniq"
       importance: high
     notifiers:
