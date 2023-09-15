@@ -14,7 +14,7 @@
         message: >
           Calefacción encendida para estar más calentitos
 
-          Temperatura objetivo: {{ states.sensor.entrance_hall_thermostat_target_temperature }}
+          Temperatura objetivo: {{ states.sensor.recibidor_target_temperature }}
 
           Temperatura media planta baja: {{states.sensor.ground_floor_temperature.state}}
 

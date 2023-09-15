@@ -202,7 +202,7 @@ sensor.home_temperature_stats:
 sensor.home_temperature:
   device_class: temperature
   friendly_name: Temp. media casa
-sensor.entrance_hall_thermostat_temperature:
+sensor.recibidor_temperature:
   device_class: temperature
   friendly_name: Temperatura recibidor
   unit_of_measurement: °C
@@ -216,7 +216,7 @@ sensor.piscina_filtering_time:
   friendly_name: Tiempo de filtrado piscina
 input_number.temperature_correction:
   friendly_name: Corrección temp. piscina
-sensor.entrance_hall_thermostat_target_temperature:
+sensor.recibidor_target_temperature:
   device_class: temperature
   friendly_name: Temperatura objetivo termostato
 sensor.salon_switch_energy:
