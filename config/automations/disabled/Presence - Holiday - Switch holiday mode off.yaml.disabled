@@ -6,11 +6,11 @@
     to: 'off'
   condition:
     condition: template
-    value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
+    value_template: "{{not is_state('climate.recibidor', 'off')}}"
   action:
     # Set thermostat away mode 
     - service: climate.set_preset_mode
-      entity_id: climate.netatmo_general
+      entity_id: climate.recibidor
       data_template:
         preset_mode: 'away'
     - service: notify.telegram_hokusphone

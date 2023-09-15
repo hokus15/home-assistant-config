@@ -192,11 +192,11 @@ speech_parte_meteorologico:
       entity_id: media_player.recibidor
       data_template:
         message: >
-          La temperatura exterior es de {{ states("sensor.netatmo_bunyola_exterior_temperature") | replace("."," con ") }} grados 
-          y una humedad del {{ states("sensor.netatmo_bunyola_exterior_humidity") }} %.
-          La presión atmosférica es de {{ states("sensor.netatmo_bunyola_salon_pressure") | replace("."," con ") }} milibares.
-          {%- if states("sensor.netatmo_bunyola_pluviometro_rain") == "0" %} No está lloviendo.{% else %} Está lloviendo unos {{ states("sensor.netatmo_bunyola_pluviometro_rain") | replace("."," con ") }} litros por metro cuadrado.{% endif %}
-          {%- if states("sensor.netatmo_bunyola_pluviometro_rain_today") == "0" %} Hoy no ha llovido.{% else %} La lluvia acumulada de hoy es de unos {{ states("sensor.netatmo_bunyola_pluviometro_rain_today") | replace("."," con ") }}  litros por metro cuadrado.{% endif %}
+          La temperatura exterior es de {{ states("sensor.exterior_temperature") | replace("."," con ") }} grados 
+          y una humedad del {{ states("sensor.exterior_humidity") }} %.
+          La presión atmosférica es de {{ states("sensor.salon_pressure") | replace("."," con ") }} milibares.
+          {%- if states("sensor.pluviometro_rain") == "0" %} No está lloviendo.{% else %} Está lloviendo unos {{ states("sensor.pluviometro_rain") | replace("."," con ") }} litros por metro cuadrado.{% endif %}
+          {%- if states("sensor.pluviometro_rain_today") == "0" %} Hoy no ha llovido.{% else %} La lluvia acumulada de hoy es de unos {{ states("sensor.npluviometro_rain_today") | replace("."," con ") }}  litros por metro cuadrado.{% endif %}
         cache: false
 
 speech_parte_meteorologico_corto:
@@ -206,7 +206,7 @@ speech_parte_meteorologico_corto:
       entity_id: media_player.recibidor
       data_template:
         message: >
-          La temperatura exterior es de {{ states("sensor.netatmo_bunyola_exterior_temperature") | replace("."," con ") }} grados.
+          La temperatura exterior es de {{ states("sensor.exterior_temperature") | replace("."," con ") }} grados.
         cache: false
 
 chores:

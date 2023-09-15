@@ -4,58 +4,58 @@ recorder:
       - input_boolean.home_comfort_mode
       - input_boolean.sleep_mode
       - input_boolean.bed_occupancy_jordi
-      - sensor.netatmo_bunyola_exterior_temperature
-      - sensor.netatmo_bunyola_exterior_humidity
-      - sensor.netatmo_bunyola_pluviometro_rain
-      - sensor.netatmo_bunyola_anemometro_wind_strength
-      - sensor.netatmo_bunyola_salon_temperature
-      - sensor.netatmo_bunyola_salon_humidity
-      - sensor.netatmo_bunyola_salon_noise
-      - sensor.netatmo_bunyola_salon_pressure
-      - sensor.netatmo_bunyola_salon_co2
+      - sensor.exterior_temperature
+      - sensor.exterior_humidity
+      - sensor.pluviometro_rain
+      - sensor.anemometro_wind_strength
+      - sensor.salon_temperature
+      - sensor.salon_humidity
+      - sensor.salon_noise
+      - sensor.salon_pressure
+      - sensor.salon_co2
       - sensor.home_temperature
       - sensor.ground_floor_temperature
       - sensor.first_floor_temperature
-      - sensor.netatmo_bunyola_suite_temperature
-      - sensor.netatmo_bunyola_suite_co2
-      - sensor.netatmo_bunyola_suite_humidity
-      - sensor.netatmo_bunyola_habitacion_carlos_temperature
-      - sensor.netatmo_bunyola_habitacion_carlos_co2
-      - sensor.netatmo_bunyola_habitacion_carlos_humidity
-      - sensor.netatmo_bunyola_habitacion_coque_temperature
-      - sensor.netatmo_bunyola_habitacion_coque_co2
-      - sensor.netatmo_bunyola_habitacion_coque_humidity
-      - sensor.entrance_hall_thermostat_temperature
+      - sensor.suite_temperature
+      - sensor.suite_co2
+      - sensor.suite_humidity
+      - sensor.habitacion_carlos_temperature
+      - sensor.habitacion_carlos_co2
+      - sensor.habitacion_carlos_humidity
+      - sensor.habitacion_coque_temperature
+      - sensor.habitacion_coque_co2
+      - sensor.habitacion_coque_humidity
+      - sensor.recibidor_temperature
       - sensor.despacho_sensor_movimiento_luminance
       - sensor.despacho_sensor_movimiento_temperature
-      - sensor.entrance_hall_thermostat_target_temperature
+      - sensor.recibidor_target_temperature
       - sensor.porche_sensor_puerta_temperature
 
 logbook:
   exclude:
     entities:
-      - sensor.netatmo_bunyola_exterior_temperature
-      - sensor.netatmo_bunyola_exterior_humidity
-      - sensor.netatmo_bunyola_pluviometro_rain
-      - sensor.netatmo_bunyola_anemometro_wind_strength
-      - sensor.netatmo_bunyola_salon_temperature
-      - sensor.netatmo_bunyola_salon_humidity
-      - sensor.netatmo_bunyola_salon_noise
-      - sensor.netatmo_bunyola_salon_pressure
-      - sensor.netatmo_bunyola_salon_co2
+      - sensor.exterior_temperature
+      - sensor.exterior_humidity
+      - sensor.pluviometro_rain
+      - sensor.anemometro_wind_strength
+      - sensor.salon_temperature
+      - sensor.salon_humidity
+      - sensor.salon_noise
+      - sensor.salon_pressure
+      - sensor.salon_co2
       - sensor.home_temperature
       - sensor.ground_floor_temperature
       - sensor.first_floor_temperature
-      - sensor.netatmo_bunyola_suite_temperature
-      - sensor.netatmo_bunyola_suite_co2
-      - sensor.netatmo_bunyola_suite_humidity
-      - sensor.netatmo_bunyola_habitacion_carlos_temperature
-      - sensor.netatmo_bunyola_habitacion_carlos_co2
-      - sensor.netatmo_bunyola_habitacion_carlos_humidity
-      - sensor.netatmo_bunyola_habitacion_coque_temperature
-      - sensor.netatmo_bunyola_habitacion_coque_co2
-      - sensor.netatmo_bunyola_habitacion_coque_humidity
-      - sensor.entrance_hall_thermostat_temperature
+      - sensor.suite_temperature
+      - sensor.suite_co2
+      - sensor.suite_humidity
+      - sensor.habitacion_carlos_temperature
+      - sensor.habitacion_carlos_co2
+      - sensor.habitacion_carlos_humidity
+      - sensor.habitacion_coque_temperature
+      - sensor.habitacion_coque_co2
+      - sensor.habitacion_coque_humidity
+      - sensor.recibidor_temperature
       - sensor.despacho_sensor_movimiento_luminance
       - sensor.despacho_sensor_movimiento_temperature
       - sensor.porche_sensor_puerta_temperature
@@ -71,8 +71,8 @@ binary_sensor:
       # And heating is idle
       # And first floor temperature trend is going down
       home_comfort_state:
-        value_template: >- 
-          {{ states('sensor.first_floor_temperature')|float(0) < states('sensor.entrance_hall_thermostat_target_temperature')|float(0)
+        value_template: >-
+          {{ states('sensor.first_floor_temperature')|float(0) < states('sensor.recibidor_target_temperature')|float(0)
              and is_state('group.unidad_familiar', 'home')
              and states.climate.recibidor != None
              and not is_state('climate.recibidor', 'off')
@@ -99,30 +99,30 @@ sensor:
     type: mean
     round_digits: 1
     entity_ids:
-      - sensor.entrance_hall_thermostat_temperature
-      - sensor.netatmo_bunyola_salon_temperature
+      - sensor.recibidor_temperature
+      - sensor.salon_temperature
       - sensor.despacho_sensor_movimiento_temperature
       - sensor.porche_sensor_puerta_temperature
-  
+
   - platform: min_max
     name: first_floor_temperature
     type: mean
     round_digits: 1
     entity_ids:
-      - sensor.netatmo_bunyola_suite_temperature
-      - sensor.netatmo_bunyola_habitacion_carlos_temperature
-      - sensor.netatmo_bunyola_habitacion_coque_temperature
+      - sensor.suite_temperature
+      - sensor.habitacion_carlos_temperature
+      - sensor.habitacion_coque_temperature
 
   - platform: min_max
     name: home_temperature
     type: mean
     round_digits: 1
     entity_ids:
-      - sensor.netatmo_bunyola_suite_temperature
-      - sensor.netatmo_bunyola_habitacion_carlos_temperature
-      - sensor.netatmo_bunyola_habitacion_coque_temperature
-      - sensor.netatmo_bunyola_salon_temperature
-      - sensor.entrance_hall_thermostat_temperature
+      - sensor.suite_temperature
+      - sensor.habitacion_carlos_temperature
+      - sensor.habitacion_coque_temperature
+      - sensor.salon_temperature
+      - sensor.recibidor_temperature
       - sensor.despacho_sensor_movimiento_temperature
       - sensor.porche_sensor_puerta_temperature
 
@@ -138,24 +138,24 @@ sensor:
     sensors:
       # Sensors to get sunset and sunrise hours with a custom format.
       sunrise:
-        friendly_name: 'Amanecer'
+        friendly_name: "Amanecer"
         value_template: '{{ as_timestamp(states.sun.sun.attributes.next_rising)|timestamp_custom("%H:%M:%S") }}'
       sunset:
-        friendly_name: 'Puesta de sol'
+        friendly_name: "Puesta de sol"
         value_template: '{{ as_timestamp(states.sun.sun.attributes.next_setting)|timestamp_custom("%H:%M:%S") }}'
       # Thermostat sensors
-      entrance_hall_thermostat_target_temperature:
+      recibidor_target_temperature:
         value_template: "{{state_attr('climate.recibidor', 'temperature')}}"
-      entrance_hall_thermostat_temperature:
+      recibidor_temperature:
         value_template: "{{state_attr('climate.recibidor', 'current_temperature')}}"
 
 input_boolean:
   home_comfort_mode:
     name: Modo extra calentito
-    icon: 'mdi:fire'
+    icon: "mdi:fire"
   sleep_mode:
     name: Modo dormir
-    icon: 'mdi:sleep'
+    icon: "mdi:sleep"
   bed_occupancy_jordi:
     name: Jordi en la cama
-    icon: 'mdi:bed'
+    icon: "mdi:bed"

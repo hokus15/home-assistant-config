@@ -11,11 +11,11 @@
         entity_id: binary_sensor.coladuria_sensor_puerta
         state: 'on'
       - condition: template
-        value_template: "{{states.climate.netatmo_general != None}}"
+        value_template: "{{states.climate.recibidor != None}}"
       - condition: template
-        value_template: "{{not is_state('climate.netatmo_general', 'off')}}"
+        value_template: "{{not is_state('climate.recibidor', 'off')}}"
       - condition: template
-        value_template: "{{is_state_attr('climate.netatmo_general', 'hvac_action', 'heating')}}"
+        value_template: "{{is_state_attr('climate.recibidor', 'hvac_action', 'heating')}}"
       - condition: template
         value_template: '{{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.coladuria_sensor_puerta.last_changed))//60)%10 == 0 }}'
       - condition: template
