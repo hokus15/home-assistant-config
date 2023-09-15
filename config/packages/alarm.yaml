@@ -6,6 +6,7 @@ recorder:
 alarm_control_panel:
   - platform: manual
     name: home
+    code_arm_required: false
     # Time in seconds to leave the building before triggering the alarm
     arming_time: 0
     # Time in seconds to disarm the alarm when coming back
