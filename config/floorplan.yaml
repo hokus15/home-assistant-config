@@ -1,269 +1,269 @@
-      name: Casa
-      image: /local/custom_ui/floorplan/floorplan.svg
-      stylesheet: /local/custom_ui/floorplan/floorplan.css
-      
-      # These options are optional
-      # warnings:                  # enable warnings (to find out why things might ot be working correctly)
-      pan_zoom:                  # enable experimental panning / zooming
-      # hide_app_toolbar:          # hide the application toolbar (when used as a custom panel)
-      date_format: DD/MM/YYYY   # Date format to use in hover-over text
-      
-      last_motion_entity: sensor.template_last_motion
-      last_motion_class: last-motion
+name: Casa
+image: /local/custom_ui/floorplan/floorplan.svg
+stylesheet: /local/custom_ui/floorplan/floorplan.css
 
-      groups:
+# These options are optional
+# warnings:                  # enable warnings (to find out why things might ot be working correctly)
+pan_zoom: # enable experimental panning / zooming
+# hide_app_toolbar:          # hide the application toolbar (when used as a custom panel)
+date_format: DD/MM/YYYY # Date format to use in hover-over text
 
-        - name: Temperature
-          entities:
-             - sensor.netatmo_exterior_temperature
-             - sensor.recibidor_termometro_temperatura
-             - sensor.netatmo_salon_temperature
-             - sensor.netatmo_suite_temperature
-             - sensor.netatmo_exterior_max_temp
-             - sensor.netatmo_exterior_min_temp
-          text_template: '${entity.state ? entity.state : "n/d"}º'
-           # An example of rounding up a number, i.e. a temperature of 90.1 becomes 91
-          #text_template: '${entity.state ? Math.ceil(entity.state) : "undefined"}'  
-          class_template: '
-            var value = parseFloat(entity.state);
-            if (value < 10)
-              return "low-value";
-            else if (value < 30)
-              return "average-value";
-            else
-              return "high-value";
-            '
-
-        - name: ppm
-          entities:
-             - sensor.netatmo_salon_co2
-             - sensor.netatmo_suite_co2
-          text_template: '${entity.state ? entity.state : "n/d"}ppm'
-          class_template: '
-            var value = parseFloat(entity.state);
-            if (value < 350)
-              return "low-value";
-            else if (value < 1000)
-              return "average-value";
-            else
-              return "high-value";
-            '
-
-        - name: kmh
-          entities:
-             - sensor.netatmo_anemometro_strength
-          text_template: '${entity.state ? entity.state : "n/d"}km/h'
-          class_template: '
-            var value = parseFloat(entity.state);
-            if (value < 10)
-              return "low-value";
-            else if (value < 30)
-              return "average-value";
-            else
-              return "high-value";
-            '
-
-        - name: dB
-          entities:
-             - sensor.netatmo_salon_noise
-          text_template: '${entity.state ? entity.state : "n/d"}dB'
-          class_template: '
-            var value = parseFloat(entity.state);
-            if (value < 70)
-              return "low-value";
-            else if (value < 80)
-              return "average-value";
-            else
-              return "high-value";
-            '
-
-        - name: Percent
-          entities:
-             - sensor.netatmo_salon_humidity
-             - sensor.netatmo_suite_humidity
-             - sensor.netatmo_exterior_humidity
-          text_template: '${entity.state ? entity.state : "n/d"}%'
-
-        - name: mbar
-          entities:
-             - sensor.netatmo_salon_pressure
-          text_template: '${entity.state ? entity.state : "n/d"}mbar'
-
-        - name: mm
-          entities:
-             - sensor.netatmo_pluviometro_sum_rain_1
-          text_template: '${entity.state ? entity.state : "n/d"}mm'
-
-        - name: lux
-          entities:
-             - sensor.fibaro_fgms001_motion_sensor_salon_luminance
-          text_template: '${entity.state ? entity.state : "n/d"}lux'
-
-        - name: Watt
-          entities:
-             - sensor.energy_usage
-          text_template: '${entity.state ? entity.state : "n/d"}W'
-
-        - name: 'Doors 90 Right Side'
-          entities:
-            - sensor.floorplan_cocina_sensor_puerta_derecha
-            - sensor.floorplan_cocina_sensor_persiana_derecha
-          states:
-            - state: 'Cerrada'
-              class: 'door_closed_90_right'
-            - state: 'Abierta'
-              class: 'door_open_90_right'
-            - state: 'Desconocido'
-              class: 'blink'
-
-        - name: 'Doors 90 Left Side'
-          entities:
-            - sensor.floorplan_cocina_sensor_puerta_izquierda
-            - sensor.floorplan_cocina_sensor_persiana_izquierda
-          states:
-            - state: 'Cerrada'
-              class: 'door_closed_90_left'
-            - state: 'Abierta'
-              class: 'door_open_90_left'
-            - state: 'Desconocido'
-              class: 'blink'
-
-        - name: Slide Doors
-          entities:
-            - sensor.outside_fence
-          states:
-            - state: 'Cerrada'
-              class: 'slidedoor_closed'
-            - state: 'Abierta'
-              class: 'slidedoor_open'
-            - state: 'Desconocido'
-              class: 'blink'
-
-        - name: Lights
-          entities:
-             - light.barrera_derecha
-             - light.barrera_izquierda
-             - light.puerta_entrada
-             - group.luces_exteriores
-          states:
-            - state: 'on'
-              class: 'light-on'
-            - state: 'off'
-              class: 'light-off'
-          action:
-            domain: homeassistant
-            service: toggle
-
-        - name: Light outside
-          entities:
-             - sensor.floorplan_luz_exterior_barrera_izquierda
-             - sensor.floorplan_luz_exterior_barrera_derecha
-             - sensor.floorplan_luz_exterior_puerta_entrada
-          states:
-            - state: 'apagada'
-              class: 'outside-light-off'
-            - state: 'encendida'
-              class: 'outside-light-on'
-
-        - name: Switches
-          entities:
-             - switch.escalera_switch
-             - switch.suite_switch
-             - switch.entrance_hall_lamp_switch
-             - switch.piscina
-          states:
-            - state: 'on'
-              class: 'light-on'
-            - state: 'off'
-              class: 'light-off'
-          action:
-            domain: homeassistant
-            service: toggle
-
-        - name: waves
-          entities:
-             - sensor.floorplan_switch_piscina
-          states:
-            - state: 'on'
-              class: 'waves_start'
-            - state: 'off'
-              class: 'waves_stop'
-
-        - name: Room
-          entities:
-             - sensor.floorplan_luz_escalera
-             - sensor.floorplan_luz_escalera_1
-             - sensor.floorplan_luz_suite
-             - sensor.floorplan_lampara_recibidor
-          states:
-            - state: 'apagada'
-              class: 'room-light-off'
-            - state: 'encendida'
-              class: 'room-light-on'
-
-#        - name: NVR
-#          entities:
-#             - binary_sensor.blue_iris_nvr
-#          text_template: '${(entity.state === "on") ? "online" : "offline"}'
-#          states:
-#            - state: 'off'
-#              class: 'danger-text'
-#            - state: 'on'
-#              class: 'success-text'
-
-        - name: Presence
-          entities:
-            - sensor.jordi_combined
-            - sensor.geni_combined
-            - sensor.virtual_device
-          states:
-            - state: 'En casa'
-              class: 'presence-home'
-            - state: 'Ausente'
-              class: 'presence-not_home'
-            - state: 'En ruta'
-              class: 'presence-driving'
-
-        - name: Security
-          entities:
-             - group.seguridad
-          states:
-            - state: 'on'
-              class: 'alarm-armed'
-            - state: 'off'
-              class: 'alarm-disarmed'
+#      last_motion_entity: sensor.template_last_motion
+#      last_motion_class: last-motion
 #
-#        - name: Binary sensors
+#      groups:
+#
+#        - name: Temperature
 #          entities:
-#            - binary_sensor.front_hallway
-#            - binary_sensor.kitchen
-#            - binary_sensor.master_bedroom
-#            - binary_sensor.theatre_room
+#             - sensor.netatmo_exterior_temperature
+#             - sensor.recibidor_termometro_temperatura
+#             - sensor.netatmo_salon_temperature
+#             - sensor.netatmo_suite_temperature
+#             - sensor.netatmo_exterior_max_temp
+#             - sensor.netatmo_exterior_min_temp
+#          text_template: '${entity.state ? entity.state : "n/d"}º'
+#           # An example of rounding up a number, i.e. a temperature of 90.1 becomes 91
+#          #text_template: '${entity.state ? Math.ceil(entity.state) : "undefined"}'
+#          class_template: '
+#            var value = parseFloat(entity.state);
+#            if (value < 10)
+#              return "low-value";
+#            else if (value < 30)
+#              return "average-value";
+#            else
+#              return "high-value";
+#            '
+#
+#        - name: ppm
+#          entities:
+#             - sensor.netatmo_salon_co2
+#             - sensor.netatmo_suite_co2
+#          text_template: '${entity.state ? entity.state : "n/d"}ppm'
+#          class_template: '
+#            var value = parseFloat(entity.state);
+#            if (value < 350)
+#              return "low-value";
+#            else if (value < 1000)
+#              return "average-value";
+#            else
+#              return "high-value";
+#            '
+#
+#        - name: kmh
+#          entities:
+#             - sensor.netatmo_anemometro_strength
+#          text_template: '${entity.state ? entity.state : "n/d"}km/h'
+#          class_template: '
+#            var value = parseFloat(entity.state);
+#            if (value < 10)
+#              return "low-value";
+#            else if (value < 30)
+#              return "average-value";
+#            else
+#              return "high-value";
+#            '
+#
+#        - name: dB
+#          entities:
+#             - sensor.netatmo_salon_noise
+#          text_template: '${entity.state ? entity.state : "n/d"}dB'
+#          class_template: '
+#            var value = parseFloat(entity.state);
+#            if (value < 70)
+#              return "low-value";
+#            else if (value < 80)
+#              return "average-value";
+#            else
+#              return "high-value";
+#            '
+#
+#        - name: Percent
+#          entities:
+#             - sensor.netatmo_salon_humidity
+#             - sensor.netatmo_suite_humidity
+#             - sensor.netatmo_exterior_humidity
+#          text_template: '${entity.state ? entity.state : "n/d"}%'
+#
+#        - name: mbar
+#          entities:
+#             - sensor.netatmo_salon_pressure
+#          text_template: '${entity.state ? entity.state : "n/d"}mbar'
+#
+#        - name: mm
+#          entities:
+#             - sensor.netatmo_pluviometro_sum_rain_1
+#          text_template: '${entity.state ? entity.state : "n/d"}mm'
+#
+#        - name: lux
+#          entities:
+#             - sensor.fibaro_fgms001_motion_sensor_salon_luminance
+#          text_template: '${entity.state ? entity.state : "n/d"}lux'
+#
+#        - name: Watt
+#          entities:
+#             - sensor.energy_usage
+#          text_template: '${entity.state ? entity.state : "n/d"}W'
+#
+#        - name: 'Doors 90 Right Side'
+#          entities:
+#            - sensor.floorplan_cocina_sensor_puerta_derecha
+#            - sensor.floorplan_cocina_sensor_persiana_derecha
 #          states:
-#            - state: 'off'
-#              class: 'info-background'
+#            - state: 'Cerrada'
+#              class: 'door_closed_90_right'
+#            - state: 'Abierta'
+#              class: 'door_open_90_right'
+#            - state: 'Desconocido'
+#              class: 'blink'
+#
+#        - name: 'Doors 90 Left Side'
+#          entities:
+#            - sensor.floorplan_cocina_sensor_puerta_izquierda
+#            - sensor.floorplan_cocina_sensor_persiana_izquierda
+#          states:
+#            - state: 'Cerrada'
+#              class: 'door_closed_90_left'
+#            - state: 'Abierta'
+#              class: 'door_open_90_left'
+#            - state: 'Desconocido'
+#              class: 'blink'
+#
+#        - name: Slide Doors
+#          entities:
+#            - sensor.outside_fence
+#          states:
+#            - state: 'Cerrada'
+#              class: 'slidedoor_closed'
+#            - state: 'Abierta'
+#              class: 'slidedoor_open'
+#            - state: 'Desconocido'
+#              class: 'blink'
+#
+#        - name: Lights
+#          entities:
+#             - light.barrera_derecha
+#             - light.barrera_izquierda
+#             - light.puerta_entrada
+#             - group.luces_exteriores
+#          states:
 #            - state: 'on'
-#              class: 'warning-background'
-#          state_transitions:
-#            - name: On to off
-#              from_state: 'on'
-#              to_state: 'off'
-#              duration: 10
-
-        - name: Cameras
-          entities:
-            - camera.recibidor
-            - camera.barbacoa
-            - camera.piscina
-            - camera.caseta
-          states:
-            - state: 'idle'
-              class: 'camera-idle'
-              
-        - name: thermostat_temp
-          entities:
-            - climate.termostato
-          text_template: '${entity.attributes.current_temperature ? entity.attributes.current_temperature : "undefined"}'
+#              class: 'light-on'
+#            - state: 'off'
+#              class: 'light-off'
+#          action:
+#            domain: homeassistant
+#            service: toggle
+#
+#        - name: Light outside
+#          entities:
+#             - sensor.floorplan_luz_exterior_barrera_izquierda
+#             - sensor.floorplan_luz_exterior_barrera_derecha
+#             - sensor.floorplan_luz_exterior_puerta_entrada
+#          states:
+#            - state: 'apagada'
+#              class: 'outside-light-off'
+#            - state: 'encendida'
+#              class: 'outside-light-on'
+#
+#        - name: Switches
+#          entities:
+#             - switch.escalera_switch
+#             - switch.suite_switch
+#             - switch.entrance_hall_lamp_switch
+#             - switch.piscina
+#          states:
+#            - state: 'on'
+#              class: 'light-on'
+#            - state: 'off'
+#              class: 'light-off'
+#          action:
+#            domain: homeassistant
+#            service: toggle
+#
+#        - name: waves
+#          entities:
+#             - sensor.floorplan_switch_piscina
+#          states:
+#            - state: 'on'
+#              class: 'waves_start'
+#            - state: 'off'
+#              class: 'waves_stop'
+#
+#        - name: Room
+#          entities:
+#             - sensor.floorplan_luz_escalera
+#             - sensor.floorplan_luz_escalera_1
+#             - sensor.floorplan_luz_suite
+#             - sensor.floorplan_lampara_recibidor
+#          states:
+#            - state: 'apagada'
+#              class: 'room-light-off'
+#            - state: 'encendida'
+#              class: 'room-light-on'
+#
+##        - name: NVR
+##          entities:
+##             - binary_sensor.blue_iris_nvr
+##          text_template: '${(entity.state === "on") ? "online" : "offline"}'
+##          states:
+##            - state: 'off'
+##              class: 'danger-text'
+##            - state: 'on'
+##              class: 'success-text'
+#
+#        - name: Presence
+#          entities:
+#            - sensor.jordi_combined
+#            - sensor.geni_combined
+#            - sensor.virtual_device
+#          states:
+#            - state: 'En casa'
+#              class: 'presence-home'
+#            - state: 'Ausente'
+#              class: 'presence-not_home'
+#            - state: 'En ruta'
+#              class: 'presence-driving'
+#
+#        - name: Security
+#          entities:
+#             - group.seguridad
+#          states:
+#            - state: 'on'
+#              class: 'alarm-armed'
+#            - state: 'off'
+#              class: 'alarm-disarmed'
+##
+##        - name: Binary sensors
+##          entities:
+##            - binary_sensor.front_hallway
+##            - binary_sensor.kitchen
+##            - binary_sensor.master_bedroom
+##            - binary_sensor.theatre_room
+##          states:
+##            - state: 'off'
+##              class: 'info-background'
+##            - state: 'on'
+##              class: 'warning-background'
+##          state_transitions:
+##            - name: On to off
+##              from_state: 'on'
+##              to_state: 'off'
+##              duration: 10
+#
+#        - name: Cameras
+#          entities:
+#            - camera.recibidor
+#            - camera.barbacoa
+#            - camera.piscina
+#            - camera.caseta
+#          states:
+#            - state: 'idle'
+#              class: 'camera-idle'
+#
+#        - name: thermostat_temp
+#          entities:
+#            - climate.termostato
+#          text_template: '${entity.attributes.current_temperature ? entity.attributes.current_temperature : "undefined"}'
 #          class_template: '
 #            var mode = entity.attributes.operation_mode;
 #            if (mode == 'idle')
