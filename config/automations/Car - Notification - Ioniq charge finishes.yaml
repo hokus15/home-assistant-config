@@ -4,11 +4,7 @@
     platform: state
     entity_id: sensor.car_ioniq_charger_charge_state
     from: "Cargando"
-    to: "Listo"
-  condition:
-    condition: template
-    value_template: "{{ state('sensor.cargador_ev_today_energy') is not none }}"
   action:
     - service: notify.telegram_hokusphone
       data:
-        message: '🚘 Carga del Ioniq finalizada. {{state("sensor.cargador_ev_today_energy")}} kWh cargados.'
+        message: '🚘 Carga del Ioniq en casa detenida. Batería al {{states("sensor.car_ioniq_battery")}}%'
