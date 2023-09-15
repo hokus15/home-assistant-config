@@ -1,4 +1,4 @@
-- id: "presence_nobody_At_home_security_check"
+- id: "presence_nobody_at_home_security_check"
   alias: "Presence - Nobody at home - Security check"
   trigger:
     - platform: state
@@ -6,34 +6,49 @@
       from: "home"
       to: "not_home"
   condition:
-    condition: and
+    condition: or
     conditions:
-      # Car engine is on
       - condition: state
-        entity_id: sensor.car_ioniq_state_sensor
-        state: "Encendido"
-      # Hokusphone is plugged into the one car (usually my car)
+        entity_id: cover.outside_fence
+        state: "open"
       - condition: state
-        entity_id: binary_sensor.hokusphone_android_auto
+        entity_id: binary_sensor.entrada_sensor_puerta
+        state: "on"
+      - condition: state
+        entity_id: binary_sensor.porche_sensor_puerta
+        state: "on"
+      - condition: state
+        entity_id: binary_sensor.porche_sensor_persiana
         state: "on"
   action:
-    - service: mqtt.publish
-      data:
-        payload_template: >-
+    - variables:
+        checkResult: >-
           {%- if is_state("cover.outside_fence", "open") -%}
             No hay nadie en casa y se ha quedado la barrera abierta, la cierro.
           {%- endif -%}
+          {%- if is_state("binary_sensor.entrada_sensor_puerta", "on") %}
+            Puerta de entrada abierta.
+          {% endif -%}
           {%- if is_state("binary_sensor.porche_sensor_puerta", "on") %}
             Puerta de la cocina abierta.
           {% endif -%}
           {%- if is_state("binary_sensor.porche_sensor_persiana", "on") %}
             Persiana de la cocina abierta.
           {% endif -%}
+
+    - service: mqtt.publish
+      data:
+        payload_template: "{{checkResult}}"
         retain: false
         topic: "phone/sensor/hokus/cmnd/say"
-    - service_template: >-
+    - service: notify.telegram_hokusphone
+      data:
+        message: "{{checkResult}}"
+    - service: >-
         {%- if is_state("cover.outside_fence", "open") -%}
           cover.close_cover
+        {%- else %}
+          homeassistant.update_entity
         {%- endif -%}
 
       data:
