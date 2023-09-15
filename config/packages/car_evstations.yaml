@@ -32,18 +32,23 @@ rest:
           {% for cargador in value_json %}
             {% set chargepointsList.chargepoints = chargepointsList.chargepoints + cargador.chargepoints %}
           {%- endfor %}
-          {% set status = (chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo101') | list | first).status %}
-          {%- if status == 'Busy' %}
-            Ocupado
-          {%- elif status == 'Available' %}
-            Libre
-          {%- elif status == 'OutOfOrder' %}
-            Fuera de servicio
-          {%- elif status == 'NoManaged' %}
-            No gestionado
-          {%- else %}
-            {{status}}
-          {%- endif %}
+          {% set statusList = chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo101') | list %}
+          {% if statusList | length > 0 %}
+            {% set status = (statusList | first).status %}
+            {%- if status == 'Busy' %}
+              Ocupado
+            {%- elif status == 'Available' %}
+              Libre
+            {%- elif status == 'OutOfOrder' %}
+              Fuera de servicio
+            {%- elif status == 'NoManaged' %}
+              No gestionado
+            {%- else %}
+              {{status}}
+            {%- endif %}
+          {% else %}
+            Desconocido
+          {% endif %}
         {% else %}
           Desconocido
         {% endif %}
@@ -63,18 +68,23 @@ rest:
           {% for cargador in value_json %}
             {% set chargepointsList.chargepoints = chargepointsList.chargepoints + cargador.chargepoints %}
           {%- endfor %}
-          {% set status = (chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo99') | list | first).status %}
-          {%- if status == 'Busy' %}
-            Ocupado
-          {%- elif status == 'Available' %}
-            Libre
-          {%- elif status == 'OutOfOrder' %}
-            Fuera de servicio
-          {%- elif status == 'NoManaged' %}
-            No gestionado
-          {%- else %}
-            {{status}}
-          {%- endif %}
+          {% set statusList = chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo99') | list %}
+          {% if statusList | length > 0 %}
+            {% set status = (statusList | first).status %}
+            {%- if status == 'Busy' %}
+              Ocupado
+            {%- elif status == 'Available' %}
+              Libre
+            {%- elif status == 'OutOfOrder' %}
+              Fuera de servicio
+            {%- elif status == 'NoManaged' %}
+              No gestionado
+            {%- else %}
+              {{status}}
+            {%- endif %}
+          {% else %}
+            Desconocido
+          {% endif %}
         {% else %}
           Desconocido
         {% endif %}
@@ -94,18 +104,23 @@ rest:
           {% for cargador in value_json %}
             {% set chargepointsList.chargepoints = chargepointsList.chargepoints + cargador.chargepoints %}
           {%- endfor %}
-          {% set status = (chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo97') | list | first).status %}
-          {%- if status == 'Busy' %}
-            Ocupado
-          {%- elif status == 'Available' %}
-            Libre
-          {%- elif status == 'OutOfOrder' %}
-            Fuera de servicio
-          {%- elif status == 'NoManaged' %}
-            No gestionado
-          {%- else %}
-            {{status}}
-          {%- endif %}
+          {% set statusList = chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo97') | list %}
+          {% if statusList | length > 0 %}
+            {% set status = (statusList | first).status %}
+            {%- if status == 'Busy' %}
+              Ocupado
+            {%- elif status == 'Available' %}
+              Libre
+            {%- elif status == 'OutOfOrder' %}
+              Fuera de servicio
+            {%- elif status == 'NoManaged' %}
+              No gestionado
+            {%- else %}
+              {{status}}
+            {%- endif %}
+          {% else %}
+            Desconocido
+          {% endif %}
         {% else %}
           Desconocido
         {% endif %}
@@ -125,18 +140,23 @@ rest:
           {% for cargador in value_json %}
             {% set chargepointsList.chargepoints = chargepointsList.chargepoints + cargador.chargepoints %}
           {%- endfor %}
-          {% set status = (chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo19') | list | first).status %}
-          {%- if status == 'Busy' %}
-            Ocupado
-          {%- elif status == 'Available' %}
-            Libre
-          {%- elif status == 'OutOfOrder' %}
-            Fuera de servicio
-          {%- elif status == 'NoManaged' %}
-            No gestionado
-          {%- else %}
-            {{status}}
-          {%- endif %}
+          {% set statusList = chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo19') | list %}
+          {% if statusList | length > 0 %}
+            {% set status = (statusList | first).status %}
+            {%- if status == 'Busy' %}
+              Ocupado
+            {%- elif status == 'Available' %}
+              Libre
+            {%- elif status == 'OutOfOrder' %}
+              Fuera de servicio
+            {%- elif status == 'NoManaged' %}
+              No gestionado
+            {%- else %}
+              {{status}}
+            {%- endif %}
+          {% else %}
+            Desconocido
+          {% endif %}
         {% else %}
           Desconocido
         {% endif %}
@@ -157,18 +177,23 @@ rest:
           {% for cargador in value_json %}
             {% set chargepointsList.chargepoints = chargepointsList.chargepoints + cargador.chargepoints %}
           {%- endfor %}
-          {% set status = (chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo20') | list | first).status %}
-          {%- if status == 'Busy' %}
-            Ocupado
-          {%- elif status == 'Available' %}
-            Libre
-          {%- elif status == 'OutOfOrder' %}
-            Fuera de servicio
-          {%- elif status == 'NoManaged' %}
-            No gestionado
-          {%- else %}
-            {{status}}
-          {%- endif %}
+          {% set statusList = chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo20') | list %}
+          {% if statusList | length > 0 %}
+            {% set status = (statusList | first).status %}
+            {%- if status == 'Busy' %}
+              Ocupado
+            {%- elif status == 'Available' %}
+              Libre
+            {%- elif status == 'OutOfOrder' %}
+              Fuera de servicio
+            {%- elif status == 'NoManaged' %}
+              No gestionado
+            {%- else %}
+              {{status}}
+            {%- endif %}
+          {% else %}
+            Desconocido
+          {% endif %}
         {% else %}
           Desconocido
         {% endif %}
@@ -188,18 +213,23 @@ rest:
           {% for cargador in value_json %}
             {% set chargepointsList.chargepoints = chargepointsList.chargepoints + cargador.chargepoints %}
           {%- endfor %}
-          {% set status = (chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo96') | list | first).status %}
-          {%- if status == 'Busy' %}
-            Ocupado
-          {%- elif status == 'Available' %}
-            Libre
-          {%- elif status == 'OutOfOrder' %}
-            Fuera de servicio
-          {%- elif status == 'NoManaged' %}
-            No gestionado
-          {%- else %}
-            {{status}}
-          {%- endif %}
+          {% set statusList = chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo96') | list %}
+          {% if statusList | length > 0 %}
+            {% set status = (statusList | first).status %}
+            {%- if status == 'Busy' %}
+              Ocupado
+            {%- elif status == 'Available' %}
+              Libre
+            {%- elif status == 'OutOfOrder' %}
+              Fuera de servicio
+            {%- elif status == 'NoManaged' %}
+              No gestionado
+            {%- else %}
+              {{status}}
+            {%- endif %}
+          {% else %}
+            Desconocido
+          {% endif %}
         {% else %}
           Desconocido
         {% endif %}
@@ -219,18 +249,23 @@ rest:
           {% for cargador in value_json %}
             {% set chargepointsList.chargepoints = chargepointsList.chargepoints + cargador.chargepoints %}
           {%- endfor %}
-          {% set status = (chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo59') | list | first).status %}
-          {%- if status == 'Busy' %}
-            Ocupado
-          {%- elif status == 'Available' %}
-            Libre
-          {%- elif status == 'OutOfOrder' %}
-            Fuera de servicio
-          {%- elif status == 'NoManaged' %}
-            No gestionado
-          {%- else %}
-            {{status}}
-          {%- endif %}
+          {% set statusList = chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo59') | list %}
+          {% if statusList | length > 0 %}
+            {% set status = (statusList | first).status %}
+            {%- if status == 'Busy' %}
+              Ocupado
+            {%- elif status == 'Available' %}
+              Libre
+            {%- elif status == 'OutOfOrder' %}
+              Fuera de servicio
+            {%- elif status == 'NoManaged' %}
+              No gestionado
+            {%- else %}
+              {{status}}
+            {%- endif %}
+          {% else %}
+            Desconocido
+          {% endif %}
         {% else %}
           Desconocido
         {% endif %}
