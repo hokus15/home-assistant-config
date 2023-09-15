@@ -1,0 +1,9 @@
+- id: "swimming_pool_button_reset_pump_config"
+  alias: "Swimming Pool - Button - Reset pump config"
+  trigger:
+    - platform: state
+      entity_id: input_button.piscina_pump_reset_config
+  action:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.configuracion_inicial_motor_pisicina

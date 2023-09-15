@@ -1,6 +1,148 @@
-- id: '1574611747034'
+- id: "1574611747034"
   name: Luces noche
   entities:
     light.luces_exteriores:
-      brightness: 191
-      state: 'on'
+      supported_color_modes:
+        - brightness
+      icon: mdi:lightbulb-group
+      friendly_name: Luces exteriores
+      supported_features: 32
+      entity_id:
+        - light.barrera_derecha
+        - light.barrera_izquierda
+        - light.puerta_coladuria
+      state: "off"
+    switch.entrance_hall_lamp_switch:
+      icon: mdi:lamp
+      friendly_name: Lámpara recibidor
+      state: "on"
+  icon: mdi:lightbulb-auto-outline
+- id: "1694448280657"
+  name: Configuración inicial motor pisicina
+  entities:
+    input_select.piscina_pump_mode:
+      options:
+        - Solar
+        - Solar + Valle
+        - Manual
+      editable: true
+      icon: mdi:flash-auto
+      friendly_name: Gestión motor piscina
+      state: Solar
+    input_number.piscina_pump_on_threshold:
+      initial: -1200
+      editable: false
+      min: -3500
+      max: 0
+      step: 100
+      mode: slider
+      unit_of_measurement: W
+      icon: mdi:lightning-bolt
+      friendly_name: Potencia para encendido
+      state: "-1200.0"
+    input_number.piscina_pump_on_delay:
+      initial: 2
+      editable: false
+      min: 0
+      max: 60
+      step: 1
+      mode: slider
+      unit_of_measurement: mins
+      icon: mdi:clock-in
+      friendly_name: Retardo encendido
+      state: "2.0"
+    input_number.piscina_pump_on_net_balance_hour_threshold:
+      initial: -0.2
+      editable: false
+      min: -1
+      max: 0
+      step: 0.1
+      mode: slider
+      unit_of_measurement: kWh
+      state: "-0.2"
+    input_number.piscina_pump_off_net_balance_hour_threshold:
+      initial: 0.1
+      editable: false
+      min: 0
+      max: 0.5
+      step: 0.01
+      mode: slider
+      unit_of_measurement: kWh
+      state: "0.1"
+  icon: mdi:pool
+  metadata:
+    input_select.piscina_pump_mode:
+      entity_only: true
+    input_number.piscina_pump_on_threshold:
+      entity_only: true
+    input_number.piscina_pump_on_delay:
+      entity_only: true
+    input_number.piscina_pump_on_net_balance_hour_threshold:
+      entity_only: true
+    input_number.piscina_pump_off_net_balance_hour_threshold:
+      entity_only: true
+- id: "1694448525337"
+  name: Configuración inicial cargador EV
+  entities:
+    input_select.cargador_ev_mode:
+      options:
+        - Solar
+        - Solar + Valle
+        - Manual
+        - Manual con parada al acabar Valle
+      editable: true
+      icon: mdi:flash-auto
+      friendly_name: Gestión cargador EV
+      state: Manual
+    input_number.cargador_ev_on_threshold:
+      initial: -1800
+      editable: false
+      min: -3000
+      max: 0
+      step: 100
+      mode: slider
+      unit_of_measurement: W
+      icon: mdi:lightning-bolt
+      friendly_name: Potencia para encendido
+      state: "-1800.0"
+    input_number.cargador_ev_on_delay:
+      initial: 3
+      editable: false
+      min: 0
+      max: 60
+      step: 1
+      mode: slider
+      unit_of_measurement: mins
+      icon: mdi:clock-in
+      friendly_name: Retardo encendido
+      state: "3.0"
+    input_number.cargador_ev_on_net_balance_hour_threshold:
+      initial: -0.3
+      editable: false
+      min: -1
+      max: 0
+      step: 0.1
+      mode: slider
+      unit_of_measurement: kWh
+      state: "-0.3"
+    input_number.cargador_ev_off_net_balance_hour_threshold:
+      initial: 0.05
+      editable: false
+      min: 0
+      max: 0.5
+      step: 0.01
+      mode: slider
+      unit_of_measurement: kWh
+      state: "0.05"
+  icon: mdi:ev-station
+  metadata:
+    input_select.cargador_ev_mode:
+      entity_only: true
+    input_number.cargador_ev_on_threshold:
+      entity_only: true
+    input_number.cargador_ev_on_delay:
+      entity_only: true
+    input_number.cargador_ev_on_net_balance_hour_threshold:
+      entity_only: true
+    input_number.cargador_ev_off_net_balance_hour_threshold:
+      entity_only: true

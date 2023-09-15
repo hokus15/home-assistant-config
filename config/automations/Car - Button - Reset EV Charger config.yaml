@@ -1,0 +1,9 @@
+- id: "car_button_reset_ev_charger_config"
+  alias: "Car - Button - Reset EV Charger config"
+  trigger:
+    - platform: state
+      entity_id: input_button.cargador_ev_reset_config
+  action:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.configuracion_inicial_cargador_ev
