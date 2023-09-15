@@ -34,5 +34,6 @@
     - service: notify.telegram_hokusphone
       data:
         message: "🚪 Barrera abierta automáticamente"
-        inline_keyboard:
-          - "Cerrar:/switch.turn_on#switch.barrera"
+        data:
+          inline_keyboard:
+            - "Cerrar:/switch.turn_on#switch.barrera"
