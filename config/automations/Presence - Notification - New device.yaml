@@ -5,9 +5,6 @@
     event_type: device_tracker_new_device
   action:
     - service: notify.telegram_hokusphone
-      data_template:
-        message: >
-          Nuevo dispositivo detectado:
-          {{trigger.event.data.host_name}}
-          ({{trigger.event.data.entity_id}})
-        title: Nuevo dispositivo
+      data:
+        title: Nuevo dispositivo conectado
+        message: "Nuevo dispositivo detectado: {{trigger.event.data.host_name}} - ({{trigger.event.data.entity_id}})"
