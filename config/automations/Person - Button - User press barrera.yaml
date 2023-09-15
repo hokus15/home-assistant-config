@@ -24,7 +24,8 @@
       data:
         message: >
           {% set p = states.person | selectattr('attributes.user_id', 'eq', trigger.to_state.context.user_id) | list %}
-          {{ p[0].attributes.friendly_name if p | count == 1 else 'desconocido' }} ha {{ event }} la barrera.
+          {% set people_at_home = states.person | selectattr('state','eq','home') | map(attribute='attributes.friendly_name') | list %}
+          {{ p[0].attributes.friendly_name if p | count == 1 else 'desconocido' }} ha {{ event }} la barrera. {% if people_at_home|length > 0 %}{{ people_at_home[:-1] | join(', ') }}{% if people_at_home|length > 1 %} y {% endif %}{{ people_at_home[-1] }} están en casa.{% else %}No hay nadie en casa.{% endif %}
 
 #    - service: logbook.log
 #      data:
