@@ -1,0 +1,23 @@
+- id: "car_notification_iotconnect_not_started"
+  alias: "Car - Notification - IOTConnect not started"
+  trigger:
+    platform: state
+    entity_id:
+      - binary_sensor.hokusphone_android_auto
+    to: "on"
+    for:
+      minutes: 3
+  condition:
+    - condition: state
+      entity_id: binary_sensor.car_ioniq_state
+      state: "off"
+  action:
+    - service: notify.mobile_app_hokusphone
+      data:
+        title: "IOTConnect"
+        message: "Parece que IOTCOnnect no se ha iniciado"
+        data:
+          car_ui: true
+          notification_icon: "mdi:car-connected"
+          channel: "Ioniq"
+          importance: high
