@@ -26,9 +26,9 @@
     - service: notify.telegram_hokusphone
       data:
         message: "Empieza el calor 🌞🌞🌞!!!! He apagado la calefacción."
-        disable_notification: false
-        inline_keyboard:
-          - "Enciende la calefacción:/climate.turn_on#climate.recibidor"
+        data:
+          inline_keyboard:
+            - "Enciende la calefacción:/climate.turn_on#climate.recibidor"
 #    - service: telegram_bot.send_message
 #      data_template:
 #        message: "Empieza el calor 🌞🌞🌞!!!! He apagado la calefacción."

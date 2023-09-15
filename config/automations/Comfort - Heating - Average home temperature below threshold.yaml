@@ -31,9 +31,9 @@
     - service: notify.telegram_hokusphone
       data:
         message: "Como ya empieza a hacer fresquito ⛄⛄⛄, he encendido la calefacción. Convendría hacer un purgado de los radiadores."
-        disable_notification: false
-        inline_keyboard:
-          - "Apaga la calefacción:/climate.turn_off#climate.recibidor"
+        data:
+          inline_keyboard:
+            - "Apaga la calefacción:/climate.turn_off#climate.recibidor"
 #    - service: telegram_bot.send_message
 #      data_template:
 #        message: "Como ya empieza a hacer fresquito ⛄⛄⛄, he encendido la calefacción. Convendría hacer un purgado de los radiadores."
