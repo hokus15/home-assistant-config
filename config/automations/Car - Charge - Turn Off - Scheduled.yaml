@@ -4,10 +4,9 @@
     - platform: time_pattern
       # Every minute
       minutes: "/1"
-  # TODO Include: 'Manual con parada al acabar Valle' mode.
   # Execute automation when:
   #  - EV Charger is on
-  #  - NOT in manual mode.
+  #  - NOT (in 'Manual' mode OR in 'Manual con parada al acabar Valle' mode)
   #  - NOT ('Solar + Valle' mode AND in 'Valle' tariff)
   #  - Hourly net balance is too low to keep the pump on
   condition:
@@ -19,10 +18,16 @@
         state: "on"
       - condition: not
         conditions:
-          - alias: "Not in manual mode"
-            condition: state
-            entity_id: input_select.cargador_ev_mode
-            state: "Manual"
+          - condition: or
+            conditions:
+              - alias: "In 'Manual' mode"
+                condition: state
+                entity_id: input_select.cargador_ev_mode
+                state: "Manual"
+              - alias: "In 'Manual con parada al acabar Valle' mode"
+                condition: state
+                entity_id: input_select.cargador_ev_mode
+                state: "Manual con parada al acabar Valle"
           - condition: and
             conditions:
               - alias: "'Solar + Valle' mode"

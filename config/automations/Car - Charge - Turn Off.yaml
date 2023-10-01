@@ -1,0 +1,25 @@
+- id: "car_charge_turm_off"
+  alias: "Car - Charge - Turn Off"
+  trigger:
+    platform: state
+    entity_id: select.energy_grid_today
+    from: "Valle"
+  # Execute automation when:
+  #  - Not in manual mode.
+  #  - EV Charger is on
+  condition:
+    condition: and
+    conditions:
+      - condition: not
+        conditions:
+          - alias: "Not in manual mode"
+            condition: state
+            entity_id: input_select.cargador_ev_mode
+            state: "Manual"
+      - alias: "EV Charger is on"
+        condition: state
+        entity_id: switch.cargador_ev_switch
+        state: "on"
+  action:
+    - service: switch.turn_off
+      entity_id: switch.cargador_ev_switch
