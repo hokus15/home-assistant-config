@@ -118,7 +118,7 @@ device_tracker.car_ioniq:
 alarm_control_panel.home:
   friendly_name: Alarma
 sensor.piscina_on_history:
-  friendly_name: Uso bomba hoy
+  friendly_name: Tiempo de filtrado hoy
 sensor.piscina_water_temperature:
   device_class: temperature
   friendly_name: Temperatura agua piscina
@@ -213,7 +213,7 @@ sensor.piscina_width:
 sensor.despacho_sensor_movimiento_temperature:
   device_class: temperature
 sensor.piscina_filtering_time:
-  friendly_name: Tiempo de filtrado piscina
+  friendly_name: Tiempo programado de filtrado
 input_number.temperature_correction:
   friendly_name: Corrección temp. piscina
 sensor.recibidor_target_temperature:
@@ -267,12 +267,12 @@ sensor.car_ioniq_odometer_last_update:
   icon: mdi:update
 sensor.car_ioniq_battery_last_update:
   icon: mdi:update
-sensor.car_ioniq_charge_time_to_100_mins:
-  device_class: power
-  friendly_name: Min restantes de carga
-sensor.car_ioniq_charge_time_to_100_human:
+sensor.car_ioniq_charge_time_to_100_mins_filtered:
+  device_class: duration
   friendly_name: Tiempo restante de carga
-  icon: mdi:battery-charging
+sensor.car_ioniq_charge_time_to_100_mins:
+  device_class: duration
+  friendly_name: Tiempo restante de carga
 sensor.car_ioniq_charger_charge_state:
   friendly_name: Estado cargador EV
   icon: mdi:flash-circle
@@ -330,8 +330,38 @@ sensor.cargador_ev_energy_calc:
   friendly_name: Consumo cargador EV
   icon: mdi:speedometer
   device_class: energy
+sensor.cargador_aragon:
+  friendly_name: Cargador Aragón
+  templates:
+    icon_color: >
+      {%- if is_state("sensor.cargador_aragon", "Ocupado") %}
+        blue
+      {%- elif is_state("sensor.cargador_aragon", "Libre") %}
+        green
+      {%- elif is_state("sensor.cargador_aragon", "Fuera de servicio") %}
+        red
+      {%- elif is_state("sensor.cargador_aragon", "No gestionado") %}
+        grey
+      {%- else %}
+        black
+      {%- endif %}
+
 zone.cargador_aragon:
   friendly_name: Cargador de Aragón
+  templates:
+    icon_color: >
+      {%- if is_state("sensor.cargador_aragon", "Ocupado") %}
+        blue
+      {%- elif is_state("sensor.cargador_aragon", "Libre") %}
+        green
+      {%- elif is_state("sensor.cargador_aragon", "Fuera de servicio") %}
+        red
+      {%- elif is_state("sensor.cargador_aragon", "No gestionado") %}
+        grey
+      {%- else %}
+        black
+      {%- endif %}
+
 zone.cargador_conquistador:
   friendly_name: Cargador de Conquistador
 zone.cargador_palmanyola_dalias:
