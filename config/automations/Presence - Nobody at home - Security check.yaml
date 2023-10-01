@@ -23,18 +23,19 @@
   action:
     - variables:
         checkResult: >-
+          No hay nadie en casa y
           {%- if is_state("cover.outside_fence", "open") -%}
-            No hay nadie en casa y se ha quedado la barrera abierta, la cierro.
+            se ha quedado la barrera abierta, la cierro.
           {%- endif -%}
-          {%- if is_state("binary_sensor.entrada_sensor_puerta", "on") %}
-            Puerta de entrada abierta.
-          {% endif -%}
-          {%- if is_state("binary_sensor.porche_sensor_puerta", "on") %}
-            Puerta de la cocina abierta.
-          {% endif -%}
-          {%- if is_state("binary_sensor.porche_sensor_persiana", "on") %}
-            Persiana de la cocina abierta.
-          {% endif -%}
+          {%- if is_state("binary_sensor.entrada_sensor_puerta", "on") -%}
+            la puerta de entrada está abierta.
+          {%- endif -%}
+          {%- if is_state("binary_sensor.porche_sensor_puerta", "on") -%}
+            la puerta de la cocina está abierta.
+          {%- endif -%}
+          {%- if is_state("binary_sensor.porche_sensor_persiana", "on") -%}
+            la persiana de la cocina está abierta.
+          {%- endif -%}
 
     - service: mqtt.publish
       data:
@@ -44,12 +45,14 @@
     - service: notify.telegram_hokusphone
       data:
         message: "{{checkResult}}"
-    - service: >-
-        {%- if is_state("cover.outside_fence", "open") -%}
-          cover.close_cover
-        {%- else %}
-          homeassistant.update_entity
-        {%- endif -%}
 
-      data:
-        entity_id: cover.outside_fence
+    - alias: "If outside fence is open"
+      choose:
+        - conditions:
+            - condition: state
+              entity_id: "cover.outside_fence"
+              state: "open"
+          sequence:
+            - service: cover.close_cover
+              data:
+                entity_id: cover.outside_fence
