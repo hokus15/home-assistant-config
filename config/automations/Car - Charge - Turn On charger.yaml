@@ -12,6 +12,7 @@
   # Execute automation when:
   #  - 'Solar' OR 'Solar + Valle' modes
   #  - Generating enough enery OR hourly net balance is enough
+  #  - Hourly net balance is enough to keep the EV charger on
   #  - EV charger is off
   condition:
     condition: and
@@ -36,6 +37,10 @@
           - condition: state
             entity_id: binary_sensor.cargador_ev_on_enough_net_balance_hour
             state: "on"
+      - alias: "Hourly net balance is enough to keep the EV charger on"
+        condition: state
+        entity_id: binary_sensor.cargador_ev_off_enough_net_balance_hour
+        state: "on"
       - alias: "EV charger is off"
         condition: state
         entity_id: switch.cargador_ev_switch
