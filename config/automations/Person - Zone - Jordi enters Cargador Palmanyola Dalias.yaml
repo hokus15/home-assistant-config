@@ -2,25 +2,24 @@
   alias: "Person - Zone - Jordi enters Cargador Palmanyola Dalias"
   trigger:
     - platform: zone
-      entity_id: person.jordi
+      entity_id: device_tracker.car_ioniq
       zone: zone.cargador_palmanyola_dalias
       event: enter
   condition:
     condition: and
     conditions:
-      # Car engine is on
+      # hokusphone is in car IONIQ (see binary_sensor.hokusphone_in_car_ioniq in phones.yaml)
       - condition: state
-        entity_id: sensor.car_ioniq_state_sensor
-        state: "Encendido"
-      # Hokusphone is plugged into the one car (usually my car)
-      - condition: state
-        entity_id: binary_sensor.hokusphone_android_auto
+        entity_id: binary_sensor.hokusphone_in_car_ioniq
         state: "on"
       - condition: not
         conditions:
           - condition: state
             entity_id: sensor.cargador_palmanyola_dalias
             state: "No gestionado"
+          - condition: state
+            entity_id: sensor.cargador_palmanyola_dalias
+            state: "Desconocido"
       - condition: numeric_state
         entity_id: sensor.car_ioniq_battery
         below: 50
