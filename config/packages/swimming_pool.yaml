@@ -180,6 +180,7 @@ template:
       #  above: 1
     sensor:
       - name: piscina_filtering_time
+        device_class: duration
         state: >-
           {% set filtering_time = (states.sensor.piscina_k_factor.state | float(default=1) * ((states.sensor.piscina_temperature.state | float(default=30) / 10) * states.sensor.piscina_recirculation.state | float(default=0) )) | float(default=8) | round(2)%}
           {%- if filtering_time < 2 %}
