@@ -1,0 +1,20 @@
+- id: "ev_charger_notification_palmayola_violetes_free"
+  alias: "EV Charger - Notification - Palmayola Violetes Free"
+  trigger:
+    platform: state
+    entity_id: "sensor.cargador_palmanyola_violetes"
+    to: "Libre"
+  condition:
+    - condition: state
+      entity_id: "input_boolean.cargador_palmanyola_violetes_notificacion_libre"
+      state: "on"
+  action:
+    - service: notify.telegram_hokusphone
+      data:
+        message: "El cargador de Palmanyola en la calle Violetes, ya está libre."
+    - service: notify.recibidor
+      data:
+        message: "El cargador de Palmanyola en la calle Violetes, ya está libre."
+    #- service: input_boolean.turn_off
+    #  data:
+    #    entity_id: input_boolean.cargador_palmanyola_violetes_notificacion_libre
