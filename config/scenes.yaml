@@ -30,7 +30,7 @@
       friendly_name: Gestión motor piscina
       state: Solar
     input_number.piscina_pump_on_threshold:
-      initial: -1200
+      initial: -1100
       editable: false
       min: -3500
       max: 0
@@ -39,7 +39,7 @@
       unit_of_measurement: W
       icon: mdi:lightning-bolt
       friendly_name: Potencia para encendido
-      state: "-1200.0"
+      state: "-1100.0"
     input_number.piscina_pump_on_delay:
       initial: 2
       editable: false
@@ -93,7 +93,7 @@
       editable: true
       icon: mdi:flash-auto
       friendly_name: Gestión cargador EV
-      state: Manual
+      state: Manual con parada al acabar Valle
     input_number.cargador_ev_on_threshold:
       initial: -1800
       editable: false
