@@ -395,7 +395,7 @@ sensor:
         icon_template: "mdi:map-marker-radius"
       car_ioniq_charger_charge_state:
         value_template: >-
-          {%- if states('sensor.cargador_ev_power')|float(0) > 1000.0 and is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
+          {%- if states('sensor.cargador_ev_power')|float(0) > 1000.0 %}
              Cargando
           {%- elif is_state('switch.cargador_ev_switch', 'off') %}
             Apagado
@@ -403,6 +403,7 @@ sensor:
             Listo
           {%- endif %}
       car_ioniq_charge_time_to_100_mins:
+        device_class: duration
         unit_of_measurement: min
         value_template: >-
           {%- if is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
@@ -411,18 +412,10 @@ sensor:
             0
           {%- endif %}
 
-      car_ioniq_charge_time_to_100_human:
-        value_template: >-
-          {%- if states('sensor.car_ioniq_charge_time_to_100_mins') | int(0) > 0 %}
-            {{(states('sensor.car_ioniq_charge_time_to_100_mins') | int(0) / 60) | round(0, 'floor')}} horas {{states('sensor.car_ioniq_charge_time_to_100_mins') | int(0) % 60}} minutos
-          {% else %}
-            No está en carga
-          {%- endif %}
-
       car_ioniq_charge_time_to_100:
         value_template: >-
           {%- if is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
-            {{(now() | as_timestamp() + ((states('sensor.car_ioniq_charge_time_to_100_mins') | int(0)) * 60)) | timestamp_custom("%H:%M")}}
+            {{(now() | as_timestamp() + ((states('sensor.car_ioniq_charge_time_to_100_mins') | int(0)) * 60)) | timestamp_custom("%H:%M:%S")}}
           {% else %}
             No está en carga
           {%- endif %}
