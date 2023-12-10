@@ -8,6 +8,7 @@
     conditions:
       - '{{ "modelo 303" in trigger.event.data.title }}'
       - '{{ "Modelo 303" in trigger.event.data.title }}'
+      - '{{ "IVA 303" in trigger.event.data.title }}'
   action:
     - service: telegram_bot.send_message
       data_template:
