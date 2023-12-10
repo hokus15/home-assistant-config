@@ -3,6 +3,7 @@ recorder:
     entities:
       - binary_sensor.porche_sensor_puerta_abierta_alerta
       - binary_sensor.motor_piscina_encendido_alerta
+      - binary_sensor.swimming_pool_circuit_breaker_alert
       - binary_sensor.car_ioniq_iotconnect_monitor_alert
       - binary_sensor.car_ioniq_iotconnect_ev_battery_monitor_alert
       - binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor_alert
@@ -17,6 +18,13 @@ template:
              and states('climate.recibidor') is not none
              and not is_state('climate.recibidor', 'off')
              and is_state_attr('climate.recibidor', 'hvac_action', 'heating') }}
+
+      - name: "swimming_pool_circuit_breaker_alert"
+        state: >-
+          {{  is_state('binary_sensor.energy_home_status', 'on')
+             and is_state('switch.motor_piscina', 'unavailable')
+             and is_state('switch.luz_piscina', 'unavailable')
+             and is_state('switch.piscina', 'unavailable')}}
 
       - name: "motor_piscina_encendido_alerta"
         state: >-
@@ -234,3 +242,19 @@ alert:
       importance: high
     notifiers:
       - mobile_app_hokusphone
+
+  sp_cb_monitor_alert:
+    # swimming_pool_circuit_breaker_monitor_alert -> sp_cb_monitor_alert
+    # -> Cambio en el nombre para poder evitar llegar al máximo de carácteres en el inline keyboard de Telegram
+    name: Magnetotermico piscina abajo
+    entity_id: binary_sensor.swimming_pool_circuit_breaker_alert
+    state: "on"
+    repeat: 5
+    message: "Es posible que haya saltado el magnetotérmico de la piscina. Los dispositivos afectados son: piscina (luz y depuradora), cámara de la caseta, cámara de la piscina y cámara de la barbacoa."
+    can_acknowledge: true
+    skip_first: false
+    data:
+      inline_keyboard:
+        - "Enterado:/alert.turn_off#alert.sp_cb_monitor_alert"
+    notifiers:
+      - telegram_hokusphone
