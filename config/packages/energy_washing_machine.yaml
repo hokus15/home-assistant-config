@@ -1,0 +1,29 @@
+recorder:
+  include:
+    entities:
+      - binary_sensor.lavadora_status
+      - binary_sensor.lavadora_status_high_power
+      - sensor.lavadora_power
+      - sensor.lavadora_energy
+
+template:
+  - binary_sensor:
+      - name: lavadora_status
+        state: "{{ states('sensor.lavadora_power') | float(default=0) > 5 }}"
+        delay_off: "0:05:00"
+        icon: >-
+          {% if states('sensor.lavadora_power') | float(default=0) > 5 -%}
+            mdi:washing-machine
+          {%- else -%}
+            mdi:washing-machine-off
+          {%- endif %}
+        # Washing machine uses more power during first 30 mins (to warm the water).
+        # This template calculates how long the washing machine has been on and is set to on when is in the first 30 mins of operation
+        # This is useful to allow to start other appliances while the washing machine has not finished and it's not using high power.
+      - name: lavadora_status_high_power
+        state: >
+          {% if states('binary_sensor.lavadora_status') == 'off' %} 
+          off
+          {% else %}
+          {{ (now().timestamp() - states.binary_sensor.lavadora_status.last_changed.timestamp()) <= 1800 }}
+          {% endif %}
