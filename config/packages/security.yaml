@@ -204,14 +204,6 @@ input_boolean:
     name: Det. mov. entrada ppal.
     icon: "mdi:transit-transfer"
 
-binary_sensor:
-  - platform: template
-    sensors:
-      entrada_sensor_puerta:
-        friendly_name: "Puerta entrada"
-        device_class: door
-        value_template: "{{is_state_attr('sensor.lock_entrada_state', 'doorsensorState', 3) }}"
-
 shell_command:
   cam_salon_ptz_preset_point_main: !secret cam_salon_ptz_preset_point_main
   cam_salon_ptz_preset_point_main_left: !secret cam_salon_ptz_preset_point_mainleft
