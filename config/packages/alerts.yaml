@@ -1,7 +1,10 @@
 recorder:
   include:
     entities:
+      - binary_sensor.solar_panel_not_producing_monitor_alert
       - binary_sensor.porche_sensor_puerta_abierta_alerta
+      - binary_sensor.coladuria_sensor_puerta_abierta_alerta
+      - binary_sensor.entrada_sensor_puerta_abierta_alerta
       - binary_sensor.motor_piscina_encendido_alerta
       - binary_sensor.swimming_pool_circuit_breaker_alert
       - binary_sensor.car_ioniq_iotconnect_monitor_alert
@@ -12,9 +15,30 @@ recorder:
 
 template:
   - binary_sensor:
+      - name: "solar_panel_not_producing_monitor_alert"
+        # Introducir azimuth?
+        # Tener en cuenta si hace sol o está nublado?
+        state: >-
+          {{ state_attr('sun.sun', 'elevation') > 6
+             and states('sensor.energy_power_photovoltaics') <= 0 }}
+
       - name: "porche_sensor_puerta_abierta_alerta"
         state: >-
           {{ is_state('binary_sensor.porche_sensor_puerta', 'on')
+             and states('climate.recibidor') is not none
+             and not is_state('climate.recibidor', 'off')
+             and is_state_attr('climate.recibidor', 'hvac_action', 'heating') }}
+
+      - name: "coladuria_sensor_puerta_abierta_alerta"
+        state: >-
+          {{ is_state('binary_sensor.coladuria_sensor_puerta', 'on')
+             and states('climate.recibidor') is not none
+             and not is_state('climate.recibidor', 'off')
+             and is_state_attr('climate.recibidor', 'hvac_action', 'heating') }}
+
+      - name: "entrada_sensor_puerta_abierta_alerta"
+        state: >-
+          {{ is_state('binary_sensor.entrada_sensor_puerta', 'on')
              and states('climate.recibidor') is not none
              and not is_state('climate.recibidor', 'off')
              and is_state_attr('climate.recibidor', 'hvac_action', 'heating') }}
@@ -91,12 +115,44 @@ alert:
     entity_id: binary_sensor.porche_sensor_puerta_abierta_alerta
     state: "on"
     repeat: 10
-    message: "Puerta del porche en la cocina abierta durante más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.porche_sensor_puerta.last_changed))|int//60 }} minutos"
+    message: "La puerta del porche en la cocina lleva más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.porche_sensor_puerta.last_changed))|int//60 }} minutos abierta y la calefacción está encendida."
     can_acknowledge: true
     skip_first: true
     data:
       inline_keyboard:
         - "Enterado:/alert.turn_off#alert.porche_sensor_puerta_abierta"
+    notifiers:
+      - recibidor
+      - suite
+      - telegram_hokusphone
+
+  coladuria_sensor_puerta_abierta:
+    name: Puerta coladuría abierta
+    entity_id: binary_sensor.coladuria_sensor_puerta_abierta_alerta
+    state: "on"
+    repeat: 10
+    message: "La puerta de la coladuría lleva más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.coladuria_sensor_puerta.last_changed))|int//60 }} minutos abierta y la calefacción está encendida."
+    can_acknowledge: true
+    skip_first: true
+    data:
+      inline_keyboard:
+        - "Enterado:/alert.turn_off#alert.coladuria_sensor_puerta_abierta"
+    notifiers:
+      - recibidor
+      - suite
+      - telegram_hokusphone
+
+  entrada_sensor_puerta_abierta:
+    name: Puerta de entrada abierta
+    entity_id: binary_sensor.entrada_sensor_puerta_abierta_alerta
+    state: "on"
+    repeat: 10
+    message: "La puerta de entrada lleva más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.porche_sensor_puerta.last_changed))|int//60 }} minutos abierta y la calefacción está encendida."
+    can_acknowledge: true
+    skip_first: true
+    data:
+      inline_keyboard:
+        - "Enterado:/alert.turn_off#alert.entrada_sensor_puerta_abierta"
     notifiers:
       - recibidor
       - suite
@@ -137,7 +193,15 @@ alert:
       tag: iotconnect-app
       car_ui: true
       #notification_icon: "{{ 'mdi:car-connected' if is_state('alert.car_ioniq_iotconnect_monitor_alert', 'idle') else 'mdi:car-off' }}"
-      notification_icon: "mdi:car-off"
+      # TODO Probar asi, si no probar con el estado del binary_sensor binary_sensor.car_ioniq_iotconnect_monitor_alert
+      notification_icon: >-
+        {% if is_state("binary_sensor.car_ioniq_iotconnect_monitor_alert", "off") %}
+          mdi:car-connected
+        {% else %}
+          mdi:car-off
+        {% endif %}
+
+      #notification_icon: "mdi:car-off"
       channel: "Ioniq"
       importance: high
     notifiers:
@@ -256,5 +320,21 @@ alert:
     data:
       inline_keyboard:
         - "Enterado:/alert.turn_off#alert.sp_cb_monitor_alert"
+    notifiers:
+      - telegram_hokusphone
+
+  sp_not_producing_monitor_alert:
+    # solar_panel_not_producing_monitor_alert -> sp_not_producing_monitor_alert
+    # -> Cambio en el nombre para poder evitar llegar al máximo de carácteres en el inline keyboard de Telegram
+    name: Producción electricidad
+    entity_id: binary_sensor.solar_panel_not_producing_monitor_alert
+    state: "on"
+    repeat: 5
+    message: "Las placas solares no están produciendo electricidad. ¿Está muy nublado?"
+    can_acknowledge: true
+    skip_first: false
+    data:
+      inline_keyboard:
+        - "Enterado:/alert.turn_off#alert.sp_not_producing_monitor_alert"
     notifiers:
       - telegram_hokusphone
