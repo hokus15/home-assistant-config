@@ -149,6 +149,22 @@ sensor:
       recibidor_temperature:
         value_template: "{{state_attr('climate.recibidor', 'current_temperature')}}"
 
+weather:
+  - platform: template
+    name: "Casa"
+    unique_id: "casa"
+    condition_template: "{{ states('weather.aemet') }}"
+    temperature_template: "{{ states('sensor.exterior_temperature') | float }}"
+    temperature_unit: "°C"
+    humidity_template: "{{ states('sensor.exterior_humidity') | float }}"
+    forecast_daily_template: "{{ state_attr('weather.aemet', 'forecast') }}"
+    pressure_template: "{{ states('sensor.salon_pressure') | float }}"
+    pressure_unit: "hPa"
+    #wind_speed_template: ""
+    #wind_gust_speed_template: ""
+    #wind_speed_unit: ""
+    #wind_bearing_template: ""
+
 input_boolean:
   home_comfort_mode:
     name: Modo extra calentito
