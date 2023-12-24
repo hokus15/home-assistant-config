@@ -26,6 +26,8 @@ rest:
         - status
         - connected
         - numberPhases
+        - vehicleType
+        - connectors
       value_template: >-
         {% set chargepointsList = namespace(chargepoints=[]) %}
         {% if value_json is not none and value_json != "" %}
@@ -62,6 +64,8 @@ rest:
         - status
         - connected
         - numberPhases
+        - vehicleType
+        - connectors
       value_template: >-
         {% set chargepointsList = namespace(chargepoints=[]) %}
         {% if value_json is not none and value_json != "" %}
@@ -98,6 +102,8 @@ rest:
         - status
         - connected
         - numberPhases
+        - vehicleType
+        - connectors
       value_template: >-
         {% set chargepointsList = namespace(chargepoints=[]) %}
         {% if value_json is not none and value_json != "" %}
@@ -134,6 +140,8 @@ rest:
         - status
         - connected
         - numberPhases
+        - vehicleType
+        - connectors
       value_template: >-
         {% set chargepointsList = namespace(chargepoints=[]) %}
         {% if value_json is not none and value_json != "" %}
@@ -171,6 +179,8 @@ rest:
         - status
         - connected
         - numberPhases
+        - vehicleType
+        - connectors
       value_template: >-
         {% set chargepointsList = namespace(chargepoints=[]) %}
         {% if value_json is not none and value_json != "" %}
@@ -207,6 +217,8 @@ rest:
         - status
         - connected
         - numberPhases
+        - vehicleType
+        - connectors
       value_template: >-
         {% set chargepointsList = namespace(chargepoints=[]) %}
         {% if value_json is not none and value_json != "" %}
@@ -243,6 +255,8 @@ rest:
         - status
         - connected
         - numberPhases
+        - vehicleType
+        - connectors
       value_template: >-
         {% set chargepointsList = namespace(chargepoints=[]) %}
         {% if value_json is not none and value_json != "" %}
