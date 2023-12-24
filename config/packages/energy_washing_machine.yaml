@@ -17,6 +17,9 @@ template:
           {%- else -%}
             mdi:washing-machine-off
           {%- endif %}
+        attributes:
+          power: "{{ states('sensor.lavadora_power') }}W"
+
         # Washing machine uses more power during first 30 mins (to warm the water).
         # This template calculates how long the washing machine has been on and is set to on when is in the first 30 mins of operation
         # This is useful to allow to start other appliances while the washing machine has not finished and it's not using high power.

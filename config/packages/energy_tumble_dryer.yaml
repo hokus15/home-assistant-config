@@ -9,6 +9,7 @@ recorder:
 template:
   - binary_sensor:
       - name: secadora_status
+        unique_id: secadora_status
         state: "{{ states('sensor.secadora_power') | float(default=0) > 5 }}"
         delay_off: "0:05:00"
         icon: >-
@@ -17,6 +18,8 @@ template:
           {%- else -%}
             mdi:tumble-dryer-off
           {%- endif %}
+        attributes:
+          power: "{{ states('sensor.secadora_power_filtered') }}W"
 
 sensor:
   - platform: filter

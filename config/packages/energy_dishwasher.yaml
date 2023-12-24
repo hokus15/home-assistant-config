@@ -17,6 +17,9 @@ template:
           {%- else -%}
             mdi:dishwasher-off
           {%- endif %}
+        attributes:
+          power: "{{ states('sensor.lavaplatos_power_filtered') }}W"
+
 
 sensor:
   - platform: filter
