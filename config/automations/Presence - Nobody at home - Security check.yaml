@@ -17,9 +17,9 @@
       - condition: state
         entity_id: binary_sensor.porche_sensor_puerta
         state: "on"
-      #- condition: state
-      #  entity_id: binary_sensor.porche_sensor_persiana
-      #  state: "on"
+      - condition: state
+        entity_id: binary_sensor.porche_sensor_persiana
+        state: "on"
   action:
     - variables:
         checkResult: >-
@@ -33,9 +33,9 @@
           {%- if is_state("binary_sensor.porche_sensor_puerta", "on") -%}
             la puerta de la cocina está abierta.
           {%- endif -%}
-    #          {%- if is_state("binary_sensor.porche_sensor_persiana", "on") -%}
-    #            la persiana de la cocina está abierta.
-    #          {%- endif -%}
+          {%- if is_state("binary_sensor.porche_sensor_persiana", "on") -%}
+            la persiana de la cocina está abierta.
+          {%- endif -%}
 
     - service: mqtt.publish
       data:
