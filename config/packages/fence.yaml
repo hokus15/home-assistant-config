@@ -26,6 +26,8 @@ cover:
   - platform: template
     covers:
       outside_fence:
+        unique_id: outside_fence
+        device_class: awning
         friendly_name: "Barrera"
         value_template: "{{ is_state_attr('switch.barrera', 'sensor_state', 'off') }}"
         open_cover:
@@ -38,7 +40,7 @@ cover:
             entity_id: switch.barrera
         icon_template: >-
           {%- if is_state_attr('switch.barrera', 'sensor_state', 'off') %}
-            mdi:garage-open
+            mdi:gate-open
           {% else %}
-            mdi:garage
+            mdi:gate
           {% endif %}
