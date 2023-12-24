@@ -122,7 +122,7 @@ sensor.piscina_on_history:
 sensor.piscina_water_temperature:
   device_class: temperature
   friendly_name: Temperatura agua piscina
-  icon: mdi:oil-temperature
+  icon: mdi:pool-thermometer
   state_class: measurement
 sensor.piscina_temperature:
   device_class: temperature
