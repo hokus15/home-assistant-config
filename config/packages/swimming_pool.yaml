@@ -20,14 +20,10 @@ logbook:
       - sensor.piscina_filtering_time
       - sensor.piscina_on_history
 
-light:
-  - platform: switch
-    name: piscina_light
-    entity_id: switch.luz_piscina
-
 mqtt:
   switch:
     - name: "Motor piscina"
+      unique_id: "motor_piscina"
       icon: mdi:pool
       state_topic: "home/switch/motor_piscina/stat/POWER"
       command_topic: "home/switch/motor_piscina/cmnd/POWER"
@@ -39,7 +35,8 @@ mqtt:
       retain: false
 
     - name: "Luz Piscina"
-      icon: "mdi:lightbulb"
+      icon: "mdi:light-flood-down"
+      unique_id: "luz_piscina"
       state_topic: "home/light/piscina/stat/POWER"
       command_topic: "home/light/piscina/cmnd/POWER"
       availability_topic: "home/light/piscina/tele/LWT"
@@ -51,6 +48,8 @@ mqtt:
 
   sensor:
     - name: piscina_water_temperature
+      unique_id: piscina_water_temperature
+      icon: mdi:pool-thermometer
       state_topic: "home/switch/motor_piscina/tele/SENSOR"
       value_template: "{{ value_json.DS18B20.Temperature | float(default=0) + states.input_number.temperature_correction.state | float(default=0) }}"
       device_class: "temperature"
@@ -73,7 +72,7 @@ sensor:
         value_template: 1.6
         unit_of_measurement: m
       piscina_pump_power:
-        friendly_name: "Potencia"
+        friendly_name: "Potencia depuradora"
         value_template: 16
         unit_of_measurement: "m3/h"
       piscina_pump_efficiency:
