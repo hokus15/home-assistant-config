@@ -20,6 +20,7 @@ recorder:
       - sensor.car_ioniq_battery
       - sensor.car_ioniq_battery_power
       - sensor.car_ioniq_battery_soc_bms
+      - sensor.car_ioniq_battery_health
       - sensor.car_ioniq_location_gps_accuracy
       #      - sensor.car_ioniq_battery_inlet_temp
       #      - sensor.car_ioniq_battery_max_temp
