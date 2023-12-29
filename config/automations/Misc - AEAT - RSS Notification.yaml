@@ -1,5 +1,5 @@
-- id: "misc_modelo303_rss_notification"
-  alias: "Misc - Modelo 303 - RSS Notification"
+- id: "misc_aeat_rss_notification"
+  alias: "Misc - AEAT - RSS Notification"
   trigger:
     platform: event
     event_type: feedreader
@@ -9,6 +9,7 @@
       - '{{ "modelo 303" in trigger.event.data.title }}'
       - '{{ "Modelo 303" in trigger.event.data.title }}'
       - '{{ "IVA 303" in trigger.event.data.title }}'
+      - '{{ "informativas" in trigger.event.data.title }}'
   action:
     - service: telegram_bot.send_message
       data_template:
