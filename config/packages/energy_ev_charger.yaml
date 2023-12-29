@@ -16,12 +16,12 @@ logbook:
       - sensor.cargador_ev_power
       - sensor.cargador_ev_energy_calc
 
-binary_sensor:
-  - platform: threshold
-    name: cargador_ev_status
-    entity_id: sensor.cargador_ev_power
-    upper: 5
-    device_class: power
+#binary_sensor:
+#  - platform: threshold
+#    name: cargador_ev_status
+#    entity_id: sensor.cargador_ev_power
+#    upper: 5
+#    device_class: power
 
 sensor:
   - platform: filter
@@ -35,6 +35,13 @@ sensor:
 
 template:
   - binary_sensor:
+      - name: cargador_ev_status
+        state: "{{ states('sensor.cargador_ev_power') | float(default=0) > 5 }}"
+        delay_off: "0:00:10"
+        icon: "mdi:ev-station"
+        attributes:
+          power: "{{ states('sensor.cargador_ev_power_filtered') }}W"
+
       # on when the exported energy is over the input_number.cargador_ev_on_threshold threshold
       # during input_number.cargador_ev_on_delay minutes
       - name: cargador_ev_on_energy_export_over_threshold

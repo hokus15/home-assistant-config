@@ -176,14 +176,14 @@ template:
         minutes: 0
       #- platform: numeric_state
       #  entity_id: sensor.ha_runtime_in_minutes
-      #  above: 1
+      #  above: 0
     sensor:
       - name: piscina_filtering_time
         device_class: duration
         state: >-
           {% set filtering_time = (states.sensor.piscina_k_factor.state | float(default=1) * ((states.sensor.piscina_temperature.state | float(default=30) / 10) * states.sensor.piscina_recirculation.state | float(default=0) )) | float(default=8) | round(2)%}
           {%- if filtering_time < 2 %}
-            {{ 0 | float(default=0) }}
+            {{ 1 | float(default=0) }}
           {% elif filtering_time > 8 %}
             {{ 8 | float(default=0) }}
           {% else %}
@@ -191,6 +191,13 @@ template:
           {%- endif %}
         unit_of_measurement: "h"
   - binary_sensor:
+      - name: piscina_general_status
+        state: "{{ states('sensor.piscina_power') | float(default=0) > 5 }}"
+        delay_off: "0:00:10"
+        icon: "mdi:pool"
+        attributes:
+          power: "{{ states('sensor.piscina_power') }}W"
+
       # on when the exported energy is over the input_number.piscina_pump_on_threshold threshold
       # during input_number.piscina_pump_on_delay minutes
       - name: piscina_pump_on_energy_export_over_threshold
