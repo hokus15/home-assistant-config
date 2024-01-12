@@ -253,8 +253,10 @@ presence_leave_home:
           {%- if is_state("binary_sensor.porche_sensor_puerta", "on") %}{% set incidence = true %}Puerta de la cocina abierta. {% endif %}
           {%- if is_state("binary_sensor.porche_sensor_persiana", "on") %}{% set incidence = true %}Persiana de la cocina abierta. {% endif %}
           {%- if is_state("binary_sensor.coladuria_sensor_puerta", "on") %}{% set incidence = true %}Puerta de la coladuría abierta. {% endif %}
+          {%- if is_state("binary_sensor.banyo_suite_sensor_ventana", "on") %}{% set incidence = true %}Ventana del baño de la suite abierta. {% endif %}
           {%- if is_state("switch.entrance_hall_lamp_switch", "on") %}{% set incidence = true %}Lámpara del recibidor encendida. {% endif %}
           {%- if is_state("switch.escalera_switch", "on") %}{% set incidence = true %}Luz de la escalera encendida. {% endif %}
           {%- if is_state("switch.comedor_switch", "on") %}{% set incidence = true %}Luz del comedor encendida. {% endif %}
           {%- if is_state("switch.salon_switch", "on") %}{% set incidence = true %}Luz del salón encendida. {% endif %}
           {%- if is_state("switch.suite_switch", "on") %}{% set incidence = true %}Luz de la suite encendida. {% endif %}
+          {%- if incidence == false %}¡Todo correcto!, podéis ir en paz. {% endif %}
