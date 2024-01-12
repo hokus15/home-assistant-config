@@ -5,6 +5,7 @@ recorder:
       - binary_sensor.porche_sensor_puerta_abierta_alerta
       - binary_sensor.coladuria_sensor_puerta_abierta_alerta
       - binary_sensor.entrada_sensor_puerta_abierta_alerta
+      - binary_sensor.banyo_suite_sensor_ventana_abierta_alerta
       - binary_sensor.motor_piscina_encendido_alerta
       - binary_sensor.swimming_pool_circuit_breaker_alert
       - binary_sensor.car_ioniq_iotconnect_monitor_alert
@@ -39,6 +40,13 @@ template:
       - name: "entrada_sensor_puerta_abierta_alerta"
         state: >-
           {{ is_state('binary_sensor.entrada_sensor_puerta', 'on')
+             and states('climate.recibidor') is not none
+             and not is_state('climate.recibidor', 'off')
+             and is_state_attr('climate.recibidor', 'hvac_action', 'heating') }}
+
+      - name: "banyo_suite_sensor_ventana_abierta_alerta"
+        state: >-
+          {{ is_state('binary_sensor.banyo_suite_sensor_ventana', 'on')
              and states('climate.recibidor') is not none
              and not is_state('climate.recibidor', 'off')
              and is_state_attr('climate.recibidor', 'hvac_action', 'heating') }}
@@ -108,6 +116,7 @@ alert:
         - "Enterado:/alert.turn_off#alert.barrera_abierta"
     notifiers:
       - recibidor
+      - despacho
       - telegram_hokusphone
 
   porche_sensor_puerta_abierta:
@@ -124,6 +133,7 @@ alert:
     notifiers:
       - recibidor
       - suite
+      - despacho
       - telegram_hokusphone
 
   coladuria_sensor_puerta_abierta:
@@ -140,6 +150,7 @@ alert:
     notifiers:
       - recibidor
       - suite
+      - despacho
       - telegram_hokusphone
 
   entrada_sensor_puerta_abierta:
@@ -147,7 +158,7 @@ alert:
     entity_id: binary_sensor.entrada_sensor_puerta_abierta_alerta
     state: "on"
     repeat: 10
-    message: "La puerta de entrada lleva más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.porche_sensor_puerta.last_changed))|int//60 }} minutos abierta y la calefacción está encendida."
+    message: "La puerta de entrada lleva más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.entrada_sensor_puerta.last_changed))|int//60 }} minutos abierta y la calefacción está encendida."
     can_acknowledge: true
     skip_first: true
     data:
@@ -156,6 +167,24 @@ alert:
     notifiers:
       - recibidor
       - suite
+      - despacho
+      - telegram_hokusphone
+
+  banyo_suite_sensor_ventana_abierta:
+    name: Ventana del baño de la suite abierta
+    entity_id: binary_sensor.banyo_suite_sensor_ventana_abierta_alerta
+    state: "on"
+    repeat: 10
+    message: "La ventana del baño de la suite lleva más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.banyo_suite_sensor_ventana.last_changed))|int//60 }} minutos abierta y la calefacción está encendida."
+    can_acknowledge: true
+    skip_first: true
+    data:
+      inline_keyboard:
+        - "Enterado:/alert.turn_off#alert.banyo_suite_sensor_ventana_abierta"
+    notifiers:
+      - recibidor
+      - suite
+      - despacho
       - telegram_hokusphone
 
   motor_piscina_encendido:
@@ -172,6 +201,7 @@ alert:
         - "Enterado:/alert.turn_off#alert.motor_piscina_encendido"
     notifiers:
       - recibidor
+      - despacho
       - telegram_hokusphone
 
   car_ioniq_iotconnect_monitor_alert:
@@ -194,14 +224,14 @@ alert:
       car_ui: true
       #notification_icon: "{{ 'mdi:car-connected' if is_state('alert.car_ioniq_iotconnect_monitor_alert', 'idle') else 'mdi:car-off' }}"
       # TODO Probar asi, si no probar con el estado del binary_sensor binary_sensor.car_ioniq_iotconnect_monitor_alert
-      notification_icon: >-
-        {% if is_state("binary_sensor.car_ioniq_iotconnect_monitor_alert", "off") %}
-          mdi:car-connected
-        {% else %}
-          mdi:car-off
-        {% endif %}
+      #notification_icon: >-
+      #  {% if is_state("binary_sensor.car_ioniq_iotconnect_monitor_alert", "off") %}
+      #    mdi:car-connected
+      #  {% else %}
+      #    mdi:car-off
+      #  {% endif %}
 
-      #notification_icon: "mdi:car-off"
+      notification_icon: "mdi:car-off"
       channel: "Ioniq"
       importance: high
     notifiers:
@@ -321,6 +351,7 @@ alert:
       inline_keyboard:
         - "Enterado:/alert.turn_off#alert.sp_cb_monitor_alert"
     notifiers:
+      - despacho
       - telegram_hokusphone
 
   sp_not_producing_monitor_alert:
@@ -337,4 +368,5 @@ alert:
       inline_keyboard:
         - "Enterado:/alert.turn_off#alert.sp_not_producing_monitor_alert"
     notifiers:
+      - despacho
       - telegram_hokusphone
