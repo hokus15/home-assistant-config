@@ -1,0 +1,9 @@
+"sensor.cargador_*":
+  icon: mdi:description
+  templates:
+    icon_color: >
+      if (state == 'Ocupado') return 'blue';
+      if (state == 'Libre') return 'green';
+      if (state == 'Fuera de servicio') return 'red';
+      if (state == 'No gestionado') return 'grey';
+      return 'black';

@@ -341,38 +341,11 @@ sensor.cargador_ev_energy_calc:
   friendly_name: Consumo cargador EV
   icon: mdi:speedometer
   device_class: energy
-sensor.cargador_aragon:
-  friendly_name: Cargador Aragón
+sensor.fronius_solarnet_power_grid:
   templates:
-    icon_color: >
-      {%- if is_state("sensor.cargador_aragon", "Ocupado") %}
-        blue
-      {%- elif is_state("sensor.cargador_aragon", "Libre") %}
-        green
-      {%- elif is_state("sensor.cargador_aragon", "Fuera de servicio") %}
-        red
-      {%- elif is_state("sensor.cargador_aragon", "No gestionado") %}
-        grey
-      {%- else %}
-        black
-      {%- endif %}
-
-zone.cargador_aragon:
-  friendly_name: Cargador de Aragón
-  templates:
-    icon_color: >
-      {%- if is_state("sensor.cargador_aragon", "Ocupado") %}
-        blue
-      {%- elif is_state("sensor.cargador_aragon", "Libre") %}
-        green
-      {%- elif is_state("sensor.cargador_aragon", "Fuera de servicio") %}
-        red
-      {%- elif is_state("sensor.cargador_aragon", "No gestionado") %}
-        grey
-      {%- else %}
-        black
-      {%- endif %}
-
+    icon: >
+      if (state >= 0) return 'mdi:home-import-outline';
+      return 'mdi:home-export-outline';
 zone.cargador_conquistador:
   friendly_name: Cargador de Conquistador
 zone.cargador_palmanyola_dalias:
