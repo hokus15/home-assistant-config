@@ -5,6 +5,7 @@ recorder:
       - binary_sensor.lavadora_status_high_power
       - sensor.lavadora_power
       - sensor.lavadora_energy
+      - switch.lavadora
 
 template:
   - binary_sensor:
