@@ -1,0 +1,21 @@
+recorder:
+  include:
+    entities:
+      - switch.wallpanel_despacho_cargador
+      - sensor.wallpanel_despacho_cargador_power
+      - sensor.wallpanel_despacho_cargadorpower_filtered
+      - sensor.wallpanel_despacho_cargadorenergy_calc
+      - sensor.wallpanel_despacho_bateria
+      - binary_sensor.wallpanel_despacho_enchufado
+      - switch.wallpanel_despacho_deteccion_de_movimiento
+      - switch.wallpanel_despacho_pantalla
+
+sensor:
+  - platform: filter
+    name: wallpanel_despacho_cargador_power_filtered
+    unique_id: wallpanel_despacho_cargador_power_filtered
+    entity_id: sensor.wallpanel_despacho_cargador_power
+    filters:
+      - filter: outlier
+        window_size: 4
+        radius: 10000.0

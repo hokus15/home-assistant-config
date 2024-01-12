@@ -1,5 +1,6 @@
 homeassistant:
   customize: !include customize.yaml
+  customize_glob: !include customize_glob.yaml
   allowlist_external_dirs:
     - /share/camera
   packages: !include_dir_named packages
@@ -115,12 +116,16 @@ notify:
   - name: telegram_familygroup
     platform: telegram
     chat_id: !secret familygroup_telegram_chat_id
+  - name: despacho
+    platform: tts
+    tts_service: tts.cloud_say
+    media_player: media_player.wallpanel_despacho
 
 ifttt:
   key: !secret ifttt_api_key
 
-withings:
-  use_webhook: true
+#withings:
+#  use_webhook: true
 
 freedns:
   url: !secret freedns_url
