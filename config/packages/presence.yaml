@@ -4,18 +4,22 @@ recorder:
       - person
     entities:
       - group.unidad_familiar
+      - group.ocupacion
       - switch.google_home_occupancy
       - binary_sensor.withings_in_bed_jm
 
 group:
+  ocupacion:
+    entities:
+      - person.residentes
+      - person.invitado
+
   Unidad Familiar:
     entities:
-      #- person.familia
       - person.jordi
       - person.geni
       - person.carlos
-      - person.guest
-      #- person.coque
+      - person.coque
 
 input_number:
   # Number of minutes to keep the guest mode on
