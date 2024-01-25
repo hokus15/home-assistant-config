@@ -9,6 +9,7 @@ recorder:
 template:
   - binary_sensor:
       - name: lavaplatos_status
+        unique_id: lavaplatos_status
         state: "{{ states('sensor.lavaplatos_power') | float(default=0) > 5 }}"
         delay_off: "0:05:00"
         icon: >-
@@ -19,7 +20,6 @@ template:
           {%- endif %}
         attributes:
           power: "{{ states('sensor.lavaplatos_power_filtered') }}W"
-
 
 sensor:
   - platform: filter
