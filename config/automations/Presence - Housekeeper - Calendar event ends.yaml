@@ -1,0 +1,11 @@
+- id: "presence_housekeeper_calendar_event_ends"
+  alias: "Presence - Housekeeper - Calendar event ends"
+  trigger:
+    - platform: calendar
+      event: end
+      entity_id: calendar.asistente_hogar
+  action:
+    - service: device_tracker.see
+      data:
+        dev_id: asistente_hogar
+        location_name: not_home
