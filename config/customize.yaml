@@ -56,15 +56,12 @@ switch.holiday:
   icon: mdi:airplane
 device_tracker.geniphone_wifi:
   source_type: router
-device_tracker.guest:
-  icon: mdi:account-question
+device_tracker.invitado:
   source_type: router
 person.jordi:
   entity_picture: https://s.gravatar.com/avatar/f5d192b4f4ffab4d9625f9b9e11d16b7?s=192
 person.geni:
   entity_picture: /local/person.geni.jpg
-person.guest:
-  icon: mdi:account-question
 person.carlos:
   entity_picture: /local/person.carlos.jpg
 person.coque:
@@ -358,5 +355,7 @@ zone.cargador_sant_miquel:
   friendly_name: Cargador de San Miguel
 zone.cargador_sestanyol:
   friendly_name: Cargador de Sestañol
+zone.cargador_aragon:
+  friendly_name: Cargador de Aragón
 zone.casa_cerca:
   friendly_name: Casa
