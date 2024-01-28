@@ -3,23 +3,37 @@ recorder:
     domains:
       - person
     entities:
-      - group.unidad_familiar
-      - group.ocupacion
+      - group.familia
+      - group.invitado_y_familia
+      - group.todos
       - switch.google_home_occupancy
       - binary_sensor.withings_in_bed_jm
 
 group:
-  ocupacion:
-    entities:
-      - person.residentes
-      - person.invitado
+  # --------------------------------TODO-------------------------------------
+  # The aim is to remove the person.residentes that uses Google Home for presence detection.
+  # For this first I need to solve presence detection for Geni and Coque.
 
-  Unidad Familiar:
+  # person.residentes uses device_tracker.google_home that get the state from Google Home
+  familia:
     entities:
       - person.jordi
       - person.geni
       - person.carlos
       - person.coque
+      - person.residentes
+
+  invitado_y_familia:
+    entities:
+      - group.familia
+      - person.invitado
+
+  # This group contains all the possible persons that can be at home or not.
+  # Includes all family members (and the person.residentes), the guest, and the homekeeper
+  todos:
+    entities:
+      - group.invitado_y_familia
+      - person.asistente_hogar
 
 input_number:
   # Number of minutes to keep the guest mode on

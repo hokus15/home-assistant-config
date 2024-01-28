@@ -2,7 +2,7 @@
   alias: "Presence - Nobody at home - Security check"
   trigger:
     - platform: state
-      entity_id: group.ocupacion
+      entity_id: group.todos
       from: "home"
       to: "not_home"
   condition:
