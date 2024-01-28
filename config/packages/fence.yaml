@@ -8,10 +8,10 @@ recorder:
 sensor:
   - platform: template
     sensors:
-      # Wemo Maker sensor state (off: fence open, on: fence closed)
+      # Shelly 1 Plus sensor state (off: fence closed, on: fence open)
       outside_fence_sensor_state:
         value_template: >-
-          {%- if is_state_attr('switch.barrera', 'sensor_state', 'off') %}
+          {%- if is_state('binary_sensor.barrera_estado', 'on') %}
             abierta
           {% else %}
             cerrada
@@ -29,7 +29,7 @@ cover:
         unique_id: outside_fence
         device_class: awning
         friendly_name: "Barrera"
-        value_template: "{{ is_state_attr('switch.barrera', 'sensor_state', 'off') }}"
+        value_template: "{{ is_state('binary_sensor.barrera_estado', 'on') }}"
         open_cover:
           service: switch.turn_on
           data:
@@ -39,7 +39,7 @@ cover:
           data:
             entity_id: switch.barrera
         icon_template: >-
-          {%- if is_state_attr('switch.barrera', 'sensor_state', 'off') %}
+          {%- if is_state('binary_sensor.barrera_estado', 'on') %}
             mdi:gate-open
           {% else %}
             mdi:gate
