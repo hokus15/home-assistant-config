@@ -25,8 +25,9 @@
       entity_id: cover.outside_fence
     - service: mqtt.publish
       data:
+        # He abierto la barrera. {%- if is_state("person.geni", "home") -%}Jeni está en casa.{%- else -%}Jeni no está en casa.{%- endif -%}
         payload_template: >-
-          He abierto la barrera. {%- if is_state("person.geni", "home") -%}Jeni está en casa.{%- else -%}Jeni no está en casa.{%- endif -%}
+          He abierto la barrera.
         retain: false
         topic: "phone/sensor/hokus/cmnd/say"
     - delay:
