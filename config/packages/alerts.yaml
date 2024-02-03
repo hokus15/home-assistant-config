@@ -51,6 +51,13 @@ template:
              and not is_state('climate.recibidor', 'off')
              and is_state_attr('climate.recibidor', 'hvac_action', 'heating') }}
 
+      - name: "suite_sensor_ventana_abierta_alerta"
+        state: >-
+          {{ is_state('binary_sensor.suite_sensor_ventana', 'on')
+             and states('climate.recibidor') is not none
+             and not is_state('climate.recibidor', 'off')
+             and is_state_attr('climate.recibidor', 'hvac_action', 'heating') }}
+
       - name: "swimming_pool_circuit_breaker_alert"
         state: >-
           {{  is_state('binary_sensor.energy_home_status', 'on')
@@ -181,6 +188,23 @@ alert:
     data:
       inline_keyboard:
         - "Enterado:/alert.turn_off#alert.banyo_suite_sensor_ventana_abierta"
+    notifiers:
+      - recibidor
+      - suite
+      - despacho
+      - telegram_hokusphone
+
+  suite_sensor_ventana_abierta:
+    name: Ventana de la suite abierta
+    entity_id: binary_sensor.suite_sensor_ventana_abierta_alerta
+    state: "on"
+    repeat: 10
+    message: "La ventana de la suite lleva más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.suite_sensor_ventana.last_changed))|int//60 }} minutos abierta y la calefacción está encendida."
+    can_acknowledge: true
+    skip_first: true
+    data:
+      inline_keyboard:
+        - "Enterado:/alert.turn_off#alert.suite_sensor_ventana_abierta"
     notifiers:
       - recibidor
       - suite
