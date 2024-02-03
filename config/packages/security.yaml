@@ -7,6 +7,7 @@ recorder:
       - binary_sensor.entrada_sensor_puerta
       - binary_sensor.despacho_sensor_movimiento
       - binary_sensor.banyo_suite_sensor_ventana
+      - binary_sensor.suite_sensor_ventana
 
       - sensor.lock_entrada_sensor_door_state
       - sensor.lock_entrada_sensor_battery_state
@@ -55,6 +56,7 @@ group:
       - input_boolean.porche_sensor_persiana
       - input_boolean.coladuria_sensor_puerta
       - input_boolean.entrada_sensor_puerta
+      - input_boolean.suite_sensor_ventana
 
 command_line:
   - switch:
@@ -187,15 +189,15 @@ input_boolean:
 
   porche_sensor_persiana:
     name: Det. apert. persiana porche
-    icon: "mdi:glassdoor"
+    icon: "mdi:door-open"
 
   coladuria_sensor_puerta:
     name: Det. apert. puerta coladuría
-    icon: "mdi:glassdoor"
+    icon: "mdi:door-open"
 
   entrada_sensor_puerta:
     name: Det. apert. puerta entrada
-    icon: "mdi:glassdoor"
+    icon: "mdi:door-open"
 
   despacho_sensor_movimiento:
     name: Det. mov. despacho
@@ -204,6 +206,10 @@ input_boolean:
   entrada_camara_det_mov:
     name: Det. mov. entrada ppal.
     icon: "mdi:transit-transfer"
+
+  suite_sensor_ventana:
+    name: Det. apert. ventana suite
+    icon: "mdi:window-open"
 
 shell_command:
   cam_salon_ptz_preset_point_main: !secret cam_salon_ptz_preset_point_main
