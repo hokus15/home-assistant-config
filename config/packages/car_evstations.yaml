@@ -20,13 +20,12 @@ rest:
     - name: Cargador Conquistador
       # melibmallo101
       #      json_attributes_path: "$.[?(@.location.id=='2d3b0520-fb79-11ec-8015-2bcdc27f95cc')].location"
-      json_attributes_path: "$[*].chargepoints[?(@.serialOCPP=='melibmallo101')]"
+      json_attributes_path: "$[*].chargepoints[?(@.name=='Cargador melibmallo101')]"
       json_attributes:
         - name
         - status
         - connected
         - numberPhases
-        - vehicleType
         - connectors
       value_template: >-
         {% set chargepointsList = namespace(chargepoints=[]) %}
@@ -34,7 +33,7 @@ rest:
           {% for cargador in value_json %}
             {% set chargepointsList.chargepoints = chargepointsList.chargepoints + cargador.chargepoints %}
           {%- endfor %}
-          {% set statusList = chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo101') | list %}
+          {% set statusList = chargepointsList.chargepoints | selectattr('name','eq','Cargador melibmallo101') | list %}
           {% if statusList | length > 0 %}
             {% set status = (statusList | first).status %}
             {%- if status == 'Busy' %}
@@ -58,7 +57,7 @@ rest:
     - name: Cargador Aragón
       # melibmallo99
       #      json_attributes_path: "$.[?(@.location.id=='277289d0-fb86-11ec-8015-2bcdc27f95cc')].location"
-      json_attributes_path: "$[*].chargepoints[?(@.serialOCPP=='melibmallo99')]"
+      json_attributes_path: "$[*].chargepoints[?(@.name=='Cargador melibmallo99')]"
       json_attributes:
         - name
         - status
@@ -72,7 +71,7 @@ rest:
           {% for cargador in value_json %}
             {% set chargepointsList.chargepoints = chargepointsList.chargepoints + cargador.chargepoints %}
           {%- endfor %}
-          {% set statusList = chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo99') | list %}
+          {% set statusList = chargepointsList.chargepoints | selectattr('name','eq','Cargador melibmallo99') | list %}
           {% if statusList | length > 0 %}
             {% set status = (statusList | first).status %}
             {%- if status == 'Busy' %}
@@ -96,7 +95,7 @@ rest:
     - name: Cargador Sant Miquel
       # melibmallo97
       #      json_attributes_path: "$.[?(@.location.id=='9853e690-fc3e-11ec-8015-2bcdc27f95cc')].location"
-      json_attributes_path: "$[*].chargepoints[?(@.serialOCPP=='melibmallo97')]"
+      json_attributes_path: "$[*].chargepoints[?(@.name=='Cargador melibmallo97')]"
       json_attributes:
         - name
         - status
@@ -110,7 +109,7 @@ rest:
           {% for cargador in value_json %}
             {% set chargepointsList.chargepoints = chargepointsList.chargepoints + cargador.chargepoints %}
           {%- endfor %}
-          {% set statusList = chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo97') | list %}
+          {% set statusList = chargepointsList.chargepoints | selectattr('name','eq','Cargador melibmallo97') | list %}
           {% if statusList | length > 0 %}
             {% set status = (statusList | first).status %}
             {%- if status == 'Busy' %}
@@ -134,7 +133,7 @@ rest:
     - name: Cargador Palmanyola Dalias
       # melibmallo19
       #      json_attributes_path: "$.[?(@.location.id=='85ae19c0-05c1-11ed-aa43-f58cc380021c')].location"
-      json_attributes_path: "$[*].chargepoints[?(@.serialOCPP=='melibmallo19')]"
+      json_attributes_path: "$[*].chargepoints[?(@.name=='Cargador melibmallo19')]"
       json_attributes:
         - name
         - status
@@ -148,7 +147,7 @@ rest:
           {% for cargador in value_json %}
             {% set chargepointsList.chargepoints = chargepointsList.chargepoints + cargador.chargepoints %}
           {%- endfor %}
-          {% set statusList = chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo19') | list %}
+          {% set statusList = chargepointsList.chargepoints | selectattr('name','eq','Cargador melibmallo19') | list %}
           {% if statusList | length > 0 %}
             {% set status = (statusList | first).status %}
             {%- if status == 'Busy' %}
@@ -173,7 +172,7 @@ rest:
         Cargador Palmanyola Violetes
         # melibmallo20
       #      json_attributes_path: "$.[?(@.location.id=='f66750f0-034b-11ed-aa43-f58cc380021c')].location"
-      json_attributes_path: "$[*].chargepoints[?(@.serialOCPP=='melibmallo20')]"
+      json_attributes_path: "$[*].chargepoints[?(@.name=='Cargador melibmallo20')]"
       json_attributes:
         - name
         - status
@@ -187,7 +186,7 @@ rest:
           {% for cargador in value_json %}
             {% set chargepointsList.chargepoints = chargepointsList.chargepoints + cargador.chargepoints %}
           {%- endfor %}
-          {% set statusList = chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo20') | list %}
+          {% set statusList = chargepointsList.chargepoints | selectattr('name','eq','Cargador melibmallo20') | list %}
           {% if statusList | length > 0 %}
             {% set status = (statusList | first).status %}
             {%- if status == 'Busy' %}
@@ -211,7 +210,7 @@ rest:
     - name: Cargador Paseo Mallorca
       # melibmallo96
       #      json_attributes_path: "$.[?(@.location.id=='fc2e9b90-fb6e-11ec-8015-2bcdc27f95cc')].location"
-      json_attributes_path: "$[*].chargepoints[?(@.serialOCPP=='melibmallo96')]"
+      json_attributes_path: "$[*].chargepoints[?(@.name=='Cargador melibmallo96')]"
       json_attributes:
         - name
         - status
@@ -225,7 +224,7 @@ rest:
           {% for cargador in value_json %}
             {% set chargepointsList.chargepoints = chargepointsList.chargepoints + cargador.chargepoints %}
           {%- endfor %}
-          {% set statusList = chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo96') | list %}
+          {% set statusList = chargepointsList.chargepoints | selectattr('name','eq','Cargador melibmallo96') | list %}
           {% if statusList | length > 0 %}
             {% set status = (statusList | first).status %}
             {%- if status == 'Busy' %}
@@ -249,7 +248,7 @@ rest:
     - name: Cargador Sestanyol
       # melibmallo59
       #      json_attributes_path: "$.[?(@.location.id=='e65fdb00-f2ca-11ec-8015-2bcdc27f95cc')].location"
-      json_attributes_path: "$[*].chargepoints[?(@.serialOCPP=='melibmallo59')]"
+      json_attributes_path: "$[*].chargepoints[?(@.name=='Cargador melibmallo59')]"
       json_attributes:
         - name
         - status
@@ -263,7 +262,7 @@ rest:
           {% for cargador in value_json %}
             {% set chargepointsList.chargepoints = chargepointsList.chargepoints + cargador.chargepoints %}
           {%- endfor %}
-          {% set statusList = chargepointsList.chargepoints | selectattr('serialOCPP','eq','melibmallo59') | list %}
+          {% set statusList = chargepointsList.chargepoints | selectattr('name','eq','Cargador melibmallo59') | list %}
           {% if statusList | length > 0 %}
             {% set status = (statusList | first).status %}
             {%- if status == 'Busy' %}
