@@ -1,5 +1,5 @@
-- id: 'energy_tariff_calendar_event_starts'
-  alias: 'Energy - Tariff - Calendar event starts'
+- id: "energy_tariff_calendar_event_starts"
+  alias: "Energy - Tariff - Calendar event starts"
   trigger:
     - platform: calendar
       event: start
@@ -7,13 +7,19 @@
   action:
     - service: mqtt.publish
       data:
-        topic: 'home/sensor/energy/tariff'
+        topic: "home/sensor/energy/tariff"
         retain: true
         qos: 0
         payload_template: "{{ trigger.calendar_event.summary.split('@')[0] }}"
     - service: mqtt.publish
       data:
-        topic: 'home/sensor/energy/price/buy'
+        topic: "home/sensor/energy/price/buy"
         retain: true
         qos: 0
-        payload_template: "{{ trigger.calendar_event.summary.split('@')[1]|float }}"
+        payload_template: "{{ trigger.calendar_event.summary.split('@')[1].split('|')[0]|float(0) }}"
+    - service: mqtt.publish
+      data:
+        topic: "home/sensor/energy/price/sell"
+        retain: true
+        qos: 0
+        payload_template: "{{ trigger.calendar_event.summary.split('@')[1].split('|')[1]|float(0) }}"
