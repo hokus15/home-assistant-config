@@ -7,7 +7,7 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: 'group.unidad_familiar'
+        entity_id: 'group.invitado_y_familia'
         state: 'home'
       - condition: state
         entity_id: alarm_control_panel.home

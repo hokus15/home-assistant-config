@@ -20,7 +20,7 @@
 
           Temperatura media primera planta: {{states.sensor.first_floor_temperature.state}}
 
-          Ocupación: {{states.group.unidad_familiar.state}}
+          Ocupación: {{states.group.invitado_y_familia.state}}
 
           Estado calefacción: {{states.climate.recibidor.state}}
 

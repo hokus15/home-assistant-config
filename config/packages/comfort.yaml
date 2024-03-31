@@ -73,7 +73,7 @@ binary_sensor:
       home_comfort_state:
         value_template: >-
           {{ states('sensor.first_floor_temperature')|float(0) < states('sensor.recibidor_target_temperature')|float(0)
-             and is_state('group.unidad_familiar', 'home')
+             and is_state('group.invitado_y_familia', 'home')
              and states.climate.recibidor != None
              and not is_state('climate.recibidor', 'off')
              and not is_state_attr('climate.recibidor', 'preset_mode', 'away')

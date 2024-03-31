@@ -1,7 +1,7 @@
 - alias: 'Presence - Notification - Someone at home'
   trigger:
     - platform: state
-      entity_id: group.unidad_familiar
+      entity_id: group.invitado_y_familia
       to: 'home'
   action:
     - delay:

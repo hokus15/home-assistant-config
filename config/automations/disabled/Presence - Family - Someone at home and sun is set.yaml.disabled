@@ -1,7 +1,7 @@
 - alias: 'Presence - Family - Someone at home and sun is set'
   trigger:
     platform: state
-    entity_id: group.unidad_familiar
+    entity_id: group.invitado_y_familia
     to: 'home'
   condition:
     condition: sun

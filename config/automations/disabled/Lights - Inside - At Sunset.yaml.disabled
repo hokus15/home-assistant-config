@@ -4,7 +4,7 @@
     event: sunset
   condition:
     condition: state
-    entity_id: group.unidad_familiar
+    entity_id: group.invitado_y_familia
     state: 'home'
   action:
     - service: script.turn_on_hall_lamp
