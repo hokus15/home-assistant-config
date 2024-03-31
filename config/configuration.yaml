@@ -133,6 +133,9 @@ freedns:
 feedreader:
   urls:
     - https://www.agenciatributaria.es/AEAT.desarrolladores/Desarrolladores/Novedades/Novedades.xml
+  scan_interval:
+    minutes: 60
+  max_entries: 20
 
 automation: !include_dir_merge_list automations
 script: !include scripts.yaml
