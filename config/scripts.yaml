@@ -37,7 +37,7 @@ alarm_disarm_telegram_temporary:
     - delay: "{{ data.minutes | multiply(60) | timestamp_custom('%H:%M:%S',False) }}"
     # Only rearm if nobody at home
     - condition: state
-      entity_id: group.unidad_familiar
+      entity_id: group.invitado_y_familia
       state: "not_home"
     # Alarm arm away
     - service: alarm_control_panel.alarm_arm_away
@@ -156,24 +156,24 @@ comfort_mode_off:
       entity_id: climate.recibidor
 
 # Called from IFTTT when Geni phone is connected to home WiFi
-presence_geniphone_connected_home_wifi:
-  alias: "Presence - GeniPhone connected home WiFi"
-  sequence:
-    - service: mqtt.publish
-      data:
-        payload: "HokusWiFi"
-        retain: true
-        topic: "phone/sensor/geni/wifi/ssid"
+#presence_geniphone_connected_home_wifi:
+#  alias: "Presence - GeniPhone connected home WiFi"
+#  sequence:
+#    - service: mqtt.publish
+#      data:
+#        payload: "HokusWiFi"
+#        retain: true
+#        topic: "phone/sensor/geni/wifi/ssid"
 
 # Called from IFTTT when Geni phone is disconnected from home WiFi
-presence_geniphone_not_connected_home_wifi:
-  alias: "Presence - GeniPhone not connected home WiFi"
-  sequence:
-    - service: mqtt.publish
-      data:
-        payload: "not_connected"
-        retain: true
-        topic: "phone/sensor/geni/wifi/ssid"
+#presence_geniphone_not_connected_home_wifi:
+#  alias: "Presence - GeniPhone not connected home WiFi"
+#  sequence:
+#    - service: mqtt.publish
+#      data:
+#        payload: "not_connected"
+#        retain: true
+#        topic: "phone/sensor/geni/wifi/ssid"
 
 google_home_good_morning:
   alias: "Google Home - Good morning"
