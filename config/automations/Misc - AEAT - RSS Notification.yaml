@@ -3,6 +3,8 @@
   trigger:
     platform: event
     event_type: feedreader
+    event_data:
+      feed_url: "https://www.agenciatributaria.es/AEAT.desarrolladores/Desarrolladores/Novedades/Novedades.xml"
   condition:
     condition: or
     conditions:
@@ -11,7 +13,9 @@
       - '{{ "IVA 303" in trigger.event.data.title }}'
       - '{{ "informativas" in trigger.event.data.title }}'
   action:
-    - service: telegram_bot.send_message
-      data_template:
-        title: "<b>Agencia Tributaria - Tablón de anuncios - Desarrolladores - Anuncio Modelo 303</b>"
-        message: '<a href="{{trigger.event.data.link}}">{{trigger.event.data.title}}</a>'
+    - service: notify.telegram_hokusphone
+      data:
+        message: >
+          <b>Anuncio Modelo 303</b>
+
+          <a href="{{ trigger.event.data.link }}">{{ trigger.event.data.title }}</a>
