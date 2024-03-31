@@ -1,0 +1,35 @@
+- id: "wallpanel_despacho_gestion_cargador"
+  alias: Wallpanel Despacho - Gestion cargador
+  description: "Gestión de la carga del wall panel del despacho"
+  trigger:
+    - platform: numeric_state
+      entity_id:
+        - sensor.wallpanel_despacho_bateria
+      above: 80
+      id: higher_level
+    - platform: numeric_state
+      entity_id:
+        - sensor.wallpanel_despacho_bateria
+      below: 30
+      id: lower_level
+  condition: []
+  action:
+    - if:
+        - condition: trigger
+          id:
+            - higher_level
+      then:
+        - service: switch.turn_off
+          target:
+            entity_id: switch.wallpanel_despacho_cargador
+          data: {}
+    - if:
+        - condition: trigger
+          id:
+            - lower_level
+      then:
+        - service: switch.turn_on
+          target:
+            entity_id: switch.wallpanel_despacho_cargador
+          data: {}
+  mode: single
