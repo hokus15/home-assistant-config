@@ -14,12 +14,12 @@
       - condition: state
         entity_id: binary_sensor.entrada_sensor_puerta
         state: "on"
-      - condition: state
-        entity_id: binary_sensor.porche_sensor_puerta
-        state: "on"
-      - condition: state
-        entity_id: binary_sensor.porche_sensor_persiana
-        state: "on"
+      #      - condition: state
+      #        entity_id: binary_sensor.porche_sensor_puerta
+      #        state: "on"
+      #      - condition: state
+      #        entity_id: binary_sensor.porche_sensor_persiana
+      #        state: "on"
       - condition: state
         entity_id: binary_sensor.suite_sensor_ventana
         state: "on"
@@ -30,25 +30,26 @@
   action:
     - variables:
         checkResult: >-
-          No hay nadie en casa y
-          {%- if is_state("cover.outside_fence", "open") -%}
-            se ha quedado la barrera abierta, la cierro.
+          No hay nadie en casa y 
+          {% if is_state("cover.outside_fence", "open") -%}
+            Se ha quedado la barrera abierta, la cierro.
           {%- endif -%}
-          {%- if is_state("binary_sensor.entrada_sensor_puerta", "on") -%}
-            la puerta de entrada está abierta.
+          {% if is_state("binary_sensor.entrada_sensor_puerta", "on") %}
+            La puerta de entrada está abierta.
           {%- endif -%}
-          {%- if is_state("binary_sensor.porche_sensor_puerta", "on") -%}
-            la puerta de la cocina está abierta.
+          {% if is_state("binary_sensor.suite_sensor_ventana", "on") %}
+            La ventana de la suite está abierta.
           {%- endif -%}
-          {%- if is_state("binary_sensor.porche_sensor_persiana", "on") -%}
-            la persiana de la cocina está abierta.
-          {%- endif -%}
-          {%- if is_state("binary_sensor.suite_sensor_ventana", "on") -%}
-            la ventana de la suite está abierta.
-          {%- endif -%}
-          {%- if is_state("binary_sensor.banyo_suite_sensor_ventana", "on") -%}
-            la ventana del baño de la suite está abierta.
-          {%- endif -%}
+          {% if is_state("binary_sensor.banyo_suite_sensor_ventana", "on") %}
+            La ventana del baño de la suite está abierta.
+          {%- endif %}
+
+    #          {% if is_state("binary_sensor.porche_sensor_puerta", "on") %}
+    #            La puerta de la cocina está abierta.
+    #          {%- endif -%}
+    #          {% if is_state("binary_sensor.porche_sensor_persiana", "on") %}
+    #            La persiana de la cocina está abierta.
+    #          {%- endif -%}
 
     - service: mqtt.publish
       data:
