@@ -1,0 +1,15 @@
+##############################
+# Buy price update
+##############################
+- id: 'energy_tariff_price_update_buy'
+  alias: 'Energy - Tariff - Price Update Buy'
+  trigger:
+    - platform: state
+      entity_id: sensor.energy_pvpc
+  action:
+    - service: mqtt.publish
+      data:
+        topic: 'home/sensor/energy/price/buy'
+        retain: true
+        qos: 0
+        payload_template: '{{ states("sensor.energy_pvpc") }}'

@@ -1,0 +1,15 @@
+##############################
+# Sell price update
+##############################
+- id: 'energy_tariff_price_update_sell'
+  alias: 'Energy - Tariff - Price Update Sell'
+  trigger:
+    - platform: state
+      entity_id: sensor.energy_grid_injection_price
+  action:
+    - service: mqtt.publish
+      data:
+        topic: 'home/sensor/energy/price/sell'
+        retain: true
+        qos: 0
+        payload_template: '{{ states("sensor.energy_grid_injection_price") }}'
