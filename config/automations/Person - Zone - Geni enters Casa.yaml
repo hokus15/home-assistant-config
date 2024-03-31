@@ -1,0 +1,29 @@
+- id: "person_zone_geni_enters_home"
+  alias: "Person - Zone - Jordi enters home"
+  trigger:
+    - platform: zone
+      entity_id: person.geni
+      zone: zone.home
+      event: enter
+  condition:
+    condition: and
+    conditions:
+      # Fence is closed
+      - condition: state
+        entity_id: cover.outside_fence
+        state: "closed"
+      # geniphone is in car QASHQAI (see binary_sensor.geniphone_in_car_qashqai in phones.yaml)
+      - condition: state
+        entity_id: binary_sensor.geniphone_in_car_qashqai
+        state: "on"
+  action:
+    - service: cover.open_cover
+      entity_id: cover.outside_fence
+    - delay:
+        seconds: 5
+    - service: notify.telegram_hokusphone
+      data:
+        message: "🚪 Barrera abierta automáticamente para Geni"
+        data:
+          inline_keyboard:
+            - "Cerrar:/switch.turn_on#switch.barrera"
