@@ -16,7 +16,7 @@ logbook:
       - sensor.hokusphone_wifi_connection
       - sensor.carlosphone_detected_activity
       - sensor.carlosphone_wifi_connection
-      - sensor.geniphone_wifi_ssid
+      - sensor.geniphone_wifi_connection
   exclude:
     entity_globs:
       - sensor.hokusphone_*
@@ -29,3 +29,6 @@ template:
         state: >-
           {{ is_state("binary_sensor.hokusphone_android_auto", "on")
              and state_attr("sensor.hokusphone_bluetooth_connection", "connected_paired_devices") | select("search","IONIQ") | list | length > 0 }}
+      - name: "geniphone_in_car_qashqai"
+        state: >-
+          {{ state_attr("sensor.geniphone_bluetooth_connection", "connected_paired_devices") | select("search","NISSAN CONNECT") | list | length > 0 }}
