@@ -98,7 +98,7 @@ mqtt:
       payload_off: false
       value_template: >-
         {{ (((as_timestamp(now()) - value_json.timestamp) / 60) < 1)
-           and (value_json.monitors[0].GpsMonitor == "started")
+          and (value_json.monitors | select("search","GpsMonitor") | map(attribute="GpsMonitor") | list | first == "started")
         }}
       force_update: false
       icon: mdi:car-connected
@@ -111,7 +111,8 @@ mqtt:
       payload_off: false
       value_template: >-
         {{ (((as_timestamp(now()) - value_json.timestamp) / 60) < 1)
-           and (value_json.monitors[1].IoniqEVMonitor == "started") }}
+          and (value_json.monitors | select("search","IoniqEVMonitor") | map(attribute="IoniqEVMonitor") | list | first == "started")
+        }}
       force_update: false
       icon: mdi:car-connected
       off_delay: 60
