@@ -1,13 +1,13 @@
 recorder:
   include:
     entities:
-      - binary_sensor.solar_panel_not_producing_monitor_alert
       - binary_sensor.porche_sensor_puerta_abierta_alerta
       - binary_sensor.coladuria_sensor_puerta_abierta_alerta
       - binary_sensor.entrada_sensor_puerta_abierta_alerta
       - binary_sensor.banyo_suite_sensor_ventana_abierta_alerta
       - binary_sensor.motor_piscina_encendido_alerta
       - binary_sensor.swimming_pool_circuit_breaker_alert
+      - binary_sensor.gfci_alert
       - binary_sensor.car_ioniq_iotconnect_monitor_alert
       - binary_sensor.car_ioniq_iotconnect_ev_battery_monitor_alert
       - binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor_alert
@@ -16,13 +16,6 @@ recorder:
 
 template:
   - binary_sensor:
-      - name: "solar_panel_not_producing_monitor_alert"
-        # Introducir azimuth?
-        # Tener en cuenta si hace sol o está nublado?
-        state: >-
-          {{ state_attr('sun.sun', 'elevation') > 6
-             and states('sensor.energy_power_photovoltaics') <= 0 }}
-
       - name: "porche_sensor_puerta_abierta_alerta"
         state: >-
           {{ is_state('binary_sensor.porche_sensor_puerta', 'on')
@@ -61,9 +54,24 @@ template:
       - name: "swimming_pool_circuit_breaker_alert"
         state: >-
           {{  is_state('binary_sensor.energy_home_status', 'on')
+             and is_state('binary_sensor.gfci_alert', 'off')
              and is_state('switch.motor_piscina', 'unavailable')
              and is_state('switch.luz_piscina', 'unavailable')
              and is_state('switch.piscina', 'unavailable')}}
+
+      # GFCI -> Ground fault circuit interrupter -> Diferencial
+      - name: "gfci_alert"
+        state: >-
+          {{  is_state('binary_sensor.energy_home_status', 'on')
+             and is_state('switch.motor_piscina', 'unavailable')
+             and is_state('switch.luz_piscina', 'unavailable')
+             and is_state('switch.piscina', 'unavailable')
+             and is_state('switch.lavadora', 'unavailable')
+             and is_state('switch.secadora', 'unavailable')
+             and is_state('camera.barbacoa', 'unavailable')
+             and is_state('camera.piscina', 'unavailable')
+             and is_state('camera.caseta', 'unavailable')
+             }}
 
       - name: "motor_piscina_encendido_alerta"
         state: >-
@@ -378,19 +386,17 @@ alert:
       - despacho
       - telegram_hokusphone
 
-  sp_not_producing_monitor_alert:
-    # solar_panel_not_producing_monitor_alert -> sp_not_producing_monitor_alert
-    # -> Cambio en el nombre para poder evitar llegar al máximo de carácteres en el inline keyboard de Telegram
-    name: Producción electricidad
-    entity_id: binary_sensor.solar_panel_not_producing_monitor_alert
+  gfci_monitor_alert:
+    name: Diferencial abajo
+    entity_id: binary_sensor.gfci_alert
     state: "on"
     repeat: 5
-    message: "Las placas solares no están produciendo electricidad. ¿Está muy nublado?"
+    message: "Es posible que haya saltado un diferencial. Los dispositivos afectados son: lavavajillas, piscina (luz y depuradora), lavadora, secadora, caldera, barrera, cargador del coche, aire acondicionado, cámara de la caseta, cámara de la piscina y cámara de la barbacoa."
     can_acknowledge: true
     skip_first: false
     data:
       inline_keyboard:
-        - "Enterado:/alert.turn_off#alert.sp_not_producing_monitor_alert"
+        - "Enterado:/alert.turn_off#alert.gfci_monitor_alert"
     notifiers:
       - despacho
       - telegram_hokusphone
