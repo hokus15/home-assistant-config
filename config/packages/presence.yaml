@@ -10,18 +10,12 @@ recorder:
       - binary_sensor.withings_in_bed_jm
 
 group:
-  # --------------------------------TODO-------------------------------------
-  # The aim is to remove the person.residentes that uses Google Home for presence detection.
-  # For this first I need to solve presence detection for Geni and Coque.
-
-  # person.residentes uses device_tracker.google_home that get the state from Google Home
   familia:
     entities:
       - person.jordi
       - person.geni
       - person.carlos
       - person.coque
-      - person.residentes
 
   invitado_y_familia:
     entities:
@@ -29,7 +23,7 @@ group:
       - person.invitado
 
   # This group contains all the possible persons that can be at home or not.
-  # Includes all family members (and the person.residentes), the guest, and the homekeeper
+  # Includes all family members, the guest and the homekeeper
   todos:
     entities:
       - group.invitado_y_familia
@@ -46,25 +40,12 @@ input_number:
 
 mqtt:
   device_tracker:
-    # Set to 'home' when when geniphone is connected to HokusWiFi and 'not_home' otherwise
-    - name: geniphone_wifi
-      state_topic: phone/sensor/geni/wifi
-      source_type: "router"
-      unique_id: geniphone_wifi
-      # Set to 'home' by Google Home routine (using switch.google_home_occupancy) when at least ONE person at home
-      # and 'not_home' when ALL the persons are away
+    # Set to 'home' by Google Home routine (using switch.google_home_occupancy) when at least ONE person at home
+    # and 'not_home' when ALL the persons are away
     - name: google_home
       state_topic: home/switch/google_home_occupancy
       source_type: "router"
       unique_id: google_home
-
-  sensor:
-    # Consider_home is not working properly for mqtt device_tracker
-    # This sensor is to workaround it using some automations
-    # Presence - GeniPhone - Wifi home.yaml
-    # Presence - GeniPhone - Wifi not_home.yaml
-    - state_topic: "phone/sensor/geni/wifi/ssid"
-      name: geniphone_wifi_ssid
 
   switch:
     - name: "holiday"
