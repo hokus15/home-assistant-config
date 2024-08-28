@@ -5,6 +5,8 @@ recorder:
       - binary_sensor.coladuria_sensor_puerta_abierta_alerta
       - binary_sensor.entrada_sensor_puerta_abierta_alerta
       - binary_sensor.banyo_suite_sensor_ventana_abierta_alerta
+      - binary_sensor.habitacion_coque_sensor_ventana_abierta_alerta
+      - binary_sensor.habitacion_carlos_sensor_ventana_abierta_alerta
       - binary_sensor.motor_piscina_encendido_alerta
       - binary_sensor.swimming_pool_circuit_breaker_alert
       - binary_sensor.gfci_alert
@@ -47,6 +49,20 @@ template:
       - name: "suite_sensor_ventana_abierta_alerta"
         state: >-
           {{ is_state('binary_sensor.suite_sensor_ventana', 'on')
+             and states('climate.recibidor') is not none
+             and not is_state('climate.recibidor', 'off')
+             and is_state_attr('climate.recibidor', 'hvac_action', 'heating') }}
+
+      - name: "habitacion_coque_sensor_ventana_abierta_alerta"
+        state: >-
+          {{ is_state('binary_sensor.habitacion_coque_sensor_ventana', 'on')
+             and states('climate.recibidor') is not none
+             and not is_state('climate.recibidor', 'off')
+             and is_state_attr('climate.recibidor', 'hvac_action', 'heating') }}
+
+      - name: "habitacion_carlos_sensor_ventana_abierta_alerta"
+        state: >-
+          {{ is_state('binary_sensor.habitacion_carlos_sensor_ventana', 'on')
              and states('climate.recibidor') is not none
              and not is_state('climate.recibidor', 'off')
              and is_state_attr('climate.recibidor', 'hvac_action', 'heating') }}
@@ -213,6 +229,40 @@ alert:
     data:
       inline_keyboard:
         - "Enterado:/alert.turn_off#alert.suite_sensor_ventana_abierta"
+    notifiers:
+      - recibidor
+      - suite
+      - despacho
+      - telegram_hokusphone
+
+  hab_coque_sensor_ventana_abierta:
+    name: Ventana de la habitación de Coque abierta
+    entity_id: binary_sensor.habitacion_coque_sensor_ventana_abierta_alerta
+    state: "on"
+    repeat: 10
+    message: "La ventana de la habitación de Coque lleva más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.habitacion_coque_sensor_ventana.last_changed))|int//60 }} minutos abierta y la calefacción está encendida."
+    can_acknowledge: true
+    skip_first: true
+    data:
+      inline_keyboard:
+        - "Enterado:/alert.turn_off#alert.hab_coque_sensor_ventana_abierta"
+    notifiers:
+      - recibidor
+      - suite
+      - despacho
+      - telegram_hokusphone
+
+  hab_carlos_sensor_ventana_abierta:
+    name: Ventana de la habitación de Carlos abierta
+    entity_id: binary_sensor.habitacion_carlos_sensor_ventana_abierta_alerta
+    state: "on"
+    repeat: 10
+    message: "La ventana de la habitación de Carlos lleva más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.habitacion_carlos_sensor_ventana.last_changed))|int//60 }} minutos abierta y la calefacción está encendida."
+    can_acknowledge: true
+    skip_first: true
+    data:
+      inline_keyboard:
+        - "Enterado:/alert.turn_off#alert.hab_carlos_sensor_ventana_abierta"
     notifiers:
       - recibidor
       - suite
