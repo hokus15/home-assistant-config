@@ -7,6 +7,8 @@ recorder:
       - binary_sensor.carlosphone_*
       - sensor.geniphone_*
       - binary_sensor.geniphone_*
+      - sensor.coquephone_*
+      - binary_sensor.coquephone_*
 
 logbook:
   include:
@@ -16,12 +18,17 @@ logbook:
       - sensor.hokusphone_wifi_connection
       - sensor.carlosphone_detected_activity
       - sensor.carlosphone_wifi_connection
+      - sensor.geniphone_detected_activity
       - sensor.geniphone_wifi_connection
+      - sensor.coquephone_detected_activity
+      - sensor.coquephone_wifi_connection
+
   exclude:
     entity_globs:
       - sensor.hokusphone_*
       - sensor.carlosphone_*
       - sensor.geniphone_*
+      - sensor.coquephone_*
 
 template:
   - binary_sensor:
