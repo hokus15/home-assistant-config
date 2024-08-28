@@ -2,7 +2,6 @@ recorder:
   include:
     entities:
       - sensor.fronius_smartmeter_energy_real_produced
-      - sensor.fronius_smartmeter_energy_real_produced_compensation
       - sensor.fronius_inverter_energy_total
       - sensor.fronius_solarnet_power_grid
 
