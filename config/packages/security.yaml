@@ -8,6 +8,8 @@ recorder:
       - binary_sensor.despacho_sensor_movimiento
       - binary_sensor.banyo_suite_sensor_ventana
       - binary_sensor.suite_sensor_ventana
+      - binary_sensor.habitacion_coque_sensor_ventana
+      - binary_sensor.habitacion_carlos_sensor_ventana
 
       - sensor.lock_entrada_sensor_door_state
       - sensor.lock_entrada_sensor_battery_state
@@ -33,13 +35,6 @@ logbook:
   exclude:
     entities:
       - binary_sensor.despacho_sensor_movimiento
-
-folder_watcher:
-  - folder: /share/camera
-    patterns:
-      - "*.jpg"
-      - "*.mp4"
-      - "*.mkv"
 
 group:
   Seguridad:
