@@ -19,14 +19,21 @@ group:
 
   invitado_y_familia:
     entities:
-      - group.familia
+      - person.jordi
+      - person.geni
+      - person.carlos
+      - person.coque
       - person.invitado
 
   # This group contains all the possible persons that can be at home or not.
-  # Includes all family members, the guest and the homekeeper
+  # Includes all family members, guests and the homekeeper
   todos:
     entities:
-      - group.invitado_y_familia
+      - person.jordi
+      - person.geni
+      - person.carlos
+      - person.coque
+      - person.invitado
       - person.asistente_hogar
 
 input_number:
