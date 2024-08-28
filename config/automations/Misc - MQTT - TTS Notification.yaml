@@ -1,0 +1,12 @@
+- id: "misc_mqtt_tts_notification"
+  alias: "Misc - MQTT - TTS Notification"
+  trigger:
+    - platform: mqtt
+      topic: "phone/sensor/hokus/cmnd/say"
+  action:
+    - action: notify.mobile_app_hokusphone
+      data:
+        message: TTS
+        data:
+          tts_text: "{{trigger.payload}}"
+          media_stream: "alarm_stream"
