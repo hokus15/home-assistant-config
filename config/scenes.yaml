@@ -146,3 +146,68 @@
       entity_only: true
     input_number.cargador_ev_off_net_balance_hour_threshold:
       entity_only: true
+- id: "1694448525338"
+  name: Modo solar cargador EV
+  entities:
+    input_select.cargador_ev_mode:
+      options:
+        - Solar
+        - Solar + Valle
+        - Manual
+        - Manual con parada al acabar Valle
+      editable: true
+      icon: mdi:flash-auto
+      friendly_name: Gestión cargador EV
+      state: Solar
+    input_number.cargador_ev_on_threshold:
+      initial: -1800
+      editable: false
+      min: -3000
+      max: 0
+      step: 100
+      mode: slider
+      unit_of_measurement: W
+      icon: mdi:lightning-bolt
+      friendly_name: Potencia para encendido
+      state: "-1800.0"
+    input_number.cargador_ev_on_delay:
+      initial: 3
+      editable: false
+      min: 0
+      max: 60
+      step: 1
+      mode: slider
+      unit_of_measurement: mins
+      icon: mdi:clock-in
+      friendly_name: Retardo encendido
+      state: "3.0"
+    input_number.cargador_ev_on_net_balance_hour_threshold:
+      initial: -0.3
+      editable: false
+      min: -1
+      max: 0
+      step: 0.1
+      mode: slider
+      unit_of_measurement: kWh
+      state: "-0.3"
+    input_number.cargador_ev_off_net_balance_hour_threshold:
+      initial: 0.05
+      editable: false
+      min: 0
+      max: 0.5
+      step: 0.01
+      mode: slider
+      unit_of_measurement: kWh
+      state: "0.05"
+  icon: mdi:ev-station
+  metadata:
+    input_select.cargador_ev_mode:
+      entity_only: true
+    input_number.cargador_ev_on_threshold:
+      entity_only: true
+    input_number.cargador_ev_on_delay:
+      entity_only: true
+    input_number.cargador_ev_on_net_balance_hour_threshold:
+      entity_only: true
+    input_number.cargador_ev_off_net_balance_hour_threshold:
+      entity_only: true
