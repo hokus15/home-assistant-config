@@ -19,7 +19,7 @@
             {%- else -%}home/camera/desconocido/motion{%-endif-%}
     - service: mqtt.publish
       data_template:
-        payload_template: >-
+        payload: >-
           {%- if "C1_00626E615161" in trigger.event.data.folder -%}{{{"event_type": "CAMERA_MOTION_DETECTED", "camera": "C1_00626E615161", "camera_name": "recibidor", "camera_entity_id": "camera.recibidor", "detection_entity_id": "switch.recibidor_camara_det_mov", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado en el recibidor"} | tojson }}
           {%- elif "FI9853EP_00626E563E69" in trigger.event.data.folder -%}{{{"event_type": "CAMERA_MOTION_DETECTED", "camera": "FI9853EP_00626E563E69", "camera_name": "piscina", "camera_entity_id": "camera.piscina", "detection_entity_id": "switch.piscina_camara_det_mov", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado en la piscina"} | tojson }}
           {%- elif "FI9900P_00626E6D21B2" in trigger.event.data.folder -%}{{{"event_type": "CAMERA_MOTION_DETECTED", "camera": "FI9900P_00626E6D21B2", "camera_name": "barbacoa", "camera_entity_id": "camera.barbacoa", "detection_entity_id": "switch.barbacoa_camara_det_mov", "file_path": trigger.event.data.path.replace('mkv','mp4'), "message": "Movimiento detectado en la barbacoa"} | tojson }}

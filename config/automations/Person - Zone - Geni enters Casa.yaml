@@ -1,5 +1,5 @@
 - id: "person_zone_geni_enters_home"
-  alias: "Person - Zone - Jordi enters home"
+  alias: "Person - Zone - Geni enters home"
   trigger:
     - platform: zone
       entity_id: person.geni
@@ -17,11 +17,11 @@
         entity_id: binary_sensor.geniphone_in_car_qashqai
         state: "on"
   action:
-    - service: cover.open_cover
+    - action: cover.open_cover
       entity_id: cover.outside_fence
     - delay:
         seconds: 5
-    - service: notify.telegram_hokusphone
+    - action: notify.telegram_hokusphone
       data:
         message: "🚪 Barrera abierta automáticamente para Geni"
         data:

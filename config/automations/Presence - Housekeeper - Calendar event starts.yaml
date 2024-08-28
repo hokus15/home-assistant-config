@@ -5,7 +5,7 @@
       event: start
       entity_id: calendar.asistente_hogar
   action:
-    - service: device_tracker.see
+    - action: device_tracker.see
       data:
         dev_id: asistente_hogar
         location_name: home

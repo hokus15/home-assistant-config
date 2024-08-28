@@ -5,6 +5,6 @@
     entity_id: sensor.qnapups_status
     to: "Reemplazar batería"
   action:
-    - service: notify.telegram_hokusphone
+    - action: notify.telegram_hokusphone
       data:
         message: "🔋 Batería del SAI agotada, reemplazar"

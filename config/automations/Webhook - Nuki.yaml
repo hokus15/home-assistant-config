@@ -7,7 +7,7 @@
         - POST
       local_only: false
   action:
-    - service: mqtt.publish
+    - action: mqtt.publish
       data_template:
         topic: "home/lock/entrada"
         retain: true

@@ -9,12 +9,12 @@
       entity_id: "input_boolean.cargador_palmanyola_violetes_notificacion_libre"
       state: "on"
   action:
-    - service: notify.telegram_hokusphone
+    - action: notify.telegram_hokusphone
       data:
         message: "El cargador de Palmanyola en la calle Violetes, ya está libre."
-    - service: notify.recibidor
+    - action: notify.recibidor
       data:
         message: "El cargador de Palmanyola en la calle Violetes, ya está libre."
-    #- service: input_boolean.turn_off
+    #- action: input_boolean.turn_off
     #  data:
     #    entity_id: input_boolean.cargador_palmanyola_violetes_notificacion_libre

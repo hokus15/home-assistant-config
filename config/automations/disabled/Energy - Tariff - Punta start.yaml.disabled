@@ -13,10 +13,10 @@
         topic: 'home/sensor/energy/tariff'
         retain: true
         qos: 0
-        payload_template: 'Punta'
+        payload: 'Punta'
     - service: mqtt.publish
       data:
         topic: 'home/sensor/energy/price/buy'
         retain: true
         qos: 0
-        payload_template: 0.277758
+        payload: 0.277758

@@ -13,23 +13,23 @@
       - condition: template
         value_template: "{{not is_state('climate.recibidor', 'off')}}"
   action:
-    - service: climate.turn_off
+    - action: climate.turn_off
       entity_id: climate.recibidor
-    - service: homeassistant.update_entity
+    - action: homeassistant.update_entity
       entity_id: climate.recibidor
-    - service: logbook.log
+    - action: logbook.log
       data:
         name: "Calefacción"
         message: "apagada por alta temperatura"
         entity_id: climate.recibidor
         domain: climate
-    - service: notify.telegram_hokusphone
+    - action: notify.telegram_hokusphone
       data:
         message: "Empieza el calor 🌞🌞🌞!!!! He apagado la calefacción."
         data:
           inline_keyboard:
             - "Enciende la calefacción:/climate.turn_on#climate.recibidor"
-#    - service: telegram_bot.send_message
+#    - action: telegram_bot.send_message
 #      data_template:
 #        message: "Empieza el calor 🌞🌞🌞!!!! He apagado la calefacción."
 #        target:

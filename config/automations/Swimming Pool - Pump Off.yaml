@@ -22,5 +22,5 @@
         entity_id: switch.motor_piscina
         state: "on"
   action:
-    - service: switch.turn_off
+    - action: switch.turn_off
       entity_id: switch.motor_piscina

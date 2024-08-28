@@ -21,6 +21,6 @@
       entity_id: "switch.piscina"
       state: "unavailable"
   action:
-    - service: notify.telegram_hokusphone
+    - action: notify.telegram_hokusphone
       data:
         message: "Es posible que haya saltado un diferencial. Los dispositivos afectados son: lavavajillas, piscina (luz y depuradora), lavadora, secadora, caldera, barrera, cargador del coche, aire acondicionado, cámara de la caseta, cámara de la piscina y cámara de la barbacoa."

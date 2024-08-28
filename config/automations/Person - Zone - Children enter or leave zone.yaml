@@ -118,6 +118,6 @@
         event: "{{ 'ha salido de' if trigger.event == 'leave' else 'ha llegado a' }}"
         zone: "{{ trigger.zone.attributes.friendly_name }}"
 
-    - service: notify.telegram_familygroup
+    - action: notify.telegram_familygroup
       data:
         message: "{{person}} {{event}} {{zone}}"

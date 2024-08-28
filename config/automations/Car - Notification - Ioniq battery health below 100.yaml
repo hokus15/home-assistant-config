@@ -5,6 +5,6 @@
     entity_id: sensor.car_ioniq_battery_health
     below: 100
   action:
-    - service: notify.telegram_hokusphone
+    - action: notify.telegram_hokusphone
       data:
         message: "🚘 La salud de la batería del Ioniq es del {{states.sensor.car_ioniq_battery_health.state}}{{states.sensor.car_ioniq_battery_health.attributes.unit_of_measurement}}"

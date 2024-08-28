@@ -43,5 +43,5 @@
         entity_id: binary_sensor.cargador_ev_off_enough_net_balance_hour
         state: "off"
   action:
-    - service: switch.turn_off
+    - action: switch.turn_off
       entity_id: switch.cargador_ev_switch

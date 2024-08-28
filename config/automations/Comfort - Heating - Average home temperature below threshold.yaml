@@ -14,27 +14,27 @@
         entity_id: "climate.recibidor"
         state: "off"
   action:
-    - service: climate.turn_on
+    - action: climate.turn_on
       entity_id: climate.recibidor
-    - service: climate.set_preset_mode
+    - action: climate.set_preset_mode
       entity_id: climate.recibidor
       data_template:
         preset_mode: "Schedule"
-    - service: homeassistant.update_entity
+    - action: homeassistant.update_entity
       entity_id: climate.recibidor
-    - service: logbook.log
+    - action: logbook.log
       data:
         name: "Calefacción"
         message: "encendida por baja temperatura"
         entity_id: climate.recibidor
         domain: climate
-    - service: notify.telegram_hokusphone
+    - action: notify.telegram_hokusphone
       data:
         message: "Como ya empieza a hacer fresquito ⛄⛄⛄, he encendido la calefacción. Convendría hacer un purgado de los radiadores."
         data:
           inline_keyboard:
             - "Apaga la calefacción:/climate.turn_off#climate.recibidor"
-#    - service: telegram_bot.send_message
+#    - action: telegram_bot.send_message
 #      data_template:
 #        message: "Como ya empieza a hacer fresquito ⛄⛄⛄, he encendido la calefacción. Convendría hacer un purgado de los radiadores."
 #        target:

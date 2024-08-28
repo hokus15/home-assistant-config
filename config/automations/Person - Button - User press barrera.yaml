@@ -18,15 +18,15 @@
   action:
     - variables:
         event: "{{ 'abierto' if states.cover.outside_fence.state == 'closed' else 'cerrado' }}"
-    - service: cover.open_cover
+    - action: cover.open_cover
       entity_id: cover.outside_fence
-    - service: notify.telegram_familygroup
+    - action: notify.telegram_familygroup
       data:
         message: >
           {% set p = states.person | selectattr('attributes.user_id', 'eq', trigger.to_state.context.user_id) | list %}
           {{ p[0].attributes.friendly_name if p | count == 1 else 'Alguien' }} ha {{ event }} la barrera.
 
-#    - service: logbook.log
+#    - action: logbook.log
 #      data:
 #        entity_id: cover.outside_fence
 #        domain: cover

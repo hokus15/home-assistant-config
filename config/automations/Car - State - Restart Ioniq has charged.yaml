@@ -10,5 +10,5 @@
         entity_id: sensor.car_ioniq_state_sensor
         state: 'Cargando'
   action:
-    - service: input_boolean.turn_off
+    - action: input_boolean.turn_off
       entity_id: input_boolean.car_ioniq_has_charged

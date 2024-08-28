@@ -17,4 +17,4 @@
         topic: 'home/sensor/energy/tariff'
         retain: true
         qos: 0
-        payload_template: 'Valle'
+        payload: 'Valle'

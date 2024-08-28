@@ -8,7 +8,7 @@
       - update.home_assistant_operating_system_update
     to: "on"
   action:
-    - service: notify.telegram_hokusphone
+    - action: notify.telegram_hokusphone
       data:
         message: >
           Actualización de <b>{{ state_attr(trigger.entity_id, "title") }}</b>:

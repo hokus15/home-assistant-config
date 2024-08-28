@@ -5,9 +5,9 @@
     entity_id: sensor.node_red
     to: "unavailable"
   action:
-    - service: hassio.addon_restart
+    - action: hassio.addon_restart
       data:
         addon: a0d7b954_nodered
-    - service: notify.telegram_hokusphone
+    - action: notify.telegram_hokusphone
       data:
         message: "He reiniciado node RED porque no repondía"

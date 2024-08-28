@@ -31,5 +31,5 @@
         condition: time
         after: "10:00:00"
   action:
-    - service: switch.turn_on
+    - action: switch.turn_on
       entity_id: switch.motor_piscina

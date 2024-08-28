@@ -21,5 +21,5 @@
         entity_id: switch.cargador_ev_switch
         state: "on"
   action:
-    - service: switch.turn_off
+    - action: switch.turn_off
       entity_id: switch.cargador_ev_switch

@@ -5,21 +5,21 @@
       event: start
       entity_id: calendar.horarios_tarifas_electricas
   action:
-    - service: mqtt.publish
+    - action: mqtt.publish
       data:
         topic: "home/sensor/energy/tariff"
         retain: true
         qos: 0
-        payload_template: "{{ trigger.calendar_event.summary.split('@')[0] }}"
-    - service: mqtt.publish
+        payload: "{{ trigger.calendar_event.summary.split('@')[0] }}"
+    - action: mqtt.publish
       data:
         topic: "home/sensor/energy/price/buy"
         retain: true
         qos: 0
-        payload_template: "{{ trigger.calendar_event.summary.split('@')[1].split('|')[0]|float(0) }}"
-    - service: mqtt.publish
+        payload: "{{ trigger.calendar_event.summary.split('@')[1].split('|')[0]|float(0) }}"
+    - action: mqtt.publish
       data:
         topic: "home/sensor/energy/price/sell"
         retain: true
         qos: 0
-        payload_template: "{{ trigger.calendar_event.summary.split('@')[1].split('|')[1]|float(0) }}"
+        payload: "{{ trigger.calendar_event.summary.split('@')[1].split('|')[1]|float(0) }}"

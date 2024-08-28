@@ -12,4 +12,4 @@
         topic: 'home/sensor/energy/price/sell'
         retain: true
         qos: 0
-        payload_template: '{{ states("sensor.energy_grid_injection_price") }}'
+        payload: '{{ states("sensor.energy_grid_injection_price") }}'

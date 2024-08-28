@@ -4,7 +4,7 @@
     platform: mqtt
     topic: 'home/sensor/energy/tariff'
   action:
-    - service: select.select_option
+    - action: select.select_option
       target:
         entity_id: select.energy_grid_today
       data_template:

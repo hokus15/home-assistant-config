@@ -21,11 +21,11 @@
         entity_id: binary_sensor.hokusphone_in_car_ioniq
         state: "on"
   action:
-    - service: cover.open_cover
+    - action: cover.open_cover
       entity_id: cover.outside_fence
-    - service: mqtt.publish
+    - action: mqtt.publish
       data:
-        payload_template: >-
+        payload: >-
           He abierto la barrera.
           {%- if distance('person.jordi', 'person.geni') * 1000 > 50 -%}
             {%- if is_state("person.geni", "home") -%}
@@ -38,7 +38,7 @@
         topic: "phone/sensor/hokus/cmnd/say"
     - delay:
         seconds: 5
-    - service: notify.telegram_hokusphone
+    - action: notify.telegram_hokusphone
       data:
         message: "🚪 Barrera abierta automáticamente"
         data:

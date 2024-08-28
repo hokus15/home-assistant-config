@@ -1,18 +1,18 @@
-- id: 'system_on_start'
-  alias: 'System - On start'
+- id: "system_on_start"
+  alias: "System - On start"
   trigger:
     platform: homeassistant
     event: start
   action:
     # Create HA_VERSION.json file containing homeassistant version
-    - service: shell_command.version_tojson
+    - action: shell_command.version_tojson
     # Set correct energy tariff
-#    - service: mqtt.publish
+#    - action: mqtt.publish
 #      data:
 #        topic: 'home/sensor/energy/tariff'
 #        retain: true
 #        qos: 0
-#        payload_template: >-
+#        payload: >-
 #          {%- if is_state('binary_sensor.summer_time', 'on') %}
 #            {%- if as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) >= as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=13).replace(minute=0).replace(second=0)) and as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M")) < as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M").replace(hour=23).replace(minute=0).replace(second=0))%}
 #              Pico

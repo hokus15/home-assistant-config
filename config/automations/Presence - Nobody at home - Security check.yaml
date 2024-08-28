@@ -14,17 +14,23 @@
       - condition: state
         entity_id: binary_sensor.entrada_sensor_puerta
         state: "on"
-      #      - condition: state
-      #        entity_id: binary_sensor.porche_sensor_puerta
-      #        state: "on"
-      #      - condition: state
-      #        entity_id: binary_sensor.porche_sensor_persiana
-      #        state: "on"
+      - condition: state
+        entity_id: binary_sensor.porche_sensor_puerta
+        state: "on"
+      - condition: state
+        entity_id: binary_sensor.porche_sensor_persiana
+        state: "on"
       - condition: state
         entity_id: binary_sensor.suite_sensor_ventana
         state: "on"
       - condition: state
         entity_id: binary_sensor.banyo_suite_sensor_ventana
+        state: "on"
+      - condition: state
+        entity_id: binary_sensor.habitacion_coque_sensor_ventana
+        state: "on"
+      - condition: state
+        entity_id: binary_sensor.habitacion_carlos_sensor_ventana
         state: "on"
 
   action:
@@ -40,26 +46,37 @@
           {% if is_state("binary_sensor.suite_sensor_ventana", "on") %}
             La ventana de la suite está abierta.
           {%- endif -%}
+          {% if is_state("binary_sensor.habitacion_coque_sensor_ventana", "on") %}
+            La ventana de la habitación de Coque está abierta.
+          {%- endif -%}
+          {% if is_state("binary_sensor.habitacion_carlos_sensor_ventana", "on") %}
+            La ventana de la habitación de Carlos está abierta.
+          {%- endif -%}
           {% if is_state("binary_sensor.banyo_suite_sensor_ventana", "on") %}
             La ventana del baño de la suite está abierta.
           {%- endif %}
+          {% if is_state("binary_sensor.porche_sensor_puerta", "on") %}
+            La puerta de la cocina está abierta.
+          {%- endif -%}
+          {% if is_state("binary_sensor.porche_sensor_persiana", "on") %}
+            La persiana de la cocina está abierta.
+          {%- endif -%}
 
-    #          {% if is_state("binary_sensor.porche_sensor_puerta", "on") %}
-    #            La puerta de la cocina está abierta.
-    #          {%- endif -%}
-    #          {% if is_state("binary_sensor.porche_sensor_persiana", "on") %}
-    #            La persiana de la cocina está abierta.
-    #          {%- endif -%}
-
-    - service: mqtt.publish
-      data:
-        payload_template: "{{checkResult}}"
-        retain: false
-        topic: "phone/sensor/hokus/cmnd/say"
-    - service: notify.telegram_hokusphone
+    - action: notify.telegram_hokusphone
       data:
         message: "{{checkResult}}"
-
+    - alias: "If in the car"
+      choose:
+        - conditions:
+            - condition: state
+              entity_id: "binary_sensor.hokusphone_in_car_ioniq"
+              state: "on"
+          sequence:
+            - action: mqtt.publish
+              data:
+                payload: "{{checkResult}}"
+                retain: false
+                topic: "phone/sensor/hokus/cmnd/say"
     - alias: "If outside fence is open"
       choose:
         - conditions:
@@ -67,6 +84,6 @@
               entity_id: "cover.outside_fence"
               state: "open"
           sequence:
-            - service: cover.close_cover
+            - action: cover.close_cover
               data:
                 entity_id: cover.outside_fence

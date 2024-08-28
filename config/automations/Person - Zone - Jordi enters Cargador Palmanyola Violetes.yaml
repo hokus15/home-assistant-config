@@ -16,9 +16,9 @@
         entity_id: sensor.car_ioniq_battery
         below: 50
   action:
-    - service: mqtt.publish
+    - action: mqtt.publish
       data:
-        payload_template: >-
+        payload: >-
           El {{ state_attr(trigger.zone.entity_id, "friendly_name") }} está {{ states(trigger.zone.entity_id | replace("zone", "sensor")) }}
         retain: false
         topic: "phone/sensor/hokus/cmnd/say"
