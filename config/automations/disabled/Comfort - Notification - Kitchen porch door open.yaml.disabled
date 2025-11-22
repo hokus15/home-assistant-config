@@ -27,6 +27,6 @@
       data_template:
         message: 'Puerta del porche en la cocina abierta durante más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.porche_sensor_puerta.last_changed))|int//60 }} minutos'
         options:
-          gender: male
+          voice: male
         language: es-ES
 

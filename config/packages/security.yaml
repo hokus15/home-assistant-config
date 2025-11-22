@@ -4,15 +4,16 @@ recorder:
       - binary_sensor.coladuria_sensor_puerta
       - binary_sensor.porche_sensor_puerta
       - binary_sensor.porche_sensor_persiana
-      - binary_sensor.entrada_sensor_puerta
+      - binary_sensor.puerta_entrada_sensor
       - binary_sensor.despacho_sensor_movimiento
       - binary_sensor.banyo_suite_sensor_ventana
+      - binary_sensor.banyo_ninyos_sensor_ventana
       - binary_sensor.suite_sensor_ventana
       - binary_sensor.habitacion_coque_sensor_ventana
       - binary_sensor.habitacion_carlos_sensor_ventana
-
-      - sensor.lock_entrada_sensor_door_state
-      - sensor.lock_entrada_sensor_battery_state
+      - binary_sensor.salon_sensor_ventana
+      - binary_sensor.salon_piscina_sensor_puerta
+      - binary_sensor.despacho_sensor_ventana
 
       - switch.recibidor_camara_det_mov
       - switch.salon_camara_det_mov
@@ -39,23 +40,34 @@ logbook:
 group:
   Seguridad:
     entities:
-      - switch.recibidor_camara_det_mov
-      - switch.salon_camara_det_mov
       # - switch.cocina_camara_det_mov
-      - switch.piscina_camara_det_mov
+
+      - input_boolean.coladuria_sensor_puerta
+
+      - input_boolean.despacho_sensor_movimiento
+
+      - input_boolean.entrada_camara_det_mov
+      - input_boolean.entrada_sensor_puerta
+
+      - input_boolean.porche_sensor_persiana
+      - input_boolean.porche_sensor_puerta
+      
+      - switch.recibidor_camara_det_mov
+
+      - switch.salon_camara_det_mov
+      - input_boolean.salon_piscina_sensor_puerta
+      - input_boolean.salon_sensor_ventana
+      
+      - input_boolean.suite_sensor_ventana
+
       # - switch.barbacoa_camara_det_mov
       - switch.caseta_camara_det_mov
-      - input_boolean.entrada_camara_det_mov
-      - input_boolean.despacho_sensor_movimiento
-      - input_boolean.porche_sensor_puerta
-      - input_boolean.porche_sensor_persiana
-      - input_boolean.coladuria_sensor_puerta
-      - input_boolean.entrada_sensor_puerta
-      - input_boolean.suite_sensor_ventana
+      - switch.piscina_camara_det_mov
 
 command_line:
   - switch:
       name: recibidor_camara_det_mov
+      unique_id: recibidor_camara_det_mov
       # Command used:
       # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=1&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
       command_on: !secret cam_recibidor_motion_detection_on
@@ -69,6 +81,7 @@ command_line:
 
   - switch:
       name: piscina_camara_det_mov
+      unique_id: piscina_camara_det_mov
       # Command used:
       # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=1&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1009&area5=992&area6=992&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
       command_on: !secret cam_piscina_motion_detection_on
@@ -82,6 +95,7 @@ command_line:
 
   - switch:
       name: barbacoa_camara_det_mov
+      unique_id: barbacoa_camara_det_mov
       # Command used:
       # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig1&isEnable=1&linkage=4&snapInterval=5&triggerInterval=5&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&x1=0&y1=0&width1=10000&height1=10000&threshold1=50&sensitivity1=0&valid1=1&x2=0&y2=0&width2=0&height2=0&threshold2=50&sensitivity2=0&valid2=0&x3=0&y3=0&width3=0&height3=0&threshold3=50&sensitivity3=0&valid3=0&usr=<camera_username>&pwd=<camera_password>"'
       command_on: !secret cam_barbacoa_motion_detection_on
@@ -95,6 +109,7 @@ command_line:
 
   - switch:
       name: salon_camara_det_mov
+      unique_id: salon_camara_det_mov
       # Command used:
       # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=1&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
       command_on: !secret cam_salon_motion_detection_on
@@ -108,6 +123,7 @@ command_line:
 
   - switch:
       name: cocina_camara_det_mov
+      unique_id: cocina_camara_det_mov
       # Command used:
       # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=1&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1023&area5=1023&area6=1023&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
       command_on: !secret cam_cocina_motion_detection_on
@@ -121,6 +137,7 @@ command_line:
 
   - switch:
       name: caseta_camara_det_mov
+      unique_id: caseta_camara_det_mov
       # Command used:
       # 'curl --user <camera_username>:<camera_password> -k "http://<camera_host>:<camera_port>/adm/file.cgi?h_en_trig=1&todo=save"'
       command_on: !secret cam_caseta_motion_detection_on
@@ -134,6 +151,7 @@ command_line:
 
   - binary_sensor:
       name: recibidor_camara_infrarrojo
+      unique_id: recibidor_camara_infrarrojo
       # Command used to get infrared status for a foscam camera:
       # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
       command: !secret cam_recibidor_infrared_command
@@ -143,6 +161,7 @@ command_line:
 
   - binary_sensor:
       name: piscina_camara_infrarrojo
+      unique_id: piscina_camara_infrarrojo
       # Command used to get infrared status for a foscam camera:
       # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
       command: !secret cam_piscina_infrared_command
@@ -152,6 +171,7 @@ command_line:
 
   - binary_sensor:
       name: barbacoa_camara_infrarrojo
+      unique_id: barbacoa_camara_infrarrojo
       # Command used to get infrared status for a foscam camera:
       # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
       command: !secret cam_barbacoa_infrared_command
@@ -161,6 +181,7 @@ command_line:
 
   - binary_sensor:
       name: salon_camara_infrarrojo
+      unique_id: salon_camara_infrarrojo
       # Command used to get infrared status for a foscam camera:
       # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
       command: !secret cam_salon_infrared_command
@@ -170,6 +191,7 @@ command_line:
 
   - binary_sensor:
       name: cocina_camara_infrarrojo
+      unique_id: cocina_camara_infrarrojo
       # Command used to get infrared status for a foscam camera:
       # 'curl -k --silent "https://<cam_host>:<cam_port>/cgi-bin/cgi-bin/CGIProxy.fcgi?cmd=getDevState&usr=<username>&pwd=<password>" | grep -oP "(?<=infraLedState>).*?(?=</infraLedState>)"'
       command: !secret cam_cocina_infrared_command
@@ -210,65 +232,3 @@ shell_command:
   cam_salon_ptz_preset_point_main: !secret cam_salon_ptz_preset_point_main
   cam_salon_ptz_preset_point_main_left: !secret cam_salon_ptz_preset_point_mainleft
   cam_salon_ptz_preset_point_main_right: !secret cam_salon_ptz_preset_point_mainright
-
-mqtt:
-  sensor:
-    - state_topic: "home/lock/entrada"
-      value_template: "{{ value_json.stateName }}"
-      name: lock_entrada_state
-      json_attributes_topic: "home/lock/entrada"
-      force_update: true
-
-sensor:
-  - platform: template
-    sensors:
-      lock_entrada_sensor_door_state:
-        friendly_name: "Puerta entrada"
-        value_template: >-
-          {%- if is_state_attr('sensor.lock_entrada_state', 'doorsensorState', 1) %}
-              Sensor no activo
-          {%- elif is_state_attr('sensor.lock_entrada_state', 'doorsensorState', 2) %}
-              Cerrada
-          {%- elif is_state_attr('sensor.lock_entrada_state', 'doorsensorState', 3) %}
-              Abierta
-          {%- elif is_state_attr('sensor.lock_entrada_state', 'doorsensorState', 4) %}
-              Indefinido
-          {%- elif is_state_attr('sensor.lock_entrada_state', 'doorsensorState', 5) %}
-              Calibrando
-          {% else %}
-              Desconocido
-          {%- endif %}
-
-      #      lock_entrada_sensor_lock_state:
-      #        friendly_name: 'Cerradura entrada'
-      #        value_template: >-
-      #          {%- if is_state_attr('sensor.lock_entrada_state', 'state', 0) %}
-      #              No calibrado
-      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 1) %}
-      #              Bloqueado
-      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 2) %}
-      #              Desbloqueando
-      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 3) %}
-      #              Desbloqueado
-      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 4) %}
-      #              Bloqueando
-      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 5) %}
-      #              Abierto
-      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 6) %}
-      #              Desbloqueado (lock'n'go)
-      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 7) %}
-      #              Abriendo
-      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 253) %}
-      #              ?
-      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 254) %}
-      #              Motor bloqueado
-      #          {%- elif is_state_attr('sensor.lock_entrada_state', 'state', 255) %}
-      #              Indefinido
-      #          {% else %}
-      #              Desconocido
-      #          {%- endif %}
-
-      lock_entrada_sensor_battery_state:
-        value_template: "{{state_attr('sensor.lock_entrada_state','batteryChargeState')|int}}"
-        device_class: "battery"
-        unit_of_measurement: "%"

@@ -2,7 +2,7 @@ homeassistant:
   customize: !include customize.yaml
   customize_glob: !include customize_glob.yaml
   allowlist_external_dirs:
-    - /share/camera
+    - /media/camera
   packages: !include_dir_named packages
 
 http:
@@ -41,7 +41,6 @@ recorder:
       - sensor.memory_free
       - sensor.disk_free
       - sensor.db_size
-      - sensor.disk_use_share_camera
 
 # View all events in a logbook
 logbook:
@@ -51,7 +50,6 @@ logbook:
       - sensor.memory_free
       - sensor.disk_free
       - sensor.db_size
-      - sensor.disk_use_share_camera
 
 logger:
   default: error
@@ -89,22 +87,17 @@ logger:
 #    homeassistant.components.wemo: debug
 #    pywemo: debug
 
-telegram_bot:
-  platform: polling
-  api_key: !secret telegram_api_key
-  parse_mode: html
-  allowed_chat_ids:
-    - !secret hokusphone_telegram_chat_id
-    - !secret geniphone_telegram_chat_id
-    - !secret familygroup_telegram_chat_id
+# telegram_bot:
+#   platform: polling
+#   api_key: !secret telegram_api_key
+#   parse_mode: html
+#   allowed_chat_ids:
+#     - !secret hokusphone_telegram_chat_id
+#     - !secret geniphone_telegram_chat_id
+#     - !secret familygroup_telegram_chat_id
+#     - !secret bakugroup_telegram_chat_id
 
 notify:
-  - name: telegram_hokusphone
-    platform: telegram
-    chat_id: !secret hokusphone_telegram_chat_id
-  - name: telegram_geniphone
-    platform: telegram
-    chat_id: !secret geniphone_telegram_chat_id
   - name: recibidor
     platform: tts
     tts_service: tts.cloud_say
@@ -113,29 +106,43 @@ notify:
     platform: tts
     tts_service: tts.cloud_say
     media_player: media_player.suite
-  - name: telegram_familygroup
-    platform: telegram
-    chat_id: !secret familygroup_telegram_chat_id
   - name: despacho
     platform: tts
     tts_service: tts.cloud_say
     media_player: media_player.wallpanel_despacho
+  - name: telegram_hokusphone
+    platform: telegram
+    chat_id: !secret hokusphone_telegram_chat_id
+  - name: telegram_geniphone
+    platform: telegram
+    chat_id: !secret geniphone_telegram_chat_id
+  - name: telegram_familygroup
+    platform: telegram
+    chat_id: !secret familygroup_telegram_chat_id
 
-ifttt:
-  key: !secret ifttt_api_key
+    # Jordi
+  # - name: telegram_baku_c00000000001
+  #   platform: telegram
+  #   chat_id: !secret baku_c00000000001_telegram_telegram_chat_id
+
+    # Sorari
+  # - name: telegram_baku_c00000000002
+  #   platform: telegram
+  #   chat_id: !secret baku_c00000000002_telegram_telegram_chat_id
+
+    # Nena y Jordi
+  # - name: telegram_baku_c00000000004
+  #   platform: telegram
+  #   chat_id: !secret baku_c00000000004_telegram_telegram_chat_id
+
+# ifttt:
+#   key: !secret ifttt_api_key
 
 #withings:
 #  use_webhook: true
 
 freedns:
   url: !secret freedns_url
-
-feedreader:
-  urls:
-    - https://www.agenciatributaria.es/AEAT.desarrolladores/Desarrolladores/Novedades/Novedades.xml
-  scan_interval:
-    minutes: 60
-  max_entries: 20
 
 automation: !include_dir_merge_list automations
 script: !include scripts.yaml

@@ -17,11 +17,11 @@ logbook:
       - sensor.hokusphone_detected_activity
       - sensor.hokusphone_wifi_connection
       - sensor.carlosphone_detected_activity
-      - sensor.carlosphone_wifi_connection
+      - sensor.carlosphone_wi_fi_connection
       - sensor.geniphone_detected_activity
       - sensor.geniphone_wifi_connection
       - sensor.coquephone_detected_activity
-      - sensor.coquephone_wifi_connection
+      - sensor.coquephone_wi_fi_connection
 
   exclude:
     entity_globs:

@@ -26,7 +26,7 @@ sensor:
   #      - type: disk_free
   #        arg: /
   #      - type: disk_use
-  #        arg: /share/camera
+  #        arg: /media/camera
   #      - type: memory_free
   #      - type: processor_use
   #      - type: last_boot
@@ -43,7 +43,7 @@ mqtt:
       unit_of_measurement: "%"
       device_class: battery
       force_update: true
-      expire_after: 120
+      expire_after: 240
       value_template: "{{ value }}"
       availability_topic: "home/hokuslan/hokuslaptop/lwt"
       payload_available: "ON"
@@ -55,7 +55,7 @@ mqtt:
       unit_of_measurement: "%"
       device_class: battery
       force_update: true
-      expire_after: 120
+      expire_after: 240
       value_template: "{{ value }}"
       availability_topic: "home/hokuslan/genilaptop/lwt"
       payload_available: "ON"
@@ -73,8 +73,8 @@ input_boolean:
 
 shell_command:
   mp4_convert: 'ffmpeg -i {{file}} -c copy {{file[0:file.find(".mkv")]}}.mp4'
-  mkv_cleanup: 'find /share/camera/ -type f -name "*.mkv" -mtime +{{age}} -delete'
-  mp4_cleanup: 'find /share/camera/ -type f -name "*.mp4" -mtime +{{age}} -delete'
-  jpg_cleanup: 'find /share/camera/ -type f -name "*.jpg" -mtime +{{age}} -delete'
-  empty_directories_cleanup: 'find /share/camera -depth -exec rmdir {} \; 2> /dev/null'
+  mkv_cleanup: 'find /media/camera/ -type f -name "*.mkv" -mtime +{{age}} -delete'
+  mp4_cleanup: 'find /media/camera/ -type f -name "*.mp4" -mtime +{{age}} -delete'
+  jpg_cleanup: 'find /media/camera/ -type f -name "*.jpg" -mtime +{{age}} -delete'
+  empty_directories_cleanup: 'find /media/camera -depth -exec rmdir {} \; 2> /dev/null'
   version_tojson: 'echo -n "{\"version\": \"" > HA_VERSION.json && cat .HA_VERSION >> HA_VERSION.json && echo -n "\"}" >> HA_VERSION.json'

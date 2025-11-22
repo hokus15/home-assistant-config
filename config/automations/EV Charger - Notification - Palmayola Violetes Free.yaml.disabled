@@ -11,10 +11,13 @@
   action:
     - action: notify.telegram_hokusphone
       data:
-        message: "El cargador de Palmanyola en la calle Violetes, ya está libre."
+        message: "El cargador de Palmañola en la calle Violetes, ya está libre."
     - action: notify.recibidor
       data:
-        message: "El cargador de Palmanyola en la calle Violetes, ya está libre."
+        message: "El cargador de Palmañola en la calle Violetes, ya está libre."
+    - action: notify.despacho
+      data:
+        message: "El cargador de Palmañola en la calle Violetes, ya está libre."
     #- action: input_boolean.turn_off
     #  data:
     #    entity_id: input_boolean.cargador_palmanyola_violetes_notificacion_libre

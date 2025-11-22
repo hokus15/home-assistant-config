@@ -1,0 +1,76 @@
+blueprint:
+  name: Wallpanel Battery Management
+  description: Control the charger for a permanently mounted tablet control panel.
+  domain: automation
+  input:
+    battery:
+      name: Battery
+      description: This is the battery sensor for the device.
+      selector:
+        entity:
+          domain:
+          - sensor
+          device_class:
+          - battery
+          multiple: false
+    charged_percent:
+      name: Charged Percent
+      description: 'The percentage charge the charger will turn off. (default: 80%)'
+      selector:
+        number:
+          min: 50.0
+          max: 100.0
+          unit_of_measurement: '%'
+          mode: slider
+          step: 1.0
+      default: 80
+    low_percent:
+      name: Low Percent
+      description: 'The percentage charge the charger will turn on. (default: 30%)'
+      selector:
+        number:
+          min: 0.0
+          max: 50.0
+          unit_of_measurement: '%'
+          mode: slider
+          step: 1.0
+      default: 30
+    charger:
+      name: Charger
+      description: The switch entity which turns the charger on and off.
+      selector:
+        entity:
+          domain:
+          - switch
+          multiple: false
+  source_url: https://community.home-assistant.io/t/wallpanel-battery-management/256317
+mode: single
+trigger:
+- platform: homeassistant
+  event: start
+- platform: event
+  event_type: automation_reloaded
+- platform: numeric_state
+  entity_id: !input battery
+  above: !input charged_percent
+- platform: numeric_state
+  entity_id: !input battery
+  below: !input low_percent
+action:
+- choose:
+  - conditions:
+    - condition: numeric_state
+      entity_id: !input battery
+      above: !input charged_percent
+    sequence:
+    - service: switch.turn_off
+      data:
+        entity_id: !input charger
+  - conditions:
+    - condition: numeric_state
+      entity_id: !input battery
+      below: !input low_percent
+    sequence:
+    - service: switch.turn_on
+      data:
+        entity_id: !input charger

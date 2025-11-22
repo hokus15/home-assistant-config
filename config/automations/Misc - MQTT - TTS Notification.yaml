@@ -9,4 +9,7 @@
         message: TTS
         data:
           tts_text: "{{trigger.payload}}"
-          media_stream: "alarm_stream"
+          priority: high
+          ttl: 0 
+          # media_stream: alarm_stream
+          media_stream: alarm_stream_max

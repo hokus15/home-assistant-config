@@ -1,3 +1,4 @@
+# TODO Hacer una automatización teniendo en cuenta el enchufe del lavaplatos y el cargador EV para detectat cuando el diferencial está abajo.
 - id: "energy_notification_possible_differential_switch_down"
   alias: "Energy - Notification - Possible differential switch down"
   trigger:

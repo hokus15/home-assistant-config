@@ -15,7 +15,7 @@
             data_template:
               message: "Barrera {{ states.sensor.outside_fence_sensor_state.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.cover.outside_fence.last_changed))|int//60 }} minutos"
               options:
-                gender: male
+                voice: male
               language: es-ES
           - service: telegram_bot.send_message
             data_template:

@@ -26,5 +26,5 @@
       data_template:
         message: 'Puerta de la coladuría abierta durante más de {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.coladuria_sensor_puerta.last_changed))|int//60 }} minutos'
         options:
-          gender: male
+          voice: male
         language: es-ES

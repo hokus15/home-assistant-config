@@ -106,10 +106,6 @@ sensor.car_ioniq_location_last_update:
 binary_sensor.car_ioniq_location_sensor:
   entity_picture: /local/device_tracker.car_ioniq_icon.png
   friendly_name: Ioniq bs
-sensor.car_al_colegio:
-  friendly_name: Al colegio
-sensor.car_a_la_oficina:
-  friendly_name: A la oficina
 device_tracker.car_ioniq:
   entity_picture: /local/device_tracker.car_ioniq_icon.png
 alarm_control_panel.home:
@@ -178,16 +174,16 @@ sensor.despacho_sensor_movimiento_luminance:
   icon: mdi:weather-sunny
 binary_sensor.porche_sensor_puerta:
   device_class: door
-  friendly_name: Puerta porche
+  friendly_name: Puerta del porche en la cocina
 sensor.porche_sensor_puerta_temperature:
   device_class: temperature
   friendly_name: Temperatura cocina
 binary_sensor.porche_sensor_persiana:
   device_class: door
-  friendly_name: Persiana porche
+  friendly_name: Persiana del porche
 binary_sensor.coladuria_sensor_puerta:
   device_class: door
-  friendly_name: Puerta coladuría
+  friendly_name: Puerta de la coladuría
 sensor.first_floor_temperature:
   device_class: temperature
   friendly_name: Temp. media 1ª planta
@@ -295,10 +291,6 @@ sensor.ladron_salon_energy_calc:
   friendly_name: Consumo ladrón salón
   icon: mdi:speedometer
   device_class: energy
-sensor.lavaplatos_energy_calc:
-  friendly_name: Consumo lavaplatos
-  icon: mdi:speedometer
-  device_class: energy
 sensor.secadora_energy_calc:
   friendly_name: Consumo secadora
   icon: mdi:speedometer
@@ -309,8 +301,6 @@ sensor.lavadora_energy_calc:
   device_class: energy
 sensor.ladron_salon_power:
   friendly_name: Potencia ladrón salón
-sensor.lavaplatos_power:
-  friendly_name: Potencia lavaplatos
 sensor.secadora_power:
   friendly_name: Potencia secadora
 sensor.lavadora_power:
@@ -359,3 +349,17 @@ zone.cargador_aragon:
   friendly_name: Cargador de Aragón
 zone.casa_cerca:
   friendly_name: Casa
+binary_sensor.puerta_entrada_sensor:
+  friendly_name: Puerta de entrada
+binary_sensor.banyo_ninyos_sensor_ventana:
+  friendly_name: Ventana del baño de los niños
+binary_sensor.banyo_suite_sensor_ventana:
+  friendly_name: Ventana del baño de la suite
+binary_sensor.habitacion_carlos_sensor_ventana:
+  friendly_name: Ventana del cuarto de Carlos
+binary_sensor.habitacion_coque_sensor_ventana:
+  friendly_name: Ventana del cuarto de Coque
+binary_sensor.suite_sensor_ventana:
+  friendly_name: Ventana de la suite
+binary_sensor.despacho_sensor_ventana:
+  friendly_name: Ventana del despacho

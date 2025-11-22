@@ -5,6 +5,8 @@ recorder:
       - sensor.cargador_ev_power
       - sensor.cargador_ev_power_filtered
       - sensor.cargador_ev_energy_calc
+      - sensor.cargador_ev_visto_por_ultima_vez_seconds
+      - sensor.cargador_ev_node_status
       - binary_sensor.cargador_ev_on_energy_export_over_threshold
       - binary_sensor.cargador_ev_on_enough_net_balance_hour
       - binary_sensor.cargador_ev_off_enough_net_balance_hour
@@ -36,6 +38,7 @@ sensor:
 template:
   - binary_sensor:
       - name: cargador_ev_status
+        unique_id: cargador_ev_status
         state: "{{ states('sensor.cargador_ev_power') | float(default=0) > 5 }}"
         delay_off: "0:00:10"
         icon: "mdi:ev-station"
@@ -45,14 +48,24 @@ template:
       # on when the exported energy is over the input_number.cargador_ev_on_threshold threshold
       # during input_number.cargador_ev_on_delay minutes
       - name: cargador_ev_on_energy_export_over_threshold
+        unique_id: cargador_ev_on_energy_export_over_threshold
         state: "{{ states('sensor.fronius_solarnet_power_grid') | float(default=0) <= states('input_number.cargador_ev_on_threshold') | float(default=0) }}"
         delay_on: "{{ states('input_number.cargador_ev_on_delay') | int(60) * 60 }}"
       # on when the hourly net balance is enough to turn on the EV Charger
       - name: cargador_ev_on_enough_net_balance_hour
+        unique_id: cargador_ev_on_enough_net_balance_hour
         state: "{{ states('input_number.cargador_ev_on_net_balance_hour_threshold') | float(0) >= states('sensor.energy_net_balance_hour') | float(1) }}"
       # on when hourly net balance is to low to keep the EV Charger on
       - name: cargador_ev_off_enough_net_balance_hour
+        unique_id: cargador_ev_off_enough_net_balance_hour
         state: "{{ states('input_number.cargador_ev_off_net_balance_hour_threshold') | float(0) >= states('sensor.energy_net_balance_hour') | float(1) }}"
+  - sensor:
+      - name: cargador_ev_visto_por_ultima_vez_seconds
+        unique_id: cargador_ev_visto_por_ultima_vez_seconds
+        state: "{{ (as_timestamp(now())|round(0)) - as_timestamp(states.sensor.cargador_ev_visto_por_ultima_vez.state) }}"
+        state_class: "measurement"
+        unit_of_measurement: "s"
+        device_class: "duration"
 
 input_number:
   # Grid power (negative exporting / positive importing) to turn on EV charger.

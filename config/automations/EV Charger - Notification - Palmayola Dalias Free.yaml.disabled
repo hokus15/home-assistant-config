@@ -1,0 +1,24 @@
+- id: "ev_charger_notification_palmayola_dalias_free"
+  alias: "EV Charger - Notification - Palmayola Dalias Free"
+  trigger:
+    platform: state
+    entity_id: "sensor.cargador_palmanyola_dalias"
+    to: "Libre"
+  condition:
+    - condition: state
+      entity_id: "input_boolean.cargador_palmanyola_dalias_notificacion_libre"
+      state: "on"
+  action:
+    - action: notify.telegram_hokusphone
+      data:
+        message: "El cargador de Palmañola en la calle Dalias, ya está libre."
+    - action: notify.recibidor
+      data:
+        message: "El cargador de Palmañola en la calle Dalias, ya está libre."
+    - action: notify.despacho
+      data:
+        message: "El cargador de Palmañola en la calle Dalias, ya está libre."
+
+    #- action: input_boolean.turn_off
+    #  data:
+    #    entity_id: input_boolean.cargador_palmanyola_dalias_notificacion_libre

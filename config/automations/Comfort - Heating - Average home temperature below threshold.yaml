@@ -19,7 +19,7 @@
     - action: climate.set_preset_mode
       entity_id: climate.recibidor
       data_template:
-        preset_mode: "Schedule"
+        preset_mode: "schedule"
     - action: homeassistant.update_entity
       entity_id: climate.recibidor
     - action: logbook.log

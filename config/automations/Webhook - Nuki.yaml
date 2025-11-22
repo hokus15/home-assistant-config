@@ -1,5 +1,5 @@
-- id: "nuki_callback"
-  alias: "Nuki callback"
+- id: "webhook_nuki_callback"
+  alias: "Webhook - Nuki - Callback"
   trigger:
     - platform: webhook
       webhook_id: nuki-webhook

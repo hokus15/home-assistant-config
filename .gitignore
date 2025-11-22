@@ -31,3 +31,6 @@ config/feedreader.pickle
 config/watchman_report.txt
 Funcionalidades.txt
 config/beeperoff.sh
+config/.ha_run.lock
+config/www/person.coque.jpg
+config/www/person.carlos.jpg

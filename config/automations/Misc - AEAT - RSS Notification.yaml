@@ -13,9 +13,30 @@
       - '{{ "IVA 303" in trigger.event.data.title }}'
       - '{{ "informativas" in trigger.event.data.title }}'
   action:
-    - service: notify.telegram_hokusphone
+    # - action: input_text.set_value
+    #   target:
+    #     entity_id: input_text.tablon_anuncios_agencia_tributaria_title
+    #   data:
+    #     value: "{{ trigger.event.data.title }}"
+    # - action: input_text.set_value
+    #   target:
+    #     entity_id: input_text.tablon_anuncios_agencia_tributaria_link
+    #   data:
+    #     value: "{{ trigger.event.data.link }}"
+    # - action: input_text.set_value
+    #   target:
+    #     entity_id: input_text.tablon_anuncios_agencia_tributaria_description
+    #   data:
+    #     value: "{{ trigger.event.data.description }}"
+    # - action: input_datetime.set_datetime
+    #   data:
+    #     datetime: "{{ trigger.event.data.date }}"
+    #   target:
+    #     entity_id: input_datetime.tablon_anuncios_agencia_tributaria_datetime
+    - action: notify.telegram_hokusphone
       data:
         message: >
-          <b>Anuncio Modelo 303</b>
+          <b>Nuevo anuncio Modelo 303</b>
 
           <a href="{{ trigger.event.data.link }}">{{ trigger.event.data.title }}</a>
+

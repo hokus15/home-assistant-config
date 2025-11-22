@@ -64,7 +64,7 @@ binary_sensor:
   - platform: template
     sensors:
       # comfort_state is active when:
-      # Average in first floor temperature is lower than climate target temperature
+      # Temperature average in first floor is lower than climate target temperature
       # And there is someone at home
       # And heating is on
       # And heating away mode is off
