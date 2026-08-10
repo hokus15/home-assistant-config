@@ -4,7 +4,7 @@
     platform: event
     event_type: feedreader
     event_data:
-      feed_url: "https://www.agenciatributaria.es/AEAT.desarrolladores/Desarrolladores/Novedades/Novedades.xml"
+      feed_url: "http://www.agenciatributaria.es/AEAT.desarrolladores/Desarrolladores/Novedades/Novedades.xml"
   condition:
     condition: or
     conditions:
@@ -33,8 +33,9 @@
     #     datetime: "{{ trigger.event.data.date }}"
     #   target:
     #     entity_id: input_datetime.tablon_anuncios_agencia_tributaria_datetime
-    - action: notify.telegram_hokusphone
+    - action: notify.send_message
       data:
+        entity_id: notify.telegram_hokusphone
         message: >
           <b>Nuevo anuncio Modelo 303</b>
 

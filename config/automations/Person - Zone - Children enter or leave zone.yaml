@@ -81,43 +81,13 @@
         - person.carlos
         - person.coque
 
-    # Sant Ferran
-    - platform: zone
-      zone: zone.sant_ferran
-      event: enter
-      # enabled: false
-      entity_id:
-        - person.carlos
-        - person.coque
-    - platform: zone
-      zone: zone.sant_ferran
-      event: leave
-      # enabled: false
-      entity_id:
-        - person.carlos
-        - person.coque
-
-    # Son Moix
-    - platform: zone
-      zone: zone.son_moix
-      event: enter
-      # enabled: false
-      entity_id:
-        - person.carlos
-        - person.coque
-    - platform: zone
-      zone: zone.son_moix
-      event: leave
-      # enabled: false
-      entity_id:
-        - person.carlos
-        - person.coque
   action:
     - variables:
         person: "{{ trigger.to_state.attributes.friendly_name }}"
         event: "{{ 'ha salido de' if trigger.event == 'leave' else 'ha llegado a' }}"
         zone: "{{ trigger.zone.attributes.friendly_name }}"
 
-    - action: notify.telegram_familygroup
+    - action: notify.send_message
       data:
+        entity_id: notify.telegram_family_group
         message: "{{person}} {{event}} {{zone}}"

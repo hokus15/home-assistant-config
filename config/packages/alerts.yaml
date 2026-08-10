@@ -46,7 +46,7 @@ template:
       - name: "motor_piscina_encendido_alerta"
         state: >-
           {{ is_state('switch.motor_piscina', 'on')
-             and states.sensor.piscina_on_history.state | float(0) > states.sensor.piscina_filtering_time.state | float(0) }}
+             and states.sensor.piscina_pump_runtime_today.state | float(0) > states.sensor.piscina_filtration_time.state | float(0) }}
 
       - name: "car_ioniq_iotconnect_monitor_alert"
         # If car_ioniq_iotconnect_monitor is off
@@ -129,7 +129,7 @@ alert:
     entity_id: binary_sensor.motor_piscina_encendido_alerta
     state: "on"
     repeat: 5
-    message: "Motor de la piscina encendido hoy durante {{ ((states.sensor.piscina_on_history.state | float(0) * 60) // 60) | round(0) }} horas y {{ ((states.sensor.piscina_on_history.state | float(0) * 60) % 60) | round(0) }} minutos cuando el tiempo programado es de {{ ((states.sensor.piscina_filtering_time.state | float(0) * 60) // 60) | round(0) }} horas y {{ ((states.sensor.piscina_filtering_time.state | float(0) * 60) % 60) | round(0) }} minutos."
+    message: "Motor de la piscina encendido hoy durante {{ ((states.sensor.piscina_pump_runtime_today.state | float(0) * 60) // 60) | round(0) }} horas y {{ ((states.sensor.piscina_pump_runtime_today.state | float(0) * 60) % 60) | round(0) }} minutos cuando el tiempo programado es de {{ ((states.sensor.piscina_filtration_time.state | float(0) * 60) // 60) | round(0) }} horas y {{ ((states.sensor.piscina_filtration_time.state | float(0) * 60) % 60) | round(0) }} minutos."
     can_acknowledge: true
     skip_first: true
     data:

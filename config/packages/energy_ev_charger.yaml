@@ -3,10 +3,8 @@ recorder:
     entities:
       - binary_sensor.cargador_ev_status
       - sensor.cargador_ev_power
-      - sensor.cargador_ev_power_filtered
-      - sensor.cargador_ev_energy_calc
+      - sensor.cargador_ev_energy
       - sensor.cargador_ev_visto_por_ultima_vez_seconds
-      - sensor.cargador_ev_node_status
       - binary_sensor.cargador_ev_on_energy_export_over_threshold
       - binary_sensor.cargador_ev_on_enough_net_balance_hour
       - binary_sensor.cargador_ev_off_enough_net_balance_hour
@@ -16,7 +14,7 @@ logbook:
   exclude:
     entities:
       - sensor.cargador_ev_power
-      - sensor.cargador_ev_energy_calc
+      - sensor.cargador_ev_energy
 
 #binary_sensor:
 #  - platform: threshold
@@ -24,16 +22,6 @@ logbook:
 #    entity_id: sensor.cargador_ev_power
 #    upper: 5
 #    device_class: power
-
-sensor:
-  - platform: filter
-    name: cargador_ev_power_filtered
-    unique_id: cargador_ev_power_filtered
-    entity_id: sensor.cargador_ev_power
-    filters:
-      - filter: outlier
-        window_size: 4
-        radius: 10000.0
 
 template:
   - binary_sensor:
@@ -43,7 +31,7 @@ template:
         delay_off: "0:00:10"
         icon: "mdi:ev-station"
         attributes:
-          power: "{{ states('sensor.cargador_ev_power_filtered') }}W"
+          power: "{{ states('sensor.cargador_ev_power') }}W"
 
       # on when the exported energy is over the input_number.cargador_ev_on_threshold threshold
       # during input_number.cargador_ev_on_delay minutes
@@ -59,13 +47,6 @@ template:
       - name: cargador_ev_off_enough_net_balance_hour
         unique_id: cargador_ev_off_enough_net_balance_hour
         state: "{{ states('input_number.cargador_ev_off_net_balance_hour_threshold') | float(0) >= states('sensor.energy_net_balance_hour') | float(1) }}"
-  - sensor:
-      - name: cargador_ev_visto_por_ultima_vez_seconds
-        unique_id: cargador_ev_visto_por_ultima_vez_seconds
-        state: "{{ (as_timestamp(now())|round(0)) - as_timestamp(states.sensor.cargador_ev_visto_por_ultima_vez.state) }}"
-        state_class: "measurement"
-        unit_of_measurement: "s"
-        device_class: "duration"
 
 input_number:
   # Grid power (negative exporting / positive importing) to turn on EV charger.

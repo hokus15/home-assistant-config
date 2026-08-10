@@ -5,6 +5,7 @@
     entity_id: sensor.car_ioniq_charger_charge_state
     from: "Cargando"
   action:
-    - action: notify.telegram_hokusphone
+    - action: notify.send_message
       data:
+        entity_id: notify.telegram_hokusphone
         message: '🚘 Carga del Ioniq en casa detenida. Batería al {{states("sensor.car_ioniq_battery")}}%'

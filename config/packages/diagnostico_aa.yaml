@@ -1,0 +1,217 @@
+###############################################################################
+# Diagnóstico del aire acondicionado multisplit
+#
+# Habitación problemática:
+#   - Suite
+#
+# Habitaciones de referencia:
+#   - Carlos
+#   - Coque
+#
+# Sensores originales:
+#   - sensor.suite_temperature
+#   - sensor.habitacion_carlos_temperature
+#   - sensor.habitacion_coque_temperature
+#   - sensor.fronius_solarnet_power_load
+###############################################################################
+
+
+###############################################################################
+# RECORDER
+###############################################################################
+
+recorder:
+  include:
+    entities:
+      # Temperaturas y diferencias calculadas
+      - sensor.temperatura_media_habitaciones_buenas
+      - sensor.diferencia_temperatura_suite_carlos
+      - sensor.diferencia_temperatura_suite_coque
+      - sensor.diferencia_temperatura_suite_habitaciones_buenas
+      - sensor.diferencia_temperatura_suite_exterior
+
+      # Velocidades de cambio
+      - sensor.suite_cambio_temperatura
+      - sensor.carlos_cambio_temperatura
+      - sensor.coque_cambio_temperatura
+
+###############################################################################
+# SENSORES CALCULADOS
+###############################################################################
+
+template:
+
+  - sensor:
+
+      #########################################################################
+      # Media de las habitaciones que funcionan correctamente
+      #########################################################################
+
+      - name: "Temperatura media habitaciones buenas"
+        unique_id: temperatura_media_habitaciones_buenas
+        icon: mdi:thermometer
+        unit_of_measurement: "°C"
+        device_class: temperature
+        state_class: measurement
+
+        availability: >
+          {{
+            is_number(states('sensor.habitacion_carlos_temperature'))
+            and is_number(states('sensor.habitacion_coque_temperature'))
+          }}
+
+        state: >
+          {% set carlos =
+            states('sensor.habitacion_carlos_temperature') | float
+          %}
+          {% set coque =
+            states('sensor.habitacion_coque_temperature') | float
+          %}
+          {{ ((carlos + coque) / 2) | round(2) }}
+
+
+      #########################################################################
+      # Diferencia Suite - Carlos
+      #
+      # Positivo: Suite está más caliente.
+      # Negativo: Suite está más fría.
+      #########################################################################
+
+      - name: "Diferencia temperatura Suite Carlos"
+        unique_id: diferencia_temperatura_suite_carlos
+        icon: mdi:delta
+        unit_of_measurement: "°C"
+        device_class: temperature
+        state_class: measurement
+
+        availability: >
+          {{
+            is_number(states('sensor.suite_temperature'))
+            and is_number(states('sensor.habitacion_carlos_temperature'))
+          }}
+
+        state: >
+          {% set suite =
+            states('sensor.suite_temperature') | float
+          %}
+          {% set carlos =
+            states('sensor.habitacion_carlos_temperature') | float
+          %}
+          {{ (suite - carlos) | round(2) }}
+
+
+      #########################################################################
+      # Diferencia Suite - Coque
+      #########################################################################
+
+      - name: "Diferencia temperatura Suite Coque"
+        unique_id: diferencia_temperatura_suite_coque
+        icon: mdi:delta
+        unit_of_measurement: "°C"
+        device_class: temperature
+        state_class: measurement
+
+        availability: >
+          {{
+            is_number(states('sensor.suite_temperature'))
+            and is_number(states('sensor.habitacion_coque_temperature'))
+          }}
+
+        state: >
+          {% set suite =
+            states('sensor.suite_temperature') | float
+          %}
+          {% set coque =
+            states('sensor.habitacion_coque_temperature') | float
+          %}
+          {{ (suite - coque) | round(2) }}
+
+
+      #########################################################################
+      # Diferencia Suite - media de Carlos y Coque
+      #
+      # Este será el indicador comparativo principal.
+      #########################################################################
+
+      - name: "Diferencia temperatura Suite habitaciones buenas"
+        unique_id: diferencia_temperatura_suite_habitaciones_buenas
+        icon: mdi:delta
+        unit_of_measurement: "°C"
+        device_class: temperature
+        state_class: measurement
+
+        availability: >
+          {{
+            is_number(states('sensor.suite_temperature'))
+            and
+            is_number(
+              states('sensor.temperatura_media_habitaciones_buenas')
+            )
+          }}
+
+        state: >
+          {% set suite =
+            states('sensor.suite_temperature') | float
+          %}
+          {% set buenas =
+            states('sensor.temperatura_media_habitaciones_buenas') | float
+          %}
+          {{ (suite - buenas) | round(2) }}
+
+
+      - name: "Diferencia temperatura Suite exterior"
+        unique_id: diferencia_temperatura_suite_exterior
+        icon: mdi:thermometer-lines
+        unit_of_measurement: "°C"
+        state_class: measurement
+
+        availability: >
+          {{
+            is_number(states('sensor.suite_temperature'))
+            and is_number(states('sensor.exterior_temperature'))
+          }}
+
+        state: >
+          {% set suite = states('sensor.suite_temperature') | float %}
+          {% set exterior = states('sensor.exterior_temperature') | float %}
+          {{ (suite - exterior) | round(2) }}
+
+###############################################################################
+# VELOCIDAD DE CAMBIO DE TEMPERATURA
+#
+# Unidad resultante: °C/h
+#
+# Negativo:
+#   La habitación se está enfriando.
+#
+# Positivo:
+#   La habitación se está calentando.
+#
+# La ventana de 15 minutos suaviza los saltos de décimas de los sensores.
+###############################################################################
+
+sensor:
+
+  - platform: derivative
+    source: sensor.suite_temperature
+    name: "Suite cambio temperatura"
+    unique_id: suite_cambio_temperatura
+    unit_time: h
+    time_window: "00:15:00"
+    round: 2
+
+  - platform: derivative
+    source: sensor.habitacion_carlos_temperature
+    name: "Carlos cambio temperatura"
+    unique_id: carlos_cambio_temperatura
+    unit_time: h
+    time_window: "00:15:00"
+    round: 2
+
+  - platform: derivative
+    source: sensor.habitacion_coque_temperature
+    name: "Coque cambio temperatura"
+    unique_id: coque_cambio_temperatura
+    unit_time: h
+    time_window: "00:15:00"
+    round: 2

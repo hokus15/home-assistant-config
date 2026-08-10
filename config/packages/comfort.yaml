@@ -59,10 +59,8 @@ logbook:
       - sensor.despacho_sensor_movimiento_luminance
       - sensor.despacho_sensor_movimiento_temperature
       - sensor.porche_sensor_puerta_temperature
-
-binary_sensor:
-  - platform: template
-    sensors:
+template:
+  - binary_sensor: 
       # comfort_state is active when:
       # Temperature average in first floor is lower than climate target temperature
       # And there is someone at home
@@ -70,8 +68,8 @@ binary_sensor:
       # And heating away mode is off
       # And heating is idle
       # And first floor temperature trend is going down
-      home_comfort_state:
-        value_template: >-
+    - name: home_comfort_state
+      state: >-
           {{ states('sensor.first_floor_temperature')|float(0) < states('sensor.recibidor_target_temperature')|float(0)
              and is_state('group.invitado_y_familia', 'home')
              and states.climate.recibidor != None
@@ -80,10 +78,39 @@ binary_sensor:
              and is_state_attr('climate.recibidor', 'hvac_action', 'off')
              and is_state('binary_sensor.first_floor_temperature_down','on')
           }}
-      summer_time:
-        device_class: light
-        value_template: '{{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z") == "CEST"}}'
 
+    - name: summer_time
+      device_class: light
+      state: '{{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z") == "CEST"}}'
+
+  - weather:
+    - name: "Casa"
+      unique_id: "casa"
+      condition_template: "{{ states('weather.aemet') }}"
+      temperature_template: "{{ states('sensor.exterior_temperature') | float }}"
+      temperature_unit: "°C"
+      humidity_template: "{{ states('sensor.exterior_humidity') | float }}"
+      forecast_daily_template: "{{ state_attr('weather.aemet', 'forecast') }}"
+      pressure_template: "{{ states('sensor.salon_pressure') | float }}"
+      pressure_unit: "hPa"
+      #wind_speed_template: ""
+      #wind_gust_speed_template: ""
+      #wind_speed_unit: ""
+      #wind_bearing_template: ""
+
+  - sensor:
+    # Sensors to get sunset and sunrise hours with a custom format.
+    - name: sunrise
+      state: '{{ as_timestamp(states.sun.sun.attributes.next_rising)|timestamp_custom("%H:%M:%S") }}'
+    - name: sunset
+      state: '{{ as_timestamp(states.sun.sun.attributes.next_setting)|timestamp_custom("%H:%M:%S") }}'
+    # Thermostat sensors
+    - name: recibidor_target_temperature
+      state: "{{state_attr('climate.recibidor', 'temperature')}}"
+    - name: recibidor_temperature
+      state: "{{state_attr('climate.recibidor', 'current_temperature')}}"
+
+binary_sensor:
   # Trend sensors
   - platform: trend
     sensors:
@@ -133,37 +160,6 @@ sensor:
     sampling_size: 1440
     max_age:
       hours: 24
-
-  - platform: template
-    sensors:
-      # Sensors to get sunset and sunrise hours with a custom format.
-      sunrise:
-        friendly_name: "Amanecer"
-        value_template: '{{ as_timestamp(states.sun.sun.attributes.next_rising)|timestamp_custom("%H:%M:%S") }}'
-      sunset:
-        friendly_name: "Puesta de sol"
-        value_template: '{{ as_timestamp(states.sun.sun.attributes.next_setting)|timestamp_custom("%H:%M:%S") }}'
-      # Thermostat sensors
-      recibidor_target_temperature:
-        value_template: "{{state_attr('climate.recibidor', 'temperature')}}"
-      recibidor_temperature:
-        value_template: "{{state_attr('climate.recibidor', 'current_temperature')}}"
-
-weather:
-  - platform: template
-    name: "Casa"
-    unique_id: "casa"
-    condition_template: "{{ states('weather.aemet') }}"
-    temperature_template: "{{ states('sensor.exterior_temperature') | float }}"
-    temperature_unit: "°C"
-    humidity_template: "{{ states('sensor.exterior_humidity') | float }}"
-    forecast_daily_template: "{{ state_attr('weather.aemet', 'forecast') }}"
-    pressure_template: "{{ states('sensor.salon_pressure') | float }}"
-    pressure_unit: "hPa"
-    #wind_speed_template: ""
-    #wind_gust_speed_template: ""
-    #wind_speed_unit: ""
-    #wind_bearing_template: ""
 
 input_boolean:
   home_comfort_mode:

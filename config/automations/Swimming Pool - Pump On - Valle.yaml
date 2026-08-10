@@ -21,7 +21,7 @@
         state: "Solar + Valle"
       - alias: "Still has remaining filtering time"
         condition: state
-        entity_id: binary_sensor.piscina_pump_remaining_time
+        entity_id: binary_sensor.piscina_filtration_pending
         state: "on"
       - alias: "Pump is off"
         condition: state

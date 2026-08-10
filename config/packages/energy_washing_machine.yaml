@@ -11,25 +11,42 @@ template:
   - binary_sensor:
       - name: lavadora_status
         unique_id: lavadora_status
-        state: "{{ states('sensor.lavadora_power') | float(default=0) > 5 }}"
-        delay_off: "0:05:00"
-        icon: >-
-          {% if states('sensor.lavadora_power') | float(default=0) > 5 -%}
+        device_class: running
+        availability: >
+          {{ is_number(states('sensor.lavadora_power')) }}
+        state: >
+          {{ states('sensor.lavadora_power') | float > 5 }}
+        delay_off: "00:05:00"
+        icon: >
+          {% if states('sensor.lavadora_power') | float(0) > 5 %}
             mdi:washing-machine
-          {%- else -%}
+          {% else %}
             mdi:washing-machine-off
-          {%- endif %}
+          {% endif %}
         attributes:
-          power: "{{ states('sensor.lavadora_power') }}W"
+          power: >
+            {{ states('sensor.lavadora_power') | float(0) | round(0) }} W
 
-        # Washing machine uses more power during first 30 mins (to warm the water).
-        # This template calculates how long the washing machine has been on and is set to on when is in the first 30 mins of operation
-        # This is useful to allow to start other appliances while the washing machine has not finished and it's not using high power.
+      # Washing machine uses more power during first 30 mins
+      # because it is normally heating the water.
+      # This sensor remains ON during those first 30 minutes,
+      # even if instantaneous power temporarily drops.
+      # This is useful to allow to start other appliances while the washing machine has not finished and it's not using high power.
       - name: lavadora_status_high_power
         unique_id: lavadora_status_high_power
         state: >
-          {% if states('binary_sensor.lavadora_status') == 'off' %} 
-          off
+          {% if is_state('binary_sensor.lavadora_status', 'on') %}
+            {{
+              (as_timestamp(now()) -
+               as_timestamp(states.binary_sensor.lavadora_status.last_changed))
+              <= 1800
+            }}
           {% else %}
-          {{ (now().timestamp() - states.binary_sensor.lavadora_status.last_changed.timestamp()) <= 1800 }}
+            false
+          {% endif %}
+        icon: >
+          {% if is_state('binary_sensor.lavadora_status_high_power', 'on') %}
+            mdi:lightning-bolt
+          {% else %}
+            mdi:lightning-bolt-outline
           {% endif %}

@@ -28,8 +28,9 @@
         message: "encendida por baja temperatura"
         entity_id: climate.recibidor
         domain: climate
-    - action: notify.telegram_hokusphone
+    - action: notify.send_message
       data:
+        entity_id: notify.telegram_hokusphone
         message: "Como ya empieza a hacer fresquito ⛄⛄⛄, he encendido la calefacción. Convendría hacer un purgado de los radiadores."
         data:
           inline_keyboard:

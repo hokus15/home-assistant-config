@@ -12,8 +12,9 @@
           {% for entity in label_entities('comprobacion_seguridad') | expand | selectattr('state', 'eq', 'on') | list %}
             La {{entity.attributes.friendly_name}} está {{state_translated(entity.entity_id) | replace("Abierto", "abierta")}}.
           {%- endfor %}
-    - action: notify.telegram_hokusphone
+    - action: notify.send_message
       data:
+        entity_id: notify.telegram_hokusphone
         message: "{{checkResult}}"
     - alias: "If in the car"
       choose:

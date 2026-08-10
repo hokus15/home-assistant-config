@@ -3,7 +3,7 @@
   trigger:
     # When there is no remaining filtering time
     - platform: state
-      entity_id: binary_sensor.piscina_pump_remaining_time
+      entity_id: binary_sensor.piscina_filtration_pending
       to: "off"
   # Execute automation when:
   #  - Not in manual mode.

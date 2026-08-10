@@ -38,8 +38,9 @@
         topic: "phone/sensor/hokus/cmnd/say"
     - delay:
         seconds: 5
-    - action: notify.telegram_hokusphone
+    - action: notify.send_message
       data:
+        entity_id: notify.telegram_hokusphone
         message: "🚪 Barrera abierta automáticamente"
         data:
           inline_keyboard:

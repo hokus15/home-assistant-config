@@ -2,45 +2,41 @@ recorder:
   include:
     entities:
       - cover.outside_fence
-      - input_button.barrera_carlos
-      - input_button.barrera_coque
+      - input_button.barrera
 
-sensor:
-  - platform: template
-    sensors:
+
+template:
+  - sensor:
       # Shelly 1 Plus sensor state (off: fence closed, on: fence open)
-      outside_fence_sensor_state:
-        value_template: >-
+    - name: outside_fence_sensor_state
+      state: >-
           {%- if is_state('binary_sensor.barrera_estado', 'on') %}
             abierta
           {% else %}
             cerrada
           {% endif %}
 
-#  - platform: mqtt
-#    name: 'outside_fence'
-#    state_topic: 'home/sensor/fence'
-#    icon: mdi:garage
-
-cover:
-  - platform: template
-    covers:
-      outside_fence:
+  - cover:
+      - name: outside_fence
         unique_id: outside_fence
-        device_class: awning
-        friendly_name: "Barrera"
-        value_template: "{{ is_state('binary_sensor.barrera_estado', 'on') }}"
+        device_class: gate
+        state: "{{ is_state('binary_sensor.barrera_estado', 'on') }}"
         open_cover:
-          service: switch.turn_on
+          action: switch.turn_on
           data:
             entity_id: switch.barrera
         close_cover:
-          service: switch.turn_on
+          action: switch.turn_on
           data:
             entity_id: switch.barrera
-        icon_template: >-
+        icon: >-
           {%- if is_state('binary_sensor.barrera_estado', 'on') %}
             mdi:gate-open
           {% else %}
             mdi:gate
           {% endif %}
+
+#  - platform: mqtt
+#    name: 'outside_fence'
+#    state_topic: 'home/sensor/fence'
+#    icon: mdi:garage

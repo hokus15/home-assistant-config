@@ -31,10 +31,10 @@ sensor:
   #      - type: processor_use
   #      - type: last_boot
 
-  - platform: template
-    sensors:
-      ha_runtime_in_minutes:
-        value_template: "{{((as_timestamp(now()) - as_timestamp(states.sensor.time_online.state)) / 60)| round }}"
+template:
+  - sensor:
+    - name: ha_runtime_in_minutes
+      state: "{{((as_timestamp(now()) - as_timestamp(states.sensor.time_online.state)) / 60)| round }}"
 
 mqtt:
   sensor:

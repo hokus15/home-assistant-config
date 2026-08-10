@@ -1,0 +1,17 @@
+- id: "phone_hotspot_state"
+  alias: "Phone - Hotspot - State"
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.carlosphone_hotspot_state
+    - binary_sensor.coquephone_hotspot_state
+    to:
+  action:
+    - variables:
+        person: "{{ trigger.to_state.entity_id.split('.')[1] | replace('phone_hotspot_state', '') | capitalize }}"
+        status: "{{ 'activado' if trigger.to_state.state == 'on' else 'desactivado' }}"
+
+    - action: notify.send_message
+      data:
+        entity_id: notify.telegram_hokusphone
+        message: "El punto de acceso Wi-Fi del móvil de {{person}} se ha {{status}}."

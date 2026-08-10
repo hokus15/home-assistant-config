@@ -2,9 +2,11 @@ recorder:
   include:
     entities:
       - sensor.fronius_smartmeter_energy_real_produced
-      - sensor.fronius_smartmeter_energy_real_produced_compensation
+      - sensor.fronius_smartmeter_energy_real_consumed
       - sensor.fronius_inverter_energy_total
       - sensor.fronius_solarnet_power_grid
+      - sensor.fronius_solarnet_power_load
+      - sensor.solarnet_power_grid_export
 
       - sensor.energy_power_photovoltaics
       - sensor.energy_power_house
@@ -36,22 +38,21 @@ logbook:
   exclude:
     entity_globs:
       - sensor.fronius_*
-sensor:
-  - platform: template
-    sensors:
+template:
+  - sensor:
       # The raw Fronius photovoltaic state goes to unknown after dark, so force it to zero
-      energy_power_photovoltaics:
+      - name: energy_power_photovoltaics
+        unique_id: "energy_power_photovoltaics"
         device_class: power
-        friendly_name: "Producción fotovoltáica"
         unit_of_measurement: "W"
-        value_template: "{{ states('sensor.fronius_solarnet_power_photovoltaics')|float(0) }}"
+        state: "{{ states('sensor.fronius_solarnet_power_photovoltaics')|float(0) }}"
 
       # Total home instant power
-      energy_power_house:
+      - name: energy_power_house
+        unique_id: "energy_power_house"
         device_class: power
-        friendly_name: "Potencia casa"
         unit_of_measurement: "W"
-        value_template: "{{ 0 - states('sensor.fronius_solarnet_power_load')|float(0)|round(1) }}"
+        state: "{{ 0 - states('sensor.fronius_solarnet_power_load')|float(0)|round(1) }}"
 
 utility_meter:
   energy_grid_today:

@@ -23,8 +23,9 @@
         message: "apagada por alta temperatura"
         entity_id: climate.recibidor
         domain: climate
-    - action: notify.telegram_hokusphone
+    - action: notify.send_message
       data:
+        entity_id: notify.telegram_hokusphone
         message: "Empieza el calor 🌞🌞🌞!!!! He apagado la calefacción."
         data:
           inline_keyboard:

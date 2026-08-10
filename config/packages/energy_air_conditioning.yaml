@@ -1,0 +1,27 @@
+recorder:
+  include:
+    entities:
+      - sensor.aires_acondicionados_arriba_energy
+      - sensor.aires_acondicionados_arriba_power
+
+      - binary_sensor.aire_acondicionado_arriba_status
+
+template:
+  - binary_sensor:
+      - name: "Estado aire acondicionado arriba"
+        unique_id: aire_acondicionado_arriba_status
+        device_class: running
+        availability: >
+          {{ is_number(states('sensor.aires_acondicionados_arriba_power')) }}
+        state: >
+          {{ states('sensor.aires_acondicionados_arriba_power') | float > 50 }}
+        delay_off: "00:01:00"
+        icon: >
+          {% if states('sensor.aires_acondicionados_arriba_power') | float(0) > 50 %}
+            mdi:hvac
+          {% else %}
+            mdi:hvac-off
+          {% endif %}
+        attributes:
+          power: >
+            {{ states('sensor.aires_acondicionados_arriba_power') | float(0) | round(0) }} W

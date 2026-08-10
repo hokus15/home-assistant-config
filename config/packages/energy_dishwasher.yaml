@@ -7,15 +7,20 @@ recorder:
 
 template:
   - binary_sensor:
-      - name: lavaplatos_status
+      - name: "Estado Lavaplatos"
         unique_id: lavaplatos_status
-        state: "{{ states('sensor.lavaplatos_switch_0_power') | float(default=0) > 5 }}"
-        delay_off: "0:05:00"
-        icon: >-
-          {% if states('sensor.lavaplatos_switch_0_power') | float(default=0) > 5 -%}
+        device_class: running
+        availability: >
+          {{ is_number(states('sensor.lavaplatos_switch_0_power')) }}
+        state: >
+          {{ states('sensor.lavaplatos_switch_0_power') | float > 5 }}
+        delay_off: "00:05:00"
+        icon: >
+          {% if states('sensor.lavaplatos_switch_0_power') | float(0) > 5 %}
             mdi:dishwasher
-          {%- else -%}
+          {% else %}
             mdi:dishwasher-off
-          {%- endif %}
+          {% endif %}
         attributes:
-          power: "{{ states('sensor.lavaplatos_switch_0_power') }}W"
+          power: >
+            {{ states('sensor.lavaplatos_switch_0_power') | float(0) | round(0) }} W

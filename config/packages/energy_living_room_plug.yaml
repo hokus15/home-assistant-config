@@ -5,13 +5,24 @@ recorder:
       - sensor.ladron_salon_power
       - sensor.ladron_salon_power_filtered
       - sensor.ladron_salon_energy_calc
-      
-sensor:
-  - platform: filter
-    name: ladron_salon_power_filtered
-    unique_id: ladron_salon_power_filtered
-    entity_id: sensor.ladron_salon_power
-    filters:
-      - filter: outlier
-        window_size: 4
-        radius: 10000.0
+
+template:
+  - trigger:
+      - platform: state
+        entity_id: sensor.ladron_salon_power
+
+    sensor:
+      - name: "Ladron salon power filtered"
+        unique_id: ladron_salon_power_filtered
+        unit_of_measurement: "W"
+        device_class: power
+        state_class: measurement
+        availability: >
+          {{ trigger.to_state is not none }}
+        state: >
+          {% set p = trigger.to_state.state | float(none) %}
+          {% if p is not none and 0 <= p <= 3800 %}
+            {{ p }}
+          {% else %}
+            {{ this.state }}
+          {% endif %}

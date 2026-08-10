@@ -17,8 +17,8 @@
         state: "Solar + Valle"
       - alias: "EV charger is off"
         condition: state
-        entity_id: switch.cargador_ev_switch
+        entity_id: switch.cargador_ev
         state: "off"
   action:
     - action: switch.turn_on
-      entity_id: switch.cargador_ev_switch
+      entity_id: switch.cargador_ev

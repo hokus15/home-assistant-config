@@ -73,11 +73,11 @@ mqtt:
     - state_topic: "car/sensor/ioniq/state"
       name: car_ioniq_state
       unique_id: car_ioniq_state
-      payload_on: true
-      payload_off: false
+      payload_on: "True"
+      payload_off: "False"
       value_template: >-
-        {{ (((as_timestamp(now()) - value_json.timestamp) / 60) < 1)
-           and (value_json.state == "running")
+        {{ ((((as_timestamp(now()) - value_json.timestamp) / 60) < 1)
+           and (value_json.state == "running")) | string
         }}
       json_attributes_topic: "car/sensor/ioniq/state"
       force_update: true
@@ -88,9 +88,9 @@ mqtt:
     - state_topic: "car/sensor/ioniq/state"
       name: car_ioniq_iotconnect_monitor
       unique_id: car_ioniq_iotconnect_monitor
-      payload_on: true
-      payload_off: false
-      value_template: "{{ ((as_timestamp(now()) - value_json.timestamp) / 60) < 1 }}"
+      payload_on: "True"
+      payload_off: "False"
+      value_template: "{{ (((as_timestamp(now()) - value_json.timestamp) / 60) < 1) | string }}"
       force_update: false
       icon: mdi:car-connected
       off_delay: 60
@@ -99,11 +99,11 @@ mqtt:
     - state_topic: "car/sensor/ioniq/state"
       name: car_ioniq_iotconnect_gps_monitor
       unique_id: car_ioniq_iotconnect_gps_monitor
-      payload_on: true
-      payload_off: false
+      payload_on: "True"
+      payload_off: "False"
       value_template: >-
-        {{ (((as_timestamp(now()) - value_json.timestamp) / 60) < 1)
-          and (value_json.monitors | select("search","GpsMonitor") | map(attribute="GpsMonitor") | list | first == "started")
+        {{ ((((as_timestamp(now()) - value_json.timestamp) / 60) < 1)
+          and (value_json.monitors | select("search","GpsMonitor") | map(attribute="GpsMonitor") | list | first == "started")) | string
         }}
       force_update: false
       icon: mdi:car-connected
@@ -113,11 +113,11 @@ mqtt:
     - state_topic: "car/sensor/ioniq/state"
       name: car_ioniq_iotconnect_ev_monitor
       unique_id: car_ioniq_iotconnect_ev_monitor
-      payload_on: true
-      payload_off: false
+      payload_on: "True"
+      payload_off: "False"
       value_template: >-
-        {{ (((as_timestamp(now()) - value_json.timestamp) / 60) < 1)
-          and (value_json.monitors | select("search","IoniqEVMonitor") | map(attribute="IoniqEVMonitor") | list | first == "started")
+        {{ ((((as_timestamp(now()) - value_json.timestamp) / 60) < 1)
+          and (value_json.monitors | select("search","IoniqEVMonitor") | map(attribute="IoniqEVMonitor") | list | first == "started")) | string
         }}
       force_update: false
       icon: mdi:car-connected
@@ -127,9 +127,9 @@ mqtt:
     - state_topic: "car/sensor/ioniq/battery"
       name: car_ioniq_iotconnect_ev_battery_monitor
       unique_id:  car_ioniq_iotconnect_ev_battery_monitor
-      payload_on: true
-      payload_off: false
-      value_template: "{{ ((as_timestamp(now()) - value_json.timestamp) / 60) < 1 }}"
+      payload_on: "True"
+      payload_off: "False"
+      value_template: "{{ (((as_timestamp(now()) - value_json.timestamp) / 60) < 1) | string }}"
       force_update: false
       icon: mdi:car-connected
       off_delay: 60
@@ -138,9 +138,9 @@ mqtt:
     - state_topic: "car/sensor/ioniq/odometer"
       name: car_ioniq_iotconnect_ev_odometer_monitor
       unique_id:  car_ioniq_iotconnect_ev_odometer_monitor
-      payload_on: true
-      payload_off: false
-      value_template: "{{ ((as_timestamp(now()) - value_json.timestamp) / 60) < 1 }}"
+      payload_on: "True"
+      payload_off: "False"
+      value_template: "{{ (((as_timestamp(now()) - value_json.timestamp) / 60) < 1) | string }}"
       force_update: false
       icon: mdi:car-connected
       off_delay: 60
@@ -149,9 +149,9 @@ mqtt:
     - state_topic: "car/sensor/ioniq/tpms"
       name: car_ioniq_iotconnect_ev_tpms_monitor
       unique_id: car_ioniq_iotconnect_ev_tpms_monitor
-      payload_on: true
-      payload_off: false
-      value_template: "{{ ((as_timestamp(now()) - value_json.timestamp) / 60) < 1 }}"
+      payload_on: "True"
+      payload_off: "False"
+      value_template: "{{ (((as_timestamp(now()) - value_json.timestamp) / 60) < 1) | string }}"
       force_update: false
       icon: mdi:car-connected
       off_delay: 60
@@ -160,9 +160,9 @@ mqtt:
     - state_topic: "car/sensor/ioniq/location"
       name: car_ioniq_location_sensor
       unique_id: car_ioniq_location_sensor
-      payload_on: true
-      payload_off: false
-      value_template: "{{ ((as_timestamp(now()) - value_json.last_update) / 60) < 1 }}"
+      payload_on: "True"
+      payload_off: "False"
+      value_template: "{{ (((as_timestamp(now()) - value_json.last_update) / 60) < 1) | string }}"
       json_attributes_topic: "car/sensor/ioniq/location"
       force_update: true
       icon: mdi:map-marker-radius
@@ -201,281 +201,253 @@ mqtt:
       value_template: '{{ value_json.timestamp|timestamp_custom("%d/%m/%Y %H:%M:%S") }}'
       json_attributes_topic: "car/sensor/ioniq/state/daily"
 
-sensor:
-  - platform: template
-    sensors:
-      car_ioniq_state_sensor:
-        unique_id: car_ioniq_state_sensor
-        friendly_name: "Estado Ioniq"
-        value_template: >-
-          {%- if is_state('binary_sensor.car_ioniq_state', 'on') or is_state('binary_sensor.car_ioniq_location_sensor', 'on') %}
-            {%- if is_state_attr('sensor.car_ioniq_battery', 'bmsIgnition', 1) %}
-                Encendido
-            {%- elif is_state_attr('sensor.car_ioniq_battery', 'charging', 1)%}
-                Cargando
-            {% else %}
-                Apagado
-            {%- endif %}
+template:
+  - sensor:
+    - name: car_ioniq_state_sensor
+      unique_id: car_ioniq_state_sensor
+      state: >-
+        {%- if is_state('binary_sensor.car_ioniq_state', 'on') or is_state('binary_sensor.car_ioniq_location_sensor', 'on') %}
+          {%- if is_state_attr('sensor.car_ioniq_battery', 'bmsIgnition', 1) %}
+              Encendido
+          {%- elif is_state_attr('sensor.car_ioniq_battery', 'charging', 1)%}
+              Cargando
           {% else %}
-            Apagado
+              Apagado
           {%- endif %}
+        {% else %}
+          Apagado
+        {%- endif %}
 
-      # Ioniq State last update
-      car_ioniq_battery_last_update:
-        unique_id: car_ioniq_battery_last_update
-        friendly_name: "Última actualización batería"
-        value_template: '{{((state_attr("sensor.car_ioniq_battery", "timestamp")|int))|round(0)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
-      car_ioniq_odometer_last_update:
-        unique_id: car_ioniq_odometer_last_update
-        friendly_name: "Última actualización odómetro"
-        value_template: '{{((state_attr("sensor.car_ioniq_odometer", "timestamp")|int))|round(0)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
-      car_ioniq_tpms_last_update:
-        unique_id: car_ioniq_tpms_last_update
-        friendly_name: "Última actualización tpms"
-        value_template: '{{((state_attr("sensor.car_ioniq_tpms", "timestamp")|int))|round(0)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
-      # Ioniq battery temperature
-      car_ioniq_battery_inlet_temp:
-        unique_id: car_ioniq_battery_inlet_temp
-        friendly_name: "Temperatura enchufe batería"
-        device_class: "temperature"
-        unit_of_measurement: "ºC"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryInletTemperature") | default(0) | float}}'
-      car_ioniq_battery_max_temp:
-        unique_id: car_ioniq_battery_max_temp
-        friendly_name: "Temperatura máxima batería"
-        device_class: "temperature"
-        unit_of_measurement: "ºC"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryMaxTemperature") | default(0) | float}}'
-      car_ioniq_battery_min_temp:
-        unique_id: car_ioniq_battery_min_temp
-        friendly_name: "Temperatura mínima batería"
-        device_class: "temperature"
-        unit_of_measurement: "ºC"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryMinTemperature") | replace("non-numeric","0") | float}}'
-      car_ioniq_battery_avg_temp:
-        unique_id: car_ioniq_battery_avg_temp
-        friendly_name: "Temperatura media batería"
-        device_class: "temperature"
-        unit_of_measurement: "ºC"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryAvgTemperature") | replace("non-numeric","0") | float}}'
-      car_ioniq_battery_module01_temp:
-        unique_id: car_ioniq_battery_module01_temp
-        friendly_name: "Temperatura módulo 1 batería"
-        device_class: "temperature"
-        unit_of_measurement: "ºC"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp01") | replace("non-numeric","0") | float}}'
-      car_ioniq_battery_module02_temp:
-        unique_id: car_ioniq_battery_module02_temp
-        friendly_name: "Temperatura módulo 2 batería"
-        device_class: "temperature"
-        unit_of_measurement: "ºC"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp02") | replace("non-numeric","0") | float}}'
-      car_ioniq_battery_module03_temp:
-        unique_id: car_ioniq_battery_module03_temp
-        friendly_name: "Temperatura módulo 3 batería"
-        device_class: "temperature"
-        unit_of_measurement: "ºC"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp03") | replace("non-numeric","0") | float}}'
-      car_ioniq_battery_module04_temp:
-        unique_id: car_ioniq_battery_module04_temp
-        friendly_name: "Temperatura módulo 4 batería"
-        device_class: "temperature"
-        unit_of_measurement: "ºC"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp04") | replace("non-numeric","0") | float}}'
-      car_ioniq_battery_module05_temp:
-        unique_id: car_ioniq_battery_module05_temp
-        friendly_name: "Temperatura módulo 5 batería"
-        device_class: "temperature"
-        unit_of_measurement: "ºC"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp05") | replace("non-numeric","0") | float}}'
-      car_ioniq_battery_module06_temp:
-        unique_id: car_ioniq_battery_module06_temp
-        friendly_name: "Temperatura módulo 6 batería"
-        device_class: "temperature"
-        unit_of_measurement: "ºC"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp06") | replace("non-numeric","0") | float}}'
-      car_ioniq_battery_module07_temp:
-        unique_id: car_ioniq_battery_module07_temp
-        friendly_name: "Temperatura módulo 7 batería"
-        device_class: "temperature"
-        unit_of_measurement: "ºC"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp07") | replace("non-numeric","0") | float}}'
-      car_ioniq_battery_module08_temp:
-        unique_id: car_ioniq_battery_module08_temp
-        friendly_name: "Temperatura módulo 8 batería"
-        device_class: "temperature"
-        unit_of_measurement: "ºC"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp08") | replace("non-numeric","0") | float}}'
-      car_ioniq_battery_module09_temp:
-        unique_id: car_ioniq_battery_module09_temp
-        friendly_name: "Temperatura módulo 9 batería"
-        device_class: "temperature"
-        unit_of_measurement: "ºC"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp09") | replace("non-numeric","0") | float}}'
-      car_ioniq_battery_module10_temp:
-        unique_id: car_ioniq_battery_module10_temp
-        friendly_name: "Temperatura módulo 10 batería"
-        device_class: "temperature"
-        unit_of_measurement: "ºC"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp10") | replace("non-numeric","0") | float}}'
-      car_ioniq_battery_module11_temp:
-        unique_id: car_ioniq_battery_module11_temp
-        friendly_name: "Temperatura módulo 11 batería"
-        device_class: "temperature"
-        unit_of_measurement: "ºC"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp11") | replace("non-numeric","0") | float}}'
-      car_ioniq_battery_module12_temp:
-        unique_id: car_ioniq_battery_module12_temp
-        friendly_name: "Temperatura módulo 12 batería"
-        device_class: "temperature"
-        unit_of_measurement: "ºC"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp12") | replace("non-numeric","0") | float}}'
-      car_ioniq_battery_fan_state:
-        unique_id: car_ioniq_battery_fan_state
-        friendly_name: "Velocidad ventilador"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "fanStatus") | replace("non-numeric","0") | float}}'
-      car_ioniq_battery_fan_feedback:
-        unique_id: car_ioniq_battery_fan_feedback
-        friendly_name: "Señal ventilador"
-        unit_of_measurement: "Hz"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "fanFeedback") | replace("non-numeric","0") | float}}'
-      # Ioniq State Of Health
-      car_ioniq_battery_health:
-        unique_id: car_ioniq_battery_health
-        friendly_name: "Salud batería"
-        device_class: "battery"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "soh")}}'
-        unit_of_measurement: "%"
-      # Ioniq State Of Charge BMS
-      car_ioniq_battery_soc_bms:
-        unique_id: car_ioniq_battery_soc_bms
-        friendly_name: "Batería BMS"
-        device_class: "battery"
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "socBms")}}'
-        unit_of_measurement: "%"
-      # Ioniq Cumulative Energy Discharged
-      car_ioniq_battery_ced:
-        unique_id: car_ioniq_battery_ced
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "cumulativeEnergyDischarged")}}'
-        unit_of_measurement: "kWh"
-      # Ioniq Cumulative Energy Charged
-      car_ioniq_battery_cec:
-        unique_id: car_ioniq_battery_cec
-        value_template: '{{state_attr("sensor.car_ioniq_battery", "cumulativeEnergyCharged")}}'
-        unit_of_measurement: "kWh"
-      car_ioniq_battery_power:
-        unique_id: car_ioniq_battery_power
-        value_template: >-
-          {%- if is_state('sensor.car_ioniq_state_sensor', 'Cargando')%}
-           {{state_attr("sensor.car_ioniq_battery", "dcBatteryPower") | float | abs | round(3)}}
-          {% else %}
-            0
-          {% endif %}
+    # Ioniq State last update
+    - name: car_ioniq_battery_last_update
+      unique_id: car_ioniq_battery_last_update
+      state: '{{((state_attr("sensor.car_ioniq_battery", "timestamp")|int))|round(0)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
+    - name: car_ioniq_odometer_last_update
+      unique_id: car_ioniq_odometer_last_update
+      state: '{{((state_attr("sensor.car_ioniq_odometer", "timestamp")|int))|round(0)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
+    - name: car_ioniq_tpms_last_update
+      unique_id: car_ioniq_tpms_last_update
+      state: '{{((state_attr("sensor.car_ioniq_tpms", "timestamp")|int))|round(0)|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
+    # Ioniq battery temperature
+    - name: car_ioniq_battery_inlet_temp
+      unique_id: car_ioniq_battery_inlet_temp
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryInletTemperature") | default(0) | float}}'
+    - name: car_ioniq_battery_max_temp
+      unique_id: car_ioniq_battery_max_temp
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryMaxTemperature") | default(0) | float}}'
+    - name: car_ioniq_battery_min_temp
+      unique_id: car_ioniq_battery_min_temp
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryMinTemperature") | replace("non-numeric","0") | float}}'
+    - name: car_ioniq_battery_avg_temp
+      unique_id: car_ioniq_battery_avg_temp
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryAvgTemperature") | replace("non-numeric","0") | float}}'
+    - name: car_ioniq_battery_module01_temp
+      unique_id: car_ioniq_battery_module01_temp
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp01") | replace("non-numeric","0") | float}}'
+    - name: car_ioniq_battery_module02_temp
+      unique_id: car_ioniq_battery_module02_temp
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp02") | replace("non-numeric","0") | float}}'
+    - name: car_ioniq_battery_module03_temp
+      unique_id: car_ioniq_battery_module03_temp
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp03") | replace("non-numeric","0") | float}}'
+    - name: car_ioniq_battery_module04_temp
+      unique_id: car_ioniq_battery_module04_temp
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp04") | replace("non-numeric","0") | float}}'
+    - name: car_ioniq_battery_module05_temp
+      unique_id: car_ioniq_battery_module05_temp
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp05") | replace("non-numeric","0") | float}}'
+    - name: car_ioniq_battery_module06_temp
+      unique_id: car_ioniq_battery_module06_temp
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp06") | replace("non-numeric","0") | float}}'
+    - name: car_ioniq_battery_module07_temp
+      unique_id: car_ioniq_battery_module07_temp
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp07") | replace("non-numeric","0") | float}}'
+    - name: car_ioniq_battery_module08_temp
+      unique_id: car_ioniq_battery_module08_temp
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp08") | replace("non-numeric","0") | float}}'
+    - name: car_ioniq_battery_module09_temp
+      unique_id: car_ioniq_battery_module09_temp
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp09") | replace("non-numeric","0") | float}}'
+    - name: car_ioniq_battery_module10_temp
+      unique_id: car_ioniq_battery_module10_temp
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp10") | replace("non-numeric","0") | float}}'
+    - name: car_ioniq_battery_module11_temp
+      unique_id: car_ioniq_battery_module11_temp
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp11") | replace("non-numeric","0") | float}}'
+    - name: car_ioniq_battery_module12_temp
+      unique_id: car_ioniq_battery_module12_temp
+      device_class: "temperature"
+      unit_of_measurement: "ºC"
+      state: '{{state_attr("sensor.car_ioniq_battery", "dcBatteryModuleTemp12") | replace("non-numeric","0") | float}}'
+    - name: car_ioniq_battery_fan_state
+      unique_id: car_ioniq_battery_fan_state
+      state: '{{state_attr("sensor.car_ioniq_battery", "fanStatus") | replace("non-numeric","0") | float}}'
+    - name: car_ioniq_battery_fan_feedback
+      unique_id: car_ioniq_battery_fan_feedback
+      unit_of_measurement: "Hz"
+      state: '{{state_attr("sensor.car_ioniq_battery", "fanFeedback") | replace("non-numeric","0") | float}}'
+    # Ioniq State Of Health
+    - name: car_ioniq_battery_health
+      unique_id: car_ioniq_battery_health
+      device_class: "battery"
+      state: '{{state_attr("sensor.car_ioniq_battery", "soh")}}'
+      unit_of_measurement: "%"
+    # Ioniq State Of Charge BMS
+    - name: car_ioniq_battery_soc_bms
+      unique_id: car_ioniq_battery_soc_bms
+      device_class: "battery"
+      state: '{{state_attr("sensor.car_ioniq_battery", "socBms")}}'
+      unit_of_measurement: "%"
+    # Ioniq Cumulative Energy Discharged
+    - name: car_ioniq_battery_ced
+      unique_id: car_ioniq_battery_ced
+      state: '{{state_attr("sensor.car_ioniq_battery", "cumulativeEnergyDischarged")}}'
+      unit_of_measurement: "kWh"
+    # Ioniq Cumulative Energy Charged
+    - name: car_ioniq_battery_cec
+      unique_id: car_ioniq_battery_cec
+      state: '{{state_attr("sensor.car_ioniq_battery", "cumulativeEnergyCharged")}}'
+      unit_of_measurement: "kWh"
+    - name: car_ioniq_battery_power
+      unique_id: car_ioniq_battery_power
+      state: >-
+        {%- if is_state('sensor.car_ioniq_state_sensor', 'Cargando')%}
+         {{state_attr("sensor.car_ioniq_battery", "dcBatteryPower") | float | abs | round(3)}}
+        {% else %}
+          0
+        {% endif %}
 
-        unit_of_measurement: "kW"
-      # Ioniq tires pressure
-      car_ioniq_tpms_fl_pressure:
-        unique_id: car_ioniq_tpms_fl_pressure
-        value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_fl_pressure")}}'
-        unit_of_measurement: "bar"
-      car_ioniq_tpms_fl_temperature:
-        unique_id: car_ioniq_tpms_fl_temperature
-        value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_fl_temperature")}}'
-        unit_of_measurement: "ºC"
-      car_ioniq_tpms_fr_pressure:
-        unique_id: car_ioniq_tpms_fr_pressure
-        value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_fr_pressure")}}'
-        unit_of_measurement: "bar"
-      car_ioniq_tpms_fr_temperature:
-        unique_id: car_ioniq_tpms_fr_temperature
-        value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_fr_temperature")}}'
-        unit_of_measurement: "ºC"
-      car_ioniq_tpms_bl_pressure:
-        unique_id: car_ioniq_tpms_bl_pressure
-        value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_bl_pressure")}}'
-        unit_of_measurement: "bar"
-      car_ioniq_tpms_bl_temperature:
-        unique_id: car_ioniq_tpms_bl_temperature
-        value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_bl_temperature")}}'
-        unit_of_measurement: "ºC"
-      car_ioniq_tpms_br_pressure:
-        unique_id: car_ioniq_tpms_br_pressure
-        value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_br_pressure")}}'
-        unit_of_measurement: "bar"
-      car_ioniq_tpms_br_temperature:
-        unique_id: car_ioniq_tpms_br_temperature
-        value_template: '{{state_attr("sensor.car_ioniq_tpms", "tire_br_temperature")}}'
-        unit_of_measurement: "ºC"
-      # Ioniq Average energy consumption without taking into account regeneration
-      car_ioniq_battery_energy_consumption:
-        unique_id: car_ioniq_battery_energy_consumption
-        friendly_name: "Consumo medio"
-        icon_template: "mdi:car-electric"
-        value_template: "{{ ((states.sensor.car_ioniq_battery_ced.state | float / states.sensor.car_ioniq_odometer.state | float) * 100) | round(1)}}"
-        unit_of_measurement: "kWh/100Km"
-      # Ioniq Previous latitude
-      car_ioniq_location_previous_latitude:
-        unique_id: car_ioniq_location_previous_latitude
-        value_template: >-
-          {%- if state_attr("binary_sensor.car_ioniq_location_sensor", "platitude") is not none %}
-             {{state_attr("binary_sensor.car_ioniq_location_sensor", "platitude")}}
-          {%- endif %}
-      # Ioniq Previous longitude
-      car_ioniq_location_previous_longitude:
-        unique_id: car_ioniq_location_previous_longitude
-        value_template: >-
-          {%- if state_attr("binary_sensor.car_ioniq_location_sensor", "plongitude") is not none %}
-             {{state_attr("binary_sensor.car_ioniq_location_sensor", "plongitude")}}
-          {%- endif %}
-      # Ioniq Distance travelled between updates
-      car_ioniq_location_distance_travelled_between_updates:
-        unique_id: car_ioniq_location_distance_travelled_between_updates
-        unit_of_measurement: "m"
-        friendly_name: "Dist. entre actualizaciones"
-        value_template: >-
-          {% if state_attr("device_tracker.car_ioniq", "latitude") is not none and state_attr("device_tracker.car_ioniq", "latitude") != '' and state_attr("device_tracker.car_ioniq", "longitude") is not none and state_attr("device_tracker.car_ioniq", "longitude") != '' and states("sensor.car_ioniq_location_previous_latitude") is not none and states("sensor.car_ioniq_location_previous_latitude") != '' and states("sensor.car_ioniq_location_previous_longitude") is not none and states("sensor.car_ioniq_location_previous_longitude") != '' %}
-            {{ (distance(states("sensor.car_ioniq_location_previous_latitude"), states("sensor.car_ioniq_location_previous_longitude"), state_attr("device_tracker.car_ioniq", "latitude"), state_attr("device_tracker.car_ioniq", "longitude")) * 1000) | float(-1) | round (2) }}
-          {% else %}
-            0
-          {% endif %}
-        icon_template: "mdi:tape-measure"
-      # Ioniq Previous longitude
-      car_ioniq_location_last_update:
-        unique_id: car_ioniq_location_last_update
-        value_template: '{{state_attr("binary_sensor.car_ioniq_location_sensor", "last_update")|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
-      # Ioniq GPS accuracy
-      car_ioniq_location_gps_accuracy:
-        unique_id: car_ioniq_location_gps_accuracy
-        unit_of_measurement: "m"
-        friendly_name: "Precisión GPS"
-        value_template: '{{state_attr("device_tracker.car_ioniq", "gps_accuracy")}}'
-        icon_template: "mdi:map-marker-radius"
-      car_ioniq_charger_charge_state:
-        unique_id: car_ioniq_charger_charge_state
-        value_template: >-
-          {%- if states('sensor.cargador_ev_power')|float(0) > 1000.0 %}
-             Cargando
-          {%- elif is_state('switch.cargador_ev_switch', 'off') %}
-            Apagado
-          {% else %}
-            Listo
-          {%- endif %}
-      car_ioniq_charge_time_to_100_mins:
-        unique_id: car_ioniq_charge_time_to_100_mins
-        device_class: duration
-        unit_of_measurement: min
-        value_template: >-
-          {%- if is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
-            {{state_attr('sensor.car_ioniq_battery', 'minsToCompleteCharge') | int(0)}}
-          {% else %}
-            0
-          {%- endif %}
+      unit_of_measurement: "kW"
+    # Ioniq tires pressure
+    - name: car_ioniq_tpms_fl_pressure
+      unique_id: car_ioniq_tpms_fl_pressure
+      state: '{{state_attr("sensor.car_ioniq_tpms", "tire_fl_pressure")}}'
+      unit_of_measurement: "bar"
+    - name: car_ioniq_tpms_fl_temperature
+      unique_id: car_ioniq_tpms_fl_temperature
+      state: '{{state_attr("sensor.car_ioniq_tpms", "tire_fl_temperature")}}'
+      unit_of_measurement: "ºC"
+    - name: car_ioniq_tpms_fr_pressure
+      unique_id: car_ioniq_tpms_fr_pressure
+      state: '{{state_attr("sensor.car_ioniq_tpms", "tire_fr_pressure")}}'
+      unit_of_measurement: "bar"
+    - name: car_ioniq_tpms_fr_temperature
+      unique_id: car_ioniq_tpms_fr_temperature
+      state: '{{state_attr("sensor.car_ioniq_tpms", "tire_fr_temperature")}}'
+      unit_of_measurement: "ºC"
+    - name: car_ioniq_tpms_bl_pressure
+      unique_id: car_ioniq_tpms_bl_pressure
+      state: '{{state_attr("sensor.car_ioniq_tpms", "tire_bl_pressure")}}'
+      unit_of_measurement: "bar"
+    - name: car_ioniq_tpms_bl_temperature
+      unique_id: car_ioniq_tpms_bl_temperature
+      state: '{{state_attr("sensor.car_ioniq_tpms", "tire_bl_temperature")}}'
+      unit_of_measurement: "ºC"
+    - name: car_ioniq_tpms_br_pressure
+      unique_id: car_ioniq_tpms_br_pressure
+      state: '{{state_attr("sensor.car_ioniq_tpms", "tire_br_pressure")}}'
+      unit_of_measurement: "bar"
+    - name: car_ioniq_tpms_br_temperature
+      unique_id: car_ioniq_tpms_br_temperature
+      state: '{{state_attr("sensor.car_ioniq_tpms", "tire_br_temperature")}}'
+      unit_of_measurement: "ºC"
+    # Ioniq Average energy consumption without taking into account regeneration
+    - name: car_ioniq_battery_energy_consumption
+      unique_id: car_ioniq_battery_energy_consumption
+      icon: "mdi:car-electric"
+      state: "{{ ((states.sensor.car_ioniq_battery_ced.state | float / states.sensor.car_ioniq_odometer.state | float) * 100) | round(1)}}"
+      unit_of_measurement: "kWh/100Km"
+    # Ioniq Previous latitude
+    - name: car_ioniq_location_previous_latitude
+      unique_id: car_ioniq_location_previous_latitude
+      state: >-
+        {%- if state_attr("binary_sensor.car_ioniq_location_sensor", "platitude") is not none %}
+           {{state_attr("binary_sensor.car_ioniq_location_sensor", "platitude")}}
+        {%- endif %}
+    # Ioniq Previous longitude
+    - name: car_ioniq_location_previous_longitude
+      unique_id: car_ioniq_location_previous_longitude
+      state: >-
+        {%- if state_attr("binary_sensor.car_ioniq_location_sensor", "plongitude") is not none %}
+           {{state_attr("binary_sensor.car_ioniq_location_sensor", "plongitude")}}
+        {%- endif %}
+    # Ioniq Distance travelled between updates
+    - name: car_ioniq_location_distance_travelled_between_updates
+      unique_id: car_ioniq_location_distance_travelled_between_updates
+      unit_of_measurement: "m"
+      state: >-
+        {% if state_attr("device_tracker.car_ioniq", "latitude") is not none and state_attr("device_tracker.car_ioniq", "latitude") != '' and state_attr("device_tracker.car_ioniq", "longitude") is not none and state_attr("device_tracker.car_ioniq", "longitude") != '' and states("sensor.car_ioniq_location_previous_latitude") is not none and states("sensor.car_ioniq_location_previous_latitude") != '' and states("sensor.car_ioniq_location_previous_longitude") is not none and states("sensor.car_ioniq_location_previous_longitude") != '' %}
+          {{ (distance(states("sensor.car_ioniq_location_previous_latitude"), states("sensor.car_ioniq_location_previous_longitude"), state_attr("device_tracker.car_ioniq", "latitude"), state_attr("device_tracker.car_ioniq", "longitude")) * 1000) | float(-1) | round (2) }}
+        {% else %}
+          0
+        {% endif %}
+      icon: "mdi:tape-measure"
+    # Ioniq Previous longitude
+    - name: car_ioniq_location_last_update
+      unique_id: car_ioniq_location_last_update
+      state: '{{state_attr("binary_sensor.car_ioniq_location_sensor", "last_update")|timestamp_custom("%d/%m/%Y %H:%M:%S")}}'
+    # Ioniq GPS accuracy
+    - name: car_ioniq_location_gps_accuracy
+      unique_id: car_ioniq_location_gps_accuracy
+      unit_of_measurement: "m"
+      state: '{{state_attr("device_tracker.car_ioniq", "gps_accuracy")}}'
+      icon: "mdi:map-marker-radius"
+    - name: car_ioniq_charger_charge_state
+      unique_id: car_ioniq_charger_charge_state
+      state: >-
+        {%- if states('sensor.cargador_ev_power')|float(0) > 1000.0 %}
+           Cargando
+        {%- elif is_state('switch.cargador_ev', 'off') %}
+          Apagado
+        {% else %}
+          Listo
+        {%- endif %}
+    - name: car_ioniq_charge_time_to_100_mins
+      unique_id: car_ioniq_charge_time_to_100_mins
+      device_class: duration
+      unit_of_measurement: min
+      state: >-
+        {%- if is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
+          {{state_attr('sensor.car_ioniq_battery', 'minsToCompleteCharge') | int(0)}}
+        {% else %}
+          0
+        {%- endif %}
 
-      car_ioniq_charge_time_to_100:
-        unique_id: car_ioniq_charge_time_to_100
-        value_template: >-
-          {%- if is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
-            {{(now() | as_timestamp() + ((states('sensor.car_ioniq_charge_time_to_100_mins') | int(0)) * 60)) | timestamp_custom("%H:%M:%S")}}
-          {% else %}
-            No está en carga
-          {%- endif %}
+    - name: car_ioniq_charge_time_to_100
+      unique_id: car_ioniq_charge_time_to_100
+      state: >-
+        {%- if is_state('sensor.car_ioniq_state_sensor', 'Cargando') %}
+          {{(now() | as_timestamp() + ((states('sensor.car_ioniq_charge_time_to_100_mins') | int(0)) * 60)) | timestamp_custom("%H:%M:%S")}}
+        {% else %}
+          No está en carga
+        {%- endif %}

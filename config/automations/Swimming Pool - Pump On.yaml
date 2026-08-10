@@ -9,6 +9,13 @@
     - platform: state
       entity_id: binary_sensor.piscina_pump_on_enough_net_balance_hour
       to: "on"
+    - platform: state
+      entity_id: binary_sensor.piscina_pump_enough_net_balance_to_keep_on
+      to: "on"
+
+    - platform: state
+      entity_id: binary_sensor.piscina_filtration_pending
+      to: "on"
   # Execute automation when:
   #  - 'Solar' OR 'Solar + Valle' modes
   #  - Generating enough enery OR hourly net balance is enough
@@ -40,11 +47,11 @@
             state: "on"
       - alias: "Hourly net balance is enough to keep the pump on"
         condition: state
-        entity_id: binary_sensor.piscina_pump_off_enough_net_balance_hour
+        entity_id: binary_sensor.piscina_pump_enough_net_balance_to_keep_on
         state: "on"
       - alias: "Still has remaining filtering time"
         condition: state
-        entity_id: binary_sensor.piscina_pump_remaining_time
+        entity_id: binary_sensor.piscina_filtration_pending
         state: "on"
       - alias: "Pump is off"
         condition: state

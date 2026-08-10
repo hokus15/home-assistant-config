@@ -9,8 +9,10 @@ sensor.speedtest_upload:
   icon: mdi:cloud-upload
 sensor.sunset:
   icon: mdi:weather-sunset-down
+  friendly_name: Puesta del sol
 sensor.sunrise:
   icon: mdi:weather-sunset-up
+  friendly_name: Salida del sol
 sensor.processor_use:
   friendly_name: Uso CPU
 sensor.memory_free:
@@ -49,8 +51,10 @@ sensor.ground_floor_temperature:
   friendly_name: Temp. media planta baja
 sensor.next_holiday_mode_start:
   icon: mdi:airplane-takeoff
+  friendly_name: Inicio próximas vacaciones
 sensor.next_holiday_mode_end:
   icon: mdi:airplane-landing
+  friendly_name: Fin próximas vacaciones
 switch.holiday:
   friendly_name: Modo Vacaciones
   icon: mdi:airplane
@@ -103,21 +107,28 @@ binary_sensor.energy_home_status:
 sensor.car_ioniq_location_last_update:
   friendly_name: Última actualización posición
   icon: mdi:update
+sensor.car_ioniq_location_gps_accuracy:
+  friendly_name: Precisión localización
+sensor.car_ioniq_location_distance_travelled_between_updates:
+  friendly_name: Dist. recorrida entre actualizaciones
 binary_sensor.car_ioniq_location_sensor:
   entity_picture: /local/device_tracker.car_ioniq_icon.png
   friendly_name: Ioniq bs
+sensor.car_ioniq_battery_soc_bms:
+  friendly_name: Carga batería
 device_tracker.car_ioniq:
+  name: Ioniq
   entity_picture: /local/device_tracker.car_ioniq_icon.png
 alarm_control_panel.home:
   friendly_name: Alarma
-sensor.piscina_on_history:
+sensor.piscina_pump_runtime_today:
   friendly_name: Tiempo de filtrado hoy
 sensor.piscina_water_temperature:
   device_class: temperature
   friendly_name: Temperatura agua piscina
   icon: mdi:pool-thermometer
   state_class: measurement
-sensor.piscina_temperature:
+sensor.piscina_water_temperature_24h_mean:
   device_class: temperature
   friendly_name: Temp. media agua piscina
 switch.motor_piscina:
@@ -205,7 +216,7 @@ sensor.piscina_width:
   friendly_name: Ancho piscina
 sensor.despacho_sensor_movimiento_temperature:
   device_class: temperature
-sensor.piscina_filtering_time:
+sensor.piscina_filtration_time:
   friendly_name: Tiempo programado de filtrado
 input_number.temperature_correction:
   friendly_name: Corrección temp. piscina
@@ -219,16 +230,16 @@ sensor.piscina_average_depth:
   friendly_name: Profundidad media piscina
 light.puerta_coladuria:
   friendly_name: Puerta Coladuria
-sensor.piscina_height:
+sensor.piscina_length:
   friendly_name: Largo piscina
 switch.barrera:
   friendly_name: Interruptor Barrera
-sensor.piscina_capacity:
+sensor.piscina_volume:
   friendly_name: Capacidad piscina
 sensor.car_ioniq_battery_energy_consumption:
   friendly_name: Consumo medio Ioniq
-sensor.piscina_pump_efficiency:
-  friendly_name: Eficiencia bomba piscina
+sensor.piscina_hydraulic_efficiency:
+  friendly_name: Eficiencia hidráulica
 switch.luz_piscina:
   friendly_name: Luz Piscina Interruptor
 switch.comedor_switch:
@@ -237,10 +248,12 @@ switch.salon_switch:
   friendly_name: Luz salón Interruptor
 sensor.car_ioniq_odometer:
   friendly_name: Odómetro Ioniq
-sensor.piscina_pump_power:
+sensor.piscina_pump_nominal_flow:
   friendly_name: Potencia motor piscina
-sensor.piscina_recirculation:
+sensor.piscina_turnover_time:
   friendly_name: Recirculación piscina
+binary_sensor.piscina_pump_enough_net_balance_to_keep_on:
+  friendly_name: "Suficiente balance energético para encender la bomba"
 sensor.car_ioniq_battery_health:
   device_class: battery
   friendly_name: Salud batería Ioniq
@@ -258,8 +271,10 @@ sensor.qnapups_beeper_status:
   icon: mdi:whistle
 sensor.car_ioniq_odometer_last_update:
   icon: mdi:update
+  friendly_name: Última actualización odómetro
 sensor.car_ioniq_battery_last_update:
   icon: mdi:update
+  friendly_name: Última actualización batería
 sensor.car_ioniq_charge_time_to_100_mins_filtered:
   device_class: duration
   friendly_name: Tiempo restante de carga
@@ -271,10 +286,12 @@ sensor.car_ioniq_charger_charge_state:
   icon: mdi:flash-circle
 sensor.car_ioniq_state_sensor:
   icon: mdi:car-electric
+  friendly_name: Estado Ioniq
 sensor.car_ioniq_battery:
   friendly_name: Batería Ioniq
 sensor.car_ioniq_tpms_last_update:
   icon: mdi:update
+  friendly_name: Última actualización TPMS
 sensor.car_ioniq_battery_power:
   friendly_name: Potencia de carga Ioniq
   icon: mdi:flash
@@ -318,13 +335,10 @@ binary_sensor.cargador_ev_status:
   friendly_name: Estado cargador EV
 sensor.cargador_ev_today_energy:
   friendly_name: Energía cargador EV (hoy)
-sensor.cargador_ev_energy:
-  friendly_name: Consumo cargador EV
-  icon: mdi:speedometer
 sensor.piscina_energy:
   friendly_name: Consumo piscina
   icon: mdi:speedometer
-sensor.cargador_ev_energy_calc:
+sensor.cargador_ev_energy:
   friendly_name: Consumo cargador EV
   icon: mdi:speedometer
   device_class: energy
@@ -333,20 +347,6 @@ sensor.fronius_solarnet_power_grid:
     icon: >
       if (state >= 0) return 'mdi:home-import-outline';
       return 'mdi:home-export-outline';
-zone.cargador_conquistador:
-  friendly_name: Cargador de Conquistador
-zone.cargador_palmanyola_dalias:
-  friendly_name: Cargador de la calle Dalias de Palmañola
-zone.cargador_palmanyola_violetes:
-  friendly_name: Cargador de la calle Violetas de Palmañola
-zone.cargador_paseo_mallorca:
-  friendly_name: Cargador de Paseo Mallorca
-zone.cargador_sant_miquel:
-  friendly_name: Cargador de San Miguel
-zone.cargador_sestanyol:
-  friendly_name: Cargador de Sestañol
-zone.cargador_aragon:
-  friendly_name: Cargador de Aragón
 zone.casa_cerca:
   friendly_name: Casa
 binary_sensor.puerta_entrada_sensor:
@@ -363,3 +363,11 @@ binary_sensor.suite_sensor_ventana:
   friendly_name: Ventana de la suite
 binary_sensor.despacho_sensor_ventana:
   friendly_name: Ventana del despacho
+sensor.energy_power_house:
+  friendly_name: Potencia casa
+sensor.energy_power_photovoltaics:
+  friendly_name: Potencia generada
+cover.outside_fence:
+  friendly_name: "Barrera"
+sensor.piscina_k_factor:
+  friendly_name: Factor K

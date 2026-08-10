@@ -25,11 +25,11 @@
         state: "on"
       - alias: "There is no remaining filtering time"
         condition: state
-        entity_id: binary_sensor.piscina_pump_remaining_time
+        entity_id: binary_sensor.piscina_filtration_pending
         state: "off"
       - alias: "Hourly net balance is too low to keep the pump on"
         condition: state
-        entity_id: binary_sensor.piscina_pump_off_enough_net_balance_hour
+        entity_id: binary_sensor.piscina_pump_enough_net_balance_to_keep_on
         state: "off"
   action:
     - service: switch.turn_off

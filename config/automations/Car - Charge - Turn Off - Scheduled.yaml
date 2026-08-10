@@ -14,7 +14,7 @@
     conditions:
       - alias: "EV Charger is on"
         condition: state
-        entity_id: switch.cargador_ev_switch
+        entity_id: switch.cargador_ev
         state: "on"
       - condition: not
         conditions:
@@ -44,4 +44,4 @@
         state: "off"
   action:
     - action: switch.turn_off
-      entity_id: switch.cargador_ev_switch
+      entity_id: switch.cargador_ev

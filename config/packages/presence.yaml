@@ -83,22 +83,36 @@ mqtt:
       qos: 0
       retain: true
 
-sensor:
-  - platform: template
-    sensors:
-      next_holiday_mode_start:
-        friendly_name: "Inicio vacaciones"
-        value_template: >-
+template:
+  - sensor:
+    - name: next_holiday_mode_start
+      state: >-
           {%- if state_attr('calendar.vacaciones','start_time') is not none %}
               {{ as_timestamp(states.calendar.vacaciones.attributes.start_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}
           {% else %}
               No previstas
           {%- endif %}
-      next_holiday_mode_end:
-        friendly_name: "Fin vacaciones"
-        value_template: >-
+
+    - name: next_holiday_mode_end
+      state: >-
           {%- if state_attr('calendar.vacaciones','end_time') is not none %}
               {{ as_timestamp(states.calendar.vacaciones.attributes.end_time)|timestamp_custom("%d/%m/%Y %H:%M:%S") }}
           {% else %}
               No previstas
           {%- endif %}
+
+  - device_tracker:
+      - name: "Asistente hogar"
+        unique_id: asistente_hogar
+        in_zones: >
+          {% if is_state('calendar.asistente_hogar', 'on') %}
+            {{ ['zone.home'] }}
+          {% else %}
+            {{ [] }}
+          {% endif %}
+
+  - device_tracker:
+      - name: "Invitado"
+        unique_id: invitado
+        in_zones: >
+          {{ ['zone.home'] if is_state('switch.guest_mode', 'on') else [] }}

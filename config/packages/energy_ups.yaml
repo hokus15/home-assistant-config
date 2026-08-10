@@ -5,11 +5,17 @@ recorder:
 
       - binary_sensor.energy_home_status
 
-sensor:
-  - platform: template
-    sensors:
-      qnapups_status_spanish:
-        value_template: >-
+template:
+  - binary_sensor:
+    - name: energy_home_status
+      device_class: plug
+      # Takes into consideration: OL, OL CHRG, OL LB, OL CHRG LB
+      state: "{{ 'OL' in states('sensor.qnapups_status_data') }}"
+      delay_off:
+        seconds: 30
+  - sensor:
+    - name: qnapups_status_spanish
+      state: >-
           {%- if is_state('sensor.qnapups_status_data', 'OL') %}
             Normal
           {% elif is_state('sensor.qnapups_status_data', 'OL LB') %}
@@ -27,13 +33,3 @@ sensor:
           {% else %}
             Desconocido
           {%- endif %}
-
-binary_sensor:
-  - platform: template
-    sensors:
-      energy_home_status:
-        device_class: plug
-        # Takes into consideration: OL, OL CHRG, OL LB, OL CHRG LB
-        value_template: "{{ 'OL' in states('sensor.qnapups_status_data') }}"
-        delay_off:
-          seconds: 30

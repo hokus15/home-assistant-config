@@ -9,8 +9,9 @@ alarm_disarm_telegram:
     - action: telegram_bot.send_message
       data_template:
         message: "Alarma desarmada manualmente desde Telegram"
-        target:
-          - !secret hokusphone_telegram_chat_id
+        entity_id: notify.telegram_security_group
+        # chat_id:
+          # - !secret secutity_group_telegram_chat_id
           #- !secret geniphone_telegram_chat_id
         disable_notification: false
         inline_keyboard:
@@ -27,8 +28,9 @@ alarm_disarm_telegram_temporary:
     - action: telegram_bot.send_message
       data_template:
         message: "Alarma desarmada durante {{data.minutes}} minutos desde Telegram"
-        target:
-          - !secret hokusphone_telegram_chat_id
+        entity_id: notify.telegram_security_group
+        # chat_id:
+          # - !secret secutity_group_telegram_chat_id
           #- !secret geniphone_telegram_chat_id
         disable_notification: false
         inline_keyboard:
@@ -94,8 +96,9 @@ alarm_notify_camera:
       data_template:
         file: "{{file_path}}"
         caption: "{{message}}"
-        target:
-          - !secret hokusphone_telegram_chat_id
+        entity_id: notify.telegram_security_group
+        # chat_id:
+          # - !secret secutity_group_telegram_chat_id
           #- !secret geniphone_telegram_chat_id
         disable_notification: false
         inline_keyboard:
@@ -111,8 +114,9 @@ alarm_notify_sensor:
     - action: telegram_bot.send_message
       data_template:
         message: "{{message}}"
-        target:
-          - !secret hokusphone_telegram_chat_id
+        entity_id: notify.telegram_security_group
+        # chat_id:
+          # - !secret secutity_group_telegram_chat_id
           #- !secret geniphone_telegram_chat_id
         disable_notification: false
         inline_keyboard:

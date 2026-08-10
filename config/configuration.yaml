@@ -5,14 +5,6 @@ homeassistant:
     - /media/camera
   packages: !include_dir_named packages
 
-http:
-  use_x_forwarded_for: true
-  trusted_proxies:
-    - 127.0.0.1
-    - 172.30.33.0/24
-  ip_ban_enabled: true
-  login_attempts_threshold: 5
-
 default_config:
 
 stream:
@@ -23,14 +15,6 @@ frontend:
 
 # Allows you to issue voice commands from the frontend
 #conversation:
-
-wemo:
-  discovery: true
-#  static:
-#    - 10.155.106.21 # Laptop - Wemo switch
-#    - 10.155.106.31 # Fence - Wemo Maker
-#    - 10.155.106.70 # Lights - Wemo Link
-#    - 10.155.106.71 # Car charger - Wemo Insight
 
 recorder:
   purge_keep_days: 30
@@ -67,6 +51,7 @@ logger:
     homeassistant.components.withings: error
     homeassistant.components.ipp: fatal
     homeassistant.config_entries: error
+    homeassistant.components.feedreader: debug
 #    homeassistant.components.mqtt: debug
 #    homeassistant.components.media_player.cast: debug
 #    homeassistant.components.sensor: debug
@@ -87,59 +72,15 @@ logger:
 #    homeassistant.components.wemo: debug
 #    pywemo: debug
 
-# telegram_bot:
-#   platform: polling
-#   api_key: !secret telegram_api_key
-#   parse_mode: html
-#   allowed_chat_ids:
-#     - !secret hokusphone_telegram_chat_id
-#     - !secret geniphone_telegram_chat_id
-#     - !secret familygroup_telegram_chat_id
-#     - !secret bakugroup_telegram_chat_id
-
 notify:
-  - name: recibidor
-    platform: tts
-    tts_service: tts.cloud_say
+  - platform: tts
+    name: recibidor
+    entity_id: tts.home_assistant_cloud
     media_player: media_player.recibidor
-  - name: suite
-    platform: tts
-    tts_service: tts.cloud_say
-    media_player: media_player.suite
-  - name: despacho
-    platform: tts
-    tts_service: tts.cloud_say
-    media_player: media_player.wallpanel_despacho
-  - name: telegram_hokusphone
-    platform: telegram
-    chat_id: !secret hokusphone_telegram_chat_id
-  - name: telegram_geniphone
-    platform: telegram
-    chat_id: !secret geniphone_telegram_chat_id
-  - name: telegram_familygroup
-    platform: telegram
-    chat_id: !secret familygroup_telegram_chat_id
-
-    # Jordi
-  # - name: telegram_baku_c00000000001
-  #   platform: telegram
-  #   chat_id: !secret baku_c00000000001_telegram_telegram_chat_id
-
-    # Sorari
-  # - name: telegram_baku_c00000000002
-  #   platform: telegram
-  #   chat_id: !secret baku_c00000000002_telegram_telegram_chat_id
-
-    # Nena y Jordi
-  # - name: telegram_baku_c00000000004
-  #   platform: telegram
-  #   chat_id: !secret baku_c00000000004_telegram_telegram_chat_id
-
-# ifttt:
-#   key: !secret ifttt_api_key
-
-#withings:
-#  use_webhook: true
+  - platform: tts
+    name: despacho
+    entity_id: tts.home_assistant_cloud
+    media_player: media_player.home_assistant_voice_094eda_media_player
 
 freedns:
   url: !secret freedns_url
