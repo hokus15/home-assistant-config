@@ -44,6 +44,7 @@ template:
       - name: energy_power_photovoltaics
         unique_id: "energy_power_photovoltaics"
         device_class: power
+        state_class: measurement
         unit_of_measurement: "W"
         state: "{{ states('sensor.fronius_solarnet_power_photovoltaics')|float(0) }}"
 
@@ -51,6 +52,7 @@ template:
       - name: energy_power_house
         unique_id: "energy_power_house"
         device_class: power
+        state_class: measurement
         unit_of_measurement: "W"
         state: "{{ 0 - states('sensor.fronius_solarnet_power_load')|float(0)|round(1) }}"
 
