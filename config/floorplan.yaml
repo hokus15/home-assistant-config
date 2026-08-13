@@ -167,8 +167,8 @@ date_format: DD/MM/YYYY # Date format to use in hover-over text
 #
 #        - name: Switches
 #          entities:
-#             - switch.escalera_switch
-#             - switch.suite_switch
+#             - switch.escalera_principal
+#             - switch.suite_principal
 #             - switch.entrance_hall_lamp_switch
 #             - switch.piscina
 #          states:

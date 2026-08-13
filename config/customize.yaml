@@ -70,23 +70,23 @@ person.carlos:
   entity_picture: /local/person.carlos.jpg
 person.coque:
   entity_picture: /local/person.coque.jpg
-sensor.escalera_switch_energy:
+sensor.escalera_principal_energia:
   icon: mdi:speedometer
   friendly_name: Consumo luz escalera
-sensor.escalera_switch_power:
+sensor.escalera_principal_potencia:
   icon: mdi:power-plug
   friendly_name: Potencia luz escalera
-sensor.suite_switch_energy:
+sensor.suite_principal_energia:
   icon: mdi:speedometer
   friendly_name: Consumo luz suite
-sensor.suite_switch_power:
+sensor.suite_principal_potencia:
   icon: mdi:power-plug
   friendly_name: Potencia luz suite
-light.escalera_light:
-  friendly_name: Luz Escalera
+light.escalera_principal:
+  friendly_name: Luz escalera
   icon: mdi:ceiling-light
-light.suite_light:
-  friendly_name: Luz Suite
+light.suite_principal:
+  friendly_name: Luz suite
   icon: mdi:ceiling-light
 light.salon_principal:
   friendly_name: Luz Salón

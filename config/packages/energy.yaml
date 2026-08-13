@@ -19,11 +19,11 @@ recorder:
       - sensor.comedor_principal_potencia
       - sensor.comedor_principal_energia
 
-      - sensor.suite_switch_power
-      - sensor.suite_switch_energy
+      - sensor.suite_principal_potencia
+      - sensor.suite_principal_energia
 
-      - sensor.escalera_switch_power
-      - sensor.escalera_switch_energy
+      - sensor.escalera_principal_potencia
+      - sensor.escalera_principal_energia
 
       - sensor.piscina_power
       - sensor.piscina_energy
