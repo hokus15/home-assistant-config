@@ -28,15 +28,15 @@ light:
     entity_id: switch.escalera_principal
 
   - platform: switch
-    name: entrance_hall_lamp_light
-    entity_id: switch.entrance_hall_lamp_switch
+    name: Lámpara salón
+    entity_id: switch.salon_lampara
 
   - platform: group
     name: Luces interiores
     entities:
       - light.suite_principal
       - light.escalera_principal
-      - light.entrance_hall_lamp_light
+      - light.salon_lampara
       - light.comedor_principal
       - light.salon_principal
 
@@ -44,6 +44,6 @@ light:
     name: Luces interiores modo dormir
     entities:
       - light.escalera_principal
-      - light.entrance_hall_lamp_light
+      - light.salon_lampara
       - light.comedor_principal
       - light.salon_principal

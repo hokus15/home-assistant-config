@@ -94,8 +94,8 @@ light.salon_principal:
 light.comedor_principal:
   friendly_name: Luz comedor
   icon: mdi:ceiling-light
-light.entrance_hall_lamp_light:
-  friendly_name: Lámpara recibidor
+light.salon_lampara:
+  friendly_name: Lámpara salón
   icon: mdi:lamp
 sensor.qnapups_battery_charge:
   device_class: battery

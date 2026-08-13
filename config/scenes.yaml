@@ -12,9 +12,9 @@
         - light.barrera_izquierda
         - light.puerta_coladuria
       state: "off"
-    switch.entrance_hall_lamp_switch:
+    switch.salon_lampara:
       icon: mdi:lamp
-      friendly_name: Lámpara recibidor
+      friendly_name: Lámpara salón
       state: "on"
   icon: mdi:lightbulb-auto-outline
 - id: "1694448280657"
