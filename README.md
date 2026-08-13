@@ -127,3 +127,82 @@ Because files are selected with `git ls-files config`, modified tracked files ar
 - Use `config/automations/` for active automations and move disabled ones to `config/automations/disabled/`.
 - Update `config/secrets.fake.yaml` whenever a new secret is introduced.
 - Validate locally or wait for the GitHub Action before deploying relevant configuration changes.
+
+## Configuration File Naming Convention
+
+Use lowercase ASCII `snake_case` and Spanish, without accents, for user-managed configuration filenames. Apply the same ASCII rules used for entity IDs: only `a-z`, `0-9`, and `_`; replace non-ASCII characters with their plain equivalents and omit spaces and punctuation.
+
+Keep the standard filenames required by Home Assistant unchanged, including `configuration.yaml`, `automations.yaml`, `scripts.yaml`, `scenes.yaml`, `customize.yaml`, and `secrets.yaml`.
+
+Package filenames use the following pattern and contain one functional responsibility:
+
+```text
+<subsistema>[_<alcance>].yaml
+```
+
+Examples:
+
+```text
+energia.yaml
+energia_cargador_ev.yaml
+piscina.yaml
+iluminacion.yaml
+seguridad.yaml
+presencia.yaml
+```
+
+Organize files by functional responsibility rather than by an individual entity, integration implementation, or device. Avoid generic names such as `misc.yaml`, `utils.yaml`, and `configuracion2.yaml`, and do not encode versions in filenames. Disabled configuration keeps its functional filename and uses the `.disabled` extension.
+
+## Entity Naming Convention
+
+Entity IDs use lowercase ASCII `snake_case`: only `a-z`, `0-9`, and `_`. Replace non-ASCII characters with their plain equivalents (`ñ` to `n`, `ç` to `c`, accented vowels to unaccented vowels) and omit spaces and punctuation. The domain is selected by Home Assistant and is not repeated in the object ID. Names describe the purpose of an entity, rather than its wiring or integration implementation.
+
+Use Spanish, without accents, for areas, devices, and functions that belong to this home. English is reserved for Home Assistant domains, integration identifiers, brands, models, and other external technical terms. For example, use `potencia`, `bateria`, and `estado`, but retain identifiers such as `wallpanel`, `ioniq`, and `zwave` when they identify external products or integrations.
+
+For a physical device located in a single area, use:
+
+```text
+<domain>.<area>_<device>_<function>
+```
+
+This is a guide, not a mandatory number of segments. Omit unnecessary terms: `sensor.salon_temperatura` is preferable to `sensor.salon_sensor_temperatura`.
+
+Examples:
+
+```text
+sensor.despacho_wallpanel_bateria
+binary_sensor.cocina_puerta_porche
+binary_sensor.habitacion_carlos_ventana
+```
+
+Do not repeat information already expressed by the domain: use `binary_sensor.cocina_puerta_porche`, not `binary_sensor.cocina_sensor_puerta_porche`, and `light.salon_principal`, not `light.salon_luz_principal`. Add a qualifier such as `principal`, `mesa`, `techo`, or `puerta_piscina` only when it distinguishes multiple entities of the same type.
+
+Use singular nouns by default. Plural names are reserved for groups and true aggregates, such as `light.luces_interiores`.
+
+Use these canonical function terms and do not introduce synonyms or abbreviations for them: `temperatura`, `humedad`, `potencia`, `energia`, `bateria`, `estado`, `consumo`, `movimiento`, `presencia`, `ventana`, and `puerta`. The permitted technical abbreviations are `ev`, `tv`, `ups`, and `wifi`; use no other abbreviations unless they are an established external product or integration identifier.
+
+`floor` is not included in entity IDs. Floors and areas model the physical location in Home Assistant; the ID only needs the functional area when it provides useful context.
+
+Use the controlled or observed area for an entity, even when its physical controller belongs to multiple areas. A multi-channel controller must not impose its name on each channel:
+
+```text
+light.salon_principal
+light.comedor_principal
+light.suite_principal
+light.escalera_principal
+```
+
+Assign these logical entities directly to their functional area. The underlying controller may have a composite device name or no area when no single area accurately represents it.
+
+Keep entities that represent a functional subsystem, template, aggregate, or service under a stable functional prefix instead of an area/device prefix:
+
+```text
+sensor.energia_potencia_casa
+sensor.piscina_tiempo_filtrado
+binary_sensor.cargador_ev_estado
+sensor.coche_ioniq_salud_bateria
+```
+
+Integration-generated diagnostics, maintenance controls, update entities, and mobile-app telemetry retain the integration or device prefix unless their entity ID is directly used as part of the home-facing configuration. Avoid renaming these solely for cosmetic consistency.
+
+Area vocabulary is stable and uses the following object-ID forms: `salon`, `comedor`, `escalera`, `hueco_escalera`, `suite`, `cocina`, `coladuria`, `recibidor`, `despacho`, `aseo`, `bano_ninos`, `bano_suite`, `habitacion_carlos`, `habitacion_coque`, `jardin`, `entrada`, `barbacoa`, `caseta`, and `piscina`. Use `escalera` for entities that serve the staircase and `hueco_escalera` only for entities physically or functionally associated with the space below it.
