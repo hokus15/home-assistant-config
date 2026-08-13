@@ -10,7 +10,6 @@ template:
   - binary_sensor:
       - name: "Secadora status"
         unique_id: secadora_status
-        device_class: running
         availability: >
           {{ is_number(states('sensor.secadora_power')) }}
         state: >

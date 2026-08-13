@@ -11,7 +11,6 @@ template:
   - binary_sensor:
       - name: lavadora_status
         unique_id: lavadora_status
-        device_class: running
         availability: >
           {{ is_number(states('sensor.lavadora_power')) }}
         state: >
