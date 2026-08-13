@@ -80,17 +80,46 @@ The `Home Assistant Configuration Check` GitHub Action validates the configurati
 
 It also verifies that every `!secret` key used by the configuration exists in `config/secrets.fake.yaml`.
 
-Run the same configuration check locally with Docker:
+### Local Validation
+
+Requirements:
+
+- PowerShell.
+- Git available in `PATH`.
+- Docker installed and running.
+- Network access to pull `ghcr.io/home-assistant/home-assistant` images when they are not already cached.
+- `config/secrets.fake.yaml` kept in sync with every `!secret` reference used by the configuration.
+
+Run the same configuration check locally from the repository root:
 
 ```powershell
 .\ci\check-home-assistant.ps1
 ```
+
+Without parameters, the script validates two Home Assistant Core images:
+
+- The installed version declared in `config/.HA_VERSION`.
+- `stable`.
 
 Check a specific Home Assistant version:
 
 ```powershell
 .\ci\check-home-assistant.ps1 -Version 2026.8.1
 ```
+
+Check multiple versions in one run:
+
+```powershell
+.\ci\check-home-assistant.ps1 -Version 2026.8.1,stable
+```
+
+The script validates the local working tree, not the remote `master` branch. It creates a temporary `.tmp-ha-ci/` directory, copies the Git-tracked `config/` files into it, replaces real secrets with `secrets.fake.yaml`, creates the camera directory expected by the configuration, normalizes camera paths for the container, and runs:
+
+```powershell
+python -m homeassistant --config ./config --script check_config
+```
+
+Because files are selected with `git ls-files config`, modified tracked files are included, but brand-new files are ignored until they are added to Git with `git add`.
 
 ## Maintenance Conventions
 
