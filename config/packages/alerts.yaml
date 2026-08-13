@@ -24,7 +24,7 @@ template:
           {{  is_state('binary_sensor.energy_home_status', 'on')
              and is_state('binary_sensor.gfci_alert', 'off')
              and is_state('switch.motor_piscina', 'unavailable')
-             and is_state('switch.luz_piscina', 'unavailable')
+             and is_state('switch.piscina_luz_principal', 'unavailable')
              and is_state('switch.piscina', 'unavailable')}}
 
       # GFCI -> Ground fault circuit interrupter -> Diferencial
@@ -32,7 +32,7 @@ template:
         state: >-
           {{  is_state('binary_sensor.energy_home_status', 'on')
              and is_state('switch.motor_piscina', 'unavailable')
-             and is_state('switch.luz_piscina', 'unavailable')
+             and is_state('switch.piscina_luz_principal', 'unavailable')
              and is_state('switch.piscina', 'unavailable')
              and is_state('switch.lavadora', 'unavailable')
              and is_state('switch.secadora', 'unavailable')

@@ -133,8 +133,9 @@ sensor.piscina_water_temperature_24h_mean:
   friendly_name: Temp. media agua piscina
 switch.motor_piscina:
   friendly_name: Depuradora
-light.piscina_light:
+light.piscina_principal:
   friendly_name: Luz piscina
+  icon: mdi:spotlight-beam
 camera.recibidor:
   friendly_name: Recibidor
 binary_sensor.recibidor_camara_infrarrojo:
@@ -240,8 +241,8 @@ sensor.car_ioniq_battery_energy_consumption:
   friendly_name: Consumo medio Ioniq
 sensor.piscina_hydraulic_efficiency:
   friendly_name: Eficiencia hidráulica
-switch.luz_piscina:
-  friendly_name: Luz Piscina Interruptor
+switch.piscina_luz_principal:
+  friendly_name: Canal luz piscina
 switch.comedor_principal:
   friendly_name: Canal luz comedor
 switch.salon_principal:

@@ -8,7 +8,7 @@ recorder:
       # Actuadores
       - switch.motor_piscina
       - switch.piscina
-      - switch.luz_piscina
+      - switch.piscina_luz_principal
 
       # Sensores principales
       - sensor.piscina_water_temperature
