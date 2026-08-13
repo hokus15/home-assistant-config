@@ -14,7 +14,7 @@
     conditions:
       # Fence is closed
       - condition: state
-        entity_id: cover.outside_fence
+        entity_id: cover.entrada_barrera
         state: "closed"
       # hokusphone is in car IONIQ (see binary_sensor.hokusphone_in_car_ioniq in phones.yaml)
       - condition: state
@@ -22,7 +22,7 @@
         state: "on"
   action:
     - action: cover.open_cover
-      entity_id: cover.outside_fence
+      entity_id: cover.entrada_barrera
     - action: mqtt.publish
       data:
         payload: >-
@@ -44,4 +44,4 @@
         message: "🚪 Barrera abierta automáticamente"
         data:
           inline_keyboard:
-            - "Cerrar:/switch.turn_on#switch.barrera"
+            - "Cerrar:/switch.turn_on#switch.entrada_barrera"

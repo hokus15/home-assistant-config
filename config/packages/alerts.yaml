@@ -89,15 +89,15 @@ template:
 alert:
   barrera_abierta:
     name: Barrera abierta
-    entity_id: cover.outside_fence
+    entity_id: cover.entrada_barrera
     state: "open"
     repeat: 10
-    message: "Barrera {{ states.sensor.outside_fence_sensor_state.state }} durante más de {{ (as_timestamp(now()) - as_timestamp(states.cover.outside_fence.last_changed))|int//60 }} minutos."
+    message: "Barrera abierta durante más de {{ (as_timestamp(now()) - as_timestamp(states.cover.entrada_barrera.last_changed))|int//60 }} minutos."
     can_acknowledge: true
     skip_first: true
     data:
       inline_keyboard:
-        - "Cerrar:/switch.turn_on#switch.barrera"
+        - "Cerrar:/switch.turn_on#switch.entrada_barrera"
         - "Enterado:/alert.turn_off#alert.barrera_abierta"
     notifiers:
       - recibidor

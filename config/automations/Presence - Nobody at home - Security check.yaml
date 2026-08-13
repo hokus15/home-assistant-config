@@ -32,9 +32,9 @@
       choose:
         - conditions:
             - condition: state
-              entity_id: "cover.outside_fence"
+              entity_id: "cover.entrada_barrera"
               state: "open"
           sequence:
             - action: cover.close_cover
               data:
-                entity_id: cover.outside_fence
+                entity_id: cover.entrada_barrera

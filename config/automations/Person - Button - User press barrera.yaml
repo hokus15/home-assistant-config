@@ -2,7 +2,7 @@
   alias: "Person - Button - User press barrera"
   trigger:
     - platform: state
-      entity_id: input_button.barrera
+      entity_id: input_button.entrada_barrera
   condition:
     alias: "User that pushed the button is at home OR the fence is already open"
     or:
@@ -13,13 +13,13 @@
           {{ (states(p[0].entity_id) == 'home') if p | count == 1 else false }}
       # Check the fence is already opened, so it can be closed even when not home
       - condition: state
-        entity_id: "cover.outside_fence"
+        entity_id: "cover.entrada_barrera"
         state: "open"
   action:
     - variables:
-        event: "{{ 'abierto' if states.cover.outside_fence.state == 'closed' else 'cerrado' }}"
+        event: "{{ 'abierto' if states.cover.entrada_barrera.state == 'closed' else 'cerrado' }}"
     - action: cover.open_cover
-      entity_id: cover.outside_fence
+      entity_id: cover.entrada_barrera
     - action: notify.send_message
       data:
         entity_id: notify.telegram_family_group
@@ -29,7 +29,7 @@
 
 #    - action: logbook.log
 #      data:
-#        entity_id: cover.outside_fence
+#        entity_id: cover.entrada_barrera
 #        domain: cover
 #        message: >
 #          {% set p = states.person | selectattr('attributes.user_id', 'eq', trigger.to_state.context.user_id) | list %}

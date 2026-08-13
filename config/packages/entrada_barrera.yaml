@@ -1,0 +1,32 @@
+recorder:
+  include:
+    entities:
+      - cover.entrada_barrera
+      - input_button.entrada_barrera
+
+
+template:
+  - cover:
+      - name: Entrada barrera
+        unique_id: entrada_barrera
+        device_class: awning
+        state: "{{ is_state('binary_sensor.entrada_barrera_estado', 'on') }}"
+        open_cover:
+          action: switch.turn_on
+          data:
+            entity_id: switch.entrada_barrera
+        close_cover:
+          action: switch.turn_on
+          data:
+            entity_id: switch.entrada_barrera
+        icon: >-
+          {%- if is_state('binary_sensor.entrada_barrera_estado', 'on') %}
+            mdi:gate-open
+          {% else %}
+            mdi:gate
+          {% endif %}
+
+#  - platform: mqtt
+#    name: 'entrada_barrera'
+#    state_topic: 'home/sensor/fence'
+#    icon: mdi:garage

@@ -10,7 +10,7 @@
     conditions:
       # Fence is closed
       - condition: state
-        entity_id: cover.outside_fence
+        entity_id: cover.entrada_barrera
         state: "closed"
       # geniphone is in car QASHQAI (see binary_sensor.geniphone_in_car_qashqai in phones.yaml)
       - condition: state
@@ -18,7 +18,7 @@
         state: "on"
   action:
     - action: cover.open_cover
-      entity_id: cover.outside_fence
+      entity_id: cover.entrada_barrera
     - delay:
         seconds: 5
     - action: notify.send_message
@@ -27,4 +27,4 @@
         message: "🚪 Barrera abierta automáticamente para Geni"
         data:
           inline_keyboard:
-            - "Cerrar:/switch.turn_on#switch.barrera"
+            - "Cerrar:/switch.turn_on#switch.entrada_barrera"

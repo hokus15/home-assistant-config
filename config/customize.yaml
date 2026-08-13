@@ -233,8 +233,8 @@ light.puerta_coladuria:
   friendly_name: Puerta Coladuria
 sensor.piscina_length:
   friendly_name: Largo piscina
-switch.barrera:
-  friendly_name: Interruptor Barrera
+switch.entrada_barrera:
+  friendly_name: Barrera entrada
 sensor.piscina_volume:
   friendly_name: Capacidad piscina
 sensor.car_ioniq_battery_energy_consumption:
@@ -368,7 +368,7 @@ sensor.energy_power_house:
   friendly_name: Potencia casa
 sensor.energy_power_photovoltaics:
   friendly_name: Potencia generada
-cover.outside_fence:
+cover.entrada_barrera:
   friendly_name: "Barrera"
 sensor.piscina_k_factor:
   friendly_name: Factor K
