@@ -41,7 +41,7 @@ ci/
 - `alerts.yaml`: persistent alerts for energy, pool, car, fence, and electrical status.
 - `car.yaml`: Hyundai Ioniq telemetry, state, and charging logic through MQTT using data published by [IOTConnect](https://github.com/hokus15/IOTConnect).
 - `comfort.yaml`: aggregated temperature sensors and comfort/sleep modes.
-- `diagnostico_aa.yaml`: air conditioning diagnostics using derived sensors.
+- `energia_aire_acondicionado_primera_planta.yaml`: energy monitoring and activity state for the first-floor air conditioning system.
 - `energy*.yaml`: energy monitoring, tariffs, UPS, EV charger, and appliances.
 - `fence.yaml`: external gate state and control.
 - `lights.yaml`: grouped and virtual lights for indoor and outdoor areas.
@@ -145,6 +145,7 @@ Examples:
 ```text
 energia.yaml
 energia_cargador_ev.yaml
+energia_aire_acondicionado_primera_planta.yaml
 piscina.yaml
 iluminacion.yaml
 seguridad.yaml
@@ -205,4 +206,6 @@ sensor.coche_ioniq_salud_bateria
 
 Integration-generated diagnostics, maintenance controls, update entities, and mobile-app telemetry retain the integration or device prefix unless their entity ID is directly used as part of the home-facing configuration. Avoid renaming these solely for cosmetic consistency.
 
-Area vocabulary is stable and uses the following object-ID forms: `salon`, `comedor`, `escalera`, `hueco_escalera`, `suite`, `cocina`, `coladuria`, `recibidor`, `despacho`, `aseo`, `bano_ninos`, `bano_suite`, `habitacion_carlos`, `habitacion_coque`, `jardin`, `entrada`, `barbacoa`, `caseta`, and `piscina`. Use `escalera` for entities that serve the staircase and `hueco_escalera` only for entities physically or functionally associated with the space below it.
+For entities defined in YAML, use a semantic `unique_id` that follows the same object-ID vocabulary, without the domain. For example, `binary_sensor.aire_acondicionado_primera_planta_activo` uses `aire_acondicionado_primera_planta_activo`. Treat user-defined `unique_id` values as immutable after deployment. Never modify integration-provided `unique_id` values.
+
+Floor vocabulary is stable and uses `exterior`, `planta_baja`, and `primera_planta`. Area vocabulary is stable and uses the following object-ID forms: `salon`, `comedor`, `escalera`, `hueco_escalera`, `suite`, `cocina`, `coladuria`, `recibidor`, `despacho`, `aseo`, `bano_ninos`, `bano_suite`, `habitacion_carlos`, `habitacion_coque`, `jardin`, `entrada`, `barbacoa`, `caseta`, `piscina`, `climatizacion_planta_baja`, and `climatizacion_primera_planta`. Use `escalera` for entities that serve the staircase and `hueco_escalera` only for entities physically or functionally associated with the space below it.
