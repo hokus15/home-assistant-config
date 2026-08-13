@@ -179,7 +179,7 @@ Do not repeat information already expressed by the domain: use `binary_sensor.co
 
 Use singular nouns by default. Plural names are reserved for groups and true aggregates, such as `light.luces_interiores`.
 
-Use these canonical function terms and do not introduce synonyms or abbreviations for them: `temperatura`, `humedad`, `potencia`, `energia`, `bateria`, `estado`, `consumo`, `movimiento`, `presencia`, `ventana`, and `puerta`. The permitted technical abbreviations are `ev`, `tv`, `ups`, and `wifi`; use no other abbreviations unless they are an established external product or integration identifier.
+Use these canonical function terms and do not introduce synonyms or abbreviations for them: `temperatura`, `humedad`, `potencia`, `energia`, `bateria`, `estado`, `activo`, `consumo`, `movimiento`, `presencia`, `ventana`, and `puerta`. The permitted technical abbreviations are `ev`, `tv`, `ups`, and `wifi`; use no other abbreviations unless they are an established external product or integration identifier.
 
 `floor` is not included in entity IDs. Floors and areas model the physical location in Home Assistant; the ID only needs the functional area when it provides useful context.
 
