@@ -26,6 +26,7 @@ config/node-red
 config/google_cloud.json
 config/home-assistant.log.fault
 config/home-assistant.log.1
+.tmp-ha-ci/
 *.pyc
 config/feedreader.pickle
 config/watchman_report.txt

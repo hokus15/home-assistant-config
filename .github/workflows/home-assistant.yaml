@@ -1,5 +1,13 @@
 name: Home Assistant Configuration Check
-on: [push, pull_request]
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
 jobs:
   version_env:
     name: Get Installed Version for Testing
@@ -20,11 +28,53 @@ jobs:
     runs-on: ubuntu-latest
     needs: [version_env]
     strategy:
-       matrix:
-         version: ["${{needs.version_env.outputs.current_version}}", "stable"]
+      fail-fast: false
+      matrix:
+        version: ["${{needs.version_env.outputs.current_version}}", "stable"]
     steps:
       - name: ⤵️ Check out configuration from GitHub
         uses: actions/checkout@v7
+      - name: Validate fake secrets
+        run: |
+          python <<'PY'
+          import pathlib
+          import re
+          import sys
+
+          config_dir = pathlib.Path("config")
+          fake_secrets = config_dir / "secrets.fake.yaml"
+
+          if not fake_secrets.is_file():
+              print(f"Missing {fake_secrets}")
+              sys.exit(1)
+
+          secret_pattern = re.compile(r"!secret\s+([A-Za-z0-9_]+)")
+          key_pattern = re.compile(r"^\s*([A-Za-z0-9_]+)\s*:")
+
+          used = set()
+          for path in config_dir.rglob("*.yaml"):
+              if path.name == "secrets.yaml":
+                  continue
+              for line in path.read_text(encoding="utf-8").splitlines():
+                  if line.lstrip().startswith("#"):
+                      continue
+                  used.update(secret_pattern.findall(line))
+
+          defined = set()
+          for line in fake_secrets.read_text(encoding="utf-8").splitlines():
+              match = key_pattern.match(line)
+              if match and not line.lstrip().startswith("#"):
+                  defined.add(match.group(1))
+
+          missing = sorted(used - defined)
+          if missing:
+              print("Missing fake secret keys:")
+              for key in missing:
+                  print(f"- {key}")
+              sys.exit(1)
+
+          print(f"Validated {len(used)} fake secret keys.")
+          PY
       - name: Update config
         run: |
           mkdir -p ./config/camera
