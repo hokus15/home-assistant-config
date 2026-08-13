@@ -12,7 +12,7 @@ light:
       - light.puerta_coladuria
 
   - platform: switch
-    name: salon_light
+    name: Salon principal
     entity_id: switch.salon_switch
 
   - platform: switch
@@ -38,7 +38,7 @@ light:
       - light.escalera_light
       - light.entrance_hall_lamp_light
       - light.comedor_light
-      - light.salon_light
+      - light.salon_principal
 
   - platform: group
     name: Luces interiores modo dormir
@@ -46,4 +46,4 @@ light:
       - light.escalera_light
       - light.entrance_hall_lamp_light
       - light.comedor_light
-      - light.salon_light
+      - light.salon_principal

@@ -88,7 +88,7 @@ light.escalera_light:
 light.suite_light:
   friendly_name: Luz Suite
   icon: mdi:ceiling-light
-light.salon_light:
+light.salon_principal:
   friendly_name: Luz Salón
   icon: mdi:ceiling-light
 light.comedor_light:
