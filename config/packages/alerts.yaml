@@ -87,7 +87,7 @@ template:
              and is_state("binary_sensor.hokusphone_in_car_ioniq", "on") }}
 
 alert:
-  barrera_abierta:
+  entrada_barrera_abierta:
     name: Barrera abierta
     entity_id: cover.entrada_barrera
     state: "open"
@@ -98,7 +98,7 @@ alert:
     data:
       inline_keyboard:
         - "Cerrar:/switch.turn_on#switch.entrada_barrera"
-        - "Enterado:/alert.turn_off#alert.barrera_abierta"
+        - "Enterado:/alert.turn_off#alert.entrada_barrera_abierta"
     notifiers:
       - recibidor
       - despacho
