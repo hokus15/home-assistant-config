@@ -13,11 +13,11 @@ light:
 
   - platform: switch
     name: Salon principal
-    entity_id: switch.salon_switch
+    entity_id: switch.salon_principal
 
   - platform: switch
-    name: comedor_light
-    entity_id: switch.comedor_switch
+    name: Comedor principal
+    entity_id: switch.comedor_principal
 
   - platform: switch
     name: suite_light
@@ -37,7 +37,7 @@ light:
       - light.suite_light
       - light.escalera_light
       - light.entrance_hall_lamp_light
-      - light.comedor_light
+      - light.comedor_principal
       - light.salon_principal
 
   - platform: group
@@ -45,5 +45,5 @@ light:
     entities:
       - light.escalera_light
       - light.entrance_hall_lamp_light
-      - light.comedor_light
+      - light.comedor_principal
       - light.salon_principal

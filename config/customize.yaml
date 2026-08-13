@@ -91,7 +91,7 @@ light.suite_light:
 light.salon_principal:
   friendly_name: Luz Salón
   icon: mdi:ceiling-light
-light.comedor_light:
+light.comedor_principal:
   friendly_name: Luz comedor
   icon: mdi:ceiling-light
 light.entrance_hall_lamp_light:
@@ -223,8 +223,8 @@ input_number.temperature_correction:
 sensor.recibidor_target_temperature:
   device_class: temperature
   friendly_name: Temperatura objetivo termostato
-sensor.salon_switch_energy:
-  friendly_name: Consumo luz salón
+sensor.salon_principal_energia:
+  friendly_name: Energía luz salón
   icon: mdi:speedometer
 sensor.piscina_average_depth:
   friendly_name: Profundidad media piscina
@@ -242,10 +242,10 @@ sensor.piscina_hydraulic_efficiency:
   friendly_name: Eficiencia hidráulica
 switch.luz_piscina:
   friendly_name: Luz Piscina Interruptor
-switch.comedor_switch:
-  friendly_name: Luz comedor Interruptor
-switch.salon_switch:
-  friendly_name: Luz salón Interruptor
+switch.comedor_principal:
+  friendly_name: Canal luz comedor
+switch.salon_principal:
+  friendly_name: Canal luz salón
 sensor.car_ioniq_odometer:
   friendly_name: Odómetro Ioniq
 sensor.piscina_pump_nominal_flow:
@@ -258,11 +258,11 @@ sensor.car_ioniq_battery_health:
   device_class: battery
   friendly_name: Salud batería Ioniq
   icon: mdi:battery-heart-variant
-sensor.comedor_switch_power:
+sensor.comedor_principal_potencia:
   icon: mdi:power-plug
-sensor.salon_switch_power:
+sensor.salon_principal_potencia:
   icon: mdi:power-plug
-sensor.comedor_switch_energy:
+sensor.comedor_principal_energia:
   icon: mdi:speedometer
 switch.guest_mode:
   friendly_name: Modo invitado

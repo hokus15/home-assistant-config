@@ -13,11 +13,11 @@ recorder:
       - sensor.energy_net_balance_hour
       - sensor.energy_net_balance
 
-      - sensor.salon_switch_power
-      - sensor.salon_switch_energy
+      - sensor.salon_principal_potencia
+      - sensor.salon_principal_energia
 
-      - sensor.comedor_switch_power
-      - sensor.comedor_switch_energy
+      - sensor.comedor_principal_potencia
+      - sensor.comedor_principal_energia
 
       - sensor.suite_switch_power
       - sensor.suite_switch_energy

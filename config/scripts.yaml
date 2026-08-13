@@ -245,7 +245,7 @@ presence_leave_home:
           {%- if is_state("binary_sensor.despacho_sensor_ventana", "on") %}{% set incidence = true %}Ventana del despacho abierta. {% endif %}
           {%- if is_state("switch.entrance_hall_lamp_switch", "on") %}{% set incidence = true %}Lámpara del recibidor encendida. {% endif %}
           {%- if is_state("switch.escalera_switch", "on") %}{% set incidence = true %}Luz de la escalera encendida. {% endif %}
-          {%- if is_state("switch.comedor_switch", "on") %}{% set incidence = true %}Luz del comedor encendida. {% endif %}
+          {%- if is_state("light.comedor_principal", "on") %}{% set incidence = true %}Luz del comedor encendida. {% endif %}
           {%- if is_state("light.salon_principal", "on") %}{% set incidence = true %}Luz del salón encendida. {% endif %}
           {%- if is_state("switch.suite_switch", "on") %}{% set incidence = true %}Luz de la suite encendida. {% endif %}
           {%- if incidence == false %}¡Todo correcto!, podéis ir en paz. {% endif %}
