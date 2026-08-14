@@ -35,7 +35,7 @@ template:
              and is_state('switch.piscina_luz_principal', 'unavailable')
              and is_state('switch.piscina', 'unavailable')
              and is_state('switch.lavadora', 'unavailable')
-             and is_state('switch.secadora', 'unavailable')
+             and is_state('switch.coladuria_secadora', 'unavailable')
              and is_state('switch.lavaplatos_switch_0', 'unavailable')
              and is_state('camera.barbacoa', 'unavailable')
              and is_state('camera.piscina', 'unavailable')

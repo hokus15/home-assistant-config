@@ -161,13 +161,13 @@ Entity IDs use lowercase ASCII `snake_case`: only `a-z`, `0-9`, and `_`. Replace
 
 Use Spanish, without accents, for areas, devices, and functions that belong to this home. English is reserved for Home Assistant domains, integration identifiers, brands, models, and other external technical terms. For example, use `potencia`, `bateria`, and `estado`, but retain identifiers such as `wallpanel`, `ioniq`, and `zwave` when they identify external products or integrations.
 
-For a physical device located in a single area, use:
+For every enabled entity tied to a physical device assigned to one area, use:
 
 ```text
-<domain>.<area>_<device>_<function>
+<domain>.<area>_<device>[_<function>]
 ```
 
-This is a guide, not a mandatory number of segments. Omit unnecessary terms: `sensor.salon_temperatura` is preferable to `sensor.salon_sensor_temperatura`.
+The area is mandatory, even when the device is unique in the home. Omit the function only for the primary control of the device, such as `switch.coladuria_secadora`; include it for each measurement, state, diagnostic, maintenance control, or update entity, such as `sensor.coladuria_secadora_potencia` and `binary_sensor.coladuria_secadora_estado`.
 
 Examples:
 
@@ -183,7 +183,7 @@ Use singular nouns by default. Plural names are reserved for groups and true agg
 
 Use these canonical function terms and do not introduce synonyms or abbreviations for them: `temperatura`, `humedad`, `potencia`, `energia`, `bateria`, `estado`, `activo`, `consumo`, `movimiento`, `presencia`, `ventana`, and `puerta`. The permitted technical abbreviations are `ev`, `tv`, `ups`, and `wifi`; use no other abbreviations unless they are an established external product or integration identifier.
 
-`floor` is not included in entity IDs. Floors and areas model the physical location in Home Assistant; the ID only needs the functional area when it provides useful context.
+`floor` is not included in entity IDs. Areas model the physical location in Home Assistant and are required for every enabled entity tied to a physical device with one assigned area. Do not add an area only when the entity is global, virtual, aggregated, or belongs to a device with no single functional area.
 
 Use the controlled or observed area for an entity, even when its physical controller belongs to multiple areas. A multi-channel controller must not impose its name on each channel:
 
@@ -196,7 +196,7 @@ light.escalera_principal
 
 Assign these logical entities directly to their functional area. The underlying controller may have a composite device name or no area when no single area accurately represents it.
 
-Keep entities that represent a functional subsystem, template, aggregate, or service under a stable functional prefix instead of an area/device prefix:
+Keep global, virtual, aggregate, and service entities that are not tied to one physical device in one area under a stable functional prefix instead of an area/device prefix:
 
 ```text
 sensor.energia_potencia_casa
@@ -205,7 +205,9 @@ binary_sensor.cargador_ev_estado
 sensor.coche_ioniq_salud_bateria
 ```
 
-Integration-generated diagnostics, maintenance controls, update entities, and mobile-app telemetry retain the integration or device prefix unless their entity ID is directly used as part of the home-facing configuration. Avoid renaming these solely for cosmetic consistency.
+Templates tied to a physical device follow that device's area and device prefix. A template is not an exception merely because it is YAML-defined.
+
+Enabled integration-generated diagnostics, maintenance controls, update entities, and mobile-app telemetry follow the same entity-ID convention when they are migrated. Disabled integration-generated entities retain their integration-provided entity ID until they are enabled, at which point they are renamed as part of enabling them. Never modify integration-provided `unique_id` values; rename only the entity ID through Home Assistant's UI.
 
 For entities defined in YAML, use a semantic `unique_id` that follows the same object-ID vocabulary, without the domain. For example, `binary_sensor.aire_acondicionado_primera_planta_activo` uses `aire_acondicionado_primera_planta_activo`.
 

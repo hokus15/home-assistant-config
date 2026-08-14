@@ -1,0 +1,26 @@
+recorder:
+  include:
+    entities:
+      - binary_sensor.coladuria_secadora_estado
+      - sensor.coladuria_secadora_potencia
+      - sensor.coladuria_secadora_energia
+      - switch.coladuria_secadora
+
+template:
+  - binary_sensor:
+      - name: "Coladuria secadora estado"
+        unique_id: coladuria_secadora_estado
+        availability: >
+          {{ is_number(states('sensor.coladuria_secadora_potencia')) }}
+        state: >
+          {{ states('sensor.coladuria_secadora_potencia') | float > 5 }}
+        delay_off: "00:05:00"
+        icon: >
+          {% if states('sensor.coladuria_secadora_potencia') | float(0) > 5 %}
+            mdi:tumble-dryer
+          {% else %}
+            mdi:tumble-dryer-off
+          {% endif %}
+        attributes:
+          potencia: >
+            {{ states('sensor.coladuria_secadora_potencia') | float(0) | round(0) }} W
