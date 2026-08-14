@@ -41,7 +41,7 @@ ci/
 - `alerts.yaml`: persistent alerts for energy, pool, car, fence, and electrical status.
 - `car.yaml`: Hyundai Ioniq telemetry, state, and charging logic through MQTT using data published by [IOTConnect](https://github.com/hokus15/IOTConnect).
 - `comfort.yaml`: aggregated temperature sensors and comfort/sleep modes.
-- `energia_aire_acondicionado_primera_planta.yaml`: energy monitoring and activity state for the first-floor air conditioning system.
+- `energia_aire_acondicionado_primera_planta.yaml` and `energia_aire_acondicionado_planta_baja.yaml`: energy monitoring and activity state for the first-floor and ground-floor air conditioning systems.
 - `energy*.yaml`: energy monitoring, tariffs, UPS, EV charger, and appliances.
 - `entrada_barrera.yaml`: sliding metal garden entrance barrier state and control.
 - `lights.yaml`: grouped and virtual lights for indoor and outdoor areas.
@@ -146,6 +146,7 @@ Examples:
 energia.yaml
 energia_cargador_ev.yaml
 energia_aire_acondicionado_primera_planta.yaml
+energia_aire_acondicionado_planta_baja.yaml
 piscina.yaml
 iluminacion.yaml
 seguridad.yaml

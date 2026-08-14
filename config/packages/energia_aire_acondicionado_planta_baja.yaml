@@ -1,0 +1,26 @@
+recorder:
+  include:
+    entities:
+      - sensor.aire_acondicionado_planta_baja_energia
+      - sensor.aire_acondicionado_planta_baja_potencia
+
+      - binary_sensor.aire_acondicionado_planta_baja_activo
+
+template:
+  - binary_sensor:
+      - name: "Aire acondicionado planta baja activo"
+        unique_id: aire_acondicionado_planta_baja_activo
+        availability: >
+          {{ is_number(states('sensor.aire_acondicionado_planta_baja_potencia')) }}
+        state: >
+          {{ states('sensor.aire_acondicionado_planta_baja_potencia') | float > 50 }}
+        delay_off: "00:01:00"
+        icon: >
+          {% if states('sensor.aire_acondicionado_planta_baja_potencia') | float(0) > 50 %}
+            mdi:hvac
+          {% else %}
+            mdi:hvac-off
+          {% endif %}
+        attributes:
+          power: >
+            {{ states('sensor.aire_acondicionado_planta_baja_potencia') | float(0) | round(0) }} W
