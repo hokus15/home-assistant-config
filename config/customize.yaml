@@ -305,8 +305,8 @@ sensor.energy_grid_today_llana:
   friendly_name: Llana
 sensor.energy_grid_today_valle:
   friendly_name: Valle
-sensor.ladron_salon_energy_calc:
-  friendly_name: Consumo ladrón salón
+sensor.salon_regleta_energia:
+  friendly_name: Consumo regleta salón
   icon: mdi:speedometer
   device_class: energy
 sensor.secadora_energy_calc:
@@ -317,8 +317,8 @@ sensor.lavadora_energy_calc:
   friendly_name: Consumo lavadora
   icon: mdi:speedometer
   device_class: energy
-sensor.ladron_salon_power:
-  friendly_name: Potencia ladrón salón
+sensor.salon_regleta_potencia:
+  friendly_name: Potencia regleta salón
 sensor.secadora_power:
   friendly_name: Potencia secadora
 sensor.lavadora_power:

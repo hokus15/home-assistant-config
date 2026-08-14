@@ -1,19 +1,19 @@
 recorder:
   include:
     entities:
-      - switch.ladron_salon
-      - sensor.ladron_salon_power
-      - sensor.ladron_salon_power_filtered
-      - sensor.ladron_salon_energy_calc
+      - switch.salon_regleta
+      - sensor.salon_regleta_potencia
+      - sensor.salon_regleta_potencia_filtrada
+      - sensor.salon_regleta_energia
 
 template:
   - trigger:
       - platform: state
-        entity_id: sensor.ladron_salon_power
+        entity_id: sensor.salon_regleta_potencia
 
     sensor:
-      - name: "Ladron salon power filtered"
-        unique_id: ladron_salon_power_filtered
+      - name: "Salon regleta potencia filtrada"
+        unique_id: salon_regleta_potencia_filtrada
         unit_of_measurement: "W"
         device_class: power
         state_class: measurement
