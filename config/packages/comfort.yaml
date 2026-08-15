@@ -128,8 +128,6 @@ sensor:
     entity_ids:
       - sensor.recibidor_temperature
       - sensor.salon_temperature
-      - sensor.despacho_sensor_movimiento_temperature
-      - sensor.porche_sensor_puerta_temperature
 
   - platform: min_max
     name: first_floor_temperature
@@ -150,8 +148,6 @@ sensor:
       - sensor.habitacion_coque_temperature
       - sensor.salon_temperature
       - sensor.recibidor_temperature
-      - sensor.despacho_sensor_movimiento_temperature
-      - sensor.porche_sensor_puerta_temperature
 
   - platform: statistics
     name: home_temperature_stats
