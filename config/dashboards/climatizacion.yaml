@@ -1,0 +1,265 @@
+title: Climatizacion
+views:
+  - title: Climatizacion
+    path: climatizacion
+    icon: mdi:thermostat
+    cards:
+      - type: glance
+        title: Estado ahora
+        columns: 3
+        state_color: true
+        entities:
+          - entity: climate.recibidor
+            name: Calefaccion
+          - entity: sensor.home_temperature
+            name: Casa
+          - entity: sensor.exterior_temperature
+            name: Exterior
+          - entity: binary_sensor.aire_acondicionado_planta_baja_activo
+            name: A/A PB
+          - entity: binary_sensor.aire_acondicionado_primera_planta_activo
+            name: A/A 1P
+          - entity: sensor.energy_tariff
+            name: Tarifa
+
+      - type: thermostat
+        entity: climate.recibidor
+        name: Calefaccion recibidor
+
+      - type: entities
+        title: Control calefaccion
+        show_header_toggle: false
+        entities:
+          - entity: sensor.recibidor_temperature
+            name: Temperatura recibidor
+          - entity: sensor.recibidor_target_temperature
+            name: Objetivo termostato
+          - entity: sensor.home_temperature
+            name: Media casa
+          - entity: sensor.home_temperature_stats
+            name: Media 24h
+          - entity: sensor.ground_floor_temperature
+            name: Media planta baja
+          - entity: sensor.first_floor_temperature
+            name: Media primera planta
+          - entity: binary_sensor.first_floor_temperature_down
+            name: Tendencia primera planta bajando
+          - entity: binary_sensor.home_comfort_state
+            name: Condicion modo confort
+          - entity: input_boolean.home_comfort_mode
+            name: Modo extra calentito
+          - entity: input_boolean.sleep_mode
+            name: Modo dormir
+
+      - type: horizontal-stack
+        cards:
+          - type: button
+            entity: script.comfort_mode_on
+            name: Boost 90 min
+            icon: mdi:fire
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              target:
+                entity_id: script.comfort_mode_on
+          - type: button
+            entity: script.comfort_mode_off
+            name: Programacion
+            icon: mdi:calendar-clock
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              target:
+                entity_id: script.comfort_mode_off
+
+      - type: horizontal-stack
+        cards:
+          - type: gauge
+            entity: sensor.home_temperature
+            name: Casa
+            min: 15
+            max: 28
+            severity:
+              green: 20
+              yellow: 24
+              red: 26
+          - type: gauge
+            entity: sensor.ground_floor_temperature
+            name: PB
+            min: 15
+            max: 28
+            severity:
+              green: 20
+              yellow: 24
+              red: 26
+          - type: gauge
+            entity: sensor.first_floor_temperature
+            name: 1P
+            min: 15
+            max: 28
+            severity:
+              green: 20
+              yellow: 24
+              red: 26
+
+      - type: history-graph
+        title: Temperaturas 24h
+        hours_to_show: 24
+        entities:
+          - entity: sensor.exterior_temperature
+            name: Exterior
+          - entity: sensor.home_temperature
+            name: Casa
+          - entity: sensor.ground_floor_temperature
+            name: Planta baja
+          - entity: sensor.first_floor_temperature
+            name: Primera planta
+          - entity: sensor.recibidor_target_temperature
+            name: Objetivo
+
+      - type: entities
+        title: Temperatura por estancia
+        show_header_toggle: false
+        entities:
+          - entity: sensor.salon_temperature
+            name: Salon
+          - entity: sensor.recibidor_temperature
+            name: Recibidor
+          - entity: sensor.despacho_sensor_movimiento_temperature
+            name: Despacho
+          - entity: sensor.porche_sensor_puerta_temperature
+            name: Cocina
+          - entity: sensor.suite_temperature
+            name: Suite
+          - entity: sensor.habitacion_carlos_temperature
+            name: Habitacion Carlos
+          - entity: sensor.habitacion_coque_temperature
+            name: Habitacion Coque
+
+      - type: entities
+        title: Humedad y CO2
+        show_header_toggle: false
+        entities:
+          - entity: sensor.exterior_humidity
+            name: Humedad exterior
+          - entity: sensor.salon_humidity
+            name: Humedad salon
+          - entity: sensor.suite_humidity
+            name: Humedad suite
+          - entity: sensor.habitacion_carlos_humidity
+            name: Humedad Carlos
+          - entity: sensor.habitacion_coque_humidity
+            name: Humedad Coque
+          - entity: sensor.salon_co2
+            name: CO2 salon
+          - entity: sensor.suite_co2
+            name: CO2 suite
+          - entity: sensor.habitacion_carlos_co2
+            name: CO2 Carlos
+          - entity: sensor.habitacion_coque_co2
+            name: CO2 Coque
+
+      - type: horizontal-stack
+        cards:
+          - type: gauge
+            entity: sensor.energy_power_house
+            name: Vivienda
+            min: 0
+            max: 10000
+            severity:
+              green: 0
+              yellow: 3000
+              red: 6000
+          - type: gauge
+            entity: sensor.energy_power_photovoltaics
+            name: Solar
+            min: 0
+            max: 8000
+            severity:
+              red: 0
+              yellow: 1000
+              green: 3000
+          - type: gauge
+            entity: sensor.fronius_solarnet_power_grid
+            name: Red
+            min: -8000
+            max: 8000
+            severity:
+              green: -8000
+              yellow: 0
+              red: 3000
+
+      - type: entities
+        title: Consumo climatizacion
+        show_header_toggle: false
+        entities:
+          - entity: binary_sensor.aire_acondicionado_planta_baja_activo
+            name: A/A planta baja activo
+          - entity: sensor.aire_acondicionado_planta_baja_potencia
+            name: Potencia A/A planta baja
+          - entity: sensor.aire_acondicionado_planta_baja_energia
+            name: Energia A/A planta baja
+          - entity: binary_sensor.aire_acondicionado_primera_planta_activo
+            name: A/A primera planta activo
+          - entity: sensor.aire_acondicionado_primera_planta_potencia
+            name: Potencia A/A primera planta
+          - entity: sensor.aire_acondicionado_primera_planta_energia
+            name: Energia A/A primera planta
+          - entity: climate.recibidor
+            name: Calefaccion
+
+      - type: history-graph
+        title: Potencia climatizacion 24h
+        hours_to_show: 24
+        entities:
+          - entity: sensor.aire_acondicionado_planta_baja_potencia
+            name: A/A planta baja
+          - entity: sensor.aire_acondicionado_primera_planta_potencia
+            name: A/A primera planta
+          - entity: sensor.energy_power_house
+            name: Vivienda
+
+      - type: history-graph
+        title: Estado calefaccion 24h
+        hours_to_show: 24
+        entities:
+          - entity: climate.recibidor
+            name: Calefaccion
+          - entity: binary_sensor.home_comfort_state
+            name: Confort recomendado
+          - entity: binary_sensor.first_floor_temperature_down
+            name: 1P bajando
+
+      - type: entities
+        title: Energia hoy
+        show_header_toggle: false
+        entities:
+          - entity: sensor.energy_grid_today_punta
+            name: Punta
+          - entity: sensor.energy_grid_today_llana
+            name: Llana
+          - entity: sensor.energy_grid_today_valle
+            name: Valle
+          - entity: sensor.energy_price_buy
+            name: Precio compra
+          - entity: sensor.energy_price_sell
+            name: Precio venta
+          - entity: sensor.energy_net_balance_hour
+            name: Balance neto ultima hora
+          - entity: sensor.energy_net_balance
+            name: Balance neto
+
+      - type: entities
+        title: Contexto exterior
+        show_header_toggle: false
+        entities:
+          - entity: weather.casa
+            name: Tiempo
+          - entity: sensor.exterior_temperature
+            name: Temperatura exterior
+          - entity: sensor.exterior_humidity
+            name: Humedad exterior
+          - entity: sensor.anemometro_wind_strength
+            name: Viento
+          - entity: sensor.pluviometro_rain
+            name: Lluvia

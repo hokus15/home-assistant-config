@@ -13,6 +13,21 @@ stream:
 frontend:
   themes: !include_dir_merge_named themes
 
+lovelace:
+  dashboards:
+    climatizacion-panel:
+      mode: yaml
+      title: Climatizacion
+      icon: mdi:thermostat
+      show_in_sidebar: true
+      filename: dashboards/climatizacion.yaml
+    climatizacion-suite-panel:
+      mode: yaml
+      title: Diagnostico A/A suite
+      icon: mdi:snowflake-alert
+      show_in_sidebar: true
+      filename: dashboards/climatizacion_suite.yaml
+
 # Allows you to issue voice commands from the frontend
 #conversation:
 

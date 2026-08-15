@@ -1,0 +1,121 @@
+- id: "climatizacion_suite_aire_acondicionado_inicio_enfriamiento"
+  alias: "Climatizacion - Suite A/A - Inicio enfriamiento"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.suite_aire_acondicionado_enfriando
+      to: "on"
+  condition:
+    - condition: state
+      entity_id: input_boolean.suite_aire_acondicionado_prueba_activa
+      state: "on"
+    - condition: template
+      value_template: "{{ is_number(states('sensor.suite_temperature')) }}"
+  action:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.suite_aire_acondicionado_inicio_enfriamiento
+      data:
+        timestamp: "{{ as_timestamp(now()) }}"
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.suite_aire_acondicionado_temperatura_inicio_enfriamiento
+      data:
+        value: "{{ states('sensor.suite_temperature') | float(0) }}"
+
+- id: "climatizacion_suite_aire_acondicionado_inicio_parada_sin_consigna"
+  alias: "Climatizacion - Suite A/A - Inicio sin enfriar sobre consigna"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.suite_aire_acondicionado_parado_sin_consigna
+      to: "on"
+  condition:
+    - condition: template
+      value_template: "{{ is_number(states('sensor.suite_temperature')) }}"
+  action:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.suite_aire_acondicionado_fin_enfriamiento
+      data:
+        timestamp: "{{ as_timestamp(now()) }}"
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.suite_aire_acondicionado_inicio_parada
+      data:
+        timestamp: "{{ as_timestamp(now()) }}"
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.suite_aire_acondicionado_temperatura_fin_enfriamiento
+      data:
+        value: "{{ states('sensor.suite_temperature') | float(0) }}"
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.suite_aire_acondicionado_temperatura_inicio_parada
+      data:
+        value: "{{ states('sensor.suite_temperature') | float(0) }}"
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.suite_aire_acondicionado_potencia_inicio_parada
+      data:
+        value: "{{ states('sensor.aire_acondicionado_primera_planta_potencia') | float(0) | round(0) }}"
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.suite_aire_acondicionado_tiempo_enfriamiento_ultimo
+      data:
+        value: >-
+          {% set inicio = as_timestamp(states('input_datetime.suite_aire_acondicionado_inicio_enfriamiento'), 0) %}
+          {{ ((as_timestamp(now()) - inicio) / 60) | round(0) if inicio > 0 else 0 }}
+
+- id: "climatizacion_suite_aire_acondicionado_recuperacion"
+  alias: "Climatizacion - Suite A/A - Recuperacion"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.suite_aire_acondicionado_parado_sin_consigna
+      to: "off"
+  condition:
+    - condition: state
+      entity_id: input_boolean.suite_aire_acondicionado_prueba_activa
+      state: "on"
+    - condition: state
+      entity_id: binary_sensor.suite_aire_acondicionado_enfriando
+      state: "on"
+    - condition: template
+      value_template: "{{ is_number(states('sensor.suite_temperature')) }}"
+  action:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.suite_aire_acondicionado_fin_parada
+      data:
+        timestamp: "{{ as_timestamp(now()) }}"
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.suite_aire_acondicionado_tiempo_parada_ultimo
+      data:
+        value: >-
+          {% set inicio = as_timestamp(states('input_datetime.suite_aire_acondicionado_inicio_parada'), 0) %}
+          {{ ((as_timestamp(now()) - inicio) / 60) | round(0) if inicio > 0 else 0 }}
+    - action: counter.increment
+      target:
+        entity_id: counter.suite_aire_acondicionado_recuperaciones
+
+- id: "climatizacion_suite_aire_acondicionado_programar_prueba"
+  alias: "Climatizacion - Suite A/A - Programar prueba"
+  trigger:
+    - platform: time
+      at: "22:00:00"
+      id: activar
+    - platform: time
+      at: "10:00:00"
+      id: desactivar
+  action:
+    - choose:
+        - conditions:
+            - condition: trigger
+              id: activar
+          sequence:
+            - action: input_boolean.turn_on
+              target:
+                entity_id: input_boolean.suite_aire_acondicionado_prueba_activa
+      default:
+        - action: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.suite_aire_acondicionado_prueba_activa

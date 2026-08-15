@@ -1,0 +1,388 @@
+###############################################################################
+# RECORDER
+###############################################################################
+
+recorder:
+  include:
+    entities:
+      - binary_sensor.suite_temperatura_bajando
+      - binary_sensor.habitacion_carlos_temperatura_bajando
+      - binary_sensor.habitacion_coque_temperatura_bajando
+      - binary_sensor.suite_aire_acondicionado_enfriando
+      - binary_sensor.habitacion_carlos_aire_acondicionado_enfriando
+      - binary_sensor.habitacion_coque_aire_acondicionado_enfriando
+      - binary_sensor.suite_aire_acondicionado_parado_sin_consigna
+      - binary_sensor.suite_aire_acondicionado_compitiendo
+      - input_boolean.suite_aire_acondicionado_prueba_activa
+      - counter.suite_aire_acondicionado_recuperaciones
+      - input_datetime.suite_aire_acondicionado_inicio_enfriamiento
+      - input_datetime.suite_aire_acondicionado_fin_enfriamiento
+      - input_datetime.suite_aire_acondicionado_inicio_parada
+      - input_datetime.suite_aire_acondicionado_fin_parada
+      - input_number.suite_aire_acondicionado_temperatura_consigna
+      - input_number.suite_aire_acondicionado_margen_consigna
+      - input_number.suite_aire_acondicionado_temperatura_inicio_enfriamiento
+      - input_number.suite_aire_acondicionado_temperatura_fin_enfriamiento
+      - input_number.suite_aire_acondicionado_temperatura_inicio_parada
+      - input_number.suite_aire_acondicionado_potencia_inicio_parada
+      - input_number.suite_aire_acondicionado_tiempo_enfriamiento_ultimo
+      - input_number.suite_aire_acondicionado_tiempo_parada_ultimo
+      - sensor.suite_aire_acondicionado_tiempo_enfriamiento_actual
+      - sensor.suite_aire_acondicionado_tiempo_enfriamiento_ultimo
+      - sensor.suite_aire_acondicionado_tiempo_parada_actual
+      - sensor.suite_aire_acondicionado_tiempo_parada_ultimo
+      - sensor.suite_aire_acondicionado_descenso_enfriamiento_ultimo
+      - sensor.suite_aire_acondicionado_diferencia_consigna
+      - sensor.aire_acondicionado_primera_planta_splits_enfriando
+      - sensor.aire_acondicionado_primera_planta_otros_splits_enfriando
+
+###############################################################################
+# SENSORES
+###############################################################################
+
+binary_sensor:
+  - platform: trend
+    sensors:
+      suite_temperatura_bajando:
+        entity_id: sensor.suite_temperature
+        unique_id: suite_temperatura_bajando
+        sample_duration: 1800
+        max_samples: 30
+        min_samples: 4
+        min_gradient: 0.0000833333
+        invert: true
+        device_class: cold
+
+      habitacion_carlos_temperatura_bajando:
+        entity_id: sensor.habitacion_carlos_temperature
+        unique_id: habitacion_carlos_temperatura_bajando
+        sample_duration: 1800
+        max_samples: 30
+        min_samples: 4
+        min_gradient: 0.0000833333
+        invert: true
+        device_class: cold
+
+      habitacion_coque_temperatura_bajando:
+        entity_id: sensor.habitacion_coque_temperature
+        unique_id: habitacion_coque_temperatura_bajando
+        sample_duration: 1800
+        max_samples: 30
+        min_samples: 4
+        min_gradient: 0.0000833333
+        invert: true
+        device_class: cold
+
+template:
+  - binary_sensor:
+      - name: "Suite aire acondicionado enfriando"
+        unique_id: suite_aire_acondicionado_enfriando
+        availability: >-
+          {{
+            has_value('sensor.suite_temperature')
+            and has_value('sensor.aire_acondicionado_primera_planta_potencia')
+          }}
+        state: >-
+          {{
+            is_state('input_boolean.suite_aire_acondicionado_prueba_activa', 'on')
+            and is_state('binary_sensor.aire_acondicionado_primera_planta_activo', 'on')
+            and is_state('binary_sensor.suite_temperatura_bajando', 'on')
+          }}
+        icon: mdi:snowflake
+
+      - name: "Habitacion Carlos aire acondicionado enfriando"
+        unique_id: habitacion_carlos_aire_acondicionado_enfriando
+        availability: >-
+          {{
+            has_value('sensor.habitacion_carlos_temperature')
+            and has_value('sensor.aire_acondicionado_primera_planta_potencia')
+          }}
+        state: >-
+          {{
+            is_state('binary_sensor.aire_acondicionado_primera_planta_activo', 'on')
+            and is_state('binary_sensor.habitacion_carlos_temperatura_bajando', 'on')
+          }}
+        icon: mdi:snowflake
+
+      - name: "Habitacion Coque aire acondicionado enfriando"
+        unique_id: habitacion_coque_aire_acondicionado_enfriando
+        availability: >-
+          {{
+            has_value('sensor.habitacion_coque_temperature')
+            and has_value('sensor.aire_acondicionado_primera_planta_potencia')
+          }}
+        state: >-
+          {{
+            is_state('binary_sensor.aire_acondicionado_primera_planta_activo', 'on')
+            and is_state('binary_sensor.habitacion_coque_temperatura_bajando', 'on')
+          }}
+        icon: mdi:snowflake
+
+      - name: "Suite aire acondicionado sin enfriar sobre consigna"
+        unique_id: suite_aire_acondicionado_parado_sin_consigna
+        availability: >-
+          {{
+            has_value('sensor.suite_temperature')
+            and has_value('input_number.suite_aire_acondicionado_temperatura_consigna')
+            and has_value('input_number.suite_aire_acondicionado_margen_consigna')
+            and has_value('sensor.aire_acondicionado_primera_planta_potencia')
+          }}
+        state: >-
+          {% set temperatura = states('sensor.suite_temperature') | float(0) %}
+          {% set consigna = states('input_number.suite_aire_acondicionado_temperatura_consigna') | float(0) %}
+          {% set margen = states('input_number.suite_aire_acondicionado_margen_consigna') | float(0) %}
+          {{
+            is_state('input_boolean.suite_aire_acondicionado_prueba_activa', 'on')
+            and is_state('binary_sensor.aire_acondicionado_primera_planta_activo', 'on')
+            and is_state('binary_sensor.suite_temperatura_bajando', 'off')
+            and temperatura > (consigna + margen)
+          }}
+        delay_on: "00:10:00"
+        delay_off: "00:02:00"
+        icon: mdi:snowflake-alert
+
+      - name: "Suite aire acondicionado compitiendo"
+        unique_id: suite_aire_acondicionado_compitiendo
+        availability: >-
+          {{
+            has_value('binary_sensor.suite_aire_acondicionado_parado_sin_consigna')
+            and has_value('binary_sensor.habitacion_carlos_aire_acondicionado_enfriando')
+            and has_value('binary_sensor.habitacion_coque_aire_acondicionado_enfriando')
+          }}
+        state: >-
+          {{
+            is_state('binary_sensor.suite_aire_acondicionado_parado_sin_consigna', 'on')
+            and (
+              is_state('binary_sensor.habitacion_carlos_aire_acondicionado_enfriando', 'on')
+              or is_state('binary_sensor.habitacion_coque_aire_acondicionado_enfriando', 'on')
+            )
+          }}
+        icon: mdi:call-split
+
+  - sensor:
+      - name: "Suite aire acondicionado diferencia consigna"
+        unique_id: suite_aire_acondicionado_diferencia_consigna
+        state: >-
+          {% set temperatura = states('sensor.suite_temperature') | float(0) %}
+          {% set consigna = states('input_number.suite_aire_acondicionado_temperatura_consigna') | float(0) %}
+          {{ (temperatura - consigna) | round(1) }}
+        availability: >-
+          {{
+            has_value('sensor.suite_temperature')
+            and has_value('input_number.suite_aire_acondicionado_temperatura_consigna')
+          }}
+        unit_of_measurement: "°C"
+        device_class: temperature
+        state_class: measurement
+        icon: mdi:thermometer-alert
+
+      - name: "Aire acondicionado primera planta splits enfriando"
+        unique_id: aire_acondicionado_primera_planta_splits_enfriando
+        state: >-
+          {{
+            [
+              is_state('binary_sensor.suite_aire_acondicionado_enfriando', 'on'),
+              is_state('binary_sensor.habitacion_carlos_aire_acondicionado_enfriando', 'on'),
+              is_state('binary_sensor.habitacion_coque_aire_acondicionado_enfriando', 'on')
+            ] | select('eq', true) | list | count
+          }}
+        availability: >-
+          {{
+            has_value('binary_sensor.suite_aire_acondicionado_enfriando')
+            and has_value('binary_sensor.habitacion_carlos_aire_acondicionado_enfriando')
+            and has_value('binary_sensor.habitacion_coque_aire_acondicionado_enfriando')
+          }}
+        state_class: measurement
+        icon: mdi:snowflake-variant
+
+      - name: "Aire acondicionado primera planta otros splits enfriando"
+        unique_id: aire_acondicionado_primera_planta_otros_splits_enfriando
+        state: >-
+          {{
+            [
+              is_state('binary_sensor.habitacion_carlos_aire_acondicionado_enfriando', 'on'),
+              is_state('binary_sensor.habitacion_coque_aire_acondicionado_enfriando', 'on')
+            ] | select('eq', true) | list | count
+          }}
+        availability: >-
+          {{
+            has_value('binary_sensor.habitacion_carlos_aire_acondicionado_enfriando')
+            and has_value('binary_sensor.habitacion_coque_aire_acondicionado_enfriando')
+          }}
+        state_class: measurement
+        icon: mdi:call-split
+
+      - name: "Suite aire acondicionado tiempo enfriamiento actual"
+        unique_id: suite_aire_acondicionado_tiempo_enfriamiento_actual
+        state: >-
+          {% if is_state('binary_sensor.suite_aire_acondicionado_enfriando', 'on') %}
+            {% set inicio = as_timestamp(states('input_datetime.suite_aire_acondicionado_inicio_enfriamiento'), 0) %}
+            {{ ((as_timestamp(now()) - inicio) / 60) | round(0) if inicio > 0 else 0 }}
+          {% else %}
+            0
+          {% endif %}
+        availability: "{{ has_value('input_datetime.suite_aire_acondicionado_inicio_enfriamiento') }}"
+        unit_of_measurement: "min"
+        device_class: duration
+        state_class: measurement
+        icon: mdi:timer-sand
+
+      - name: "Suite aire acondicionado tiempo enfriamiento ultimo"
+        unique_id: suite_aire_acondicionado_tiempo_enfriamiento_ultimo
+        state: "{{ states('input_number.suite_aire_acondicionado_tiempo_enfriamiento_ultimo') | int(0) }}"
+        availability: "{{ has_value('input_number.suite_aire_acondicionado_tiempo_enfriamiento_ultimo') }}"
+        unit_of_measurement: "min"
+        device_class: duration
+        state_class: measurement
+        icon: mdi:timer-check
+
+      - name: "Suite aire acondicionado tiempo sin enfriar sobre consigna actual"
+        unique_id: suite_aire_acondicionado_tiempo_parada_actual
+        state: >-
+          {% if is_state('binary_sensor.suite_aire_acondicionado_parado_sin_consigna', 'on') %}
+            {% set inicio = as_timestamp(states('input_datetime.suite_aire_acondicionado_inicio_parada'), 0) %}
+            {{ ((as_timestamp(now()) - inicio) / 60) | round(0) if inicio > 0 else 0 }}
+          {% else %}
+            0
+          {% endif %}
+        availability: "{{ has_value('input_datetime.suite_aire_acondicionado_inicio_parada') }}"
+        unit_of_measurement: "min"
+        device_class: duration
+        state_class: measurement
+        icon: mdi:timer-alert
+
+      - name: "Suite aire acondicionado tiempo sin enfriar sobre consigna ultimo"
+        unique_id: suite_aire_acondicionado_tiempo_parada_ultimo
+        state: "{{ states('input_number.suite_aire_acondicionado_tiempo_parada_ultimo') | int(0) }}"
+        availability: "{{ has_value('input_number.suite_aire_acondicionado_tiempo_parada_ultimo') }}"
+        unit_of_measurement: "min"
+        device_class: duration
+        state_class: measurement
+        icon: mdi:timer-check-outline
+
+      - name: "Suite aire acondicionado descenso enfriamiento ultimo"
+        unique_id: suite_aire_acondicionado_descenso_enfriamiento_ultimo
+        state: >-
+          {% set inicio = states('input_number.suite_aire_acondicionado_temperatura_inicio_enfriamiento') | float(0) %}
+          {% set fin = states('input_number.suite_aire_acondicionado_temperatura_fin_enfriamiento') | float(0) %}
+          {{ (inicio - fin) | round(1) }}
+        availability: >-
+          {{
+            has_value('input_number.suite_aire_acondicionado_temperatura_inicio_enfriamiento')
+            and has_value('input_number.suite_aire_acondicionado_temperatura_fin_enfriamiento')
+          }}
+        unit_of_measurement: "°C"
+        device_class: temperature
+        state_class: measurement
+        icon: mdi:thermometer-chevron-down
+
+###############################################################################
+# AYUDANTES
+###############################################################################
+
+input_boolean:
+  suite_aire_acondicionado_prueba_activa:
+    name: "Prueba A/A suite activa"
+    icon: mdi:clipboard-check-outline
+
+counter:
+  suite_aire_acondicionado_recuperaciones:
+    name: "Recuperaciones A/A suite"
+    icon: mdi:restore
+    restore: true
+
+input_datetime:
+  suite_aire_acondicionado_inicio_enfriamiento:
+    name: "Inicio enfriamiento A/A suite"
+    has_date: true
+    has_time: true
+
+  suite_aire_acondicionado_fin_enfriamiento:
+    name: "Fin enfriamiento A/A suite"
+    has_date: true
+    has_time: true
+
+  suite_aire_acondicionado_inicio_parada:
+    name: "Inicio sin enfriar sobre consigna A/A suite"
+    has_date: true
+    has_time: true
+
+  suite_aire_acondicionado_fin_parada:
+    name: "Fin sin enfriar sobre consigna A/A suite"
+    has_date: true
+    has_time: true
+
+input_number:
+  suite_aire_acondicionado_temperatura_consigna:
+    name: "Consigna A/A suite"
+    unit_of_measurement: "°C"
+    icon: mdi:thermometer-auto
+    initial: 25
+    min: 16
+    max: 30
+    step: 0.5
+    mode: box
+
+  suite_aire_acondicionado_margen_consigna:
+    name: "Margen consigna A/A suite"
+    unit_of_measurement: "°C"
+    icon: mdi:plus-minus
+    initial: 1
+    min: 0
+    max: 3
+    step: 0.1
+    mode: box
+
+  suite_aire_acondicionado_temperatura_inicio_enfriamiento:
+    name: "Temperatura inicio enfriamiento A/A suite"
+    unit_of_measurement: "°C"
+    icon: mdi:thermometer
+    min: 0
+    max: 50
+    step: 0.1
+    mode: box
+
+  suite_aire_acondicionado_temperatura_fin_enfriamiento:
+    name: "Temperatura fin enfriamiento A/A suite"
+    unit_of_measurement: "°C"
+    icon: mdi:thermometer-check
+    min: 0
+    max: 50
+    step: 0.1
+    mode: box
+
+  suite_aire_acondicionado_temperatura_inicio_parada:
+    name: "Temperatura inicio sin enfriar sobre consigna A/A suite"
+    unit_of_measurement: "°C"
+    icon: mdi:thermometer-alert
+    min: 0
+    max: 50
+    step: 0.1
+    mode: box
+
+  suite_aire_acondicionado_potencia_inicio_parada:
+    name: "Potencia inicio sin enfriar sobre consigna A/A suite"
+    unit_of_measurement: "W"
+    icon: mdi:flash-alert
+    min: 0
+    max: 10000
+    step: 1
+    mode: box
+
+  suite_aire_acondicionado_tiempo_enfriamiento_ultimo:
+    name: "Tiempo ultimo enfriamiento A/A suite"
+    unit_of_measurement: "min"
+    icon: mdi:timer-check
+    min: 0
+    max: 720
+    step: 1
+    mode: box
+
+  suite_aire_acondicionado_tiempo_parada_ultimo:
+    name: "Tiempo ultimo sin enfriar sobre consigna A/A suite"
+    unit_of_measurement: "min"
+    icon: mdi:timer-alert
+    min: 0
+    max: 720
+    step: 1
+    mode: box
