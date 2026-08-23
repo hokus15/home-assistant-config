@@ -29,6 +29,10 @@ views:
             name: Total enfriando
           - entity: sensor.aire_acondicionado_primera_planta_otros_splits_enfriando
             name: Otros enfriando
+          - entity: counter.suite_aire_acondicionado_fallos_nocturnos
+            name: Fallos esta noche
+          - entity: input_boolean.suite_aire_acondicionado_enfriamiento_detectado_nocturno
+            name: Suite enfriando esta noche
 
       - type: entities
         title: Parametros de prueba
@@ -42,6 +46,13 @@ views:
             name: Margen
           - entity: sensor.suite_aire_acondicionado_diferencia_consigna
             name: Diferencia con consigna
+          - type: divider
+          - entity: input_boolean.suite_aire_acondicionado_previsto
+            name: Suite previsto
+          - entity: input_boolean.habitacion_carlos_aire_acondicionado_previsto
+            name: Carlos previsto
+          - entity: input_boolean.habitacion_coque_aire_acondicionado_previsto
+            name: Coque previsto
 
       - type: horizontal-stack
         cards:
@@ -68,6 +79,8 @@ views:
         title: Episodio actual
         show_header_toggle: false
         entities:
+          - entity: input_datetime.suite_aire_acondicionado_inicio_actividad
+            name: Inicio actividad A/A 1P
           - entity: sensor.suite_aire_acondicionado_tiempo_enfriamiento_actual
             name: Tiempo enfriando
           - entity: sensor.suite_aire_acondicionado_tiempo_parada_actual
@@ -85,14 +98,18 @@ views:
         title: Inferencia otros splits
         show_header_toggle: false
         entities:
+          - entity: input_boolean.habitacion_carlos_aire_acondicionado_previsto
+            name: Carlos previsto
           - entity: binary_sensor.habitacion_carlos_temperatura_bajando
             name: Temperatura Carlos bajando
           - entity: binary_sensor.habitacion_carlos_aire_acondicionado_enfriando
-            name: Carlos enfriando
+            name: Carlos contado como enfriando
+          - entity: input_boolean.habitacion_coque_aire_acondicionado_previsto
+            name: Coque previsto
           - entity: binary_sensor.habitacion_coque_temperatura_bajando
             name: Temperatura Coque bajando
           - entity: binary_sensor.habitacion_coque_aire_acondicionado_enfriando
-            name: Coque enfriando
+            name: Coque contado como enfriando
           - entity: sensor.aire_acondicionado_primera_planta_splits_enfriando
             name: Total splits enfriando
           - entity: sensor.aire_acondicionado_primera_planta_otros_splits_enfriando
@@ -104,14 +121,14 @@ views:
         title: Ultimo episodio
         show_header_toggle: false
         entities:
+          - entity: sensor.suite_aire_acondicionado_tiempo_actividad_hasta_fallo_ultimo
+            name: Tiempo A/A activo hasta fallo
           - entity: sensor.suite_aire_acondicionado_tiempo_enfriamiento_ultimo
-            name: Tiempo enfriamiento
+            name: Tiempo Suite enfriando hasta fallo
           - entity: sensor.suite_aire_acondicionado_descenso_enfriamiento_ultimo
             name: Descenso conseguido
           - entity: sensor.suite_aire_acondicionado_tiempo_parada_ultimo
             name: Tiempo sin enfriar sobre consigna
-          - entity: counter.suite_aire_acondicionado_recuperaciones
-            name: Recuperaciones
           - entity: input_number.suite_aire_acondicionado_temperatura_inicio_enfriamiento
             name: Temperatura inicio enfriamiento
           - entity: input_number.suite_aire_acondicionado_temperatura_fin_enfriamiento
@@ -120,6 +137,14 @@ views:
             name: Temperatura inicio sin enfriar sobre consigna
           - entity: input_number.suite_aire_acondicionado_potencia_inicio_parada
             name: Potencia inicio sin enfriar sobre consigna
+          - entity: input_number.suite_aire_acondicionado_potencia_media_30min_inicio_parada
+            name: Potencia media 30min previa
+
+      - type: logbook
+        title: Registro automatico de diagnostico (48 h)
+        hours_to_show: 48
+        entities:
+          - binary_sensor.suite_aire_acondicionado_parado_sin_consigna
 
       - type: history-graph
         title: Evidencia principal 24h

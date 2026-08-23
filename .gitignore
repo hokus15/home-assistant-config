@@ -35,3 +35,7 @@ config/beeperoff.sh
 config/.ha_run.lock
 config/www/person.coque.jpg
 config/www/person.carlos.jpg
+scripts/
+exports/
+prompts/
+reports/
