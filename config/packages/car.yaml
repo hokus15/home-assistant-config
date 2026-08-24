@@ -12,6 +12,11 @@ recorder:
       - binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor
       - binary_sensor.car_ioniq_iotconnect_ev_tpms_monitor
       - binary_sensor.car_ioniq_location_sensor
+      - binary_sensor.car_ioniq_iotconnect_monitor_alert
+      - binary_sensor.car_ioniq_iotconnect_ev_battery_monitor_alert
+      - binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor_alert
+      - binary_sensor.car_ioniq_iotconnect_ev_tpms_monitor_alert
+      - binary_sensor.car_ioniq_iotconnect_gps_location_monitor_alert
       #      - switch.car_ioniq_charger
       - sensor.car_ioniq_charger_charge_state
       #      - sensor.cargador_ioniq_current_power
@@ -67,6 +72,16 @@ device_tracker:
 input_boolean:
   car_ioniq_has_charged:
     name: ¿Carga Ioniq hoy?
+  car_ioniq_iotconnect_monitor_notificado:
+    name: IOTConnect monitor notificado
+  car_ioniq_iotconnect_bateria_notificada:
+    name: IOTConnect bateria notificada
+  car_ioniq_iotconnect_odometro_notificado:
+    name: IOTConnect odometro notificado
+  car_ioniq_iotconnect_tpms_notificado:
+    name: IOTConnect TPMS notificado
+  car_ioniq_iotconnect_ubicacion_notificada:
+    name: IOTConnect ubicacion notificada
 
 mqtt:
   binary_sensor:
@@ -451,3 +466,32 @@ template:
         {% else %}
           No está en carga
         {%- endif %}
+
+  - binary_sensor:
+      - name: "car_ioniq_iotconnect_monitor_alert"
+        state: >-
+          {{ is_state("binary_sensor.car_ioniq_iotconnect_monitor", "off")
+             and is_state("binary_sensor.hokusphone_in_car_ioniq", "on") }}
+
+      - name: "car_ioniq_iotconnect_ev_battery_monitor_alert"
+        state: >-
+          {{ (is_state("binary_sensor.car_ioniq_iotconnect_ev_monitor", "off")
+              or is_state("binary_sensor.car_ioniq_iotconnect_ev_battery_monitor", "off"))
+             and is_state("binary_sensor.hokusphone_in_car_ioniq", "on") }}
+
+      - name: "car_ioniq_iotconnect_ev_odometer_monitor_alert"
+        state: >-
+          {{ (is_state("binary_sensor.car_ioniq_iotconnect_ev_monitor", "off")
+              or is_state("binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor", "off"))
+             and is_state("binary_sensor.hokusphone_in_car_ioniq", "on") }}
+
+      - name: "car_ioniq_iotconnect_ev_tpms_monitor_alert"
+        state: >-
+          {{ is_state("binary_sensor.car_ioniq_iotconnect_ev_tpms_monitor", "off")
+             and is_state("binary_sensor.hokusphone_in_car_ioniq", "on") }}
+
+      - name: "car_ioniq_iotconnect_gps_location_monitor_alert"
+        state: >-
+          {{ (is_state("binary_sensor.car_ioniq_location_sensor", "off")
+              or is_state("binary_sensor.car_ioniq_iotconnect_gps_monitor", "off"))
+             and is_state("binary_sensor.hokusphone_in_car_ioniq", "on") }}

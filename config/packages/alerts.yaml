@@ -5,11 +5,7 @@ recorder:
       - binary_sensor.motor_piscina_encendido_alerta
       - binary_sensor.swimming_pool_circuit_breaker_alert
       - binary_sensor.gfci_alert
-      - binary_sensor.car_ioniq_iotconnect_monitor_alert
-      - binary_sensor.car_ioniq_iotconnect_ev_battery_monitor_alert
-      - binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor_alert
-      - binary_sensor.car_ioniq_iotconnect_ev_tpms_monitor_alert
-      - binary_sensor.car_ioniq_iotconnect_gps_location_monitor_alert
+      - binary_sensor.cocina_enchufes_estado
 
 template:
   - binary_sensor:
@@ -43,48 +39,21 @@ template:
              and states('sensor.cargador_ev_visto_por_ultima_vez_seconds') | int > 30
              }}
 
+      - name: "Cocina enchufes estado"
+        unique_id: cocina_enchufes_estado
+        device_class: problem
+        state: >-
+          {{ is_state('binary_sensor.energy_home_status', 'on')
+             and is_state('switch.cocina_nevera', 'unavailable')
+             and is_state('switch.cocina_congelador', 'unavailable')
+             and has_value('switch.lavadora')
+             and has_value('switch.coladuria_secadora') }}
+        delay_on: "00:01:30"
+
       - name: "motor_piscina_encendido_alerta"
         state: >-
           {{ is_state('switch.motor_piscina', 'on')
              and states.sensor.piscina_pump_runtime_today.state | float(0) > states.sensor.piscina_filtration_time.state | float(0) }}
-
-      - name: "car_ioniq_iotconnect_monitor_alert"
-        # If car_ioniq_iotconnect_monitor is off
-        # and hokusphone is in car IONIQ (see binary_sensor.hokusphone_in_car_ioniq in phones.yaml)
-        state: >-
-          {{ is_state("binary_sensor.car_ioniq_iotconnect_monitor", "off")
-             and is_state("binary_sensor.hokusphone_in_car_ioniq", "on") }}
-
-      - name: "car_ioniq_iotconnect_ev_battery_monitor_alert"
-        # If binary_sensor.car_ioniq_iotconnect_ev_monitor is off or car_ioniq_iotconnect_ev_battery_monitor is off
-        # and hokusphone is in car IONIQ (see binary_sensor.hokusphone_in_car_ioniq in phones.yaml)
-        state: >-
-          {{ (is_state("binary_sensor.car_ioniq_iotconnect_ev_monitor", "off")
-              or is_state("binary_sensor.car_ioniq_iotconnect_ev_battery_monitor", "off"))
-             and is_state("binary_sensor.hokusphone_in_car_ioniq", "on") }}
-
-      - name: "car_ioniq_iotconnect_ev_odometer_monitor_alert"
-        # If binary_sensor.car_ioniq_iotconnect_ev_monitor is off or car_ioniq_iotconnect_ev_odometer_monitor is off
-        # and hokusphone is in car IONIQ (see binary_sensor.hokusphone_in_car_ioniq in phones.yaml)
-        state: >-
-          {{ (is_state("binary_sensor.car_ioniq_iotconnect_ev_monitor", "off")
-              or is_state("binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor", "off"))
-             and is_state("binary_sensor.hokusphone_in_car_ioniq", "on") }}
-
-      - name: "car_ioniq_iotconnect_ev_tpms_monitor_alert"
-        # If binary_sensor.car_ioniq_iotconnect_ev_monitor is off or car_ioniq_iotconnect_ev_tpms_monitor is off
-        # and hokusphone is in car IONIQ (see binary_sensor.hokusphone_in_car_ioniq in phones.yaml)
-        state: >-
-          {{ (is_state("binary_sensor.car_ioniq_iotconnect_ev_tpms_monitor", "off"))
-             and is_state("binary_sensor.hokusphone_in_car_ioniq", "on") }}
-
-      - name: "car_ioniq_iotconnect_gps_location_monitor_alert"
-        # If car_ioniq_location_sensor is off or binary_sensor.car_ioniq_gps_monitor is off
-        # and hokusphone is in car IONIQ (see binary_sensor.hokusphone_in_car_ioniq in phones.yaml)
-        state: >-
-          {{ (is_state("binary_sensor.car_ioniq_location_sensor", "off")
-             or is_state("binary_sensor.car_ioniq_iotconnect_gps_monitor", "off"))
-             and is_state("binary_sensor.hokusphone_in_car_ioniq", "on") }}
 
 alert:
   entrada_barrera_abierta:
@@ -141,150 +110,6 @@ alert:
       - despacho
       - telegram_hokusphone
 
-  car_ioniq_iotconnect_monitor_alert:
-    name: IOTConnect monitor
-    entity_id: binary_sensor.car_ioniq_iotconnect_monitor_alert
-    state: "on"
-    repeat: 
-      - 3
-      - 15
-    message: "IOTConnect está parado."
-    done_message: >-
-      {% if is_state("binary_sensor.hokusphone_android_auto", "on") %}
-        IOTConnect está activo.
-      {% else %}
-        clear_notification
-      {% endif %}
-    can_acknowledge: true
-    skip_first: true
-    data:
-      group: "IOTConnect"
-      tag: iotconnect-app
-      car_ui: true
-      #notification_icon: "{{ 'mdi:car-connected' if is_state('alert.car_ioniq_iotconnect_monitor_alert', 'idle') else 'mdi:car-off' }}"
-      #notification_icon: "{{ 'mdi:car-connected' if is_state('binary_sensor.car_ioniq_iotconnect_monitor_alert', 'off') else 'mdi:car-off' }}"
-      # TODO Probar asi, si no probar con el estado del binary_sensor binary_sensor.car_ioniq_iotconnect_monitor_alert
-      #notification_icon: >-
-      #  {% if is_state("binary_sensor.car_ioniq_iotconnect_monitor_alert", "off") %}
-      #    mdi:car-connected
-      #  {% else %}
-      #    mdi:car-off
-      #  {% endif %}
-
-      notification_icon: "mdi:car-off"
-      channel: "Ioniq"
-      importance: low
-    notifiers:
-      - mobile_app_hokusphone
-
-  car_ioniq_iotconnect_ev_battery_monitor_alert:
-    name: IOTConnect battery monitor
-    entity_id: binary_sensor.car_ioniq_iotconnect_ev_battery_monitor_alert
-    state: "on"
-    repeat:
-      - 3
-      - 15
-    message: "Batería: IOTConnect NO está publicando datos."
-    done_message: >-
-      {% if is_state("binary_sensor.hokusphone_android_auto", "on") %}
-        Batería: IOTConnect ya publica datos.
-      {% else %}
-        clear_notification
-      {% endif %}
-    can_acknowledge: true
-    skip_first: true
-    data:
-      group: "IOTConnect"
-      tag: iotconnect-battery
-      car_ui: true
-      #notification_icon: "{{ 'mdi:battery-charging-wireless' if is_state('alert.car_ioniq_iotconnect_monitor_alert', 'idle') else 'mdi:battery-charging-wireless-alert' }}"
-      notification_icon: "mdi:battery-charging-wireless-alert"
-      channel: "Ioniq"
-      importance: low
-    notifiers:
-      - mobile_app_hokusphone
-
-  car_ioniq_iotconnect_ev_odometer_monitor_alert:
-    name: IOTConnect odometer monitor
-    entity_id: binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor_alert
-    state: "on"
-    repeat:
-      - 3
-      - 15
-    message: "Odómetro: IOTConnect NO está publicando datos."
-    done_message: >-
-      {% if is_state("binary_sensor.hokusphone_android_auto", "on") %}
-        Odómetro: IOTConnect ya publica datos.
-      {% else %}
-        clear_notification
-      {% endif %}
-    can_acknowledge: true
-    skip_first: true
-    data:
-      group: "IOTConnect"
-      tag: iotconnect-odometer
-      car_ui: true
-      #notification_icon: "{{ 'mdi:map-marker-distance' if is_state('alert.car_ioniq_iotconnect_monitor_alert', 'idle') else 'mdi:timeline-question' }}"
-      notification_icon: "mdi:timeline-question"
-      channel: "Ioniq"
-      importance: low
-    notifiers:
-      - mobile_app_hokusphone
-
-  car_ioniq_iotconnect_ev_tpms_monitor_alert:
-    name: IOTConnect TPMS monitor
-    entity_id: binary_sensor.car_ioniq_iotconnect_ev_tpms_monitor_alert
-    state: "on"
-    repeat:
-      - 3
-      - 15
-    message: "TPMS: IOTConnect NO está publicando datos."
-    done_message: >-
-      {% if is_state("binary_sensor.hokusphone_android_auto", "on") %}
-        TPMS: IOTConnect ya publica datos.
-      {% else %}
-        clear_notification
-      {% endif %}
-    can_acknowledge: true
-    skip_first: true
-    data:
-      group: "IOTConnect"
-      tag: iotconnect-odometer
-      car_ui: true
-      #notification_icon: "{{ 'mdi:tire' if is_state('alert.car_ioniq_iotconnect_monitor_alert', 'idle') else 'mdi:car-tire-alert' }}"
-      notification_icon: "mdi:car-tire-alert"
-      channel: "Ioniq"
-      importance: low
-    notifiers:
-      - mobile_app_hokusphone
-
-  car_ioniq_iotconnect_gps_location_monitor_alert:
-    name: IOTConnect location monitor
-    entity_id: binary_sensor.car_ioniq_iotconnect_gps_location_monitor_alert
-    state: "on"
-    repeat:
-      - 3
-      - 15
-    message: "Posición: IOTConnect NO está publicando datos."
-    done_message: >-
-      {% if is_state("binary_sensor.hokusphone_android_auto", "on") %}
-        Posisicón: IOTConnect ya publica datos.
-      {% else %}
-        clear_notification
-      {% endif %}
-    can_acknowledge: true
-    skip_first: true
-    data:
-      group: "IOTConnect"
-      tag: iotconnect-location
-      car_ui: true
-      #notification_icon: "{{ 'mdi:crosshairs-gps' if is_state('alert.car_ioniq_iotconnect_monitor_alert', 'idle') else 'mdi:crosshairs-question' }}"
-      notification_icon: "mdi:crosshairs-question"
-      channel: "Ioniq"
-      importance: low
-    notifiers:
-      - mobile_app_hokusphone
-
   sp_cb_monitor_alert:
     # swimming_pool_circuit_breaker_monitor_alert -> sp_cb_monitor_alert
     # -> Cambio en el nombre para poder evitar llegar al máximo de carácteres en el inline keyboard de Telegram
@@ -313,6 +138,24 @@ alert:
     data:
       inline_keyboard:
         - "Enterado:/alert.turn_off#alert.gfci_monitor_alert"
+    notifiers:
+      - despacho
+      - telegram_hokusphone
+
+  cocina_enchufes_estado:
+    name: Enchufes cocina sin suministro
+    entity_id: binary_sensor.cocina_enchufes_estado
+    state: "on"
+    repeat: 5
+    message: >-
+      Se ha interrumpido el suministro de los enchufes de cocina: la nevera y el
+      congelador no están disponibles. Puede haber saltado el magnetotérmico de
+      enchufes de cocina o el diferencial que lo protege.
+    can_acknowledge: true
+    skip_first: false
+    data:
+      inline_keyboard:
+        - "Enterado:/alert.turn_off#alert.cocina_enchufes_estado"
     notifiers:
       - despacho
       - telegram_hokusphone

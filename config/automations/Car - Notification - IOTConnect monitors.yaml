@@ -1,0 +1,352 @@
+- id: car_notification_iotconnect_monitor
+  alias: "Car - Notification - IOTConnect monitor"
+  mode: restart
+  triggers:
+    - trigger: state
+      entity_id: binary_sensor.car_ioniq_iotconnect_monitor_alert
+      to: "on"
+      for: "00:03:00"
+      id: problema
+    - trigger: state
+      entity_id: binary_sensor.car_ioniq_iotconnect_monitor_alert
+      to: "off"
+      id: resuelto
+  actions:
+    - choose:
+        - conditions: "{{ trigger.id == 'problema' }}"
+          sequence:
+            - action: input_boolean.turn_on
+              target:
+                entity_id: input_boolean.car_ioniq_iotconnect_monitor_notificado
+            - repeat:
+                while:
+                  - condition: state
+                    entity_id: binary_sensor.car_ioniq_iotconnect_monitor_alert
+                    state: "on"
+                sequence:
+                  - action: notify.mobile_app_hokusphone
+                    data:
+                      title: "IOTConnect"
+                      message: "IOTConnect está parado."
+                      data:
+                        tag: iotconnect-app
+                        car_ui: true
+                        notification_icon: mdi:car-off
+                        color: "#F44336"
+                        channel: Ioniq
+                        importance: low
+                  - delay: "00:15:00"
+        - conditions:
+            - condition: template
+              value_template: >-
+                {{ trigger.id == 'resuelto'
+                   and is_state('input_boolean.car_ioniq_iotconnect_monitor_notificado', 'on') }}
+          sequence:
+            - choose:
+                - conditions: >-
+                    {{ is_state('binary_sensor.car_ioniq_iotconnect_monitor', 'on')
+                       and is_state('binary_sensor.hokusphone_in_car_ioniq', 'on') }}
+                  sequence:
+                    - action: notify.mobile_app_hokusphone
+                      data:
+                        title: "IOTConnect"
+                        message: "IOTConnect vuelve a publicar datos."
+                        data:
+                          tag: iotconnect-app
+                          car_ui: true
+                          notification_icon: mdi:car-connected
+                          color: "#4CAF50"
+                          channel: Ioniq
+                          importance: low
+              default:
+                - action: notify.mobile_app_hokusphone
+                  data:
+                    message: clear_notification
+                    data:
+                      tag: iotconnect-app
+            - action: input_boolean.turn_off
+              target:
+                entity_id: input_boolean.car_ioniq_iotconnect_monitor_notificado
+
+- id: car_notification_iotconnect_battery_monitor
+  alias: "Car - Notification - IOTConnect battery monitor"
+  mode: restart
+  triggers:
+    - trigger: state
+      entity_id: binary_sensor.car_ioniq_iotconnect_ev_battery_monitor_alert
+      to: "on"
+      for: "00:03:00"
+      id: problema
+    - trigger: state
+      entity_id: binary_sensor.car_ioniq_iotconnect_ev_battery_monitor_alert
+      to: "off"
+      id: resuelto
+  actions:
+    - choose:
+        - conditions: "{{ trigger.id == 'problema' }}"
+          sequence:
+            - action: input_boolean.turn_on
+              target:
+                entity_id: input_boolean.car_ioniq_iotconnect_bateria_notificada
+            - repeat:
+                while:
+                  - condition: state
+                    entity_id: binary_sensor.car_ioniq_iotconnect_ev_battery_monitor_alert
+                    state: "on"
+                sequence:
+                  - action: notify.mobile_app_hokusphone
+                    data:
+                      title: "IOTConnect batería"
+                      message: "Batería: IOTConnect no está publicando datos."
+                      data:
+                        tag: iotconnect-battery
+                        car_ui: true
+                        notification_icon: mdi:battery-charging-wireless-alert
+                        color: "#F44336"
+                        channel: Ioniq
+                        importance: low
+                  - delay: "00:15:00"
+        - conditions:
+            - condition: template
+              value_template: >-
+                {{ trigger.id == 'resuelto'
+                   and is_state('input_boolean.car_ioniq_iotconnect_bateria_notificada', 'on') }}
+          sequence:
+            - choose:
+                - conditions: >-
+                    {{ is_state('binary_sensor.car_ioniq_iotconnect_ev_monitor', 'on')
+                       and is_state('binary_sensor.car_ioniq_iotconnect_ev_battery_monitor', 'on')
+                       and is_state('binary_sensor.hokusphone_in_car_ioniq', 'on') }}
+                  sequence:
+                    - action: notify.mobile_app_hokusphone
+                      data:
+                        title: "IOTConnect batería"
+                        message: "Batería: IOTConnect vuelve a publicar datos."
+                        data:
+                          tag: iotconnect-battery
+                          car_ui: true
+                          notification_icon: mdi:battery-charging-wireless
+                          color: "#4CAF50"
+                          channel: Ioniq
+                          importance: low
+              default:
+                - action: notify.mobile_app_hokusphone
+                  data:
+                    message: clear_notification
+                    data:
+                      tag: iotconnect-battery
+            - action: input_boolean.turn_off
+              target:
+                entity_id: input_boolean.car_ioniq_iotconnect_bateria_notificada
+
+- id: car_notification_iotconnect_odometer_monitor
+  alias: "Car - Notification - IOTConnect odometer monitor"
+  mode: restart
+  triggers:
+    - trigger: state
+      entity_id: binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor_alert
+      to: "on"
+      for: "00:03:00"
+      id: problema
+    - trigger: state
+      entity_id: binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor_alert
+      to: "off"
+      id: resuelto
+  actions:
+    - choose:
+        - conditions: "{{ trigger.id == 'problema' }}"
+          sequence:
+            - action: input_boolean.turn_on
+              target:
+                entity_id: input_boolean.car_ioniq_iotconnect_odometro_notificado
+            - repeat:
+                while:
+                  - condition: state
+                    entity_id: binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor_alert
+                    state: "on"
+                sequence:
+                  - action: notify.mobile_app_hokusphone
+                    data:
+                      title: "IOTConnect odómetro"
+                      message: "Odómetro: IOTConnect no está publicando datos."
+                      data:
+                        tag: iotconnect-odometer
+                        car_ui: true
+                        notification_icon: mdi:timeline-question
+                        color: "#F44336"
+                        channel: Ioniq
+                        importance: low
+                  - delay: "00:15:00"
+        - conditions:
+            - condition: template
+              value_template: >-
+                {{ trigger.id == 'resuelto'
+                   and is_state('input_boolean.car_ioniq_iotconnect_odometro_notificado', 'on') }}
+          sequence:
+            - choose:
+                - conditions: >-
+                    {{ is_state('binary_sensor.car_ioniq_iotconnect_ev_monitor', 'on')
+                       and is_state('binary_sensor.car_ioniq_iotconnect_ev_odometer_monitor', 'on')
+                       and is_state('binary_sensor.hokusphone_in_car_ioniq', 'on') }}
+                  sequence:
+                    - action: notify.mobile_app_hokusphone
+                      data:
+                        title: "IOTConnect odómetro"
+                        message: "Odómetro: IOTConnect vuelve a publicar datos."
+                        data:
+                          tag: iotconnect-odometer
+                          car_ui: true
+                          notification_icon: mdi:map-marker-distance
+                          color: "#4CAF50"
+                          channel: Ioniq
+                          importance: low
+              default:
+                - action: notify.mobile_app_hokusphone
+                  data:
+                    message: clear_notification
+                    data:
+                      tag: iotconnect-odometer
+            - action: input_boolean.turn_off
+              target:
+                entity_id: input_boolean.car_ioniq_iotconnect_odometro_notificado
+
+- id: car_notification_iotconnect_tpms_monitor
+  alias: "Car - Notification - IOTConnect TPMS monitor"
+  mode: restart
+  triggers:
+    - trigger: state
+      entity_id: binary_sensor.car_ioniq_iotconnect_ev_tpms_monitor_alert
+      to: "on"
+      for: "00:03:00"
+      id: problema
+    - trigger: state
+      entity_id: binary_sensor.car_ioniq_iotconnect_ev_tpms_monitor_alert
+      to: "off"
+      id: resuelto
+  actions:
+    - choose:
+        - conditions: "{{ trigger.id == 'problema' }}"
+          sequence:
+            - action: input_boolean.turn_on
+              target:
+                entity_id: input_boolean.car_ioniq_iotconnect_tpms_notificado
+            - repeat:
+                while:
+                  - condition: state
+                    entity_id: binary_sensor.car_ioniq_iotconnect_ev_tpms_monitor_alert
+                    state: "on"
+                sequence:
+                  - action: notify.mobile_app_hokusphone
+                    data:
+                      title: "IOTConnect TPMS"
+                      message: "TPMS: IOTConnect no está publicando datos."
+                      data:
+                        tag: iotconnect-tpms
+                        car_ui: true
+                        notification_icon: mdi:car-tire-alert
+                        color: "#F44336"
+                        channel: Ioniq
+                        importance: low
+                  - delay: "00:15:00"
+        - conditions:
+            - condition: template
+              value_template: >-
+                {{ trigger.id == 'resuelto'
+                   and is_state('input_boolean.car_ioniq_iotconnect_tpms_notificado', 'on') }}
+          sequence:
+            - choose:
+                - conditions: >-
+                    {{ is_state('binary_sensor.car_ioniq_iotconnect_ev_tpms_monitor', 'on')
+                       and is_state('binary_sensor.hokusphone_in_car_ioniq', 'on') }}
+                  sequence:
+                    - action: notify.mobile_app_hokusphone
+                      data:
+                        title: "IOTConnect TPMS"
+                        message: "TPMS: IOTConnect vuelve a publicar datos."
+                        data:
+                          tag: iotconnect-tpms
+                          car_ui: true
+                          notification_icon: mdi:car-tire
+                          color: "#4CAF50"
+                          channel: Ioniq
+                          importance: low
+              default:
+                - action: notify.mobile_app_hokusphone
+                  data:
+                    message: clear_notification
+                    data:
+                      tag: iotconnect-tpms
+            - action: input_boolean.turn_off
+              target:
+                entity_id: input_boolean.car_ioniq_iotconnect_tpms_notificado
+
+- id: car_notification_iotconnect_location_monitor
+  alias: "Car - Notification - IOTConnect location monitor"
+  mode: restart
+  triggers:
+    - trigger: state
+      entity_id: binary_sensor.car_ioniq_iotconnect_gps_location_monitor_alert
+      to: "on"
+      for: "00:03:00"
+      id: problema
+    - trigger: state
+      entity_id: binary_sensor.car_ioniq_iotconnect_gps_location_monitor_alert
+      to: "off"
+      id: resuelto
+  actions:
+    - choose:
+        - conditions: "{{ trigger.id == 'problema' }}"
+          sequence:
+            - action: input_boolean.turn_on
+              target:
+                entity_id: input_boolean.car_ioniq_iotconnect_ubicacion_notificada
+            - repeat:
+                while:
+                  - condition: state
+                    entity_id: binary_sensor.car_ioniq_iotconnect_gps_location_monitor_alert
+                    state: "on"
+                sequence:
+                  - action: notify.mobile_app_hokusphone
+                    data:
+                      title: "IOTConnect ubicación"
+                      message: "Posición: IOTConnect no está publicando datos."
+                      data:
+                        tag: iotconnect-location
+                        car_ui: true
+                        notification_icon: mdi:crosshairs-question
+                        color: "#F44336"
+                        channel: Ioniq
+                        importance: low
+                  - delay: "00:15:00"
+        - conditions:
+            - condition: template
+              value_template: >-
+                {{ trigger.id == 'resuelto'
+                   and is_state('input_boolean.car_ioniq_iotconnect_ubicacion_notificada', 'on') }}
+          sequence:
+            - choose:
+                - conditions: >-
+                    {{ is_state('binary_sensor.car_ioniq_location_sensor', 'on')
+                       and is_state('binary_sensor.car_ioniq_iotconnect_gps_monitor', 'on')
+                       and is_state('binary_sensor.hokusphone_in_car_ioniq', 'on') }}
+                  sequence:
+                    - action: notify.mobile_app_hokusphone
+                      data:
+                        title: "IOTConnect ubicación"
+                        message: "Posición: IOTConnect vuelve a publicar datos."
+                        data:
+                          tag: iotconnect-location
+                          car_ui: true
+                          notification_icon: mdi:crosshairs-gps
+                          color: "#4CAF50"
+                          channel: Ioniq
+                          importance: low
+              default:
+                - action: notify.mobile_app_hokusphone
+                  data:
+                    message: clear_notification
+                    data:
+                      tag: iotconnect-location
+            - action: input_boolean.turn_off
+              target:
+                entity_id: input_boolean.car_ioniq_iotconnect_ubicacion_notificada

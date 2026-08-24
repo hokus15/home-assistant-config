@@ -96,6 +96,10 @@ notify:
     name: despacho
     entity_id: tts.home_assistant_cloud
     media_player: media_player.home_assistant_voice_094eda_media_player
+  - platform: tts
+    name: suite
+    entity_id: tts.home_assistant_cloud
+    media_player: media_player.despertador
 
 freedns:
   url: !secret freedns_url
