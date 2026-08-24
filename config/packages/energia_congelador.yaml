@@ -1,0 +1,6 @@
+recorder:
+  include:
+    entities:
+      - switch.cocina_congelador
+      - sensor.cocina_congelador_potencia
+      - sensor.cocina_congelador_energia
