@@ -1,0 +1,6 @@
+recorder:
+  include:
+    entities:
+      - switch.cocina_nevera
+      - sensor.cocina_nevera_potencia
+      - sensor.cocina_nevera_energia
