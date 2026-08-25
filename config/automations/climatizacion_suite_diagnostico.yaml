@@ -100,7 +100,8 @@
       data:
         value: >-
           {% set inicio = as_timestamp(states('input_datetime.suite_aire_acondicionado_inicio_enfriamiento'), 0) %}
-          {{ ((as_timestamp(now()) - inicio) / 60) | round(0) if inicio > 0 else 0 }}
+          {% set minutos = ((as_timestamp(now()) - inicio) / 60) | round(0) if inicio > 0 else 0 %}
+          {{ minutos if 0 <= minutos <= 720 else 720 if minutos > 720 else 0 }}
     - action: counter.increment
       target:
         entity_id: counter.suite_aire_acondicionado_fallos_nocturnos
@@ -178,6 +179,19 @@
                 - action: input_datetime.set_datetime
                   target:
                     entity_id: input_datetime.suite_aire_acondicionado_inicio_actividad
+                  data:
+                    timestamp: "{{ as_timestamp(now()) }}"
+            - if:
+                - condition: state
+                  entity_id: binary_sensor.suite_aire_acondicionado_enfriando
+                  state: "on"
+              then:
+                - action: input_boolean.turn_on
+                  target:
+                    entity_id: input_boolean.suite_aire_acondicionado_enfriamiento_detectado_nocturno
+                - action: input_datetime.set_datetime
+                  target:
+                    entity_id: input_datetime.suite_aire_acondicionado_inicio_enfriamiento
                   data:
                     timestamp: "{{ as_timestamp(now()) }}"
       default:
