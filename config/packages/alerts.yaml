@@ -30,7 +30,7 @@ template:
              and is_state('switch.motor_piscina', 'unavailable')
              and is_state('switch.piscina_luz_principal', 'unavailable')
              and is_state('switch.piscina', 'unavailable')
-             and is_state('switch.lavadora', 'unavailable')
+             and is_state('switch.coladuria_lavadora', 'unavailable')
              and is_state('switch.coladuria_secadora', 'unavailable')
              and is_state('switch.cocina_lavavajillas', 'unavailable')
              and is_state('camera.barbacoa', 'unavailable')
@@ -46,7 +46,7 @@ template:
           {{ is_state('binary_sensor.energy_home_status', 'on')
              and is_state('switch.cocina_nevera', 'unavailable')
              and is_state('switch.cocina_congelador', 'unavailable')
-             and has_value('switch.lavadora')
+             and has_value('switch.coladuria_lavadora')
              and has_value('switch.coladuria_secadora') }}
         delay_on: "00:01:30"
 

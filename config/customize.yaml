@@ -309,24 +309,20 @@ sensor.salon_regleta_energia:
   friendly_name: Consumo regleta salón
   icon: mdi:speedometer
   device_class: energy
-sensor.lavadora_energy_calc:
-  friendly_name: Consumo lavadora
-  icon: mdi:speedometer
-  device_class: energy
 sensor.salon_regleta_potencia:
   friendly_name: Potencia regleta salón
 sensor.coladuria_secadora_potencia:
   friendly_name: Potencia secadora
-sensor.lavadora_power:
+sensor.coladuria_lavadora_potencia:
   friendly_name: Potencia lavadora
 binary_sensor.cocina_lavavajillas_estado:
   friendly_name: Estado lavavajillas
 binary_sensor.coladuria_secadora_estado:
   friendly_name: Estado secadora
-binary_sensor.lavadora_status:
-  friendly_name: Lavadora
-binary_sensor.lavadora_status_high_power:
-  friendly_name: Alto consumo lavadora
+binary_sensor.coladuria_lavadora_estado:
+  friendly_name: Estado lavadora
+binary_sensor.coladuria_lavadora_estado_alto_consumo:
+  friendly_name: Estado lavadora alto consumo
   icon: mdi:washing-machine-alert
 binary_sensor.cargador_ev_status:
   friendly_name: Estado cargador EV
