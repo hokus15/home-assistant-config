@@ -319,8 +319,8 @@ sensor.coladuria_secadora_potencia:
   friendly_name: Potencia secadora
 sensor.lavadora_power:
   friendly_name: Potencia lavadora
-binary_sensor.lavaplatos_status:
-  friendly_name: Lavaplatos
+binary_sensor.cocina_lavavajillas_estado:
+  friendly_name: Estado lavavajillas
 binary_sensor.coladuria_secadora_estado:
   friendly_name: Estado secadora
 binary_sensor.lavadora_status:
