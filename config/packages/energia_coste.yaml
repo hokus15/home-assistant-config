@@ -1,0 +1,446 @@
+# Coste variable de energía de la vivienda y de cada dispositivo, sin imputar
+# autoconsumo solar ni conceptos fijos de la factura. El precio de compra debe
+# estar en €/kWh. El total usa la potencia de consumo de la vivienda completa.
+
+recorder:
+  include:
+    entities:
+      - sensor.salon_principal_coste_instantaneo
+      - sensor.comedor_principal_coste_instantaneo
+      - sensor.suite_principal_coste_instantaneo
+      - sensor.escalera_principal_coste_instantaneo
+      - sensor.piscina_motor_coste_instantaneo
+      - sensor.cargador_ev_coste_instantaneo
+      - sensor.climatizacion_planta_baja_aire_acondicionado_coste_instantaneo
+      - sensor.climatizacion_primera_planta_aire_acondicionado_coste_instantaneo
+      - sensor.salon_regleta_coste_instantaneo
+      - sensor.cocina_nevera_coste_instantaneo
+      - sensor.cocina_congelador_coste_instantaneo
+      - sensor.coladuria_secadora_coste_instantaneo
+      - sensor.cocina_lavavajillas_coste_instantaneo
+      - sensor.coladuria_lavadora_coste_instantaneo
+      - sensor.despacho_wallpanel_cargador_coste_instantaneo
+      - sensor.salon_principal_coste_acumulado
+      - sensor.comedor_principal_coste_acumulado
+      - sensor.suite_principal_coste_acumulado
+      - sensor.escalera_principal_coste_acumulado
+      - sensor.piscina_motor_coste_acumulado
+      - sensor.cargador_ev_coste_acumulado
+      - sensor.climatizacion_planta_baja_aire_acondicionado_coste_acumulado
+      - sensor.climatizacion_primera_planta_aire_acondicionado_coste_acumulado
+      - sensor.salon_regleta_coste_acumulado
+      - sensor.cocina_nevera_coste_acumulado
+      - sensor.cocina_congelador_coste_acumulado
+      - sensor.coladuria_secadora_coste_acumulado
+      - sensor.cocina_lavavajillas_coste_acumulado
+      - sensor.coladuria_lavadora_coste_acumulado
+      - sensor.despacho_wallpanel_cargador_coste_acumulado
+      - sensor.energia_coste_casa_instantaneo
+      - sensor.energia_coste_casa_acumulado
+      - sensor.salon_principal_coste_mensual
+      - sensor.comedor_principal_coste_mensual
+      - sensor.suite_principal_coste_mensual
+      - sensor.escalera_principal_coste_mensual
+      - sensor.piscina_motor_coste_mensual
+      - sensor.cargador_ev_coste_mensual
+      - sensor.climatizacion_planta_baja_aire_acondicionado_coste_mensual
+      - sensor.climatizacion_primera_planta_aire_acondicionado_coste_mensual
+      - sensor.salon_regleta_coste_mensual
+      - sensor.cocina_nevera_coste_mensual
+      - sensor.cocina_congelador_coste_mensual
+      - sensor.coladuria_secadora_coste_mensual
+      - sensor.cocina_lavavajillas_coste_mensual
+      - sensor.coladuria_lavadora_coste_mensual
+      - sensor.despacho_wallpanel_cargador_coste_mensual
+      - sensor.energia_coste_casa_mensual
+
+template:
+  - trigger:
+      - platform: homeassistant
+        event: start
+      - platform: state
+        entity_id:
+          - sensor.energy_price_buy
+          - sensor.energy_power_house
+          - sensor.salon_principal_potencia
+          - sensor.comedor_principal_potencia
+          - sensor.suite_principal_potencia
+          - sensor.escalera_principal_potencia
+          - sensor.piscina_power
+          - sensor.cargador_ev_power
+          - sensor.aire_acondicionado_planta_baja_potencia
+          - sensor.aire_acondicionado_primera_planta_potencia
+          - sensor.salon_regleta_potencia_filtrada
+          - sensor.cocina_nevera_potencia
+          - sensor.cocina_congelador_potencia
+          - sensor.coladuria_secadora_potencia
+          - sensor.cocina_lavavajillas_potencia
+          - sensor.coladuria_lavadora_potencia
+          - sensor.wallpanel_despacho_cargador_power_filtered
+      - platform: time_pattern
+        minutes: "/1"
+    sensor:
+      - name: Energia coste casa instantaneo
+        unique_id: energia_coste_casa_instantaneo
+        unit_of_measurement: "€/h"
+        state_class: measurement
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.energy_power_house') }}"
+        state: "{{ (states('sensor.energy_power_house') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+
+      - name: Salon principal coste instantaneo
+        unique_id: salon_principal_coste_instantaneo
+        unit_of_measurement: "€/h"
+        state_class: measurement
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.salon_principal_potencia') }}"
+        state: "{{ (states('sensor.salon_principal_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+
+      - name: Comedor principal coste instantaneo
+        unique_id: comedor_principal_coste_instantaneo
+        unit_of_measurement: "€/h"
+        state_class: measurement
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.comedor_principal_potencia') }}"
+        state: "{{ (states('sensor.comedor_principal_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+
+      - name: Suite principal coste instantaneo
+        unique_id: suite_principal_coste_instantaneo
+        unit_of_measurement: "€/h"
+        state_class: measurement
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.suite_principal_potencia') }}"
+        state: "{{ (states('sensor.suite_principal_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+
+      - name: Escalera principal coste instantaneo
+        unique_id: escalera_principal_coste_instantaneo
+        unit_of_measurement: "€/h"
+        state_class: measurement
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.escalera_principal_potencia') }}"
+        state: "{{ (states('sensor.escalera_principal_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+
+      - name: Piscina motor coste instantaneo
+        unique_id: piscina_motor_coste_instantaneo
+        unit_of_measurement: "€/h"
+        state_class: measurement
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.piscina_power') }}"
+        state: "{{ (states('sensor.piscina_power') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+
+      - name: Cargador ev coste instantaneo
+        unique_id: cargador_ev_coste_instantaneo
+        unit_of_measurement: "€/h"
+        state_class: measurement
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.cargador_ev_power') }}"
+        state: "{{ (states('sensor.cargador_ev_power') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+
+      - name: Climatizacion planta baja aire acondicionado coste instantaneo
+        unique_id: climatizacion_planta_baja_aire_acondicionado_coste_instantaneo
+        unit_of_measurement: "€/h"
+        state_class: measurement
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.aire_acondicionado_planta_baja_potencia') }}"
+        state: "{{ (states('sensor.aire_acondicionado_planta_baja_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+
+      - name: Climatizacion primera planta aire acondicionado coste instantaneo
+        unique_id: climatizacion_primera_planta_aire_acondicionado_coste_instantaneo
+        unit_of_measurement: "€/h"
+        state_class: measurement
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.aire_acondicionado_primera_planta_potencia') }}"
+        state: "{{ (states('sensor.aire_acondicionado_primera_planta_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+
+      - name: Salon regleta coste instantaneo
+        unique_id: salon_regleta_coste_instantaneo
+        unit_of_measurement: "€/h"
+        state_class: measurement
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.salon_regleta_potencia_filtrada') }}"
+        state: "{{ (states('sensor.salon_regleta_potencia_filtrada') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+
+      - name: Cocina nevera coste instantaneo
+        unique_id: cocina_nevera_coste_instantaneo
+        unit_of_measurement: "€/h"
+        state_class: measurement
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.cocina_nevera_potencia') }}"
+        state: "{{ (states('sensor.cocina_nevera_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+
+      - name: Cocina congelador coste instantaneo
+        unique_id: cocina_congelador_coste_instantaneo
+        unit_of_measurement: "€/h"
+        state_class: measurement
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.cocina_congelador_potencia') }}"
+        state: "{{ (states('sensor.cocina_congelador_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+
+      - name: Coladuria secadora coste instantaneo
+        unique_id: coladuria_secadora_coste_instantaneo
+        unit_of_measurement: "€/h"
+        state_class: measurement
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.coladuria_secadora_potencia') }}"
+        state: "{{ (states('sensor.coladuria_secadora_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+
+      - name: Cocina lavavajillas coste instantaneo
+        unique_id: cocina_lavavajillas_coste_instantaneo
+        unit_of_measurement: "€/h"
+        state_class: measurement
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.cocina_lavavajillas_potencia') }}"
+        state: "{{ (states('sensor.cocina_lavavajillas_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+
+      - name: Coladuria lavadora coste instantaneo
+        unique_id: coladuria_lavadora_coste_instantaneo
+        unit_of_measurement: "€/h"
+        state_class: measurement
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.coladuria_lavadora_potencia') }}"
+        state: "{{ (states('sensor.coladuria_lavadora_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+
+      - name: Despacho wallpanel cargador coste instantaneo
+        unique_id: despacho_wallpanel_cargador_coste_instantaneo
+        unit_of_measurement: "€/h"
+        state_class: measurement
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.wallpanel_despacho_cargador_power_filtered') }}"
+        state: "{{ (states('sensor.wallpanel_despacho_cargador_power_filtered') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+
+  - sensor:
+      - name: Energia coste mensual maximo dispositivo
+        unique_id: energia_coste_mensual_maximo_dispositivo
+        unit_of_measurement: "€"
+        state_class: measurement
+        state: >
+          {{ [
+            0.01,
+            states('sensor.salon_principal_coste_mensual') | float(0),
+            states('sensor.comedor_principal_coste_mensual') | float(0),
+            states('sensor.suite_principal_coste_mensual') | float(0),
+            states('sensor.escalera_principal_coste_mensual') | float(0),
+            states('sensor.piscina_motor_coste_mensual') | float(0),
+            states('sensor.cargador_ev_coste_mensual') | float(0),
+            states('sensor.climatizacion_planta_baja_aire_acondicionado_coste_mensual') | float(0),
+            states('sensor.climatizacion_primera_planta_aire_acondicionado_coste_mensual') | float(0),
+            states('sensor.salon_regleta_coste_mensual') | float(0),
+            states('sensor.cocina_nevera_coste_mensual') | float(0),
+            states('sensor.cocina_congelador_coste_mensual') | float(0),
+            states('sensor.coladuria_secadora_coste_mensual') | float(0),
+            states('sensor.cocina_lavavajillas_coste_mensual') | float(0),
+            states('sensor.coladuria_lavadora_coste_mensual') | float(0),
+            states('sensor.despacho_wallpanel_cargador_coste_mensual') | float(0)
+          ] | max }}
+
+sensor:
+  - platform: integration
+    source: sensor.energia_coste_casa_instantaneo
+    name: Energia coste casa acumulado
+    unique_id: energia_coste_casa_acumulado
+    method: left
+    unit_time: h
+    round: 4
+    max_sub_interval:
+      minutes: 1
+  - platform: integration
+    source: sensor.salon_principal_coste_instantaneo
+    name: Salon principal coste acumulado
+    unique_id: salon_principal_coste_acumulado
+    method: left
+    unit_time: h
+    round: 4
+    max_sub_interval:
+      minutes: 1
+  - platform: integration
+    source: sensor.comedor_principal_coste_instantaneo
+    name: Comedor principal coste acumulado
+    unique_id: comedor_principal_coste_acumulado
+    method: left
+    unit_time: h
+    round: 4
+    max_sub_interval:
+      minutes: 1
+  - platform: integration
+    source: sensor.suite_principal_coste_instantaneo
+    name: Suite principal coste acumulado
+    unique_id: suite_principal_coste_acumulado
+    method: left
+    unit_time: h
+    round: 4
+    max_sub_interval:
+      minutes: 1
+  - platform: integration
+    source: sensor.escalera_principal_coste_instantaneo
+    name: Escalera principal coste acumulado
+    unique_id: escalera_principal_coste_acumulado
+    method: left
+    unit_time: h
+    round: 4
+    max_sub_interval:
+      minutes: 1
+  - platform: integration
+    source: sensor.piscina_motor_coste_instantaneo
+    name: Piscina motor coste acumulado
+    unique_id: piscina_motor_coste_acumulado
+    method: left
+    unit_time: h
+    round: 4
+    max_sub_interval:
+      minutes: 1
+  - platform: integration
+    source: sensor.cargador_ev_coste_instantaneo
+    name: Cargador ev coste acumulado
+    unique_id: cargador_ev_coste_acumulado
+    method: left
+    unit_time: h
+    round: 4
+    max_sub_interval:
+      minutes: 1
+  - platform: integration
+    source: sensor.climatizacion_planta_baja_aire_acondicionado_coste_instantaneo
+    name: Climatizacion planta baja aire acondicionado coste acumulado
+    unique_id: climatizacion_planta_baja_aire_acondicionado_coste_acumulado
+    method: left
+    unit_time: h
+    round: 4
+    max_sub_interval:
+      minutes: 1
+  - platform: integration
+    source: sensor.climatizacion_primera_planta_aire_acondicionado_coste_instantaneo
+    name: Climatizacion primera planta aire acondicionado coste acumulado
+    unique_id: climatizacion_primera_planta_aire_acondicionado_coste_acumulado
+    method: left
+    unit_time: h
+    round: 4
+    max_sub_interval:
+      minutes: 1
+  - platform: integration
+    source: sensor.salon_regleta_coste_instantaneo
+    name: Salon regleta coste acumulado
+    unique_id: salon_regleta_coste_acumulado
+    method: left
+    unit_time: h
+    round: 4
+    max_sub_interval:
+      minutes: 1
+  - platform: integration
+    source: sensor.cocina_nevera_coste_instantaneo
+    name: Cocina nevera coste acumulado
+    unique_id: cocina_nevera_coste_acumulado
+    method: left
+    unit_time: h
+    round: 4
+    max_sub_interval:
+      minutes: 1
+  - platform: integration
+    source: sensor.cocina_congelador_coste_instantaneo
+    name: Cocina congelador coste acumulado
+    unique_id: cocina_congelador_coste_acumulado
+    method: left
+    unit_time: h
+    round: 4
+    max_sub_interval:
+      minutes: 1
+  - platform: integration
+    source: sensor.coladuria_secadora_coste_instantaneo
+    name: Coladuria secadora coste acumulado
+    unique_id: coladuria_secadora_coste_acumulado
+    method: left
+    unit_time: h
+    round: 4
+    max_sub_interval:
+      minutes: 1
+  - platform: integration
+    source: sensor.cocina_lavavajillas_coste_instantaneo
+    name: Cocina lavavajillas coste acumulado
+    unique_id: cocina_lavavajillas_coste_acumulado
+    method: left
+    unit_time: h
+    round: 4
+    max_sub_interval:
+      minutes: 1
+  - platform: integration
+    source: sensor.coladuria_lavadora_coste_instantaneo
+    name: Coladuria lavadora coste acumulado
+    unique_id: coladuria_lavadora_coste_acumulado
+    method: left
+    unit_time: h
+    round: 4
+    max_sub_interval:
+      minutes: 1
+  - platform: integration
+    source: sensor.despacho_wallpanel_cargador_coste_instantaneo
+    name: Despacho wallpanel cargador coste acumulado
+    unique_id: despacho_wallpanel_cargador_coste_acumulado
+    method: left
+    unit_time: h
+    round: 4
+    max_sub_interval:
+      minutes: 1
+
+utility_meter:
+  salon_principal_coste_mensual:
+    source: sensor.salon_principal_coste_acumulado
+    name: Salon principal coste mensual
+    unique_id: salon_principal_coste_mensual
+    cycle: monthly
+  comedor_principal_coste_mensual:
+    source: sensor.comedor_principal_coste_acumulado
+    name: Comedor principal coste mensual
+    unique_id: comedor_principal_coste_mensual
+    cycle: monthly
+  suite_principal_coste_mensual:
+    source: sensor.suite_principal_coste_acumulado
+    name: Suite principal coste mensual
+    unique_id: suite_principal_coste_mensual
+    cycle: monthly
+  escalera_principal_coste_mensual:
+    source: sensor.escalera_principal_coste_acumulado
+    name: Escalera principal coste mensual
+    unique_id: escalera_principal_coste_mensual
+    cycle: monthly
+  piscina_motor_coste_mensual:
+    source: sensor.piscina_motor_coste_acumulado
+    name: Piscina motor coste mensual
+    unique_id: piscina_motor_coste_mensual
+    cycle: monthly
+  cargador_ev_coste_mensual:
+    source: sensor.cargador_ev_coste_acumulado
+    name: Cargador ev coste mensual
+    unique_id: cargador_ev_coste_mensual
+    cycle: monthly
+  climatizacion_planta_baja_aire_acondicionado_coste_mensual:
+    source: sensor.climatizacion_planta_baja_aire_acondicionado_coste_acumulado
+    name: Climatizacion planta baja aire acondicionado coste mensual
+    unique_id: climatizacion_planta_baja_aire_acondicionado_coste_mensual
+    cycle: monthly
+  climatizacion_primera_planta_aire_acondicionado_coste_mensual:
+    source: sensor.climatizacion_primera_planta_aire_acondicionado_coste_acumulado
+    name: Climatizacion primera planta aire acondicionado coste mensual
+    unique_id: climatizacion_primera_planta_aire_acondicionado_coste_mensual
+    cycle: monthly
+  salon_regleta_coste_mensual:
+    source: sensor.salon_regleta_coste_acumulado
+    name: Salon regleta coste mensual
+    unique_id: salon_regleta_coste_mensual
+    cycle: monthly
+  cocina_nevera_coste_mensual:
+    source: sensor.cocina_nevera_coste_acumulado
+    name: Cocina nevera coste mensual
+    unique_id: cocina_nevera_coste_mensual
+    cycle: monthly
+  cocina_congelador_coste_mensual:
+    source: sensor.cocina_congelador_coste_acumulado
+    name: Cocina congelador coste mensual
+    unique_id: cocina_congelador_coste_mensual
+    cycle: monthly
+  coladuria_secadora_coste_mensual:
+    source: sensor.coladuria_secadora_coste_acumulado
+    name: Coladuria secadora coste mensual
+    unique_id: coladuria_secadora_coste_mensual
+    cycle: monthly
+  cocina_lavavajillas_coste_mensual:
+    source: sensor.cocina_lavavajillas_coste_acumulado
+    name: Cocina lavavajillas coste mensual
+    unique_id: cocina_lavavajillas_coste_mensual
+    cycle: monthly
+  coladuria_lavadora_coste_mensual:
+    source: sensor.coladuria_lavadora_coste_acumulado
+    name: Coladuria lavadora coste mensual
+    unique_id: coladuria_lavadora_coste_mensual
+    cycle: monthly
+  despacho_wallpanel_cargador_coste_mensual:
+    source: sensor.despacho_wallpanel_cargador_coste_acumulado
+    name: Despacho wallpanel cargador coste mensual
+    unique_id: despacho_wallpanel_cargador_coste_mensual
+    cycle: monthly
+  energia_coste_casa_mensual:
+    source: sensor.energia_coste_casa_acumulado
+    name: Energia coste casa mensual
+    unique_id: energia_coste_casa_mensual
+    cycle: monthly
