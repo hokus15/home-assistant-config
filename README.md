@@ -165,6 +165,12 @@ wallpanel_despacho_gestion_cargador.yaml
 
 Technical external identifiers such as `wallpanel`, `ioniq`, and `zwave` are permitted when they identify the integration or product. Disabled automations retain the same base filename and append `.disabled`, for example `energia_cambio_tarifa.yaml.disabled`.
 
+Automation `id` values use the same lowercase ASCII `snake_case` vocabulary and pattern as the filename, without the `.yaml` extension. For a new automation, the `id` normally matches the filename stem:
+
+```yaml
+- id: wallpanel_despacho_gestion_cargador
+```
+
 ## Entity Naming Convention
 
 Entity IDs use lowercase ASCII `snake_case`: only `a-z`, `0-9`, and `_`. Replace non-ASCII characters with their plain equivalents (`ñ` to `n`, `ç` to `c`, accented vowels to unaccented vowels) and omit spaces and punctuation. The domain is selected by Home Assistant and is not repeated in the object ID. Names describe the purpose of an entity, rather than its wiring or integration implementation.
