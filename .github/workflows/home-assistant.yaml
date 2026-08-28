@@ -80,7 +80,7 @@ jobs:
           mkdir -p ./config/camera
           sed -i 's/\/share\/camera/.\/config\/camera/g' ./config/configuration.yaml
           sed -i 's/\/media\/camera/.\/config\/camera/g' ./config/configuration.yaml
-          sed -i 's/\/share\/camera/.\/config\/camera/g' ./config/packages/security.yaml
+          sed -i 's/\/share\/camera/.\/config\/camera/g' ./config/packages/seguridad.yaml
       - name: 🚀 Run Home Assistant Configuration Check
         uses: frenck/action-home-assistant@v1.4.1
         with:
