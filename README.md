@@ -42,11 +42,12 @@ ci/
 - `car.yaml`: Hyundai Ioniq telemetry, state, and charging logic through MQTT using data published by [IOTConnect](https://github.com/hokus15/IOTConnect).
 - `comfort.yaml`: aggregated temperature sensors and comfort/sleep modes.
 - `energia_aire_acondicionado_primera_planta.yaml` and `energia_aire_acondicionado_planta_baja.yaml`: energy monitoring and activity state for the first-floor and ground-floor air conditioning systems.
-- `energy*.yaml`: energy monitoring, tariffs, UPS, EV charger, and appliances.
+- `energia*.yaml`, `energy.yaml`, and `energy_tariffs.yaml`: energy monitoring, tariffs, EV charger, and appliances.
 - `barrera_entrada.yaml`: sliding metal garden entrance barrier state and control.
 - `lights.yaml`: grouped and virtual lights for indoor and outdoor areas.
 - `phones.yaml` and `presence.yaml`: phone state, guest mode, and presence tracking.
 - `seguridad.yaml`: cameras, motion detection, and supporting shell commands.
+- `sistema_sai_hueco_escalera.yaml`: stairwell UPS status, battery state, and mains availability.
 - `swimming_pool.yaml`: pump control, temperature, schedules, and optimization rules.
 - `system.yaml`: system sensors, Node-RED watchdog, and operational commands.
 
@@ -161,6 +162,7 @@ energia_cambio_tarifa.yaml
 coche_carga_apagar_programada.yaml
 piscina_depuradora_encender.yaml
 wallpanel_despacho_gestion_cargador.yaml
+sistema_sai_notificar_bateria_reemplazar.yaml
 ```
 
 Technical external identifiers such as `wallpanel`, `ioniq`, and `zwave` are permitted when they identify the integration or product. Disabled automations retain the same base filename and append `.disabled`, for example `energia_cambio_tarifa.yaml.disabled`.
@@ -197,7 +199,7 @@ Do not repeat information already expressed by the domain: use `binary_sensor.co
 
 Use singular nouns by default. Plural names are reserved for groups and true aggregates, such as `light.luces_interiores`.
 
-Use these canonical function terms and do not introduce synonyms or abbreviations for them: `temperatura`, `humedad`, `potencia`, `energia`, `bateria`, `estado`, `activo`, `consumo`, `movimiento`, `presencia`, `ventana`, and `puerta`. The permitted technical abbreviations are `ev`, `tv`, `ups`, and `wifi`; use no other abbreviations unless they are an established external product or integration identifier.
+Use these canonical function terms and do not introduce synonyms or abbreviations for them: `temperatura`, `humedad`, `potencia`, `energia`, `bateria`, `estado`, `activo`, `consumo`, `movimiento`, `presencia`, `ventana`, and `puerta`. The permitted technical abbreviations are `ev`, `tv`, `sai`, `ups`, and `wifi`; use no other abbreviations unless they are an established external product or integration identifier.
 
 `floor` is not included in entity IDs. Areas model the physical location in Home Assistant and are required for every enabled entity tied to a physical device with one assigned area. Do not add an area only when the entity is global, virtual, aggregated, or belongs to a device with no single functional area.
 
