@@ -440,9 +440,9 @@ template:
     - name: car_ioniq_charger_charge_state
       unique_id: car_ioniq_charger_charge_state
       state: >-
-        {%- if states('sensor.cargador_ev_power')|float(0) > 1000.0 %}
+        {%- if states('sensor.coladuria_cargador_ev_potencia')|float(0) > 1000.0 %}
            Cargando
-        {%- elif is_state('switch.cargador_ev', 'off') %}
+        {%- elif is_state('switch.coladuria_cargador_ev', 'off') %}
           Apagado
         {% else %}
           Listo

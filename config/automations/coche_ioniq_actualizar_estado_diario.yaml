@@ -1,0 +1,12 @@
+- id: coche_ioniq_actualizar_estado_diario
+  alias: "Coche - Ioniq - Actualizar estado diario"
+  trigger:
+    platform: time
+    at: "23:59:58"
+  action:
+    - action: mqtt.publish
+      data:
+        topic: "car/sensor/ioniq/state/daily"
+        retain: true
+        qos: 0
+        payload: '{{{"home_charged_energy_kwh": states(''sensor.coladuria_cargador_ev_energia_hoy''),"odometer": states(''sensor.car_ioniq_odometer''),"ced": states(''sensor.car_ioniq_battery_ced''),"cec": states(''sensor.car_ioniq_battery_cec''),"soh": states(''sensor.car_ioniq_battery_health''),"soc_display":states(''sensor.car_ioniq_battery''),"charged":states(''input_boolean.car_ioniq_has_charged''),"soc_bms":states(''sensor.car_ioniq_battery_soc_bms''),"timestamp": as_timestamp(now())|round,} | tojson}}'

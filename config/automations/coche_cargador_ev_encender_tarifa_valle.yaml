@@ -1,5 +1,5 @@
-- id: "car_charge_turn_on_charger_valle"
-  alias: "Car - Charge - Turn On charger - Valle"
+- id: coche_cargador_ev_encender_tarifa_valle
+  alias: "Coche - Cargador EV - Encender tarifa valle"
   trigger:
     # When electric tariff changes to 'Valle'
     platform: state
@@ -13,12 +13,12 @@
     conditions:
       - alias: "Solar + Valle mode"
         condition: state
-        entity_id: input_select.cargador_ev_mode
+        entity_id: input_select.coladuria_cargador_ev_modo
         state: "Solar + Valle"
       - alias: "EV charger is off"
         condition: state
-        entity_id: switch.cargador_ev
+        entity_id: switch.coladuria_cargador_ev
         state: "off"
   action:
     - action: switch.turn_on
-      entity_id: switch.cargador_ev
+      entity_id: switch.coladuria_cargador_ev

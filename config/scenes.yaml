@@ -82,9 +82,9 @@
     input_number.piscina_pump_off_net_balance_hour_threshold:
       entity_only: true
 - id: "1694448525337"
-  name: Configuración inicial cargador EV
+  name: Coladuría cargador EV configuración inicial
   entities:
-    input_select.cargador_ev_mode:
+    input_select.coladuria_cargador_ev_modo:
       options:
         - Solar
         - Solar + Valle
@@ -94,7 +94,7 @@
       icon: mdi:flash-auto
       friendly_name: Gestión cargador EV
       state: Manual con parada al acabar Valle
-    input_number.cargador_ev_on_threshold:
+    input_number.coladuria_cargador_ev_umbral_encendido:
       initial: -1800
       editable: false
       min: -3000
@@ -105,7 +105,7 @@
       icon: mdi:lightning-bolt
       friendly_name: Potencia para encendido
       state: "-1800.0"
-    input_number.cargador_ev_on_delay:
+    input_number.coladuria_cargador_ev_retardo_encendido:
       initial: 3
       editable: false
       min: 0
@@ -116,7 +116,7 @@
       icon: mdi:clock-in
       friendly_name: Retardo encendido
       state: "3.0"
-    input_number.cargador_ev_on_net_balance_hour_threshold:
+    input_number.coladuria_cargador_ev_umbral_balance_neto_horario_encendido:
       initial: -0.3
       editable: false
       min: -1
@@ -125,7 +125,7 @@
       mode: slider
       unit_of_measurement: kWh
       state: "-0.3"
-    input_number.cargador_ev_off_net_balance_hour_threshold:
+    input_number.coladuria_cargador_ev_umbral_balance_neto_horario_apagado:
       initial: 0.05
       editable: false
       min: 0
@@ -136,20 +136,20 @@
       state: "0.05"
   icon: mdi:ev-station
   metadata:
-    input_select.cargador_ev_mode:
+    input_select.coladuria_cargador_ev_modo:
       entity_only: true
-    input_number.cargador_ev_on_threshold:
+    input_number.coladuria_cargador_ev_umbral_encendido:
       entity_only: true
-    input_number.cargador_ev_on_delay:
+    input_number.coladuria_cargador_ev_retardo_encendido:
       entity_only: true
-    input_number.cargador_ev_on_net_balance_hour_threshold:
+    input_number.coladuria_cargador_ev_umbral_balance_neto_horario_encendido:
       entity_only: true
-    input_number.cargador_ev_off_net_balance_hour_threshold:
+    input_number.coladuria_cargador_ev_umbral_balance_neto_horario_apagado:
       entity_only: true
 - id: "1694448525338"
-  name: Modo solar cargador EV
+  name: Coladuría cargador EV modo solar
   entities:
-    input_select.cargador_ev_mode:
+    input_select.coladuria_cargador_ev_modo:
       options:
         - Solar
         - Solar + Valle
@@ -159,7 +159,7 @@
       icon: mdi:flash-auto
       friendly_name: Gestión cargador EV
       state: Solar
-    input_number.cargador_ev_on_threshold:
+    input_number.coladuria_cargador_ev_umbral_encendido:
       initial: -1800
       editable: false
       min: -3000
@@ -170,7 +170,7 @@
       icon: mdi:lightning-bolt
       friendly_name: Potencia para encendido
       state: "-1800.0"
-    input_number.cargador_ev_on_delay:
+    input_number.coladuria_cargador_ev_retardo_encendido:
       initial: 3
       editable: false
       min: 0
@@ -181,7 +181,7 @@
       icon: mdi:clock-in
       friendly_name: Retardo encendido
       state: "3.0"
-    input_number.cargador_ev_on_net_balance_hour_threshold:
+    input_number.coladuria_cargador_ev_umbral_balance_neto_horario_encendido:
       initial: -0.3
       editable: false
       min: -1
@@ -190,7 +190,7 @@
       mode: slider
       unit_of_measurement: kWh
       state: "-0.3"
-    input_number.cargador_ev_off_net_balance_hour_threshold:
+    input_number.coladuria_cargador_ev_umbral_balance_neto_horario_apagado:
       initial: 0.05
       editable: false
       min: 0
@@ -201,13 +201,13 @@
       state: "0.05"
   icon: mdi:ev-station
   metadata:
-    input_select.cargador_ev_mode:
+    input_select.coladuria_cargador_ev_modo:
       entity_only: true
-    input_number.cargador_ev_on_threshold:
+    input_number.coladuria_cargador_ev_umbral_encendido:
       entity_only: true
-    input_number.cargador_ev_on_delay:
+    input_number.coladuria_cargador_ev_retardo_encendido:
       entity_only: true
-    input_number.cargador_ev_on_net_balance_hour_threshold:
+    input_number.coladuria_cargador_ev_umbral_balance_neto_horario_encendido:
       entity_only: true
-    input_number.cargador_ev_off_net_balance_hour_threshold:
+    input_number.coladuria_cargador_ev_umbral_balance_neto_horario_apagado:
       entity_only: true

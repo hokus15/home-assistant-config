@@ -1,0 +1,9 @@
+- id: coche_cargador_ev_restaurar_configuracion
+  alias: "Coche - Cargador EV - Restaurar configuración"
+  trigger:
+    - platform: state
+      entity_id: input_button.coladuria_cargador_ev_restablecer_configuracion
+  action:
+    - action: scene.turn_on
+      target:
+        entity_id: scene.coladuria_cargador_ev_configuracion_inicial

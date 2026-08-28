@@ -1,0 +1,79 @@
+recorder:
+  include:
+    entities:
+      - binary_sensor.coladuria_cargador_ev_estado
+      - sensor.coladuria_cargador_ev_potencia
+      - sensor.coladuria_cargador_ev_energia
+      - binary_sensor.coladuria_cargador_ev_encendido_por_excedente_energetico_sobre_umbral
+      - binary_sensor.coladuria_cargador_ev_encendido_por_balance_neto_horario_suficiente
+      - binary_sensor.coladuria_cargador_ev_apagado_por_balance_neto_horario_insuficiente
+      - input_select.coladuria_cargador_ev_modo
+
+logbook:
+  exclude:
+    entities:
+      - sensor.coladuria_cargador_ev_potencia
+      - sensor.coladuria_cargador_ev_energia
+
+#binary_sensor:
+#  - platform: threshold
+#    name: coladuria_cargador_ev_estado
+#    entity_id: sensor.coladuria_cargador_ev_potencia
+#    upper: 5
+#    device_class: power
+
+template:
+  - binary_sensor:
+      - name: coladuria_cargador_ev_estado
+        unique_id: coladuria_cargador_ev_estado
+        state: "{{ states('sensor.coladuria_cargador_ev_potencia') | float(default=0) > 5 }}"
+        delay_off: "0:00:10"
+        icon: "mdi:ev-station"
+        attributes:
+          potencia: "{{ states('sensor.coladuria_cargador_ev_potencia') }}W"
+
+      # Activo cuando la energia exportada supera el umbral de encendido.
+      - name: coladuria_cargador_ev_encendido_por_excedente_energetico_sobre_umbral
+        unique_id: coladuria_cargador_ev_encendido_por_excedente_energetico_sobre_umbral
+        state: "{{ states('sensor.fronius_solarnet_power_grid') | float(default=0) <= states('input_number.coladuria_cargador_ev_umbral_encendido') | float(default=0) }}"
+        delay_on: "{{ states('input_number.coladuria_cargador_ev_retardo_encendido') | int(60) * 60 }}"
+      # Activo cuando el balance neto horario permite encender el cargador.
+      - name: coladuria_cargador_ev_encendido_por_balance_neto_horario_suficiente
+        unique_id: coladuria_cargador_ev_encendido_por_balance_neto_horario_suficiente
+        state: "{{ states('input_number.coladuria_cargador_ev_umbral_balance_neto_horario_encendido') | float(0) >= states('sensor.energy_net_balance_hour') | float(1) }}"
+      # Activo cuando el balance neto horario obliga a apagar el cargador.
+      - name: coladuria_cargador_ev_apagado_por_balance_neto_horario_insuficiente
+        unique_id: coladuria_cargador_ev_apagado_por_balance_neto_horario_insuficiente
+        state: "{{ states('input_number.coladuria_cargador_ev_umbral_balance_neto_horario_apagado') | float(0) >= states('sensor.energy_net_balance_hour') | float(1) }}"
+
+input_number:
+  # Grid power (negative exporting / positive importing) to turn on EV charger.
+  # i.e: -1300 Means turn on EV charger when exporting 1300W to the grid.
+  coladuria_cargador_ev_umbral_encendido:
+    name: "Potencia para encendido"
+    unit_of_measurement: "W"
+    icon: "mdi:lightning-bolt"
+    initial: -1800
+    min: -3000
+    max: 0
+    step: 100
+  coladuria_cargador_ev_retardo_encendido:
+    name: "Retardo encendido"
+    unit_of_measurement: "mins"
+    icon: "mdi:clock-in"
+    initial: 3
+    min: 0
+    max: 60
+    step: 1
+  coladuria_cargador_ev_umbral_balance_neto_horario_encendido:
+    unit_of_measurement: "kWh"
+    initial: -0.3
+    min: -1
+    max: 0
+    step: 0.1
+  coladuria_cargador_ev_umbral_balance_neto_horario_apagado:
+    unit_of_measurement: "kWh"
+    initial: 0.05
+    min: 0
+    max: 0.5
+    step: 0.01

@@ -324,14 +324,14 @@ binary_sensor.coladuria_lavadora_estado:
 binary_sensor.coladuria_lavadora_estado_alto_consumo:
   friendly_name: Estado lavadora alto consumo
   icon: mdi:washing-machine-alert
-binary_sensor.cargador_ev_status:
+binary_sensor.coladuria_cargador_ev_estado:
   friendly_name: Estado cargador EV
-sensor.cargador_ev_today_energy:
+sensor.coladuria_cargador_ev_energia_hoy:
   friendly_name: Energía cargador EV (hoy)
 sensor.piscina_energy:
   friendly_name: Consumo piscina
   icon: mdi:speedometer
-sensor.cargador_ev_energy:
+sensor.coladuria_cargador_ev_energia:
   friendly_name: Consumo cargador EV
   icon: mdi:speedometer
   device_class: energy

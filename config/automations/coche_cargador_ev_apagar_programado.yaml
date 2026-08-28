@@ -1,5 +1,5 @@
-- id: "car_charge_turn_off_scheduled"
-  alias: "Car - Charge - Turn Off - Scheduled"
+- id: coche_cargador_ev_apagar_programado
+  alias: "Coche - Cargador EV - Apagar programado"
   trigger:
     - platform: time_pattern
       # Every minute
@@ -14,7 +14,7 @@
     conditions:
       - alias: "EV Charger is on"
         condition: state
-        entity_id: switch.cargador_ev
+        entity_id: switch.coladuria_cargador_ev
         state: "on"
       - condition: not
         conditions:
@@ -22,17 +22,17 @@
             conditions:
               - alias: "In 'Manual' mode"
                 condition: state
-                entity_id: input_select.cargador_ev_mode
+                entity_id: input_select.coladuria_cargador_ev_modo
                 state: "Manual"
               - alias: "In 'Manual con parada al acabar Valle' mode"
                 condition: state
-                entity_id: input_select.cargador_ev_mode
+                entity_id: input_select.coladuria_cargador_ev_modo
                 state: "Manual con parada al acabar Valle"
           - condition: and
             conditions:
               - alias: "'Solar + Valle' mode"
                 condition: state
-                entity_id: input_select.cargador_ev_mode
+                entity_id: input_select.coladuria_cargador_ev_modo
                 state: "Solar + Valle"
               - alias: "'Valle' tariff"
                 condition: state
@@ -40,8 +40,8 @@
                 state: "Valle"
       - alias: "Hourly net balance is too low to keep the EV charger on"
         condition: state
-        entity_id: binary_sensor.cargador_ev_off_enough_net_balance_hour
+        entity_id: binary_sensor.coladuria_cargador_ev_apagado_por_balance_neto_horario_insuficiente
         state: "off"
   action:
     - action: switch.turn_off
-      entity_id: switch.cargador_ev
+      entity_id: switch.coladuria_cargador_ev

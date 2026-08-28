@@ -217,7 +217,7 @@ Keep global, virtual, aggregate, and service entities that are not tied to one p
 ```text
 sensor.energia_potencia_casa
 sensor.piscina_tiempo_filtrado
-binary_sensor.cargador_ev_estado
+binary_sensor.coladuria_cargador_ev_estado
 sensor.coche_ioniq_salud_bateria
 ```
 

@@ -1,13 +1,13 @@
-- id: "car_charge_turn_on_charger"
-  alias: "Car - Charge - Turn on charger"
+- id: coche_cargador_ev_encender
+  alias: "Coche - Cargador EV - Encender"
   trigger:
     # When generating enough energy
     - platform: state
-      entity_id: binary_sensor.cargador_ev_on_energy_export_over_threshold
+      entity_id: binary_sensor.coladuria_cargador_ev_encendido_por_excedente_energetico_sobre_umbral
       to: "on"
     # When hourly net balance is enough to turn on the EV charger
     - platform: state
-      entity_id: binary_sensor.cargador_ev_on_enough_net_balance_hour
+      entity_id: binary_sensor.coladuria_cargador_ev_encendido_por_balance_neto_horario_suficiente
       to: "on"
   # Execute automation when:
   #  - 'Solar' OR 'Solar + Valle' modes
@@ -22,29 +22,29 @@
         conditions:
           - alias: "Solar mode"
             condition: state
-            entity_id: input_select.cargador_ev_mode
+            entity_id: input_select.coladuria_cargador_ev_modo
             state: "Solar"
           - alias: "Solar + Valle mode"
             condition: state
-            entity_id: input_select.cargador_ev_mode
+            entity_id: input_select.coladuria_cargador_ev_modo
             state: "Solar + Valle"
       - alias: "Generating enough enery or hourly net balance is enough"
         condition: or
         conditions:
           - condition: state
-            entity_id: binary_sensor.cargador_ev_on_energy_export_over_threshold
+            entity_id: binary_sensor.coladuria_cargador_ev_encendido_por_excedente_energetico_sobre_umbral
             state: "on"
           - condition: state
-            entity_id: binary_sensor.cargador_ev_on_enough_net_balance_hour
+            entity_id: binary_sensor.coladuria_cargador_ev_encendido_por_balance_neto_horario_suficiente
             state: "on"
       - alias: "Hourly net balance is enough to keep the EV charger on"
         condition: state
-        entity_id: binary_sensor.cargador_ev_off_enough_net_balance_hour
+        entity_id: binary_sensor.coladuria_cargador_ev_apagado_por_balance_neto_horario_insuficiente
         state: "on"
       - alias: "EV charger is off"
         condition: state
-        entity_id: switch.cargador_ev
+        entity_id: switch.coladuria_cargador_ev
         state: "off"
   action:
     - action: switch.turn_on
-      entity_id: switch.cargador_ev
+      entity_id: switch.coladuria_cargador_ev

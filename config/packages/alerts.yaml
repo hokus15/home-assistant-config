@@ -36,7 +36,7 @@ template:
              and is_state('camera.barbacoa', 'unavailable')
              and is_state('camera.piscina', 'unavailable')
              and is_state('camera.caseta', 'unavailable')
-             and states('sensor.cargador_ev_visto_por_ultima_vez_seconds') | int > 30
+             and is_state('switch.coladuria_cargador_ev', 'unavailable')
              }}
 
       - name: "Cocina enchufes estado"
