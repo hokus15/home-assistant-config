@@ -43,7 +43,7 @@ ci/
 - `comfort.yaml`: aggregated temperature sensors and comfort/sleep modes.
 - `energia_aire_acondicionado_primera_planta.yaml` and `energia_aire_acondicionado_planta_baja.yaml`: energy monitoring and activity state for the first-floor and ground-floor air conditioning systems.
 - `energy*.yaml`: energy monitoring, tariffs, UPS, EV charger, and appliances.
-- `entrada_barrera.yaml`: sliding metal garden entrance barrier state and control.
+- `barrera_entrada.yaml`: sliding metal garden entrance barrier state and control.
 - `lights.yaml`: grouped and virtual lights for indoor and outdoor areas.
 - `phones.yaml` and `presence.yaml`: phone state, guest mode, and presence tracking.
 - `security.yaml`: cameras, motion detection, and supporting shell commands.
