@@ -1,0 +1,8 @@
+recorder:
+  include:
+    entities:
+      - switch.despacho_wallpanel_cargador
+      - sensor.wallpanel_despacho_bateria
+      - binary_sensor.wallpanel_despacho_enchufado
+      - switch.wallpanel_despacho_deteccion_de_movimiento
+      - switch.wallpanel_despacho_pantalla

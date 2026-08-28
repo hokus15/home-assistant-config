@@ -19,7 +19,6 @@ recorder:
       - sensor.coladuria_secadora_coste_instantaneo
       - sensor.cocina_lavavajillas_coste_instantaneo
       - sensor.coladuria_lavadora_coste_instantaneo
-      - sensor.despacho_wallpanel_cargador_coste_instantaneo
       - sensor.salon_principal_coste_acumulado
       - sensor.comedor_principal_coste_acumulado
       - sensor.suite_principal_coste_acumulado
@@ -34,7 +33,6 @@ recorder:
       - sensor.coladuria_secadora_coste_acumulado
       - sensor.cocina_lavavajillas_coste_acumulado
       - sensor.coladuria_lavadora_coste_acumulado
-      - sensor.despacho_wallpanel_cargador_coste_acumulado
       - sensor.energia_coste_casa_instantaneo
       - sensor.energia_coste_casa_acumulado
       - sensor.salon_principal_coste_mensual
@@ -51,7 +49,6 @@ recorder:
       - sensor.coladuria_secadora_coste_mensual
       - sensor.cocina_lavavajillas_coste_mensual
       - sensor.coladuria_lavadora_coste_mensual
-      - sensor.despacho_wallpanel_cargador_coste_mensual
       - sensor.energia_coste_casa_mensual
 
 template:
@@ -76,7 +73,6 @@ template:
           - sensor.coladuria_secadora_potencia
           - sensor.cocina_lavavajillas_potencia
           - sensor.coladuria_lavadora_potencia
-          - sensor.wallpanel_despacho_cargador_power_filtered
       - platform: time_pattern
         minutes: "/1"
     sensor:
@@ -185,13 +181,6 @@ template:
         availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.coladuria_lavadora_potencia') }}"
         state: "{{ (states('sensor.coladuria_lavadora_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
 
-      - name: Despacho wallpanel cargador coste instantaneo
-        unique_id: despacho_wallpanel_cargador_coste_instantaneo
-        unit_of_measurement: "€/h"
-        state_class: measurement
-        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.wallpanel_despacho_cargador_power_filtered') }}"
-        state: "{{ (states('sensor.wallpanel_despacho_cargador_power_filtered') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
-
   - sensor:
       - name: Energia coste mensual maximo dispositivo
         unique_id: energia_coste_mensual_maximo_dispositivo
@@ -213,8 +202,7 @@ template:
             states('sensor.cocina_congelador_coste_mensual') | float(0),
             states('sensor.coladuria_secadora_coste_mensual') | float(0),
             states('sensor.cocina_lavavajillas_coste_mensual') | float(0),
-            states('sensor.coladuria_lavadora_coste_mensual') | float(0),
-            states('sensor.despacho_wallpanel_cargador_coste_mensual') | float(0)
+            states('sensor.coladuria_lavadora_coste_mensual') | float(0)
           ] | max }}
 
 sensor:
@@ -353,15 +341,6 @@ sensor:
     round: 4
     max_sub_interval:
       minutes: 1
-  - platform: integration
-    source: sensor.despacho_wallpanel_cargador_coste_instantaneo
-    name: Despacho wallpanel cargador coste acumulado
-    unique_id: despacho_wallpanel_cargador_coste_acumulado
-    method: left
-    unit_time: h
-    round: 4
-    max_sub_interval:
-      minutes: 1
 
 utility_meter:
   salon_principal_coste_mensual:
@@ -433,11 +412,6 @@ utility_meter:
     source: sensor.coladuria_lavadora_coste_acumulado
     name: Coladuria lavadora coste mensual
     unique_id: coladuria_lavadora_coste_mensual
-    cycle: monthly
-  despacho_wallpanel_cargador_coste_mensual:
-    source: sensor.despacho_wallpanel_cargador_coste_acumulado
-    name: Despacho wallpanel cargador coste mensual
-    unique_id: despacho_wallpanel_cargador_coste_mensual
     cycle: monthly
   energia_coste_casa_mensual:
     source: sensor.energia_coste_casa_acumulado

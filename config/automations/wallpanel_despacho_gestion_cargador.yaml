@@ -21,7 +21,7 @@
       then:
         - action: switch.turn_off
           target:
-            entity_id: switch.wallpanel_despacho_cargador
+            entity_id: switch.despacho_wallpanel_cargador
           data: {}
     - if:
         - condition: trigger
@@ -30,6 +30,6 @@
       then:
         - action: switch.turn_on
           target:
-            entity_id: switch.wallpanel_despacho_cargador
+            entity_id: switch.despacho_wallpanel_cargador
           data: {}
   mode: single
