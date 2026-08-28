@@ -52,18 +52,7 @@ ci/
 
 ## Automations
 
-Active automations live in `config/automations/` and use a domain-based naming convention:
-
-- `Alarm - ...`
-- `Car - ...`
-- `Comfort - ...`
-- `Energy - ...`
-- `Presence - ...`
-- `Swimming Pool - ...`
-- `System - ...`
-- `Webhook - ...`
-
-Automations that should not be loaded are kept in `config/automations/disabled/` with a `.disabled` extension.
+Active automations live in `config/automations/`. Their filenames follow the automation filename convention below. Automations that should not be loaded are kept in `config/automations/disabled/` with a `.disabled` extension.
 
 ## Secrets
 
@@ -154,6 +143,27 @@ presencia.yaml
 ```
 
 Organize files by functional responsibility rather than by an individual entity, integration implementation, or device. Avoid generic names such as `misc.yaml`, `utils.yaml`, and `configuracion2.yaml`, and do not encode versions in filenames. Disabled configuration keeps its functional filename and uses the `.disabled` extension.
+
+### Automation File Naming Convention
+
+Automation filenames use lowercase ASCII `snake_case`, Spanish without accents, and the following pattern:
+
+```text
+<subsistema>[_<alcance>]_<evento_o_accion>.yaml
+```
+
+`<subsistema>` identifies the functional domain, `<alcance>` is included when it disambiguates the target area or device, and the final segment describes the triggering event or intended action. Do not prefix the filename with `automation` and do not repeat a Home Assistant entity domain.
+
+Examples:
+
+```text
+energia_cambio_tarifa.yaml
+coche_carga_apagar_programada.yaml
+piscina_depuradora_encender.yaml
+wallpanel_despacho_gestion_cargador.yaml
+```
+
+Technical external identifiers such as `wallpanel`, `ioniq`, and `zwave` are permitted when they identify the integration or product. Disabled automations retain the same base filename and append `.disabled`, for example `energia_cambio_tarifa.yaml.disabled`.
 
 ## Entity Naming Convention
 
