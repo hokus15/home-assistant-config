@@ -352,8 +352,8 @@ sensor.fronius_smartmeter_energy_real_produced:
   icon: mdi:transmission-tower-export
 zone.casa_cerca:
   friendly_name: Casa
-binary_sensor.puerta_entrada_sensor:
-  friendly_name: Puerta de entrada
+binary_sensor.recibidor_puerta_principal:
+  friendly_name: Puerta principal
 binary_sensor.banyo_ninyos_sensor_ventana:
   friendly_name: Ventana del baño de los niños
 binary_sensor.banyo_suite_sensor_ventana:

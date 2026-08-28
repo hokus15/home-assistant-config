@@ -4,7 +4,7 @@ recorder:
       - binary_sensor.coladuria_sensor_puerta
       - binary_sensor.porche_sensor_puerta
       - binary_sensor.porche_sensor_persiana
-      - binary_sensor.puerta_entrada_sensor
+      - binary_sensor.recibidor_puerta_principal
       - binary_sensor.despacho_sensor_movimiento
       - binary_sensor.banyo_suite_sensor_ventana
       - binary_sensor.banyo_ninyos_sensor_ventana
@@ -30,7 +30,7 @@ recorder:
 
       - group.seguridad
 
-      - lock.entrada
+      - lock.recibidor_puerta_principal
 
 logbook:
   exclude:
@@ -47,7 +47,7 @@ group:
       - input_boolean.despacho_sensor_movimiento
 
       - input_boolean.entrada_camara_det_mov
-      - input_boolean.entrada_sensor_puerta
+      - input_boolean.recibidor_puerta_principal_deteccion_activada
 
       - input_boolean.porche_sensor_persiana
       - input_boolean.porche_sensor_puerta
@@ -212,8 +212,8 @@ input_boolean:
     name: Det. apert. puerta coladuría
     icon: "mdi:door-open"
 
-  entrada_sensor_puerta:
-    name: Det. apert. puerta entrada
+  recibidor_puerta_principal_deteccion_activada:
+    name: Detección de puerta principal activada
     icon: "mdi:door-open"
 
   despacho_sensor_movimiento:

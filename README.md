@@ -46,7 +46,7 @@ ci/
 - `barrera_entrada.yaml`: sliding metal garden entrance barrier state and control.
 - `lights.yaml`: grouped and virtual lights for indoor and outdoor areas.
 - `phones.yaml` and `presence.yaml`: phone state, guest mode, and presence tracking.
-- `security.yaml`: cameras, motion detection, and supporting shell commands.
+- `seguridad.yaml`: cameras, motion detection, and supporting shell commands.
 - `swimming_pool.yaml`: pump control, temperature, schedules, and optimization rules.
 - `system.yaml`: system sensors, Node-RED watchdog, and operational commands.
 
