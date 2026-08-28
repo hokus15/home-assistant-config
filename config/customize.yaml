@@ -97,12 +97,12 @@ light.comedor_principal:
 light.salon_lampara:
   friendly_name: Lámpara salón
   icon: mdi:lamp
-sensor.qnapups_battery_charge:
+sensor.hueco_escalera_sai_carga_bateria:
   device_class: battery
   friendly_name: Carga SAI
-sensor.qnapups_battery_runtime:
-  friendly_name: Tiempo restante SAI
-binary_sensor.energy_home_status:
+sensor.hueco_escalera_sai_autonomia_bateria:
+  friendly_name: Autonomia batería
+binary_sensor.hueco_escalera_sai_red_electrica_activa:
   friendly_name: Suministro eléctrico casa
 sensor.car_ioniq_location_last_update:
   friendly_name: Última actualización posición
@@ -268,7 +268,7 @@ sensor.comedor_principal_energia:
 switch.guest_mode:
   friendly_name: Modo invitado
   icon: mdi:account-clock
-sensor.qnapups_beeper_status:
+sensor.hueco_escalera_sai_estado_avisador:
   icon: mdi:whistle
 sensor.car_ioniq_odometer_last_update:
   icon: mdi:update

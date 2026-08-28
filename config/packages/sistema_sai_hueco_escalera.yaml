@@ -1,0 +1,37 @@
+recorder:
+  include:
+    entities:
+      - sensor.hueco_escalera_sai_estado_traducido
+
+      - binary_sensor.hueco_escalera_sai_red_electrica_activa
+
+template:
+  - binary_sensor:
+    - name: hueco_escalera_sai_red_electrica_activa
+      unique_id: hueco_escalera_sai_red_electrica_activa
+      device_class: plug
+      # Takes into consideration: OL, OL CHRG, OL LB, OL CHRG LB
+      state: "{{ 'OL' in states('sensor.hueco_escalera_sai_estado_datos') }}"
+      delay_off:
+        seconds: 30
+  - sensor:
+    - name: hueco_escalera_sai_estado_traducido
+      unique_id: hueco_escalera_sai_estado_traducido
+      state: >-
+          {%- if is_state('sensor.hueco_escalera_sai_estado_datos', 'OL') %}
+            Normal
+          {% elif is_state('sensor.hueco_escalera_sai_estado_datos', 'OL LB') %}
+            Normal batería baja
+          {% elif is_state('sensor.hueco_escalera_sai_estado_datos', 'OL CHRG') %}
+            Cargando
+          {% elif is_state('sensor.hueco_escalera_sai_estado_datos', 'OL CHRG LB') %}
+            Cargando batería baja
+          {% elif is_state('sensor.hueco_escalera_sai_estado_datos', 'OB DISCHRG') %}
+            Batería
+          {% elif is_state('sensor.hueco_escalera_sai_estado_datos', 'LB DISCHRG') %}
+            Batería baja
+          {% elif is_state('sensor.hueco_escalera_sai_estado_datos', 'RB') %}
+            Reemplazar batería
+          {% else %}
+            Desconocido
+          {%- endif %}

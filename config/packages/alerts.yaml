@@ -17,7 +17,7 @@ template:
 
       - name: "swimming_pool_circuit_breaker_alert"
         state: >-
-          {{  is_state('binary_sensor.energy_home_status', 'on')
+          {{  is_state('binary_sensor.hueco_escalera_sai_red_electrica_activa', 'on')
              and is_state('binary_sensor.gfci_alert', 'off')
              and is_state('switch.motor_piscina', 'unavailable')
              and is_state('switch.piscina_luz_principal', 'unavailable')
@@ -26,7 +26,7 @@ template:
       # GFCI -> Ground fault circuit interrupter -> Diferencial
       - name: "gfci_alert"
         state: >-
-          {{  is_state('binary_sensor.energy_home_status', 'on')
+          {{  is_state('binary_sensor.hueco_escalera_sai_red_electrica_activa', 'on')
              and is_state('switch.motor_piscina', 'unavailable')
              and is_state('switch.piscina_luz_principal', 'unavailable')
              and is_state('switch.piscina', 'unavailable')
@@ -43,7 +43,7 @@ template:
         unique_id: cocina_enchufes_estado
         device_class: problem
         state: >-
-          {{ is_state('binary_sensor.energy_home_status', 'on')
+          {{ is_state('binary_sensor.hueco_escalera_sai_red_electrica_activa', 'on')
              and is_state('switch.cocina_nevera', 'unavailable')
              and is_state('switch.cocina_congelador', 'unavailable')
              and has_value('switch.coladuria_lavadora')

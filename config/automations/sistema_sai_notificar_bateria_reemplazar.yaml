@@ -1,8 +1,8 @@
-- id: "energy_notification_ups_battery_to_be_replaced"
-  alias: "Energy - Notification - UPS battery to be replaced"
+- id: sistema_sai_notificar_bateria_reemplazar
+  alias: "Sistema - SAI - Notificar reemplazo de batería"
   trigger:
     platform: state
-    entity_id: sensor.qnapups_status
+    entity_id: sensor.hueco_escalera_sai_estado
     to: "Reemplazar batería"
   action:
     - action: notify.send_message
