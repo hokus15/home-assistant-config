@@ -5,7 +5,7 @@ recorder:
       - binary_sensor.porche_sensor_puerta
       - binary_sensor.porche_sensor_persiana
       - binary_sensor.recibidor_puerta_principal
-      - binary_sensor.despacho_sensor_movimiento
+      - binary_sensor.despacho_movimiento
       - binary_sensor.banyo_suite_sensor_ventana
       - binary_sensor.banyo_ninyos_sensor_ventana
       - binary_sensor.suite_sensor_ventana
@@ -23,7 +23,7 @@ recorder:
       - switch.caseta_camara_det_mov
 
       - input_boolean.entrada_camara_det_mov
-      - input_boolean.despacho_sensor_movimiento
+      - input_boolean.despacho_movimiento
       - input_boolean.porche_sensor_puerta
       - input_boolean.porche_sensor_persiana
       - input_boolean.coladuria_sensor_puerta
@@ -35,7 +35,7 @@ recorder:
 logbook:
   exclude:
     entities:
-      - binary_sensor.despacho_sensor_movimiento
+      - binary_sensor.despacho_movimiento
 
 group:
   Seguridad:
@@ -44,7 +44,7 @@ group:
 
       - input_boolean.coladuria_sensor_puerta
 
-      - input_boolean.despacho_sensor_movimiento
+      - input_boolean.despacho_movimiento
 
       - input_boolean.entrada_camara_det_mov
       - input_boolean.recibidor_puerta_principal_deteccion_activada
@@ -216,7 +216,7 @@ input_boolean:
     name: Detección de puerta principal activada
     icon: "mdi:door-open"
 
-  despacho_sensor_movimiento:
+  despacho_movimiento:
     name: Det. mov. despacho
     icon: "mdi:transit-transfer"
 

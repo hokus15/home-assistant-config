@@ -179,10 +179,10 @@ camera.caseta:
 switch.caseta_camara_det_mov:
   friendly_name: Det. mov. caseta
   icon: mdi:transit-transfer
-binary_sensor.despacho_sensor_movimiento:
+binary_sensor.despacho_movimiento:
   friendly_name: Movimiento despacho
   device_class: motion
-sensor.despacho_sensor_movimiento_luminance:
+sensor.despacho_movimiento_iluminancia:
   icon: mdi:weather-sunny
 binary_sensor.porche_sensor_puerta:
   device_class: door
@@ -215,7 +215,7 @@ binary_sensor.summer_time:
   friendly_name: Horario de verano
 sensor.piscina_width:
   friendly_name: Ancho piscina
-sensor.despacho_sensor_movimiento_temperature:
+sensor.despacho_movimiento_temperatura:
   device_class: temperature
 sensor.piscina_filtration_time:
   friendly_name: Tiempo programado de filtrado

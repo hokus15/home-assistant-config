@@ -125,7 +125,7 @@ views:
             name: Salon
           - entity: sensor.recibidor_temperature
             name: Recibidor
-          - entity: sensor.despacho_sensor_movimiento_temperature
+          - entity: sensor.despacho_movimiento_temperatura
             name: Despacho
           - entity: sensor.porche_sensor_puerta_temperature
             name: Cocina

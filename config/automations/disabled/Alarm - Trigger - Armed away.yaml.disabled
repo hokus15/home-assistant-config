@@ -34,7 +34,7 @@
       to: 'on'
     # When Living room motion is detected
     - platform: state
-      entity_id: binary_sensor.despacho_sensor_movimiento
+      entity_id: binary_sensor.despacho_movimiento
       to: 'on'
   condition:
     - condition: state
