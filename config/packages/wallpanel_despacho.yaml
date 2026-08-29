@@ -2,7 +2,7 @@ recorder:
   include:
     entities:
       - switch.despacho_wallpanel_cargador
-      - sensor.wallpanel_despacho_bateria
-      - binary_sensor.wallpanel_despacho_enchufado
-      - switch.wallpanel_despacho_deteccion_de_movimiento
-      - switch.wallpanel_despacho_pantalla
+      - sensor.despacho_wallpanel_bateria
+      - binary_sensor.despacho_wallpanel_enchufado
+      - switch.despacho_wallpanel_deteccion_de_movimiento
+      - switch.despacho_wallpanel_pantalla

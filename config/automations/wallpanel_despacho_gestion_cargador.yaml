@@ -4,12 +4,12 @@
   trigger:
     - platform: numeric_state
       entity_id:
-        - sensor.wallpanel_despacho_bateria
+        - sensor.despacho_wallpanel_bateria
       above: 80
       id: higher_level
     - platform: numeric_state
       entity_id:
-        - sensor.wallpanel_despacho_bateria
+        - sensor.despacho_wallpanel_bateria
       below: 30
       id: lower_level
   condition: []
