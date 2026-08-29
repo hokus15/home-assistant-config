@@ -242,7 +242,7 @@ presence_leave_home:
           {%- if is_state("binary_sensor.suite_sensor_ventana", "on") %}{% set incidence = true %}Ventana de la suite abierta. {% endif %}
           {%- if is_state("binary_sensor.habitacion_coque_sensor_ventana", "on") %}{% set incidence = true %}Ventana de la habitación de Coque abierta. {% endif %}
           {%- if is_state("binary_sensor.habitacion_carlos_sensor_ventana", "on") %}{% set incidence = true %}Ventana de la habitación de Carlos abierta. {% endif %}
-          {%- if is_state("binary_sensor.despacho_sensor_ventana", "on") %}{% set incidence = true %}Ventana del despacho abierta. {% endif %}
+          {%- if is_state("binary_sensor.despacho_ventana", "on") %}{% set incidence = true %}Ventana del despacho abierta. {% endif %}
           {%- if is_state("light.salon_lampara", "on") %}{% set incidence = true %}Lámpara del salón encendida. {% endif %}
           {%- if is_state("light.escalera_principal", "on") %}{% set incidence = true %}Luz de la escalera encendida. {% endif %}
           {%- if is_state("light.comedor_principal", "on") %}{% set incidence = true %}Luz del comedor encendida. {% endif %}

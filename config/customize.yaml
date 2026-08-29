@@ -364,7 +364,7 @@ binary_sensor.habitacion_coque_sensor_ventana:
   friendly_name: Ventana del cuarto de Coque
 binary_sensor.suite_sensor_ventana:
   friendly_name: Ventana de la suite
-binary_sensor.despacho_sensor_ventana:
+binary_sensor.despacho_ventana:
   friendly_name: Ventana del despacho
 sensor.energy_power_house:
   friendly_name: Potencia de la vivienda

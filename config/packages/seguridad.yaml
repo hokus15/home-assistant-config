@@ -13,7 +13,7 @@ recorder:
       - binary_sensor.habitacion_carlos_sensor_ventana
       - binary_sensor.salon_sensor_ventana
       - binary_sensor.salon_piscina_sensor_puerta
-      - binary_sensor.despacho_sensor_ventana
+      - binary_sensor.despacho_ventana
 
       - switch.recibidor_camara_det_mov
       - switch.salon_camara_det_mov
