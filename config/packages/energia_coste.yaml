@@ -11,7 +11,7 @@ recorder:
       - sensor.escalera_principal_coste_instantaneo
       - sensor.piscina_motor_coste_instantaneo
       - sensor.coladuria_cargador_ev_coste_instantaneo
-      - sensor.climatizacion_planta_baja_aire_acondicionado_coste_instantaneo
+      - sensor.climatizacion_planta_baja_aire_acondicionado_total_coste_instantaneo
       - sensor.climatizacion_primera_planta_aire_acondicionado_coste_instantaneo
       - sensor.salon_regleta_coste_instantaneo
       - sensor.cocina_nevera_coste_instantaneo
@@ -26,7 +26,7 @@ recorder:
       - sensor.escalera_principal_coste_acumulado
       - sensor.piscina_motor_coste_acumulado
       - sensor.coladuria_cargador_ev_coste_acumulado
-      - sensor.climatizacion_planta_baja_aire_acondicionado_coste_acumulado
+      - sensor.climatizacion_planta_baja_aire_acondicionado_total_coste_acumulado
       - sensor.climatizacion_primera_planta_aire_acondicionado_coste_acumulado
       - sensor.salon_regleta_coste_acumulado
       - sensor.cocina_nevera_coste_acumulado
@@ -43,7 +43,7 @@ recorder:
       - sensor.escalera_principal_coste_mensual
       - sensor.piscina_motor_coste_mensual
       - sensor.coladuria_cargador_ev_coste_mensual
-      - sensor.climatizacion_planta_baja_aire_acondicionado_coste_mensual
+      - sensor.climatizacion_planta_baja_aire_acondicionado_total_coste_mensual
       - sensor.climatizacion_primera_planta_aire_acondicionado_coste_mensual
       - sensor.salon_regleta_coste_mensual
       - sensor.cocina_nevera_coste_mensual
@@ -68,7 +68,7 @@ template:
           - sensor.escalera_principal_potencia
           - sensor.piscina_power
           - sensor.coladuria_cargador_ev_potencia
-          - sensor.climatizacion_planta_baja_aire_acondicionado_potencia
+          - sensor.climatizacion_planta_baja_aire_acondicionado_total_potencia
           - sensor.climatizacion_primera_planta_aire_acondicionado_potencia
           - sensor.salon_regleta_potencia_filtrada
           - sensor.cocina_nevera_potencia
@@ -129,12 +129,12 @@ template:
         availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.coladuria_cargador_ev_potencia') }}"
         state: "{{ (states('sensor.coladuria_cargador_ev_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
 
-      - name: Climatizacion planta baja aire acondicionado coste instantaneo
-        unique_id: climatizacion_planta_baja_aire_acondicionado_coste_instantaneo
+      - name: Climatizacion planta baja aire acondicionado total coste instantaneo
+        unique_id: climatizacion_planta_baja_aire_acondicionado_total_coste_instantaneo
         unit_of_measurement: "€/h"
         state_class: measurement
-        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.climatizacion_planta_baja_aire_acondicionado_potencia') }}"
-        state: "{{ (states('sensor.climatizacion_planta_baja_aire_acondicionado_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.climatizacion_planta_baja_aire_acondicionado_total_potencia') }}"
+        state: "{{ (states('sensor.climatizacion_planta_baja_aire_acondicionado_total_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
 
       - name: Climatizacion primera planta aire acondicionado coste instantaneo
         unique_id: climatizacion_primera_planta_aire_acondicionado_coste_instantaneo
@@ -206,7 +206,7 @@ template:
             states('sensor.escalera_principal_coste_mensual') | float(0),
             states('sensor.piscina_motor_coste_mensual') | float(0),
             states('sensor.coladuria_cargador_ev_coste_mensual') | float(0),
-            states('sensor.climatizacion_planta_baja_aire_acondicionado_coste_mensual') | float(0),
+            states('sensor.climatizacion_planta_baja_aire_acondicionado_total_coste_mensual') | float(0),
             states('sensor.climatizacion_primera_planta_aire_acondicionado_coste_mensual') | float(0),
             states('sensor.salon_regleta_coste_mensual') | float(0),
             states('sensor.cocina_nevera_coste_mensual') | float(0),
@@ -282,9 +282,9 @@ sensor:
     max_sub_interval:
       minutes: 1
   - platform: integration
-    source: sensor.climatizacion_planta_baja_aire_acondicionado_coste_instantaneo
-    name: Climatizacion planta baja aire acondicionado coste acumulado
-    unique_id: climatizacion_planta_baja_aire_acondicionado_coste_acumulado
+    source: sensor.climatizacion_planta_baja_aire_acondicionado_total_coste_instantaneo
+    name: Climatizacion planta baja aire acondicionado total coste acumulado
+    unique_id: climatizacion_planta_baja_aire_acondicionado_total_coste_acumulado
     method: left
     unit_time: h
     round: 4
@@ -394,10 +394,10 @@ utility_meter:
     name: Coladuria cargador ev coste mensual
     unique_id: coladuria_cargador_ev_coste_mensual
     cycle: monthly
-  climatizacion_planta_baja_aire_acondicionado_coste_mensual:
-    source: sensor.climatizacion_planta_baja_aire_acondicionado_coste_acumulado
-    name: Climatizacion planta baja aire acondicionado coste mensual
-    unique_id: climatizacion_planta_baja_aire_acondicionado_coste_mensual
+  climatizacion_planta_baja_aire_acondicionado_total_coste_mensual:
+    source: sensor.climatizacion_planta_baja_aire_acondicionado_total_coste_acumulado
+    name: Climatizacion planta baja aire acondicionado total coste mensual
+    unique_id: climatizacion_planta_baja_aire_acondicionado_total_coste_mensual
     cycle: monthly
   climatizacion_primera_planta_aire_acondicionado_coste_mensual:
     source: sensor.climatizacion_primera_planta_aire_acondicionado_coste_acumulado

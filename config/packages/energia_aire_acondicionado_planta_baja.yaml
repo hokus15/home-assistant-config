@@ -1,26 +1,43 @@
 recorder:
   include:
     entities:
-      - sensor.climatizacion_planta_baja_aire_acondicionado_energia
-      - sensor.climatizacion_planta_baja_aire_acondicionado_potencia
+      - sensor.climatizacion_planta_baja_aire_acondicionado_total_energia
+      - sensor.climatizacion_planta_baja_aire_acondicionado_total_potencia
+      - sensor.climatizacion_planta_baja_aire_acondicionado_cocina_despacho_potencia
 
-      - binary_sensor.climatizacion_planta_baja_aire_acondicionado_activo
+      - binary_sensor.climatizacion_planta_baja_aire_acondicionado_total_activo
 
 template:
   - binary_sensor:
-      - name: "Climatización planta baja aire acondicionado activo"
-        unique_id: climatizacion_planta_baja_aire_acondicionado_activo
+      - name: "Climatización planta baja aire acondicionado total activo"
+        unique_id: climatizacion_planta_baja_aire_acondicionado_total_activo
         availability: >
-          {{ is_number(states('sensor.climatizacion_planta_baja_aire_acondicionado_potencia')) }}
+          {{ is_number(states('sensor.climatizacion_planta_baja_aire_acondicionado_total_potencia')) }}
         state: >
-          {{ states('sensor.climatizacion_planta_baja_aire_acondicionado_potencia') | float > 50 }}
+          {{ states('sensor.climatizacion_planta_baja_aire_acondicionado_total_potencia') | float > 50 }}
         delay_off: "00:01:00"
         icon: >
-          {% if states('sensor.climatizacion_planta_baja_aire_acondicionado_potencia') | float(0) > 50 %}
+          {% if states('sensor.climatizacion_planta_baja_aire_acondicionado_total_potencia') | float(0) > 50 %}
             mdi:hvac
           {% else %}
             mdi:hvac-off
           {% endif %}
         attributes:
           power: >
-            {{ states('sensor.climatizacion_planta_baja_aire_acondicionado_potencia') | float(0) | round(0) }} W
+            {{ states('sensor.climatizacion_planta_baja_aire_acondicionado_total_potencia') | float(0) | round(0) }} W
+
+  - sensor:
+      - name: "Climatización planta baja aire acondicionado cocina despacho potencia"
+        unique_id: climatizacion_planta_baja_aire_acondicionado_cocina_despacho_potencia
+        availability: >
+          {{ has_value('sensor.climatizacion_planta_baja_aire_acondicionado_total_potencia')
+             and has_value('sensor.salon_aire_acondicionado_potencia') }}
+        state: >
+          {{ [
+            states('sensor.climatizacion_planta_baja_aire_acondicionado_total_potencia') | float(0)
+            - states('sensor.salon_aire_acondicionado_potencia') | float(0),
+            0
+          ] | max | round(0) }}
+        unit_of_measurement: "W"
+        device_class: power
+        state_class: measurement

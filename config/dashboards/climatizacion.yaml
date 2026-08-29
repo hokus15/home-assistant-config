@@ -15,7 +15,7 @@ views:
             name: Casa
           - entity: sensor.exterior_temperature
             name: Exterior
-          - entity: binary_sensor.climatizacion_planta_baja_aire_acondicionado_activo
+          - entity: binary_sensor.climatizacion_planta_baja_aire_acondicionado_total_activo
             name: A/A PB
           - entity: binary_sensor.climatizacion_primera_planta_aire_acondicionado_activo
             name: A/A 1P
@@ -193,11 +193,11 @@ views:
         title: Consumo climatizacion
         show_header_toggle: false
         entities:
-          - entity: binary_sensor.climatizacion_planta_baja_aire_acondicionado_activo
+          - entity: binary_sensor.climatizacion_planta_baja_aire_acondicionado_total_activo
             name: A/A planta baja activo
-          - entity: sensor.climatizacion_planta_baja_aire_acondicionado_potencia
+          - entity: sensor.climatizacion_planta_baja_aire_acondicionado_total_potencia
             name: Potencia A/A planta baja
-          - entity: sensor.climatizacion_planta_baja_aire_acondicionado_energia
+          - entity: sensor.climatizacion_planta_baja_aire_acondicionado_total_energia
             name: Energia A/A planta baja
           - entity: binary_sensor.climatizacion_primera_planta_aire_acondicionado_activo
             name: A/A primera planta activo
@@ -212,7 +212,7 @@ views:
         title: Potencia climatizacion 24h
         hours_to_show: 24
         entities:
-          - entity: sensor.climatizacion_planta_baja_aire_acondicionado_potencia
+          - entity: sensor.climatizacion_planta_baja_aire_acondicionado_total_potencia
             name: A/A planta baja
           - entity: sensor.climatizacion_primera_planta_aire_acondicionado_potencia
             name: A/A primera planta
