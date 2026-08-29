@@ -17,7 +17,7 @@ views:
             name: Exterior
           - entity: binary_sensor.climatizacion_planta_baja_aire_acondicionado_activo
             name: A/A PB
-          - entity: binary_sensor.aire_acondicionado_primera_planta_activo
+          - entity: binary_sensor.climatizacion_primera_planta_aire_acondicionado_activo
             name: A/A 1P
           - entity: sensor.energy_tariff
             name: Tarifa
@@ -199,11 +199,11 @@ views:
             name: Potencia A/A planta baja
           - entity: sensor.climatizacion_planta_baja_aire_acondicionado_energia
             name: Energia A/A planta baja
-          - entity: binary_sensor.aire_acondicionado_primera_planta_activo
+          - entity: binary_sensor.climatizacion_primera_planta_aire_acondicionado_activo
             name: A/A primera planta activo
-          - entity: sensor.aire_acondicionado_primera_planta_potencia
+          - entity: sensor.climatizacion_primera_planta_aire_acondicionado_potencia
             name: Potencia A/A primera planta
-          - entity: sensor.aire_acondicionado_primera_planta_energia
+          - entity: sensor.climatizacion_primera_planta_aire_acondicionado_energia
             name: Energia A/A primera planta
           - entity: climate.recibidor
             name: Calefaccion
@@ -214,7 +214,7 @@ views:
         entities:
           - entity: sensor.climatizacion_planta_baja_aire_acondicionado_potencia
             name: A/A planta baja
-          - entity: sensor.aire_acondicionado_primera_planta_potencia
+          - entity: sensor.climatizacion_primera_planta_aire_acondicionado_potencia
             name: A/A primera planta
           - entity: sensor.energy_power_house
             name: Vivienda

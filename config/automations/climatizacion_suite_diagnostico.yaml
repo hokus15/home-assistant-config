@@ -2,7 +2,7 @@
   alias: "Climatizacion - Suite A/A - Inicio actividad"
   trigger:
     - platform: state
-      entity_id: binary_sensor.aire_acondicionado_primera_planta_activo
+      entity_id: binary_sensor.climatizacion_primera_planta_aire_acondicionado_activo
       to: "on"
   condition:
     - condition: state
@@ -79,14 +79,14 @@
       target:
         entity_id: input_number.suite_aire_acondicionado_potencia_inicio_parada
       data:
-        value: "{{ states('sensor.aire_acondicionado_primera_planta_potencia') | float(0) | round(0) }}"
+        value: "{{ states('sensor.climatizacion_primera_planta_aire_acondicionado_potencia') | float(0) | round(0) }}"
     - action: input_number.set_value
       target:
         entity_id: input_number.suite_aire_acondicionado_potencia_media_30min_inicio_parada
       data:
         value: >-
           {% set media = states('sensor.suite_aire_acondicionado_potencia_media_30min') %}
-          {{ (media if is_number(media) else states('sensor.aire_acondicionado_primera_planta_potencia')) | float(0) | round(0) }}
+          {{ (media if is_number(media) else states('sensor.climatizacion_primera_planta_aire_acondicionado_potencia')) | float(0) | round(0) }}
     - action: input_number.set_value
       target:
         entity_id: input_number.suite_aire_acondicionado_tiempo_actividad_hasta_fallo_ultimo
@@ -110,7 +110,7 @@
         name: "Diagnostico A/A suite: fallo detectado"
         entity_id: binary_sensor.suite_aire_acondicionado_parado_sin_consigna
         message: >-
-          Suite {{ states('sensor.suite_temperature') }} °C (consigna {{ states('input_number.suite_aire_acondicionado_temperatura_consigna') }} °C, +{{ states('sensor.suite_aire_acondicionado_diferencia_consigna') }} °C); tiempo desde actividad A/A {{ states('input_number.suite_aire_acondicionado_tiempo_actividad_hasta_fallo_ultimo') }} min, desde enfriamiento Suite {{ states('input_number.suite_aire_acondicionado_tiempo_enfriamiento_ultimo') }} min. Potencia A/A 1P {{ states('sensor.aire_acondicionado_primera_planta_potencia') }} W; media 30min {{ states('input_number.suite_aire_acondicionado_potencia_media_30min_inicio_parada') }} W. Splits previstos: Suite {{ states('input_boolean.suite_aire_acondicionado_previsto') }}, Carlos {{ states('input_boolean.habitacion_carlos_aire_acondicionado_previsto') }}, Coque {{ states('input_boolean.habitacion_coque_aire_acondicionado_previsto') }}. Otros splits previstos inferidos enfriando: {{ states('sensor.aire_acondicionado_primera_planta_otros_splits_enfriando') }} (Carlos: {{ states('binary_sensor.habitacion_carlos_aire_acondicionado_enfriando') }}, Coque: {{ states('binary_sensor.habitacion_coque_aire_acondicionado_enfriando') }}). T Carlos/Coque: {{ states('sensor.habitacion_carlos_temperature') }}/{{ states('sensor.habitacion_coque_temperature') }} °C; exterior {{ states('sensor.exterior_temperature') }} °C, {{ states('sensor.exterior_humidity') }} %. Ventana Suite: {{ states('binary_sensor.suite_sensor_ventana') }}.
+          Suite {{ states('sensor.suite_temperature') }} °C (consigna {{ states('input_number.suite_aire_acondicionado_temperatura_consigna') }} °C, +{{ states('sensor.suite_aire_acondicionado_diferencia_consigna') }} °C); tiempo desde actividad A/A {{ states('input_number.suite_aire_acondicionado_tiempo_actividad_hasta_fallo_ultimo') }} min, desde enfriamiento Suite {{ states('input_number.suite_aire_acondicionado_tiempo_enfriamiento_ultimo') }} min. Potencia A/A 1P {{ states('sensor.climatizacion_primera_planta_aire_acondicionado_potencia') }} W; media 30min {{ states('input_number.suite_aire_acondicionado_potencia_media_30min_inicio_parada') }} W. Splits previstos: Suite {{ states('input_boolean.suite_aire_acondicionado_previsto') }}, Carlos {{ states('input_boolean.habitacion_carlos_aire_acondicionado_previsto') }}, Coque {{ states('input_boolean.habitacion_coque_aire_acondicionado_previsto') }}. Otros splits previstos inferidos enfriando: {{ states('sensor.climatizacion_primera_planta_aire_acondicionado_otros_splits_enfriando') }} (Carlos: {{ states('binary_sensor.habitacion_carlos_aire_acondicionado_enfriando') }}, Coque: {{ states('binary_sensor.habitacion_coque_aire_acondicionado_enfriando') }}). T Carlos/Coque: {{ states('sensor.habitacion_carlos_temperature') }}/{{ states('sensor.habitacion_coque_temperature') }} °C; exterior {{ states('sensor.exterior_temperature') }} °C, {{ states('sensor.exterior_humidity') }} %. Ventana Suite: {{ states('binary_sensor.suite_sensor_ventana') }}.
 
 - id: "climatizacion_suite_aire_acondicionado_recuperacion"
   alias: "Climatizacion - Suite A/A - Recuperacion"
@@ -145,7 +145,7 @@
         name: "Diagnostico A/A suite: recuperacion"
         entity_id: binary_sensor.suite_aire_acondicionado_parado_sin_consigna
         message: >-
-          Tras {{ ((as_timestamp(now()) - as_timestamp(states('input_datetime.suite_aire_acondicionado_inicio_parada'), 0)) / 60) | round(0) }} min sin enfriar sobre consigna: Suite {{ states('sensor.suite_temperature') }} °C; potencia A/A 1P {{ states('sensor.aire_acondicionado_primera_planta_potencia') }} W; otros splits previstos inferidos enfriando {{ states('sensor.aire_acondicionado_primera_planta_otros_splits_enfriando') }}.
+          Tras {{ ((as_timestamp(now()) - as_timestamp(states('input_datetime.suite_aire_acondicionado_inicio_parada'), 0)) / 60) | round(0) }} min sin enfriar sobre consigna: Suite {{ states('sensor.suite_temperature') }} °C; potencia A/A 1P {{ states('sensor.climatizacion_primera_planta_aire_acondicionado_potencia') }} W; otros splits previstos inferidos enfriando {{ states('sensor.climatizacion_primera_planta_aire_acondicionado_otros_splits_enfriando') }}.
 
 - id: "climatizacion_suite_aire_acondicionado_programar_prueba"
   alias: "Climatizacion - Suite A/A - Programar prueba"
@@ -173,7 +173,7 @@
                 entity_id: input_boolean.suite_aire_acondicionado_enfriamiento_detectado_nocturno
             - if:
                 - condition: state
-                  entity_id: binary_sensor.aire_acondicionado_primera_planta_activo
+                  entity_id: binary_sensor.climatizacion_primera_planta_aire_acondicionado_activo
                   state: "on"
               then:
                 - action: input_datetime.set_datetime

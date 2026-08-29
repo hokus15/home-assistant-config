@@ -13,7 +13,7 @@ views:
             name: Temperatura
           - entity: sensor.suite_aire_acondicionado_diferencia_consigna
             name: Sobre consigna
-          - entity: binary_sensor.aire_acondicionado_primera_planta_activo
+          - entity: binary_sensor.climatizacion_primera_planta_aire_acondicionado_activo
             name: A/A 1P
           - entity: binary_sensor.suite_temperatura_bajando
             name: Bajando
@@ -25,9 +25,9 @@ views:
             name: Carlos enfriando
           - entity: binary_sensor.habitacion_coque_aire_acondicionado_enfriando
             name: Coque enfriando
-          - entity: sensor.aire_acondicionado_primera_planta_splits_enfriando
+          - entity: sensor.climatizacion_primera_planta_aire_acondicionado_splits_enfriando
             name: Total enfriando
-          - entity: sensor.aire_acondicionado_primera_planta_otros_splits_enfriando
+          - entity: sensor.climatizacion_primera_planta_aire_acondicionado_otros_splits_enfriando
             name: Otros enfriando
           - entity: counter.suite_aire_acondicionado_fallos_nocturnos
             name: Fallos esta noche
@@ -110,9 +110,9 @@ views:
             name: Temperatura Coque bajando
           - entity: binary_sensor.habitacion_coque_aire_acondicionado_enfriando
             name: Coque contado como enfriando
-          - entity: sensor.aire_acondicionado_primera_planta_splits_enfriando
+          - entity: sensor.climatizacion_primera_planta_aire_acondicionado_splits_enfriando
             name: Total splits enfriando
-          - entity: sensor.aire_acondicionado_primera_planta_otros_splits_enfriando
+          - entity: sensor.climatizacion_primera_planta_aire_acondicionado_otros_splits_enfriando
             name: Otros splits enfriando
           - entity: binary_sensor.suite_aire_acondicionado_compitiendo
             name: Suite compitiendo
@@ -222,7 +222,7 @@ views:
             group_by:
               func: avg
               duration: 5min
-          - entity: sensor.aire_acondicionado_primera_planta_potencia
+          - entity: sensor.climatizacion_primera_planta_aire_acondicionado_potencia
             name: Potencia A/A 1P
             yaxis_id: power
             type: area
@@ -231,7 +231,7 @@ views:
             group_by:
               func: avg
               duration: 5min
-          - entity: sensor.aire_acondicionado_primera_planta_otros_splits_enfriando
+          - entity: sensor.climatizacion_primera_planta_aire_acondicionado_otros_splits_enfriando
             name: Otros splits enfriando
             yaxis_id: state
             type: column
@@ -267,9 +267,9 @@ views:
         entities:
           - entity: sensor.suite_temperature
             name: Temperatura suite
-          - entity: sensor.aire_acondicionado_primera_planta_potencia
+          - entity: sensor.climatizacion_primera_planta_aire_acondicionado_potencia
             name: Potencia A/A 1P
-          - entity: binary_sensor.aire_acondicionado_primera_planta_activo
+          - entity: binary_sensor.climatizacion_primera_planta_aire_acondicionado_activo
             name: A/A 1P activo
           - entity: binary_sensor.suite_temperatura_bajando
             name: Temperatura bajando

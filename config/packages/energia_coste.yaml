@@ -69,7 +69,7 @@ template:
           - sensor.piscina_power
           - sensor.coladuria_cargador_ev_potencia
           - sensor.climatizacion_planta_baja_aire_acondicionado_potencia
-          - sensor.aire_acondicionado_primera_planta_potencia
+          - sensor.climatizacion_primera_planta_aire_acondicionado_potencia
           - sensor.salon_regleta_potencia_filtrada
           - sensor.cocina_nevera_potencia
           - sensor.cocina_congelador_potencia
@@ -140,8 +140,8 @@ template:
         unique_id: climatizacion_primera_planta_aire_acondicionado_coste_instantaneo
         unit_of_measurement: "€/h"
         state_class: measurement
-        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.aire_acondicionado_primera_planta_potencia') }}"
-        state: "{{ (states('sensor.aire_acondicionado_primera_planta_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.climatizacion_primera_planta_aire_acondicionado_potencia') }}"
+        state: "{{ (states('sensor.climatizacion_primera_planta_aire_acondicionado_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
 
       - name: Salon regleta coste instantaneo
         unique_id: salon_regleta_coste_instantaneo

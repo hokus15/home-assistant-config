@@ -42,8 +42,8 @@ recorder:
       - sensor.suite_aire_acondicionado_tiempo_parada_ultimo
       - sensor.suite_aire_acondicionado_descenso_enfriamiento_ultimo
       - sensor.suite_aire_acondicionado_diferencia_consigna
-      - sensor.aire_acondicionado_primera_planta_splits_enfriando
-      - sensor.aire_acondicionado_primera_planta_otros_splits_enfriando
+      - sensor.climatizacion_primera_planta_aire_acondicionado_splits_enfriando
+      - sensor.climatizacion_primera_planta_aire_acondicionado_otros_splits_enfriando
 
 ###############################################################################
 # SENSORES
@@ -55,7 +55,7 @@ sensor:
   - platform: statistics
     name: "Suite aire acondicionado potencia media 30min"
     unique_id: suite_aire_acondicionado_potencia_media_30min
-    entity_id: sensor.aire_acondicionado_primera_planta_potencia
+    entity_id: sensor.climatizacion_primera_planta_aire_acondicionado_potencia
     state_characteristic: mean
     sampling_size: 240
     max_age:
@@ -111,13 +111,13 @@ template:
         availability: >-
           {{
             has_value('sensor.suite_temperature')
-            and has_value('sensor.aire_acondicionado_primera_planta_potencia')
+            and has_value('sensor.climatizacion_primera_planta_aire_acondicionado_potencia')
           }}
         state: >-
           {{
             is_state('input_boolean.suite_aire_acondicionado_prueba_activa', 'on')
             and is_state('input_boolean.suite_aire_acondicionado_previsto', 'on')
-            and is_state('binary_sensor.aire_acondicionado_primera_planta_activo', 'on')
+            and is_state('binary_sensor.climatizacion_primera_planta_aire_acondicionado_activo', 'on')
             and is_state('binary_sensor.suite_temperatura_bajando', 'on')
           }}
         icon: mdi:snowflake
@@ -129,13 +129,13 @@ template:
         availability: >-
           {{
             has_value('sensor.habitacion_carlos_temperature')
-            and has_value('sensor.aire_acondicionado_primera_planta_potencia')
+            and has_value('sensor.climatizacion_primera_planta_aire_acondicionado_potencia')
           }}
         state: >-
           {{
             is_state('input_boolean.habitacion_carlos_aire_acondicionado_previsto', 'on')
             and
-            is_state('binary_sensor.aire_acondicionado_primera_planta_activo', 'on')
+            is_state('binary_sensor.climatizacion_primera_planta_aire_acondicionado_activo', 'on')
             and is_state('binary_sensor.habitacion_carlos_temperatura_bajando', 'on')
           }}
         icon: mdi:snowflake
@@ -148,13 +148,13 @@ template:
         availability: >-
           {{
             has_value('sensor.habitacion_coque_temperature')
-            and has_value('sensor.aire_acondicionado_primera_planta_potencia')
+            and has_value('sensor.climatizacion_primera_planta_aire_acondicionado_potencia')
           }}
         state: >-
           {{
             is_state('input_boolean.habitacion_coque_aire_acondicionado_previsto', 'on')
             and
-            is_state('binary_sensor.aire_acondicionado_primera_planta_activo', 'on')
+            is_state('binary_sensor.climatizacion_primera_planta_aire_acondicionado_activo', 'on')
             and is_state('binary_sensor.habitacion_coque_temperatura_bajando', 'on')
           }}
         icon: mdi:snowflake
@@ -168,7 +168,7 @@ template:
             has_value('sensor.suite_temperature')
             and has_value('input_number.suite_aire_acondicionado_temperatura_consigna')
             and has_value('input_number.suite_aire_acondicionado_margen_consigna')
-            and has_value('sensor.aire_acondicionado_primera_planta_potencia')
+            and has_value('sensor.climatizacion_primera_planta_aire_acondicionado_potencia')
           }}
         state: >-
           {% set temperatura = states('sensor.suite_temperature') | float(0) %}
@@ -176,7 +176,7 @@ template:
           {% set margen = states('input_number.suite_aire_acondicionado_margen_consigna') | float(0) %}
           {{
             is_state('input_boolean.suite_aire_acondicionado_prueba_activa', 'on')
-            and is_state('binary_sensor.aire_acondicionado_primera_planta_activo', 'on')
+            and is_state('binary_sensor.climatizacion_primera_planta_aire_acondicionado_activo', 'on')
             and is_state('binary_sensor.suite_temperatura_bajando', 'off')
             and temperatura > (consigna + margen)
           }}
@@ -226,8 +226,8 @@ template:
 
       # Numero total de splits previstos de primera planta que parecen estar
       # enfriando segun la inferencia por tendencia de temperatura.
-      - name: "Aire acondicionado primera planta splits enfriando"
-        unique_id: aire_acondicionado_primera_planta_splits_enfriando
+      - name: "Climatización primera planta aire acondicionado splits enfriando"
+        unique_id: climatizacion_primera_planta_aire_acondicionado_splits_enfriando
         state: >-
           {{
             [
@@ -247,8 +247,8 @@ template:
 
       # Numero de splits previstos distintos de Suite que parecen estar enfriando
       # segun la inferencia por tendencia de temperatura.
-      - name: "Aire acondicionado primera planta otros splits enfriando"
-        unique_id: aire_acondicionado_primera_planta_otros_splits_enfriando
+      - name: "Climatización primera planta aire acondicionado otros splits enfriando"
+        unique_id: climatizacion_primera_planta_aire_acondicionado_otros_splits_enfriando
         state: >-
           {{
             [

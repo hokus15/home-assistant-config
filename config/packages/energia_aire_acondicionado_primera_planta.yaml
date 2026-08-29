@@ -1,26 +1,26 @@
 recorder:
   include:
     entities:
-      - sensor.aire_acondicionado_primera_planta_energia
-      - sensor.aire_acondicionado_primera_planta_potencia
+      - sensor.climatizacion_primera_planta_aire_acondicionado_energia
+      - sensor.climatizacion_primera_planta_aire_acondicionado_potencia
 
-      - binary_sensor.aire_acondicionado_primera_planta_activo
+      - binary_sensor.climatizacion_primera_planta_aire_acondicionado_activo
 
 template:
   - binary_sensor:
-      - name: "Aire acondicionado primera planta activo"
-        unique_id: aire_acondicionado_primera_planta_activo
+      - name: "Climatización primera planta aire acondicionado activo"
+        unique_id: climatizacion_primera_planta_aire_acondicionado_activo
         availability: >
-          {{ is_number(states('sensor.aire_acondicionado_primera_planta_potencia')) }}
+          {{ is_number(states('sensor.climatizacion_primera_planta_aire_acondicionado_potencia')) }}
         state: >
-          {{ states('sensor.aire_acondicionado_primera_planta_potencia') | float > 50 }}
+          {{ states('sensor.climatizacion_primera_planta_aire_acondicionado_potencia') | float > 50 }}
         delay_off: "00:01:00"
         icon: >
-          {% if states('sensor.aire_acondicionado_primera_planta_potencia') | float(0) > 50 %}
+          {% if states('sensor.climatizacion_primera_planta_aire_acondicionado_potencia') | float(0) > 50 %}
             mdi:hvac
           {% else %}
             mdi:hvac-off
           {% endif %}
         attributes:
           power: >
-            {{ states('sensor.aire_acondicionado_primera_planta_potencia') | float(0) | round(0) }} W
+            {{ states('sensor.climatizacion_primera_planta_aire_acondicionado_potencia') | float(0) | round(0) }} W
