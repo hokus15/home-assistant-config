@@ -1,7 +1,6 @@
 recorder:
   include:
     entities:
-      # Estas entidades las generará el Shelly cuando se renombre desde la UI.
       - switch.despacho_cargador_portatiles
       - sensor.despacho_cargador_portatiles_potencia
       - sensor.despacho_cargador_portatiles_energia

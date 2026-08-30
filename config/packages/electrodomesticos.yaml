@@ -1,0 +1,113 @@
+recorder:
+  include:
+    entities:
+      - binary_sensor.coladuria_lavadora_activo
+      - sensor.coladuria_lavadora_estado
+      - sensor.coladuria_lavadora_potencia
+      - sensor.coladuria_lavadora_energia
+      - switch.coladuria_lavadora
+      - binary_sensor.coladuria_secadora_activo
+      - sensor.coladuria_secadora_estado
+      - sensor.coladuria_secadora_potencia
+      - sensor.coladuria_secadora_energia
+      - switch.coladuria_secadora
+      - binary_sensor.cocina_lavavajillas_activo
+      - sensor.cocina_lavavajillas_estado
+      - sensor.cocina_lavavajillas_potencia
+      - sensor.cocina_lavavajillas_energia
+      - switch.cocina_nevera
+      - sensor.cocina_nevera_potencia
+      - sensor.cocina_nevera_energia
+      - switch.cocina_congelador
+      - sensor.cocina_congelador_potencia
+      - sensor.cocina_congelador_energia
+
+template:
+  - binary_sensor:
+      - name: Coladuria lavadora activo
+        unique_id: coladuria_lavadora_activo
+        availability: >
+          {{ is_number(states('sensor.coladuria_lavadora_potencia')) }}
+        state: >
+          {{ states('sensor.coladuria_lavadora_potencia') | float > 5 }}
+        delay_off: "00:05:00"
+        icon: >
+          {% if states('sensor.coladuria_lavadora_potencia') | float(0) > 5 %}
+            mdi:washing-machine
+          {% else %}
+            mdi:washing-machine-off
+          {% endif %}
+        attributes:
+          potencia: >
+            {{ states('sensor.coladuria_lavadora_potencia') | float(0) | round(0) }} W
+
+      - name: Coladuria secadora activo
+        unique_id: coladuria_secadora_activo
+        availability: >
+          {{ is_number(states('sensor.coladuria_secadora_potencia')) }}
+        state: >
+          {{ states('sensor.coladuria_secadora_potencia') | float > 5 }}
+        delay_off: "00:05:00"
+        icon: >
+          {% if states('sensor.coladuria_secadora_potencia') | float(0) > 5 %}
+            mdi:tumble-dryer
+          {% else %}
+            mdi:tumble-dryer-off
+          {% endif %}
+        attributes:
+          potencia: >
+            {{ states('sensor.coladuria_secadora_potencia') | float(0) | round(0) }} W
+
+      - name: Cocina lavavajillas activo
+        unique_id: cocina_lavavajillas_activo
+        availability: >
+          {{ is_number(states('sensor.cocina_lavavajillas_potencia')) }}
+        state: >
+          {{ states('sensor.cocina_lavavajillas_potencia') | float > 5 }}
+        delay_off: "00:05:00"
+        icon: >
+          {% if states('sensor.cocina_lavavajillas_potencia') | float(0) > 5 %}
+            mdi:dishwasher
+          {% else %}
+            mdi:dishwasher-off
+          {% endif %}
+        attributes:
+          potencia: >
+            {{ states('sensor.cocina_lavavajillas_potencia') | float(0) | round(0) }} W
+
+  - sensor:
+      - name: Coladuria lavadora estado
+        unique_id: coladuria_lavadora_estado
+        availability: >
+          {{ has_value('sensor.coladuria_lavadora_potencia') }}
+        state: "{{ 'running' if is_state('binary_sensor.coladuria_lavadora_activo', 'on') else 'idle' }}"
+        icon: >
+          {% if is_state('binary_sensor.coladuria_lavadora_activo', 'on') %}
+            mdi:washing-machine
+          {% else %}
+            mdi:washing-machine-off
+          {% endif %}
+
+      - name: Coladuria secadora estado
+        unique_id: coladuria_secadora_estado
+        availability: >
+          {{ has_value('sensor.coladuria_secadora_potencia') }}
+        state: "{{ 'running' if is_state('binary_sensor.coladuria_secadora_activo', 'on') else 'idle' }}"
+        icon: >
+          {% if is_state('binary_sensor.coladuria_secadora_activo', 'on') %}
+            mdi:tumble-dryer
+          {% else %}
+            mdi:tumble-dryer-off
+          {% endif %}
+
+      - name: Cocina lavavajillas estado
+        unique_id: cocina_lavavajillas_estado
+        availability: >
+          {{ has_value('sensor.cocina_lavavajillas_potencia') }}
+        state: "{{ 'running' if is_state('binary_sensor.cocina_lavavajillas_activo', 'on') else 'idle' }}"
+        icon: >
+          {% if is_state('binary_sensor.cocina_lavavajillas_activo', 'on') %}
+            mdi:dishwasher
+          {% else %}
+            mdi:dishwasher-off
+          {% endif %}

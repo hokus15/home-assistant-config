@@ -42,7 +42,10 @@ ci/
 - `car.yaml`: Hyundai Ioniq telemetry, state, and charging logic through MQTT using data published by [IOTConnect](https://github.com/hokus15/IOTConnect).
 - `confort.yaml`: aggregated temperature sensors and comfort/sleep modes.
 - `energia_aire_acondicionado_primera_planta.yaml` and `energia_aire_acondicionado_planta_baja.yaml`: energy monitoring and activity state for the first-floor and ground-floor air conditioning systems.
-- `energia*.yaml`, `energy.yaml`, and `energy_tariffs.yaml`: energy monitoring, tariffs, EV charger, and appliances.
+- `energia*.yaml`, `energy.yaml`, and `energy_tariffs.yaml`: energy monitoring and tariffs.
+- `electrodomesticos.yaml`: energy monitoring and activity state for kitchen and laundry appliances.
+- `cargador_ev.yaml`: EV charger control and monitoring.
+- `energia_despacho_cargador_portatiles.yaml`: monitoring for the portable-device charger.
 - `barrera_entrada.yaml`: sliding metal garden entrance barrier state and control.
 - `lights.yaml`: grouped and virtual lights for indoor and outdoor areas.
 - `phones.yaml` and `presence.yaml`: phone state, guest mode, and presence tracking.
@@ -134,7 +137,7 @@ Examples:
 
 ```text
 energia.yaml
-energia_cargador_ev.yaml
+cargador_ev.yaml
 energia_aire_acondicionado_primera_planta.yaml
 energia_aire_acondicionado_planta_baja.yaml
 piscina.yaml
@@ -185,7 +188,7 @@ For every enabled entity tied to a physical device assigned to one area, use:
 <domain>.<area>_<device>[_<function>]
 ```
 
-The area is mandatory, even when the device is unique in the home. Omit the function only for the primary control of the device, such as `switch.coladuria_secadora`; include it for each measurement, state, diagnostic, maintenance control, or update entity, such as `sensor.coladuria_secadora_potencia` and `binary_sensor.coladuria_secadora_estado`.
+The area is mandatory, even when the device is unique in the home. Omit the function only for the primary control of the device, such as `switch.coladuria_secadora`; include it for each measurement, state, diagnostic, maintenance control, or update entity, such as `sensor.coladuria_secadora_potencia` and `binary_sensor.coladuria_secadora_activo`.
 
 Examples:
 

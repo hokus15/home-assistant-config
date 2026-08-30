@@ -315,15 +315,12 @@ sensor.coladuria_secadora_potencia:
   friendly_name: Potencia secadora
 sensor.coladuria_lavadora_potencia:
   friendly_name: Potencia lavadora
-binary_sensor.cocina_lavavajillas_estado:
-  friendly_name: Estado lavavajillas
-binary_sensor.coladuria_secadora_estado:
-  friendly_name: Estado secadora
-binary_sensor.coladuria_lavadora_estado:
-  friendly_name: Estado lavadora
-binary_sensor.coladuria_lavadora_estado_alto_consumo:
-  friendly_name: Estado lavadora alto consumo
-  icon: mdi:washing-machine-alert
+binary_sensor.cocina_lavavajillas_activo:
+  friendly_name: Lavavajillas activo
+binary_sensor.coladuria_secadora_activo:
+  friendly_name: Secadora activa
+binary_sensor.coladuria_lavadora_activo:
+  friendly_name: Lavadora activa
 binary_sensor.coladuria_cargador_ev_estado:
   friendly_name: Estado cargador EV
 sensor.coladuria_cargador_ev_energia_hoy:
