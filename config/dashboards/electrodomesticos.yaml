@@ -1,0 +1,78 @@
+title: Electrodomesticos
+views:
+  - title: Electrodomesticos
+    path: electrodomesticos
+    icon: mdi:fridge-outline
+    type: sections
+    max_columns: 3
+    dense_section_placement: true
+    sections:
+      - type: grid
+        cards:
+          - type: custom:ha-appliance-card
+            appliance_type: washer
+            name: Lavadora
+            state_entity: sensor.coladuria_lavadora_estado
+            info_entities:
+              - entity: sensor.coladuria_lavadora_potencia
+                icon: mdi:lightning-bolt
+                label: Potencia
+
+      - type: grid
+        cards:
+          - type: custom:ha-appliance-card
+            appliance_type: dryer
+            name: Secadora
+            state_entity: sensor.coladuria_secadora_estado
+            info_entities:
+              - entity: sensor.coladuria_secadora_potencia
+                icon: mdi:lightning-bolt
+                label: Potencia
+
+      - type: grid
+        cards:
+          - type: custom:ha-appliance-card
+            appliance_type: dishwasher
+            name: Lavavajillas
+            state_entity: sensor.cocina_lavavajillas_estado_de_operacion
+            program_entity: select.cocina_lavavajillas_programa_activo
+            program_format: clean
+            progress_entity: sensor.cocina_lavavajillas_progreso_del_programa
+            remaining_time_entity: sensor.cocina_lavavajillas_hora_de_finalizacion_del_programa
+            remaining_time_hide_when_idle: true
+            door_entity: sensor.cocina_lavavajillas_puerta
+            door_open_state: open
+            connectivity_entity: binary_sensor.cocina_lavavajillas_conectividad
+            stop_entity: button.cocina_lavavajillas_detener_programa
+            info_entities:
+              - entity: sensor.cocina_lavavajillas_potencia
+                icon: mdi:lightning-bolt
+                label: Potencia
+              - entity: sensor.cocina_lavavajillas_abrillantador_casi_vacio
+                icon: mdi:brightness-5
+                label: Abrillantador
+              - entity: sensor.cocina_lavavajillas_sal_casi_vacia
+                icon: mdi:shaker-outline
+                label: Sal
+
+      - type: grid
+        cards:
+          - type: custom:ha-appliance-card
+            appliance_type: fridge
+            fridge_layout: single
+            name: Nevera
+            state_entity: sensor.cocina_nevera_potencia
+            power_entity: sensor.cocina_nevera_potencia
+            power_on_threshold: 1
+            power_icon: mdi:fridge-outline
+
+      - type: grid
+        cards:
+          - type: custom:ha-appliance-card
+            appliance_type: fridge
+            fridge_layout: single
+            name: Congelador
+            state_entity: sensor.cocina_congelador_potencia
+            power_entity: sensor.cocina_congelador_potencia
+            power_on_threshold: 1
+            power_icon: mdi:snowflake
