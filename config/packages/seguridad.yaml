@@ -6,8 +6,8 @@ recorder:
       - binary_sensor.porche_sensor_persiana
       - binary_sensor.recibidor_puerta_principal
       - binary_sensor.despacho_movimiento
-      - binary_sensor.banyo_suite_sensor_ventana
-      - binary_sensor.banyo_ninyos_sensor_ventana
+      - binary_sensor.bano_suite_ventana
+      - binary_sensor.bano_ninos_ventana
       - binary_sensor.suite_sensor_ventana
       - binary_sensor.habitacion_coque_sensor_ventana
       - binary_sensor.habitacion_carlos_sensor_ventana

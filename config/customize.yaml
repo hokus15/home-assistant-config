@@ -351,9 +351,9 @@ zone.casa_cerca:
   friendly_name: Casa
 binary_sensor.recibidor_puerta_principal:
   friendly_name: Puerta principal
-binary_sensor.banyo_ninyos_sensor_ventana:
+binary_sensor.bano_ninos_ventana:
   friendly_name: Ventana del baño de los niños
-binary_sensor.banyo_suite_sensor_ventana:
+binary_sensor.bano_suite_ventana:
   friendly_name: Ventana del baño de la suite
 binary_sensor.habitacion_carlos_sensor_ventana:
   friendly_name: Ventana del cuarto de Carlos
