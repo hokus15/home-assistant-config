@@ -178,17 +178,17 @@ Automation `id` values use the same lowercase ASCII `snake_case` vocabulary and 
 
 ## Entity Naming Convention
 
-Entity IDs use lowercase ASCII `snake_case`: only `a-z`, `0-9`, and `_`. Replace non-ASCII characters with their plain equivalents (`ñ` to `n`, `ç` to `c`, accented vowels to unaccented vowels) and omit spaces and punctuation. The domain is selected by Home Assistant and is not repeated in the object ID. Names describe the purpose of an entity, rather than its wiring or integration implementation.
+Entity IDs use lowercase ASCII `snake_case`: only `a-z`, `0-9`, and `_`. Replace non-ASCII characters with their plain equivalents (`ñ` to `n`, never `ny`; `ç` to `c`; accented vowels to unaccented vowels) and omit spaces and punctuation. The domain is selected by Home Assistant and is not repeated in the object ID. Names describe the purpose of an entity, rather than its wiring or integration implementation.
 
 Use Spanish, without accents, for areas, devices, and functions that belong to this home. English is reserved for Home Assistant domains, integration identifiers, brands, models, and other external technical terms. For example, use `potencia`, `bateria`, and `estado`, but retain identifiers such as `wallpanel`, `ioniq`, and `zwave` when they identify external products or integrations.
 
-For every enabled entity tied to a physical device assigned to one area, use:
+For every enabled entity tied to a physical device or a single-purpose detector assigned to one area, use:
 
 ```text
-<domain>.<area>_<device>[_<function>]
+<domain>.<area>_<device_or_type>[_<function>]
 ```
 
-The area is mandatory, even when the device is unique in the home. Omit the function only for the primary control of the device, such as `switch.coladuria_secadora`; include it for each measurement, state, diagnostic, maintenance control, or update entity, such as `sensor.coladuria_secadora_potencia` and `binary_sensor.coladuria_secadora_activo`.
+The area is mandatory, even when the device is unique in the home. Omit the function only for the primary control or state of the device, such as `switch.coladuria_secadora` or `binary_sensor.despacho_movimiento`; include it for each measurement, state, diagnostic, maintenance control, or update entity, such as `sensor.coladuria_secadora_potencia`, `binary_sensor.coladuria_secadora_activo`, and `sensor.despacho_movimiento_temperatura`.
 
 Examples:
 
@@ -198,11 +198,40 @@ binary_sensor.cocina_puerta_porche
 binary_sensor.habitacion_carlos_ventana
 ```
 
+### Single-Purpose Detectors
+
+For a single-purpose detector, its detected type is the `<device_or_type>` segment. Do not add the generic term `sensor` to the object ID. This applies to `movimiento`, `ventana`, `puerta`, and `persiana` when they identify the detector's primary purpose.
+
+```text
+<domain>.<area>_<type>[_<function>]
+```
+
+Use `binary_sensor.despacho_movimiento`, `sensor.despacho_movimiento_iluminancia`, and `sensor.despacho_movimiento_temperatura`; do not use `despacho_sensor_movimiento` for that detector. Use `sensor` in the object ID only when it is necessary to distinguish distinct physical devices in the same area.
+
+The following forms are normative and take precedence over the general grammar when it could be interpreted differently:
+
+| Physical element | Primary entity | Additional entity |
+| --- | --- | --- |
+| Motion detector | `binary_sensor.<area>_movimiento` | `sensor.<area>_movimiento_<function>` |
+| Door detector | `binary_sensor.<area>_puerta[_<qualifier>]` | — |
+| Window detector | `binary_sensor.<area>_ventana[_<qualifier>]` | — |
+| Shutter detector | `binary_sensor.<area>_persiana[_<qualifier>]` | — |
+
+### Alarm Arming Helpers
+
+An entity that detects a physical event and a helper that decides whether that event arms or triggers the alarm have different purposes and must not share the same object ID. For an area-specific alarm helper, use:
+
+```text
+input_boolean.<area>_alarma_<event>_activo
+```
+
+For example, use `binary_sensor.despacho_movimiento` for the physical detector and `input_boolean.despacho_alarma_movimiento_activo` for the alarm arming helper. If a helper controls a different subsystem, use that subsystem instead of `alarma`.
+
 Do not repeat information already expressed by the domain: use `binary_sensor.cocina_puerta_porche`, not `binary_sensor.cocina_sensor_puerta_porche`, and `light.salon_principal`, not `light.salon_luz_principal`. Add a qualifier such as `principal`, `mesa`, `techo`, or `puerta_piscina` only when it distinguishes multiple entities of the same type.
 
 Use singular nouns by default. Plural names are reserved for groups and true aggregates, such as `light.luces_interiores`.
 
-Use these canonical function terms and do not introduce synonyms or abbreviations for them: `temperatura`, `humedad`, `potencia`, `energia`, `bateria`, `estado`, `activo`, `consumo`, `movimiento`, `presencia`, `ventana`, and `puerta`. The permitted technical abbreviations are `ev`, `tv`, `sai`, `ups`, and `wifi`; use no other abbreviations unless they are an established external product or integration identifier.
+Use these canonical function terms and do not introduce synonyms or abbreviations for them: `temperatura`, `humedad`, `iluminancia`, `potencia`, `energia`, `bateria`, `estado`, `activo`, `consumo`, `movimiento`, `presencia`, `ventana`, and `puerta`. The permitted technical abbreviations are `ev`, `tv`, `sai`, `ups`, and `wifi`; use no other abbreviations unless they are an established external product or integration identifier.
 
 `floor` is not included in entity IDs. Areas model the physical location in Home Assistant and are required for every enabled entity tied to a physical device with one assigned area. Do not add an area only when the entity is global, virtual, aggregated, or belongs to a device with no single functional area.
 
@@ -234,4 +263,4 @@ For entities defined in YAML, use a semantic `unique_id` that follows the same o
 
 User-defined `unique_id` values should normally remain stable after deployment. During an intentional naming migration, a YAML-defined `unique_id` may be changed to match the migrated object-ID vocabulary, but only as part of the same migration that renames the entity in Home Assistant, removes or resolves the old entity registry entry, updates helpers, dashboards, automations, recorder includes, and customizations, and verifies that no duplicate `_2` entity is created. Never modify integration-provided `unique_id` values.
 
-Floor vocabulary is stable and uses `exterior`, `planta_baja`, and `primera_planta`. Area vocabulary is stable and uses the following object-ID forms: `salon`, `comedor`, `escalera`, `hueco_escalera`, `suite`, `cocina`, `coladuria`, `recibidor`, `despacho`, `aseo`, `bano_ninos`, `bano_suite`, `habitacion_carlos`, `habitacion_coque`, `jardin`, `entrada`, `barbacoa`, `caseta`, `piscina`, `climatizacion_planta_baja`, and `climatizacion_primera_planta`. Use `escalera` for entities that serve the staircase and `hueco_escalera` only for entities physically or functionally associated with the space below it.
+Floor vocabulary is stable and uses `exterior`, `planta_baja`, and `primera_planta`. Area vocabulary is stable and uses the following object-ID forms: `salon`, `comedor`, `escalera`, `hueco_escalera`, `suite`, `cocina`, `coladuria`, `recibidor`, `despacho`, `aseo`, `bano_ninos`, `bano_suite`, `habitacion_carlos`, `habitacion_coque`, `jardin`, `entrada`, `porche`, `barbacoa`, `caseta`, `piscina`, `climatizacion_planta_baja`, and `climatizacion_primera_planta`. Use `escalera` for entities that serve the staircase and `hueco_escalera` only for entities physically or functionally associated with the space below it.
