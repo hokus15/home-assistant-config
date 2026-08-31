@@ -23,7 +23,7 @@ recorder:
       - switch.caseta_camara_det_mov
 
       - input_boolean.entrada_camara_det_mov
-      - input_boolean.despacho_movimiento
+      - input_boolean.despacho_alarma_movimiento_activo
       - input_boolean.porche_sensor_puerta
       - input_boolean.porche_sensor_persiana
       - input_boolean.coladuria_sensor_puerta
@@ -44,7 +44,7 @@ group:
 
       - input_boolean.coladuria_sensor_puerta
 
-      - input_boolean.despacho_movimiento
+      - input_boolean.despacho_alarma_movimiento_activo
 
       - input_boolean.entrada_camara_det_mov
       - input_boolean.recibidor_puerta_principal_deteccion_activada
@@ -216,7 +216,7 @@ input_boolean:
     name: Detección de puerta principal activada
     icon: "mdi:door-open"
 
-  despacho_movimiento:
+  despacho_alarma_movimiento_activo:
     name: Det. mov. despacho
     icon: "mdi:transit-transfer"
 

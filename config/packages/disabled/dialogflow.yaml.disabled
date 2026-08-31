@@ -40,7 +40,7 @@ recorder:
       - sensor.on_off_switch_caseta_camara_det_mov
       - sensor.on_off_switch_piscina_camara_det_mov
       - sensor.on_off_switch_recibidor_camara_det_mov
-      - sensor.despacho_movimiento_estado_control
+      - sensor.despacho_alarma_movimiento_estado_control
       - sensor.on_off_input_boolean_cocina_sensor_puerta
       - sensor.on_off_input_boolean_cocina_sensor_persiana
       - sensor.on_off_switch_holiday
@@ -58,7 +58,7 @@ recorder:
       - sensor.check_switch_caseta_camara_det_mov
       - sensor.check_switch_piscina_camara_det_mov
       - sensor.check_switch_recibidor_camara_det_mov
-      - sensor.despacho_movimiento_estado_consulta
+      - sensor.despacho_alarma_movimiento_estado_consulta
       - sensor.check_input_boolean_cocina_sensor_puerta
       - sensor.check_input_boolean_cocina_sensor_persiana
       - sensor.check_switch_holiday
@@ -464,8 +464,8 @@ sensor:
     on_off_switch_recibidor_camara_det_mov:
       value_template: '{% if is_state("switch.recibidor_camara_det_mov", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el detector de movimiento del recibidor'
-    despacho_movimiento_estado_control:
-      value_template: '{% if is_state("input_boolean.despacho_movimiento", "off") %}activado{% else %}desactivado{% endif %}'
+    despacho_alarma_movimiento_estado_control:
+      value_template: '{% if is_state("input_boolean.despacho_alarma_movimiento_activo", "off") %}activado{% else %}desactivado{% endif %}'
       friendly_name: 'el detector de movimiento del despacho'
     on_off_input_boolean_cocina_sensor_puerta:
       value_template: '{% if is_state("input_boolean.cocina_sensor_puerta", "off") %}conectado{% else %}desconectado{% endif %}'
@@ -531,8 +531,8 @@ sensor:
       value_template: '{% if is_state("switch.recibidor_camara_det_mov", "off") %}desactivado{% else %}activado{% endif %}'
       friendly_name: 'el detector de movimiento del recibidor'
       unit_of_measurement: 'enabled-disabled'
-    despacho_movimiento_estado_consulta:
-      value_template: '{% if is_state("input_boolean.despacho_movimiento", "off") %}desactivado{% else %}activado{% endif %}'
+    despacho_alarma_movimiento_estado_consulta:
+      value_template: '{% if is_state("input_boolean.despacho_alarma_movimiento_activo", "off") %}desactivado{% else %}activado{% endif %}'
       friendly_name: 'el detector de movimiento del despacho'
       unit_of_measurement: 'enabled-disabled'
     check_input_boolean_cocina_sensor_puerta:

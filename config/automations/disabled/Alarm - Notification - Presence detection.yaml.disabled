@@ -22,7 +22,7 @@
         {%- set inputBooleanMap ={"binary_sensor.porche_sensor_puerta": "input_boolean.porche_sensor_puerta",
                          "binary_sensor.porche_sensor_persiana": "input_boolean.porche_sensor_persiana",
                          "binary_sensor.coladuria_sensor_puerta": "input_boolean.coladuria_sensor_puerta",
-                         "binary_sensor.despacho_movimiento": "input_boolean.despacho_movimiento"}
+                         "binary_sensor.despacho_movimiento": "input_boolean.despacho_alarma_movimiento_activo"}
          -%}
          {{is_state(inputBooleanMap[trigger.entity_id],'on')}}
   action:
@@ -47,6 +47,6 @@
             {%- set turnOffEntityId ={"binary_sensor.porche_sensor_puerta": "input_boolean.porche_sensor_puerta",
                              "binary_sensor.porche_sensor_persiana": "input_boolean.porche_sensor_persiana",
                              "binary_sensor.coladuria_sensor_puerta": "input_boolean.coladuria_sensor_puerta",
-                             "binary_sensor.despacho_movimiento": "input_boolean.despacho_movimiento"}
+                             "binary_sensor.despacho_movimiento": "input_boolean.despacho_alarma_movimiento_activo"}
              -%}
             {{turnOffEntityId[trigger.entity_id]}}
