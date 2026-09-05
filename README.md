@@ -130,7 +130,7 @@ Keep the standard filenames required by Home Assistant unchanged, including `con
 Package filenames use the following pattern and contain one functional responsibility:
 
 ```text
-<subsistema>[_<alcance>].yaml
+<subsystem>[_<scope>].yaml
 ```
 
 Examples:
@@ -153,10 +153,10 @@ Organize files by functional responsibility rather than by an individual entity,
 Automation filenames use lowercase ASCII `snake_case`, Spanish without accents, and the following pattern:
 
 ```text
-<subsistema>[_<alcance>]_<evento_o_accion>.yaml
+<subsystem>[_<scope>]_<event_or_action>.yaml
 ```
 
-`<subsistema>` identifies the functional domain, `<alcance>` is included when it disambiguates the target area or device, and the final segment describes the triggering event or intended action. Do not prefix the filename with `automation` and do not repeat a Home Assistant entity domain.
+`<subsystem>` identifies the functional domain, `<scope>` is included when it disambiguates the target area or device, and `<event_or_action>` describes the triggering event or intended action. Do not prefix the filename with `automation` and do not repeat a Home Assistant entity domain.
 
 Examples:
 
@@ -262,5 +262,39 @@ Enabled integration-generated diagnostics, maintenance controls, update entities
 For entities defined in YAML, use a semantic `unique_id` that follows the same object-ID vocabulary, without the domain. For example, `binary_sensor.aire_acondicionado_primera_planta_activo` uses `aire_acondicionado_primera_planta_activo`.
 
 User-defined `unique_id` values should normally remain stable after deployment. During an intentional naming migration, a YAML-defined `unique_id` may be changed to match the migrated object-ID vocabulary, but only as part of the same migration that renames the entity in Home Assistant, removes or resolves the old entity registry entry, updates helpers, dashboards, automations, recorder includes, and customizations, and verifies that no duplicate `_2` entity is created. Never modify integration-provided `unique_id` values.
+
+## MQTT Topic Naming Convention
+
+MQTT topics identify device endpoints. Fixed devices that belong to the home use the following namespace:
+
+```text
+casa/<house_name>/<area>/<device>/<protocol_prefix>/<endpoint>
+```
+
+Use lowercase ASCII Spanish `snake_case` for the semantic segments (`<house_name>`, `<area>`, and `<device>`). `<house_name>` is a stable installation identifier, not a street address. Do not include a Home Assistant domain such as `switch`, `light`, or `sensor` in a topic: the topic identifies the physical endpoint, not its Home Assistant representation. For Tasmota-compatible devices, retain protocol-defined segments exactly as the firmware defines them, including `cmnd`, `stat`, `tele`, `POWER`, `SENSOR`, and `LWT`.
+
+```text
+casa/<house_name>/piscina/depuradora/cmnd/POWER
+casa/<house_name>/piscina/depuradora/stat/POWER
+casa/<house_name>/piscina/depuradora/tele/SENSOR
+casa/<house_name>/piscina/iluminacion/cmnd/POWER
+casa/<house_name>/piscina/iluminacion/stat/POWER
+casa/<house_name>/piscina/iluminacion/tele/LWT
+```
+
+Mobile clients and external application contracts use:
+
+```text
+<subsystem>/<device>/<kind>/<resource>
+```
+
+Use `telemetria` for reported state and `comando` for a command consumed by the client. The semantic segments use lowercase ASCII Spanish `snake_case`; product and client identifiers retain their established external form.
+
+```text
+coche/ioniq/telemetria/estado
+coche/ioniq/telemetria/bateria
+coche/ioniq/telemetria/ubicacion
+telefono/hokus/comando/decir
+```
 
 Floor vocabulary is stable and uses `exterior`, `planta_baja`, and `primera_planta`. Area vocabulary is stable and uses the following object-ID forms: `salon`, `comedor`, `escalera`, `hueco_escalera`, `suite`, `cocina`, `coladuria`, `recibidor`, `despacho`, `aseo`, `bano_ninos`, `bano_suite`, `habitacion_carlos`, `habitacion_coque`, `jardin`, `entrada`, `porche`, `barbacoa`, `caseta`, `piscina`, `climatizacion_planta_baja`, and `climatizacion_primera_planta`. Use `escalera` for entities that serve the staircase and `hueco_escalera` only for entities physically or functionally associated with the space below it.
