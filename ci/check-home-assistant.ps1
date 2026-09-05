@@ -40,16 +40,16 @@ try {
     New-Item -ItemType Directory -Force -Path (Join-Path $tmpDir "config\camera") | Out-Null
 
     $configuration = Join-Path $tmpDir "config\configuration.yaml"
-    $security = Join-Path $tmpDir "config\packages\security.yaml"
+    $seguridad = Join-Path $tmpDir "config\packages\seguridad.yaml"
 
     (Get-Content -Raw $configuration) `
         -replace "/share/camera", "./config/camera" `
         -replace "/media/camera", "./config/camera" |
         Set-Content -NoNewline $configuration
 
-    (Get-Content -Raw $security) `
+    (Get-Content -Raw $seguridad) `
         -replace "/share/camera", "./config/camera" |
-        Set-Content -NoNewline $security
+        Set-Content -NoNewline $seguridad
 
     foreach ($item in $Version) {
         $image = "ghcr.io/home-assistant/home-assistant:$item"
