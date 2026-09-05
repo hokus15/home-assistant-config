@@ -64,6 +64,40 @@ Real secrets are not committed. Home Assistant loads runtime values from `config
 
 When adding a new `!secret` reference, add a matching non-sensitive key to `config/secrets.fake.yaml` in the same change.
 
+### Secret Naming Convention
+
+Secret keys use lowercase ASCII Spanish `snake_case` and describe the protected value's purpose, not its implementation. Use:
+
+```text
+<subsystem>[_<area>]_<resource_or_function>[_<qualifier>]_<field_or_operation>
+```
+
+Use these final fields:
+
+| Value type | Field |
+| --- | --- |
+| URL or endpoint | `url` |
+| Network host | `host` |
+| Network port | `puerto` |
+| Username | `usuario` |
+| Password | `contrasena` |
+| Access token | `token` |
+| API key | `api_key` |
+| OAuth client identifier | `client_id` |
+| OAuth client secret | `client_secret` |
+| Command operation | `activar`, `desactivar`, or `estado` |
+
+Retain established external technical identifiers when necessary, such as `ptz`, `url`, `db`, `mjpeg`, and an integration or product identifier. A URL qualifier precedes the final `url`; for example, use `imagen_estatica_url` and `stream_mjpeg_url`.
+
+```text
+camara_recibidor_deteccion_movimiento_activar
+camara_piscina_deteccion_movimiento_estado
+camara_salon_ptz_posicion_predefinida_principal
+recorder_db_url
+camara_caseta_imagen_estatica_url
+camara_caseta_stream_mjpeg_url
+```
+
 ## Validation
 
 The `Home Assistant Configuration Check` GitHub Action validates the configuration on every `push`, `pull_request`, and manual run. The matrix checks:
