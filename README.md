@@ -51,7 +51,7 @@ ci/
 - `phones.yaml` and `presence.yaml`: phone state, guest mode, and presence tracking.
 - `seguridad.yaml`: cameras, motion detection, and supporting shell commands.
 - `sistema_sai_hueco_escalera.yaml`: stairwell UPS status, battery state, and mains availability.
-- `swimming_pool.yaml`: pump control, temperature, schedules, and optimization rules.
+- `piscina.yaml`: pool pump and lighting MQTT controls, water-temperature fallback, filtration calculation, schedules, and energy monitoring.
 - `system.yaml`: system sensors, Node-RED watchdog, and operational commands.
 
 ## Automations
