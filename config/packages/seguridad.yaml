@@ -18,7 +18,7 @@ recorder:
       - switch.recibidor_camara_det_mov
       - switch.salon_camara_det_mov
       - switch.cocina_camara_det_mov
-      - switch.piscina_camara_det_mov
+      - switch.piscina_camara_movimiento_activo
       - switch.barbacoa_camara_det_mov
       - switch.caseta_camara_det_mov
 
@@ -62,7 +62,7 @@ group:
 
       # - switch.barbacoa_camara_det_mov
       - switch.caseta_camara_det_mov
-      - switch.piscina_camara_det_mov
+      - switch.piscina_camara_movimiento_activo
 
 command_line:
   - switch:
@@ -80,8 +80,8 @@ command_line:
       value_template: '{{ value == "1" }}'
 
   - switch:
-      name: piscina_camara_det_mov
-      unique_id: piscina_camara_det_mov
+      name: piscina_camara_movimiento_activo
+      unique_id: piscina_camara_movimiento_activo
       # Command used:
       # 'curl -k "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=setMotionDetectConfig&isEnable=1&linkage=12&snapInterval=3&sensitivity=1&triggerInterval=10&isMovAlarmEnable=1&isPirAlarmEnable=1&schedule0=281474976710655&schedule1=281474976710655&schedule2=281474976710655&schedule3=281474976710655&schedule4=281474976710655&schedule5=281474976710655&schedule6=281474976710655&area0=1023&area1=1023&area2=1023&area3=1023&area4=1009&area5=992&area6=992&area7=1023&area8=1023&area9=1023&usr=<camera_username>&pwd=<camera_password>"'
       command_on: !secret cam_piscina_motion_detection_on

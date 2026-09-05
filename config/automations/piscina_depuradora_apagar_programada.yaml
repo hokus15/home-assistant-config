@@ -1,5 +1,5 @@
-- id: "swimming_pool_pump_off_scheduled"
-  alias: "Swimming Pool - Pump Off - Scheduled"
+- id: "piscina_depuradora_apagar_programada"
+  alias: "Piscina - Depuradora - Apagar programada"
   trigger:
     - platform: time_pattern
       # Every minute
@@ -20,19 +20,19 @@
     conditions:
       - alias: "Pump is on"
         condition: state
-        entity_id: switch.motor_piscina
+        entity_id: switch.piscina_depuradora
         state: "on"
       - condition: not
         conditions:
           - alias: "Not in manual mode"
             condition: state
-            entity_id: input_select.piscina_pump_mode
+            entity_id: input_select.piscina_depuradora_modo
             state: "Manual"
           - condition: and
             conditions:
               - alias: "'Solar + Valle' mode"
                 condition: state
-                entity_id: input_select.piscina_pump_mode
+                entity_id: input_select.piscina_depuradora_modo
                 state: "Solar + Valle"
               - alias: "'Valle' tariff"
                 condition: state
@@ -42,13 +42,13 @@
         conditions:
           - alias: "There is no remaining filtering time"
             condition: state
-            entity_id: binary_sensor.piscina_filtration_pending
+            entity_id: binary_sensor.piscina_filtrado_pendiente
             state: "off"
           - alias: "Hourly net balance is too low to keep the pump on"
             condition: state
-            entity_id: binary_sensor.piscina_pump_enough_net_balance_to_keep_on
+            entity_id: binary_sensor.piscina_depuradora_balance_neto_horario_suficiente_para_mantenerse_encendida
             state: "off"
 
   action:
     - action: switch.turn_off
-      entity_id: switch.motor_piscina
+      entity_id: switch.piscina_depuradora

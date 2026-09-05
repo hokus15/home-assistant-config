@@ -2,8 +2,9 @@ recorder:
   include:
     entities:
       - binary_sensor.energy_waste_alert
-      - binary_sensor.motor_piscina_encendido_alerta
-      - binary_sensor.swimming_pool_circuit_breaker_alert
+      - binary_sensor.piscina_depuradora_encendida_alerta
+      - binary_sensor.piscina_temperatura_agua_estimada
+      - binary_sensor.piscina_magnetotermico_alerta
       - binary_sensor.gfci_alert
       - binary_sensor.cocina_enchufes_estado
 
@@ -15,26 +16,26 @@ template:
              and not is_state('climate.recibidor', 'off')
              and is_state_attr('climate.recibidor', 'hvac_action', 'heating') }}
 
-      - name: "swimming_pool_circuit_breaker_alert"
+      - name: "piscina_magnetotermico_alerta"
         state: >-
           {{  is_state('binary_sensor.hueco_escalera_sai_red_electrica_activa', 'on')
              and is_state('binary_sensor.gfci_alert', 'off')
-             and is_state('switch.motor_piscina', 'unavailable')
-             and is_state('switch.piscina_luz_principal', 'unavailable')
-             and is_state('switch.piscina', 'unavailable')}}
+             and is_state('switch.piscina_depuradora', 'unavailable')
+             and is_state('switch.piscina_iluminacion', 'unavailable')
+             and is_state('switch.piscina_medidor_consumo', 'unavailable')}}
 
       # GFCI -> Ground fault circuit interrupter -> Diferencial
       - name: "gfci_alert"
         state: >-
           {{  is_state('binary_sensor.hueco_escalera_sai_red_electrica_activa', 'on')
-             and is_state('switch.motor_piscina', 'unavailable')
-             and is_state('switch.piscina_luz_principal', 'unavailable')
-             and is_state('switch.piscina', 'unavailable')
+             and is_state('switch.piscina_depuradora', 'unavailable')
+             and is_state('switch.piscina_iluminacion', 'unavailable')
+             and is_state('switch.piscina_medidor_consumo', 'unavailable')
              and is_state('switch.coladuria_lavadora', 'unavailable')
              and is_state('switch.coladuria_secadora', 'unavailable')
              and is_state('switch.cocina_lavavajillas', 'unavailable')
              and is_state('camera.barbacoa', 'unavailable')
-             and is_state('camera.piscina', 'unavailable')
+             and is_state('camera.piscina_camara', 'unavailable')
              and is_state('camera.caseta', 'unavailable')
              and is_state('switch.coladuria_cargador_ev', 'unavailable')
              }}
@@ -50,10 +51,10 @@ template:
              and has_value('switch.coladuria_secadora') }}
         delay_on: "00:01:30"
 
-      - name: "motor_piscina_encendido_alerta"
+      - name: "piscina_depuradora_encendida_alerta"
         state: >-
-          {{ is_state('switch.motor_piscina', 'on')
-             and states.sensor.piscina_pump_runtime_today.state | float(0) > states.sensor.piscina_filtration_time.state | float(0) }}
+          {{ is_state('switch.piscina_depuradora', 'on')
+             and states.sensor.piscina_depuradora_tiempo_funcionamiento_hoy.state | float(0) > states.sensor.piscina_tiempo_filtrado.state | float(0) }}
 
 alert:
   entrada_barrera_abierta:
@@ -93,28 +94,42 @@ alert:
       - despacho
       - telegram_hokusphone
 
-  motor_piscina_encendido:
+  piscina_depuradora_encendida:
     name: Motor piscina encendido
-    entity_id: binary_sensor.motor_piscina_encendido_alerta
+    entity_id: binary_sensor.piscina_depuradora_encendida_alerta
     state: "on"
     repeat: 5
-    message: "Motor de la piscina encendido hoy durante {{ ((states.sensor.piscina_pump_runtime_today.state | float(0) * 60) // 60) | round(0) }} horas y {{ ((states.sensor.piscina_pump_runtime_today.state | float(0) * 60) % 60) | round(0) }} minutos cuando el tiempo programado es de {{ ((states.sensor.piscina_filtration_time.state | float(0) * 60) // 60) | round(0) }} horas y {{ ((states.sensor.piscina_filtration_time.state | float(0) * 60) % 60) | round(0) }} minutos."
+    message: "Motor de la piscina encendido hoy durante {{ ((states.sensor.piscina_depuradora_tiempo_funcionamiento_hoy.state | float(0) * 60) // 60) | round(0) }} horas y {{ ((states.sensor.piscina_depuradora_tiempo_funcionamiento_hoy.state | float(0) * 60) % 60) | round(0) }} minutos cuando el tiempo programado es de {{ ((states.sensor.piscina_tiempo_filtrado.state | float(0) * 60) // 60) | round(0) }} horas y {{ ((states.sensor.piscina_tiempo_filtrado.state | float(0) * 60) % 60) | round(0) }} minutos."
     can_acknowledge: true
     skip_first: true
     data:
       inline_keyboard:
-        - "Apagar:/switch.turn_off#switch.motor_piscina"
-        - "Enterado:/alert.turn_off#alert.motor_piscina_encendido"
+        - "Apagar:/switch.turn_off#switch.piscina_depuradora"
+        - "Enterado:/alert.turn_off#alert.piscina_depuradora_encendida"
     notifiers:
       - recibidor
       - despacho
       - telegram_hokusphone
 
-  sp_cb_monitor_alert:
-    # swimming_pool_circuit_breaker_monitor_alert -> sp_cb_monitor_alert
-    # -> Cambio en el nombre para poder evitar llegar al máximo de carácteres en el inline keyboard de Telegram
+  piscina_temperatura_agua_estimada:
+    name: Temperatura de agua estimada
+    entity_id: binary_sensor.piscina_temperatura_agua_estimada
+    state: "on"
+    # Alert exige repeat. Evita ruido pero recuerda diariamente un fallo
+    # persistente de la sonda.
+    repeat: 1440
+    skip_first: false
+    message: >-
+      La sonda de temperatura del agua de la piscina no proporciona una lectura
+      válida. La filtración usa una estimación de
+      {{ states('sensor.piscina_temperatura_agua_referencia') }} °C basada en
+      la temperatura exterior ({{ states('sensor.exterior_temperature') }} °C).
+    notifiers:
+      - telegram_hokusphone
+
+  piscina_magnetotermico:
     name: Magnetotermico piscina abajo
-    entity_id: binary_sensor.swimming_pool_circuit_breaker_alert
+    entity_id: binary_sensor.piscina_magnetotermico_alerta
     state: "on"
     repeat: 5
     message: "Es posible que haya saltado el magnetotérmico de la piscina. Los dispositivos afectados son: piscina (luz y depuradora), cámara de la caseta, cámara de la piscina y cámara de la barbacoa."
@@ -122,7 +137,7 @@ alert:
     skip_first: false
     data:
       inline_keyboard:
-        - "Enterado:/alert.turn_off#alert.sp_cb_monitor_alert"
+        - "Enterado:/alert.turn_off#alert.piscina_magnetotermico"
     notifiers:
       - despacho
       - telegram_hokusphone

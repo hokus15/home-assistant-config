@@ -121,19 +121,16 @@ device_tracker.car_ioniq:
   entity_picture: /local/device_tracker.car_ioniq_icon.png
 alarm_control_panel.home:
   friendly_name: Alarma
-sensor.piscina_pump_runtime_today:
+sensor.piscina_depuradora_tiempo_funcionamiento_hoy:
   friendly_name: Tiempo de filtrado hoy
-sensor.piscina_water_temperature:
+sensor.piscina_temperatura_agua:
   device_class: temperature
   friendly_name: Temperatura agua piscina
   icon: mdi:pool-thermometer
   state_class: measurement
-sensor.piscina_water_temperature_24h_mean:
-  device_class: temperature
-  friendly_name: Temp. media agua piscina
-switch.motor_piscina:
+switch.piscina_depuradora:
   friendly_name: Depuradora
-light.piscina_principal:
+switch.piscina_iluminacion:
   friendly_name: Luz piscina
   icon: mdi:spotlight-beam
 camera.recibidor:
@@ -158,12 +155,12 @@ binary_sensor.cocina_camara_infrarrojo:
 switch.cocina_camara_det_mov:
   friendly_name: Det. mov. cocina
   icon: mdi:transit-transfer
-camera.piscina:
+camera.piscina_camara:
   friendly_name: Piscina
 binary_sensor.piscina_camara_infrarrojo:
   friendly_name: Infrarrojos piscina
   icon: mdi:led-on
-switch.piscina_camara_det_mov:
+switch.piscina_camara_movimiento_activo:
   friendly_name: Det. mov. piscina
   icon: mdi:transit-transfer
 camera.barbacoa:
@@ -213,13 +210,13 @@ sensor.recibidor_temperature:
   unit_of_measurement: °C
 binary_sensor.summer_time:
   friendly_name: Horario de verano
-sensor.piscina_width:
+sensor.piscina_ancho:
   friendly_name: Ancho piscina
 sensor.despacho_movimiento_temperatura:
   device_class: temperature
-sensor.piscina_filtration_time:
+sensor.piscina_tiempo_filtrado:
   friendly_name: Tiempo programado de filtrado
-input_number.temperature_correction:
+input_number.piscina_correccion_temperatura_agua:
   friendly_name: Corrección temp. piscina
 sensor.recibidor_target_temperature:
   device_class: temperature
@@ -227,33 +224,34 @@ sensor.recibidor_target_temperature:
 sensor.salon_principal_energia:
   friendly_name: Energía luz salón
   icon: mdi:speedometer
-sensor.piscina_average_depth:
+sensor.piscina_profundidad_media:
   friendly_name: Profundidad media piscina
 light.puerta_coladuria:
   friendly_name: Puerta Coladuria
-sensor.piscina_length:
+sensor.piscina_largo:
   friendly_name: Largo piscina
 switch.entrada_barrera:
   friendly_name: Barrera entrada
-sensor.piscina_volume:
+sensor.piscina_volumen:
   friendly_name: Capacidad piscina
 sensor.car_ioniq_battery_energy_consumption:
   friendly_name: Consumo medio Ioniq
-sensor.piscina_hydraulic_efficiency:
+sensor.piscina_eficiencia_hidraulica:
   friendly_name: Eficiencia hidráulica
-switch.piscina_luz_principal:
-  friendly_name: Canal luz piscina
+light.piscina_iluminacion:
+  friendly_name: Luz piscina
+  icon: mdi:spotlight-beam
 switch.comedor_principal:
   friendly_name: Canal luz comedor
 switch.salon_principal:
   friendly_name: Canal luz salón
 sensor.car_ioniq_odometer:
   friendly_name: Odómetro Ioniq
-sensor.piscina_pump_nominal_flow:
+sensor.piscina_depuradora_caudal_nominal:
   friendly_name: Potencia motor piscina
-sensor.piscina_turnover_time:
+sensor.piscina_tiempo_recirculacion:
   friendly_name: Recirculación piscina
-binary_sensor.piscina_pump_enough_net_balance_to_keep_on:
+binary_sensor.piscina_depuradora_balance_neto_horario_suficiente_para_mantenerse_encendida:
   friendly_name: "Suficiente balance energético para encender la bomba"
 sensor.car_ioniq_battery_health:
   device_class: battery
@@ -325,7 +323,7 @@ binary_sensor.coladuria_cargador_ev_estado:
   friendly_name: Estado cargador EV
 sensor.coladuria_cargador_ev_energia_hoy:
   friendly_name: Energía cargador EV (hoy)
-sensor.piscina_energy:
+sensor.piscina_medidor_consumo_energia:
   friendly_name: Consumo piscina
   icon: mdi:speedometer
 sensor.coladuria_cargador_ev_energia:
@@ -371,5 +369,3 @@ sensor.energy_power_photovoltaics:
   icon: mdi:solar-power
 cover.entrada_barrera:
   friendly_name: "Barrera"
-sensor.piscina_k_factor:
-  friendly_name: Factor K

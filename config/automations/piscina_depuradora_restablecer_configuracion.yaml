@@ -1,0 +1,9 @@
+- id: "piscina_depuradora_restablecer_configuracion"
+  alias: "Piscina - Depuradora - Restablecer configuración"
+  trigger:
+    - platform: state
+      entity_id: input_button.piscina_depuradora_restablecer_configuracion
+  action:
+    - action: scene.turn_on
+      target:
+        entity_id: scene.piscina_depuradora_configuracion_inicial

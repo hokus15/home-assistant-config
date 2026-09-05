@@ -25,8 +25,8 @@ recorder:
       - sensor.escalera_principal_potencia
       - sensor.escalera_principal_energia
 
-      - sensor.piscina_power
-      - sensor.piscina_energy
+      - sensor.piscina_medidor_consumo_potencia
+      - sensor.piscina_medidor_consumo_energia
 
       - climate.recibidor
 

@@ -9,7 +9,7 @@ recorder:
       - sensor.comedor_principal_coste_instantaneo
       - sensor.suite_principal_coste_instantaneo
       - sensor.escalera_principal_coste_instantaneo
-      - sensor.piscina_motor_coste_instantaneo
+      - sensor.piscina_coste_instantaneo
       - sensor.coladuria_cargador_ev_coste_instantaneo
       - sensor.climatizacion_planta_baja_aire_acondicionado_total_coste_instantaneo
       - sensor.climatizacion_primera_planta_aire_acondicionado_coste_instantaneo
@@ -24,7 +24,7 @@ recorder:
       - sensor.comedor_principal_coste_acumulado
       - sensor.suite_principal_coste_acumulado
       - sensor.escalera_principal_coste_acumulado
-      - sensor.piscina_motor_coste_acumulado
+      - sensor.piscina_coste_acumulado
       - sensor.coladuria_cargador_ev_coste_acumulado
       - sensor.climatizacion_planta_baja_aire_acondicionado_total_coste_acumulado
       - sensor.climatizacion_primera_planta_aire_acondicionado_coste_acumulado
@@ -41,7 +41,7 @@ recorder:
       - sensor.comedor_principal_coste_mensual
       - sensor.suite_principal_coste_mensual
       - sensor.escalera_principal_coste_mensual
-      - sensor.piscina_motor_coste_mensual
+      - sensor.piscina_coste_mensual
       - sensor.coladuria_cargador_ev_coste_mensual
       - sensor.climatizacion_planta_baja_aire_acondicionado_total_coste_mensual
       - sensor.climatizacion_primera_planta_aire_acondicionado_coste_mensual
@@ -66,7 +66,7 @@ template:
           - sensor.comedor_principal_potencia
           - sensor.suite_principal_potencia
           - sensor.escalera_principal_potencia
-          - sensor.piscina_power
+          - sensor.piscina_medidor_consumo_potencia
           - sensor.coladuria_cargador_ev_potencia
           - sensor.climatizacion_planta_baja_aire_acondicionado_total_potencia
           - sensor.climatizacion_primera_planta_aire_acondicionado_potencia
@@ -115,12 +115,12 @@ template:
         availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.escalera_principal_potencia') }}"
         state: "{{ (states('sensor.escalera_principal_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
 
-      - name: Piscina motor coste instantaneo
-        unique_id: piscina_motor_coste_instantaneo
+      - name: Piscina coste instantaneo
+        unique_id: piscina_coste_instantaneo
         unit_of_measurement: "€/h"
         state_class: measurement
-        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.piscina_power') }}"
-        state: "{{ (states('sensor.piscina_power') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
+        availability: "{{ has_value('sensor.energy_price_buy') and has_value('sensor.piscina_medidor_consumo_potencia') }}"
+        state: "{{ (states('sensor.piscina_medidor_consumo_potencia') | float(0) / 1000 * states('sensor.energy_price_buy') | float(0)) | round(6) }}"
 
       - name: Coladuria cargador ev coste instantaneo
         unique_id: coladuria_cargador_ev_coste_instantaneo
@@ -204,7 +204,7 @@ template:
             states('sensor.comedor_principal_coste_mensual') | float(0),
             states('sensor.suite_principal_coste_mensual') | float(0),
             states('sensor.escalera_principal_coste_mensual') | float(0),
-            states('sensor.piscina_motor_coste_mensual') | float(0),
+            states('sensor.piscina_coste_mensual') | float(0),
             states('sensor.coladuria_cargador_ev_coste_mensual') | float(0),
             states('sensor.climatizacion_planta_baja_aire_acondicionado_total_coste_mensual') | float(0),
             states('sensor.climatizacion_primera_planta_aire_acondicionado_coste_mensual') | float(0),
@@ -264,9 +264,9 @@ sensor:
     max_sub_interval:
       minutes: 1
   - platform: integration
-    source: sensor.piscina_motor_coste_instantaneo
-    name: Piscina motor coste acumulado
-    unique_id: piscina_motor_coste_acumulado
+    source: sensor.piscina_coste_instantaneo
+    name: Piscina coste acumulado
+    unique_id: piscina_coste_acumulado
     method: left
     unit_time: h
     round: 4
@@ -384,10 +384,10 @@ utility_meter:
     name: Escalera principal coste mensual
     unique_id: escalera_principal_coste_mensual
     cycle: monthly
-  piscina_motor_coste_mensual:
-    source: sensor.piscina_motor_coste_acumulado
-    name: Piscina motor coste mensual
-    unique_id: piscina_motor_coste_mensual
+  piscina_coste_mensual:
+    source: sensor.piscina_coste_acumulado
+    name: Piscina coste mensual
+    unique_id: piscina_coste_mensual
     cycle: monthly
   coladuria_cargador_ev_coste_mensual:
     source: sensor.coladuria_cargador_ev_coste_acumulado

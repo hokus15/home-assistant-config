@@ -1,0 +1,505 @@
+###############################################################################
+# RECORDER
+###############################################################################
+
+recorder:
+  include:
+    entities:
+      # Actuadores
+      - switch.piscina_depuradora
+      - switch.piscina_medidor_consumo
+      - switch.piscina_iluminacion
+
+      # Sensores principales
+      - sensor.piscina_temperatura_agua
+      - sensor.piscina_temperatura_agua_referencia
+      - sensor.piscina_tiempo_filtrado
+      - sensor.piscina_depuradora_tiempo_funcionamiento_hoy
+
+      # Estado de filtración
+      - binary_sensor.piscina_filtrado_pendiente
+
+      - binary_sensor.piscina_depuradora_encendido_por_excedente_energetico_sobre_umbral
+      - binary_sensor.piscina_depuradora_encendido_por_balance_neto_horario_suficiente
+      - binary_sensor.piscina_depuradora_balance_neto_horario_suficiente_para_mantenerse_encendida
+
+###############################################################################
+# LOGBOOK
+###############################################################################
+
+logbook:
+  exclude:
+    entities:
+      - sensor.piscina_temperatura_agua
+      - sensor.piscina_temperatura_agua_referencia
+      - sensor.piscina_tiempo_filtrado
+      - sensor.piscina_depuradora_tiempo_funcionamiento_hoy
+
+      - binary_sensor.piscina_filtrado_pendiente
+
+###############################################################################
+# MQTT
+###############################################################################
+
+mqtt:
+  switch:
+    - name: "Piscina depuradora"
+      unique_id: piscina_depuradora
+      icon: mdi:pool
+
+      state_topic: "casa/sa_coma/piscina/depuradora/stat/POWER"
+      command_topic: "casa/sa_coma/piscina/depuradora/cmnd/POWER"
+      availability_topic: "casa/sa_coma/piscina/depuradora/tele/LWT"
+
+      payload_available: "Online"
+      payload_not_available: "Offline"
+      payload_off: "OFF"
+      payload_on: "ON"
+
+      retain: false
+
+    - name: "Piscina iluminacion"
+      unique_id: piscina_iluminacion
+      icon: mdi:light-flood-down
+
+      state_topic: "casa/sa_coma/piscina/iluminacion/stat/POWER"
+      command_topic: "casa/sa_coma/piscina/iluminacion/cmnd/POWER"
+      availability_topic: "casa/sa_coma/piscina/iluminacion/tele/LWT"
+
+      payload_available: "Online"
+      payload_not_available: "Offline"
+      payload_off: "OFF"
+      payload_on: "ON"
+
+      retain: false
+
+  sensor:
+    - name: "Piscina temperatura agua"
+      unique_id: piscina_temperatura_agua
+      icon: mdi:pool-thermometer
+
+      state_topic: "casa/sa_coma/piscina/depuradora/tele/SENSOR"
+
+      value_template: >-
+        {{
+          value_json.DS18B20.Temperature | float(0)
+          + states('input_number.piscina_correccion_temperatura_agua') | float(0)
+        }}
+
+      unit_of_measurement: "°C"
+      device_class: temperature
+      state_class: measurement
+
+###############################################################################
+# SENSORES
+###############################################################################
+
+sensor:
+  # Tiempo durante el que la bomba ha permanecido encendida dentro
+  # del periodo diario comprendido entre las 07:00 y las 07:00
+  # del día siguiente.
+  - platform: history_stats
+    name: "Piscina depuradora tiempo funcionamiento hoy"
+    unique_id: piscina_depuradora_tiempo_funcionamiento_hoy
+
+    entity_id: switch.piscina_depuradora
+    state: "on"
+    type: time
+
+    end: >-
+      {{
+        (now().replace(minute=0, second=0, microsecond=0)
+        + timedelta(hours=17)).replace(hour=7)
+      }}
+
+    duration:
+      hours: 24
+
+###############################################################################
+# TEMPLATE - DIMENSIONES Y CÁLCULOS HIDRÁULICOS
+###############################################################################
+
+template:
+  - sensor:
+      - name: "Piscina ancho"
+        unique_id: piscina_ancho
+        state: "3.5"
+        unit_of_measurement: "m"
+        icon: mdi:arrow-expand-horizontal
+
+      - name: "Piscina largo"
+        unique_id: piscina_largo
+        state: "7"
+        unit_of_measurement: "m"
+        icon: mdi:arrow-expand-horizontal
+
+      - name: "Piscina profundidad media"
+        unique_id: piscina_profundidad_media
+        state: "1.6"
+        unit_of_measurement: "m"
+        icon: mdi:arrow-expand-vertical
+
+      - name: "Piscina depuradora caudal nominal"
+        unique_id: piscina_depuradora_caudal_nominal
+        state: "16"
+        unit_of_measurement: "m³/h"
+        icon: mdi:waves-arrow-right
+
+      # Relación entre el caudal efectivo de la instalación y el
+      # caudal nominal de la bomba.
+      #
+      # Tiene en cuenta las pérdidas hidráulicas producidas por el
+      # filtro, tuberías, válvulas y accesorios.
+      #
+      # Caudal efectivo = Caudal nominal × Eficiencia hidráulica
+      #
+      # Valores orientativos:
+      #   0,90 - Instalación muy favorable
+      #   0,80 - Instalación doméstica típica
+      #   0,70 - Instalación con pérdidas elevadas
+      - name: "Piscina eficiencia hidraulica"
+        unique_id: piscina_eficiencia_hidraulica
+        state: "0.8"
+        icon: mdi:gauge
+
+      # Volumen aproximado de la piscina.
+      - name: "Piscina volumen"
+        unique_id: piscina_volumen
+
+        state: >-
+          {% set width = states('sensor.piscina_ancho') | float(0) %}
+          {% set length = states('sensor.piscina_largo') | float(0) %}
+          {% set depth = states('sensor.piscina_profundidad_media') | float(0) %}
+
+          {{ (width * length * depth) | round(1) }}
+
+        availability: >-
+          {{
+            has_value('sensor.piscina_ancho')
+            and has_value('sensor.piscina_largo')
+            and has_value('sensor.piscina_profundidad_media')
+          }}
+
+        unit_of_measurement: "m³"
+        state_class: measurement
+        icon: mdi:pool
+
+      # Tiempo necesario para recircular un volumen equivalente al
+      # volumen total de la piscina.
+      - name: "Piscina tiempo recirculacion"
+        unique_id: piscina_tiempo_recirculacion
+
+        state: >-
+          {% set volume = states('sensor.piscina_volumen') | float(0) %}
+          {% set nominal_flow = states('sensor.piscina_depuradora_caudal_nominal') | float(0) %}
+          {% set efficiency = states('sensor.piscina_eficiencia_hidraulica') | float(0) %}
+
+          {% set effective_flow = nominal_flow * efficiency %}
+
+          {{
+            (volume / effective_flow) | round(2)
+            if effective_flow > 0
+            else 0
+          }}
+
+        availability: >-
+          {{
+            has_value('sensor.piscina_volumen')
+            and has_value('sensor.piscina_depuradora_caudal_nominal')
+            and has_value('sensor.piscina_eficiencia_hidraulica')
+          }}
+
+        unit_of_measurement: "h"
+        device_class: duration
+        state_class: measurement
+        icon: mdi:timer-sync-outline
+
+###############################################################################
+# TEMPLATE - TEMPERATURA Y RENOVACIONES OBJETIVO
+###############################################################################
+
+  - binary_sensor:
+      - name: "Piscina temperatura agua valida"
+        unique_id: piscina_temperatura_agua_valida
+
+        # Los valores 0, -127 y 85 °C son habituales cuando un DS18B20
+        # no tiene una lectura válida. Para esta piscina, 2–40 °C es el
+        # intervalo físicamente plausible.
+        state: >-
+          {% set temperature = states('sensor.piscina_temperatura_agua') %}
+          {{ has_value('sensor.piscina_temperatura_agua')
+             and 2 <= temperature | float(-127)
+             and temperature | float(85) <= 40 }}
+
+      - name: "Piscina temperatura agua estimada"
+        unique_id: piscina_temperatura_agua_estimada
+        device_class: problem
+        icon: mdi:thermometer-alert
+        state: >-
+          {{ not is_state('binary_sensor.piscina_temperatura_agua_valida', 'on')
+             and has_value('sensor.exterior_temperature') }}
+        # Evita avisos por el breve periodo de arranque de MQTT/DS18B20.
+        delay_on: "00:05:00"
+
+  - sensor:
+      # Temperatura empleada para el cálculo de filtración. Se prefiere siempre
+      # la sonda del agua. Si falla, conserva la última referencia y la acerca
+      # lentamente a la temperatura exterior corregida; no usa la exterior
+      # directamente porque el agua tiene mucha más inercia térmica.
+      - name: "Piscina temperatura agua referencia"
+        unique_id: piscina_temperatura_agua_referencia
+        unit_of_measurement: "°C"
+        device_class: temperature
+        state_class: measurement
+        icon: mdi:pool-thermometer
+        state: >-
+          {% set water = states('sensor.piscina_temperatura_agua') | float(-127) %}
+          {% set outside = states('sensor.exterior_temperature') | float(0) %}
+          {% set offset = states('input_number.piscina_estimacion_temperatura_agua_desfase_exterior') | float(2) %}
+          {% set previous = this.state | float(none) %}
+          {% if has_value('sensor.piscina_temperatura_agua') and 2 <= water <= 40 %}
+            {{ water | round(1) }}
+          {% elif has_value('sensor.exterior_temperature') %}
+            {% set estimated_base = outside + offset %}
+            {{ (previous + ((estimated_base - previous) * 0.1)) | round(1)
+               if previous is not none and 2 <= previous <= 40
+               else estimated_base | round(1) }}
+          {% endif %}
+        attributes:
+          origen: >-
+            {{ 'medida' if is_state('binary_sensor.piscina_temperatura_agua_valida', 'on') else 'estimada' }}
+          temperatura_exterior: "{{ states('sensor.exterior_temperature') }}"
+          desfase_exterior: "{{ states('input_number.piscina_estimacion_temperatura_agua_desfase_exterior') }}"
+
+      # Número objetivo de renovaciones teóricas diarias en función
+      # de la temperatura del agua.
+      #
+      # La progresión continua evita cambios bruscos en el tiempo
+      # de filtración al cruzar los distintos umbrales de temperatura.
+      #
+      # Menos de 10 °C: 0,25 renovaciones
+      # 15 °C:          0,75 renovaciones
+      # 18 °C:          1,00 renovación
+      # 24 °C:          1,50 renovaciones
+      # 30 °C:          2,00 renovaciones
+      # 32 °C:          2,25 renovaciones
+      # 34 °C o más:    2,50 renovaciones
+      - name: "Piscina renovaciones objetivo"
+        unique_id: piscina_renovaciones_objetivo
+
+        state: >-
+          {% set temperature =
+            states('sensor.piscina_temperatura_agua_referencia') | float(0)
+          %}
+
+          {% if temperature < 10 %}
+            0.25
+          {% elif temperature < 15 %}
+            {{ (0.25 + ((temperature - 10) * 0.10)) | round(2) }}
+          {% elif temperature < 18 %}
+            {{ (0.75 + ((temperature - 15) / 12)) | round(2) }}
+          {% elif temperature < 24 %}
+            {{ (1 + ((temperature - 18) / 12)) | round(2) }}
+          {% elif temperature < 30 %}
+            {{ (1.5 + ((temperature - 24) / 12)) | round(2) }}
+          {% elif temperature < 34 %}
+            {{ (2 + ((temperature - 30) * 0.125)) | round(2) }}
+          {% else %}
+            2.5
+          {% endif %}
+
+        availability: >-
+          {{ has_value('sensor.piscina_temperatura_agua_referencia') }}
+
+        state_class: measurement
+        icon: mdi:rotate-360
+
+###############################################################################
+# TEMPLATE - TIEMPO DIARIO DE FILTRACIÓN
+###############################################################################
+
+  - trigger:
+      - platform: homeassistant
+        event: start
+
+      - platform: state
+        entity_id:
+          - sensor.piscina_tiempo_recirculacion
+          - sensor.piscina_renovaciones_objetivo
+
+    sensor:
+      - name: "Piscina tiempo filtrado"
+        unique_id: piscina_tiempo_filtrado
+
+        state: >-
+          {% set turnover_time =
+            states('sensor.piscina_tiempo_recirculacion') | float(0)
+          %}
+          {% set target_turnovers =
+            states('sensor.piscina_renovaciones_objetivo') | float(0)
+          %}
+
+          {% set filtration_time = turnover_time * target_turnovers %}
+
+          {{ [8, [1, filtration_time] | max] | min | round(1) }}
+
+        availability: >-
+          {{
+            has_value('sensor.piscina_tiempo_recirculacion')
+            and has_value('sensor.piscina_renovaciones_objetivo')
+          }}
+
+        unit_of_measurement: "h"
+        device_class: duration
+        state_class: measurement
+        icon: mdi:pump
+
+###############################################################################
+# TEMPLATE - ESTADO Y CONTROL DE LA BOMBA
+###############################################################################
+
+  - binary_sensor:
+
+      # El estado del Sonoff identifica la depuradora directamente. La potencia
+      # del Shelly no sirve para ello porque incluye iluminación y depuradora.
+      - name: "Piscina depuradora activa"
+        unique_id: piscina_depuradora_activa
+
+        state: "{{ is_state('switch.piscina_depuradora', 'on') }}"
+
+        delay_off: "00:00:10"
+
+        icon: mdi:pool
+
+        attributes:
+          potencia_total: "{{ states('sensor.piscina_medidor_consumo_potencia') }} W"
+
+      # Hay suficiente excedente instantáneo para arrancar la bomba.
+      - name: "Piscina depuradora encendido por excedente energetico sobre umbral"
+        unique_id: piscina_depuradora_encendido_por_excedente_energetico_sobre_umbral
+
+        state: >-
+          {{
+            states('sensor.fronius_solarnet_power_grid') | float(0)
+            <= states('input_number.piscina_depuradora_umbral_encendido') | float(0)
+          }}
+
+        delay_on: >-
+          {{
+            timedelta(
+              minutes=states('input_number.piscina_depuradora_retardo_encendido') | int(0)
+            )
+          }}
+
+      # El balance energético acumulado durante la hora permite
+      # arrancar la bomba.
+      - name: "Piscina depuradora encendido por balance neto horario suficiente"
+        unique_id: piscina_depuradora_encendido_por_balance_neto_horario_suficiente
+
+        state: >-
+          {{
+            states('sensor.energy_net_balance_hour') | float(0)
+            <= states('input_number.piscina_depuradora_umbral_balance_neto_horario_encendido') | float(0)
+          }}
+
+      # Todavía queda tiempo objetivo de filtración pendiente.
+      - name: "Piscina filtrado pendiente"
+        unique_id: piscina_filtrado_pendiente
+
+        state: >-
+          {{
+            states('sensor.piscina_depuradora_tiempo_funcionamiento_hoy') | float(0)
+            < states('sensor.piscina_tiempo_filtrado') | float(0)
+          }}
+
+      # El balance energético acumulado sigue siendo suficiente
+      # para mantener la bomba encendida.
+      - name: "Piscina depuradora balance neto horario suficiente para mantenerse encendida"
+        unique_id: piscina_depuradora_balance_neto_horario_suficiente_para_mantenerse_encendida
+
+        state: >-
+          {{
+            states('sensor.energy_net_balance_hour') | float(0)
+            <= states('input_number.piscina_depuradora_umbral_balance_neto_horario_apagado') | float(0)
+          }}
+
+###############################################################################
+# PARÁMETROS CONFIGURABLES
+###############################################################################
+
+input_number:
+  piscina_correccion_temperatura_agua:
+    name: "Corrección temperatura piscina"
+    unit_of_measurement: "°C"
+    icon: mdi:thermometer-lines
+
+    min: -5
+    max: 5
+    step: 0.5
+    mode: box
+
+  # Diferencia típica entre el agua y el aire exterior que se usa solo cuando
+  # la sonda DS18B20 no aporta una lectura plausible.
+  piscina_estimacion_temperatura_agua_desfase_exterior:
+    name: "Desfase estimación temperatura agua"
+    unit_of_measurement: "°C"
+    icon: mdi:thermometer-chevron-up
+
+    initial: 2
+    min: -10
+    max: 15
+    step: 0.5
+    mode: box
+
+  # Potencia mínima exportada para permitir el encendido de la bomba.
+  #
+  # Valores negativos representan exportación a la red.
+  piscina_depuradora_umbral_encendido:
+    name: "Potencia para encendido"
+    unit_of_measurement: "W"
+    icon: mdi:lightning-bolt
+
+    initial: -1200
+    min: -3500
+    max: 0
+    step: 100
+
+  # Tiempo durante el que debe mantenerse el excedente mínimo
+  # antes de permitir el encendido.
+  piscina_depuradora_retardo_encendido:
+    name: "Retardo encendido"
+    unit_of_measurement: "min"
+    icon: mdi:clock-in
+
+    initial: 2
+    min: 0
+    max: 60
+    step: 1
+
+  # Balance energético horario máximo para permitir el encendido.
+  #
+  # Cuanto más negativo sea el valor, más excedente acumulado
+  # se exigirá antes de arrancar la bomba.
+  piscina_depuradora_umbral_balance_neto_horario_encendido:
+    name: "Balance horario para encendido"
+    unit_of_measurement: "kWh"
+    icon: mdi:transmission-tower-export
+
+    initial: -0.2
+    min: -1
+    max: 0
+    step: 0.1
+
+  # Balance energético horario máximo permitido para mantener
+  # la bomba funcionando.
+  #
+  # Si el balance supera este valor, la bomba podrá detenerse.
+  piscina_depuradora_umbral_balance_neto_horario_apagado:
+    name: "Balance horario para mantener encendida"
+    unit_of_measurement: "kWh"
+    icon: mdi:transmission-tower-import
+
+    initial: 0.1
+    min: 0
+    max: 0.5
+    step: 0.01

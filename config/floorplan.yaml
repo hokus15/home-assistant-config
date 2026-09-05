@@ -170,7 +170,7 @@ date_format: DD/MM/YYYY # Date format to use in hover-over text
 #             - switch.escalera_principal
 #             - switch.suite_principal
 #             - switch.salon_lampara
-#             - switch.piscina
+#             - switch.piscina_medidor_consumo
 #          states:
 #            - state: 'on'
 #              class: 'light-on'
@@ -254,7 +254,7 @@ date_format: DD/MM/YYYY # Date format to use in hover-over text
 #          entities:
 #            - camera.recibidor
 #            - camera.barbacoa
-#            - camera.piscina
+#            - camera.piscina_camara
 #            - camera.caseta
 #          states:
 #            - state: 'idle'

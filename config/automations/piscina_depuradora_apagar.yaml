@@ -1,9 +1,9 @@
-- id: "swimming_pool_pump_off"
-  alias: "Swimming Pool - Pump Off"
+- id: "piscina_depuradora_apagar"
+  alias: "Piscina - Depuradora - Apagar"
   trigger:
     # When there is no remaining filtering time
     - platform: state
-      entity_id: binary_sensor.piscina_filtration_pending
+      entity_id: binary_sensor.piscina_filtrado_pendiente
       to: "off"
   # Execute automation when:
   #  - Not in manual mode.
@@ -15,12 +15,12 @@
         conditions:
           - alias: "Not in manual mode"
             condition: state
-            entity_id: input_select.piscina_pump_mode
+            entity_id: input_select.piscina_depuradora_modo
             state: "Manual"
       - alias: "Pump is on"
         condition: state
-        entity_id: switch.motor_piscina
+        entity_id: switch.piscina_depuradora
         state: "on"
   action:
     - action: switch.turn_off
-      entity_id: switch.motor_piscina
+      entity_id: switch.piscina_depuradora

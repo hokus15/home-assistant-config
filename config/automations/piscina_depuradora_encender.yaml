@@ -1,20 +1,20 @@
-- id: "swimming_pool_pump_on"
-  alias: "Swimming Pool - Pump On"
+- id: "piscina_depuradora_encender"
+  alias: "Piscina - Depuradora - Encender"
   trigger:
     # When generating enough energy
     - platform: state
-      entity_id: binary_sensor.piscina_pump_on_energy_export_over_threshold
+      entity_id: binary_sensor.piscina_depuradora_encendido_por_excedente_energetico_sobre_umbral
       to: "on"
     # When hourly net balance is enough to turn on the pump
     - platform: state
-      entity_id: binary_sensor.piscina_pump_on_enough_net_balance_hour
+      entity_id: binary_sensor.piscina_depuradora_encendido_por_balance_neto_horario_suficiente
       to: "on"
     - platform: state
-      entity_id: binary_sensor.piscina_pump_enough_net_balance_to_keep_on
+      entity_id: binary_sensor.piscina_depuradora_balance_neto_horario_suficiente_para_mantenerse_encendida
       to: "on"
 
     - platform: state
-      entity_id: binary_sensor.piscina_filtration_pending
+      entity_id: binary_sensor.piscina_filtrado_pendiente
       to: "on"
   # Execute automation when:
   #  - 'Solar' OR 'Solar + Valle' modes
@@ -30,33 +30,33 @@
         conditions:
           - alias: "Solar mode"
             condition: state
-            entity_id: input_select.piscina_pump_mode
+            entity_id: input_select.piscina_depuradora_modo
             state: "Solar"
           - alias: "Solar + Valle mode"
             condition: state
-            entity_id: input_select.piscina_pump_mode
+            entity_id: input_select.piscina_depuradora_modo
             state: "Solar + Valle"
       - alias: "Generating enough enery or hourly net balance is enough"
         condition: or
         conditions:
           - condition: state
-            entity_id: binary_sensor.piscina_pump_on_energy_export_over_threshold
+            entity_id: binary_sensor.piscina_depuradora_encendido_por_excedente_energetico_sobre_umbral
             state: "on"
           - condition: state
-            entity_id: binary_sensor.piscina_pump_on_enough_net_balance_hour
+            entity_id: binary_sensor.piscina_depuradora_encendido_por_balance_neto_horario_suficiente
             state: "on"
       - alias: "Hourly net balance is enough to keep the pump on"
         condition: state
-        entity_id: binary_sensor.piscina_pump_enough_net_balance_to_keep_on
+        entity_id: binary_sensor.piscina_depuradora_balance_neto_horario_suficiente_para_mantenerse_encendida
         state: "on"
       - alias: "Still has remaining filtering time"
         condition: state
-        entity_id: binary_sensor.piscina_filtration_pending
+        entity_id: binary_sensor.piscina_filtrado_pendiente
         state: "on"
       - alias: "Pump is off"
         condition: state
-        entity_id: switch.motor_piscina
+        entity_id: switch.piscina_depuradora
         state: "off"
   action:
     - action: switch.turn_on
-      entity_id: switch.motor_piscina
+      entity_id: switch.piscina_depuradora
