@@ -2,10 +2,10 @@ sensor.speedtest_ping:
   friendly_name: Ping
   icon: mdi:lan-connect
 sensor.speedtest_download:
-  friendly_name: Velocidad descarga
+  friendly_name: Velocidad de descarga
   icon: mdi:cloud-download
 sensor.speedtest_upload:
-  friendly_name: Velicidad subida
+  friendly_name: Velocidad de subida
   icon: mdi:cloud-upload
 sensor.sunset:
   icon: mdi:weather-sunset-down
@@ -23,24 +23,9 @@ sensor.disk_free:
 sensor.last_boot:
   friendly_name: Último reinicio
   icon: mdi:update
-sensor.connected_clients:
-  friendly_name: Clientes conectados
-  unit_of_measurement: cliente(s)
-  icon: mdi:account
 sensor.ha_runtime_in_minutes:
   friendly_name: Tiempo ejecución HA
   unit_of_measurement: mins
-sensor.google_wifi_current_version:
-  friendly_name: Versión Google WiFi
-sensor.google_wifi_last_restart:
-  friendly_name: Reinicio Google WiFi
-sensor.google_wifi_new_version:
-  friendly_name: Nueva versión Google WiFi
-sensor.google_wifi_status:
-  friendly_name: Estado Google WiFi
-sensor.google_wifi_uptime:
-  friendly_name: Uptime Google WiFi
-  unit_of_measurement: días
 sensor.db_size:
   friendly_name: Tamaño BD
   icon: mdi:database
@@ -58,8 +43,6 @@ sensor.next_holiday_mode_end:
 switch.holiday:
   friendly_name: Modo Vacaciones
   icon: mdi:airplane
-device_tracker.geniphone_wifi:
-  source_type: router
 device_tracker.invitado:
   source_type: router
 person.jordi:
@@ -101,7 +84,7 @@ sensor.hueco_escalera_sai_carga_bateria:
   device_class: battery
   friendly_name: Carga SAI
 sensor.hueco_escalera_sai_autonomia_bateria:
-  friendly_name: Autonomia batería
+  friendly_name: Autonomía de la batería
 binary_sensor.hueco_escalera_sai_red_electrica_activa:
   friendly_name: Suministro eléctrico casa
 sensor.car_ioniq_location_last_update:
@@ -135,47 +118,29 @@ switch.piscina_iluminacion:
   icon: mdi:spotlight-beam
 camera.recibidor:
   friendly_name: Recibidor
-binary_sensor.recibidor_camara_infrarrojo:
-  friendly_name: Infrarrojos recibidor
-  icon: mdi:led-on
-switch.recibidor_camara_det_mov:
-  friendly_name: Det. mov. recibidor
+switch.recibidor_camara_deteccion_movimiento_activa:
+  friendly_name: Detección de movimiento recibidor
   icon: mdi:transit-transfer
-binary_sensor.salon_camara_infrarrojo:
-  friendly_name: Infrarrojos salón
-  icon: mdi:led-on
-switch.salon_camara_det_mov:
-  friendly_name: Det. mov. salón
+switch.salon_camara_deteccion_movimiento_activa:
+  friendly_name: Detección de movimiento salón
   icon: mdi:transit-transfer
 camera.cocina:
   friendly_name: Cocina
-binary_sensor.cocina_camara_infrarrojo:
-  friendly_name: Infrarrojos cocina
-  icon: mdi:led-on
-switch.cocina_camara_det_mov:
-  friendly_name: Det. mov. cocina
+switch.cocina_camara_deteccion_movimiento_activa:
+  friendly_name: Detección de movimiento cocina
   icon: mdi:transit-transfer
-camera.piscina_camara:
+camera.piscina:
   friendly_name: Piscina
-binary_sensor.piscina_camara_infrarrojo:
-  friendly_name: Infrarrojos piscina
-  icon: mdi:led-on
-switch.piscina_camara_movimiento_activo:
-  friendly_name: Det. mov. piscina
+switch.piscina_camara_deteccion_movimiento_activa:
+  friendly_name: Detección de movimiento piscina
   icon: mdi:transit-transfer
 camera.barbacoa:
   friendly_name: Barbacoa
-binary_sensor.barbacoa_camara_infrarrojo:
-  friendly_name: Infrarrojos barbacoa
-  icon: mdi:led-on
-switch.barbacoa_camara_det_mov:
-  friendly_name: Det. mov. barbacoa
+switch.barbacoa_camara_deteccion_movimiento_activa:
+  friendly_name: Detección de movimiento barbacoa
   icon: mdi:transit-transfer
 camera.caseta:
   friendly_name: Caseta
-switch.caseta_camara_det_mov:
-  friendly_name: Det. mov. caseta
-  icon: mdi:transit-transfer
 binary_sensor.despacho_movimiento:
   friendly_name: Movimiento despacho
   device_class: motion
@@ -227,7 +192,7 @@ sensor.salon_principal_energia:
 sensor.piscina_profundidad_media:
   friendly_name: Profundidad media piscina
 light.puerta_coladuria:
-  friendly_name: Puerta Coladuria
+  friendly_name: Puerta de la coladuría
 sensor.piscina_largo:
   friendly_name: Largo piscina
 switch.entrada_barrera:
@@ -274,9 +239,6 @@ sensor.car_ioniq_odometer_last_update:
 sensor.car_ioniq_battery_last_update:
   icon: mdi:update
   friendly_name: Última actualización batería
-sensor.car_ioniq_charge_time_to_100_mins_filtered:
-  device_class: duration
-  friendly_name: Tiempo restante de carga
 sensor.car_ioniq_charge_time_to_100_mins:
   device_class: duration
   friendly_name: Tiempo restante de carga

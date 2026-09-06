@@ -35,7 +35,7 @@ template:
              and is_state('switch.coladuria_secadora', 'unavailable')
              and is_state('switch.cocina_lavavajillas', 'unavailable')
              and is_state('camera.barbacoa', 'unavailable')
-             and is_state('camera.piscina_camara', 'unavailable')
+             and is_state('camera.piscina', 'unavailable')
              and is_state('camera.caseta', 'unavailable')
              and is_state('switch.coladuria_cargador_ev', 'unavailable')
              }}

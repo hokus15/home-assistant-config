@@ -1,0 +1,53 @@
+# Telegram bot that executes a service from a callback with the format <service>#<entity_id>. i.e.: script.turn_on#script.fence_close
+- id: 'telegram_callback_bot'
+  alias: 'Telegram - Gestión de callbacks del bot'
+  trigger:
+    - platform: event
+      event_type: telegram_callback
+  condition:
+    # Run only in case it has a # in the event data
+    condition: template
+    value_template: '{{ trigger.event.data.data.find("#") != -1 }}'
+  action:
+    # Answer callback
+    - action: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
+        message: 'Respuesta recibida!'
+        show_alert: false
+    # Remove inline keyboard from original message.
+    - action: telegram_bot.edit_replymarkup
+      data_template:
+             message_id: '{{ trigger.event.data.message.message_id }}'
+             chat_id: '{{ trigger.event.data.chat_id }}'
+             inline_keyboard: []
+    # Camera motion controls use a compact, allow-listed callback token because
+    # Telegram callback_data is limited to 64 bytes.
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: >-
+                {{ trigger.event.data.data.startswith('/camara_movimiento_desactivar#') }}
+          sequence:
+            - variables:
+                cameras:
+                  recibidor: switch.recibidor_camara_deteccion_movimiento_activa
+                  piscina: switch.piscina_camara_deteccion_movimiento_activa
+                  barbacoa: switch.barbacoa_camara_deteccion_movimiento_activa
+                  salon: switch.salon_camara_deteccion_movimiento_activa
+                  cocina: switch.cocina_camara_deteccion_movimiento_activa
+                  entrada: input_boolean.entrada_alarma_movimiento_activo
+                  caseta: input_boolean.caseta_alarma_movimiento_activo
+                camera_token: "{{ trigger.event.data.data.split('#', 1)[1] }}"
+            - condition: template
+              value_template: "{{ camera_token in cameras }}"
+            - action: homeassistant.turn_off
+              data_template:
+                entity_id: "{{ cameras[camera_token] }}"
+      default:
+        # Execute callbacks with the established <service>#<entity_id> format.
+        # Invalid services or entity IDs are ignored by Home Assistant.
+        - action: >
+            {{ trigger.event.data.data[1:trigger.event.data.data.find("#")] }}
+          data_template:
+            entity_id: '{{ trigger.event.data.data[trigger.event.data.data.find("#") + 1:] }}'

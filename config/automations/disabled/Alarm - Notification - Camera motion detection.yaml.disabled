@@ -1,3 +1,5 @@
+# OBSOLETA: conserva el control retirado de la antigua camara Caseta.
+# Revisar los productores MQTT y sustituir ese control antes de habilitarla.
 # Notify camera motion detection including attached video or image when alarm triggered
 - alias: 'Alarm - Notification - Camera motion detection'
   trigger:
@@ -19,22 +21,22 @@
     condition: or
     conditions:
     - condition: state
-      entity_id: switch.recibidor_camara_det_mov
+      entity_id: switch.recibidor_camara_deteccion_movimiento_activa
       state: 'on'
     - condition: state
-      entity_id: switch.salon_camara_det_mov
+      entity_id: switch.salon_camara_deteccion_movimiento_activa
       state: 'on'
     - condition: state
-      entity_id: switch.barbacoa_camara_det_mov
+      entity_id: switch.barbacoa_camara_deteccion_movimiento_activa
       state: 'on'
     - condition: state
-      entity_id: switch.piscina_camara_det_mov
+      entity_id: switch.piscina_camara_deteccion_movimiento_activa
       state: 'on'
     - condition: state
       entity_id: switch.caseta_camara_det_mov
       state: 'on'
     - condition: state
-      entity_id: input_boolean.entrada_camara_det_mov
+      entity_id: input_boolean.entrada_alarma_movimiento_activo
       state: 'on'
   action:
     # Delay before evaluating alarm state. This is needed to allow the alarm_control panel to be triggered and avoid skipping notifications

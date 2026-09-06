@@ -102,7 +102,7 @@ alarm_notify_camera:
           #- !secret geniphone_telegram_chat_id
         disable_notification: false
         inline_keyboard:
-          - "Desactivar det. mov. {{place}}:/homeassistant.turn_off#{{turn_off_entity_id}}"
+          - "Desactivar det. mov.:/camara_movimiento_desactivar#{{ turn_off_entity_id.split('.')[1].split('_')[0] }}"
           - "Desarmar 30 mins:/30_mins, Desarmar 1 hora:/60_mins"
           - "Desarmar 2 horas:/120_mins, Desarmar 3 horas:/180_mins"
           - "Desarmar alarma:/script.turn_on#script.alarm_disarm_telegram"

@@ -254,7 +254,7 @@ date_format: DD/MM/YYYY # Date format to use in hover-over text
 #          entities:
 #            - camera.recibidor
 #            - camera.barbacoa
-#            - camera.piscina_camara
+#            - camera.piscina
 #            - camera.caseta
 #          states:
 #            - state: 'idle'

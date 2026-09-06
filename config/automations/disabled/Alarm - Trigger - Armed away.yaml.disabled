@@ -1,3 +1,6 @@
+# OBSOLETA: los binary_sensor.*_camara_det_mov no corresponden al registro actual.
+# Revisar los detectores reales antes de habilitarla; los switch de deteccion
+# habilitan la deteccion y no sustituyen a los sensores que detectan movimiento.
 - alias: 'Alarm - Trigger - Armed away'
   trigger:
     # When motion detected at hall camera
