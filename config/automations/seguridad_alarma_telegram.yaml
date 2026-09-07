@@ -1,0 +1,41 @@
+- id: seguridad_alarma_telegram
+  alias: Seguridad - Procesar botones de Telegram
+  mode: queued
+  max: 50
+  triggers:
+    - trigger: event
+      event_type: telegram_callback
+  conditions:
+    - condition: template
+      value_template: "{{ trigger.event.data.data.startswith('/seg_') }}"
+  actions:
+    - variables:
+        callback: "{{ trigger.event.data.data }}"
+        candidates: >-
+          {{ (label_entities('alarma_modo_ausente') + label_entities('alarma_modo_noche')) | unique | list }}
+        matches: >-
+          {% set ns = namespace(entities=[]) %}
+          {% for entity in candidates %}
+            {% if callback == '/seg_exclude_' ~ (entity | sha256)[:24] %}
+              {% set ns.entities = ns.entities + [entity] %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.entities }}
+    - action: telegram_bot.answer_callback_query
+      data:
+        callback_query_id: "{{ trigger.event.data.id }}"
+        message: >-
+          {{ '✅ Orden recibida' if callback in ['/seg_arm', '/seg_disarm'] or matches | count == 1
+             else '⚠️ El detector ya no pertenece a la alarma' }}
+    - choose:
+        - conditions: "{{ callback in ['/seg_arm', '/seg_disarm'] }}"
+          sequence:
+            - action: script.seguridad_controlar
+              data:
+                command: "{{ 'arm_away' if callback == '/seg_arm' else 'disarm' }}"
+        - conditions: "{{ matches | count == 1 }}"
+          sequence:
+            - action: script.seguridad_controlar
+              data:
+                command: exclude
+                detector: "{{ matches[0] }}"

@@ -1,0 +1,131 @@
+- id: seguridad_alarma_inicializar
+  alias: Seguridad - Inicializar alarma
+  mode: restart
+  triggers:
+    - trigger: homeassistant
+      event: start
+  actions:
+    - action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.alarma_inicializada
+    - action: script.seguridad_controlar
+      data:
+        command: recover
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.alarma_inicializada
+
+- id: seguridad_alarma_presencia
+  alias: Seguridad - Actualizar alarma por presencia
+  mode: queued
+  triggers:
+    - trigger: state
+      entity_id: binary_sensor.alarma_ocupacion
+      to: 'on'
+    - trigger: state
+      entity_id: binary_sensor.alarma_ocupacion
+      to: 'off'
+  conditions:
+    - condition: state
+      entity_id: input_boolean.alarma_inicializada
+      state: 'on'
+  actions:
+    - action: script.seguridad_controlar
+      data:
+        command: presence
+
+- id: seguridad_alarma_buenas_noches
+  alias: Seguridad - Armar al dar las buenas noches
+  triggers:
+    - trigger: event
+      event_type: sleep_mode
+      event_data:
+        state: 'on'
+  conditions:
+    - condition: state
+      entity_id: input_boolean.alarma_inicializada
+      state: 'on'
+  actions:
+    - action: script.seguridad_controlar
+      data:
+        command: arm_night
+
+- id: seguridad_alarma_plazos
+  alias: Seguridad - Revisar pausa y fin de noche
+  mode: queued
+  triggers:
+    - trigger: time
+      at: '06:30:00'
+    - trigger: time
+      at: input_datetime.alarma_fin_pausa
+    - trigger: time_pattern
+      minutes: /1
+  conditions:
+    - condition: state
+      entity_id: input_boolean.alarma_inicializada
+      state: 'on'
+  actions:
+    - action: script.seguridad_controlar
+      data:
+        command: resume
+
+- id: seguridad_alarma_panel_manual
+  alias: Seguridad - Incorporar orden manual del panel
+  mode: queued
+  triggers:
+    - trigger: event
+      event_type: call_service
+      event_data:
+        domain: alarm_control_panel
+  conditions:
+    - condition: state
+      entity_id: input_boolean.alarma_inicializada
+      state: 'on'
+    - condition: template
+      value_template: >-
+        {{ trigger.event.context.id not in (state_attr('sensor.alarma_contexto', 'internal_contexts') or []) }}
+    - condition: template
+      value_template: >-
+        {% set e = trigger.event.data %}
+        {% set targets = e.service_data.get('entity_id', []) %}
+        {{ e.service in ['alarm_disarm', 'alarm_arm_away', 'alarm_arm_night']
+           and (targets == 'alarm_control_panel.home' or
+                (targets is not string and 'alarm_control_panel.home' in targets)) }}
+  actions:
+    - action: script.seguridad_controlar
+      data:
+        command: >-
+          {{ {'alarm_disarm': 'disarm', 'alarm_arm_away': 'arm_away',
+              'alarm_arm_night': 'arm_night'}[trigger.event.data.service] }}
+
+- id: seguridad_alarma_etiquetas
+  alias: Seguridad - Actualizar camaras al cambiar etiquetas
+  mode: restart
+  triggers:
+    - trigger: event
+      event_type: entity_registry_updated
+    - trigger: event
+      event_type: label_registry_updated
+  conditions:
+    - condition: state
+      entity_id: input_boolean.alarma_inicializada
+      state: 'on'
+  actions:
+    - action: script.seguridad_controlar
+      data:
+        command: sync
+
+- id: seguridad_alarma_disponibilidad
+  alias: Seguridad - Avisar de presencia no disponible
+  triggers:
+    - trigger: state
+      entity_id: binary_sensor.alarma_ocupacion
+      to: unavailable
+  conditions:
+    - condition: state
+      entity_id: input_boolean.alarma_inicializada
+      state: 'on'
+  actions:
+    - action: script.seguridad_enviar_mensaje
+      data:
+        message: ⚠️ Presencia no disponible. No se interpretará como casa vacía.

@@ -1,0 +1,60 @@
+{# Pure state transition: timestamps are supplied by the caller for testability. #}
+{% macro transition(previous, command, occupancy, timestamp, next_cutoff, minutes=0, detector='') -%}
+  {% set base = dict(mode='disarmed', excluded=[], paused_until=0, paused_mode='disarmed',
+                     night_cutoff=0, manual_hold=false) %}
+  {% set old = dict(base, **previous) %}
+  {% set ns = namespace(c=old, arm=false) %}
+  {% if command in ['arm_away', 'arm_night'] %}
+    {% set mode = 'armed_away' if command == 'arm_away' else 'armed_night' %}
+    {% set ns.c = dict(old, mode=mode, excluded=[], paused_until=0, paused_mode='disarmed',
+                       manual_hold=false, night_cutoff=next_cutoff if mode == 'armed_night' else 0) %}
+    {% set ns.arm = true %}
+  {% elif command == 'disarm' %}
+    {% set ns.c = dict(old, mode='disarmed', paused_until=0, paused_mode='disarmed', manual_hold=true) %}
+  {% elif command == 'pause' and minutes in [30, 60, 120, 180] %}
+    {% set origin = old.paused_mode if old.paused_until > 0 else old.mode %}
+    {% set ns.c = dict(old, mode='disarmed', paused_until=timestamp + minutes * 60,
+                       paused_mode=origin, manual_hold=false) %}
+  {% elif command == 'exclude' and detector and old.mode in ['armed_away', 'armed_night'] %}
+    {% set ns.c = dict(old, excluded=(old.excluded + [detector]) | unique | list) %}
+  {% elif command in ['resume', 'recover', 'presence', 'morning'] %}
+    {% if old.paused_until > 0 %}
+      {% if timestamp >= old.paused_until %}
+        {% set mode = 'armed_away' if occupancy == 'off' else
+            ('armed_night' if occupancy == 'on' and old.paused_mode == 'armed_night'
+              and timestamp < old.night_cutoff else 'disarmed') %}
+        {% set ns.c = dict(old, mode=mode, paused_until=0, paused_mode='disarmed') %}
+        {% set ns.arm = mode != 'disarmed' %}
+      {% endif %}
+    {% elif not old.manual_hold %}
+      {% if occupancy == 'off' and (command in ['presence', 'recover'] or
+             (old.mode == 'armed_night' and old.night_cutoff > 0 and timestamp >= old.night_cutoff)) %}
+        {% set ns.c = dict(old, mode='armed_away') %}
+      {% elif old.mode == 'armed_night' and old.night_cutoff > 0 and timestamp >= old.night_cutoff %}
+        {% set ns.c = dict(old, mode='disarmed') %}
+      {% elif command in ['presence', 'recover'] and occupancy == 'on' and old.mode == 'armed_away' %}
+        {% set ns.c = dict(old, mode='disarmed') %}
+      {% endif %}
+      {% set ns.arm = ns.c.mode != old.mode and ns.c.mode != 'disarmed' %}
+    {% endif %}
+    {% if ns.arm %}
+      {% set ns.c = dict(ns.c, excluded=[]) %}
+    {% endif %}
+  {% endif %}
+  {{ dict(context=ns.c, arm=ns.arm, changed=ns.c != old) | tojson }}
+{%- endmacro %}
+
+{% macro camera_for_path(cameras, path) -%}
+  {% set ns = namespace(matches=[]) %}
+  {% if path.startswith('/media/') and '..' not in path.split('/') %}
+    {% for token, camera in cameras.items() %}
+      {% for folder in camera.get('ftp_directories', []) %}
+        {% if path.startswith(folder.rstrip('/') ~ '/') and token not in ns.matches
+              and path.lower().endswith(('.' ~ camera.get('video_format', 'mkv'), '.jpg', '.jpeg')) %}
+          {% set ns.matches = ns.matches + [token] %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
+  {{ (ns.matches[0] if ns.matches | count == 1 else '') | tojson }}
+{%- endmacro %}

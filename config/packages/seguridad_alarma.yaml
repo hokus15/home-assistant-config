@@ -1,0 +1,56 @@
+input_boolean:
+  alarma_inicializada:
+    name: Alarma inicializada
+    initial: false
+
+input_datetime:
+  alarma_fin_pausa:
+    name: Fin de pausa de alarma
+    has_date: true
+    has_time: true
+
+template:
+  - binary_sensor:
+      - name: Alarma ocupacion
+        default_entity_id: binary_sensor.alarma_ocupacion
+        unique_id: alarma_ocupacion
+        device_class: occupancy
+        state: >-
+          {{ is_state('group.familia', 'home') or is_state('calendar.asistente_hogar', 'on')
+             or is_state('switch.guest_mode', 'on') }}
+        availability: >-
+          {% set family = state_attr('group.familia', 'entity_id') or [] %}
+          {% set ns = namespace(known=family | count > 0) %}
+          {% for entity in family %}
+            {% if not has_value(entity) %}{% set ns.known = false %}{% endif %}
+          {% endfor %}
+          {{ is_state('group.familia', 'home') or is_state('calendar.asistente_hogar', 'on')
+             or is_state('switch.guest_mode', 'on') or
+             (ns.known and states('group.familia') in ['home', 'not_home']
+              and states('calendar.asistente_hogar') in ['on', 'off']
+              and states('switch.guest_mode') in ['on', 'off']) }}
+  # Trigger-based sensor attributes survive restarts and have no 255-character
+  # input_text limit. The controller serializes writes and waits for acknowledgement.
+  - triggers:
+      - trigger: event
+        event_type: seguridad_contexto_guardar
+    sensor:
+      - name: Alarma contexto
+        default_entity_id: sensor.alarma_contexto
+        unique_id: alarma_contexto
+        state: "{{ trigger.event.data.revision }}"
+        attributes:
+          data: "{{ trigger.event.data.context }}"
+          internal_contexts: "{{ trigger.event.data.get('internal_contexts', []) }}"
+  - triggers:
+      - trigger: event
+        event_type: seguridad_archivo_reservar
+    sensor:
+      - name: Alarma archivos
+        default_entity_id: sensor.alarma_archivos
+        unique_id: alarma_archivos
+        state: "{{ trigger.event.data.revision }}"
+        attributes:
+          entries: "{{ trigger.event.data.entries }}"
+
+script: !include ../seguridad/scripts.yaml

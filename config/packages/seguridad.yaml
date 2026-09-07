@@ -14,19 +14,13 @@ recorder:
       - binary_sensor.salon_sensor_ventana
       - binary_sensor.salon_piscina_sensor_puerta
       - binary_sensor.despacho_ventana
+      - binary_sensor.caseta_camara_movimiento
 
       - switch.recibidor_camara_deteccion_movimiento_activa
       - switch.salon_camara_deteccion_movimiento_activa
       - switch.cocina_camara_deteccion_movimiento_activa
       - switch.piscina_camara_deteccion_movimiento_activa
       - switch.barbacoa_camara_deteccion_movimiento_activa
-
-      - input_boolean.entrada_alarma_movimiento_activo
-      - input_boolean.caseta_alarma_movimiento_activo
-      - input_boolean.despacho_alarma_movimiento_activo
-      - input_boolean.porche_sensor_puerta
-      - input_boolean.porche_sensor_persiana
-      - input_boolean.coladuria_sensor_puerta
 
       - group.seguridad
 
@@ -40,28 +34,8 @@ logbook:
 group:
   Seguridad:
     entities:
-      # - switch.cocina_camara_deteccion_movimiento_activa
-
-      - input_boolean.coladuria_sensor_puerta
-
-      - input_boolean.despacho_alarma_movimiento_activo
-
-      - input_boolean.entrada_alarma_movimiento_activo
-      - input_boolean.recibidor_puerta_principal_deteccion_activada
-
-      - input_boolean.porche_sensor_persiana
-      - input_boolean.porche_sensor_puerta
-      
       - switch.recibidor_camara_deteccion_movimiento_activa
-
       - switch.salon_camara_deteccion_movimiento_activa
-      - input_boolean.salon_piscina_sensor_puerta
-      - input_boolean.salon_sensor_ventana
-      
-      - input_boolean.suite_sensor_ventana
-
-      # - switch.barbacoa_camara_deteccion_movimiento_activa
-      - input_boolean.caseta_alarma_movimiento_activo
       - switch.piscina_camara_deteccion_movimiento_activa
 
 command_line:
@@ -134,39 +108,6 @@ command_line:
       # 'curl -k --silent "https://<camera_host>:<camera_port>/cgi-bin/CGIProxy.fcgi?cmd=getMotionDetectConfig&usr=<camera_username>&pwd=<camera_password>" | grep -oP "(?<=isEnable>).*?(?=</isEnable>)"'
       command_state: !secret camara_cocina_deteccion_movimiento_estado
       value_template: '{{ value == "1" }}'
-
-input_boolean:
-  porche_sensor_puerta:
-    name: Det. apert. puerta porche
-    icon: "mdi:glassdoor"
-
-  porche_sensor_persiana:
-    name: Det. apert. persiana porche
-    icon: "mdi:door-open"
-
-  coladuria_sensor_puerta:
-    name: Det. apert. puerta coladuría
-    icon: "mdi:door-open"
-
-  recibidor_puerta_principal_deteccion_activada:
-    name: Detección de puerta principal activada
-    icon: "mdi:door-open"
-
-  despacho_alarma_movimiento_activo:
-    name: Det. mov. despacho
-    icon: "mdi:transit-transfer"
-
-  entrada_alarma_movimiento_activo:
-    name: Movimiento entrada habilitado para la alarma
-    icon: "mdi:transit-transfer"
-
-  caseta_alarma_movimiento_activo:
-    name: Movimiento caseta habilitado para la alarma
-    icon: "mdi:transit-transfer"
-
-  suite_sensor_ventana:
-    name: Det. apert. ventana suite
-    icon: "mdi:window-open"
 
 shell_command:
   salon_camara_ptz_posicion_predefinida_principal: !secret camara_salon_ptz_posicion_predefinida_principal

@@ -7,11 +7,11 @@
     - action: shell_command.mkv_cleanup
       data_template:
         # Age of files in days
-        age: 1
+        age: 5
     - action: shell_command.mp4_cleanup
       data_template:
-        age: 1
+        age: 5
     - action: shell_command.jpg_cleanup
       data_template:
-        age: 1
+        age: 5
     - service: shell_command.empty_directories_cleanup

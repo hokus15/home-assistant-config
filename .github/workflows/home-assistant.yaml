@@ -80,6 +80,7 @@ jobs:
           mkdir -p ./config/camera
           sed -i 's/\/share\/camera/.\/config\/camera/g' ./config/configuration.yaml
           sed -i 's/\/media\/camera/.\/config\/camera/g' ./config/configuration.yaml
+          sed -i 's/\/media\/aqara_video/.\/config\/camera/g' ./config/configuration.yaml
           sed -i 's/\/share\/camera/.\/config\/camera/g' ./config/packages/seguridad.yaml
       - name: 🚀 Run Home Assistant Configuration Check
         uses: frenck/action-home-assistant@v1.4.1
@@ -87,3 +88,13 @@ jobs:
           path: "./config"
           secrets: secrets.fake.yaml
           version: "${{ matrix.version }}"
+      - name: Test security rules and media processing
+        run: >-
+          docker run --rm -v "${{ github.workspace }}:/repo:ro"
+          ghcr.io/home-assistant/home-assistant:${{ matrix.version }}
+          python -m unittest discover -s /repo/tests -p test_security.py -v
+      - name: Test security scripts with isolated Home Assistant
+        run: >-
+          docker run --rm -v "${{ github.workspace }}:/repo:ro"
+          ghcr.io/home-assistant/home-assistant:${{ matrix.version }}
+          python /repo/tests/test_security_runtime.py

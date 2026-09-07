@@ -1,0 +1,44 @@
+# Stable keys are also compatible with previously sent Telegram camera buttons.
+# Label camera_entity directly with alarma_modo_ausente and/or alarma_modo_noche.
+# alarma_grabacion_noche enables recording without Telegram notifications.
+# video_format is the uploaded source format; generated MP4s are ignored for MKV cameras.
+recibidor:
+  camera_entity: camera.recibidor
+  video_format: mkv
+  ftp_directories:
+    - /media/camera/C1_00626E615161/
+  detection_control: switch.recibidor_camara_deteccion_movimiento_activa
+piscina:
+  camera_entity: camera.piscina
+  video_format: mkv
+  ftp_directories:
+    - /media/camera/FI9853EP_00626E563E69/
+  detection_control: switch.piscina_camara_deteccion_movimiento_activa
+barbacoa:
+  camera_entity: camera.barbacoa
+  video_format: mkv
+  ftp_directories:
+    - /media/camera/FI9900P_00626E6D21B2/
+  detection_control: switch.barbacoa_camara_deteccion_movimiento_activa
+salon:
+  camera_entity: camera.salon
+  video_format: mkv
+  ftp_directories:
+    - /media/camera/FoscamCamera_00626ED836A9/
+  detection_control: switch.salon_camara_deteccion_movimiento_activa
+cocina:
+  camera_entity: camera.cocina
+  video_format: mkv
+  ftp_directories:
+    - /media/camera/C1_00626E8305E1/
+  detection_control: switch.cocina_camara_deteccion_movimiento_activa
+entrada:
+  camera_entity: camera.entrada
+  video_format: mp4
+  ftp_directories:
+    - /media/camera/puerta_principal/
+caseta:
+  camera_entity: camera.caseta
+  video_format: mp4
+  ftp_directories:
+    - /media/aqara_video/lumi3.99aa9fe51953f04f/

@@ -25,8 +25,8 @@ New-Item -ItemType Directory -Force -Path (Join-Path $tmpDir "config") | Out-Nul
 
 Push-Location $repoRoot
 try {
-    $trackedConfigFiles = git ls-files config
-    foreach ($file in $trackedConfigFiles) {
+    $configFiles = git ls-files --cached --others --exclude-standard config
+    foreach ($file in $configFiles) {
         $destination = Join-Path $tmpDir $file
         New-Item -ItemType Directory -Force -Path (Split-Path $destination) | Out-Null
         Copy-Item -LiteralPath (Join-Path $repoRoot $file) -Destination $destination -Force
@@ -44,7 +44,8 @@ try {
 
     (Get-Content -Raw $configuration) `
         -replace "/share/camera", "./config/camera" `
-        -replace "/media/camera", "./config/camera" |
+        -replace "/media/camera", "./config/camera" `
+        -replace "/media/aqara_video", "./config/camera" |
         Set-Content -NoNewline $configuration
 
     (Get-Content -Raw $seguridad) `
@@ -60,6 +61,9 @@ try {
             --workdir /github/workspace `
             $image `
             python -m homeassistant --config ./config --script check_config
+        if ($LASTEXITCODE -ne 0) {
+            throw "Home Assistant configuration check failed for $item (exit $LASTEXITCODE)."
+        }
     }
 }
 finally {

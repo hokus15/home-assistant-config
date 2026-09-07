@@ -38,6 +38,7 @@ ci/
 ## Main Packages
 
 - `alarm.yaml`: manual alarm control panel.
+- `seguridad_alarma.yaml`: native alarm orchestration with label-based detector membership and reusable scripts. Native control starts automatically with Home Assistant.
 - `alerts.yaml`: persistent alerts for energy, pool, car, fence, and electrical status.
 - `car.yaml`: Hyundai Ioniq telemetry, state, and charging logic through MQTT using data published by [IOTConnect](https://github.com/hokus15/IOTConnect).
 - `confort.yaml`: aggregated temperature sensors and comfort/sleep modes.
@@ -140,13 +141,15 @@ Check multiple versions in one run:
 .\ci\check-home-assistant.ps1 -Version 2026.8.1,stable
 ```
 
-The script validates the local working tree, not the remote `master` branch. It creates a temporary `.tmp-ha-ci/` directory, copies the Git-tracked `config/` files into it, replaces real secrets with `secrets.fake.yaml`, creates the camera directory expected by the configuration, normalizes camera paths for the container, and runs:
+The script validates the local working tree, not the remote `master` branch. It creates a temporary `.tmp-ha-ci/` directory, copies tracked and untracked non-ignored `config/` files into it, replaces real secrets with `secrets.fake.yaml`, creates the camera directory expected by the configuration, normalizes camera paths for the container, and runs:
 
 ```powershell
 python -m homeassistant --config ./config --script check_config
 ```
 
-Because files are selected with `git ls-files config`, modified tracked files are included, but brand-new files are ignored until they are added to Git with `git add`.
+New configuration files are included without staging them. Ignored files are excluded.
+
+Run the security behavior tests with `./ci/check-security.ps1`. They exercise the Home Assistant scripts and automations with simulated Telegram/device services and test video processing with FFmpeg. They do not connect to the live installation or send notifications. The same tests run in CI for both Home Assistant versions.
 
 ## Maintenance Conventions
 

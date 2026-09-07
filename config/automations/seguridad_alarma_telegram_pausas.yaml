@@ -22,7 +22,7 @@
     - action: telegram_bot.answer_callback_query
       data_template:
         callback_query_id: '{{ trigger.event.data.id }}'
-        message: 'Alarma desarmada durante {{ trigger.event.data.data[1:-5] }} mins.'
+        message: '⏸️ Alarma desarmada durante {{ trigger.event.data.data[1:-5] }} mins.'
         show_alert: true
     # Remove inline keyboard from original message.
     - action: telegram_bot.edit_replymarkup

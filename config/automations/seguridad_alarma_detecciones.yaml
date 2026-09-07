@@ -1,0 +1,102 @@
+# Event-level filtering observes every detector independently and resolves labels
+# at detection time; a template aggregating "any sensor on" would miss overlaps.
+- id: seguridad_alarma_detectores
+  alias: Seguridad - Recibir detecciones de sensores
+  mode: parallel
+  max: 50
+  triggers:
+    - trigger: event
+      event_type: state_changed
+  conditions:
+    - condition: template
+      value_template: >-
+        {% set e = trigger.event.data %}
+        {{ e.entity_id.startswith('binary_sensor.') and e.old_state is not none
+           and e.new_state is not none and e.old_state.state == 'off' and e.new_state.state == 'on'
+           and is_state('input_boolean.alarma_inicializada', 'on') }}
+    - condition: template
+      value_template: >-
+        {% set c = state_attr('sensor.alarma_contexto', 'data') or {} %}
+        {{ states('alarm_control_panel.home') in ['armed_away', 'armed_night', 'triggered']
+           and c.get('mode') in ['armed_away', 'armed_night']
+           and trigger.event.data.entity_id in label_entities('alarma_modo_ausente' if c.mode == 'armed_away' else 'alarma_modo_noche')
+           and trigger.event.data.entity_id not in c.get('excluded', []) }}
+  actions:
+    - action: script.turn_on
+      target:
+        entity_id: script.seguridad_notificar_deteccion
+      data:
+        variables:
+          detector: "{{ trigger.event.data.entity_id }}"
+          alarm_mode: "{{ (state_attr('sensor.alarma_contexto', 'data') or {}).get('mode') }}"
+          detected_at: "{{ as_local(trigger.event.time_fired).strftime('%d/%m/%Y %H:%M:%S') }}"
+
+- id: seguridad_alarma_archivos
+  alias: Seguridad - Recibir grabaciones de camaras
+  mode: parallel
+  max: 50
+  triggers:
+    # Legacy bus event and current Folder Watcher event entities are supported.
+    - trigger: event
+      event_type: folder_watcher
+      event_data:
+        event_type: closed
+      id: legacy
+    - trigger: event
+      event_type: state_changed
+      id: entity
+  conditions:
+    - condition: template
+      value_template: >-
+        {% set e = trigger.event.data %}
+        {{ is_state('input_boolean.alarma_inicializada', 'on') and
+           (trigger.id == 'legacy' or
+             (e.entity_id.startswith('event.') and e.new_state is not none and e.old_state is not none
+              and e.new_state.state != e.old_state.state
+              and e.entity_id in integration_entities('folder_watcher')
+              and e.new_state.attributes.get('event_type') == 'closed')) }}
+  actions:
+    - variables:
+        file_path: >-
+          {{ trigger.event.data.get('path', '') if trigger.id == 'legacy'
+             else trigger.event.data.new_state.attributes.get('path', '') }}
+        context: "{{ state_attr('sensor.alarma_contexto', 'data') or {} }}"
+        detected_at: "{{ as_local(trigger.event.time_fired).strftime('%d/%m/%Y %H:%M:%S') }}"
+    - condition: template
+      value_template: >-
+        {{ file_path.lower().endswith(('.mkv', '.mp4', '.jpg', '.jpeg'))
+           and context.get('mode') in ['armed_away', 'armed_night']
+           and states('alarm_control_panel.home') in ['armed_away', 'armed_night', 'triggered'] }}
+    - action: script.seguridad_resolver_camara
+      data:
+        file_path: "{{ file_path }}"
+      response_variable: resolved
+    - condition: template
+      value_template: >-
+        {{ resolved.token and resolved.camera.camera_entity not in context.get('excluded', [])
+           and (resolved.camera.camera_entity in label_entities(
+                  'alarma_modo_ausente' if context.mode == 'armed_away' else 'alarma_modo_noche')
+                or (context.mode == 'armed_night'
+                    and resolved.camera.camera_entity in label_entities('alarma_grabacion_noche'))) }}
+    - choose:
+        - conditions: >-
+            {{ resolved.camera.camera_entity in label_entities(
+                 'alarma_modo_ausente' if context.mode == 'armed_away' else 'alarma_modo_noche') }}
+          sequence:
+            - action: script.turn_on
+              target:
+                entity_id: script.seguridad_notificar_deteccion
+              data:
+                variables:
+                  detector: "{{ resolved.camera.camera_entity }}"
+                  alarm_mode: "{{ context.mode }}"
+                  detected_at: "{{ detected_at }}"
+                  file_path: "{{ file_path }}"
+        - conditions: "{{ file_path.lower().endswith('.mkv') }}"
+          sequence:
+            - action: script.turn_on
+              target:
+                entity_id: script.seguridad_convertir_grabacion
+              data:
+                variables:
+                  file_path: "{{ file_path }}"

@@ -3,6 +3,7 @@ homeassistant:
   customize_glob: !include customize_glob.yaml
   allowlist_external_dirs:
     - /media/camera
+    - /media/aqara_video
   packages: !include_dir_named packages
 
 default_config:

@@ -1,0 +1,303 @@
+seguridad_controlar:
+  alias: Seguridad - Controlar alarma
+  description: Serialized entry point for all native alarm commands.
+  mode: queued
+  max: 50
+  sequence:
+    - variables:
+        previous: "{{ state_attr('sensor.alarma_contexto', 'data') or {} }}"
+        timestamp: "{{ as_timestamp(now()) | int }}"
+        cutoff: >-
+          {{ as_timestamp(today_at('06:30') + timedelta(days=1)
+             if now() >= today_at('06:30') else today_at('06:30')) }}
+        result: >-
+          {% from 'seguridad.jinja' import transition %}
+          {{ transition(previous, command, states('binary_sensor.alarma_ocupacion'),
+             timestamp, cutoff, minutes | default(0) | int, detector | default('')) | from_json }}
+        revision: "{{ 'r' ~ ((as_timestamp(now()) * 1000000) | int) }}"
+        cameras: !include camaras.yaml
+    - if: "{{ result.changed or command == 'recover' or result.arm or result.context.mode != states('alarm_control_panel.home') }}"
+      then:
+        - event: seguridad_contexto_guardar
+          event_data:
+            revision: "{{ revision }}"
+            context: "{{ result.context }}"
+            internal_contexts: >-
+              {{ ((state_attr('sensor.alarma_contexto', 'internal_contexts') or []) + [context.id])[-20:] }}
+        - wait_template: "{{ states('sensor.alarma_contexto') == revision }}"
+          timeout: '00:00:05'
+          continue_on_timeout: false
+    - if: "{{ result.context.paused_until > 0 and result.context.paused_until != previous.get('paused_until', 0) }}"
+      then:
+        - action: input_datetime.set_datetime
+          target:
+            entity_id: input_datetime.alarma_fin_pausa
+          data:
+            timestamp: "{{ result.context.paused_until }}"
+    - if: >-
+        {{ result.arm or (result.context.mode != states('alarm_control_panel.home')
+           and not (is_state('alarm_control_panel.home', 'triggered')
+                    and result.context.mode == previous.get('mode') and not result.arm)) }}
+      then:
+        - action: >-
+            {{ {'disarmed': 'alarm_control_panel.alarm_disarm',
+                'armed_away': 'alarm_control_panel.alarm_arm_away',
+                'armed_night': 'alarm_control_panel.alarm_arm_night'}[result.context.mode] }}
+          continue_on_error: true
+          target:
+            entity_id: alarm_control_panel.home
+        - if: "{{ states('alarm_control_panel.home') != result.context.mode }}"
+          then:
+            - action: script.seguridad_enviar_mensaje
+              data:
+                message: ⚠️ No se pudo aplicar el modo solicitado al panel de alarma. Revisar el estado real.
+            - stop: El panel no ha aplicado la orden
+              error: true
+    - if: "{{ result.changed or result.arm or command in ['recover', 'sync'] }}"
+      then:
+        - action: script.seguridad_sincronizar_camaras
+        - if: "{{ result.arm }}"
+          then:
+            - variables:
+                members: >-
+                  {{ label_entities('alarma_modo_ausente' if result.context.mode == 'armed_away' else 'alarma_modo_noche') }}
+                open_names: >-
+                  {{ expand(members) | selectattr('domain', 'eq', 'binary_sensor')
+                     | selectattr('state', 'eq', 'on')
+                     | selectattr('attributes.device_class', 'in',
+                                  ['door', 'window', 'opening', 'garage_door'])
+                     | map(attribute='name') | list }}
+                missing: >-
+                  {% set ns = namespace(items=[]) %}
+                  {% for entity in members %}
+                    {% if not has_value(entity) %}
+                      {% set ns.items = ns.items + [state_attr(entity, 'friendly_name') or entity] %}
+                    {% endif %}
+                  {% endfor %}
+                  {{ ns.items }}
+            - action: script.seguridad_enviar_mensaje
+              data:
+                message: >-
+                    {{ '⚠️' if open_names or missing or not members else '🔒' if result.context.mode == 'armed_away' else '🌙' }} Alarma armada en {{ 'modo ausente' if result.context.mode == 'armed_away' else 'modo noche' }}.
+                    {% if open_names %}
+                    Puertas y ventanas abiertas:
+                    {{ '\n' }}{{ open_names | map('regex_replace', '^', '• ') | join('\n') }}
+                    {% endif %}
+                    {% if missing %}
+                    Sensores con estado no válido:
+                    {{ '\n' }}{{ missing | map('regex_replace', '^', '• ') | join('\n') }}
+                    {% endif %}
+        - if: "{{ command == 'exclude' }}"
+          then:
+            - action: script.seguridad_enviar_mensaje
+              data:
+                message: >-
+                  🚫 {{ state_attr(detector, 'friendly_name') or detector }} excluido hasta el próximo armado.
+        - if: "{{ command in ['pause', 'disarm'] or (result.changed and result.context.mode == 'disarmed') }}"
+          then:
+            - action: script.seguridad_enviar_mensaje
+              data:
+                message: >-
+                  {% if command == 'pause' %}⏸️ Alarma desarmada durante {{ minutes }} minutos.
+                  {% elif command == 'disarm' %}🔓 Alarma desarmada manualmente.
+                  {% else %}🔓 Alarma desarmada.{% endif %}
+
+seguridad_sincronizar_camaras:
+  alias: Seguridad - Sincronizar deteccion de camaras
+  mode: queued
+  max: 20
+  sequence:
+    - variables:
+        cameras: !include camaras.yaml
+        context: "{{ state_attr('sensor.alarma_contexto', 'data') or {} }}"
+        members: >-
+          {{ label_entities('alarma_modo_ausente') if context.get('mode') == 'armed_away'
+             else ((label_entities('alarma_modo_noche') + label_entities('alarma_grabacion_noche'))
+                   | unique | list) if context.get('mode') == 'armed_night' else [] }}
+    - repeat:
+        for_each: "{{ cameras.values() | list }}"
+        sequence:
+          - variables:
+              control: "{{ repeat.item.get('detection_control', '') }}"
+              desired: >-
+                {{ 'on' if repeat.item.camera_entity in members
+                   and repeat.item.camera_entity not in context.get('excluded', []) else 'off' }}
+          - if: "{{ control and states(control) != desired }}"
+            then:
+              - action: "{{ 'homeassistant.turn_on' if desired == 'on' else 'homeassistant.turn_off' }}"
+                continue_on_error: true
+                target:
+                  entity_id: "{{ control }}"
+    - variables:
+        failures: >-
+          {% set ns = namespace(items=[]) %}
+          {% for camera in cameras.values() %}
+            {% set control = camera.get('detection_control', '') %}
+            {% set active = camera.camera_entity in members and camera.camera_entity not in context.get('excluded', []) %}
+            {% if control and not is_state(control, 'on' if active else 'off') %}
+              {% set ns.items = ns.items + [control] %}
+            {% endif %}
+            {% if active and not camera.get('ftp_directories') %}
+              {% set ns.items = ns.items + [camera.camera_entity ~ ' (carpeta FTP sin configurar)'] %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.items }}
+    - if: "{{ failures | count > 0 }}"
+      then:
+        - action: script.seguridad_enviar_mensaje
+          data:
+            message: "⚠️ No se ha confirmado la cobertura de estas cámaras: {{ failures | join(', ') }}."
+
+seguridad_enviar_mensaje:
+  alias: Seguridad - Enviar mensaje
+  mode: parallel
+  max: 50
+  sequence:
+    - action: telegram_bot.send_message
+      data:
+        entity_id: notify.telegram_security_group
+        parse_mode: plain_text
+        message: "{{ message }}"
+        inline_keyboard: >-
+          {{ keyboard | default([
+            [['Desarmar 30 mins', '/30_mins'], ['Desarmar 1 hora', '/60_mins']],
+            [['Desarmar 2 horas', '/120_mins'], ['Desarmar 3 horas', '/180_mins']],
+            [['Desarmar alarma', '/seg_disarm'], ['Armar alarma', '/seg_arm']]]) }}
+
+seguridad_notificar_deteccion:
+  alias: Seguridad - Notificar deteccion
+  mode: parallel
+  max: 50
+  sequence:
+    # The caller captures eligibility and context before launching this script.
+    - if: "{{ file_path | default('') != '' }}"
+      then:
+        - action: script.seguridad_reservar_archivo
+          data:
+            file_path: "{{ file_path }}"
+          response_variable: reservation
+        - if: "{{ reservation.duplicate }}"
+          then:
+            - stop: Archivo ya recibido
+    - variables:
+        token: "{{ (detector | sha256)[:24] }}"
+        keyboard: >-
+          {{ [[['Desactivar detector', '/seg_exclude_' ~ token]],
+              [['Desarmar 30 mins', '/30_mins'], ['Desarmar 1 hora', '/60_mins']],
+              [['Desarmar 2 horas', '/120_mins'], ['Desarmar 3 horas', '/180_mins']],
+              [['Desarmar alarma', '/seg_disarm'], ['Armar alarma', '/seg_arm']]] }}
+        message: >-
+          {% set kind = state_attr(detector, 'device_class') %}
+          🚨 {{ 'Apertura detectada' if kind in ['door', 'window', 'opening', 'garage_door']
+             else 'Movimiento detectado' if kind in ['motion', 'occupancy', 'presence'] or detector.startswith('camera.')
+             else 'Detección' }}: {{ state_attr(detector, 'friendly_name') or detector }}
+    - if: "{{ states('alarm_control_panel.home') in ['armed_away', 'armed_night'] }}"
+      then:
+        - action: alarm_control_panel.alarm_trigger
+          target:
+            entity_id: alarm_control_panel.home
+    - if: "{{ file_path | default('') != '' }}"
+      then:
+        - delay:
+            seconds: 15
+        - if: "{{ file_path.lower().endswith('.mkv') }}"
+          then:
+            - action: shell_command.mp4_convert
+              data:
+                file: "{{ file_path }}"
+              response_variable: converted
+              continue_on_error: true
+        - variables:
+            media: >-
+              {% if file_path.lower().endswith(('.jpg', '.jpeg')) %}
+                {{ dict(file=file_path, kind='photo') }}
+              {% elif file_path.lower().endswith('.mp4') %}
+                {{ dict(file=file_path, kind='video') }}
+              {% elif converted is defined and converted.get('returncode') == 0 %}
+                {{ dict(file=file_path.rsplit('.', 1)[0] ~ '.mp4', kind='video') }}
+              {% else %}{{ {} }}{% endif %}
+        - if: "{{ media.get('file', '') != '' }}"
+          then:
+            - action: "{{ 'telegram_bot.send_photo' if media.kind == 'photo' else 'telegram_bot.send_video' }}"
+              data:
+                entity_id: notify.telegram_security_group
+                parse_mode: plain_text
+                file: "{{ media.file }}"
+                caption: "{{ message }}"
+                inline_keyboard: "{{ keyboard }}"
+              response_variable: sent
+              continue_on_error: true
+            - if: "{{ sent is not defined or not sent }}"
+              then:
+                - action: script.seguridad_enviar_mensaje
+                  data:
+                    message: "{{ message }}. No se pudo enviar el archivo adjunto."
+                    keyboard: "{{ keyboard }}"
+          else:
+            - action: script.seguridad_enviar_mensaje
+              data:
+                message: "{{ message }}. No se pudo preparar el archivo adjunto."
+                keyboard: "{{ keyboard }}"
+      else:
+        - action: script.seguridad_enviar_mensaje
+          data:
+            message: "{{ message }}"
+            keyboard: "{{ keyboard }}"
+
+seguridad_convertir_grabacion:
+  alias: Seguridad - Convertir grabacion silenciosa
+  mode: parallel
+  max: 50
+  sequence:
+    - action: script.seguridad_reservar_archivo
+      data:
+        file_path: "{{ file_path }}"
+      response_variable: reservation
+    - if: "{{ reservation.duplicate }}"
+      then:
+        - stop: Archivo ya recibido
+    - delay:
+        seconds: 15
+    - action: shell_command.mp4_convert
+      data:
+        file: "{{ file_path }}"
+      continue_on_error: true
+
+seguridad_reservar_archivo:
+  alias: Seguridad - Evitar archivos duplicados
+  mode: queued
+  max: 100
+  sequence:
+    - variables:
+        key: "{{ file_path | sha256 }}"
+        timestamp: "{{ as_timestamp(now()) }}"
+        entries: "{{ state_attr('sensor.alarma_archivos', 'entries') or {} }}"
+        reservation: "{{ dict(duplicate=entries.get(key, 0) > timestamp - 86400) }}"
+        revision: "{{ 'f' ~ ((timestamp * 1000000) | int) }}"
+    - if: "{{ not reservation.duplicate }}"
+      then:
+        - event: seguridad_archivo_reservar
+          event_data:
+            revision: "{{ revision }}"
+            entries: >-
+              {% set recent = entries.items() | selectattr('1', 'gt', timestamp - 86400) | sort(attribute='1') | list %}
+              {{ dict(recent[-1023:] + [(key, timestamp)]) }}
+        - wait_template: "{{ states('sensor.alarma_archivos') == revision }}"
+          timeout: '00:00:05'
+          continue_on_timeout: false
+    - stop: Reserva completada
+      response_variable: reservation
+
+seguridad_resolver_camara:
+  alias: Seguridad - Resolver camara de una grabacion
+  mode: parallel
+  max: 50
+  sequence:
+    - variables:
+        cameras: !include camaras.yaml
+        token: >-
+          {% from 'seguridad.jinja' import camera_for_path %}
+          {{ camera_for_path(cameras, file_path) | from_json }}
+        resolved: "{{ dict(token=token, camera=cameras.get(token, {})) }}"
+    - stop: Camara resuelta
+      response_variable: resolved

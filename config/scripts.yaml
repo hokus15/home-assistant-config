@@ -1,50 +1,17 @@
 alarm_disarm_telegram:
   alias: "Alarm - Alarm disarm telegram"
   sequence:
-    # Alarm disarm
-    - action: alarm_control_panel.alarm_disarm
+    - action: script.seguridad_controlar
       data:
-        entity_id: alarm_control_panel.home
-    # Send message
-    - action: telegram_bot.send_message
-      data_template:
-        message: "Alarma desarmada manualmente desde Telegram"
-        entity_id: notify.telegram_security_group
-        # chat_id:
-          # - !secret secutity_group_telegram_chat_id
-          #- !secret geniphone_telegram_chat_id
-        disable_notification: false
-        inline_keyboard:
-          - "Armar alarma:/alarm_control_panel.alarm_arm_away#alarm_control_panel.home"
+        command: disarm
 
 alarm_disarm_telegram_temporary:
   alias: "Alarm - Disarm telegram temporary"
   sequence:
-    # Alarm disarm
-    - action: alarm_control_panel.alarm_disarm
+    - action: script.seguridad_controlar
       data:
-        entity_id: alarm_control_panel.home
-    # Send message
-    - action: telegram_bot.send_message
-      data_template:
-        message: "Alarma desarmada durante {{data.minutes}} minutos desde Telegram"
-        entity_id: notify.telegram_security_group
-        # chat_id:
-          # - !secret secutity_group_telegram_chat_id
-          #- !secret geniphone_telegram_chat_id
-        disable_notification: false
-        inline_keyboard:
-          - "Armar alarma:/alarm_control_panel.alarm_arm_away#alarm_control_panel.home"
-    # Wait specified time before arming the alarm again
-    - delay: "{{ data.minutes | multiply(60) | timestamp_custom('%H:%M:%S',False) }}"
-    # Only rearm if nobody at home
-    - condition: state
-      entity_id: group.invitado_y_familia
-      state: "not_home"
-    # Alarm arm away
-    - action: alarm_control_panel.alarm_arm_away
-      data:
-        entity_id: alarm_control_panel.home
+        command: pause
+        minutes: "{{ data.minutes | int }}"
 
 alarm_notify_camera:
   alias: "Alarm - Notify camera"

@@ -30,20 +30,27 @@
                 {{ trigger.event.data.data.startswith('/camara_movimiento_desactivar#') }}
           sequence:
             - variables:
-                cameras:
-                  recibidor: switch.recibidor_camara_deteccion_movimiento_activa
-                  piscina: switch.piscina_camara_deteccion_movimiento_activa
-                  barbacoa: switch.barbacoa_camara_deteccion_movimiento_activa
-                  salon: switch.salon_camara_deteccion_movimiento_activa
-                  cocina: switch.cocina_camara_deteccion_movimiento_activa
-                  entrada: input_boolean.entrada_alarma_movimiento_activo
-                  caseta: input_boolean.caseta_alarma_movimiento_activo
+                cameras: !include ../seguridad/camaras.yaml
                 camera_token: "{{ trigger.event.data.data.split('#', 1)[1] }}"
             - condition: template
               value_template: "{{ camera_token in cameras }}"
-            - action: homeassistant.turn_off
-              data_template:
-                entity_id: "{{ cameras[camera_token] }}"
+            - action: script.seguridad_controlar
+              data:
+                command: exclude
+                detector: "{{ cameras[camera_token].camera_entity }}"
+        - conditions:
+            - condition: template
+              value_template: >-
+                {{ trigger.event.data.data in [
+                     '/alarm_control_panel.alarm_arm_away#alarm_control_panel.home',
+                     '/alarm_control_panel.alarm_arm_night#alarm_control_panel.home',
+                     '/alarm_control_panel.alarm_disarm#alarm_control_panel.home'] }}
+          sequence:
+            - action: script.seguridad_controlar
+              data:
+                command: >-
+                  {{ 'arm_night' if 'alarm_arm_night' in trigger.event.data.data else
+                     'arm_away' if 'alarm_arm_away' in trigger.event.data.data else 'disarm' }}
       default:
         # Execute callbacks with the established <service>#<entity_id> format.
         # Invalid services or entity IDs are ignored by Home Assistant.
