@@ -30,7 +30,7 @@ recorder:
       - sensor.despacho_movimiento_iluminancia
       - sensor.despacho_movimiento_temperatura
       - sensor.recibidor_target_temperature
-      - sensor.porche_sensor_puerta_temperature
+      - sensor.cocina_puerta_porche_temperatura
 
 logbook:
   exclude:
@@ -59,7 +59,7 @@ logbook:
       - sensor.recibidor_temperature
       - sensor.despacho_movimiento_iluminancia
       - sensor.despacho_movimiento_temperatura
-      - sensor.porche_sensor_puerta_temperature
+      - sensor.cocina_puerta_porche_temperatura
 template:
   - binary_sensor: 
       # comfort_state is active when:

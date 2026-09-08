@@ -1,18 +1,18 @@
 recorder:
   include:
     entities:
-      - binary_sensor.coladuria_sensor_puerta
-      - binary_sensor.porche_sensor_puerta
-      - binary_sensor.porche_sensor_persiana
+      - binary_sensor.coladuria_puerta
+      - binary_sensor.cocina_puerta_porche
+      - binary_sensor.porche_persiana
       - binary_sensor.recibidor_puerta_principal
       - binary_sensor.despacho_movimiento
       - binary_sensor.bano_suite_ventana
       - binary_sensor.bano_ninos_ventana
-      - binary_sensor.suite_sensor_ventana
-      - binary_sensor.habitacion_coque_sensor_ventana
-      - binary_sensor.habitacion_carlos_sensor_ventana
-      - binary_sensor.salon_sensor_ventana
-      - binary_sensor.salon_piscina_sensor_puerta
+      - binary_sensor.suite_ventana
+      - binary_sensor.habitacion_coque_ventana
+      - binary_sensor.habitacion_carlos_ventana
+      - binary_sensor.salon_ventana
+      - binary_sensor.salon_puerta_piscina
       - binary_sensor.despacho_ventana
       - binary_sensor.caseta_camara_movimiento
 

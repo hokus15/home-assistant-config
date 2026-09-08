@@ -146,16 +146,16 @@ binary_sensor.despacho_movimiento:
   device_class: motion
 sensor.despacho_movimiento_iluminancia:
   icon: mdi:weather-sunny
-binary_sensor.porche_sensor_puerta:
+binary_sensor.cocina_puerta_porche:
   device_class: door
   friendly_name: Puerta del porche en la cocina
-sensor.porche_sensor_puerta_temperature:
+sensor.cocina_puerta_porche_temperatura:
   device_class: temperature
   friendly_name: Temperatura cocina
-binary_sensor.porche_sensor_persiana:
+binary_sensor.porche_persiana:
   device_class: door
   friendly_name: Persiana del porche
-binary_sensor.coladuria_sensor_puerta:
+binary_sensor.coladuria_puerta:
   device_class: door
   friendly_name: Puerta de la coladuría
 sensor.first_floor_temperature:
@@ -315,11 +315,11 @@ binary_sensor.bano_ninos_ventana:
   friendly_name: Ventana del baño de los niños
 binary_sensor.bano_suite_ventana:
   friendly_name: Ventana del baño de la suite
-binary_sensor.habitacion_carlos_sensor_ventana:
+binary_sensor.habitacion_carlos_ventana:
   friendly_name: Ventana del cuarto de Carlos
-binary_sensor.habitacion_coque_sensor_ventana:
+binary_sensor.habitacion_coque_ventana:
   friendly_name: Ventana del cuarto de Coque
-binary_sensor.suite_sensor_ventana:
+binary_sensor.suite_ventana:
   friendly_name: Ventana de la suite
 binary_sensor.despacho_ventana:
   friendly_name: Ventana del despacho

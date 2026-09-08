@@ -127,7 +127,7 @@ views:
             name: Recibidor
           - entity: sensor.despacho_movimiento_temperatura
             name: Despacho
-          - entity: sensor.porche_sensor_puerta_temperature
+          - entity: sensor.cocina_puerta_porche_temperatura
             name: Cocina
           - entity: sensor.suite_temperature
             name: Suite
