@@ -83,7 +83,9 @@
       state: 'on'
     - condition: template
       value_template: >-
-        {{ trigger.event.context.id not in (state_attr('sensor.alarma_contexto', 'internal_contexts') or []) }}
+        {% set internal = state_attr('sensor.alarma_contexto', 'internal_contexts') or [] %}
+        {{ trigger.event.context.id not in internal
+           and trigger.event.context.parent_id not in internal }}
     - condition: template
       value_template: >-
         {% set e = trigger.event.data %}

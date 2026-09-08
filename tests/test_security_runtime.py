@@ -154,6 +154,7 @@ async def run():
 
             # Arrival does not disarm night; all occupancy sources prevent away.
             await command('arm_night')
+            messages.clear()
             hass.states.async_set('switch.guest_mode', 'on')
             hass.states.async_set('person.test', 'not_home')
             hass.states.async_set('group.familia', 'not_home', {'entity_id': ['person.test']})
@@ -170,6 +171,7 @@ async def run():
             hass.states.async_set('group.familia', 'home', {'entity_id': ['person.test']})
             await hass.async_block_till_done()
             assert context()['mode'] == 'disarmed', context()
+            assert not any('manualmente' in m.get('message', '') for m in messages), messages
 
             # Add a new detector after setup, using labels only.
             third = detector('nuevo_detector', [night])
