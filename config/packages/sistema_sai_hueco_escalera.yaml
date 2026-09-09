@@ -10,6 +10,7 @@ template:
     - name: hueco_escalera_sai_red_electrica_activa
       unique_id: hueco_escalera_sai_red_electrica_activa
       device_class: plug
+      availability: "{{ has_value('sensor.hueco_escalera_sai_estado_datos') }}"
       # Takes into consideration: OL, OL CHRG, OL LB, OL CHRG LB
       state: "{{ 'OL' in states('sensor.hueco_escalera_sai_estado_datos') }}"
       delay_off:

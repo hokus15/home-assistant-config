@@ -1,0 +1,24 @@
+- id: sistema_sai_notificar_suministro_electrico
+  alias: "Sistema - SAI - Notificar suministro eléctrico"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.hueco_escalera_sai_red_electrica_activa
+      from: "on"
+      to: "off"
+      id: corte
+    - platform: state
+      entity_id: binary_sensor.hueco_escalera_sai_red_electrica_activa
+      from: "off"
+      to: "on"
+      id: restablecido
+  action:
+    - action: notify.send_message
+      data:
+        entity_id: notify.telegram_family_group
+        message: >-
+          {% if trigger.id == 'corte' %}
+            🪫 Se ha cortado el suministro eléctrico en casa.
+          {% else %}
+            🔌 Se ha restablecido el suministro eléctrico en casa.
+          {% endif %}
+  mode: queued
