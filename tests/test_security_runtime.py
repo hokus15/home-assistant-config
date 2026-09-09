@@ -172,6 +172,8 @@ async def run():
             await hass.async_block_till_done()
             assert context()['mode'] == 'disarmed', context()
             assert not any('manualmente' in m.get('message', '') for m in messages), messages
+            assert sum('modo ausente' in m.get('message', '') for m in messages) == 1, messages
+            assert sum(m.get('message', '') == '🔓 Alarma desarmada.' for m in messages) == 1, messages
 
             # Add a new detector after setup, using labels only.
             third = detector('nuevo_detector', [night])

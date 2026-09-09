@@ -93,6 +93,12 @@
         {{ e.service in ['alarm_disarm', 'alarm_arm_away', 'alarm_arm_night']
            and (targets == 'alarm_control_panel.home' or
                 (targets is not string and 'alarm_control_panel.home' in targets)) }}
+    - condition: template
+      value_template: >-
+        {% set expected = {'alarm_disarm': 'disarmed',
+                           'alarm_arm_away': 'armed_away',
+                           'alarm_arm_night': 'armed_night'}[trigger.event.data.service] %}
+        {{ (state_attr('sensor.alarma_contexto', 'data') or {}).get('mode') != expected }}
   actions:
     - action: script.seguridad_controlar
       data:
