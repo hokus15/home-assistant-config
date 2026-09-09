@@ -1,0 +1,109 @@
+{# Referencias alimentadas por cada circuito. No son medidas de tensión.
+   on/off en relés y valores numéricos en Shelly EM indican comunicación.
+   unknown no prueba un corte; 0 W es una lectura válida.
+   No se usan el SAI, cámaras ni sensores de potencia derivados para decidir. #}
+{% set circuitos = {
+  'cocina': dict(nombre='Enchufes de cocina', grupo='superior', minimo=2, equipos={
+    'switch.cocina_nevera': 'Nevera',
+    'switch.cocina_congelador': 'Congelador'}),
+  'piscina': dict(nombre='Piscina', grupo='inferior', minimo=2, equipos={
+    'switch.piscina_depuradora': 'Depuradora',
+    'switch.piscina_iluminacion': 'Iluminación de piscina',
+    'switch.piscina_medidor_consumo': 'Medidor de piscina'}),
+  'lavadora': dict(nombre='Lavadora', grupo='inferior', minimo=1, equipos={
+    'switch.coladuria_lavadora': 'Enchufe de lavadora'}),
+  'secadora': dict(nombre='Secadora', grupo='inferior', minimo=1, equipos={
+    'switch.coladuria_secadora': 'Enchufe de secadora'}),
+  'lavavajillas': dict(nombre='Lavavajillas', grupo='inferior', minimo=1, equipos={
+    'switch.cocina_lavavajillas': 'Enchufe de lavavajillas'}),
+  'cargador_ev': dict(nombre='Cargador del coche', grupo='inferior', minimo=1, equipos={
+    'switch.coladuria_cargador_ev': 'Controlador del cargador del coche'}),
+  'aire_planta_baja': dict(nombre='Aire acondicionado planta baja', grupo='inferior', minimo=1, numerico=true, equipos={
+    'sensor.climatizacion_planta_baja_aire_acondicionado_total_potencia': 'Shelly EM del aire de planta baja'}),
+  'aire_primera_planta': dict(nombre='Aire acondicionado primera planta', grupo='inferior', minimo=1, numerico=true, equipos={
+    'sensor.climatizacion_primera_planta_aire_acondicionado_potencia': 'Shelly EM del aire de primera planta'})
+} %}
+
+{% macro diagnostico() -%}
+  {% set ns = namespace(registros={}, perdidos=[], vivos_inferior=[], vivos_superior=[]) %}
+  {% for clave, circuito in circuitos.items() %}
+    {% set equipos = namespace(perdidos=[], vivos=[]) %}
+    {% for entidad, nombre in circuito.equipos.items() %}
+      {% set estado = states(entidad) %}
+      {% if estado == 'unavailable' %}
+        {% set equipos.perdidos = equipos.perdidos + [nombre] %}
+      {% elif (circuito.get('numerico', false) and is_number(estado))
+              or (not circuito.get('numerico', false) and estado in ['on', 'off']) %}
+        {% set equipos.vivos = equipos.vivos + [nombre] %}
+      {% endif %}
+    {% endfor %}
+    {% set perdido = equipos.perdidos | count >= circuito.minimo and equipos.vivos | count == 0 %}
+    {% set ns.registros = dict(ns.registros, **{clave: dict(
+      nombre=circuito.nombre, grupo=circuito.grupo,
+      perdidos=equipos.perdidos, vivos=equipos.vivos, perdido=perdido)}) %}
+    {% if perdido %}
+      {% set ns.perdidos = ns.perdidos + [clave] %}
+    {% endif %}
+    {% if equipos.vivos %}
+      {% if circuito.grupo == 'inferior' %}
+        {% set ns.vivos_inferior = ns.vivos_inferior + [clave] %}
+      {% else %}
+        {% set ns.vivos_superior = ns.vivos_superior + [clave] %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  {% set inferiores = ns.perdidos | reject('eq', 'cocina') | list %}
+  {# Un testigo inferior vivo contradice la caída de todo su diferencial.
+     Sin testigos superiores no se distingue corte amplio de fallo de red. #}
+  {% set diferencial = inferiores | count >= 2 and ns.vivos_inferior | count == 0
+                         and ns.vivos_superior | count > 0 %}
+  {% set locales = namespace(claves=[]) %}
+  {% for clave in ns.perdidos %}
+    {% if ns.vivos_inferior | count > 0 %}
+      {% set locales.claves = locales.claves + [clave] %}
+    {% endif %}
+  {% endfor %}
+  {{ dict(diferencial=diferencial, locales=locales.claves, inferiores=inferiores,
+          registros=ns.registros, vivos=ns.vivos_superior + ns.vivos_inferior) | to_json }}
+{%- endmacro %}
+
+{% macro alerta(clave) -%}
+  {% set d = diagnostico() | from_json %}
+  {{ d.diferencial if clave == 'diferencial' else clave in d.locales }}
+{%- endmacro %}
+
+{% macro mensaje(clave) -%}
+  {% set d = diagnostico() | from_json %}
+  {% set seleccion = d.inferiores if clave == 'diferencial' else [clave] %}
+  {% set texto = namespace(circuitos=[], perdidos=[], vivos=[]) %}
+  {% for c in seleccion %}
+    {% set texto.circuitos = texto.circuitos + [d.registros[c].nombre] %}
+    {% set texto.perdidos = texto.perdidos + d.registros[c].perdidos %}
+  {% endfor %}
+  {% for c in d.vivos %}
+    {% set texto.vivos = texto.vivos + d.registros[c].vivos %}
+  {% endfor %}
+  {% if clave == 'diferencial' %}
+    ⚠️ Posible disparo del diferencial inferior.
+    Circuitos con indicios de desconexión: {{ texto.circuitos | join(', ') }}.
+    Si se confirma la caída del diferencial inferior, la barrera no funcionará.
+  {% else %}
+    ⚠️ Posible corte en el circuito {{ circuitos[clave].nombre }}.
+  {% endif %}
+  Sin comunicación: {{ texto.perdidos | join(', ') if texto.perdidos else 'sin datos actuales' }}.
+  Siguen comunicando: {{ texto.vivos | join(', ') if texto.vivos else 'sin referencias actuales' }}.
+  {% if clave == 'piscina' or clave == 'diferencial' %}
+    {% set camaras = namespace(perdidas=[]) %}
+    {% for entidad, nombre in {'camera.caseta': 'Cámara de caseta',
+                              'camera.piscina': 'Cámara de piscina',
+                              'camera.barbacoa': 'Cámara de barbacoa'}.items() %}
+      {% if is_state(entidad, 'unavailable') %}
+        {% set camaras.perdidas = camaras.perdidas + [nombre] %}
+      {% endif %}
+    {% endfor %}
+    {% if camaras.perdidas %}
+      También sin comunicación, sin confirmar la causa: {{ camaras.perdidas | join(', ') }}.
+    {% endif %}
+  {% endif %}
+  La disponibilidad no confirma un disparo eléctrico; también puede ser un fallo de comunicación o del dispositivo.
+{%- endmacro %}

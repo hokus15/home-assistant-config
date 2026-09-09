@@ -88,6 +88,11 @@ jobs:
           path: "./config"
           secrets: secrets.fake.yaml
           version: "${{ matrix.version }}"
+      - name: Test electrical circuit alerts
+        run: >-
+          docker run --rm -v "${{ github.workspace }}:/repo:ro"
+          ghcr.io/home-assistant/home-assistant:${{ matrix.version }}
+          python -m unittest discover -s /repo/tests -p test_energy_circuits.py -v
       - name: Test security rules and media processing
         run: >-
           docker run --rm -v "${{ github.workspace }}:/repo:ro"

@@ -4,9 +4,6 @@ recorder:
       - binary_sensor.energy_waste_alert
       - binary_sensor.piscina_depuradora_encendida_alerta
       - binary_sensor.piscina_temperatura_agua_estimada
-      - binary_sensor.piscina_magnetotermico_alerta
-      - binary_sensor.gfci_alert
-      - binary_sensor.cocina_enchufes_estado
 
 template:
   - binary_sensor:
@@ -15,41 +12,6 @@ template:
           {{ label_entities('comprobacion_desperdicio_energetico') | expand | selectattr('state', 'eq', 'on') | list | count > 0
              and not is_state('climate.recibidor', 'off')
              and is_state_attr('climate.recibidor', 'hvac_action', 'heating') }}
-
-      - name: "piscina_magnetotermico_alerta"
-        state: >-
-          {{  is_state('binary_sensor.hueco_escalera_sai_red_electrica_activa', 'on')
-             and is_state('binary_sensor.gfci_alert', 'off')
-             and is_state('switch.piscina_depuradora', 'unavailable')
-             and is_state('switch.piscina_iluminacion', 'unavailable')
-             and is_state('switch.piscina_medidor_consumo', 'unavailable')}}
-
-      # GFCI -> Ground fault circuit interrupter -> Diferencial
-      - name: "gfci_alert"
-        state: >-
-          {{  is_state('binary_sensor.hueco_escalera_sai_red_electrica_activa', 'on')
-             and is_state('switch.piscina_depuradora', 'unavailable')
-             and is_state('switch.piscina_iluminacion', 'unavailable')
-             and is_state('switch.piscina_medidor_consumo', 'unavailable')
-             and is_state('switch.coladuria_lavadora', 'unavailable')
-             and is_state('switch.coladuria_secadora', 'unavailable')
-             and is_state('switch.cocina_lavavajillas', 'unavailable')
-             and is_state('camera.barbacoa', 'unavailable')
-             and is_state('camera.piscina', 'unavailable')
-             and is_state('camera.caseta', 'unavailable')
-             and is_state('switch.coladuria_cargador_ev', 'unavailable')
-             }}
-
-      - name: "Cocina enchufes estado"
-        unique_id: cocina_enchufes_estado
-        device_class: problem
-        state: >-
-          {{ is_state('binary_sensor.hueco_escalera_sai_red_electrica_activa', 'on')
-             and is_state('switch.cocina_nevera', 'unavailable')
-             and is_state('switch.cocina_congelador', 'unavailable')
-             and has_value('switch.coladuria_lavadora')
-             and has_value('switch.coladuria_secadora') }}
-        delay_on: "00:01:30"
 
       - name: "piscina_depuradora_encendida_alerta"
         state: >-
@@ -125,52 +87,4 @@ alert:
       {{ states('sensor.piscina_temperatura_agua_referencia') }} °C basada en
       la temperatura exterior ({{ states('sensor.exterior_temperature') }} °C).
     notifiers:
-      - telegram_hokusphone
-
-  piscina_magnetotermico:
-    name: Magnetotermico piscina abajo
-    entity_id: binary_sensor.piscina_magnetotermico_alerta
-    state: "on"
-    repeat: 5
-    message: "Es posible que haya saltado el magnetotérmico de la piscina. Los dispositivos afectados son: piscina (luz y depuradora), cámara de la caseta, cámara de la piscina y cámara de la barbacoa."
-    can_acknowledge: true
-    skip_first: false
-    data:
-      inline_keyboard:
-        - "Enterado:/alert.turn_off#alert.piscina_magnetotermico"
-    notifiers:
-      - despacho
-      - telegram_hokusphone
-
-  gfci_monitor_alert:
-    name: Diferencial abajo
-    entity_id: binary_sensor.gfci_alert
-    state: "on"
-    repeat: 5
-    message: "Es posible que haya saltado un diferencial. Los dispositivos afectados son: lavavajillas, piscina (luz y depuradora), lavadora, secadora, caldera, barrera, cargador del coche, aire acondicionado, cámara de la caseta, cámara de la piscina y cámara de la barbacoa."
-    can_acknowledge: true
-    skip_first: false
-    data:
-      inline_keyboard:
-        - "Enterado:/alert.turn_off#alert.gfci_monitor_alert"
-    notifiers:
-      - despacho
-      - telegram_hokusphone
-
-  cocina_enchufes_estado:
-    name: Enchufes cocina sin suministro
-    entity_id: binary_sensor.cocina_enchufes_estado
-    state: "on"
-    repeat: 5
-    message: >-
-      Se ha interrumpido el suministro de los enchufes de cocina: la nevera y el
-      congelador no están disponibles. Puede haber saltado el magnetotérmico de
-      enchufes de cocina o el diferencial que lo protege.
-    can_acknowledge: true
-    skip_first: false
-    data:
-      inline_keyboard:
-        - "Enterado:/alert.turn_off#alert.cocina_enchufes_estado"
-    notifiers:
-      - despacho
       - telegram_hokusphone

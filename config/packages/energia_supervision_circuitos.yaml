@@ -1,0 +1,226 @@
+# Diagnóstico probable por disponibilidad; mapa y reglas en energia_circuitos.jinja.
+recorder:
+  include:
+    entities:
+      - binary_sensor.piscina_magnetotermico_alerta
+      - binary_sensor.gfci_alert
+      - binary_sensor.cocina_enchufes_estado
+      - binary_sensor.energia_lavadora_circuito_alerta
+      - binary_sensor.energia_secadora_circuito_alerta
+      - binary_sensor.energia_lavavajillas_circuito_alerta
+      - binary_sensor.energia_cargador_ev_circuito_alerta
+      - binary_sensor.energia_aire_planta_baja_circuito_alerta
+      - binary_sensor.energia_aire_primera_planta_circuito_alerta
+
+# Envío de alert a notify.telegram_family_group mediante notify.send_message.
+# notify.send_message no admite inline_keyboard. El acuse se hace en HA.
+notify:
+  - platform: group
+    name: energia_circuitos_familia
+    services:
+      - action: send_message
+        data:
+          entity_id: notify.telegram_family_group
+
+template:
+  - binary_sensor:
+      - name: "piscina_magnetotermico_alerta"
+        unique_id: piscina_magnetotermico_alerta
+        device_class: problem
+        state: >-
+          {% from 'energia_circuitos.jinja' import alerta %}
+          {{ alerta('piscina') }}
+        delay_on: "00:02:00"
+
+      - name: "gfci_alert"
+        unique_id: gfci_alert
+        device_class: problem
+        state: >-
+          {% from 'energia_circuitos.jinja' import alerta %}
+          {{ alerta('diferencial') }}
+        delay_on: "00:02:00"
+
+      - name: "cocina_enchufes_estado"
+        unique_id: cocina_enchufes_estado
+        device_class: problem
+        state: >-
+          {% from 'energia_circuitos.jinja' import alerta %}
+          {{ alerta('cocina') }}
+        delay_on: "00:02:00"
+
+      - name: "energia_lavadora_circuito_alerta"
+        unique_id: energia_lavadora_circuito_alerta
+        device_class: problem
+        state: >-
+          {% from 'energia_circuitos.jinja' import alerta %}
+          {{ alerta('lavadora') }}
+        delay_on: "00:02:00"
+
+      - name: "energia_secadora_circuito_alerta"
+        unique_id: energia_secadora_circuito_alerta
+        device_class: problem
+        state: >-
+          {% from 'energia_circuitos.jinja' import alerta %}
+          {{ alerta('secadora') }}
+        delay_on: "00:02:00"
+
+      - name: "energia_lavavajillas_circuito_alerta"
+        unique_id: energia_lavavajillas_circuito_alerta
+        device_class: problem
+        state: >-
+          {% from 'energia_circuitos.jinja' import alerta %}
+          {{ alerta('lavavajillas') }}
+        delay_on: "00:02:00"
+
+      - name: "energia_cargador_ev_circuito_alerta"
+        unique_id: energia_cargador_ev_circuito_alerta
+        device_class: problem
+        state: >-
+          {% from 'energia_circuitos.jinja' import alerta %}
+          {{ alerta('cargador_ev') }}
+        delay_on: "00:02:00"
+
+      - name: "energia_aire_planta_baja_circuito_alerta"
+        unique_id: energia_aire_planta_baja_circuito_alerta
+        device_class: problem
+        state: >-
+          {% from 'energia_circuitos.jinja' import alerta %}
+          {{ alerta('aire_planta_baja') }}
+        delay_on: "00:02:00"
+
+      - name: "energia_aire_primera_planta_circuito_alerta"
+        unique_id: energia_aire_primera_planta_circuito_alerta
+        device_class: problem
+        state: >-
+          {% from 'energia_circuitos.jinja' import alerta %}
+          {{ alerta('aire_primera_planta') }}
+        delay_on: "00:02:00"
+
+# No usar done_message: dejar de sospechar un circuito no implica recuperación.
+# Puede haber cambiado a un fallo más amplio o haberse perdido los testigos.
+alert:
+  piscina_magnetotermico:
+    name: "Posible corte en piscina"
+    entity_id: binary_sensor.piscina_magnetotermico_alerta
+    state: "on"
+    repeat: 5
+    can_acknowledge: true
+    skip_first: false
+    message: >-
+      {% from 'energia_circuitos.jinja' import mensaje %}
+      {{ mensaje('piscina').split() | join(' ') }}
+    notifiers:
+      - despacho
+      - energia_circuitos_familia
+
+  gfci_monitor_alert:
+    name: "Posible disparo del diferencial inferior"
+    entity_id: binary_sensor.gfci_alert
+    state: "on"
+    repeat: 5
+    can_acknowledge: true
+    skip_first: false
+    message: >-
+      {% from 'energia_circuitos.jinja' import mensaje %}
+      {{ mensaje('diferencial').split() | join(' ') }}
+    notifiers:
+      - despacho
+      - energia_circuitos_familia
+
+  cocina_enchufes_estado:
+    name: "Posible corte en enchufes de cocina"
+    entity_id: binary_sensor.cocina_enchufes_estado
+    state: "on"
+    repeat: 5
+    can_acknowledge: true
+    skip_first: false
+    message: >-
+      {% from 'energia_circuitos.jinja' import mensaje %}
+      {{ mensaje('cocina').split() | join(' ') }}
+    notifiers:
+      - despacho
+      - energia_circuitos_familia
+
+  energia_lavadora_circuito:
+    name: "Posible corte en circuito de lavadora"
+    entity_id: binary_sensor.energia_lavadora_circuito_alerta
+    state: "on"
+    repeat: 5
+    can_acknowledge: true
+    skip_first: false
+    message: >-
+      {% from 'energia_circuitos.jinja' import mensaje %}
+      {{ mensaje('lavadora').split() | join(' ') }}
+    notifiers:
+      - despacho
+      - energia_circuitos_familia
+
+  energia_secadora_circuito:
+    name: "Posible corte en circuito de secadora"
+    entity_id: binary_sensor.energia_secadora_circuito_alerta
+    state: "on"
+    repeat: 5
+    can_acknowledge: true
+    skip_first: false
+    message: >-
+      {% from 'energia_circuitos.jinja' import mensaje %}
+      {{ mensaje('secadora').split() | join(' ') }}
+    notifiers:
+      - despacho
+      - energia_circuitos_familia
+
+  energia_lavavajillas_circuito:
+    name: "Posible corte en circuito de lavavajillas"
+    entity_id: binary_sensor.energia_lavavajillas_circuito_alerta
+    state: "on"
+    repeat: 5
+    can_acknowledge: true
+    skip_first: false
+    message: >-
+      {% from 'energia_circuitos.jinja' import mensaje %}
+      {{ mensaje('lavavajillas').split() | join(' ') }}
+    notifiers:
+      - despacho
+      - energia_circuitos_familia
+
+  energia_cargador_ev_circuito:
+    name: "Posible corte en circuito del cargador del coche"
+    entity_id: binary_sensor.energia_cargador_ev_circuito_alerta
+    state: "on"
+    repeat: 5
+    can_acknowledge: true
+    skip_first: false
+    message: >-
+      {% from 'energia_circuitos.jinja' import mensaje %}
+      {{ mensaje('cargador_ev').split() | join(' ') }}
+    notifiers:
+      - despacho
+      - energia_circuitos_familia
+
+  energia_aire_planta_baja_circuito:
+    name: "Posible corte en circuito del aire de planta baja"
+    entity_id: binary_sensor.energia_aire_planta_baja_circuito_alerta
+    state: "on"
+    repeat: 5
+    can_acknowledge: true
+    skip_first: false
+    message: >-
+      {% from 'energia_circuitos.jinja' import mensaje %}
+      {{ mensaje('aire_planta_baja').split() | join(' ') }}
+    notifiers:
+      - despacho
+      - energia_circuitos_familia
+
+  energia_aire_primera_planta_circuito:
+    name: "Posible corte en circuito del aire de primera planta"
+    entity_id: binary_sensor.energia_aire_primera_planta_circuito_alerta
+    state: "on"
+    repeat: 5
+    can_acknowledge: true
+    skip_first: false
+    message: >-
+      {% from 'energia_circuitos.jinja' import mensaje %}
+      {{ mensaje('aire_primera_planta').split() | join(' ') }}
+    notifiers:
+      - despacho
+      - energia_circuitos_familia
