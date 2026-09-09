@@ -136,8 +136,11 @@ async def run():
             await hass.async_block_till_done()
             assert not messages, messages
 
-            c = await command('arm_night')
-            assert c['excluded'] == [], c
+            # Rearming from the panel resets exclusions even in the same mode.
+            await hass.services.async_call('alarm_control_panel', 'alarm_arm_night',
+                                           {'entity_id': 'alarm_control_panel.home'}, blocking=True)
+            await hass.async_block_till_done()
+            assert context()['excluded'] == [], context()
             messages.clear()
             # Open sensors at arming do not trigger again until closed/reopened.
             await hass.async_block_till_done()
@@ -146,6 +149,8 @@ async def run():
             # Pause can be cancelled even if panel already reads disarmed.
             c = await command('pause', minutes=30)
             assert c['paused_mode'] == 'armed_night' and c['paused_until'] > 0, c
+            assert not c['manual_hold'], c
+            assert hass.states.get('alarm_control_panel.home').state == 'disarmed'
             await hass.services.async_call('alarm_control_panel', 'alarm_disarm', {'entity_id': 'alarm_control_panel.home'}, blocking=True)
             await hass.async_block_till_done()
             assert context()['paused_until'] == 0 and context()['manual_hold'], context()
