@@ -159,6 +159,22 @@ Run the security behavior tests with `./ci/check-security.ps1`. They exercise th
 - Update `config/secrets.fake.yaml` whenever a new secret is introduced.
 - Validate locally or wait for the GitHub Action before deploying relevant configuration changes.
 
+## Commit Message Convention
+
+When preparing a commit message or Commitizen answers for this repository, use this section as the project convention for `scope`.
+
+For staged changes confined to one Home Assistant area, use that area's canonical lowercase ASCII Spanish `snake_case` name, such as `despacho`, `cocina`, or `habitacion_carlos`. Determine the affected area from the changed entities, devices, and automation targets, following the [entity naming convention](#entity-naming-convention) and the canonical area vocabulary documented at the end of this README. Base the scope on what the change affects; a reference to an entity in another area does not by itself make that area part of the scope.
+
+For changes spanning multiple areas or affecting global behavior, use the shared functional subsystem, such as `energia`, `seguridad`, or `presencia`. For repository tooling or infrastructure, use the affected component, such as `ci`. If no single meaningful scope describes the staged changes, omit it.
+
+Examples:
+
+```text
+fix(despacho): correct wallpanel charging threshold
+feat(seguridad): add alarm controls across monitored areas
+ci(ci): update configuration validation workflow
+```
+
 ## Configuration File Naming Convention
 
 Use lowercase ASCII `snake_case` and Spanish, without accents, for user-managed configuration filenames. Apply the same ASCII rules used for entity IDs: only `a-z`, `0-9`, and `_`; replace non-ASCII characters with their plain equivalents and omit spaces and punctuation.
