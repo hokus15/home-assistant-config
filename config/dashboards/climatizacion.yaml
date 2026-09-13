@@ -42,35 +42,8 @@ views:
             name: Media planta baja
           - entity: sensor.first_floor_temperature
             name: Media primera planta
-          - entity: binary_sensor.first_floor_temperature_down
-            name: Tendencia primera planta bajando
-          - entity: binary_sensor.home_comfort_state
-            name: Condicion modo confort
-          - entity: input_boolean.home_comfort_mode
-            name: Modo extra calentito
           - entity: input_boolean.sleep_mode
             name: Modo dormir
-
-      - type: horizontal-stack
-        cards:
-          - type: button
-            entity: script.comfort_mode_on
-            name: Boost 90 min
-            icon: mdi:fire
-            tap_action:
-              action: call-service
-              service: script.turn_on
-              target:
-                entity_id: script.comfort_mode_on
-          - type: button
-            entity: script.comfort_mode_off
-            name: Programacion
-            icon: mdi:calendar-clock
-            tap_action:
-              action: call-service
-              service: script.turn_on
-              target:
-                entity_id: script.comfort_mode_off
 
       - type: horizontal-stack
         cards:
@@ -225,10 +198,6 @@ views:
         entities:
           - entity: climate.recibidor
             name: Calefaccion
-          - entity: binary_sensor.home_comfort_state
-            name: Confort recomendado
-          - entity: binary_sensor.first_floor_temperature_down
-            name: 1P bajando
 
       - type: entities
         title: Energia hoy

@@ -1,8 +1,7 @@
-# Sensores agregados y modos de confort y descanso.
+# Sensores ambientales, temperaturas agregadas y modos de descanso.
 recorder:
   include:
     entities:
-      - input_boolean.home_comfort_mode
       - input_boolean.sleep_mode
       - input_boolean.bed_occupancy_jordi
       - sensor.exterior_temperature
@@ -61,25 +60,7 @@ logbook:
       - sensor.despacho_movimiento_temperatura
       - sensor.cocina_puerta_porche_temperatura
 template:
-  - binary_sensor: 
-      # comfort_state is active when:
-      # Temperature average in first floor is lower than climate target temperature
-      # And there is someone at home
-      # And heating is on
-      # And heating away mode is off
-      # And heating is idle
-      # And first floor temperature trend is going down
-    - name: home_comfort_state
-      state: >-
-          {{ states('sensor.first_floor_temperature')|float(0) < states('sensor.recibidor_target_temperature')|float(0)
-             and is_state('group.invitado_y_familia', 'home')
-             and states.climate.recibidor != None
-             and not is_state('climate.recibidor', 'off')
-             and not is_state_attr('climate.recibidor', 'preset_mode', 'away')
-             and is_state_attr('climate.recibidor', 'hvac_action', 'off')
-             and is_state('binary_sensor.first_floor_temperature_down','on')
-          }}
-
+  - binary_sensor:
     - name: summer_time
       device_class: light
       state: '{{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z") == "CEST"}}'
@@ -111,17 +92,8 @@ template:
     - name: recibidor_temperature
       state: "{{state_attr('climate.recibidor', 'current_temperature')}}"
 
-binary_sensor:
-  # Trend sensors
-  - platform: trend
-    sensors:
-      first_floor_temperature_down:
-        entity_id: sensor.first_floor_temperature
-        invert: true
-        max_samples: 5
-
 sensor:
-  # Comfort sensors
+  # Temperaturas medias por planta, de la casa y de las ultimas 24 horas
   - platform: min_max
     name: ground_floor_temperature
     type: mean
@@ -161,9 +133,6 @@ sensor:
       hours: 24
 
 input_boolean:
-  home_comfort_mode:
-    name: Modo extra calentito
-    icon: "mdi:fire"
   sleep_mode:
     name: Modo dormir
     icon: "mdi:sleep"

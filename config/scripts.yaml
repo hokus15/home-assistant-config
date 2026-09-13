@@ -92,40 +92,6 @@ alarm_notify_sensor:
           - "Desarmar 2 horas:/120_mins, Desarmar 3 horas:/180_mins"
           - "Desarmar alarma:/script.turn_on#script.alarm_disarm_telegram"
 
-comfort_mode_on:
-  alias: "Comfort - Mode on"
-  sequence:
-    # Set thermostat boost mode
-    - action: climate.set_preset_mode
-      entity_id: climate.recibidor
-      data_template:
-        preset_mode: "boost"
-    - delay:
-        seconds: 15
-    # Update entity
-    - action: homeassistant.update_entity
-      entity_id: climate.recibidor
-    - delay:
-        minutes: 90
-    # Turn off comfort mode (after 90 minutes)
-    - action: homeassistant.turn_off
-      data:
-        entity_id: input_boolean.home_comfort_mode
-
-comfort_mode_off:
-  alias: "Comfort - Mode off"
-  sequence:
-    # Set thermostat schedule mode
-    - action: climate.set_preset_mode
-      entity_id: climate.recibidor
-      data_template:
-        preset_mode: "schedule"
-    - delay:
-        seconds: 15
-    # Update entity
-    - action: homeassistant.update_entity
-      entity_id: climate.recibidor
-
 google_home_good_morning:
   alias: "Google Home - Good morning"
   sequence:

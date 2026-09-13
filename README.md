@@ -42,7 +42,7 @@ ci/
 - `alerts.yaml`: persistent alerts for energy waste, pool operation, and the entrance gate.
 - `energia_supervision_circuitos.yaml`: probable circuit and lower differential outages, with family Telegram alerts. See [circuit monitoring](docs/electrical_circuit_monitoring.md) for the panel diagram, coverage and limitations.
 - `car.yaml`: Hyundai Ioniq telemetry, state, and charging logic through MQTT using data published by [IOTConnect](https://github.com/hokus15/IOTConnect).
-- `confort.yaml`: aggregated temperature sensors and comfort/sleep modes.
+- `confort.yaml`: environmental sensors, aggregated temperatures, and sleep modes.
 - `energia_aire_acondicionado_primera_planta.yaml` and `energia_aire_acondicionado_planta_baja.yaml`: energy monitoring and activity state for the first-floor and ground-floor air conditioning systems.
 - `energia*.yaml`, `energy.yaml`, and `energy_tariffs.yaml`: energy monitoring and tariffs.
 - `electrodomesticos.yaml`: energy monitoring and activity state for kitchen and laundry appliances.
