@@ -72,6 +72,8 @@
 - id: seguridad_alarma_panel_manual
   alias: Seguridad - Incorporar orden manual del panel
   mode: queued
+  trace:
+    stored_traces: 20
   triggers:
     - trigger: event
       event_type: call_service
@@ -83,7 +85,11 @@
       state: 'on'
     - condition: template
       value_template: >-
-        {% set internal = state_attr('sensor.alarma_contexto', 'internal_contexts') or [] %}
+        {# Also use the controller's latest context if sensor history is missing.
+           It may have finished before this event is processed, so do not require 'on'.
+           Match context IDs: an unrelated manual request must still be accepted. #}
+        {% set latest = expand('script.seguridad_controlar') | map(attribute='context.id') | list %}
+        {% set internal = (state_attr('sensor.alarma_contexto', 'internal_contexts') or []) + latest %}
         {{ trigger.event.context.id not in internal
            and trigger.event.context.parent_id not in internal }}
     - condition: template

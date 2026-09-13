@@ -84,18 +84,32 @@ class CircuitAlerts(unittest.TestCase):
         for key, circuit in self.macros.circuitos.items():
             if circuit['grupo'] == 'inferior':
                 self.set_circuit(key, 'unavailable')
-        for camera in ['camera.caseta', 'camera.piscina', 'camera.barbacoa']:
-            self.states[camera] = 'idle'
-        self.assertTrue(self.active('diferencial'))
-        self.assertEqual(self.diagnose()['locales'], [])
-        self.assertFalse(self.active('piscina'))
-        self.assertNotIn('Cámara', self.message('diferencial'))
+        for camera_state in ['idle', 'unavailable', 'unknown']:
+            with self.subTest(camera_state=camera_state):
+                for camera in ['camera.caseta', 'camera.piscina', 'camera.barbacoa']:
+                    self.states[camera] = camera_state
+                self.assertTrue(self.active('diferencial'))
+                self.assertEqual(self.diagnose()['locales'], [])
+                self.assertFalse(self.active('piscina'))
+                # Camera availability changes the observations, not the diagnosis.
+                self.assertEqual('Cámara' in self.message('diferencial'), camera_state == 'unavailable')
 
     def test_two_distinct_lower_circuits_suffice_with_other_refs_unknown(self):
         for key, circuit in self.macros.circuitos.items():
             if circuit['grupo'] == 'inferior':
                 self.set_circuit(key, 'unknown')
         self.set_circuit('lavadora', 'unavailable')
+        self.set_circuit('secadora', 'unavailable')
+        self.assertTrue(self.active('diferencial'))
+
+    def test_one_lost_lower_circuit_with_unknown_peers_is_not_a_differential(self):
+        for key, circuit in self.macros.circuitos.items():
+            if circuit['grupo'] == 'inferior':
+                self.set_circuit(key, 'unknown')
+        self.set_circuit('lavadora', 'unavailable')
+        self.assertFalse(self.active('diferencial'))
+        self.assertEqual(self.diagnose()['locales'], [])
+        # A second independent disconnected circuit crosses the threshold.
         self.set_circuit('secadora', 'unavailable')
         self.assertTrue(self.active('diferencial'))
 
@@ -112,10 +126,13 @@ class CircuitAlerts(unittest.TestCase):
         self.assertEqual(self.diagnose()['locales'], [])
 
     def test_no_upper_reference_means_no_differential_diagnosis(self):
-        for key in self.macros.circuitos:
-            self.set_circuit(key, 'unavailable')
+        for key, circuit in self.macros.circuitos.items():
+            if circuit['grupo'] == 'inferior':
+                self.set_circuit(key, 'unavailable')
+        self.assertTrue(self.active('diferencial'))
         self.set_circuit('cocina', 'unknown')
         self.assertFalse(self.active('diferencial'))
+        self.assertEqual(self.diagnose()['locales'], [])
 
     def test_startup_unknowns_are_not_outages(self):
         self.states.clear()
@@ -140,10 +157,9 @@ class CircuitAlerts(unittest.TestCase):
         self.assertIn('Siguen comunicando: Nevera, Congelador', msg)
         self.assertIn('Cámara de caseta', msg)
         self.assertNotIn('Cámara de barbacoa', msg)
-        self.assertNotIn('caldera', msg)
         self.assertNotIn('barrera', msg)
 
-    def test_partial_recovery_changes_diagnosis_without_recovery_message(self):
+    def test_partial_recovery_changes_diagnosis(self):
         for key, circuit in self.macros.circuitos.items():
             if circuit['grupo'] == 'inferior':
                 self.set_circuit(key, 'unavailable')

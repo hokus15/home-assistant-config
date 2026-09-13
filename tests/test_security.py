@@ -25,10 +25,10 @@ class AlarmRules(unittest.TestCase):
     def test_night_arrivals_and_morning(self):
         night = transition(command='arm_night')['context']
         self.assertEqual(transition(night)['context']['mode'], 'armed_night')
-        self.assertEqual(transition(night, now=10000, command='morning')['context']['mode'], 'disarmed')
+        self.assertEqual(transition(night, now=10000, command='resume')['context']['mode'], 'disarmed')
         away = transition(night, occupancy='off')['context']
         self.assertEqual(away['mode'], 'armed_away')
-        self.assertEqual(transition(away, occupancy='off', now=10000, command='morning')['context']['mode'], 'armed_away')
+        self.assertEqual(transition(away, occupancy='off', now=10000, command='resume')['context']['mode'], 'armed_away')
 
     def test_all_pause_durations_and_restart(self):
         for minutes in [30, 60, 120, 180]:
@@ -46,7 +46,7 @@ class AlarmRules(unittest.TestCase):
     def test_pause_across_cutoff_does_not_restore_night(self):
         night = transition(command='arm_night', cutoff=2000)['context']
         paused = transition(night, command='pause', minutes=30)['context']
-        self.assertEqual(transition(paused, command='morning', now=2000)['context']['mode'], 'disarmed')
+        self.assertEqual(transition(paused, command='resume', now=2000)['context']['mode'], 'disarmed')
         self.assertEqual(transition(paused, command='resume', now=2800)['context']['mode'], 'disarmed')
         self.assertEqual(transition(paused, command='resume', now=2800, occupancy='off')['context']['mode'], 'armed_away')
 
@@ -67,7 +67,7 @@ class AlarmRules(unittest.TestCase):
         self.assertEqual(extended['night_cutoff'], paused['night_cutoff'])
         self.assertEqual(extended['paused_until'], 4700)
 
-    def test_exclusions_survive_trigger_recovery_but_not_next_arm(self):
+    def test_exclusions_survive_recovery_but_not_next_arm(self):
         night = transition(command='arm_night')['context']
         excluded = transition(night, command='exclude', detector='binary_sensor.door')['context']
         self.assertEqual(transition(excluded, command='recover')['context']['excluded'], ['binary_sensor.door'])

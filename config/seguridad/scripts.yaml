@@ -3,6 +3,8 @@ seguridad_controlar:
   description: Serialized entry point for all native alarm commands.
   mode: queued
   max: 50
+  trace:
+    stored_traces: 20
   sequence:
     - variables:
         previous: "{{ state_attr('sensor.alarma_contexto', 'data') or {} }}"
