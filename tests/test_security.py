@@ -97,7 +97,7 @@ class AlarmRules(unittest.TestCase):
             'entrada': ('/media/camera/puerta_principal', 'mp4'),
             'cocina': ('/media/camera/C1_00626E8305E1', 'mkv'),
             'recibidor': ('/media/camera/C1_00626E615161', 'mkv'),
-            'piscina': ('/media/camera/FI9853EP_00626E563E69', 'mkv'),
+            'piscina': ('/media/camera/piscina', 'mp4'),
             'barbacoa': ('/media/camera/FI9900P_00626E6D21B2', 'mkv'),
             'salon': ('/media/camera/FoscamCamera_00626ED836A9', 'mkv'),
             'caseta': ('/media/aqara_video/lumi3.99aa9fe51953f04f', 'mp4'),

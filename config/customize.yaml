@@ -131,9 +131,9 @@ switch.cocina_camara_deteccion_movimiento_activa:
   icon: mdi:transit-transfer
 camera.piscina:
   friendly_name: Piscina
-switch.piscina_camara_deteccion_movimiento_activa:
-  friendly_name: Detección de movimiento piscina
-  icon: mdi:transit-transfer
+switch.piscina_subida_ftp:
+  friendly_name: Subida FTP piscina
+  icon: mdi:upload-network
 camera.barbacoa:
   friendly_name: Barbacoa
 switch.barbacoa_camara_deteccion_movimiento_activa:
