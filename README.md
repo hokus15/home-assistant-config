@@ -161,9 +161,7 @@ Run the security behavior tests with `./ci/check-security.ps1`. They exercise th
 
 ### Comment Language Convention
 
-Write explanatory comments in English throughout the configuration, templates, scripts, tests, and CI tooling. English is the predominant language of existing comments in this repository. Apply this convention to new or revised comments; existing comments in other languages do not require a bulk translation.
-
-Entity IDs and configuration filenames continue to follow their separate Spanish naming conventions.
+Write all explanatory comments in English, including comments in configuration files, templates, scripts, tests, CI tooling, and disabled code.
 
 ## Commit Message Convention
 
