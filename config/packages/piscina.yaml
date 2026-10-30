@@ -406,6 +406,13 @@ template:
       - name: "Piscina filtrado pendiente"
         unique_id: piscina_filtrado_pendiente
 
+        # An unavailable runtime sensor does not mean zero hours of operation.
+        availability: >-
+          {{
+            is_number(states('sensor.piscina_depuradora_tiempo_funcionamiento_hoy'))
+            and is_number(states('sensor.piscina_tiempo_filtrado'))
+          }}
+
         state: >-
           {{
             states('sensor.piscina_depuradora_tiempo_funcionamiento_hoy') | float(0)

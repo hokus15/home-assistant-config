@@ -31,5 +31,13 @@
         condition: time
         after: "10:00:00"
   action:
+    # Check runtime at execution instead of relying only on the derived sensor.
+    - alias: "Confirm remaining filtering time before turning on"
+      condition: template
+      value_template: >-
+        {% set elapsed = states('sensor.piscina_depuradora_tiempo_funcionamiento_hoy') %}
+        {% set target = states('sensor.piscina_tiempo_filtrado') %}
+        {{ is_number(elapsed) and is_number(target)
+           and elapsed | float(0) < target | float(0) }}
     - action: switch.turn_on
       entity_id: switch.piscina_depuradora
