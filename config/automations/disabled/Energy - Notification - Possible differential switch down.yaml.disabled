@@ -1,4 +1,4 @@
-# TODO Hacer una automatización teniendo en cuenta el enchufe del lavaplatos y el cargador EV para detectat cuando el diferencial está abajo.
+# TODO Create an automation using the dishwasher plug and EV charger to detect when the RCD has tripped.
 - id: "energy_notification_possible_differential_switch_down"
   alias: "Energy - Notification - Possible differential switch down"
   trigger:

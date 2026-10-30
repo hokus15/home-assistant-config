@@ -77,8 +77,8 @@ alert:
     name: Temperatura de agua estimada
     entity_id: binary_sensor.piscina_temperatura_agua_estimada
     state: "on"
-    # Alert exige repeat. Evita ruido pero recuerda diariamente un fallo
-    # persistente de la sonda.
+    # Alert requires repeat. Avoid noise while sending a daily reminder
+    # of a persistent probe failure.
     repeat: 1440
     skip_first: false
     message: >-

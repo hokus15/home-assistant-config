@@ -1,5 +1,5 @@
-# OBSOLETO: conserva sensores derivados del control retirado de la antigua
-# camara Caseta. Retirar o sustituir esos sensores antes de habilitarlo.
+# OBSOLETE: retains sensors derived from the retired control of the old
+# Caseta camera. Remove or replace those sensors before enabling this package.
 dialogflow:
 
 recorder:

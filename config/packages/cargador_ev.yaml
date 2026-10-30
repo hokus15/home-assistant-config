@@ -32,16 +32,16 @@ template:
         attributes:
           potencia: "{{ states('sensor.coladuria_cargador_ev_potencia') }}W"
 
-      # Activo cuando la energia exportada supera el umbral de encendido.
+      # Active when exported power exceeds the turn-on threshold.
       - name: coladuria_cargador_ev_encendido_por_excedente_energetico_sobre_umbral
         unique_id: coladuria_cargador_ev_encendido_por_excedente_energetico_sobre_umbral
         state: "{{ states('sensor.fronius_solarnet_power_grid') | float(default=0) <= states('input_number.coladuria_cargador_ev_umbral_encendido') | float(default=0) }}"
         delay_on: "{{ states('input_number.coladuria_cargador_ev_retardo_encendido') | int(60) * 60 }}"
-      # Activo cuando el balance neto horario permite encender el cargador.
+      # Active when the hourly net balance allows the charger to turn on.
       - name: coladuria_cargador_ev_encendido_por_balance_neto_horario_suficiente
         unique_id: coladuria_cargador_ev_encendido_por_balance_neto_horario_suficiente
         state: "{{ states('input_number.coladuria_cargador_ev_umbral_balance_neto_horario_encendido') | float(0) >= states('sensor.energy_net_balance_hour') | float(1) }}"
-      # Activo cuando el balance neto horario obliga a apagar el cargador.
+      # Active when the hourly net balance requires the charger to turn off.
       - name: coladuria_cargador_ev_apagado_por_balance_neto_horario_insuficiente
         unique_id: coladuria_cargador_ev_apagado_por_balance_neto_horario_insuficiente
         state: "{{ states('input_number.coladuria_cargador_ev_umbral_balance_neto_horario_apagado') | float(0) >= states('sensor.energy_net_balance_hour') | float(1) }}"

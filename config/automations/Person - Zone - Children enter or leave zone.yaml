@@ -1,7 +1,7 @@
 - id: "person_zone_children_enter_leave_zone"
   alias: "Person - Zone - Children enter or leave zone"
   trigger:
-    # Casa Abu
+    # Abu's home
     - platform: zone
       zone: zone.casa_abu
       event: enter
@@ -17,7 +17,7 @@
         - person.carlos
         - person.coque
 
-    # Casa Avi y Senyoravi
+    # Avi and Senyoravi's home
     - platform: zone
       zone: zone.casa_avi_y_senyoravi
       event: enter
@@ -33,7 +33,7 @@
         - person.carlos
         - person.coque
 
-    # Cerca de Casa
+    # Near home
     - platform: zone
       zone: zone.casa_cerca
       event: enter
@@ -49,7 +49,7 @@
         - person.carlos
         - person.coque
 
-    # Colegio
+    # School
     - platform: zone
       zone: zone.colegio
       event: enter
@@ -65,7 +65,7 @@
         - person.carlos
         - person.coque
 
-    # Casa
+    # Home
     - platform: zone
       zone: zone.home
       event: enter

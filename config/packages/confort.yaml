@@ -1,4 +1,4 @@
-# Sensores ambientales, temperaturas agregadas y modos de descanso.
+# Environmental sensors, aggregated temperatures, and sleep modes.
 recorder:
   include:
     entities:
@@ -93,7 +93,7 @@ template:
       state: "{{state_attr('climate.recibidor', 'current_temperature')}}"
 
 sensor:
-  # Temperaturas medias por planta, de la casa y de las ultimas 24 horas
+  # Average temperatures by floor, for the whole home, and over the last 24 hours
   - platform: min_max
     name: ground_floor_temperature
     type: mean

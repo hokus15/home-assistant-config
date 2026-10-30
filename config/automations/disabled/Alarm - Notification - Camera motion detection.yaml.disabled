@@ -1,5 +1,5 @@
-# OBSOLETA: conserva el control retirado de la antigua camara Caseta.
-# Revisar los productores MQTT y sustituir ese control antes de habilitarla.
+# OBSOLETE: retains the retired control of the old Caseta camera.
+# Review the MQTT publishers and replace that control before enabling this automation.
 # Notify camera motion detection including attached video or image when alarm triggered
 - alias: 'Alarm - Notification - Camera motion detection'
   trigger:

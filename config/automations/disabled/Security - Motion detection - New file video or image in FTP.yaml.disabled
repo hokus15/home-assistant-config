@@ -1,5 +1,5 @@
-# OBSOLETA: la rama WVC54CGA pertenece a la antigua camara Caseta.
-# Su switch de deteccion ya no existe; adaptar el productor antes de habilitarla.
+# OBSOLETE: the WVC54CGA branch belongs to the old Caseta camera.
+# Its detection switch no longer exists; adapt the publisher before enabling this automation.
 - alias: 'Security - Motion detection - New file video or image in FTP'
   trigger:
     platform: event

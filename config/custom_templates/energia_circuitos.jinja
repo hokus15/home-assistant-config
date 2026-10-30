@@ -1,7 +1,7 @@
-{# Referencias alimentadas por cada circuito. No son medidas de tensión.
-   on/off en relés y valores numéricos en Shelly EM indican comunicación.
-   unknown no prueba un corte; 0 W es una lectura válida.
-   No se usan el SAI, cámaras ni sensores de potencia derivados para decidir. #}
+{# Reference devices powered by each circuit. These are not voltage measurements.
+   Relay on/off states and numeric Shelly EM values indicate communication.
+   unknown does not prove an outage; 0 W is a valid reading.
+   The UPS, cameras, and derived power sensors are not used for diagnosis. #}
 {% set circuitos = {
   'cocina': dict(nombre='Enchufes de cocina', grupo='superior', minimo=2, equipos={
     'switch.cocina_nevera': 'Nevera',
@@ -53,8 +53,8 @@
     {% endif %}
   {% endfor %}
   {% set inferiores = ns.perdidos | reject('eq', 'cocina') | list %}
-  {# Un testigo inferior vivo contradice la caída de todo su diferencial.
-     Sin testigos superiores no se distingue corte amplio de fallo de red. #}
+  {# A communicating device on a lower circuit contradicts an outage of its entire RCD group.
+     Without upper-circuit references, a broad outage cannot be distinguished from a network failure. #}
   {% set diferencial = inferiores | count >= 2 and ns.vivos_inferior | count == 0
                          and ns.vivos_superior | count > 0 %}
   {% set locales = namespace(claves=[]) %}

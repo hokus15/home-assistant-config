@@ -5,18 +5,18 @@
 recorder:
   include:
     entities:
-      # Actuadores
+      # Actuators
       - switch.piscina_depuradora
       - switch.piscina_medidor_consumo
       - switch.piscina_iluminacion
 
-      # Sensores principales
+      # Main sensors
       - sensor.piscina_temperatura_agua
       - sensor.piscina_temperatura_agua_referencia
       - sensor.piscina_tiempo_filtrado
       - sensor.piscina_depuradora_tiempo_funcionamiento_hoy
 
-      # Estado de filtración
+      # Filtration status
       - binary_sensor.piscina_filtrado_pendiente
 
       - binary_sensor.piscina_depuradora_encendido_por_excedente_energetico_sobre_umbral
@@ -91,13 +91,12 @@ mqtt:
       state_class: measurement
 
 ###############################################################################
-# SENSORES
+# SENSORS
 ###############################################################################
 
 sensor:
-  # Tiempo durante el que la bomba ha permanecido encendida dentro
-  # del periodo diario comprendido entre las 07:00 y las 07:00
-  # del día siguiente.
+  # Time the pump has been on within the daily period
+  # from 07:00 to 07:00 the following day.
   - platform: history_stats
     name: "Piscina depuradora tiempo funcionamiento hoy"
     unique_id: piscina_depuradora_tiempo_funcionamiento_hoy
@@ -116,7 +115,7 @@ sensor:
       hours: 24
 
 ###############################################################################
-# TEMPLATE - DIMENSIONES Y CÁLCULOS HIDRÁULICOS
+# TEMPLATE - DIMENSIONS AND HYDRAULIC CALCULATIONS
 ###############################################################################
 
 template:
@@ -145,24 +144,24 @@ template:
         unit_of_measurement: "m³/h"
         icon: mdi:waves-arrow-right
 
-      # Relación entre el caudal efectivo de la instalación y el
-      # caudal nominal de la bomba.
+      # Ratio of the installation's effective flow rate to the
+      # pump's nominal flow rate.
       #
-      # Tiene en cuenta las pérdidas hidráulicas producidas por el
-      # filtro, tuberías, válvulas y accesorios.
+      # Accounts for hydraulic losses from the filter, pipes,
+      # valves, and fittings.
       #
-      # Caudal efectivo = Caudal nominal × Eficiencia hidráulica
+      # Effective flow rate = Nominal flow rate × Hydraulic efficiency
       #
-      # Valores orientativos:
-      #   0,90 - Instalación muy favorable
-      #   0,80 - Instalación doméstica típica
-      #   0,70 - Instalación con pérdidas elevadas
+      # Indicative values:
+      #   0.90 - Installation with very favorable conditions
+      #   0.80 - Typical domestic installation
+      #   0.70 - Installation with high losses
       - name: "Piscina eficiencia hidraulica"
         unique_id: piscina_eficiencia_hidraulica
         state: "0.8"
         icon: mdi:gauge
 
-      # Volumen aproximado de la piscina.
+      # Approximate pool volume.
       - name: "Piscina volumen"
         unique_id: piscina_volumen
 
@@ -184,8 +183,8 @@ template:
         state_class: measurement
         icon: mdi:pool
 
-      # Tiempo necesario para recircular un volumen equivalente al
-      # volumen total de la piscina.
+      # Time needed to recirculate a volume equal to the
+      # pool's total volume.
       - name: "Piscina tiempo recirculacion"
         unique_id: piscina_tiempo_recirculacion
 
@@ -215,16 +214,16 @@ template:
         icon: mdi:timer-sync-outline
 
 ###############################################################################
-# TEMPLATE - TEMPERATURA Y RENOVACIONES OBJETIVO
+# TEMPLATE - TEMPERATURE AND TARGET TURNOVERS
 ###############################################################################
 
   - binary_sensor:
       - name: "Piscina temperatura agua valida"
         unique_id: piscina_temperatura_agua_valida
 
-        # Los valores 0, -127 y 85 °C son habituales cuando un DS18B20
-        # no tiene una lectura válida. Para esta piscina, 2–40 °C es el
-        # intervalo físicamente plausible.
+        # Values of 0, -127, and 85 °C are common when a DS18B20
+        # has no valid reading. For this pool, 2–40 °C is the
+        # physically plausible range.
         state: >-
           {% set temperature = states('sensor.piscina_temperatura_agua') %}
           {{ has_value('sensor.piscina_temperatura_agua')
@@ -238,14 +237,14 @@ template:
         state: >-
           {{ not is_state('binary_sensor.piscina_temperatura_agua_valida', 'on')
              and has_value('sensor.exterior_temperature') }}
-        # Evita avisos por el breve periodo de arranque de MQTT/DS18B20.
+        # Avoid alerts during the brief MQTT/DS18B20 startup period.
         delay_on: "00:05:00"
 
   - sensor:
-      # Temperatura empleada para el cálculo de filtración. Se prefiere siempre
-      # la sonda del agua. Si falla, conserva la última referencia y la acerca
-      # lentamente a la temperatura exterior corregida; no usa la exterior
-      # directamente porque el agua tiene mucha más inercia térmica.
+      # Temperature used to calculate filtration time. Always prefer the water
+      # probe. If it fails, retain the previous reference and gradually move it
+      # toward the adjusted outdoor temperature; do not use outdoor temperature
+      # directly because water has much greater thermal inertia.
       - name: "Piscina temperatura agua referencia"
         unique_id: piscina_temperatura_agua_referencia
         unit_of_measurement: "°C"
@@ -271,19 +270,19 @@ template:
           temperatura_exterior: "{{ states('sensor.exterior_temperature') }}"
           desfase_exterior: "{{ states('input_number.piscina_estimacion_temperatura_agua_desfase_exterior') }}"
 
-      # Número objetivo de renovaciones teóricas diarias en función
-      # de la temperatura del agua.
+      # Target number of theoretical daily turnovers based on
+      # water temperature.
       #
-      # La progresión continua evita cambios bruscos en el tiempo
-      # de filtración al cruzar los distintos umbrales de temperatura.
+      # Continuous progression avoids abrupt changes in filtration
+      # time when crossing temperature thresholds.
       #
-      # Menos de 10 °C: 0,25 renovaciones
-      # 15 °C:          0,75 renovaciones
-      # 18 °C:          1,00 renovación
-      # 24 °C:          1,50 renovaciones
-      # 30 °C:          2,00 renovaciones
-      # 32 °C:          2,25 renovaciones
-      # 34 °C o más:    2,50 renovaciones
+      # Below 10 °C:    0.25 turnovers
+      # 15 °C:          0.75 turnovers
+      # 18 °C:          1.00 turnover
+      # 24 °C:          1.50 turnovers
+      # 30 °C:          2.00 turnovers
+      # 32 °C:          2.25 turnovers
+      # 34 °C or above: 2.50 turnovers
       - name: "Piscina renovaciones objetivo"
         unique_id: piscina_renovaciones_objetivo
 
@@ -315,7 +314,7 @@ template:
         icon: mdi:rotate-360
 
 ###############################################################################
-# TEMPLATE - TIEMPO DIARIO DE FILTRACIÓN
+# TEMPLATE - DAILY FILTRATION TIME
 ###############################################################################
 
   - trigger:
@@ -355,13 +354,13 @@ template:
         icon: mdi:pump
 
 ###############################################################################
-# TEMPLATE - ESTADO Y CONTROL DE LA BOMBA
+# TEMPLATE - PUMP STATUS AND CONTROL
 ###############################################################################
 
   - binary_sensor:
 
-      # El estado del Sonoff identifica la depuradora directamente. La potencia
-      # del Shelly no sirve para ello porque incluye iluminación y depuradora.
+      # The Sonoff state identifies the pump directly. Shelly power readings
+      # cannot do this because they include both lighting and the pump.
       - name: "Piscina depuradora activa"
         unique_id: piscina_depuradora_activa
 
@@ -374,7 +373,7 @@ template:
         attributes:
           potencia_total: "{{ states('sensor.piscina_medidor_consumo_potencia') }} W"
 
-      # Hay suficiente excedente instantáneo para arrancar la bomba.
+      # There is enough instantaneous surplus power to start the pump.
       - name: "Piscina depuradora encendido por excedente energetico sobre umbral"
         unique_id: piscina_depuradora_encendido_por_excedente_energetico_sobre_umbral
 
@@ -391,8 +390,8 @@ template:
             )
           }}
 
-      # El balance energético acumulado durante la hora permite
-      # arrancar la bomba.
+      # The accumulated energy balance for the hour allows
+      # the pump to start.
       - name: "Piscina depuradora encendido por balance neto horario suficiente"
         unique_id: piscina_depuradora_encendido_por_balance_neto_horario_suficiente
 
@@ -402,7 +401,7 @@ template:
             <= states('input_number.piscina_depuradora_umbral_balance_neto_horario_encendido') | float(0)
           }}
 
-      # Todavía queda tiempo objetivo de filtración pendiente.
+      # Some of the target filtration time is still pending.
       - name: "Piscina filtrado pendiente"
         unique_id: piscina_filtrado_pendiente
 
@@ -419,8 +418,8 @@ template:
             < states('sensor.piscina_tiempo_filtrado') | float(0)
           }}
 
-      # El balance energético acumulado sigue siendo suficiente
-      # para mantener la bomba encendida.
+      # The accumulated energy balance is still sufficient
+      # to keep the pump on.
       - name: "Piscina depuradora balance neto horario suficiente para mantenerse encendida"
         unique_id: piscina_depuradora_balance_neto_horario_suficiente_para_mantenerse_encendida
 
@@ -431,7 +430,7 @@ template:
           }}
 
 ###############################################################################
-# PARÁMETROS CONFIGURABLES
+# CONFIGURABLE PARAMETERS
 ###############################################################################
 
 input_number:
@@ -445,8 +444,8 @@ input_number:
     step: 0.5
     mode: box
 
-  # Diferencia típica entre el agua y el aire exterior que se usa solo cuando
-  # la sonda DS18B20 no aporta una lectura plausible.
+  # Typical difference between water and outdoor air temperatures, used only
+  # when the DS18B20 probe does not provide a plausible reading.
   piscina_estimacion_temperatura_agua_desfase_exterior:
     name: "Desfase estimación temperatura agua"
     unit_of_measurement: "°C"
@@ -458,9 +457,9 @@ input_number:
     step: 0.5
     mode: box
 
-  # Potencia mínima exportada para permitir el encendido de la bomba.
+  # Minimum exported power required to allow the pump to start.
   #
-  # Valores negativos representan exportación a la red.
+  # Negative values represent power exported to the grid.
   piscina_depuradora_umbral_encendido:
     name: "Potencia para encendido"
     unit_of_measurement: "W"
@@ -471,8 +470,8 @@ input_number:
     max: 0
     step: 100
 
-  # Tiempo durante el que debe mantenerse el excedente mínimo
-  # antes de permitir el encendido.
+  # Time the minimum surplus must be sustained
+  # before allowing the pump to start.
   piscina_depuradora_retardo_encendido:
     name: "Retardo encendido"
     unit_of_measurement: "min"
@@ -483,10 +482,10 @@ input_number:
     max: 60
     step: 1
 
-  # Balance energético horario máximo para permitir el encendido.
+  # Maximum hourly energy balance that allows the pump to start.
   #
-  # Cuanto más negativo sea el valor, más excedente acumulado
-  # se exigirá antes de arrancar la bomba.
+  # A more negative value requires more accumulated surplus
+  # before starting the pump.
   piscina_depuradora_umbral_balance_neto_horario_encendido:
     name: "Balance horario para encendido"
     unit_of_measurement: "kWh"
@@ -497,10 +496,10 @@ input_number:
     max: 0
     step: 0.1
 
-  # Balance energético horario máximo permitido para mantener
-  # la bomba funcionando.
+  # Maximum hourly energy balance allowed to keep
+  # the pump running.
   #
-  # Si el balance supera este valor, la bomba podrá detenerse.
+  # If the balance exceeds this value, the pump may stop.
   piscina_depuradora_umbral_balance_neto_horario_apagado:
     name: "Balance horario para mantener encendida"
     unit_of_measurement: "kWh"

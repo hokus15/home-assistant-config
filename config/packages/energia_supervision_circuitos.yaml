@@ -1,4 +1,4 @@
-# Diagnóstico probable por disponibilidad; mapa y reglas en energia_circuitos.jinja.
+# Probable diagnosis based on availability; mapping and rules are in energia_circuitos.jinja.
 recorder:
   include:
     entities:
@@ -12,8 +12,8 @@ recorder:
       - binary_sensor.energia_aire_planta_baja_circuito_alerta
       - binary_sensor.energia_aire_primera_planta_circuito_alerta
 
-# Envío de alert a notify.telegram_family_group mediante notify.send_message.
-# notify.send_message no admite inline_keyboard. El acuse se hace en HA.
+# Send alerts to notify.telegram_family_group through notify.send_message.
+# notify.send_message does not support inline_keyboard. Acknowledge alerts in HA.
 notify:
   - platform: group
     name: energia_circuitos_familia
@@ -96,8 +96,8 @@ template:
           {{ alerta('aire_primera_planta') }}
         delay_on: "00:02:00"
 
-# No usar done_message: dejar de sospechar un circuito no implica recuperación.
-# Puede haber cambiado a un fallo más amplio o haberse perdido los testigos.
+# Do not use done_message: no longer suspecting a circuit does not imply recovery.
+# The fault may have become more widespread, or reference devices may have been lost.
 alert:
   piscina_magnetotermico:
     name: "Posible corte en piscina"

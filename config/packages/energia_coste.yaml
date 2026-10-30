@@ -1,6 +1,6 @@
-# Coste variable de energía de la vivienda y de cada dispositivo, sin imputar
-# autoconsumo solar ni conceptos fijos de la factura. El precio de compra debe
-# estar en €/kWh. El total usa la potencia de consumo de la vivienda completa.
+# Variable energy cost for the home and each device, excluding solar
+# self-consumption and fixed bill charges. The purchase price must be
+# in €/kWh. The total uses the power consumption of the entire home.
 
 recorder:
   include:
