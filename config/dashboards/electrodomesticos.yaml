@@ -5,14 +5,23 @@ views:
     icon: mdi:fridge-outline
     type: sections
     max_columns: 3
-    dense_section_placement: true
+    dense_section_placement: false
     sections:
       - type: grid
         cards:
           - type: custom:ha-appliance-card
             appliance_type: washer
             name: Lavadora
+            illustration_color: white
+            illustration_size: 1.1
             state_entity: sensor.coladuria_lavadora_estado
+            show_last_cycle: true
+            show_history: true
+            history_entity: sensor.coladuria_lavadora_potencia
+            history_hours: 24
+            grid_options:
+              columns: full
+              rows: auto
             info_entities:
               - entity: sensor.coladuria_lavadora_potencia
                 icon: mdi:lightning-bolt
@@ -23,7 +32,16 @@ views:
           - type: custom:ha-appliance-card
             appliance_type: dryer
             name: Secadora
+            illustration_color: white
+            illustration_size: 1.1
             state_entity: sensor.coladuria_secadora_estado
+            show_last_cycle: true
+            show_history: true
+            history_entity: sensor.coladuria_secadora_potencia
+            history_hours: 24
+            grid_options:
+              columns: full
+              rows: auto
             info_entities:
               - entity: sensor.coladuria_secadora_potencia
                 icon: mdi:lightning-bolt
@@ -34,7 +52,16 @@ views:
           - type: custom:ha-appliance-card
             appliance_type: dishwasher
             name: Lavavajillas
+            illustration_color: white
+            illustration_size: 1.1
             state_entity: sensor.cocina_lavavajillas_estado_de_operacion
+            show_last_cycle: true
+            show_history: true
+            history_entity: sensor.cocina_lavavajillas_potencia
+            history_hours: 24
+            grid_options:
+              columns: full
+              rows: auto
             program_entity: select.cocina_lavavajillas_programa_activo
             program_format: clean
             progress_entity: sensor.cocina_lavavajillas_progreso_del_programa
@@ -42,12 +69,14 @@ views:
             remaining_time_hide_when_idle: true
             door_entity: sensor.cocina_lavavajillas_puerta
             door_open_state: open
+            door_corner: true
             connectivity_entity: binary_sensor.cocina_lavavajillas_conectividad
             stop_entity: button.cocina_lavavajillas_detener_programa
             info_entities:
               - entity: sensor.cocina_lavavajillas_potencia
                 icon: mdi:lightning-bolt
                 label: Potencia
+            alerts_entities:
               - entity: sensor.cocina_lavavajillas_abrillantador_casi_vacio
                 icon: mdi:brightness-5
                 label: Abrillantador
@@ -61,10 +90,18 @@ views:
             appliance_type: fridge
             fridge_layout: single
             name: Nevera
+            compact: side
+            illustration_color: white
             state_entity: sensor.cocina_nevera_potencia
             power_entity: sensor.cocina_nevera_potencia
             power_on_threshold: 1
             power_icon: mdi:fridge-outline
+            show_history: true
+            history_entity: sensor.cocina_nevera_potencia
+            history_hours: 24
+            grid_options:
+              columns: full
+              rows: auto
 
       - type: grid
         cards:
@@ -72,7 +109,105 @@ views:
             appliance_type: fridge
             fridge_layout: single
             name: Congelador
+            compact: side
+            illustration_color: white
             state_entity: sensor.cocina_congelador_potencia
             power_entity: sensor.cocina_congelador_potencia
             power_on_threshold: 1
             power_icon: mdi:snowflake
+            show_history: true
+            history_entity: sensor.cocina_congelador_potencia
+            history_hours: 24
+            grid_options:
+              columns: full
+              rows: auto
+
+      - type: grid
+        cards:
+          - type: heading
+            heading: Piscina
+            icon: mdi:pool
+          - type: custom:ha-appliance-card
+            appliance_type: pool_pump
+            name: Depuradora
+            illustration_color: white
+            state_entity: switch.piscina_depuradora
+            light_entity: switch.piscina_iluminacion
+            water_temperature_entity: sensor.piscina_temperatura_agua_referencia
+            filtration_time_entity: sensor.piscina_depuradora_tiempo_funcionamiento_hoy
+            pool_mode_entity: input_select.piscina_depuradora_modo
+            show_history: true
+            history_entity: sensor.piscina_medidor_consumo_potencia
+            history_hours: 24
+            grid_options:
+              columns: full
+              rows: auto
+            info_entities:
+              - entity: sensor.piscina_tiempo_filtrado
+                icon: mdi:timer-outline
+                label: Objetivo de filtrado
+              - entity: sensor.piscina_medidor_consumo_potencia
+                icon: mdi:lightning-bolt
+                label: Potencia total piscina
+              - entity: binary_sensor.piscina_temperatura_agua_estimada
+                icon: mdi:thermometer-alert
+                label: Temperatura estimada
+
+      - type: grid
+        cards:
+          - type: heading
+            heading: Carga del coche
+            icon: mdi:ev-station
+          - type: custom:ha-appliance-card
+            appliance_type: ev_charger
+            name: Cargador del coche
+            illustration_color: white
+            power_entity: sensor.coladuria_cargador_ev_potencia
+            power_on_threshold: 1000
+            show_history: true
+            history_entity: sensor.coladuria_cargador_ev_potencia
+            history_hours: 24
+            grid_options:
+              columns: full
+              rows: auto
+            info_entities:
+              - entity: input_select.coladuria_cargador_ev_modo
+                icon: mdi:cog-outline
+                label: Modo
+              - entity: sensor.coladuria_cargador_ev_energia_hoy
+                icon: mdi:counter
+                label: Energía hoy
+
+      - type: grid
+        cards:
+          - type: heading
+            heading: Respaldo eléctrico
+            icon: mdi:battery-charging
+          - type: custom:ha-appliance-card
+            appliance_type: ups
+            name: SAI
+            illustration_color: white
+            state_entity: sensor.hueco_escalera_sai_estado_datos
+            battery_entity: sensor.hueco_escalera_sai_carga_bateria
+            runtime_entity: sensor.hueco_escalera_sai_autonomia_bateria
+            grid_options:
+              columns: full
+              rows: auto
+
+      - type: grid
+        cards:
+          - type: heading
+            heading: Producción solar
+            icon: mdi:solar-power
+          - type: custom:ha-appliance-card
+            appliance_type: solar
+            solar_layout: roof
+            name: Paneles solares
+            state_entity: sensor.energy_power_photovoltaics
+            power_entity: sensor.energy_power_photovoltaics
+            show_history: true
+            history_entity: sensor.energy_power_photovoltaics
+            history_hours: 24
+            grid_options:
+              columns: full
+              rows: auto
