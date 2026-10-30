@@ -159,6 +159,12 @@ Run the security behavior tests with `./ci/check-security.ps1`. They exercise th
 - Update `config/secrets.fake.yaml` whenever a new secret is introduced.
 - Validate locally or wait for the GitHub Action before deploying relevant configuration changes.
 
+### Comment Language Convention
+
+Write explanatory comments in English throughout the configuration, templates, scripts, tests, and CI tooling. English is the predominant language of existing comments in this repository. Apply this convention to new or revised comments; existing comments in other languages do not require a bulk translation.
+
+Entity IDs and configuration filenames continue to follow their separate Spanish naming conventions.
+
 ## Commit Message Convention
 
 When preparing a commit message or Commitizen answers for this repository, use this section as the project convention for `scope`.
