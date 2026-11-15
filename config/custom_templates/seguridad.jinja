@@ -44,6 +44,34 @@
   {{ dict(context=ns.c, arm=ns.arm, changed=ns.c != old) | tojson }}
 {%- endmacro %}
 
+{# One pending notification per camera. All mutations run through a queued script. #}
+{% macro person_notifications(previous, eligible, mode, timestamp, command,
+                              camera='', occurred_at=0, file_path='', wait_seconds=120) -%}
+  {% set ns = namespace(entries=[], notifications=[]) %}
+  {% for entity, pending in previous.items() %}
+    {% if command != 'reset' and entity in eligible and pending.mode == mode %}
+      {% if pending.expires_at <= timestamp %}
+        {% set ns.notifications = ns.notifications + [dict(detector=entity, file_path='',
+            detected_at=pending.detected_at, alarm_mode=pending.mode)] %}
+      {% else %}
+        {% set ns.entries = ns.entries + [(entity, pending)] %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  {% set entries = dict(ns.entries) %}
+  {% if command == 'detect' and camera in eligible and camera not in entries %}
+    {% set entries = dict(ns.entries + [(camera, dict(mode=mode, detected_at=occurred_at,
+        expires_at=timestamp + wait_seconds))]) %}
+  {% elif command == 'file' and camera in entries
+            and occurred_at >= entries[camera].detected_at %}
+    {% set pending = entries[camera] %}
+    {% set ns.notifications = ns.notifications + [dict(detector=camera, file_path=file_path,
+        detected_at=pending.detected_at, alarm_mode=pending.mode)] %}
+    {% set entries = dict(ns.entries | rejectattr('0', 'eq', camera) | list) %}
+  {% endif %}
+  {{ dict(entries=entries, notifications=ns.notifications) | tojson }}
+{%- endmacro %}
+
 {% macro camera_for_path(cameras, path) -%}
   {% set ns = namespace(matches=[]) %}
   {% if path.startswith('/media/') and '..' not in path.split('/') %}

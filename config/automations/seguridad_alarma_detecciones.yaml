@@ -4,6 +4,16 @@
   alias: Seguridad - Recibir detecciones de sensores
   mode: parallel
   max: 50
+  variables:
+    cameras: !include ../seguridad/camaras.yaml
+    detector: >-
+      {% set ns = namespace(entity=trigger.event.data.entity_id) %}
+      {% for camera in cameras.values() %}
+        {% if camera.get('person_sensor') == trigger.event.data.entity_id %}
+          {% set ns.entity = camera.camera_entity %}
+        {% endif %}
+      {% endfor %}
+      {{ ns.entity }}
   triggers:
     - trigger: event
       event_type: state_changed
@@ -19,17 +29,26 @@
         {% set c = state_attr('sensor.alarma_contexto', 'data') or {} %}
         {{ states('alarm_control_panel.home') in ['armed_away', 'armed_night', 'triggered']
            and c.get('mode') in ['armed_away', 'armed_night']
-           and trigger.event.data.entity_id in label_entities('alarma_modo_ausente' if c.mode == 'armed_away' else 'alarma_modo_noche')
-           and trigger.event.data.entity_id not in c.get('excluded', []) }}
+           and detector in label_entities('alarma_modo_ausente' if c.mode == 'armed_away' else 'alarma_modo_noche')
+           and detector not in c.get('excluded', []) }}
   actions:
-    - action: script.turn_on
-      target:
-        entity_id: script.seguridad_notificar_deteccion
-      data:
-        variables:
-          detector: "{{ trigger.event.data.entity_id }}"
-          alarm_mode: "{{ (state_attr('sensor.alarma_contexto', 'data') or {}).get('mode') }}"
-          detected_at: "{{ as_local(trigger.event.time_fired).strftime('%d/%m/%Y %H:%M:%S') }}"
+    - choose:
+        - conditions: "{{ detector != trigger.event.data.entity_id }}"
+          sequence:
+            - action: script.seguridad_gestionar_personas
+              data:
+                command: detect
+                detector: "{{ detector }}"
+                occurred_at: "{{ as_timestamp(trigger.event.time_fired) }}"
+      default:
+        - action: script.turn_on
+          target:
+            entity_id: script.seguridad_notificar_deteccion
+          data:
+            variables:
+              detector: "{{ detector }}"
+              alarm_mode: "{{ (state_attr('sensor.alarma_contexto', 'data') or {}).get('mode') }}"
+              detected_at: "{{ as_local(trigger.event.time_fired).strftime('%d/%m/%Y %H:%M:%S') }}"
 
 - id: seguridad_alarma_archivos
   alias: Seguridad - Recibir grabaciones de camaras
@@ -80,6 +99,19 @@
                     and resolved.camera.camera_entity in label_entities('alarma_grabacion_noche'))) }}
     - choose:
         - conditions: >-
+            {{ resolved.camera.get('person_sensor', '') != ''
+               and resolved.camera.camera_entity in label_entities(
+                   'alarma_modo_ausente' if context.mode == 'armed_away' else 'alarma_modo_noche') }}
+          sequence:
+            - condition: template
+              value_template: "{{ file_path.lower().endswith(('.mp4', '.mkv')) }}"
+            - action: script.seguridad_gestionar_personas
+              data:
+                command: file
+                detector: "{{ resolved.camera.camera_entity }}"
+                file_path: "{{ file_path }}"
+                occurred_at: "{{ as_timestamp(trigger.event.time_fired) }}"
+        - conditions: >-
             {{ resolved.camera.camera_entity in label_entities(
                  'alarma_modo_ausente' if context.mode == 'armed_away' else 'alarma_modo_noche') }}
           sequence:
@@ -100,3 +132,18 @@
               data:
                 variables:
                   file_path: "{{ file_path }}"
+
+- id: seguridad_alarma_personas_plazos
+  alias: Seguridad - Revisar avisos de personas pendientes
+  mode: queued
+  triggers:
+    - trigger: time_pattern
+      seconds: /5
+  conditions:
+    - condition: state
+      entity_id: input_boolean.alarma_inicializada
+      state: 'on'
+  actions:
+    - action: script.seguridad_gestionar_personas
+      data:
+        command: refresh

@@ -53,4 +53,15 @@ template:
         attributes:
           entries: "{{ trigger.event.data.entries }}"
 
+  - triggers:
+      - trigger: event
+        event_type: seguridad_personas_guardar
+    sensor:
+      - name: Alarma personas pendientes
+        default_entity_id: sensor.alarma_personas_pendientes
+        unique_id: alarma_personas_pendientes
+        state: "{{ trigger.event.data.revision }}"
+        attributes:
+          entries: "{{ trigger.event.data.entries }}"
+
 script: !include ../seguridad/scripts.yaml

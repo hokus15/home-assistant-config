@@ -384,6 +384,83 @@ async def run():
             ]), messages
             assert hass.states.get('alarm_control_panel.home').state == 'disarmed'
 
+            # Reolink uses camera labels even when its person sensor has no labels.
+            pool = registry.async_get_or_create('camera', 'test', 'piscina', suggested_object_id='piscina')
+            registry.async_update_entity(pool.entity_id, labels={night})
+            hass.states.async_set(pool.entity_id, 'idle', {'friendly_name': 'Piscina'})
+            person = detector('piscina_persona', [], 'motion')
+            await command('arm_night')
+            assert hass.states.get('switch.piscina_subida_ftp').state == 'on'
+            messages.clear()
+
+            async def person_event():
+                hass.states.async_set(person, 'off')
+                hass.states.async_set(person, 'on')
+                await hass.async_block_till_done()
+
+            def pending_people():
+                return dict(hass.states.get('sensor.alarma_personas_pendientes').attributes.get('entries', {}))
+
+            file_event('/media/camera/piscina/2026/no_person.mp4', native=True)
+            await hass.async_block_till_done()
+            assert not messages and not pending_people(), messages
+            await person_event()
+            first_pending = pending_people()
+            assert list(first_pending) == ['camera.piscina'], first_pending
+            assert not messages, messages
+            await person_event()
+            assert pending_people() == first_pending
+            file_event('/media/camera/piscina/2026/photo.jpg')
+            file_event('/media/camera/unknown/other.mp4')
+            file_event('/media/camera/piscina/2026/no_person.mp4')
+            await hass.async_block_till_done()
+            assert pending_people() == first_pending and not messages
+            video = '/media/camera/piscina/2026/Piscina_00_20261114141630.mp4'
+            file_event(video, native=True)
+            file_event(video)
+            async with asyncio.timeout(20):
+                while not any(m.get('file') == video for m in messages):
+                    await asyncio.sleep(0.05)
+            await hass.async_block_till_done()
+            assert len(messages) == 1 and messages[0]['caption'] == '🚨 Persona detectada: Piscina', messages
+            assert not pending_people()
+            # A duplicate from an earlier upload cannot consume a fresh pending alert.
+            await person_event()
+            file_event(video)
+            await hass.async_block_till_done()
+            assert pending_people() and len(messages) == 1
+            await command('exclude', detector='camera.piscina')
+            assert not pending_people()
+            assert hass.states.get('switch.piscina_subida_ftp').state == 'off'
+            await person_event()
+            assert not pending_people()
+
+            await command('arm_night')
+            await person_event()
+            await command('pause', minutes=30)
+            assert not pending_people()
+            assert hass.states.get('switch.piscina_subida_ftp').state == 'off'
+            await command('arm_night')
+            await person_event()
+            expiring = pending_people()
+            expiring['camera.piscina'] = {**expiring['camera.piscina'],
+                                        'expires_at': dt_util.utcnow().timestamp() - 1}
+            hass.bus.async_fire('seguridad_personas_guardar', {'revision': 'expire-test', 'entries': expiring})
+            await hass.async_block_till_done()
+            messages.clear()
+            await hass.services.async_call('script', 'seguridad_gestionar_personas',
+                                          {'command': 'refresh'}, blocking=True)
+            await hass.async_block_till_done()
+            assert len(messages) == 1 and 'No se recibió el vídeo' in messages[0].get('message', ''), messages
+            assert not pending_people()
+            file_event('/media/camera/piscina/2026/late.mp4')
+            await hass.async_block_till_done()
+            assert len(messages) == 1, messages
+            await person_event()
+            await command('disarm')
+            assert not pending_people()
+            print('PASS: person-gated videos, grouped edges, duplicate uploads, timeout and camera exclusions/pauses')
+
             await command('arm_night')
             await command('exclude', detector=door)
             expected = await command('pause', minutes=60)

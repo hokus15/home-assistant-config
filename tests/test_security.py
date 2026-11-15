@@ -109,6 +109,58 @@ class AlarmRules(unittest.TestCase):
                 self.assertEqual(json.loads(MACROS.camera_for_path(cameras, f'{folder}/date/clip.{wrong}')), '')
 
 
+class PersonVideos(unittest.TestCase):
+    def update(self, previous=None, command='detect', camera='camera.piscina',
+               now=1000, occurred_at=None, eligible=None, mode='armed_night', path=''):
+        return json.loads(MACROS.person_notifications(
+            previous or {}, ['camera.piscina', 'camera.otra'] if eligible is None else eligible,
+            mode, now, command, camera, now if occurred_at is None else occurred_at, path))
+
+    def test_first_video_consumes_pending_and_groups_detections(self):
+        pending = self.update()['entries']
+        grouped = self.update(pending, now=1010)
+        self.assertEqual(grouped['entries'], pending)
+        sent = self.update(pending, command='file', now=1020, path='/media/piscina.mp4')
+        self.assertEqual(sent['entries'], {})
+        self.assertEqual(sent['notifications'], [dict(detector='camera.piscina',
+            file_path='/media/piscina.mp4', detected_at=1000, alarm_mode='armed_night')])
+        self.assertEqual(self.update(command='file')['notifications'], [])
+
+    def test_cameras_are_independent(self):
+        pending = self.update()['entries']
+        pending = self.update(pending, camera='camera.otra')['entries']
+        result = self.update(pending, command='file', path='/media/piscina.mp4')
+        self.assertEqual(list(result['entries']), ['camera.otra'])
+        self.assertEqual(result['notifications'][0]['detector'], 'camera.piscina')
+
+    def test_file_event_before_detection_cannot_consume_pending(self):
+        pending = self.update()['entries']
+        result = self.update(pending, command='file', now=1001, occurred_at=999)
+        self.assertEqual(result['entries'], pending)
+        self.assertEqual(result['notifications'], [])
+
+    def test_timeout_sends_text_once_and_late_video_does_not_notify(self):
+        pending = self.update()['entries']
+        self.assertEqual(self.update(pending, command='refresh', now=1119)['notifications'], [])
+        expired = self.update(pending, command='refresh', now=1120)
+        self.assertEqual(expired['entries'], {})
+        self.assertEqual(len(expired['notifications']), 1)
+        self.assertEqual(expired['notifications'][0]['file_path'], '')
+        self.assertEqual(self.update(expired['entries'], command='file', now=1121)['notifications'], [])
+        late = self.update(pending, command='file', now=1121, path='/media/late.mp4')
+        self.assertEqual(late['notifications'][0]['file_path'], '')
+
+    def test_exclusion_disarm_mode_change_and_rearm_cancel_pending(self):
+        pending = self.update()['entries']
+        for kwargs in [dict(eligible=[]), dict(mode='disarmed'), dict(mode='armed_away'),
+                       dict(command='reset', now=1200)]:
+            with self.subTest(kwargs=kwargs):
+                options = dict(command='refresh')
+                options.update(kwargs)
+                result = self.update(pending, **options)
+                self.assertEqual(result, dict(entries={}, notifications=[]))
+
+
 class MediaFiles(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()

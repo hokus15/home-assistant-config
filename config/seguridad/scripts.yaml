@@ -57,6 +57,9 @@ seguridad_controlar:
               error: true
     - if: "{{ result.changed or result.arm or command in ['recover', 'sync'] }}"
       then:
+        - action: script.seguridad_gestionar_personas
+          data:
+            command: "{{ 'reset' if result.arm or command in ['pause', 'disarm'] else 'refresh' }}"
         - action: script.seguridad_sincronizar_camaras
         - if: "{{ result.arm }}"
           then:
@@ -166,13 +169,77 @@ seguridad_enviar_mensaje:
             [['Desarmar 2 horas', '/120_mins'], ['Desarmar 3 horas', '/180_mins']],
             [['Desarmar alarma', '/seg_disarm'], ['Armar alarma', '/seg_arm']]]) }}
 
+seguridad_gestionar_personas:
+  alias: Seguridad - Gestionar videos de personas
+  description: One pending alert per registered camera, consumed by its next completed video.
+  mode: queued
+  max: 100
+  sequence:
+    - if: "{{ command == 'file' }}"
+      then:
+        - action: script.seguridad_reservar_archivo
+          data:
+            file_path: "{{ file_path }}"
+          response_variable: reservation
+        - if: "{{ reservation.duplicate }}"
+          then:
+            - stop: Archivo ya recibido
+    - variables:
+        cameras: !include camaras.yaml
+        alarm_context: "{{ state_attr('sensor.alarma_contexto', 'data') or {} }}"
+        previous: "{{ state_attr('sensor.alarma_personas_pendientes', 'entries') or {} }}"
+        eligible: >-
+          {% set ns = namespace(entities=[]) %}
+          {% if alarm_context.get('mode') in ['armed_away', 'armed_night']
+                and states('alarm_control_panel.home') in ['armed_away', 'armed_night', 'triggered'] %}
+            {% set members = label_entities('alarma_modo_ausente'
+                if alarm_context.mode == 'armed_away' else 'alarma_modo_noche') %}
+            {% for camera in cameras.values() %}
+              {% if camera.get('person_sensor') and camera.camera_entity in members
+                    and camera.camera_entity not in alarm_context.get('excluded', []) %}
+                {% set ns.entities = ns.entities + [camera.camera_entity] %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          {{ ns.entities }}
+        result: >-
+          {% from 'seguridad.jinja' import person_notifications %}
+          {{ person_notifications(previous, eligible, alarm_context.get('mode'),
+              as_timestamp(now()), command, detector | default(''),
+              occurred_at | default(0), file_path | default('')) | from_json }}
+        revision: "{{ 'p' ~ ((as_timestamp(now()) * 1000000) | int) }}"
+    # Commit consumption before starting Telegram work so concurrent files cannot reuse it.
+    - if: "{{ result.entries != previous }}"
+      then:
+        - event: seguridad_personas_guardar
+          event_data:
+            revision: "{{ revision }}"
+            entries: "{{ result.entries }}"
+        - wait_template: "{{ states('sensor.alarma_personas_pendientes') == revision }}"
+          timeout: '00:00:05'
+          continue_on_timeout: false
+    - repeat:
+        for_each: "{{ result.notifications }}"
+        sequence:
+          - action: script.turn_on
+            target:
+              entity_id: script.seguridad_notificar_deteccion
+            data:
+              variables:
+                detector: "{{ repeat.item.detector }}"
+                alarm_mode: "{{ repeat.item.alarm_mode }}"
+                detected_at: "{{ repeat.item.detected_at }}"
+                file_path: "{{ repeat.item.file_path }}"
+                file_reserved: true
+                person_detection: true
+
 seguridad_notificar_deteccion:
   alias: Seguridad - Notificar deteccion
   mode: parallel
   max: 50
   sequence:
     # The caller captures eligibility and context before launching this script.
-    - if: "{{ file_path | default('') != '' }}"
+    - if: "{{ file_path | default('') != '' and not (file_reserved | default(false)) }}"
       then:
         - action: script.seguridad_reservar_archivo
           data:
@@ -190,9 +257,11 @@ seguridad_notificar_deteccion:
               [['Desarmar alarma', '/seg_disarm'], ['Armar alarma', '/seg_arm']]] }}
         message: >-
           {% set kind = state_attr(detector, 'device_class') %}
-          🚨 {{ 'Apertura detectada' if kind in ['door', 'window', 'opening', 'garage_door']
+          🚨 {{ 'Persona detectada' if person_detection | default(false)
+             else 'Apertura detectada' if kind in ['door', 'window', 'opening', 'garage_door']
              else 'Movimiento detectado' if kind in ['motion', 'occupancy', 'presence'] or detector.startswith('camera.')
              else 'Detección' }}: {{ state_attr(detector, 'friendly_name') or detector }}
+          {%- if person_detection | default(false) and file_path | default('') == '' %}. No se recibió el vídeo en el plazo de espera.{% endif %}
     - if: "{{ states('alarm_control_panel.home') in ['armed_away', 'armed_night'] }}"
       then:
         - action: alarm_control_panel.alarm_trigger
