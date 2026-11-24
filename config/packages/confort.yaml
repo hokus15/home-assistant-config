@@ -25,10 +25,11 @@ recorder:
       - sensor.habitacion_coque_temperature
       - sensor.habitacion_coque_co2
       - sensor.habitacion_coque_humidity
-      - sensor.recibidor_temperature
+      - sensor.recibidor_termostato_temperatura
+      - sensor.recibidor_termostato_temperatura_objetivo
+      - binary_sensor.recibidor_termostato_activo
       - sensor.despacho_movimiento_iluminancia
       - sensor.despacho_movimiento_temperatura
-      - sensor.recibidor_target_temperature
       - sensor.cocina_puerta_porche_temperatura
 
 logbook:
@@ -55,12 +56,30 @@ logbook:
       - sensor.habitacion_coque_temperature
       - sensor.habitacion_coque_co2
       - sensor.habitacion_coque_humidity
-      - sensor.recibidor_temperature
+      - sensor.recibidor_termostato_temperatura
       - sensor.despacho_movimiento_iluminancia
       - sensor.despacho_movimiento_temperatura
       - sensor.cocina_puerta_porche_temperatura
 template:
   - binary_sensor:
+    # Estimate heat demand; this does not confirm the boiler's actual operation.
+    - name: recibidor_termostato_activo
+      unique_id: recibidor_termostato_activo
+      device_class: heat
+      availability: >-
+        {{ is_state('climate.recibidor_termostato', 'off')
+           or (is_state('climate.recibidor_termostato', 'heat')
+               and is_number(states('sensor.recibidor_termostato_temperatura'))
+               and is_number(states('sensor.recibidor_termostato_temperatura_objetivo'))) }}
+      state: >-
+        {% set current = states('sensor.recibidor_termostato_temperatura') %}
+        {% set target = states('sensor.recibidor_termostato_temperatura_objetivo') %}
+        {{ is_state('climate.recibidor_termostato', 'heat')
+           and is_number(current) and is_number(target)
+           and current | float(0) < target | float(0) }}
+      attributes:
+        estimado: true
+
     - name: summer_time
       device_class: light
       state: '{{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z") == "CEST"}}'
@@ -87,10 +106,13 @@ template:
     - name: sunset
       state: '{{ as_timestamp(states.sun.sun.attributes.next_setting)|timestamp_custom("%H:%M:%S") }}'
     # Thermostat sensors
-    - name: recibidor_target_temperature
-      state: "{{state_attr('climate.recibidor', 'temperature')}}"
-    - name: recibidor_temperature
-      state: "{{state_attr('climate.recibidor', 'current_temperature')}}"
+    - name: recibidor_termostato_temperatura_objetivo
+      unique_id: recibidor_termostato_temperatura_objetivo
+      device_class: temperature
+      unit_of_measurement: "°C"
+      state: "{{ state_attr('climate.recibidor_termostato', 'temperature') }}"
+      availability: >
+        {{ state_attr('climate.recibidor_termostato', 'temperature') is not none }}
 
 sensor:
   # Average temperatures by floor, for the whole home, and over the last 24 hours
@@ -99,7 +121,7 @@ sensor:
     type: mean
     round_digits: 1
     entity_ids:
-      - sensor.recibidor_temperature
+      - sensor.recibidor_termostato_temperatura
       - sensor.salon_temperature
       - sensor.despacho_movimiento_temperatura
 
@@ -121,7 +143,7 @@ sensor:
       - sensor.habitacion_carlos_temperature
       - sensor.habitacion_coque_temperature
       - sensor.salon_temperature
-      - sensor.recibidor_temperature
+      - sensor.recibidor_termostato_temperatura
       - sensor.despacho_movimiento_temperatura
 
   - platform: statistics
@@ -133,6 +155,11 @@ sensor:
       hours: 24
 
 input_boolean:
+  # Seasonal permission, independent of occupancy and actual thermostat mode.
+  # No initial value: restore the previous state (off on first installation).
+  calefaccion_temporada_activo:
+    name: Calefacción habilitada
+    icon: "mdi:radiator"
   sleep_mode:
     name: Modo dormir
     icon: "mdi:sleep"

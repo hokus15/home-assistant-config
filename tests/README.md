@@ -2,6 +2,7 @@
 
 | File | Coverage | Limitations |
 | --- | --- | --- |
+| `test_heating.py` | Estimated heating demand, setpoint changes, invalid readings, temperature hysteresis, seasonal permission, absence and arrival, holiday blocking and exit, recovery predicates, mode confirmation, and open-door waste alerts. | Evaluates the actual YAML templates and conditions with simulated states; does not confirm boiler activity or run Home Assistant's trigger engine, timers, or device and Telegram services. |
 | `test_security.py` | Alarm transitions, pauses, exclusions, time boundaries, camera resolution, and actual conversion with FFmpeg. | Timestamps are supplied to the macro; these tests do not exercise Home Assistant's time trigger. Actual conversion requires FFmpeg and FFprobe. |
 | `test_energy_circuits.py` | Diagnosis and messages from the actual templates, available/unavailable/unknown device references, and YAML wiring between sensors, alerts, and the notifier. | These tests do not run the `alert` integration: they do not verify its timers, repetitions, or actual Telegram delivery. |
 | `test_security_runtime.py` | Actual Home Assistant scripts and automations: the good-night routine, panel feedback, sensors, presence, buttons, exclusions, Folder Watcher events, recording classification, and data restoration. | Devices, Telegram, and conversion results are simulated. Restoration checks persisted sensors and the pause deadline; it does not reproduce the complete startup of a household installation. |

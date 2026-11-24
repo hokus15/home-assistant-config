@@ -28,7 +28,7 @@ recorder:
       - sensor.piscina_medidor_consumo_potencia
       - sensor.piscina_medidor_consumo_energia
 
-      - climate.recibidor
+      - climate.recibidor_termostato
 
       - sensor.co2_intensity
       - sensor.grid_fossil_fuel_percentage

@@ -9,7 +9,7 @@ views:
         columns: 3
         state_color: true
         entities:
-          - entity: climate.recibidor
+          - entity: climate.recibidor_termostato
             name: Calefaccion
           - entity: sensor.home_temperature
             name: Casa
@@ -23,13 +23,15 @@ views:
             name: Tarifa
 
       - type: thermostat
-        entity: climate.recibidor
-        name: Calefaccion recibidor
+        entity: climate.recibidor_termostato
+        name: Calefaccion
 
       - type: entities
         title: Control calefaccion
         show_header_toggle: false
         entities:
+          - entity: input_boolean.calefaccion_temporada_activo
+            name: Calefacción habilitada por temporada
           - entity: sensor.recibidor_temperature
             name: Temperatura recibidor
           - entity: sensor.recibidor_target_temperature
@@ -178,7 +180,7 @@ views:
             name: Potencia A/A primera planta
           - entity: sensor.climatizacion_primera_planta_aire_acondicionado_energia
             name: Energia A/A primera planta
-          - entity: climate.recibidor
+          - entity: climate.recibidor_termostato
             name: Calefaccion
 
       - type: history-graph
@@ -196,7 +198,7 @@ views:
         title: Estado calefaccion 24h
         hours_to_show: 24
         entities:
-          - entity: climate.recibidor
+          - entity: climate.recibidor_termostato
             name: Calefaccion
 
       - type: entities

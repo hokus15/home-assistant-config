@@ -8,10 +8,10 @@ recorder:
 template:
   - binary_sensor:
       - name: "energy_waste_alert"
+        availability: "{{ has_value('binary_sensor.recibidor_termostato_activo') }}"
         state: >-
           {{ label_entities('comprobacion_desperdicio_energetico') | expand | selectattr('state', 'eq', 'on') | list | count > 0
-             and not is_state('climate.recibidor', 'off')
-             and is_state_attr('climate.recibidor', 'hvac_action', 'heating') }}
+             and is_state('binary_sensor.recibidor_termostato_activo', 'on') }}
 
       - name: "piscina_depuradora_encendida_alerta"
         state: >-

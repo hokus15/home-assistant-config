@@ -1,0 +1,38 @@
+# Update seasonal permission independently of occupancy and holiday mode.
+- id: calefaccion_recibidor_encender_por_temperatura_media
+  alias: "Calefacción - Recibidor - Encender por temperatura media"
+  mode: single
+  triggers:
+    - trigger: numeric_state
+      entity_id: sensor.home_temperature_stats
+      below: 18.5
+    - trigger: homeassistant
+      event: start
+    - trigger: template
+      value_template: >-
+        {{ has_value('sensor.home_temperature_stats')
+           and has_value('input_boolean.calefaccion_temporada_activo') }}
+  conditions:
+    - condition: numeric_state
+      entity_id: sensor.home_temperature_stats
+      below: 18.5
+    - condition: state
+      entity_id: input_boolean.calefaccion_temporada_activo
+      state: "off"
+  actions:
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.calefaccion_temporada_activo
+    - action: logbook.log
+      data:
+        name: Calefacción
+        message: "permiso de temporada activado por temperatura media inferior a 18,5 °C"
+        entity_id: input_boolean.calefaccion_temporada_activo
+    - action: notify.send_message
+      target:
+        entity_id: notify.telegram_hokusphone
+      data:
+        message: "⛄ He activado el permiso de calefacción: la temperatura media de casa es inferior a 18,5 °C. El termostato se controla según presencia y no se modifica en vacaciones."
+        data:
+          inline_keyboard:
+            - "Deshabilitar calefacción:/input_boolean.turn_off#input_boolean.calefaccion_temporada_activo"

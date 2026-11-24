@@ -1,0 +1,57 @@
+# The automatic writer of thermostat mode: season + presence + holiday.
+- id: calefaccion_recibidor_controlar_por_presencia
+  alias: "Calefacción - Recibidor - Controlar por presencia"
+  mode: restart
+  triggers:
+    - trigger: state
+      entity_id:
+        - group.invitado_y_familia
+        - input_boolean.calefaccion_temporada_activo
+        - switch.holiday
+      to: null
+    - trigger: homeassistant
+      event: start
+    # Availability recovery only: manual heat/off changes must not retrigger.
+    - trigger: template
+      value_template: >-
+        {{ states('climate.recibidor_termostato') in ['heat', 'off'] }}
+  conditions:
+    # Unknown holiday/presence states are not permission to operate.
+    - condition: state
+      entity_id: switch.holiday
+      state: "off"
+    - condition: template
+      value_template: >-
+        {{ states('group.invitado_y_familia') in ['home', 'not_home']
+           and states('input_boolean.calefaccion_temporada_activo') in ['on', 'off']
+           and states('climate.recibidor_termostato') in ['heat', 'off'] }}
+  actions:
+    - variables:
+        # At startup the restored permission may precede the temperature update.
+        # Never briefly enable heating with an already-known summer temperature.
+        desired_mode: >-
+          {{ 'heat' if is_state('input_boolean.calefaccion_temporada_activo', 'on')
+             and is_state('group.invitado_y_familia', 'home')
+             and not (is_number(states('sensor.home_temperature_stats'))
+                      and states('sensor.home_temperature_stats') | float(0) > 20)
+             else 'off' }}
+    - condition: template
+      value_template: "{{ not is_state('climate.recibidor_termostato', desired_mode) }}"
+    # Tado is configured to resume its schedule one minute after selecting heat.
+    - action: climate.set_hvac_mode
+      target:
+        entity_id: climate.recibidor_termostato
+      data:
+        hvac_mode: "{{ desired_mode }}"
+    - wait_template: "{{ is_state('climate.recibidor_termostato', desired_mode) }}"
+      timeout: "00:00:30"
+      continue_on_timeout: false
+    - action: logbook.log
+      data:
+        name: Calefacción
+        message: >-
+          {{ 'habilitada' if desired_mode == 'heat' else 'apagada' }} por control
+          de presencia (presencia: {{ states('group.invitado_y_familia') }},
+          permiso de temporada: {{ states('input_boolean.calefaccion_temporada_activo') }}).
+        entity_id: climate.recibidor_termostato
+        domain: climate

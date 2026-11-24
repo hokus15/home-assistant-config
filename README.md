@@ -60,6 +60,14 @@ ci/
 
 Active automations live in `config/automations/`. Their filenames follow the automation filename convention below. Automations that should not be loaded are kept in `config/automations/disabled/` with a `.disabled` extension.
 
+## Heating and Presence
+
+`input_boolean.calefaccion_temporada_activo`, available in the Climatizacion dashboard, stores seasonal permission independently of the thermostat's actual mode. The two temperature automations enable it below a 24-hour mean of 18.5 °C and disable it above 20 °C. Between those thresholds (including equality), it retains its previous value. You can also change it manually; a later temperature threshold crossing, startup, or sensor recovery can update it again.
+
+`calefaccion_recibidor_controlar_por_presencia` selects `heat` only when permission is enabled and `group.invitado_y_familia` is `home`; otherwise it selects `off`. It never changes the thermostat unless `switch.holiday` is explicitly `off` and presence, permission, and thermostat states are valid. Seasonal permission continues updating during holidays. Leaving holiday mode reconciles the thermostat with current presence and permission. Startup and entity recovery also reconcile it; ordinary manual thermostat changes are preserved until the next presence, permission, or holiday event.
+
+The [input boolean helper](https://www.home-assistant.io/integrations/input_boolean/) restores its previous value after restarting Home Assistant. On first installation it defaults to off: if the mean is between 18.5 and 20 °C, enable it manually if heating is needed. Setting `heat` uses the existing setpoint; this installation's Tado configuration resumes its schedule one minute later. This configuration must be loaded into Home Assistant before it takes effect; restart after adding the YAML helper.
+
 ## Secrets
 
 Real secrets are not committed. Home Assistant loads runtime values from `config/secrets.yaml`, while the repository includes `config/secrets.fake.yaml` so CI can resolve every `!secret` reference.
