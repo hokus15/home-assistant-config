@@ -1,6 +1,7 @@
 """Exercise heating templates with simulated Matter states, without device calls."""
 
 import math
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from types import SimpleNamespace
 import unittest
@@ -25,6 +26,7 @@ AUTOMATIONS = [
     for path in sorted((ROOT / 'config/automations').glob('calefaccion_recibidor_*_por_temperatura_media.yaml'))
 ]
 CONTROL = yaml.safe_load((ROOT / 'config/automations/calefaccion_recibidor_controlar_por_presencia.yaml').read_text(encoding='utf-8'))[0]
+NOTICE = yaml.safe_load((ROOT / 'config/packages/alerts.yaml').read_text(encoding='utf-8'))['alert']['energy_waste_alert']
 
 
 class HeatingTemplates(unittest.TestCase):
@@ -34,7 +36,8 @@ class HeatingTemplates(unittest.TestCase):
             TEMPERATURE: '19.0', TARGET: '20.0',
             PERMISSION: 'on', PRESENCE: 'home', HOLIDAY: 'off',
         }
-        self.openings = [SimpleNamespace(state='on')]
+        self.now = datetime(2026, 11, 24, 12, tzinfo=timezone.utc)
+        self.openings = [self.opening('Ventana salón', 900)]
         self.env = ImmutableSandboxedEnvironment()
         self.env.filters['expand'] = lambda entities: entities
         self.env.globals.update(
@@ -43,6 +46,16 @@ class HeatingTemplates(unittest.TestCase):
             states=lambda entity: self.states.get(entity, 'unknown'),
             label_entities=lambda label: self.openings,
             is_number=self.is_number,
+            now=lambda: self.now,
+            as_timestamp=lambda value: value.timestamp(),
+            relative_time=lambda value: f'{int((self.now - value).total_seconds() // 60)} minutes',
+        )
+
+    def opening(self, name, age, state='on'):
+        return SimpleNamespace(
+            state=state,
+            last_changed=self.now - timedelta(seconds=age),
+            attributes=SimpleNamespace(friendly_name=name),
         )
 
     @staticmethod
@@ -90,6 +103,50 @@ class HeatingTemplates(unittest.TestCase):
         self.states[ACTIVE] = 'on'
         self.openings[0].state = 'off'
         self.assertFalse(self.evaluate(ALERT['state']))
+
+    def test_each_opening_must_individually_exceed_ten_minutes(self):
+        for age, expected in [(0, False), (599, False), (600, False), (601, True)]:
+            with self.subTest(age=age):
+                self.openings = [self.opening('Ventana', age)]
+                self.assertEqual(self.evaluate(ALERT['state']), expected)
+
+    def test_successive_recent_openings_do_not_accumulate_time(self):
+        self.openings = [self.opening('Ventana', 1200, 'off'), self.opening('Puerta', 300)]
+        self.assertFalse(self.evaluate(ALERT['state']))
+        # Passage of time alone is enough; no new sensor state is required.
+        self.now += timedelta(seconds=301)
+        self.assertTrue(self.evaluate(ALERT['state']))
+
+    def test_heating_start_uses_existing_opening_age(self):
+        self.openings = [self.opening('Ventana', 1800)]
+        self.states[ACTIVE] = 'off'
+        self.assertFalse(self.evaluate(ALERT['state']))
+        self.states[ACTIVE] = 'on'
+        self.assertTrue(self.evaluate(ALERT['state']))
+
+    def test_notice_lists_all_openings_including_recent_ones(self):
+        self.openings = [self.opening('Ventana salón', 900), self.opening('Puerta cocina', 180),
+                         self.opening('Ventana cerrada', 1800, 'off')]
+        self.assertTrue(self.evaluate(ALERT['state']))
+        message = self.env.from_string(NOTICE['message']).render()
+        self.assertIn('La Ventana salón lleva más de 15 minutos abierta y la calefacción está encendida.', message)
+        self.assertIn('La Puerta cocina lleva más de 3 minutos abierta y la calefacción está encendida.', message)
+        self.assertNotIn('Ventana cerrada', message)
+
+    def test_unknown_unavailable_and_closed_openings_cannot_trigger(self):
+        for state in ['off', 'unknown', 'unavailable']:
+            self.openings = [self.opening('Ventana', 1800, state)]
+            self.assertFalse(self.evaluate(ALERT['state']))
+        self.openings = []
+        self.assertFalse(self.evaluate(ALERT['state']))
+
+    def test_alert_sends_immediately_repeats_and_can_be_acknowledged(self):
+        self.assertTrue(NOTICE['can_acknowledge'])
+        self.assertFalse(NOTICE['skip_first'])
+        self.assertEqual(NOTICE['repeat'], 10)
+        self.assertEqual(NOTICE['notifiers'], ['recibidor', 'suite', 'despacho', 'telegram_hokusphone'])
+        self.assertIn('Enterado:/alert.turn_off#alert.energy_waste_alert',
+                      NOTICE['data']['inline_keyboard'])
 
     def test_heating_estimate_changes_at_setpoint(self):
         for current, expected in [(19.9, True), (20.0, False), (20.1, False)]:

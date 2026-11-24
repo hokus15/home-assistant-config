@@ -68,6 +68,14 @@ Active automations live in `config/automations/`. Their filenames follow the aut
 
 The [input boolean helper](https://www.home-assistant.io/integrations/input_boolean/) restores its previous value after restarting Home Assistant. On first installation it defaults to off: if the mean is between 18.5 and 20 °C, enable it manually if heating is needed. Setting `heat` uses the existing setpoint; this installation's Tado configuration resumes its schedule one minute later. This configuration must be loaded into Home Assistant before it takes effect; restart after adding the YAML helper.
 
+### Open Door and Window Heating Alerts
+
+`binary_sensor.energy_waste_alert` activates when estimated heating is active and at least one entity labelled `comprobacion_desperdicio_energetico` has been continuously open for more than ten minutes. Each opening is timed independently; `now()` refreshes the template every minute, and sensor changes also update it. If heating starts with an already overdue opening, no additional ten-minute delay is required.
+
+`alert.energy_waste_alert` handles delivery, ten-minute repetitions, and acknowledgement directly. `skip_first: false` sends the first message as soon as the condition is met, without another ten-minute delay. The Telegram acknowledgement button silences the current alert episode. If the condition clears and becomes true again, a new episode can notify immediately, even if fewer than ten minutes have passed since the previous message. There is no separate notification automation or timestamp helper.
+
+Messages retain the existing wording and list **all** currently open labelled entities, including those open for less than ten minutes. Destinations remain recibidor, suite, despacho, and Telegram. Minute-based template updates can add approximately one minute to threshold detection. Opening age uses each entity's `last_changed`; a Home Assistant restart or a sensor becoming unavailable can restart that age, so opening-duration persistence is not guaranteed.
+
 ## Secrets
 
 Real secrets are not committed. Home Assistant loads runtime values from `config/secrets.yaml`, while the repository includes `config/secrets.fake.yaml` so CI can resolve every `!secret` reference.

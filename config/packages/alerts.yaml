@@ -9,9 +9,16 @@ template:
   - binary_sensor:
       - name: "energy_waste_alert"
         availability: "{{ has_value('binary_sensor.recibidor_termostato_activo') }}"
+        # now() also refreshes the template at the start of every minute.
         state: >-
-          {{ label_entities('comprobacion_desperdicio_energetico') | expand | selectattr('state', 'eq', 'on') | list | count > 0
-             and is_state('binary_sensor.recibidor_termostato_activo', 'on') }}
+          {% set ns = namespace(overdue=false) %}
+          {% for entity in label_entities('comprobacion_desperdicio_energetico') | expand
+             | selectattr('state', 'eq', 'on') %}
+            {% if as_timestamp(now()) - as_timestamp(entity.last_changed) > 600 %}
+              {% set ns.overdue = true %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.overdue and is_state('binary_sensor.recibidor_termostato_activo', 'on') }}
 
       - name: "piscina_depuradora_encendida_alerta"
         state: >-
@@ -46,7 +53,7 @@ alert:
             La {{entity.attributes.friendly_name}} lleva más de {{ relative_time(entity.last_changed) | replace('hours','horas') | replace('hour','hora') | replace('minutes','minutos') | replace('minute','minuto') }} abierta y la calefacción está encendida.
       {%- endfor %}
     can_acknowledge: true
-    skip_first: true
+    skip_first: false
     data:
       inline_keyboard:
         - "Enterado:/alert.turn_off#alert.energy_waste_alert"
