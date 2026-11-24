@@ -32,9 +32,9 @@ views:
         entities:
           - entity: input_boolean.calefaccion_temporada_activo
             name: Calefacción habilitada por temporada
-          - entity: sensor.recibidor_temperature
+          - entity: sensor.recibidor_termostato_temperatura
             name: Temperatura recibidor
-          - entity: sensor.recibidor_target_temperature
+          - entity: sensor.recibidor_termostato_temperatura_objetivo
             name: Objetivo termostato
           - entity: sensor.home_temperature
             name: Media casa
@@ -89,7 +89,7 @@ views:
             name: Planta baja
           - entity: sensor.first_floor_temperature
             name: Primera planta
-          - entity: sensor.recibidor_target_temperature
+          - entity: sensor.recibidor_termostato_temperatura_objetivo
             name: Objetivo
 
       - type: entities
@@ -98,7 +98,7 @@ views:
         entities:
           - entity: sensor.salon_temperature
             name: Salon
-          - entity: sensor.recibidor_temperature
+          - entity: sensor.recibidor_termostato_temperatura
             name: Recibidor
           - entity: sensor.despacho_movimiento_temperatura
             name: Despacho
@@ -234,3 +234,147 @@ views:
             name: Viento
           - entity: sensor.pluviometro_rain
             name: Lluvia
+
+  - title: Calefacción
+    path: calefaccion
+    icon: mdi:radiator
+    cards:
+      - type: glance
+        title: Estado actual
+        columns: 3
+        state_color: true
+        entities:
+          - entity: climate.recibidor_termostato
+            name: Termostato
+          - entity: sensor.recibidor_termostato_temperatura
+            name: Recibidor
+          - entity: sensor.recibidor_termostato_temperatura_objetivo
+            name: Consigna
+          - entity: sensor.home_temperature
+            name: Media casa
+          - entity: sensor.home_temperature_stats
+            name: Media 24 h
+          - entity: binary_sensor.recibidor_termostato_activo
+            name: Calentando (estimado)
+
+      - type: thermostat
+        entity: climate.recibidor_termostato
+        name: Termostato del recibidor
+
+      - type: entities
+        title: Temporada
+        show_header_toggle: false
+        entities:
+          - entity: input_boolean.calefaccion_temporada_activo
+            name: Calefacción habilitada
+          - entity: sensor.home_temperature_stats
+            name: Temperatura media de 24 h
+          - entity: input_number.calefaccion_temporada_temperatura_activar
+            name: Activar por debajo de
+          - entity: input_number.calefaccion_temporada_temperatura_desactivar
+            name: Desactivar por encima de
+
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: input_boolean.calefaccion_umbrales_inicializado
+            state: "on"
+          - condition: state
+            entity: binary_sensor.calefaccion_umbrales_validos
+            state: "off"
+        card:
+          type: markdown
+          content: "**Umbrales inválidos:** activar debe ser menor que desactivar."
+
+      - type: glance
+        title: Presencia y vacaciones
+        columns: 3
+        state_color: true
+        entities:
+          - entity: group.invitado_y_familia
+            name: Familia e invitados
+            tap_action:
+              action: more-info
+          - entity: binary_sensor.calefaccion_presencia
+            name: Presencia calefacción
+            tap_action:
+              action: more-info
+          - entity: switch.holiday
+            name: Vacaciones
+            tap_action:
+              action: more-info
+
+      - type: history-graph
+        title: Temperatura y consigna · 24 h
+        hours_to_show: 24
+        entities:
+          - entity: sensor.recibidor_termostato_temperatura
+            name: Recibidor
+          - entity: sensor.recibidor_termostato_temperatura_objetivo
+            name: Consigna
+          - entity: sensor.home_temperature
+            name: Media casa
+
+      - type: glance
+        title: Avisos de puertas y ventanas
+        columns: 2
+        state_color: true
+        entities:
+          - entity: binary_sensor.energy_waste_alert
+            name: Condición de aviso
+          - entity: alert.energy_waste_alert
+            name: Estado de la alerta
+            tap_action:
+              action: more-info
+
+      - type: markdown
+        title: Puertas y ventanas abiertas
+        content: |-
+          {% set monitored = label_entities('comprobacion_desperdicio_energetico') | expand | list %}
+          {% set opened = monitored | selectattr('state', 'eq', 'on') | list %}
+          {% if monitored | count == 0 %}
+          Sin sensores configurados.
+          {% elif opened | count == 0 %}
+          Ninguna abierta.
+          {% else %}
+          {% for entity in opened %}
+          {% set minutes = ((as_timestamp(now()) - as_timestamp(entity.last_changed)) / 60) | int %}
+          - **{{ entity.name }}**: {{ minutes }} min abierta{{ ' · Más de 10 min' if as_timestamp(now()) - as_timestamp(entity.last_changed) > 600 else '' }}.
+          {% endfor %}
+          {% endif %}
+          {% set missing = monitored | rejectattr('state', 'in', ['on', 'off']) | list %}
+          {% if missing | count > 0 %}
+
+          **Sin datos:** {{ missing | map(attribute='name') | join(', ') }}.
+          {% endif %}
+
+
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: alert.energy_waste_alert
+            state: "on"
+        card:
+          type: button
+          name: Silenciar aviso actual
+          icon: mdi:bell-off
+          tap_action:
+            action: perform-action
+            perform_action: alert.turn_off
+            target:
+              entity_id: alert.energy_waste_alert
+
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: alert.energy_waste_alert
+            state: "off"
+        card:
+          type: button
+          name: Reactivar avisos de esta alerta
+          icon: mdi:bell-ring
+          tap_action:
+            action: perform-action
+            perform_action: alert.turn_on
+            target:
+              entity_id: alert.energy_waste_alert

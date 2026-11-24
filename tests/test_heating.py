@@ -18,7 +18,13 @@ TEMPERATURE = 'sensor.recibidor_termostato_temperatura'
 TARGET = 'sensor.recibidor_termostato_temperatura_objetivo'
 PERMISSION = 'input_boolean.calefaccion_temporada_activo'
 PRESENCE = 'group.invitado_y_familia'
+EFFECTIVE_PRESENCE = 'binary_sensor.calefaccion_presencia'
 HOLIDAY = 'switch.holiday'
+LOWER = 'input_number.calefaccion_temporada_temperatura_activar'
+UPPER = 'input_number.calefaccion_temporada_temperatura_desactivar'
+INITIALIZED = 'input_boolean.calefaccion_umbrales_inicializado'
+VALID = 'binary_sensor.calefaccion_umbrales_validos'
+VALIDATION = next(sensor for sensor in yaml.safe_load((ROOT / 'config/packages/confort.yaml').read_text(encoding='utf-8'))['template'][0]['binary_sensor'] if sensor.get('unique_id') == 'calefaccion_umbrales_validos')
 ALERT = yaml.safe_load((ROOT / 'config/packages/alerts.yaml').read_text(encoding='utf-8'))['template'][0]['binary_sensor'][0]
 HEATING = yaml.safe_load((ROOT / 'config/packages/confort.yaml').read_text(encoding='utf-8'))['template'][0]['binary_sensor'][0]
 AUTOMATIONS = [
@@ -34,7 +40,8 @@ class HeatingTemplates(unittest.TestCase):
         self.states = {
             THERMOSTAT: 'heat', MEAN: '18', ACTIVE: 'on',
             TEMPERATURE: '19.0', TARGET: '20.0',
-            PERMISSION: 'on', PRESENCE: 'home', HOLIDAY: 'off',
+            PERMISSION: 'on', PRESENCE: 'home', EFFECTIVE_PRESENCE: 'on', HOLIDAY: 'off',
+            LOWER: '18.5', UPPER: '20', INITIALIZED: 'on', VALID: 'on',
         }
         self.now = datetime(2026, 11, 24, 12, tzinfo=timezone.utc)
         self.openings = [self.opening('Ventana salón', 900)]
@@ -77,8 +84,11 @@ class HeatingTemplates(unittest.TestCase):
             value = self.states[condition['entity_id']]
             if not self.is_number(value):
                 return False
-            return (('above' not in condition or float(value) > condition['above'])
-                    and ('below' not in condition or float(value) < condition['below']))
+            def boundary(key):
+                threshold = condition[key]
+                return float(self.states[threshold]) if isinstance(threshold, str) else threshold
+            return (('above' not in condition or float(value) > boundary('above'))
+                    and ('below' not in condition or float(value) < boundary('below')))
         self.fail(f'Unsupported condition: {condition}')
 
     def update_permission(self):
@@ -192,7 +202,7 @@ class HeatingTemplates(unittest.TestCase):
     def test_recovery_trigger_needs_both_entities_available(self):
         self.assertEqual(len(AUTOMATIONS), 2)
         for automation in AUTOMATIONS:
-            trigger = next(t['value_template'] for t in automation['triggers'] if t['trigger'] == 'template')
+            trigger = next(t['value_template'] for t in automation['triggers'] if t.get('id') == 'recovery')
             for entity in [PERMISSION, MEAN]:
                 for bad in ['unknown', 'unavailable']:
                     with self.subTest(automation=automation['id'], entity=entity, state=bad):
@@ -204,7 +214,7 @@ class HeatingTemplates(unittest.TestCase):
 
     def test_manual_mode_changes_do_not_rearm_recovery_trigger(self):
         for automation in AUTOMATIONS:
-            trigger = next(t['value_template'] for t in automation['triggers'] if t['trigger'] == 'template')
+            trigger = next(t['value_template'] for t in automation['triggers'] if t.get('id') == 'recovery')
             results = []
             for state in ['heat', 'off', 'heat']:
                 self.states[THERMOSTAT] = state
@@ -236,7 +246,7 @@ class HeatingTemplates(unittest.TestCase):
             for presence in ['home', 'not_home']:
                 for mode in ['heat', 'off']:
                     with self.subTest(permission=permission, presence=presence, mode=mode):
-                        self.states.update({PERMISSION: permission, PRESENCE: presence, THERMOSTAT: mode})
+                        self.states.update({PERMISSION: permission, PRESENCE: presence, EFFECTIVE_PRESENCE: 'on' if presence == 'home' else 'off', THERMOSTAT: mode})
                         desired = 'heat' if permission == 'on' and presence == 'home' else 'off'
                         self.assertEqual(self.requested_mode(), desired if desired != mode else None)
 
@@ -244,6 +254,7 @@ class HeatingTemplates(unittest.TestCase):
         for entity, values in [
             (HOLIDAY, ['on', 'unknown', 'unavailable']),
             (PRESENCE, ['unknown', 'unavailable']),
+            (EFFECTIVE_PRESENCE, ['unknown', 'unavailable']),
             (PERMISSION, ['unknown', 'unavailable']),
             (THERMOSTAT, ['unknown', 'unavailable', 'auto']),
         ]:
@@ -255,12 +266,13 @@ class HeatingTemplates(unittest.TestCase):
                     self.states[entity] = previous
 
     def test_away_cold_then_arrival_and_summer_arrival(self):
-        self.states.update({PRESENCE: 'not_home', PERMISSION: 'off'})
+        self.states.update({PRESENCE: 'not_home', EFFECTIVE_PRESENCE: 'off', PERMISSION: 'off'})
         self.update_permission()
         self.assertEqual(self.states[PERMISSION], 'on')
         self.assertEqual(self.requested_mode(), 'off')
         self.states[THERMOSTAT] = 'off'
         self.states[PRESENCE] = 'home'
+        self.states[EFFECTIVE_PRESENCE] = 'on'
         self.assertEqual(self.requested_mode(), 'heat')
         self.states[MEAN] = '21'
         self.update_permission()
@@ -278,13 +290,71 @@ class HeatingTemplates(unittest.TestCase):
         self.states.update({PERMISSION: 'on', MEAN: '21', THERMOSTAT: 'off'})
         self.assertIsNone(self.requested_mode())
 
+    def test_custom_thresholds_keep_hysteresis_and_update_hot_start_guard(self):
+        self.states.update({LOWER: '17', UPPER: '22', MEAN: '18', PERMISSION: 'off'})
+        self.update_permission()
+        self.assertEqual(self.states[PERMISSION], 'off')
+        self.states[MEAN] = '16.9'
+        self.update_permission()
+        self.assertEqual(self.states[PERMISSION], 'on')
+        self.states.update({MEAN: '21', THERMOSTAT: 'off'})
+        self.assertEqual(self.requested_mode(), 'heat')
+        self.states[MEAN] = '22.1'
+        self.assertIsNone(self.requested_mode())
+        self.update_permission()
+        self.assertEqual(self.states[PERMISSION], 'off')
+
+    def test_invalid_thresholds_preserve_season_and_thermostat(self):
+        for lower, upper in [('20', '20'), ('21', '19'), ('unknown', '20'), ('18.5', 'unavailable')]:
+            for previous in ['on', 'off']:
+                with self.subTest(lower=lower, upper=upper, previous=previous):
+                    # Keep the derived sensor stale to exercise event ordering.
+                    self.states.update({LOWER: lower, UPPER: upper, PERMISSION: previous, VALID: 'on'})
+                    self.assertFalse(self.evaluate(VALIDATION['state']))
+                    self.update_permission()
+                    self.assertEqual(self.states[PERMISSION], previous)
+                    self.assertIsNone(self.requested_mode())
+
+    def test_defaults_must_finish_initializing_before_controlling_heating(self):
+        self.states[INITIALIZED] = 'off'
+        self.assertFalse(self.evaluate(VALIDATION['state']))
+        self.assertIsNone(self.requested_mode())
+        self.states[PERMISSION] = 'off'
+        self.update_permission()
+        self.assertEqual(self.states[PERMISSION], 'off')
+
+    def test_threshold_edits_are_watched_by_temperature_automations(self):
+        for automation in AUTOMATIONS:
+            edits = next(t for t in automation['triggers'] if t['trigger'] == 'state')
+            self.assertEqual(set(edits['entity_id']), {LOWER, UPPER})
+
+    def test_effective_presence_keeps_heating_on_during_absence_grace_period(self):
+        self.states.update({PRESENCE: 'not_home', EFFECTIVE_PRESENCE: 'on', THERMOSTAT: 'heat'})
+        self.assertIsNone(self.requested_mode())
+        self.states[EFFECTIVE_PRESENCE] = 'off'
+        self.assertEqual(self.requested_mode(), 'off')
+        self.states.update({PRESENCE: 'home', EFFECTIVE_PRESENCE: 'on', THERMOSTAT: 'off'})
+        self.assertEqual(self.requested_mode(), 'heat')
+
+    def test_effective_presence_template_rejects_missing_data_and_delays_only_absence(self):
+        package = yaml.safe_load((ROOT / 'config/packages/confort.yaml').read_text(encoding='utf-8'))
+        presence = next(sensor for sensor in package['template'][0]['binary_sensor']
+                        if sensor.get('unique_id') == 'calefaccion_presencia')
+        self.assertEqual(presence['delay_off'], '00:05:00')
+        self.assertNotIn('delay_on', presence)
+        for raw, result in [('home', 'True'), ('not_home', 'False'),
+                            ('unknown', 'None'), ('unavailable', 'None')]:
+            with self.subTest(raw=raw):
+                self.states[PRESENCE] = raw
+                self.assertEqual(self.env.from_string(presence['state']).render().strip(), result)
+
     def test_controller_recovers_without_overriding_manual_mode_changes(self):
         recovery = next(t['value_template'] for t in CONTROL['triggers'] if t['trigger'] == 'template')
         for state, expected in [('unavailable', False), ('off', True), ('heat', True), ('off', True)]:
             self.states[THERMOSTAT] = state
             self.assertEqual(self.evaluate(recovery), expected)
         entities = CONTROL['triggers'][0]['entity_id']
-        self.assertEqual(set(entities), {PERMISSION, PRESENCE, HOLIDAY})
+        self.assertEqual(set(entities), {PERMISSION, EFFECTIVE_PRESENCE, HOLIDAY, VALID, LOWER, UPPER})
         self.assertIn('to', CONTROL['triggers'][0])
         self.assertIsNone(CONTROL['triggers'][0]['to'])
 

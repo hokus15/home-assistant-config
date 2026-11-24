@@ -93,6 +93,11 @@ jobs:
           docker run --rm -v "${{ github.workspace }}:/repo:ro"
           ghcr.io/home-assistant/home-assistant:${{ matrix.version }}
           python -m unittest discover -s /repo/tests -p test_heating.py -v
+      - name: Test heating thresholds with isolated Home Assistant
+        run: >-
+          docker run --rm -v "${{ github.workspace }}:/repo:ro"
+          ghcr.io/home-assistant/home-assistant:${{ matrix.version }}
+          python /repo/tests/test_heating_runtime.py
       - name: Test electrical circuit alerts
         run: >-
           docker run --rm -v "${{ github.workspace }}:/repo:ro"

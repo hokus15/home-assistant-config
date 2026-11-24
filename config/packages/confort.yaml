@@ -80,6 +80,25 @@ template:
       attributes:
         estimado: true
 
+    - name: Calefaccion umbrales validos
+      unique_id: calefaccion_umbrales_validos
+      state: >-
+        {{ is_state('input_boolean.calefaccion_umbrales_inicializado', 'on')
+           and is_number(states('input_number.calefaccion_temporada_temperatura_activar'))
+           and is_number(states('input_number.calefaccion_temporada_temperatura_desactivar'))
+           and states('input_number.calefaccion_temporada_temperatura_activar') | float(0)
+               < states('input_number.calefaccion_temporada_temperatura_desactivar') | float(0) }}
+
+    - name: Calefaccion presencia
+      unique_id: calefaccion_presencia
+      device_class: occupancy
+      # An unknown result cancels any pending absence delay rather than counting
+      # missing presence data as time away. Arrivals have no delay.
+      state: >-
+        {% set presence = states('group.invitado_y_familia') %}
+        {{ true if presence == 'home' else false if presence == 'not_home' else none }}
+      delay_off: "00:05:00"
+
     - name: summer_time
       device_class: light
       state: '{{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z") == "CEST"}}'
@@ -154,7 +173,29 @@ sensor:
     max_age:
       hours: 24
 
+input_number:
+  # Defaults are assigned once by calefaccion_inicializar_umbrales. Omitting
+  # initial lets subsequent user edits survive restarts.
+  calefaccion_temporada_temperatura_activar:
+    name: Activar temporada por debajo de
+    min: 5
+    max: 30
+    step: 0.1
+    mode: box
+    unit_of_measurement: "°C"
+    icon: mdi:thermometer-low
+  calefaccion_temporada_temperatura_desactivar:
+    name: Desactivar temporada por encima de
+    min: 5
+    max: 30
+    step: 0.1
+    mode: box
+    unit_of_measurement: "°C"
+    icon: mdi:thermometer-high
+
 input_boolean:
+  calefaccion_umbrales_inicializado:
+    name: Umbrales de calefacción inicializados
   # Seasonal permission, independent of occupancy and actual thermostat mode.
   # No initial value: restore the previous state (off on first installation).
   calefaccion_temporada_activo:

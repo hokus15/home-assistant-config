@@ -3,19 +3,42 @@
   alias: "Calefacción - Recibidor - Apagar por temperatura media"
   mode: single
   triggers:
-    - trigger: numeric_state
-      entity_id: sensor.home_temperature_stats
-      above: 20
+    # Template crossings also re-arm when the editable boundary changes.
+    - trigger: template
+      id: temperature_threshold
+      value_template: >-
+        {{ is_number(states('sensor.home_temperature_stats'))
+           and is_number(states('input_number.calefaccion_temporada_temperatura_desactivar'))
+           and states('sensor.home_temperature_stats') | float(0)
+               > states('input_number.calefaccion_temporada_temperatura_desactivar') | float(0) }}
+    - trigger: state
+      entity_id:
+        - input_number.calefaccion_temporada_temperatura_activar
+        - input_number.calefaccion_temporada_temperatura_desactivar
+      to: null
     - trigger: homeassistant
       event: start
     - trigger: template
+      id: recovery
       value_template: >-
         {{ has_value('sensor.home_temperature_stats')
-           and has_value('input_boolean.calefaccion_temporada_activo') }}
+           and has_value('input_boolean.calefaccion_temporada_activo')
+           and is_state('binary_sensor.calefaccion_umbrales_validos', 'on') }}
   conditions:
+    # Validate current helper values too, before the derived sensor catches up.
+    - condition: template
+      value_template: >-
+        {{ is_state('input_boolean.calefaccion_umbrales_inicializado', 'on')
+           and is_number(states('input_number.calefaccion_temporada_temperatura_activar'))
+           and is_number(states('input_number.calefaccion_temporada_temperatura_desactivar'))
+           and states('input_number.calefaccion_temporada_temperatura_activar') | float(0)
+               < states('input_number.calefaccion_temporada_temperatura_desactivar') | float(0) }}
+    - condition: state
+      entity_id: binary_sensor.calefaccion_umbrales_validos
+      state: "on"
     - condition: numeric_state
       entity_id: sensor.home_temperature_stats
-      above: 20
+      above: input_number.calefaccion_temporada_temperatura_desactivar
     - condition: state
       entity_id: input_boolean.calefaccion_temporada_activo
       state: "on"
@@ -26,13 +49,13 @@
     - action: logbook.log
       data:
         name: Calefacción
-        message: "permiso de temporada desactivado por temperatura media superior a 20 °C"
+        message: "permiso de temporada desactivado por temperatura media superior a {{ states('input_number.calefaccion_temporada_temperatura_desactivar') }} °C"
         entity_id: input_boolean.calefaccion_temporada_activo
     - action: notify.send_message
       target:
         entity_id: notify.telegram_hokusphone
       data:
-        message: "🌞 He desactivado el permiso de calefacción: la temperatura media de casa es superior a 20 °C. El termostato se controla según presencia y no se modifica en vacaciones."
+        message: "🌞 He desactivado el permiso de calefacción: la temperatura media de casa es superior a {{ states('input_number.calefaccion_temporada_temperatura_desactivar') }} °C. El termostato se controla según presencia y no se modifica en vacaciones."
         data:
           inline_keyboard:
             - "Habilitar calefacción:/input_boolean.turn_on#input_boolean.calefaccion_temporada_activo"
