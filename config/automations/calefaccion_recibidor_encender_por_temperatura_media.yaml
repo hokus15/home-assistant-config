@@ -28,8 +28,7 @@
     # Validate current helper values too, before the derived sensor catches up.
     - condition: template
       value_template: >-
-        {{ is_state('input_boolean.calefaccion_umbrales_inicializado', 'on')
-           and is_number(states('input_number.calefaccion_temporada_temperatura_activar'))
+        {{ is_number(states('input_number.calefaccion_temporada_temperatura_activar'))
            and is_number(states('input_number.calefaccion_temporada_temperatura_desactivar'))
            and states('input_number.calefaccion_temporada_temperatura_activar') | float(0)
                < states('input_number.calefaccion_temporada_temperatura_desactivar') | float(0) }}
@@ -55,7 +54,7 @@
       target:
         entity_id: notify.telegram_hokusphone
       data:
-        message: "⛄ He activado el permiso de calefacción: la temperatura media de casa es inferior a {{ states('input_number.calefaccion_temporada_temperatura_activar') }} °C. El termostato se controla según presencia y no se modifica en vacaciones."
+        message: "⛄ He activado el permiso de calefacción: la temperatura media de casa es inferior a {{ states('input_number.calefaccion_temporada_temperatura_activar') }} °C. El termostato se controla según el horario, la presencia y las vacaciones."
         data:
           inline_keyboard:
             - "Deshabilitar calefacción:/input_boolean.turn_off#input_boolean.calefaccion_temporada_activo"

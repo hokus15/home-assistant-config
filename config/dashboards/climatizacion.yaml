@@ -9,7 +9,7 @@ views:
         columns: 3
         state_color: true
         entities:
-          - entity: climate.recibidor_termostato
+          - entity: climate.calefaccion
             name: Calefaccion
           - entity: sensor.home_temperature
             name: Casa
@@ -23,7 +23,7 @@ views:
             name: Tarifa
 
       - type: thermostat
-        entity: climate.recibidor_termostato
+        entity: climate.calefaccion
         name: Calefaccion
 
       - type: entities
@@ -180,7 +180,7 @@ views:
             name: Potencia A/A primera planta
           - entity: sensor.climatizacion_primera_planta_aire_acondicionado_energia
             name: Energia A/A primera planta
-          - entity: climate.recibidor_termostato
+          - entity: climate.calefaccion
             name: Calefaccion
 
       - type: history-graph
@@ -198,7 +198,7 @@ views:
         title: Estado calefaccion 24h
         hours_to_show: 24
         entities:
-          - entity: climate.recibidor_termostato
+          - entity: climate.calefaccion
             name: Calefaccion
 
       - type: entities
@@ -244,12 +244,16 @@ views:
         columns: 3
         state_color: true
         entities:
-          - entity: climate.recibidor_termostato
+          - entity: climate.calefaccion
             name: Termostato
           - entity: sensor.recibidor_termostato_temperatura
             name: Recibidor
           - entity: sensor.recibidor_termostato_temperatura_objetivo
-            name: Consigna
+            name: Consigna Tado
+          - entity: sensor.calefaccion_perfil_activo
+            name: Perfil activo
+          - entity: sensor.calefaccion_temperatura_objetivo
+            name: Consigna HA
           - entity: sensor.home_temperature
             name: Media casa
           - entity: sensor.home_temperature_stats
@@ -258,8 +262,93 @@ views:
             name: Calentando (estimado)
 
       - type: thermostat
-        entity: climate.recibidor_termostato
-        name: Termostato del recibidor
+        entity: climate.calefaccion
+        name: Calefacción
+
+      - type: horizontal-stack
+        cards:
+          - type: button
+            name: Automático
+            icon: mdi:calendar-clock
+            tap_action:
+              action: perform-action
+              perform_action: climate.set_hvac_mode
+              target:
+                entity_id: climate.calefaccion
+              data:
+                hvac_mode: auto
+          - type: button
+            name: Manual
+            icon: mdi:hand-back-right
+            tap_action:
+              action: perform-action
+              perform_action: climate.set_hvac_mode
+              target:
+                entity_id: climate.calefaccion
+              data:
+                hvac_mode: heat
+          - type: button
+            name: Apagado
+            icon: mdi:power
+            tap_action:
+              action: perform-action
+              perform_action: climate.set_hvac_mode
+              target:
+                entity_id: climate.calefaccion
+              data:
+                hvac_mode: "off"
+
+      - type: entities
+        title: Control
+        show_header_toggle: false
+        entities:
+          - type: attribute
+            entity: climate.calefaccion
+            attribute: modo_funcionamiento
+            name: Modo de funcionamiento
+          - entity: sensor.calefaccion_estado
+            name: Estado del control
+          - entity: sensor.calefaccion_perfil_activo
+            name: Perfil activo
+          - entity: input_number.calefaccion_temperatura_manual
+            name: Consigna manual
+          - entity: climate.recibidor_termostato
+            name: Estado de Tado
+            tap_action:
+              action: more-info
+
+      - type: entities
+        title: Consignas de los perfiles
+        show_header_toggle: false
+        entities:
+          - entity: input_number.calefaccion_temperatura_ausente
+            name: Ausente
+          - entity: input_number.calefaccion_temperatura_vacaciones
+            name: Vacaciones
+          - entity: input_number.calefaccion_temperatura_eco
+            name: Eco
+          - entity: input_number.calefaccion_temperatura_normal
+            name: Normal
+          - entity: input_number.calefaccion_temperatura_confort
+            name: Confort
+          - entity: input_number.calefaccion_temperatura_caliente
+            name: Caliente
+
+      - type: entities
+        title: Programación
+        show_header_toggle: false
+        entities:
+          - entity: schedule.calefaccion
+            name: Horario semanal
+            tap_action:
+              action: more-info
+          - entity: sensor.calefaccion_perfil_programado
+            name: Perfil del horario
+          - type: attribute
+            entity: schedule.calefaccion
+            attribute: next_event
+            name: Próximo tramo
+            format: relative
 
       - type: entities
         title: Temporada
@@ -276,9 +365,6 @@ views:
 
       - type: conditional
         conditions:
-          - condition: state
-            entity: input_boolean.calefaccion_umbrales_inicializado
-            state: "on"
           - condition: state
             entity: binary_sensor.calefaccion_umbrales_validos
             state: "off"
@@ -311,7 +397,9 @@ views:
           - entity: sensor.recibidor_termostato_temperatura
             name: Recibidor
           - entity: sensor.recibidor_termostato_temperatura_objetivo
-            name: Consigna
+            name: Consigna termostato
+          - entity: sensor.calefaccion_temperatura_objetivo
+            name: Consigna HA
           - entity: sensor.home_temperature
             name: Media casa
 

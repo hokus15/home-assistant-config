@@ -15,24 +15,21 @@ from homeassistant.setup import async_setup_component
 ROOT = Path(__file__).resolve().parents[1]
 LOWER = 'input_number.calefaccion_temporada_temperatura_activar'
 UPPER = 'input_number.calefaccion_temporada_temperatura_desactivar'
-FLAG = 'input_boolean.calefaccion_umbrales_inicializado'
 SEASON = 'input_boolean.calefaccion_temporada_activo'
 VALID = 'binary_sensor.calefaccion_umbrales_validos'
 MEAN = 'sensor.home_temperature_stats'
 
 
 async def run():
-    package = yaml.safe_load((ROOT / 'config/packages/confort.yaml').read_text(encoding='utf-8'))
+    package = yaml.safe_load((ROOT / 'config/packages/calefaccion.yaml').read_text(encoding='utf-8'))
     validation = next(s for s in package['template'][0]['binary_sensor']
                       if s.get('unique_id') == 'calefaccion_umbrales_validos')
     automations = []
-    for filename in ['calefaccion_inicializar_umbrales',
-                     'calefaccion_recibidor_encender_por_temperatura_media',
+    for filename in ['calefaccion_recibidor_encender_por_temperatura_media',
                      'calefaccion_recibidor_apagar_por_temperatura_media']:
         automations.extend(yaml.safe_load((ROOT / f'config/automations/{filename}.yaml').read_text(encoding='utf-8')))
     config = {
-        'input_boolean': {key: package['input_boolean'][key]
-                          for key in [FLAG.split('.')[1], SEASON.split('.')[1]]},
+        'input_boolean': {SEASON.split('.')[1]: package['input_boolean'][SEASON.split('.')[1]]},
         'input_number': package['input_number'],
         'template': [{'binary_sensor': [validation]}],
         'automation': automations,
@@ -58,16 +55,18 @@ async def run():
 
         hass = await setup()
         try:
-            assert float(hass.states.get(LOWER).state) == 18.5, 'First-install lower default'
-            assert float(hass.states.get(UPPER).state) == 20, 'First-install upper default'
-            assert hass.states.is_state(VALID, 'on'), 'Defaults must be valid'
+            assert float(hass.states.get(LOWER).state) == 5, 'New lower helper starts at minimum'
+            assert float(hass.states.get(UPPER).state) == 5, 'New upper helper starts at minimum'
+            assert hass.states.is_state(VALID, 'off'), 'Equal minimum values await manual configuration'
 
             async def set_number(entity, value):
                 await hass.services.async_call('input_number', 'set_value',
                                                {'entity_id': entity, 'value': value}, blocking=True)
                 await hass.async_block_till_done()
 
+            # Configure the upper boundary first, then raise the lower boundary.
             # A threshold edit must evaluate an unchanged mean immediately.
+            await set_number(UPPER, 20)
             await set_number(LOWER, 19.5)
             assert hass.states.is_state(SEASON, 'on'), 'Threshold edit must enable season'
             await set_number(UPPER, 19.4)
@@ -97,7 +96,6 @@ async def run():
         try:
             assert float(hass.states.get(LOWER).state) == 19.5, 'Lower threshold must persist'
             assert float(hass.states.get(UPPER).state) == 22, 'Upper threshold must persist'
-            assert hass.states.is_state(FLAG, 'on'), 'Initialization flag must persist'
         finally:
             await hass.async_stop()
         print('Heating runtime: defaults, edits, invalid range, crossings, dashboard and restoration OK')

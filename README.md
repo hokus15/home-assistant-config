@@ -42,7 +42,8 @@ ci/
 - `alerts.yaml`: persistent alerts for energy waste, pool operation, and the entrance gate.
 - `energia_supervision_circuitos.yaml`: probable circuit and lower differential outages, with family Telegram alerts. See [circuit monitoring](docs/electrical_circuit_monitoring.md) for the panel diagram, coverage and limitations.
 - `car.yaml`: Hyundai Ioniq telemetry, state, and charging logic through MQTT using data published by [IOTConnect](https://github.com/hokus15/IOTConnect).
-- `confort.yaml`: environmental sensors, aggregated temperatures, and sleep modes.
+- `confort.yaml`: environmental sensors, shared floor/home temperature averages, weather, and sleep modes.
+- `calefaccion.yaml`: virtual climate control, Tado readings, seasonal thresholds/permission, confirmed presence, the 24-hour mean, profile/manual setpoints, and the weekly schedule.
 - `energia_aire_acondicionado_primera_planta.yaml` and `energia_aire_acondicionado_planta_baja.yaml`: energy monitoring and activity state for the first-floor and ground-floor air conditioning systems.
 - `energia*.yaml`, `energy.yaml`, and `energy_tariffs.yaml`: energy monitoring and tariffs.
 - `electrodomesticos.yaml`: energy monitoring and activity state for kitchen and laundry appliances.
@@ -62,13 +63,45 @@ Active automations live in `config/automations/`. Their filenames follow the aut
 
 ## Heating and Presence
 
-`input_boolean.calefaccion_temporada_activo`, available in the Climatizacion dashboard, stores seasonal permission independently of the thermostat's actual mode. The two temperature automations enable it below `input_number.calefaccion_temporada_temperatura_activar` (default 18.5 °C) and disable it above `input_number.calefaccion_temporada_temperatura_desactivar` (default 20 °C), using the 24-hour mean. Between those thresholds (including equality), it retains its previous value. You can also change it manually; a later temperature threshold crossing, threshold edit, startup, or sensor recovery can update it again.
+`input_boolean.calefaccion_temporada_activo`, available in the Climatizacion dashboard, stores seasonal permission independently of the thermostat's actual mode. The two temperature automations enable it below `input_number.calefaccion_temporada_temperatura_activar` (configure from the dashboard, e.g. 18.5 °C) and disable it above `input_number.calefaccion_temporada_temperatura_desactivar` (e.g. 20 °C), using the 24-hour mean. Between those thresholds (including equality), it retains its previous value. You can also change it manually; a later temperature threshold crossing, threshold edit, startup, or sensor recovery can update it again.
 
-The Calefacción view in the Climatizacion dashboard exposes both thresholds, seasonal permission, the thermostat, temperatures, and opening alerts. Values change in steps of 0.1 °C and persist across restarts. `calefaccion_inicializar_umbrales` sets defaults only once, using a restored initialization flag rather than `initial` values that would overwrite user settings at every startup. Equal, inverted, or unavailable thresholds suspend automatic season/thermostat changes until corrected; the dashboard shows a short warning for invalid thresholds. Editing either threshold reevaluates the current mean immediately.
+The Calefacción view in the Climatizacion dashboard exposes both thresholds, seasonal permission, the thermostat, temperatures, and opening alerts. Values change in steps of 0.1 °C and persist across restarts. Both thresholds are configured manually in the dashboard. No initialization automation, flag, or `initial` value is used; new helpers start at their minimum of 5 °C and saved settings survive restart. Equal, inverted, or unavailable thresholds suspend automatic season/thermostat changes until corrected; the dashboard shows a short warning for invalid thresholds. Editing either threshold reevaluates the current mean immediately.
 
-`calefaccion_recibidor_controlar_por_presencia` selects `heat` only when permission is enabled and `binary_sensor.calefaccion_presencia` is `on`; otherwise it selects `off`. It never changes the thermostat unless `switch.holiday` is explicitly `off` and presence, permission, and thermostat states are valid. `binary_sensor.calefaccion_presencia` follows `group.invitado_y_familia`, with a five-minute off delay and immediate arrival detection. Unknown or unavailable group states block thermostat actions and cancel pending absence confirmation; the group must report absence continuously for five minutes. The countdown restarts after a Home Assistant restart or template reload. The dashboard displays both raw and effective presence. Seasonal permission continues updating during holidays. Leaving holiday mode reconciles the thermostat with current presence and permission. Startup and entity recovery also reconcile it; ordinary manual thermostat changes are preserved until the next presence, permission, or holiday event.
+Heating uses four distinct concepts:
 
-The [input boolean helper](https://www.home-assistant.io/integrations/input_boolean/) restores its previous value after restarting Home Assistant. On first installation it defaults to off: if the mean is between the configured thresholds, enable it manually if heating is needed. Setting `heat` uses the existing setpoint; this installation's Tado configuration resumes its schedule one minute later. This configuration must be loaded into Home Assistant before it takes effect; restart after adding the YAML helper.
+| Concept | Meaning |
+| --- | --- |
+| Modo de funcionamiento | Apagado (`off`), automático (`auto`), or manual (`heat`) on the virtual climate. |
+| Perfil de temperatura | Ausente, vacaciones, eco, normal, confort, or caliente; selected by automatic rules or the schedule. |
+| Consigna | The target temperature supplied by a profile or set manually. |
+| Umbrales de temporada | Mean-temperature boundaries that enable or disable seasonal permission. |
+
+`config/packages/calefaccion.yaml` defines `climate.calefaccion`, six profile setpoints, a separate manual setpoint, the weekly schedule, and control-state sensors. Configure all setpoints manually from the dashboard. Suggested values are 14 °C for ausente and vacaciones, 16 °C for eco, 18 °C for normal, 19 °C for confort, and 20 °C for caliente. The existing `input_number.calefaccion_temperatura_<perfil>` and `input_number.calefaccion_temperatura_manual` entity IDs are retained to preserve saved settings. No initializer, initialization flag, or `initial` value is used. New helpers start at their minimum of 5 °C; previously saved values survive restart.
+
+`schedule.calefaccion` assigns a `perfil` attribute to each block:
+
+| Days | Eco | Normal | Confort |
+| --- | --- | --- | --- |
+| Monday-Friday | 00:00-06:00, 06:45-12:00, 23:00-24:00 | 12:00-14:00 | 06:00-06:45, 14:00-23:00 |
+| Saturday-Sunday | 00:00-11:00, 23:00-24:00 | 11:00-14:00 | 14:00-23:00 |
+
+Block ends are exclusive. Adjacent blocks keep the schedule on and change its `perfil` attribute. All seven days are covered. An inactive gap falls back to eco; a missing schedule or invalid active profile blocks scheduled control. Schedule blocks accept eco, normal, confort, or caliente; ausente and vacaciones are automatic overrides. The schedule is defined in YAML, so edit `config/packages/calefaccion.yaml` and reload schedules to change its blocks. Profile setpoints remain editable in the dashboard.
+
+`climate.calefaccion` is the user-facing thermostat, implemented with native Template Climate. `input_select.calefaccion_funcionamiento` persists its requested mode: `off`, `auto`, or `heat`, displayed as Apagado, Automático, and Manual. New installations start off; select Automático to follow the schedule. The virtual entity displays Tado's measured temperature and the effective setpoint, falling back to the saved manual setpoint when no effective setpoint applies. Its attributes are `modo_funcionamiento`, `perfil_activo`, `estado_control`, and `consigna_manual`. It does not invent a boiler `hvac_action` reading.
+
+Editing the virtual thermostat's temperature saves the manual setpoint and selects manual (`heat`). If the same API request explicitly supplies `hvac_mode: auto` or `off`, that requested mode is preserved while the manual setpoint is saved. Manual ignores schedule changes but respects seasonal permission, holidays, and confirmed absence. When an override ends, manual recovers its saved setpoint and automatic recovers the current scheduled profile.
+
+`sensor.calefaccion_estado` expresses the effective control decision: apagado, fuera_temporada, vacaciones, ausente, manual, a scheduled profile, or sin_datos. Priority is explicit apagado, fuera_temporada, vacaciones, ausente, then manual or the schedule. Explicit off remains effective even when automatic-control data is missing. `sin_datos` prevents new device commands. Invalid seasonal thresholds also suspend automatic/manual heating decisions.
+
+`sensor.calefaccion_perfil_programado` identifies the scheduled profile. `sensor.calefaccion_perfil_activo` identifies one of the six actual profiles; it is ninguno for manual, explicit shutdown, or outside season, and sin_datos when the decision is unknown. `sensor.calefaccion_temperatura_objetivo` is the effective setpoint, including manual, and is unavailable when no setpoint applies. All templates are inline; no heating macros are used.
+
+`binary_sensor.calefaccion_presencia` follows `group.invitado_y_familia`, with a five-minute off delay and immediate arrival detection. Unknown or unavailable group states cancel pending absence confirmation and block presence-based control. Holidays do not require presence data. A restart or template reload restarts the absence countdown. This configuration consumes `switch.holiday`; it does not add calendar-to-holiday synchronization.
+
+`calefaccion_recibidor_aplicar_modo` replaces `calefaccion_recibidor_controlar_por_presencia` as the only automatic writer to Tado. It applies the physical HVAC mode and setpoint together, or turns Tado off for apagado/fuera_temporada. It listens to control-state and setpoint updates, startup, and device recovery. It reads the selected setpoint helper directly to avoid using an old displayed value during a transition, and coalesces split virtual-control updates for 100 ms. Matching settings generate no device call. Mode and setpoint are confirmed before logging. Direct manual edits on Tado persist until the next control event. Tado is configured to keep manual commands until its schedule is explicitly resumed; HA owns the weekly schedule and does not resume Tado's schedule.
+
+Seasonal permission restores its previous state and is independent of the requested functioning mode. On first installation it starts off; enable it manually if heating is needed while the mean is between the seasonal thresholds. Deploy the complete configuration, restart HA, then refresh the dashboard. The Calefacción view shows functioning mode, control state, active/scheduled profiles, setpoints, season controls, presence, history, and opening alerts.
+
+Heating entities have not yet been deployed: YAML `unique_id` values match their semantic entity IDs, including `calefaccion_estado` and `calefaccion_perfil_programado`. No entity registry migration is required. All heating-only definitions, recorder/logbook settings, and the 24-hour mean belong to `config/packages/calefaccion.yaml`; shared instantaneous floor/home averages remain in `confort.yaml` and may still reference the thermostat's temperature as one of their inputs.
 
 ### Open Door and Window Heating Alerts
 

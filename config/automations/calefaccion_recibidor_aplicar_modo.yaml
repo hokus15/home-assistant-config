@@ -1,0 +1,81 @@
+# Apply the control state and setpoint defined by the inline template sensors.
+- id: calefaccion_recibidor_aplicar_modo
+  alias: "Calefacción - Recibidor - Aplicar modo"
+  mode: restart
+  triggers:
+    # Control-state updates include adjacent schedule profile changes. Only
+    # the active temperature changes the target sensor and triggers control.
+    - trigger: state
+      entity_id:
+        - sensor.calefaccion_estado
+        - sensor.calefaccion_temperatura_objetivo
+      to: null
+    - trigger: homeassistant
+      event: start
+    # Ordinary manual thermostat edits persist until another control event.
+    - trigger: template
+      value_template: >-
+        {{ states('climate.recibidor_termostato') in ['heat', 'off'] }}
+  conditions:
+    - condition: template
+      value_template: >-
+        {{ states('climate.recibidor_termostato') in ['heat', 'off'] }}
+  actions:
+    # A virtual set_temperature request can update mode and target separately.
+    # Coalesce those helper updates before reading the control state.
+    - delay:
+        milliseconds: 100
+    - variables:
+        control_state: "{{ states('sensor.calefaccion_estado') }}"
+    - variables:
+        desired_hvac_mode: "{{ 'off' if control_state in ['apagado', 'fuera_temporada'] else 'heat' }}"
+        # Read the selected helper directly, so a control-state change never uses the
+        # previous target while the displayed target sensor is still updating.
+        desired_setpoint: >-
+          {{ states('input_number.calefaccion_temperatura_' ~ control_state) }}
+    - condition: template
+      value_template: >-
+        {{ control_state in ['apagado', 'fuera_temporada']
+           or (control_state in ['ausente', 'vacaciones', 'eco', 'normal', 'confort', 'caliente', 'manual']
+               and is_number(desired_setpoint)
+               and state_attr('climate.recibidor_termostato', 'min_temp') | float(5)
+                   <= desired_setpoint | float(0)
+                   <= state_attr('climate.recibidor_termostato', 'max_temp') | float(30)) }}
+    - condition: template
+      value_template: >-
+        {{ not is_state('climate.recibidor_termostato', desired_hvac_mode)
+           or (desired_hvac_mode == 'heat'
+               and (not is_number(state_attr('climate.recibidor_termostato', 'temperature'))
+                    or ((state_attr('climate.recibidor_termostato', 'temperature') | float(0)
+                         - desired_setpoint | float(0)) | abs) > 0.05)) }}
+    - choose:
+        - conditions: "{{ desired_hvac_mode == 'off' }}"
+          sequence:
+            - action: climate.set_hvac_mode
+              target:
+                entity_id: climate.recibidor_termostato
+              data:
+                hvac_mode: "off"
+      default:
+        # Set heat and its target together, avoiding an intermediate old setpoint.
+        - action: climate.set_temperature
+          target:
+            entity_id: climate.recibidor_termostato
+          data:
+            hvac_mode: heat
+            temperature: "{{ desired_setpoint | float }}"
+    - wait_template: >-
+        {{ is_state('climate.recibidor_termostato', desired_hvac_mode)
+           and (desired_hvac_mode == 'off'
+                or (is_number(state_attr('climate.recibidor_termostato', 'temperature'))
+                    and ((state_attr('climate.recibidor_termostato', 'temperature') | float(0)
+                          - desired_setpoint | float(0)) | abs) <= 0.05)) }}
+      timeout: "00:00:30"
+      continue_on_timeout: false
+    - action: logbook.log
+      data:
+        name: Calefacción
+        message: >-
+          {{ control_state }}{{ ' a ' ~ desired_setpoint ~ ' °C' if desired_hvac_mode == 'heat' else ': apagada' }}.
+        entity_id: climate.recibidor_termostato
+        domain: climate

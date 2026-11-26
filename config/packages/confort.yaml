@@ -25,9 +25,6 @@ recorder:
       - sensor.habitacion_coque_temperature
       - sensor.habitacion_coque_co2
       - sensor.habitacion_coque_humidity
-      - sensor.recibidor_termostato_temperatura
-      - sensor.recibidor_termostato_temperatura_objetivo
-      - binary_sensor.recibidor_termostato_activo
       - sensor.despacho_movimiento_iluminancia
       - sensor.despacho_movimiento_temperatura
       - sensor.cocina_puerta_porche_temperatura
@@ -56,49 +53,11 @@ logbook:
       - sensor.habitacion_coque_temperature
       - sensor.habitacion_coque_co2
       - sensor.habitacion_coque_humidity
-      - sensor.recibidor_termostato_temperatura
       - sensor.despacho_movimiento_iluminancia
       - sensor.despacho_movimiento_temperatura
       - sensor.cocina_puerta_porche_temperatura
 template:
   - binary_sensor:
-    # Estimate heat demand; this does not confirm the boiler's actual operation.
-    - name: recibidor_termostato_activo
-      unique_id: recibidor_termostato_activo
-      device_class: heat
-      availability: >-
-        {{ is_state('climate.recibidor_termostato', 'off')
-           or (is_state('climate.recibidor_termostato', 'heat')
-               and is_number(states('sensor.recibidor_termostato_temperatura'))
-               and is_number(states('sensor.recibidor_termostato_temperatura_objetivo'))) }}
-      state: >-
-        {% set current = states('sensor.recibidor_termostato_temperatura') %}
-        {% set target = states('sensor.recibidor_termostato_temperatura_objetivo') %}
-        {{ is_state('climate.recibidor_termostato', 'heat')
-           and is_number(current) and is_number(target)
-           and current | float(0) < target | float(0) }}
-      attributes:
-        estimado: true
-
-    - name: Calefaccion umbrales validos
-      unique_id: calefaccion_umbrales_validos
-      state: >-
-        {{ is_state('input_boolean.calefaccion_umbrales_inicializado', 'on')
-           and is_number(states('input_number.calefaccion_temporada_temperatura_activar'))
-           and is_number(states('input_number.calefaccion_temporada_temperatura_desactivar'))
-           and states('input_number.calefaccion_temporada_temperatura_activar') | float(0)
-               < states('input_number.calefaccion_temporada_temperatura_desactivar') | float(0) }}
-
-    - name: Calefaccion presencia
-      unique_id: calefaccion_presencia
-      device_class: occupancy
-      # An unknown result cancels any pending absence delay rather than counting
-      # missing presence data as time away. Arrivals have no delay.
-      state: >-
-        {% set presence = states('group.invitado_y_familia') %}
-        {{ true if presence == 'home' else false if presence == 'not_home' else none }}
-      delay_off: "00:05:00"
-
     - name: summer_time
       device_class: light
       state: '{{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z") == "CEST"}}'
@@ -124,17 +83,9 @@ template:
       state: '{{ as_timestamp(states.sun.sun.attributes.next_rising)|timestamp_custom("%H:%M:%S") }}'
     - name: sunset
       state: '{{ as_timestamp(states.sun.sun.attributes.next_setting)|timestamp_custom("%H:%M:%S") }}'
-    # Thermostat sensors
-    - name: recibidor_termostato_temperatura_objetivo
-      unique_id: recibidor_termostato_temperatura_objetivo
-      device_class: temperature
-      unit_of_measurement: "°C"
-      state: "{{ state_attr('climate.recibidor_termostato', 'temperature') }}"
-      availability: >
-        {{ state_attr('climate.recibidor_termostato', 'temperature') is not none }}
 
 sensor:
-  # Average temperatures by floor, for the whole home, and over the last 24 hours
+  # Shared average temperatures by floor and for the whole home.
   - platform: min_max
     name: ground_floor_temperature
     type: mean
@@ -165,42 +116,7 @@ sensor:
       - sensor.recibidor_termostato_temperatura
       - sensor.despacho_movimiento_temperatura
 
-  - platform: statistics
-    name: home_temperature_stats
-    state_characteristic: mean
-    entity_id: sensor.home_temperature
-    sampling_size: 1440
-    max_age:
-      hours: 24
-
-input_number:
-  # Defaults are assigned once by calefaccion_inicializar_umbrales. Omitting
-  # initial lets subsequent user edits survive restarts.
-  calefaccion_temporada_temperatura_activar:
-    name: Activar temporada por debajo de
-    min: 5
-    max: 30
-    step: 0.1
-    mode: box
-    unit_of_measurement: "°C"
-    icon: mdi:thermometer-low
-  calefaccion_temporada_temperatura_desactivar:
-    name: Desactivar temporada por encima de
-    min: 5
-    max: 30
-    step: 0.1
-    mode: box
-    unit_of_measurement: "°C"
-    icon: mdi:thermometer-high
-
 input_boolean:
-  calefaccion_umbrales_inicializado:
-    name: Umbrales de calefacción inicializados
-  # Seasonal permission, independent of occupancy and actual thermostat mode.
-  # No initial value: restore the previous state (off on first installation).
-  calefaccion_temporada_activo:
-    name: Calefacción habilitada
-    icon: "mdi:radiator"
   sleep_mode:
     name: Modo dormir
     icon: "mdi:sleep"

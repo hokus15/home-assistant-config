@@ -1,0 +1,335 @@
+# Heating controls, thermostat readings, seasonal thresholds and weekly schedule.
+recorder:
+  include:
+    entities:
+      - climate.calefaccion
+      - input_boolean.calefaccion_temporada_activo
+      - binary_sensor.recibidor_termostato_activo
+      - binary_sensor.calefaccion_presencia
+      - sensor.recibidor_termostato_temperatura
+      - sensor.recibidor_termostato_temperatura_objetivo
+      - input_select.calefaccion_funcionamiento
+      - sensor.calefaccion_estado
+      - sensor.calefaccion_perfil_programado
+      - sensor.calefaccion_perfil_activo
+      - sensor.calefaccion_temperatura_objetivo
+
+logbook:
+  exclude:
+    entities:
+      - sensor.recibidor_termostato_temperatura
+
+input_boolean:
+  # Seasonal permission, independent of occupancy and actual thermostat mode.
+  # No initial value: restore the previous state (off on first installation).
+  calefaccion_temporada_activo:
+    name: Calefacción habilitada
+    icon: "mdi:radiator"
+
+input_select:
+  calefaccion_funcionamiento:
+    name: Modo de funcionamiento de calefacción
+    # Restore the selected mode; a new installation starts explicitly off.
+    options:
+      - "off"
+      - auto
+      - heat
+    icon: mdi:thermostat
+
+input_number:
+  # Configure thresholds in the dashboard; omit initial to restore saved values.
+  calefaccion_temporada_temperatura_activar:
+    name: Activar temporada por debajo de
+    min: 5
+    max: 30
+    step: 0.1
+    mode: box
+    unit_of_measurement: "°C"
+    icon: mdi:thermometer-low
+  calefaccion_temporada_temperatura_desactivar:
+    name: Desactivar temporada por encima de
+    min: 5
+    max: 30
+    step: 0.1
+    mode: box
+    unit_of_measurement: "°C"
+    icon: mdi:thermometer-high
+  # Configure profile setpoints in the dashboard; no initial values override saved settings.
+  calefaccion_temperatura_ausente:
+    name: Consigna ausente
+    min: 5
+    max: 30
+    step: 0.5
+    mode: box
+    unit_of_measurement: "°C"
+    icon: mdi:home-export-outline
+  calefaccion_temperatura_vacaciones:
+    name: Consigna vacaciones
+    min: 5
+    max: 30
+    step: 0.5
+    mode: box
+    unit_of_measurement: "°C"
+    icon: mdi:beach
+  calefaccion_temperatura_eco:
+    name: Consigna eco
+    min: 5
+    max: 30
+    step: 0.5
+    mode: box
+    unit_of_measurement: "°C"
+    icon: mdi:leaf
+  calefaccion_temperatura_normal:
+    name: Consigna normal
+    min: 5
+    max: 30
+    step: 0.5
+    mode: box
+    unit_of_measurement: "°C"
+    icon: mdi:home-thermometer-outline
+  calefaccion_temperatura_confort:
+    name: Consigna confort
+    min: 5
+    max: 30
+    step: 0.5
+    mode: box
+    unit_of_measurement: "°C"
+    icon: mdi:sofa
+  calefaccion_temperatura_caliente:
+    name: Consigna caliente
+    min: 5
+    max: 30
+    step: 0.5
+    mode: box
+    unit_of_measurement: "°C"
+    icon: mdi:fire
+  calefaccion_temperatura_manual:
+    name: Consigna manual
+    min: 5
+    max: 30
+    step: 0.5
+    mode: box
+    unit_of_measurement: "°C"
+    icon: mdi:hand-back-right
+
+schedule:
+  calefaccion:
+    name: Programación de calefacción
+    icon: mdi:calendar-clock
+    monday: &laborables
+      - from: "00:00:00"
+        to: "06:00:00"
+        data:
+          perfil: eco
+      - from: "06:00:00"
+        to: "06:45:00"
+        data:
+          perfil: confort
+      - from: "06:45:00"
+        to: "12:00:00"
+        data:
+          perfil: eco
+      - from: "12:00:00"
+        to: "14:00:00"
+        data:
+          perfil: normal
+      - from: "14:00:00"
+        to: "23:00:00"
+        data:
+          perfil: confort
+      - from: "23:00:00"
+        to: "24:00:00"
+        data:
+          perfil: eco
+    tuesday: *laborables
+    wednesday: *laborables
+    thursday: *laborables
+    friday: *laborables
+    saturday: &fin_semana
+      - from: "00:00:00"
+        to: "11:00:00"
+        data:
+          perfil: eco
+      - from: "11:00:00"
+        to: "14:00:00"
+        data:
+          perfil: normal
+      - from: "14:00:00"
+        to: "23:00:00"
+        data:
+          perfil: confort
+      - from: "23:00:00"
+        to: "24:00:00"
+        data:
+          perfil: eco
+    sunday: *fin_semana
+
+template:
+  - binary_sensor:
+      # Estimate heat demand; this does not confirm the boiler's actual operation.
+      - name: recibidor_termostato_activo
+        unique_id: recibidor_termostato_activo
+        device_class: heat
+        availability: >-
+          {{ is_state('climate.recibidor_termostato', 'off')
+             or (is_state('climate.recibidor_termostato', 'heat')
+                 and is_number(states('sensor.recibidor_termostato_temperatura'))
+                 and is_number(states('sensor.recibidor_termostato_temperatura_objetivo'))) }}
+        state: >-
+          {% set current = states('sensor.recibidor_termostato_temperatura') %}
+          {% set target = states('sensor.recibidor_termostato_temperatura_objetivo') %}
+          {{ is_state('climate.recibidor_termostato', 'heat')
+             and is_number(current) and is_number(target)
+             and current | float(0) < target | float(0) }}
+        attributes:
+          estimado: true
+
+      - name: Calefaccion umbrales validos
+        unique_id: calefaccion_umbrales_validos
+        state: >-
+          {{ is_number(states('input_number.calefaccion_temporada_temperatura_activar'))
+             and is_number(states('input_number.calefaccion_temporada_temperatura_desactivar'))
+             and states('input_number.calefaccion_temporada_temperatura_activar') | float(0)
+                 < states('input_number.calefaccion_temporada_temperatura_desactivar') | float(0) }}
+
+      - name: Calefaccion presencia
+        unique_id: calefaccion_presencia
+        device_class: occupancy
+        # An unknown result cancels any pending absence delay rather than counting
+        # missing presence data as time away. Arrivals have no delay.
+        state: >-
+          {% set presence = states('group.invitado_y_familia') %}
+          {{ true if presence == 'home' else false if presence == 'not_home' else none }}
+        delay_off: "00:05:00"
+
+    climate:
+      - name: Calefaccion
+        unique_id: calefaccion
+        default_entity_id: climate.calefaccion
+        availability: >-
+          {{ states('input_select.calefaccion_funcionamiento') in ['off', 'auto', 'heat'] }}
+        hvac_modes: "{{ ['off', 'auto', 'heat'] }}"
+        hvac_mode: "{{ states('input_select.calefaccion_funcionamiento') }}"
+        current_temperature: >-
+          {{ state_attr('climate.recibidor_termostato', 'current_temperature') | float(none) }}
+        target_temperature: >-
+          {% set effective = states('sensor.calefaccion_temperatura_objetivo') %}
+          {{ effective | float if is_number(effective)
+             else states('input_number.calefaccion_temperatura_manual') | float(none) }}
+        min_temperature: 5
+        max_temperature: 30
+        target_temperature_step: 0.5
+        temperature_unit: "°C"
+        attributes:
+          modo_funcionamiento: >-
+            {{ {'off': 'apagado', 'auto': 'automático', 'heat': 'manual'}
+               .get(states('input_select.calefaccion_funcionamiento'), 'sin_datos') }}
+          perfil_activo: "{{ states('sensor.calefaccion_perfil_activo') }}"
+          estado_control: "{{ states('sensor.calefaccion_estado') }}"
+          consigna_manual: "{{ states('input_number.calefaccion_temperatura_manual') | float(none) }}"
+        set_hvac_mode:
+          - action: input_select.select_option
+            target:
+              entity_id: input_select.calefaccion_funcionamiento
+            data:
+              option: "{{ hvac_mode }}"
+        set_temperature:
+          - condition: template
+            value_template: "{{ temperature is not none }}"
+          - action: input_number.set_value
+            target:
+              entity_id: input_number.calefaccion_temperatura_manual
+            data:
+              value: "{{ temperature }}"
+          # A knob edit selects manual unless the caller explicitly supplied
+          # auto/off in the same climate.set_temperature request.
+          - action: input_select.select_option
+            target:
+              entity_id: input_select.calefaccion_funcionamiento
+            data:
+              option: "{{ hvac_mode if hvac_mode in ['auto', 'off'] else 'heat' }}"
+    sensor:
+      - name: Calefaccion perfil programado
+        unique_id: calefaccion_perfil_programado
+        default_entity_id: sensor.calefaccion_perfil_programado
+        icon: mdi:calendar-clock
+        state: >-
+          {% if is_state('schedule.calefaccion', 'off') %}
+            eco
+          {% elif is_state('schedule.calefaccion', 'on')
+              and state_attr('schedule.calefaccion', 'perfil') in ['eco', 'normal', 'confort', 'caliente'] %}
+            {{ state_attr('schedule.calefaccion', 'perfil') }}
+          {% else %}
+            sin_datos
+          {% endif %}
+      - name: Calefaccion estado
+        unique_id: calefaccion_estado
+        default_entity_id: sensor.calefaccion_estado
+        icon: mdi:radiator
+        state: >-
+          {% set lower = states('input_number.calefaccion_temporada_temperatura_activar') %}
+          {% set upper = states('input_number.calefaccion_temporada_temperatura_desactivar') %}
+          {% set mean = states('sensor.home_temperature_stats') %}
+          {% set scheduled = states('sensor.calefaccion_perfil_programado') %}
+          {% set control = states('input_select.calefaccion_funcionamiento') %}
+          {% if control == 'off' %}
+            apagado
+          {% elif control not in ['auto', 'heat']
+              or not is_number(lower) or not is_number(upper)
+              or lower | float(0) >= upper | float(0)
+              or states('input_boolean.calefaccion_temporada_activo') not in ['on', 'off'] %}
+            sin_datos
+          {% elif is_state('input_boolean.calefaccion_temporada_activo', 'off')
+              or (is_number(mean) and mean | float(0) > upper | float(0)) %}
+            fuera_temporada
+          {% elif is_state('switch.holiday', 'on') %}
+            vacaciones
+          {% elif not is_state('switch.holiday', 'off')
+              or states('group.invitado_y_familia') not in ['home', 'not_home']
+              or states('binary_sensor.calefaccion_presencia') not in ['on', 'off'] %}
+            sin_datos
+          {% elif is_state('binary_sensor.calefaccion_presencia', 'off') %}
+            ausente
+          {% elif control == 'heat' %}
+            manual
+          {% elif scheduled in ['eco', 'normal', 'confort', 'caliente'] %}
+            {{ scheduled }}
+          {% else %}
+            sin_datos
+          {% endif %}
+      - name: Calefaccion perfil activo
+        unique_id: calefaccion_perfil_activo
+        default_entity_id: sensor.calefaccion_perfil_activo
+        icon: mdi:thermometer
+        state: >-
+          {% set control_state = states('sensor.calefaccion_estado') %}
+          {{ control_state if control_state in ['ausente', 'vacaciones', 'eco', 'normal', 'confort', 'caliente']
+             else 'ninguno' if control_state in ['manual', 'apagado', 'fuera_temporada'] else 'sin_datos' }}
+      - name: Calefaccion temperatura objetivo
+        unique_id: calefaccion_temperatura_objetivo
+        device_class: temperature
+        unit_of_measurement: "°C"
+        availability: >-
+          {% set control_state = states('sensor.calefaccion_estado') %}
+          {% set value = states('input_number.calefaccion_temperatura_' ~ control_state) %}
+          {{ control_state in ['ausente', 'vacaciones', 'eco', 'normal', 'confort', 'caliente', 'manual']
+             and is_number(value) and 5 <= value | float(0) <= 30 }}
+        state: >-
+          {{ states('input_number.calefaccion_temperatura_' ~ states('sensor.calefaccion_estado')) | float(none) }}
+      # Thermostat sensors
+      - name: recibidor_termostato_temperatura_objetivo
+        unique_id: recibidor_termostato_temperatura_objetivo
+        device_class: temperature
+        unit_of_measurement: "°C"
+        state: "{{ state_attr('climate.recibidor_termostato', 'temperature') }}"
+        availability: >
+          {{ state_attr('climate.recibidor_termostato', 'temperature') is not none }}
+
+sensor:
+  - platform: statistics
+    name: home_temperature_stats
+    state_characteristic: mean
+    entity_id: sensor.home_temperature
+    sampling_size: 1440
+    max_age:
+      hours: 24
