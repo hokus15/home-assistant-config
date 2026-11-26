@@ -65,7 +65,7 @@ Active automations live in `config/automations/`. Their filenames follow the aut
 
 `input_boolean.calefaccion_temporada_activo`, available in the Climatizacion dashboard, stores seasonal permission independently of the thermostat's actual mode. The two temperature automations enable it below `input_number.calefaccion_temporada_temperatura_activar` (configure from the dashboard, e.g. 18.5 °C) and disable it above `input_number.calefaccion_temporada_temperatura_desactivar` (e.g. 20 °C), using the 24-hour mean. Between those thresholds (including equality), it retains its previous value. You can also change it manually; a later temperature threshold crossing, threshold edit, startup, or sensor recovery can update it again.
 
-The Calefacción view in the Climatizacion dashboard exposes both thresholds, seasonal permission, the thermostat, temperatures, and opening alerts. Values change in steps of 0.1 °C and persist across restarts. Both thresholds are configured manually in the dashboard. No initialization automation, flag, or `initial` value is used; new helpers start at their minimum of 5 °C and saved settings survive restart. Equal, inverted, or unavailable thresholds suspend automatic season/thermostat changes until corrected; the dashboard shows a short warning for invalid thresholds. Editing either threshold reevaluates the current mean immediately.
+The Calefacción view in the Climatizacion dashboard exposes both thresholds, seasonal permission, the thermostat, temperatures, and opening alerts. Configure both thresholds manually in steps of 0.1 °C. Thresholds start at 5 °C and retain their configured values across restarts. Equal, inverted, or unavailable thresholds suspend automatic season/thermostat changes until corrected; the dashboard shows a short warning for invalid thresholds. Editing either threshold reevaluates the current mean immediately.
 
 Heating uses four distinct concepts:
 
@@ -76,7 +76,7 @@ Heating uses four distinct concepts:
 | Consigna | The target temperature supplied by a profile or set manually. |
 | Umbrales de temporada | Mean-temperature boundaries that enable or disable seasonal permission. |
 
-`config/packages/calefaccion.yaml` defines `climate.calefaccion`, six profile setpoints, a separate manual setpoint, the weekly schedule, and control-state sensors. Configure all setpoints manually from the dashboard. Suggested values are 14 °C for ausente and vacaciones, 16 °C for eco, 18 °C for normal, 19 °C for confort, and 20 °C for caliente. The existing `input_number.calefaccion_temperatura_<perfil>` and `input_number.calefaccion_temperatura_manual` entity IDs are retained to preserve saved settings. No initializer, initialization flag, or `initial` value is used. New helpers start at their minimum of 5 °C; previously saved values survive restart.
+`config/packages/calefaccion.yaml` defines `climate.calefaccion`, six profile setpoints, a separate manual setpoint, the weekly schedule, and control-state sensors. Configure all setpoints manually from the dashboard. Suggested values are 14 °C for ausente and vacaciones, 16 °C for eco, 18 °C for normal, 19 °C for confort, and 20 °C for caliente. Profile setpoints use `input_number.calefaccion_temperatura_<perfil>` and the manual setpoint uses `input_number.calefaccion_temperatura_manual`. Setpoints start at 5 °C and retain their configured values across restarts.
 
 `schedule.calefaccion` assigns a `perfil` attribute to each block:
 
@@ -87,29 +87,29 @@ Heating uses four distinct concepts:
 
 Block ends are exclusive. Adjacent blocks keep the schedule on and change its `perfil` attribute. All seven days are covered. An inactive gap falls back to eco; a missing schedule or invalid active profile blocks scheduled control. Schedule blocks accept eco, normal, confort, or caliente; ausente and vacaciones are automatic overrides. The schedule is defined in YAML, so edit `config/packages/calefaccion.yaml` and reload schedules to change its blocks. Profile setpoints remain editable in the dashboard.
 
-`climate.calefaccion` is the user-facing thermostat, implemented with native Template Climate. `input_select.calefaccion_funcionamiento` persists its requested mode: `off`, `auto`, or `heat`, displayed as Apagado, Automático, and Manual. New installations start off; select Automático to follow the schedule. The virtual entity displays Tado's measured temperature and the effective setpoint, falling back to the saved manual setpoint when no effective setpoint applies. Its attributes are `modo_funcionamiento`, `perfil_activo`, `estado_control`, and `consigna_manual`. It does not invent a boiler `hvac_action` reading.
+`climate.calefaccion` is the user-facing thermostat, implemented with native Template Climate. `input_select.calefaccion_funcionamiento` persists its requested mode: `off`, `auto`, or `heat`, displayed as Apagado, Automático, and Manual. New installations start off; select Automático to follow the schedule. The virtual entity displays Tado's measured temperature and the effective setpoint, falling back to the saved manual setpoint when no effective setpoint applies. Its attributes are `modo_funcionamiento`, `perfil_activo`, `estado_control`, and `consigna_manual`. Heating demand is estimated by `binary_sensor.recibidor_termostato_activo` from the physical thermostat mode, measured temperature, and target temperature.
 
 Editing the virtual thermostat's temperature saves the manual setpoint and selects manual (`heat`). If the same API request explicitly supplies `hvac_mode: auto` or `off`, that requested mode is preserved while the manual setpoint is saved. Manual ignores schedule changes but respects seasonal permission, holidays, and confirmed absence. When an override ends, manual recovers its saved setpoint and automatic recovers the current scheduled profile.
 
 `sensor.calefaccion_estado` expresses the effective control decision: apagado, fuera_temporada, vacaciones, ausente, manual, a scheduled profile, or sin_datos. Priority is explicit apagado, fuera_temporada, vacaciones, ausente, then manual or the schedule. Explicit off remains effective even when automatic-control data is missing. `sin_datos` prevents new device commands. Invalid seasonal thresholds also suspend automatic/manual heating decisions.
 
-`sensor.calefaccion_perfil_programado` identifies the scheduled profile. `sensor.calefaccion_perfil_activo` identifies one of the six actual profiles; it is ninguno for manual, explicit shutdown, or outside season, and sin_datos when the decision is unknown. `sensor.calefaccion_temperatura_objetivo` is the effective setpoint, including manual, and is unavailable when no setpoint applies. All templates are inline; no heating macros are used.
+`sensor.calefaccion_perfil_programado` identifies the scheduled profile. `sensor.calefaccion_perfil_activo` identifies one of the six actual profiles; it is ninguno for manual, explicit shutdown, or outside season, and sin_datos when the decision is unknown. `sensor.calefaccion_temperatura_objetivo` is the effective setpoint, including manual, and is unavailable when no setpoint applies. The control templates are defined inline in `calefaccion.yaml`.
 
-`binary_sensor.calefaccion_presencia` follows `group.invitado_y_familia`, with a five-minute off delay and immediate arrival detection. Unknown or unavailable group states cancel pending absence confirmation and block presence-based control. Holidays do not require presence data. A restart or template reload restarts the absence countdown. This configuration consumes `switch.holiday`; it does not add calendar-to-holiday synchronization.
+`binary_sensor.calefaccion_presencia` follows `group.invitado_y_familia`, with a five-minute off delay and immediate arrival detection. Unknown or unavailable group states cancel pending absence confirmation and block presence-based control. Holidays do not require presence data. A restart or template reload restarts the absence countdown. `switch.holiday` supplies the vacation state.
 
-`calefaccion_recibidor_aplicar_modo` replaces `calefaccion_recibidor_controlar_por_presencia` as the only automatic writer to Tado. It applies the physical HVAC mode and setpoint together, or turns Tado off for apagado/fuera_temporada. It listens to control-state and setpoint updates, startup, and device recovery. It reads the selected setpoint helper directly to avoid using an old displayed value during a transition, and coalesces split virtual-control updates for 100 ms. Matching settings generate no device call. Mode and setpoint are confirmed before logging. Direct manual edits on Tado persist until the next control event. Tado is configured to keep manual commands until its schedule is explicitly resumed; HA owns the weekly schedule and does not resume Tado's schedule.
+`calefaccion_recibidor_aplicar_modo` applies automatic control decisions to Tado. It applies the physical HVAC mode and setpoint together, or turns Tado off for apagado/fuera_temporada. It listens to control-state and setpoint updates, startup, and device recovery. It reads the selected setpoint helper directly to avoid using an old displayed value during a transition, and coalesces split virtual-control updates for 100 ms. Matching settings generate no device call. Mode and setpoint are confirmed before logging. Direct manual edits on Tado persist until the next control event. Home Assistant manages the weekly schedule; Tado keeps the applied commands until the next control update.
 
-Seasonal permission restores its previous state and is independent of the requested functioning mode. On first installation it starts off; enable it manually if heating is needed while the mean is between the seasonal thresholds. Deploy the complete configuration, restart HA, then refresh the dashboard. The Calefacción view shows functioning mode, control state, active/scheduled profiles, setpoints, season controls, presence, history, and opening alerts.
+Seasonal permission persists across restarts and starts off when no saved value exists. Enable it manually if heating is needed while the mean is between the seasonal thresholds. The Calefacción view shows functioning mode, control state, active/scheduled profiles, setpoints, season controls, presence, history, and opening alerts.
 
-Heating entities have not yet been deployed: YAML `unique_id` values match their semantic entity IDs, including `calefaccion_estado` and `calefaccion_perfil_programado`. No entity registry migration is required. All heating-only definitions, recorder/logbook settings, and the 24-hour mean belong to `config/packages/calefaccion.yaml`; shared instantaneous floor/home averages remain in `confort.yaml` and may still reference the thermostat's temperature as one of their inputs.
+`config/packages/calefaccion.yaml` contains the heating controls, recorder/logbook settings, and `sensor.calefaccion_temperatura_media_casa_24h`. `config/packages/confort.yaml` contains the shared instantaneous floor/home averages, which include the thermostat temperature among their inputs.
 
 ### Open Door and Window Heating Alerts
 
 `binary_sensor.energy_waste_alert` activates when estimated heating is active and at least one entity labelled `comprobacion_desperdicio_energetico` has been continuously open for more than ten minutes. Each opening is timed independently; `now()` refreshes the template every minute, and sensor changes also update it. If heating starts with an already overdue opening, no additional ten-minute delay is required.
 
-`alert.energy_waste_alert` handles delivery, ten-minute repetitions, and acknowledgement directly. `skip_first: false` sends the first message as soon as the condition is met, without another ten-minute delay. The Telegram acknowledgement button silences the current alert episode. If the condition clears and becomes true again, a new episode can notify immediately, even if fewer than ten minutes have passed since the previous message. There is no separate notification automation or timestamp helper.
+`alert.energy_waste_alert` handles delivery, ten-minute repetitions, and acknowledgement directly. `skip_first: false` sends the first message as soon as the condition is met, without another ten-minute delay. The Telegram acknowledgement button silences the current alert episode. If the condition clears and becomes true again, a new episode can notify immediately, even if fewer than ten minutes have passed since the previous message.
 
-Messages retain the existing wording and list **all** currently open labelled entities, including those open for less than ten minutes. Destinations remain recibidor, suite, despacho, and Telegram. Minute-based template updates can add approximately one minute to threshold detection. Opening age uses each entity's `last_changed`; a Home Assistant restart or a sensor becoming unavailable can restart that age, so opening-duration persistence is not guaranteed.
+Messages list **all** currently open labelled entities, including those open for less than ten minutes. Notifications are delivered to recibidor, suite, despacho, and Telegram. Minute-based template updates can add approximately one minute to threshold detection. Opening age uses each entity's `last_changed`; a Home Assistant restart or a sensor becoming unavailable can restart that age, so opening-duration persistence is not guaranteed.
 
 ## Secrets
 
@@ -289,39 +289,45 @@ Automation `id` values use the same lowercase ASCII `snake_case` vocabulary and 
 
 Entity IDs use lowercase ASCII `snake_case`: only `a-z`, `0-9`, and `_`. Replace non-ASCII characters with their plain equivalents (`ñ` to `n`, never `ny`; `ç` to `c`; accented vowels to unaccented vowels) and omit spaces and punctuation. The domain is selected by Home Assistant and is not repeated in the object ID. Names describe the purpose of an entity, rather than its wiring or integration implementation.
 
-Use Spanish, without accents, for areas, devices, and functions that belong to this home. English is reserved for Home Assistant domains, integration identifiers, brands, models, and other external technical terms. For example, use `potencia`, `bateria`, and `estado`, but retain identifiers such as `wallpanel`, `ioniq`, and `zwave` when they identify external products or integrations.
+Use Spanish, without accents, for areas, observed or controlled objects, and functions that belong to this home. Home Assistant domains and established external terms retain their spelling when needed to identify the subject itself, such as `wallpanel` or the car identifier `ioniq`. This exception does not permit adding a manufacturer, model, protocol, or integration merely because it supplies the entity.
 
-For every enabled entity tied to a physical device or a single-purpose detector assigned to one area, use:
+For every enabled entity that measures, observes, or controls something in one area, use:
 
 ```text
-<domain>.<area>_<device_or_type>[_<function>]
+<domain>.<area>_<subject>[_<function>][_<qualifier>]
 ```
 
-The area is mandatory, even when the device is unique in the home. Omit the function only for the primary control or state of the device, such as `switch.coladuria_secadora` or `binary_sensor.despacho_movimiento`; include it for each measurement, state, diagnostic, maintenance control, or update entity, such as `sensor.coladuria_secadora_potencia`, `binary_sensor.coladuria_secadora_activo`, and `sensor.despacho_movimiento_temperatura`.
+The area is mandatory, even when the subject is unique in the home. `<subject>` identifies what is measured, observed, or controlled: an object such as `horno`, an opening such as `puerta`, or a phenomenon such as `temperatura` or `movimiento`. It does not identify the hardware acquiring the reading. Omit the function for a direct measurement or primary control/state, such as `sensor.salon_temperatura`, `switch.coladuria_secadora`, or `binary_sensor.despacho_movimiento`. Include it when describing a property of a specific object, such as `sensor.cocina_horno_temperatura`, `sensor.coladuria_secadora_potencia`, or `binary_sensor.coladuria_secadora_activo`.
+
+Environmental readings describe the area directly: use `sensor.salon_temperatura`, `sensor.salon_humedad`, and `sensor.salon_iluminancia`, whether supplied by a weather station, motion detector, thermostat, or another integration. Do not insert `netatmo`, `estacion_meteorologica`, or `movimiento` solely to identify the source of an environmental reading. Replacing the acquisition hardware while keeping the same observed subject must not require changing the entity ID. A temperature of a specific object remains explicit: `sensor.cocina_horno_temperatura` measures the oven, while `sensor.cocina_temperatura` measures the kitchen environment.
+
+Diagnostics and maintenance entities describe the device itself, so its functional identity belongs in the ID: `sensor.despacho_movimiento_bateria` is the motion detector's battery. Manufacturer, model, integration, and acquisition hardware details belong in device/entity metadata. When multiple entities measure the same phenomenon in one area, distinguish the observed location or role with a qualifier, such as `sensor.salon_temperatura_techo`; do not distinguish them by brand or integration. Reserve an unqualified ID for an explicitly chosen reference reading when one exists.
 
 Examples:
 
 ```text
 sensor.despacho_wallpanel_bateria
+sensor.salon_temperatura
+sensor.cocina_horno_temperatura
 binary_sensor.cocina_puerta_porche
 binary_sensor.habitacion_carlos_ventana
 ```
 
 ### Single-Purpose Detectors
 
-For a single-purpose detector, its detected type is the `<device_or_type>` segment. Do not add the generic term `sensor` to the object ID. This applies to `movimiento`, `ventana`, `puerta`, and `persiana` when they identify the detector's primary purpose.
+For a single-purpose detector, its detected phenomenon or observed object is the `<subject>` segment. Do not add the generic term `sensor` to the object ID. This applies to `movimiento`, `ventana`, `puerta`, and `persiana` when they identify the detector's primary purpose.
 
 ```text
-<domain>.<area>_<type>[_<function>]
+<domain>.<area>_<subject>[_<function>][_<qualifier>]
 ```
 
-Use `binary_sensor.despacho_movimiento`, `sensor.despacho_movimiento_iluminancia`, and `sensor.despacho_movimiento_temperatura`; do not use `despacho_sensor_movimiento` for that detector. Use `sensor` in the object ID only when it is necessary to distinguish distinct physical devices in the same area.
+Use `binary_sensor.despacho_movimiento` for motion detection and `sensor.despacho_movimiento_bateria` for its battery; do not use `despacho_sensor_movimiento`. Environmental readings supplied by that detector use `sensor.despacho_iluminancia` and `sensor.despacho_temperatura`, with a location or role qualifier if needed.
 
 The following forms are normative and take precedence over the general grammar when it could be interpreted differently:
 
-| Physical element | Primary entity | Additional entity |
+| Observed subject | Primary entity | Device diagnostic example |
 | --- | --- | --- |
-| Motion detector | `binary_sensor.<area>_movimiento` | `sensor.<area>_movimiento_<function>` |
+| Motion | `binary_sensor.<area>_movimiento` | `sensor.<area>_movimiento_bateria` |
 | Door detector | `binary_sensor.<area>_puerta[_<qualifier>]` | — |
 | Window detector | `binary_sensor.<area>_ventana[_<qualifier>]` | — |
 | Shutter detector | `binary_sensor.<area>_persiana[_<qualifier>]` | — |
@@ -340,7 +346,7 @@ Do not repeat information already expressed by the domain: use `binary_sensor.co
 
 Use singular nouns by default. Plural names are reserved for groups and true aggregates, such as `light.luces_interiores`.
 
-Use these canonical function terms and do not introduce synonyms or abbreviations for them: `temperatura`, `humedad`, `iluminancia`, `potencia`, `energia`, `bateria`, `estado`, `activo`, `consumo`, `movimiento`, `presencia`, `ventana`, and `puerta`. The permitted technical abbreviations are `ev`, `tv`, `sai`, `ups`, and `wifi`; use no other abbreviations unless they are an established external product or integration identifier.
+Use these canonical function terms and do not introduce synonyms or abbreviations for them: `temperatura`, `humedad`, `iluminancia`, `potencia`, `energia`, `bateria`, `estado`, `activo`, `consumo`, `movimiento`, `presencia`, `ventana`, and `puerta`. The permitted technical abbreviations are `ev`, `tv`, `sai`, `ups`, and `wifi`; use no other abbreviations unless they are an established external identifier needed to name the observed or controlled subject itself. An integration or product supplying a reading is not a reason to include its identifier.
 
 `floor` is not included in entity IDs. Areas model the physical location in Home Assistant and are required for every enabled entity tied to a physical device with one assigned area. Do not add an area only when the entity is global, virtual, aggregated, or belongs to a device with no single functional area.
 
@@ -364,7 +370,7 @@ binary_sensor.coladuria_cargador_ev_estado
 sensor.coche_ioniq_salud_bateria
 ```
 
-Templates tied to a physical device follow that device's area and device prefix. A template is not an exception merely because it is YAML-defined.
+Templates follow the same observed-subject rules as integration-provided entities. A template of an environmental reading uses the area and phenomenon; a property of a specific object or a device diagnostic includes that subject. Being YAML-defined does not change the naming rule.
 
 Enabled integration-generated diagnostics, maintenance controls, update entities, and mobile-app telemetry follow the same entity-ID convention when they are migrated. Disabled integration-generated entities retain their integration-provided entity ID until they are enabled, at which point they are renamed as part of enabling them. Never modify integration-provided `unique_id` values; rename only the entity ID through Home Assistant's UI.
 

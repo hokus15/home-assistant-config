@@ -7,10 +7,10 @@ sensor.speedtest_download:
 sensor.speedtest_upload:
   friendly_name: Velocidad de subida
   icon: mdi:cloud-upload
-sensor.sunset:
+sensor.confort_hora_anochecer:
   icon: mdi:weather-sunset-down
   friendly_name: Puesta del sol
-sensor.sunrise:
+sensor.confort_hora_amanecer:
   icon: mdi:weather-sunset-up
   friendly_name: Salida del sol
 sensor.processor_use:
@@ -31,7 +31,7 @@ sensor.db_size:
   icon: mdi:database
 sun.sun:
   friendly_name: Sol
-sensor.ground_floor_temperature:
+sensor.confort_temperatura_media_planta_baja:
   device_class: temperature
   friendly_name: Temp. media planta baja
 sensor.next_holiday_mode_start:
@@ -144,12 +144,12 @@ camera.caseta:
 binary_sensor.despacho_movimiento:
   friendly_name: Movimiento despacho
   device_class: motion
-sensor.despacho_movimiento_iluminancia:
+sensor.despacho_iluminancia:
   icon: mdi:weather-sunny
 binary_sensor.cocina_puerta_porche:
   device_class: door
   friendly_name: Puerta del porche en la cocina
-sensor.cocina_puerta_porche_temperatura:
+sensor.cocina_temperatura:
   device_class: temperature
   friendly_name: Temperatura cocina
 binary_sensor.porche_persiana:
@@ -158,32 +158,32 @@ binary_sensor.porche_persiana:
 binary_sensor.coladuria_puerta:
   device_class: door
   friendly_name: Puerta de la coladuría
-sensor.first_floor_temperature:
+sensor.confort_temperatura_media_primera_planta:
   device_class: temperature
   friendly_name: Temp. media 1ª planta
 sensor.season:
   friendly_name: Estación
-sensor.home_temperature_stats:
+sensor.calefaccion_temperatura_media_casa_24h:
   device_class: temperature
   friendly_name: Temp. media 24h
-sensor.home_temperature:
+sensor.confort_temperatura_media_casa:
   device_class: temperature
   friendly_name: Temp. media casa
-sensor.recibidor_temperature:
+sensor.recibidor_temperatura:
   device_class: temperature
   friendly_name: Temperatura recibidor
   unit_of_measurement: °C
-binary_sensor.summer_time:
+binary_sensor.confort_horario_verano:
   friendly_name: Horario de verano
 sensor.piscina_ancho:
   friendly_name: Ancho piscina
-sensor.despacho_movimiento_temperatura:
+sensor.despacho_temperatura:
   device_class: temperature
 sensor.piscina_tiempo_filtrado:
   friendly_name: Tiempo programado de filtrado
 input_number.piscina_correccion_temperatura_agua:
   friendly_name: Corrección temp. piscina
-sensor.recibidor_target_temperature:
+sensor.recibidor_termostato_temperatura_objetivo:
   device_class: temperature
   friendly_name: Temperatura objetivo termostato
 sensor.salon_principal_energia:

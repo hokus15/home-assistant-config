@@ -15,10 +15,10 @@ date_format: DD/MM/YYYY # Date format to use in hover-over text
 #
 #        - name: Temperature
 #          entities:
-#             - sensor.netatmo_exterior_temperature
+#             - sensor.jardin_temperatura
 #             - sensor.recibidor_termometro_temperatura
-#             - sensor.netatmo_salon_temperature
-#             - sensor.netatmo_suite_temperature
+#             - sensor.salon_temperatura
+#             - sensor.suite_temperatura
 #             - sensor.netatmo_exterior_max_temp
 #             - sensor.netatmo_exterior_min_temp
 #          text_template: '${entity.state ? entity.state : "n/d"}º'
@@ -36,8 +36,8 @@ date_format: DD/MM/YYYY # Date format to use in hover-over text
 #
 #        - name: ppm
 #          entities:
-#             - sensor.netatmo_salon_co2
-#             - sensor.netatmo_suite_co2
+#             - sensor.salon_dioxido_carbono
+#             - sensor.suite_dioxido_carbono
 #          text_template: '${entity.state ? entity.state : "n/d"}ppm'
 #          class_template: '
 #            var value = parseFloat(entity.state);
@@ -51,7 +51,7 @@ date_format: DD/MM/YYYY # Date format to use in hover-over text
 #
 #        - name: kmh
 #          entities:
-#             - sensor.netatmo_anemometro_strength
+#             - sensor.jardin_viento_velocidad
 #          text_template: '${entity.state ? entity.state : "n/d"}km/h'
 #          class_template: '
 #            var value = parseFloat(entity.state);
@@ -65,7 +65,7 @@ date_format: DD/MM/YYYY # Date format to use in hover-over text
 #
 #        - name: dB
 #          entities:
-#             - sensor.netatmo_salon_noise
+#             - sensor.salon_ruido
 #          text_template: '${entity.state ? entity.state : "n/d"}dB'
 #          class_template: '
 #            var value = parseFloat(entity.state);
@@ -79,19 +79,19 @@ date_format: DD/MM/YYYY # Date format to use in hover-over text
 #
 #        - name: Percent
 #          entities:
-#             - sensor.netatmo_salon_humidity
-#             - sensor.netatmo_suite_humidity
-#             - sensor.netatmo_exterior_humidity
+#             - sensor.salon_humedad
+#             - sensor.suite_humedad
+#             - sensor.jardin_humedad
 #          text_template: '${entity.state ? entity.state : "n/d"}%'
 #
 #        - name: mbar
 #          entities:
-#             - sensor.netatmo_salon_pressure
+#             - sensor.salon_presion
 #          text_template: '${entity.state ? entity.state : "n/d"}mbar'
 #
 #        - name: mm
 #          entities:
-#             - sensor.netatmo_pluviometro_sum_rain_1
+#             - sensor.jardin_lluvia_ultima_hora
 #          text_template: '${entity.state ? entity.state : "n/d"}mm'
 #
 #        - name: lux

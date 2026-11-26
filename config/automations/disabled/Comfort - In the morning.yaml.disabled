@@ -4,4 +4,4 @@
     at: '6:00:00'
   action:
     - service: input_boolean.turn_off
-      entity_id: input_boolean.sleep_mode
+      entity_id: input_boolean.confort_modo_dormir

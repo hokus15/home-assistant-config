@@ -76,6 +76,17 @@
       data:
         name: Calefacción
         message: >-
-          {{ control_state }}{{ ' a ' ~ desired_setpoint ~ ' °C' if desired_hvac_mode == 'heat' else ': apagada' }}.
+          {% set reasons = {
+            'apagado': 'Apagada porque has seleccionado el modo apagado.',
+            'fuera_temporada': 'Apagada porque la calefacción está deshabilitada por temporada.',
+            'vacaciones': 'Temperatura ajustada a ' ~ desired_setpoint ~ ' °C porque el modo vacaciones está activado.',
+            'ausente': 'Temperatura ajustada a ' ~ desired_setpoint ~ ' °C porque no hay nadie en casa.',
+            'manual': 'Temperatura ajustada a ' ~ desired_setpoint ~ ' °C según tu selección manual.',
+            'eco': 'Temperatura ajustada a ' ~ desired_setpoint ~ ' °C según el perfil eco del horario.',
+            'normal': 'Temperatura ajustada a ' ~ desired_setpoint ~ ' °C según el perfil normal del horario.',
+            'confort': 'Temperatura ajustada a ' ~ desired_setpoint ~ ' °C según el perfil confort del horario.',
+            'caliente': 'Temperatura ajustada a ' ~ desired_setpoint ~ ' °C según el perfil caliente del horario.'
+          } %}
+          {{ reasons[control_state] }}
         entity_id: climate.recibidor_termostato
         domain: climate

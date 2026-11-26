@@ -11,9 +11,9 @@ views:
         entities:
           - entity: climate.calefaccion
             name: Calefaccion
-          - entity: sensor.home_temperature
+          - entity: sensor.confort_temperatura_media_casa
             name: Casa
-          - entity: sensor.exterior_temperature
+          - entity: sensor.jardin_temperatura
             name: Exterior
           - entity: binary_sensor.climatizacion_planta_baja_aire_acondicionado_total_activo
             name: A/A PB
@@ -32,25 +32,25 @@ views:
         entities:
           - entity: input_boolean.calefaccion_temporada_activo
             name: Calefacción habilitada por temporada
-          - entity: sensor.recibidor_termostato_temperatura
+          - entity: sensor.recibidor_temperatura
             name: Temperatura recibidor
           - entity: sensor.recibidor_termostato_temperatura_objetivo
             name: Objetivo termostato
-          - entity: sensor.home_temperature
+          - entity: sensor.confort_temperatura_media_casa
             name: Media casa
-          - entity: sensor.home_temperature_stats
+          - entity: sensor.calefaccion_temperatura_media_casa_24h
             name: Media 24h
-          - entity: sensor.ground_floor_temperature
+          - entity: sensor.confort_temperatura_media_planta_baja
             name: Media planta baja
-          - entity: sensor.first_floor_temperature
+          - entity: sensor.confort_temperatura_media_primera_planta
             name: Media primera planta
-          - entity: input_boolean.sleep_mode
+          - entity: input_boolean.confort_modo_dormir
             name: Modo dormir
 
       - type: horizontal-stack
         cards:
           - type: gauge
-            entity: sensor.home_temperature
+            entity: sensor.confort_temperatura_media_casa
             name: Casa
             min: 15
             max: 28
@@ -59,7 +59,7 @@ views:
               yellow: 24
               red: 26
           - type: gauge
-            entity: sensor.ground_floor_temperature
+            entity: sensor.confort_temperatura_media_planta_baja
             name: PB
             min: 15
             max: 28
@@ -68,7 +68,7 @@ views:
               yellow: 24
               red: 26
           - type: gauge
-            entity: sensor.first_floor_temperature
+            entity: sensor.confort_temperatura_media_primera_planta
             name: 1P
             min: 15
             max: 28
@@ -81,13 +81,13 @@ views:
         title: Temperaturas 24h
         hours_to_show: 24
         entities:
-          - entity: sensor.exterior_temperature
+          - entity: sensor.jardin_temperatura
             name: Exterior
-          - entity: sensor.home_temperature
+          - entity: sensor.confort_temperatura_media_casa
             name: Casa
-          - entity: sensor.ground_floor_temperature
+          - entity: sensor.confort_temperatura_media_planta_baja
             name: Planta baja
-          - entity: sensor.first_floor_temperature
+          - entity: sensor.confort_temperatura_media_primera_planta
             name: Primera planta
           - entity: sensor.recibidor_termostato_temperatura_objetivo
             name: Objetivo
@@ -96,42 +96,42 @@ views:
         title: Temperatura por estancia
         show_header_toggle: false
         entities:
-          - entity: sensor.salon_temperature
+          - entity: sensor.salon_temperatura
             name: Salon
-          - entity: sensor.recibidor_termostato_temperatura
+          - entity: sensor.recibidor_temperatura
             name: Recibidor
-          - entity: sensor.despacho_movimiento_temperatura
+          - entity: sensor.despacho_temperatura
             name: Despacho
-          - entity: sensor.cocina_puerta_porche_temperatura
+          - entity: sensor.cocina_temperatura
             name: Cocina
-          - entity: sensor.suite_temperature
+          - entity: sensor.suite_temperatura
             name: Suite
-          - entity: sensor.habitacion_carlos_temperature
+          - entity: sensor.habitacion_carlos_temperatura
             name: Habitacion Carlos
-          - entity: sensor.habitacion_coque_temperature
+          - entity: sensor.habitacion_coque_temperatura
             name: Habitacion Coque
 
       - type: entities
         title: Humedad y CO2
         show_header_toggle: false
         entities:
-          - entity: sensor.exterior_humidity
+          - entity: sensor.jardin_humedad
             name: Humedad exterior
-          - entity: sensor.salon_humidity
+          - entity: sensor.salon_humedad
             name: Humedad salon
-          - entity: sensor.suite_humidity
+          - entity: sensor.suite_humedad
             name: Humedad suite
-          - entity: sensor.habitacion_carlos_humidity
+          - entity: sensor.habitacion_carlos_humedad
             name: Humedad Carlos
-          - entity: sensor.habitacion_coque_humidity
+          - entity: sensor.habitacion_coque_humedad
             name: Humedad Coque
-          - entity: sensor.salon_co2
+          - entity: sensor.salon_dioxido_carbono
             name: CO2 salon
-          - entity: sensor.suite_co2
+          - entity: sensor.suite_dioxido_carbono
             name: CO2 suite
-          - entity: sensor.habitacion_carlos_co2
+          - entity: sensor.habitacion_carlos_dioxido_carbono
             name: CO2 Carlos
-          - entity: sensor.habitacion_coque_co2
+          - entity: sensor.habitacion_coque_dioxido_carbono
             name: CO2 Coque
 
       - type: horizontal-stack
@@ -224,15 +224,15 @@ views:
         title: Contexto exterior
         show_header_toggle: false
         entities:
-          - entity: weather.casa
+          - entity: weather.confort_casa
             name: Tiempo
-          - entity: sensor.exterior_temperature
+          - entity: sensor.jardin_temperatura
             name: Temperatura exterior
-          - entity: sensor.exterior_humidity
+          - entity: sensor.jardin_humedad
             name: Humedad exterior
-          - entity: sensor.anemometro_wind_strength
+          - entity: sensor.jardin_viento_velocidad
             name: Viento
-          - entity: sensor.pluviometro_rain
+          - entity: sensor.jardin_lluvia
             name: Lluvia
 
   - title: Calefacción
@@ -246,7 +246,7 @@ views:
         entities:
           - entity: climate.calefaccion
             name: Termostato
-          - entity: sensor.recibidor_termostato_temperatura
+          - entity: sensor.recibidor_temperatura
             name: Recibidor
           - entity: sensor.recibidor_termostato_temperatura_objetivo
             name: Consigna Tado
@@ -254,9 +254,9 @@ views:
             name: Perfil activo
           - entity: sensor.calefaccion_temperatura_objetivo
             name: Consigna HA
-          - entity: sensor.home_temperature
+          - entity: sensor.confort_temperatura_media_casa
             name: Media casa
-          - entity: sensor.home_temperature_stats
+          - entity: sensor.calefaccion_temperatura_media_casa_24h
             name: Media 24 h
           - entity: binary_sensor.recibidor_termostato_activo
             name: Calentando (estimado)
@@ -356,7 +356,7 @@ views:
         entities:
           - entity: input_boolean.calefaccion_temporada_activo
             name: Calefacción habilitada
-          - entity: sensor.home_temperature_stats
+          - entity: sensor.calefaccion_temperatura_media_casa_24h
             name: Temperatura media de 24 h
           - entity: input_number.calefaccion_temporada_temperatura_activar
             name: Activar por debajo de
@@ -394,13 +394,13 @@ views:
         title: Temperatura y consigna · 24 h
         hours_to_show: 24
         entities:
-          - entity: sensor.recibidor_termostato_temperatura
+          - entity: sensor.recibidor_temperatura
             name: Recibidor
           - entity: sensor.recibidor_termostato_temperatura_objetivo
             name: Consigna termostato
           - entity: sensor.calefaccion_temperatura_objetivo
             name: Consigna HA
-          - entity: sensor.home_temperature
+          - entity: sensor.confort_temperatura_media_casa
             name: Media casa
 
       - type: glance

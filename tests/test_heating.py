@@ -13,9 +13,9 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 HEATING_CONFIG = yaml.safe_load((ROOT / 'config/packages/calefaccion.yaml').read_text(encoding='utf-8'))
 THERMOSTAT = 'climate.recibidor_termostato'
-MEAN = 'sensor.home_temperature_stats'
+MEAN = 'sensor.calefaccion_temperatura_media_casa_24h'
 ACTIVE = 'binary_sensor.recibidor_termostato_activo'
-TEMPERATURE = 'sensor.recibidor_termostato_temperatura'
+TEMPERATURE = 'sensor.recibidor_temperatura'
 TARGET = 'sensor.recibidor_termostato_temperatura_objetivo'
 PERMISSION = 'input_boolean.calefaccion_temporada_activo'
 PRESENCE = 'group.invitado_y_familia'

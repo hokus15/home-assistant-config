@@ -17,7 +17,7 @@ LOWER = 'input_number.calefaccion_temporada_temperatura_activar'
 UPPER = 'input_number.calefaccion_temporada_temperatura_desactivar'
 SEASON = 'input_boolean.calefaccion_temporada_activo'
 VALID = 'binary_sensor.calefaccion_umbrales_validos'
-MEAN = 'sensor.home_temperature_stats'
+MEAN = 'sensor.calefaccion_temperatura_media_casa_24h'
 
 
 async def run():

@@ -333,11 +333,11 @@ sensor:
       friendly_name: 'la temperatura del recibidor'
 
     exterior_termometro_temperatura:
-      value_template: '{{ states("sensor.exterior_temperature") }}'
+      value_template: '{{ states("sensor.jardin_temperatura") }}'
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura exterior'
     exterior_termometro_humedad:
-      value_template: '{{ states("sensor.exterior_humidity") }}'
+      value_template: '{{ states("sensor.jardin_humedad") }}'
       unit_of_measurement: 'por ciento'
       friendly_name: 'la humedad exterior'
     exterior_termometro_max_temp:
@@ -349,15 +349,15 @@ sensor:
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura mínima de hoy en el exterior'
     salon_termometro_co2:
-      value_template: '{{ states("sensor.salon_co2") }}'
+      value_template: '{{ states("sensor.salon_dioxido_carbono") }}'
       unit_of_measurement: 'partes por millón'
       friendly_name: 'el c o 2 en el salón'
     salon_termometro_temperatura:
-      value_template: '{{ states("sensor.salon_temperature") }}'
+      value_template: '{{ states("sensor.salon_temperatura") }}'
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura en el salón'
     salon_termometro_humedad:
-      value_template: '{{ states("sensor.salon_humidity") }}'
+      value_template: '{{ states("sensor.salon_humedad") }}'
       unit_of_measurement: 'por ciento'
       friendly_name: 'la humedad en el salón'
     salon_termometro_max_temp:
@@ -369,23 +369,23 @@ sensor:
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura mínima de hoy en el salón'
     salon_termometro_ruido:
-      value_template: '{{ states("sensor.salon_noise") }}'
+      value_template: '{{ states("sensor.salon_ruido") }}'
       unit_of_measurement: 'decibelios'
       friendly_name: 'el nivel de ruido en el salón'
     salon_termometro_presion:
-      value_template: '{{ states("sensor.salon_pressure") }}'
+      value_template: '{{ states("sensor.salon_presion") }}'
       unit_of_measurement: 'milibares'
       friendly_name: 'la presión atmosférica en el salón'
     suite_termometro_co2:
-      value_template: '{{ states("sensor.suite_co2") }}'
+      value_template: '{{ states("sensor.suite_dioxido_carbono") }}'
       unit_of_measurement: 'partes por millón'
       friendly_name: 'el c o 2 en la suite'
     suite_termometro_temperatura:
-      value_template: '{{ states("sensor.suite_temperature") }}'
+      value_template: '{{ states("sensor.suite_temperatura") }}'
       unit_of_measurement: 'grados'
       friendly_name: 'la temperatura en la suite'
     suite_termometro_humedad:
-      value_template: '{{ states("sensor.suite_humidity") }}'
+      value_template: '{{ states("sensor.suite_humedad") }}'
       unit_of_measurement: 'por ciento'
       friendly_name: 'la humedad en la suite'
     suite_termometro_max_temp:
@@ -418,7 +418,7 @@ sensor:
       friendly_name: 'la temperatura mínima de hoy en la habitación de los niños'
 
     exterior_pluviometro_lluvia:
-      value_template: '{{ states("sensor.pluviometro_rain") }}'
+      value_template: '{{ states("sensor.jardin_lluvia") }}'
       unit_of_measurement: 'milímetros'
     exterior_pluviometro_lluvia_1:
       value_template: '{{ states("sensor.pluviometro_sum_rain_1") }}'

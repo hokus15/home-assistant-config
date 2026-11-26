@@ -6,7 +6,7 @@ recorder:
       - input_boolean.calefaccion_temporada_activo
       - binary_sensor.recibidor_termostato_activo
       - binary_sensor.calefaccion_presencia
-      - sensor.recibidor_termostato_temperatura
+      - sensor.recibidor_temperatura
       - sensor.recibidor_termostato_temperatura_objetivo
       - input_select.calefaccion_funcionamiento
       - sensor.calefaccion_estado
@@ -17,7 +17,7 @@ recorder:
 logbook:
   exclude:
     entities:
-      - sensor.recibidor_termostato_temperatura
+      - sensor.recibidor_temperatura
 
 input_boolean:
   # Seasonal permission, independent of occupancy and actual thermostat mode.
@@ -173,10 +173,10 @@ template:
         availability: >-
           {{ is_state('climate.recibidor_termostato', 'off')
              or (is_state('climate.recibidor_termostato', 'heat')
-                 and is_number(states('sensor.recibidor_termostato_temperatura'))
+                 and is_number(states('sensor.recibidor_temperatura'))
                  and is_number(states('sensor.recibidor_termostato_temperatura_objetivo'))) }}
         state: >-
-          {% set current = states('sensor.recibidor_termostato_temperatura') %}
+          {% set current = states('sensor.recibidor_temperatura') %}
           {% set target = states('sensor.recibidor_termostato_temperatura_objetivo') %}
           {{ is_state('climate.recibidor_termostato', 'heat')
              and is_number(current) and is_number(target)
@@ -269,7 +269,7 @@ template:
         state: >-
           {% set lower = states('input_number.calefaccion_temporada_temperatura_activar') %}
           {% set upper = states('input_number.calefaccion_temporada_temperatura_desactivar') %}
-          {% set mean = states('sensor.home_temperature_stats') %}
+          {% set mean = states('sensor.calefaccion_temperatura_media_casa_24h') %}
           {% set scheduled = states('sensor.calefaccion_perfil_programado') %}
           {% set control = states('input_select.calefaccion_funcionamiento') %}
           {% if control == 'off' %}
@@ -327,9 +327,10 @@ template:
 
 sensor:
   - platform: statistics
-    name: home_temperature_stats
+    name: calefaccion_temperatura_media_casa_24h
+    unique_id: calefaccion_temperatura_media_casa_24h
     state_characteristic: mean
-    entity_id: sensor.home_temperature
+    entity_id: sensor.confort_temperatura_media_casa
     sampling_size: 1440
     max_age:
       hours: 24

@@ -2,75 +2,77 @@
 recorder:
   include:
     entities:
-      - input_boolean.sleep_mode
-      - input_boolean.bed_occupancy_jordi
-      - sensor.exterior_temperature
-      - sensor.exterior_humidity
-      - sensor.pluviometro_rain
-      - sensor.anemometro_wind_strength
-      - sensor.salon_temperature
-      - sensor.salon_humidity
-      - sensor.salon_noise
-      - sensor.salon_pressure
-      - sensor.salon_co2
-      - sensor.home_temperature
-      - sensor.ground_floor_temperature
-      - sensor.first_floor_temperature
-      - sensor.suite_temperature
-      - sensor.suite_co2
-      - sensor.suite_humidity
-      - sensor.habitacion_carlos_temperature
-      - sensor.habitacion_carlos_co2
-      - sensor.habitacion_carlos_humidity
-      - sensor.habitacion_coque_temperature
-      - sensor.habitacion_coque_co2
-      - sensor.habitacion_coque_humidity
-      - sensor.despacho_movimiento_iluminancia
-      - sensor.despacho_movimiento_temperatura
-      - sensor.cocina_puerta_porche_temperatura
+      - input_boolean.confort_modo_dormir
+      - input_boolean.suite_cama_jordi_ocupada
+      - sensor.jardin_temperatura
+      - sensor.jardin_humedad
+      - sensor.jardin_lluvia
+      - sensor.jardin_viento_velocidad
+      - sensor.salon_temperatura
+      - sensor.salon_humedad
+      - sensor.salon_ruido
+      - sensor.salon_presion
+      - sensor.salon_dioxido_carbono
+      - sensor.confort_temperatura_media_casa
+      - sensor.confort_temperatura_media_planta_baja
+      - sensor.confort_temperatura_media_primera_planta
+      - sensor.suite_temperatura
+      - sensor.suite_dioxido_carbono
+      - sensor.suite_humedad
+      - sensor.habitacion_carlos_temperatura
+      - sensor.habitacion_carlos_dioxido_carbono
+      - sensor.habitacion_carlos_humedad
+      - sensor.habitacion_coque_temperatura
+      - sensor.habitacion_coque_dioxido_carbono
+      - sensor.habitacion_coque_humedad
+      - sensor.despacho_iluminancia
+      - sensor.despacho_temperatura
+      - sensor.cocina_temperatura
 
 logbook:
   exclude:
     entities:
-      - sensor.exterior_temperature
-      - sensor.exterior_humidity
-      - sensor.pluviometro_rain
-      - sensor.anemometro_wind_strength
-      - sensor.salon_temperature
-      - sensor.salon_humidity
-      - sensor.salon_noise
-      - sensor.salon_pressure
-      - sensor.salon_co2
-      - sensor.home_temperature
-      - sensor.ground_floor_temperature
-      - sensor.first_floor_temperature
-      - sensor.suite_temperature
-      - sensor.suite_co2
-      - sensor.suite_humidity
-      - sensor.habitacion_carlos_temperature
-      - sensor.habitacion_carlos_co2
-      - sensor.habitacion_carlos_humidity
-      - sensor.habitacion_coque_temperature
-      - sensor.habitacion_coque_co2
-      - sensor.habitacion_coque_humidity
-      - sensor.despacho_movimiento_iluminancia
-      - sensor.despacho_movimiento_temperatura
-      - sensor.cocina_puerta_porche_temperatura
+      - sensor.jardin_temperatura
+      - sensor.jardin_humedad
+      - sensor.jardin_lluvia
+      - sensor.jardin_viento_velocidad
+      - sensor.salon_temperatura
+      - sensor.salon_humedad
+      - sensor.salon_ruido
+      - sensor.salon_presion
+      - sensor.salon_dioxido_carbono
+      - sensor.confort_temperatura_media_casa
+      - sensor.confort_temperatura_media_planta_baja
+      - sensor.confort_temperatura_media_primera_planta
+      - sensor.suite_temperatura
+      - sensor.suite_dioxido_carbono
+      - sensor.suite_humedad
+      - sensor.habitacion_carlos_temperatura
+      - sensor.habitacion_carlos_dioxido_carbono
+      - sensor.habitacion_carlos_humedad
+      - sensor.habitacion_coque_temperatura
+      - sensor.habitacion_coque_dioxido_carbono
+      - sensor.habitacion_coque_humedad
+      - sensor.despacho_iluminancia
+      - sensor.despacho_temperatura
+      - sensor.cocina_temperatura
 template:
   - binary_sensor:
-    - name: summer_time
+    - name: confort_horario_verano
+      unique_id: confort_horario_verano
+      default_entity_id: binary_sensor.confort_horario_verano
       device_class: light
       state: '{{ as_timestamp(strptime(states.sensor.date_time.state, "%Y-%m-%d, %H:%M"))|timestamp_custom("%Z") == "CEST"}}'
 
   - weather:
-    - name: "Casa"
-      unique_id: "casa"
+    - name: "confort_casa"
+      unique_id: "confort_casa"
       condition_template: "{{ states('weather.aemet') }}"
-      temperature_template: "{{ states('sensor.exterior_temperature') | float }}"
+      temperature_template: "{{ states('sensor.jardin_temperatura') | float }}"
       temperature_unit: "°C"
-      humidity_template: "{{ states('sensor.exterior_humidity') | float }}"
+      humidity_template: "{{ states('sensor.jardin_humedad') | float }}"
       forecast_daily_template: "{{ state_attr('weather.aemet', 'forecast') }}"
-      pressure_template: "{{ states('sensor.salon_pressure') | float }}"
+      pressure_template: "{{ states('sensor.salon_presion') | float }}"
       pressure_unit: "hPa"
       #wind_speed_template: ""
       #wind_gust_speed_template: ""
@@ -79,47 +81,54 @@ template:
 
   - sensor:
     # Sensors to get sunset and sunrise hours with a custom format.
-    - name: sunrise
+    - name: confort_hora_amanecer
+      unique_id: confort_hora_amanecer
+      default_entity_id: sensor.confort_hora_amanecer
       state: '{{ as_timestamp(states.sun.sun.attributes.next_rising)|timestamp_custom("%H:%M:%S") }}'
-    - name: sunset
+    - name: confort_hora_anochecer
+      unique_id: confort_hora_anochecer
+      default_entity_id: sensor.confort_hora_anochecer
       state: '{{ as_timestamp(states.sun.sun.attributes.next_setting)|timestamp_custom("%H:%M:%S") }}'
 
 sensor:
   # Shared average temperatures by floor and for the whole home.
   - platform: min_max
-    name: ground_floor_temperature
+    name: confort_temperatura_media_planta_baja
+    unique_id: confort_temperatura_media_planta_baja
     type: mean
     round_digits: 1
     entity_ids:
-      - sensor.recibidor_termostato_temperatura
-      - sensor.salon_temperature
-      - sensor.despacho_movimiento_temperatura
+      - sensor.recibidor_temperatura
+      - sensor.salon_temperatura
+      - sensor.despacho_temperatura
 
   - platform: min_max
-    name: first_floor_temperature
+    name: confort_temperatura_media_primera_planta
+    unique_id: confort_temperatura_media_primera_planta
     type: mean
     round_digits: 1
     entity_ids:
-      - sensor.suite_temperature
-      - sensor.habitacion_carlos_temperature
-      - sensor.habitacion_coque_temperature
+      - sensor.suite_temperatura
+      - sensor.habitacion_carlos_temperatura
+      - sensor.habitacion_coque_temperatura
 
   - platform: min_max
-    name: home_temperature
+    name: confort_temperatura_media_casa
+    unique_id: confort_temperatura_media_casa
     type: mean
     round_digits: 1
     entity_ids:
-      - sensor.suite_temperature
-      - sensor.habitacion_carlos_temperature
-      - sensor.habitacion_coque_temperature
-      - sensor.salon_temperature
-      - sensor.recibidor_termostato_temperatura
-      - sensor.despacho_movimiento_temperatura
+      - sensor.suite_temperatura
+      - sensor.habitacion_carlos_temperatura
+      - sensor.habitacion_coque_temperatura
+      - sensor.salon_temperatura
+      - sensor.recibidor_temperatura
+      - sensor.despacho_temperatura
 
 input_boolean:
-  sleep_mode:
+  confort_modo_dormir:
     name: Modo dormir
     icon: "mdi:sleep"
-  bed_occupancy_jordi:
+  suite_cama_jordi_ocupada:
     name: Jordi en la cama
     icon: "mdi:bed"

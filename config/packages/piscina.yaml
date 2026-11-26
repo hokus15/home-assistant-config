@@ -236,7 +236,7 @@ template:
         icon: mdi:thermometer-alert
         state: >-
           {{ not is_state('binary_sensor.piscina_temperatura_agua_valida', 'on')
-             and has_value('sensor.exterior_temperature') }}
+             and has_value('sensor.jardin_temperatura') }}
         # Avoid alerts during the brief MQTT/DS18B20 startup period.
         delay_on: "00:05:00"
 
@@ -253,12 +253,12 @@ template:
         icon: mdi:pool-thermometer
         state: >-
           {% set water = states('sensor.piscina_temperatura_agua') | float(-127) %}
-          {% set outside = states('sensor.exterior_temperature') | float(0) %}
+          {% set outside = states('sensor.jardin_temperatura') | float(0) %}
           {% set offset = states('input_number.piscina_estimacion_temperatura_agua_desfase_exterior') | float(2) %}
           {% set previous = this.state | float(none) %}
           {% if has_value('sensor.piscina_temperatura_agua') and 2 <= water <= 40 %}
             {{ water | round(1) }}
-          {% elif has_value('sensor.exterior_temperature') %}
+          {% elif has_value('sensor.jardin_temperatura') %}
             {% set estimated_base = outside + offset %}
             {{ (previous + ((estimated_base - previous) * 0.1)) | round(1)
                if previous is not none and 2 <= previous <= 40
@@ -267,7 +267,7 @@ template:
         attributes:
           origen: >-
             {{ 'medida' if is_state('binary_sensor.piscina_temperatura_agua_valida', 'on') else 'estimada' }}
-          temperatura_exterior: "{{ states('sensor.exterior_temperature') }}"
+          temperatura_exterior: "{{ states('sensor.jardin_temperatura') }}"
           desfase_exterior: "{{ states('input_number.piscina_estimacion_temperatura_agua_desfase_exterior') }}"
 
       # Target number of theoretical daily turnovers based on

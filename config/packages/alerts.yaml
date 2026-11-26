@@ -92,6 +92,6 @@ alert:
       La sonda de temperatura del agua de la piscina no proporciona una lectura
       válida. La filtración usa una estimación de
       {{ states('sensor.piscina_temperatura_agua_referencia') }} °C basada en
-      la temperatura exterior ({{ states('sensor.exterior_temperature') }} °C).
+      la temperatura exterior ({{ states('sensor.jardin_temperatura') }} °C).
     notifiers:
       - telegram_hokusphone

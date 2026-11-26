@@ -9,7 +9,7 @@
       at: '23:00:00'
   condition:
     - condition: state
-      entity_id: 'binary_sensor.summer_time'
+      entity_id: 'binary_sensor.confort_horario_verano'
       state: 'on'
   action:
     - service: mqtt.publish

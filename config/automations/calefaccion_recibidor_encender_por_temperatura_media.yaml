@@ -7,9 +7,9 @@
     - trigger: template
       id: temperature_threshold
       value_template: >-
-        {{ is_number(states('sensor.home_temperature_stats'))
+        {{ is_number(states('sensor.calefaccion_temperatura_media_casa_24h'))
            and is_number(states('input_number.calefaccion_temporada_temperatura_activar'))
-           and states('sensor.home_temperature_stats') | float(0)
+           and states('sensor.calefaccion_temperatura_media_casa_24h') | float(0)
                < states('input_number.calefaccion_temporada_temperatura_activar') | float(0) }}
     - trigger: state
       entity_id:
@@ -21,7 +21,7 @@
     - trigger: template
       id: recovery
       value_template: >-
-        {{ has_value('sensor.home_temperature_stats')
+        {{ has_value('sensor.calefaccion_temperatura_media_casa_24h')
            and has_value('input_boolean.calefaccion_temporada_activo')
            and is_state('binary_sensor.calefaccion_umbrales_validos', 'on') }}
   conditions:
@@ -36,7 +36,7 @@
       entity_id: binary_sensor.calefaccion_umbrales_validos
       state: "on"
     - condition: numeric_state
-      entity_id: sensor.home_temperature_stats
+      entity_id: sensor.calefaccion_temperatura_media_casa_24h
       below: input_number.calefaccion_temporada_temperatura_activar
     - condition: state
       entity_id: input_boolean.calefaccion_temporada_activo
@@ -48,13 +48,13 @@
     - action: logbook.log
       data:
         name: Calefacción
-        message: "permiso de temporada activado por temperatura media inferior a {{ states('input_number.calefaccion_temporada_temperatura_activar') }} °C"
+        message: "Habilitada porque la temperatura media de casa en las últimas 24 horas está por debajo de {{ states('input_number.calefaccion_temporada_temperatura_activar') }} °C."
         entity_id: input_boolean.calefaccion_temporada_activo
     - action: notify.send_message
       target:
         entity_id: notify.telegram_hokusphone
       data:
-        message: "⛄ He activado el permiso de calefacción: la temperatura media de casa es inferior a {{ states('input_number.calefaccion_temporada_temperatura_activar') }} °C. El termostato se controla según el horario, la presencia y las vacaciones."
+        message: "⛄ Como veo que empieza el frío, he activado la calefacción. Se encenderá cuando corresponda según el modo y las temperaturas que tengas configurados."
         data:
           inline_keyboard:
             - "Deshabilitar calefacción:/input_boolean.turn_off#input_boolean.calefaccion_temporada_activo"
